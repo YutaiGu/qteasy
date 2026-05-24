@@ -757,8 +757,8 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
     if not isinstance(channel, str):
         err = TypeError(f'channel should be a str, got {type(channel)} instead')
         raise err
-    if channel not in ['tushare', 'akshare', 'eastmoney']:
-        err = ValueError(f'channel should be one of "tushare", "akshare", and "eastmoney", got {channel} instead.')
+    if channel not in ['tushare', 'akshare', 'eastmoney', 'fmp']:
+        err = ValueError(f'channel should be one of "tushare", "akshare", "eastmoney", "fmp", got {channel} instead.')
         raise err
 
     table_list = get_tables_by_name_or_usage(
@@ -817,7 +817,7 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
     table_filled = 0
     total_rows_written = 0
 
-    for table in table_list:
+    for table in download_table_list:
         # 2.1, 解析下载数据的参数
         arg_list = list(parse_data_fetch_args(
                 table=table,

@@ -243,6 +243,12 @@ TABLE_MASTERS = {
     'us_stock_daily':
         ['us_daily', '美股日线行情', 'not_implemented', 'US', 'd', '', '', ''],
 
+    'us_stock_daily_adj':
+        ['us_daily_adj', '美股日线行情(前复权)', 'data', 'US', 'd', '', '', ''],
+
+    'us_estimates':
+        ['us_estimates', '美股盈利预测快照', 'report', 'US', 'q', '', '', ''],
+
     'index_1min':
         ['min_bars', '指数分钟K线行情', 'mins', 'IDX', '1min', '', 'ts_code', '30'],  # 30
 
@@ -398,6 +404,15 @@ TABLE_MASTERS = {
 
     'forecast':
         ['forecast', '上市公司财报预测', 'report', 'E', 'q', '', '', ''],
+
+    'fina_mainbz':
+        ['fina_mainbz', '主营构成', 'report', 'E', 'q', '', '', ''],
+
+    'report_rc':
+        ['report_rc', '券商卖方盈利预测', 'report', 'E', 'd', '', '', ''],
+
+    'estimates':
+        ['estimates', '盈利预测/实际值快照', 'report', 'E', 'q', '', '', ''],
 
     'express':
         ['express', '上市公司财报快报', 'report', 'E', 'q', '', '', ''],
@@ -768,6 +783,27 @@ TABLE_SCHEMA = {
          'remarks':    ['股票代码', '交易日期', '收盘价', '开盘价', '最高价', '最低价', '昨收价', '涨跌额',
                         '涨跌幅', '成交量', '成交额', '平均价', '换手率', '总市值', 'PE-市盈率', 'PB-市净率'],
          'prime_keys': [0, 1]
+         },
+
+    'us_daily_adj': # 美股日线行情表（前复权）
+        {'columns':    ['ts_code', 'trade_date', 'open', 'high', 'low', 'close', 'pre_close', 'change',
+                        'pct_chg', 'vol', 'amount'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'float', 'float',
+                        'float', 'double', 'double'],
+         'remarks':    ['股票代码', '交易日期', '开盘价(复权)', '最高价(复权)', '最低价(复权)', '收盘价(复权)', '昨收价(复权)', '涨跌额',
+                        '涨跌幅', '成交量(股)', '成交额'],
+         'prime_keys': [0, 1]
+         },
+
+    'us_estimates':  # 美股盈利预测快照
+        {'columns':    ['ts_code', 'trade_date', 'target_period', 'eps', 'revenue', 'net_profit',
+                        'target_price', 'num_analysts'],
+         'dtypes':     ['varchar(20)', 'date', 'varchar(6)', 'double', 'double', 'double',
+                        'double', 'int'],
+         'remarks':    ['股票代码(如GOOGL)', '快照日期', '预测目标期(Q1/Q2/Q3/Q4/Y)',
+                        '一致预期EPS(USD/股)', '一致预期营业收入(USD)', '一致预期净利润(USD)',
+                        '一致预期目标价(USD)', '参与预测机构数'],
+         'prime_keys': [0, 1, 2]
          },
 
     'hk_us_indicators':
@@ -1304,6 +1340,47 @@ TABLE_SCHEMA = {
                         '预告净利润变动幅度上限(%)', '预告净利润下限(万元)', '预告净利润上限(万元)',
                         '上年同期归属母公司净利润', '首次公告日', '业绩预告摘要', '业绩变动原因'],
          # 业绩预告类型包括：预增/预减/扭亏/首亏/续亏/续盈/略增/略减
+         'prime_keys': [0, 1, 2]
+         },
+
+    'fina_mainbz':  # 主营构成
+        {'columns':    ['ts_code', 'period', 'bz_item', 'end_date', 'ann_date',
+                        'bz_sales', 'bz_profit', 'bz_cost', 'curr_type', 'update_date'],
+         'dtypes':     ['varchar(9)', 'varchar(10)', 'varchar(100)', 'date', 'date',
+                        'double', 'double', 'double', 'varchar(10)', 'date'],
+         'remarks':    ['证券代码', '报告期(如2025Y/2025H1/2025Q1)', '主营业务名称', '财报报告期',
+                        '公告日期', '主营业务收入(元)', '主营业务利润(元)', '主营业务成本(元)',
+                        '货币代码', '更新时间'],
+         'prime_keys': [0, 1, 2]
+         },
+
+    'report_rc':  # 券商卖方盈利预测
+        {'columns':    ['ts_code', 'report_date', 'org_name', 'quarter', 'name', 'report_title',
+                        'report_type', 'classify', 'author_name',
+                        'op_rt', 'op_pr', 'tp', 'np', 'eps', 'pe', 'rd', 'roe', 'ev_ebitda',
+                        'rating', 'max_price', 'min_price'],
+         'dtypes':     ['varchar(9)', 'date', 'varchar(50)', 'varchar(10)', 'varchar(20)', 'text',
+                        'varchar(20)', 'varchar(20)', 'varchar(50)',
+                        'double', 'double', 'double', 'double', 'float', 'float', 'float', 'float', 'float',
+                        'varchar(20)', 'float', 'float'],
+         'remarks':    ['证券代码', '研报日期', '机构名称', '预测报告期', '股票名称', '报告标题',
+                        '报告类型', '报告分类', '作者',
+                        '预测营业收入(万元)', '预测营业利润(万元)', '预测利润总额(万元)', '预测净利润(万元)',
+                        '预测每股收益(元)', '预测市盈率', '预测股息率', '预测净资产收益率', '预测EV/EBITDA',
+                        '卖方评级', '预测最高目标价', '预测最低目标价'],
+         'prime_keys': [0, 1, 2, 3]
+         },
+
+    'estimates':  # 券商一致预期（每交易日，类 stock_daily 结构）
+        {'columns':    ['ts_code', 'trade_date', 'target_period',
+                        'eps', 'revenue', 'net_profit',
+                        'target_price', 'dividend', 'num_analysts'],
+         'dtypes':     ['varchar(9)', 'date', 'varchar(6)',
+                        'double', 'double', 'double',
+                        'double', 'double', 'int'],
+         'remarks':    ['证券代码', '交易日', '预测目标期(Q1/Q3/H1/Y)',
+                        '一致预期EPS(元/股)', '一致预期营业收入(元)', '一致预期净利润(元)',
+                        '一致预期目标价(元)', '一致预期股息率(%)', '参与预测机构数'],
          'prime_keys': [0, 1, 2]
          },
 

@@ -151,6 +151,12 @@ def _fetch_table_data_from_sina(table, **kwargs):
     return dnld_data
 
 
+def _fetch_table_data_from_fmp(table, **kwargs):
+    """ 使用kwargs参数，从FMP、获取一次金融数据"""
+    from .fmpfuncs import acquire_data
+    return acquire_data(FMP_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+
+
 def _fetch_realtime_kline_from_tushare(qt_code, date, freq):
     """ 从tushare获取实时K线数据"""
     from .tsfuncs import acquire_data
@@ -211,6 +217,8 @@ def _get_fetch_table_func(channel: str):
         return _fetch_table_data_from_eastmoney
     elif channel == 'sina':
         return _fetch_table_data_from_sina
+    elif channel == 'fmp':
+        return _fetch_table_data_from_fmp
     else:
         raise NotImplementedError(f'channel {channel} is not supported')
 
@@ -280,6 +288,8 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
         API_MAP = AKSHARE_API_MAP
     elif channel == 'eastmoney':
         API_MAP = EASTMONEY_API_MAP
+    elif channel == 'fmp':
+        API_MAP = FMP_API_MAP
     else:
         raise NotImplementedError(f'channel {channel} is not supported')
 
@@ -315,7 +325,9 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
     elif arg_type == 'hk_trade_date':
         raise NotImplementedError('hk_trade_date is not implemented')
     elif arg_type == 'us_trade_date':
-        raise NotImplementedError('us_trade_date is not implemented')
+        from .datatables import TABLE_MASTERS
+        freq = TABLE_MASTERS[table][4]
+        arg_values = _parse_trade_date_args(arg_range, start_date, end_date, freq, 'NYSE', reversed_par_seq)
     elif arg_type == 'quarter':
         arg_values = _parse_quarter_args(arg_range, start_date, end_date, reversed_par_seq)
     elif arg_type == 'month':
@@ -328,6 +340,13 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
         raise ValueError('unexpected arg type:', arg_type)
 
     # build the args dict
+    # 指定 symbols 且 arg_type 为日期类型时，改为按 symbol × 日期区间迭代，适用所有渠道
+    if symbols and arg_type in ('datetime', 'trade_date', 'us_trade_date'):
+        symbol_list = str_to_list(symbols)
+        additional_args = _parse_additional_time_args(start_end_chunk_size, start_date, end_date)
+        import itertools
+        return ({'ts_code': sym, **add_arg} for sym, add_arg in itertools.product(symbol_list, additional_args))
+
     if (arg_name is None) and (additional_start_end.lower() != 'y'):
         kwargs = {}
     elif (arg_name is None) and (additional_start_end.lower() == 'y'):
@@ -1140,7 +1159,7 @@ def get_dependent_table(table: str, channel: str) -> str or None:
 
     cur_table = api_map.loc[table]
     fill_type = cur_table.fill_arg_type
-    if fill_type == 'trade_date':
+    if fill_type in ('trade_date', 'us_trade_date'):
         return 'trade_calendar'
     elif fill_type == 'table_index':
         return cur_table.arg_rng
@@ -1172,6 +1191,9 @@ def get_api_map(channel: str) -> pd.DataFrame:
         MAP_COLUMNS = API_MAP_COLUMNS
     elif channel == 'eastmoney':
         API_MAP = EASTMONEY_API_MAP
+        MAP_COLUMNS = API_MAP_COLUMNS
+    elif channel == 'fmp':
+        API_MAP = FMP_API_MAP
         MAP_COLUMNS = API_MAP_COLUMNS
     else:
         raise NotImplementedError(f'channel {channel} is not supported')
@@ -1350,7 +1372,7 @@ TUSHARE_API_MAP = {
         ['hk_daily', 'trade_date', 'hk_trade_date', '19901211', '', '', ''],
 
     'us_stock_daily':
-        ['us_daily', 'trade_date', 'us_trade_date', '19601211', '', '', ''],
+        ['us_stock_daily', 'trade_date', 'us_trade_date', '19601211', '', '', ''],
 
     'index_1min':
         ['mins1', 'ts_code', 'table_index', 'index_basic', 'SH,SZ', 'y', '30'],
@@ -1501,6 +1523,12 @@ TUSHARE_API_MAP = {
 
     'forecast':
         ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+
+    'fina_mainbz':
+        ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+
+    'report_rc':
+        ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '365'],
 
     'express':
         ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
@@ -1700,4 +1728,12 @@ SINA_REALTIME_API_MAP = {
 
     'realtime_quotes':  # 实时报价数据
         ['realtime_quote', 'qt_code', 'list', 'none', '', 'N', '', '']
+}
+
+FMP_API_MAP = {
+    'trade_calendar':
+        ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
+
+    'us_stock_daily_adj':
+        ['us_stock_daily_adj', 'ts_code', 'us_trade_date', '19901211', '', 'Y', ''],
 }
