@@ -12,40 +12,63 @@
 #     fmp_api_key = YOUR_KEY
 # ======================================
 
+import time
 import requests
 import pandas as pd
-from financetoolkit import Toolkit
 
 from qteasy._arg_validators import QT_CONFIG
 from qteasy.utilfuncs import regulate_date_format
 
 _FMP_BASE = 'https://financialmodelingprep.com/stable'
 
+# 全局速率限制（API Calls / Min），付费版 750
+_FMP_CALLS_PER_MIN = 750
+
+# endpoint -> page_limit: 每页最大条数，None 表示该端点无需分页
+_FMP_API_LIMITS = {
+    'historical-price-eod/dividend-adjusted': 1000,
+    'stock-list':                             None,
+    'analyst-estimates':                      1000,
+}
+
+
 def _get_api_key() -> str:
     return QT_CONFIG.get('fmp_api_key', '')
 
 
 def _fmp_get(endpoint: str, **params) -> list:
-    """向 FMP stable API 发起 GET 请求，返回 JSON list。"""
+    """向 FMP stable API 发起单次 GET 请求，返回 JSON list。"""
     params['apikey'] = _get_api_key()
     resp = requests.get(f'{_FMP_BASE}/{endpoint}', params=params)
     resp.raise_for_status()
     return resp.json()
 
 
-_QTR_END = {'Q1': '0331', 'Q2': '0630', 'Q3': '0930', 'Q4': '1231'}
+def _fmp_request(endpoint: str, **params) -> list:
+    """自动翻页并限速，返回该端点完整数据。
 
-_METRIC_MAP = {
-    'Estimated EPS Average': 'eps',
-    'Estimated Revenue Average': 'revenue',
-    'Estimated Net Income Average': 'net_profit',
-    'Number of Analysts': 'num_analysts',
-}
+    分页：按 _FMP_API_LIMITS[endpoint] 决定每页条数，None 则单次返回。
+    限速：请求间隔 = 60 / _FMP_CALLS_PER_MIN 秒。
+    """
+    page_limit = _FMP_API_LIMITS.get(endpoint)
+    interval = 60.0 / (_FMP_CALLS_PER_MIN * 0.8)
 
-_US_EST_COLS = [
-    'ts_code', 'trade_date', 'target_period',
-    'eps', 'revenue', 'net_profit', 'target_price', 'num_analysts',
-]
+    if page_limit is None:
+        result = _fmp_get(endpoint, **params)
+        time.sleep(interval)
+        return result
+
+    results, page = [], 0
+    while True:
+        data = _fmp_get(endpoint, page=page, limit=page_limit, **params)
+        time.sleep(interval)
+        if not data:
+            break
+        results.extend(data)
+        if len(data) < page_limit:
+            break
+        page += 1
+    return results
 
 
 def acquire_data(api_name, **kwargs):
@@ -64,7 +87,7 @@ def us_trade_calendar(start: str = None,
     if end:
         params['to'] = regulate_date_format(end, force_format='date')
 
-    data = _fmp_get('historical-price-eod/dividend-adjusted', **params)
+    data = _fmp_request('historical-price-eod/dividend-adjusted', **params)
     if not data:
         if is_open is None:
             return pd.DataFrame(columns=['cal_date', 'is_open', 'pretrade_date'])
@@ -97,6 +120,22 @@ def us_trade_calendar(start: str = None,
         return list(trading_dates[::-1])
 
 
+def us_stock_basic(exchange: str = None) -> pd.DataFrame:  # noqa: ARG001
+    """从 FMP Company Symbols List API 下载美股股票基本信息。（实际 exchange 空置因为默认 NYSE）"""
+    data = _fmp_request('stock-list')
+    if not data:
+        return pd.DataFrame()
+    df = pd.DataFrame(data)
+    return pd.DataFrame({
+        'ts_code':     df['symbol'].str[:20],
+        'name':        '',
+        'enname':      df['companyName'].fillna('').str[:80],
+        'classify':    '',
+        'list_date':   None,
+        'delist_date': None,
+    })
+
+
 def us_stock_daily_adj(ts_code: str = None,
                    trade_date: str = None,
                    start: str = None,
@@ -127,7 +166,7 @@ def us_stock_daily_adj(ts_code: str = None,
         if end:
             params['to'] = regulate_date_format(end, force_format='date')
 
-    data = _fmp_get('historical-price-eod/dividend-adjusted', **params)
+    data = _fmp_request('historical-price-eod/dividend-adjusted', **params)
     if not data:
         return pd.DataFrame()
 
@@ -152,71 +191,88 @@ def us_stock_daily_adj(ts_code: str = None,
     })
 
 
-def _extract_estimates(raw, ts_code: str, is_annual: bool) -> list:
-    """从 financetoolkit get_analyst_estimates() 的结果中提取行列表。"""
-    if raw.empty:
-        return []
-    sub = raw.xs(ts_code, axis=1, level=1) if isinstance(raw.columns, pd.MultiIndex) else raw
+def us_estimates(ts_code: str = None,
+                 start: str = None,
+                 end: str = None) -> pd.DataFrame:
+    """从 FMP analyst-estimates 接口下载单只美股分析师一致预期。"""
+    if ts_code is None:
+        return pd.DataFrame()
+
+    import pytz
+    trade_date = pd.Timestamp.now(tz=pytz.timezone('America/New_York')).normalize().tz_localize(None)
+
+    start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
+    end_ts   = pd.Timestamp(regulate_date_format(end,   force_format='date')) if end   else None
     rows = []
-    for period in sub.columns:
-        ps = str(period)
-        if is_annual:
-            if not (len(ps) == 4 and ps.isdigit()):
+    for period in ('annual', 'quarter'):
+        for item in _fmp_request('analyst-estimates', symbol=ts_code, period=period):
+            date_str = item.get('date', '')
+            if len(date_str) < 10:
                 continue
-            target = f'{ps}Y'
-        else:
-            if not (len(ps) == 6 and ps[:4].isdigit() and ps[4] == 'Q' and ps[4:] in _QTR_END):
+            dt = pd.Timestamp(date_str[:10])
+            if start_ts and dt < start_ts:
                 continue
-            target = ps
-        vals = {c: None for c in ('eps', 'revenue', 'net_profit', 'target_price', 'num_analysts')}
-        for metric, col in _METRIC_MAP.items():
-            try:
-                v = sub.loc[metric, period]
-                if pd.notna(v):
-                    vals[col] = int(v) if col == 'num_analysts' else float(v)
-            except (KeyError, TypeError):
-                pass
-        rows.append({'target': target, 'period_str': ps, **vals})
-    return rows
-
-
-def us_estimates(ts_code: str, trade_dates: pd.DatetimeIndex) -> pd.DataFrame:
-    """下载单只美股分析师一致预期，映射到 trade_date 后返回 us_estimates schema 的 DataFrame。"""
-    rows = []
-    trade_dates = pd.DatetimeIndex(trade_dates)
-
-    try:
-        raw_a = Toolkit(tickers=ts_code, api_key=_get_api_key(), quarterly=False).get_analyst_estimates()
-    except Exception:
-        raw_a = pd.DataFrame()
-    for item in _extract_estimates(raw_a, ts_code, is_annual=True):
-        fy = int(item['target'][:4])
-        for td in trade_dates[trade_dates.year == fy]:
+            if end_ts and dt > end_ts:
+                continue
             rows.append({
-                'ts_code': ts_code, 'trade_date': td,
-                'target_period': item['target'],
-                'eps': item['eps'], 'revenue': item['revenue'],
-                'net_profit': item['net_profit'],
-                'target_price': item['target_price'],
-                'num_analysts': item['num_analysts'],
+                'ts_code':              ts_code,
+                'trade_date':           trade_date,
+                'target_date':          dt,
+                'target_period':        'Y' if period == 'annual' else 'Q',
+                'eps':                  item.get('epsAvg'),
+                'eps_high':             item.get('epsHigh'),
+                'eps_low':              item.get('epsLow'),
+                'revenue':              item.get('revenueAvg'),
+                'revenue_high':         item.get('revenueHigh'),
+                'revenue_low':          item.get('revenueLow'),
+                'net_profit':           item.get('netIncomeAvg'),
+                'net_profit_high':      item.get('netIncomeHigh'),
+                'net_profit_low':       item.get('netIncomeLow'),
+                'ebitda':               item.get('ebitdaAvg'),
+                'ebitda_high':          item.get('ebitdaHigh'),
+                'ebitda_low':           item.get('ebitdaLow'),
+                'ebit':                 item.get('ebitAvg'),
+                'ebit_high':            item.get('ebitHigh'),
+                'ebit_low':             item.get('ebitLow'),
+                'sga_expense':          item.get('sgaExpenseAvg'),
+                'sga_expense_high':     item.get('sgaExpenseHigh'),
+                'sga_expense_low':      item.get('sgaExpenseLow'),
+                'target_price':         None,
+                'num_analysts_eps':     item.get('numAnalystsEps'),
+                'num_analysts_revenue': item.get('numAnalystsRevenue'),
             })
 
-    try:
-        raw_q = Toolkit(tickers=ts_code, api_key=_get_api_key(), quarterly=True).get_analyst_estimates()
-    except Exception:
-        raw_q = pd.DataFrame()
-    for item in _extract_estimates(raw_q, ts_code, is_annual=False):
-        ps = item['period_str']
-        qtr_end = pd.Timestamp(ps[:4] + _QTR_END[ps[4:]])
-        rows.append({
-            'ts_code': ts_code, 'trade_date': qtr_end,
-            'target_period': item['target'],
-            'eps': item['eps'], 'revenue': item['revenue'],
-            'net_profit': item['net_profit'],
-            'target_price': item['target_price'],
-            'num_analysts': item['num_analysts'],
-        })
-
     if not rows:
-        return pd.DataFrame(columns=_US_EST_COLS)
-    return pd.DataFrame(rows)[_US_EST_COLS]
+        return pd.DataFrame()
+
+    new_df = pd.DataFrame(rows)
+
+    _VALUE_COLS = [
+        'eps', 'eps_high', 'eps_low',
+        'revenue', 'revenue_high', 'revenue_low',
+        'net_profit', 'net_profit_high', 'net_profit_low',
+        'ebitda', 'ebitda_high', 'ebitda_low',
+        'ebit', 'ebit_high', 'ebit_low',
+        'sga_expense', 'sga_expense_high', 'sga_expense_low',
+        'target_price', 'num_analysts_eps', 'num_analysts_revenue',
+    ]
+
+    from qteasy import QT_DATA_SOURCE
+    existing = QT_DATA_SOURCE.read_table_data(
+        'us_estimates', shares=ts_code, primary_key_in_index=False
+    )
+
+    if existing.empty:
+        return new_df
+
+    baseline = (existing.sort_values('trade_date')
+                        .groupby(['target_date', 'target_period'])[_VALUE_COLS]
+                        .last())
+
+    def _changed(row):
+        key = (row['target_date'], row['target_period'])
+        if key not in baseline.index:
+            return True
+        return not row[_VALUE_COLS].equals(baseline.loc[key])
+
+    return new_df[new_df.apply(_changed, axis=1)]

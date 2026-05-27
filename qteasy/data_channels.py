@@ -885,7 +885,7 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
 
     from qteasy import QT_DATA_SOURCE
 
-    df_s, df_i, df_f, df_ft, df_o, df_ths = QT_DATA_SOURCE.get_all_basic_table_data()
+    df_s, df_i, df_f, df_ft, df_o, df_ths, df_us = QT_DATA_SOURCE.get_all_basic_table_data()
 
     table_name = arg_range
 
@@ -901,6 +901,8 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
         all_args = df_o.index.to_list()
     elif table_name == 'ths_index_basic':
         all_args = df_ths.index.to_list()
+    elif table_name == 'us_stock_basic':
+        all_args = df_us.index.to_list()
     else:
         raise ValueError(f'unknown table name {table_name}')
 
@@ -1734,6 +1736,12 @@ FMP_API_MAP = {
     'trade_calendar':
         ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
 
+    'us_stock_basic':
+        ['us_stock_basic', 'exchange', 'list', 'ALL', '', '', ''],
+
     'us_stock_daily_adj':
         ['us_stock_daily_adj', 'ts_code', 'us_trade_date', '19901211', '', 'Y', ''],
+
+    'us_estimates':
+        ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 }

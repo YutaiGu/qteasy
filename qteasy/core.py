@@ -338,7 +338,7 @@ def get_basic_info(code_or_name: str, asset_types=None, match_full_name=False, p
     matched_codes = match_ts_code(code_or_name, asset_types=asset_types, match_full_name=match_full_name)
 
     ds = QT_DATA_SOURCE
-    df_s, df_i, df_f, df_ft, df_o, df_ths = ds.get_all_basic_table_data()
+    df_s, df_i, df_f, df_ft, df_o, df_ths, df_us = ds.get_all_basic_table_data()
     asset_type_basics = {k: v for k, v in zip(AVAILABLE_ASSET_TYPES, [df_s, df_i, df_ft, df_f, df_o])}
 
     matched_count = matched_codes['count']

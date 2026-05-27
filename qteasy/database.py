@@ -2281,6 +2281,7 @@ class DataSource:
         df_f: fund_basic
         df_ft: future_basic
         df_o: opt_basic
+        df_us: us_stock_basic
 
         Raises
         ------
@@ -2317,7 +2318,9 @@ class DataSource:
             err = ValueError('ths_index_basic table is empty, please refill data source with '
                              '"qt.refill_data_source(tables="ths_index_basic")"')
             raise err
-        return df_s, df_i, df_f, df_ft, df_o, df_ths
+        df_us = self.read_table_data('us_stock_basic')
+        # us_stock_basic 为可选表（FMP），为空时不报错，返回空 DataFrame
+        return df_s, df_i, df_f, df_ft, df_o, df_ths, df_us
 
     def drop_empty_tables(self) -> int:
         """ 从datasource中删除所有空表，即行数为0的表

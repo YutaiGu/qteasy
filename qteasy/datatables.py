@@ -163,7 +163,7 @@ TABLE_MASTERS = {
         ['hk_stock_basic', '港股基本信息', 'not_implemented', 'HK', 'none', '', '', ''],
 
     'us_stock_basic':
-        ['us_stock_basic', '美股基本信息', 'not_implemented', 'US', 'none', '', '', ''],
+        ['us_stock_basic', '美股基本信息', 'basics', 'US', 'none', '', '', ''],
 
     'stock_names':  # Complete, 股票名称变更
         ['name_changes', '股票名称变更', 'events', 'E', 'none', '', '', ''],
@@ -796,14 +796,31 @@ TABLE_SCHEMA = {
          },
 
     'us_estimates':  # 美股盈利预测快照
-        {'columns':    ['ts_code', 'trade_date', 'target_period', 'eps', 'revenue', 'net_profit',
-                        'target_price', 'num_analysts'],
-         'dtypes':     ['varchar(20)', 'date', 'varchar(6)', 'double', 'double', 'double',
-                        'double', 'int'],
-         'remarks':    ['股票代码(如GOOGL)', '快照日期', '预测目标期(Q1/Q2/Q3/Q4/Y)',
-                        '一致预期EPS(USD/股)', '一致预期营业收入(USD)', '一致预期净利润(USD)',
-                        '一致预期目标价(USD)', '参与预测机构数'],
-         'prime_keys': [0, 1, 2]
+        {'columns':    ['ts_code', 'trade_date', 'target_date', 'target_period',
+                        'eps', 'eps_high', 'eps_low',
+                        'revenue', 'revenue_high', 'revenue_low',
+                        'net_profit', 'net_profit_high', 'net_profit_low',
+                        'ebitda', 'ebitda_high', 'ebitda_low',
+                        'ebit', 'ebit_high', 'ebit_low',
+                        'sga_expense', 'sga_expense_high', 'sga_expense_low',
+                        'target_price', 'num_analysts_eps', 'num_analysts_revenue'],
+         'dtypes':     ['varchar(20)', 'date', 'date', 'varchar(2)',
+                        'double', 'double', 'double',
+                        'double', 'double', 'double',
+                        'double', 'double', 'double',
+                        'double', 'double', 'double',
+                        'double', 'double', 'double',
+                        'double', 'double', 'double',
+                        'double', 'int', 'int'],
+         'remarks':    ['股票代码', '快照日期(NYSE时区)', '预测目标期截止日', '类型(Q/Y)',
+                        'EPS均值', 'EPS高', 'EPS低',
+                        '营业收入均值', '营业收入高', '营业收入低',
+                        '净利润均值', '净利润高', '净利润低',
+                        'EBITDA均值', 'EBITDA高', 'EBITDA低',
+                        'EBIT均值', 'EBIT高', 'EBIT低',
+                        'SG&A均值', 'SG&A高', 'SG&A低',
+                        '目标价', 'EPS预测师数', '营收预测师数'],
+         'prime_keys': [0, 1, 2, 3]
          },
 
     'hk_us_indicators':
