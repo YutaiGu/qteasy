@@ -29,6 +29,9 @@ _FMP_API_LIMITS = {
     'historical-price-eod/dividend-adjusted': 1000,
     'stock-list':                             None,
     'analyst-estimates':                      1000,
+    'income-statement':                       1000,
+    'balance-sheet-statement':                1000,
+    'cash-flow-statement':                    1000,
 }
 
 
@@ -276,3 +279,173 @@ def us_estimates(ts_code: str = None,
         return not row[_VALUE_COLS].equals(baseline.loc[key])
 
     return new_df[new_df.apply(_changed, axis=1)]
+
+
+def _us_financials_common(endpoint: str,
+                          ts_code: str,
+                          start: str,
+                          end: str) -> list:
+    """拉取 income/balance/cashflow 原始数据并做日期过滤，返回 item 列表。"""
+    start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
+    end_ts   = pd.Timestamp(regulate_date_format(end,   force_format='date')) if end   else None
+
+    items = []
+    for period in ('annual', 'quarter'):
+        for item in _fmp_request(endpoint, symbol=ts_code, period=period):
+            date_str = item.get('date', '')
+            if len(date_str) < 10:
+                continue
+            dt = pd.Timestamp(date_str[:10])
+            if start_ts and dt < start_ts:
+                continue
+            if end_ts and dt > end_ts:
+                continue
+            item['_trade_date'] = dt
+            item['_period'] = 'Y' if period == 'annual' else 'Q'
+            items.append(item)
+    return items
+
+
+def us_income(ts_code: str = None,
+              start: str = None,
+              end: str = None) -> pd.DataFrame:
+    """从 FMP income-statement 接口下载美股利润表。"""
+    if ts_code is None:
+        return pd.DataFrame()
+
+    items = _us_financials_common('income-statement', ts_code, start, end)
+    if not items:
+        return pd.DataFrame()
+
+    rows = [{
+        'ts_code':         ts_code,
+        'trade_date':      i['_trade_date'],
+        'period':          i['_period'],
+        'filing_date':     pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
+        'fiscal_year':     i.get('fiscalYear', ''),
+        'currency':        i.get('reportedCurrency', ''),
+        'revenue':                  i.get('revenue'),
+        'cost_of_revenue':          i.get('costOfRevenue'),
+        'gross_profit':             i.get('grossProfit'),
+        'rd_expense':               i.get('researchAndDevelopmentExpenses'),
+        'sga_expense':              i.get('sellingGeneralAndAdministrativeExpenses'),
+        'operating_expense':        i.get('operatingExpenses'),
+        'cost_and_expense':         i.get('costAndExpenses'),
+        'interest_income':          i.get('interestIncome'),
+        'interest_expense':         i.get('interestExpense'),
+        'da':                       i.get('depreciationAndAmortization'),
+        'ebitda':                   i.get('ebitda'),
+        'ebit':                     i.get('ebit'),
+        'operating_income':         i.get('operatingIncome'),
+        'other_income':             i.get('totalOtherIncomeExpensesNet'),
+        'income_before_tax':        i.get('incomeBeforeTax'),
+        'income_tax':               i.get('incomeTaxExpense'),
+        'net_income_cont':          i.get('netIncomeFromContinuingOperations'),
+        'net_income':               i.get('netIncome'),
+        'eps':                      i.get('eps'),
+        'eps_diluted':              i.get('epsDiluted'),
+        'shares_out':               i.get('weightedAverageShsOut'),
+        'shares_out_dil':           i.get('weightedAverageShsOutDil'),
+    } for i in items]
+    return pd.DataFrame(rows)
+
+
+def us_balance(ts_code: str = None,
+               start: str = None,
+               end: str = None) -> pd.DataFrame:
+    """从 FMP balance-sheet-statement 接口下载美股资产负债表。"""
+    if ts_code is None:
+        return pd.DataFrame()
+
+    items = _us_financials_common('balance-sheet-statement', ts_code, start, end)
+    if not items:
+        return pd.DataFrame()
+
+    rows = [{
+        'ts_code':                  ts_code,
+        'trade_date':               i['_trade_date'],
+        'period':                   i['_period'],
+        'filing_date':              pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
+        'fiscal_year':              i.get('fiscalYear', ''),
+        'currency':                 i.get('reportedCurrency', ''),
+        'cash':                     i.get('cashAndCashEquivalents'),
+        'st_investments':           i.get('shortTermInvestments'),
+        'cash_and_st_inv':          i.get('cashAndShortTermInvestments'),
+        'net_receivables':          i.get('netReceivables'),
+        'inventory':                i.get('inventory'),
+        'other_current_assets':     i.get('otherCurrentAssets'),
+        'total_current_assets':     i.get('totalCurrentAssets'),
+        'ppe_net':                  i.get('propertyPlantEquipmentNet'),
+        'goodwill':                 i.get('goodwill'),
+        'intangible_assets':        i.get('intangibleAssets'),
+        'lt_investments':           i.get('longTermInvestments'),
+        'tax_assets':               i.get('taxAssets'),
+        'other_non_current_assets': i.get('otherNonCurrentAssets'),
+        'total_non_current_assets': i.get('totalNonCurrentAssets'),
+        'total_assets':             i.get('totalAssets'),
+        'accounts_payable':         i.get('accountPayables'),
+        'st_debt':                  i.get('shortTermDebt'),
+        'deferred_revenue':         i.get('deferredRevenue'),
+        'other_current_liab':       i.get('otherCurrentLiabilities'),
+        'total_current_liab':       i.get('totalCurrentLiabilities'),
+        'lt_debt':                  i.get('longTermDebt'),
+        'other_non_current_liab':   i.get('otherNonCurrentLiabilities'),
+        'total_non_current_liab':   i.get('totalNonCurrentLiabilities'),
+        'total_liab':               i.get('totalLiabilities'),
+        'common_stock':             i.get('commonStock'),
+        'retained_earnings':        i.get('retainedEarnings'),
+        'aoci':                     i.get('accumulatedOtherComprehensiveIncomeLoss'),
+        'total_equity':             i.get('totalStockholdersEquity'),
+        'minority_interest':        i.get('minorityInterest'),
+        'total_liab_equity':        i.get('totalLiabilitiesAndTotalEquity'),
+        'total_debt':               i.get('totalDebt'),
+        'net_debt':                 i.get('netDebt'),
+    } for i in items]
+    return pd.DataFrame(rows)
+
+
+def us_cashflow(ts_code: str = None,
+                start: str = None,
+                end: str = None) -> pd.DataFrame:
+    """从 FMP cash-flow-statement 接口下载美股现金流量表。"""
+    if ts_code is None:
+        return pd.DataFrame()
+
+    items = _us_financials_common('cash-flow-statement', ts_code, start, end)
+    if not items:
+        return pd.DataFrame()
+
+    rows = [{
+        'ts_code':              ts_code,
+        'trade_date':           i['_trade_date'],
+        'period':               i['_period'],
+        'filing_date':          pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
+        'fiscal_year':          i.get('fiscalYear', ''),
+        'currency':             i.get('reportedCurrency', ''),
+        'net_income':           i.get('netIncome'),
+        'da':                   i.get('depreciationAndAmortization'),
+        'deferred_tax':         i.get('deferredIncomeTax'),
+        'sbc':                  i.get('stockBasedCompensation'),
+        'chg_working_capital':  i.get('changeInWorkingCapital'),
+        'other_non_cash':       i.get('otherNonCashItems'),
+        'cfo':                  i.get('netCashProvidedByOperatingActivities'),
+        'capex':                i.get('investmentsInPropertyPlantAndEquipment'),
+        'acquisitions':         i.get('acquisitionsNet'),
+        'purchases_inv':        i.get('purchasesOfInvestments'),
+        'sales_inv':            i.get('salesMaturitiesOfInvestments'),
+        'other_investing':      i.get('otherInvestingActivities'),
+        'cfi':                  i.get('netCashProvidedByInvestingActivities'),
+        'net_debt_issuance':    i.get('netDebtIssuance'),
+        'net_stock_issuance':   i.get('netStockIssuance'),
+        'dividends_paid':       i.get('netDividendsPaid'),
+        'other_financing':      i.get('otherFinancingActivities'),
+        'cff':                  i.get('netCashProvidedByFinancingActivities'),
+        'forex_effect':         i.get('effectOfForexChangesOnCash'),
+        'net_chg_cash':         i.get('netChangeInCash'),
+        'cash_end':             i.get('cashAtEndOfPeriod'),
+        'ocf':                  i.get('operatingCashFlow'),
+        'fcf':                  i.get('freeCashFlow'),
+        'income_tax_paid':      i.get('incomeTaxesPaid'),
+        'interest_paid':        i.get('interestPaid'),
+    } for i in items]
+    return pd.DataFrame(rows)

@@ -1744,4 +1744,13 @@ FMP_API_MAP = {
 
     'us_estimates':
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+
+    'us_income':
+        ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+
+    'us_balance':
+        ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+
+    'us_cashflow':
+        ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 }
