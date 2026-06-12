@@ -26,7 +26,7 @@ _FMP_CALLS_PER_MIN = 750
 
 # endpoint -> page_limit: 每页最大条数，None 表示该端点无需分页
 _FMP_API_LIMITS = {
-    'historical-price-eod/dividend-adjusted': 1000,
+    'historical-price-eod/dividend-adjusted': None,  # 用 from/to 过滤，不需分页
     'stock-list':                             None,
     'analyst-estimates':                      1000,
     'income-statement':                       1000,
@@ -194,9 +194,7 @@ def us_stock_daily_adj(ts_code: str = None,
     })
 
 
-def us_estimates(ts_code: str = None,
-                 start: str = None,
-                 end: str = None) -> pd.DataFrame:
+def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     """从 FMP analyst-estimates 接口下载单只美股分析师一致预期。"""
     if ts_code is None:
         return pd.DataFrame()
@@ -204,8 +202,6 @@ def us_estimates(ts_code: str = None,
     import pytz
     trade_date = pd.Timestamp.now(tz=pytz.timezone('America/New_York')).normalize().tz_localize(None)
 
-    start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
-    end_ts   = pd.Timestamp(regulate_date_format(end,   force_format='date')) if end   else None
     rows = []
     for period in ('annual', 'quarter'):
         for item in _fmp_request('analyst-estimates', symbol=ts_code, period=period):
@@ -213,10 +209,6 @@ def us_estimates(ts_code: str = None,
             if len(date_str) < 10:
                 continue
             dt = pd.Timestamp(date_str[:10])
-            if start_ts and dt < start_ts:
-                continue
-            if end_ts and dt > end_ts:
-                continue
             rows.append({
                 'ts_code':              ts_code,
                 'trade_date':           trade_date,
