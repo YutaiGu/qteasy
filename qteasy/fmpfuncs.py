@@ -195,82 +195,16 @@ def us_stock_daily_adj(ts_code: str = None,
 
 
 def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
-    """从 FMP analyst-estimates 接口下载单只美股分析师一致预期。"""
+    """美股分析师一致预期下载入口。
+
+    实际的下载/归一化/change-log 逻辑由 us_estimate_sources 中的数据源类负责，
+    本函数仅作为 acquire_data 的 dispatch 目标(薄入口)。
+    """
     if ts_code is None:
         return pd.DataFrame()
-
-    import pytz
-    trade_date = pd.Timestamp.now(tz=pytz.timezone('America/New_York')).normalize().tz_localize(None)
-
-    rows = []
-    for period in ('annual', 'quarter'):
-        for item in _fmp_request('analyst-estimates', symbol=ts_code, period=period):
-            date_str = item.get('date', '')
-            if len(date_str) < 10:
-                continue
-            dt = pd.Timestamp(date_str[:10])
-            rows.append({
-                'ts_code':              ts_code,
-                'trade_date':           trade_date,
-                'target_date':          dt,
-                'target_period':        'Y' if period == 'annual' else 'Q',
-                'eps':                  item.get('epsAvg'),
-                'eps_high':             item.get('epsHigh'),
-                'eps_low':              item.get('epsLow'),
-                'revenue':              item.get('revenueAvg'),
-                'revenue_high':         item.get('revenueHigh'),
-                'revenue_low':          item.get('revenueLow'),
-                'net_profit':           item.get('netIncomeAvg'),
-                'net_profit_high':      item.get('netIncomeHigh'),
-                'net_profit_low':       item.get('netIncomeLow'),
-                'ebitda':               item.get('ebitdaAvg'),
-                'ebitda_high':          item.get('ebitdaHigh'),
-                'ebitda_low':           item.get('ebitdaLow'),
-                'ebit':                 item.get('ebitAvg'),
-                'ebit_high':            item.get('ebitHigh'),
-                'ebit_low':             item.get('ebitLow'),
-                'sga_expense':          item.get('sgaExpenseAvg'),
-                'sga_expense_high':     item.get('sgaExpenseHigh'),
-                'sga_expense_low':      item.get('sgaExpenseLow'),
-                'target_price':         None,
-                'num_analysts_eps':     item.get('numAnalystsEps'),
-                'num_analysts_revenue': item.get('numAnalystsRevenue'),
-            })
-
-    if not rows:
-        return pd.DataFrame()
-
-    new_df = pd.DataFrame(rows)
-
-    _VALUE_COLS = [
-        'eps', 'eps_high', 'eps_low',
-        'revenue', 'revenue_high', 'revenue_low',
-        'net_profit', 'net_profit_high', 'net_profit_low',
-        'ebitda', 'ebitda_high', 'ebitda_low',
-        'ebit', 'ebit_high', 'ebit_low',
-        'sga_expense', 'sga_expense_high', 'sga_expense_low',
-        'target_price', 'num_analysts_eps', 'num_analysts_revenue',
-    ]
-
-    from qteasy import QT_DATA_SOURCE
-    existing = QT_DATA_SOURCE.read_table_data(
-        'us_estimates', shares=ts_code, primary_key_in_index=False
-    )
-
-    if existing.empty:
-        return new_df
-
-    baseline = (existing.sort_values('trade_date')
-                        .groupby(['target_date', 'target_period'])[_VALUE_COLS]
-                        .last())
-
-    def _changed(row):
-        key = (row['target_date'], row['target_period'])
-        if key not in baseline.index:
-            return True
-        return not row[_VALUE_COLS].equals(baseline.loc[key])
-
-    return new_df[new_df.apply(_changed, axis=1)]
+    from .us_estimates_db import EstimateDatabase
+    db = EstimateDatabase()
+    return db.changelog(db.download_from_fmp(ts_code))
 
 
 def _us_financials_common(endpoint: str,
