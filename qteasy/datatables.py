@@ -165,6 +165,9 @@ TABLE_MASTERS = {
     'us_stock_basic':
         ['us_stock_basic', '美股基本信息', 'basics', 'US', 'none', '', '', ''],
 
+    'us_stock_currency':
+        ['us_stock_currency', '美股币种映射', 'basics', 'US', 'none', '', '', ''],
+
     'stock_names':  # Complete, 股票名称变更
         ['name_changes', '股票名称变更', 'events', 'E', 'none', '', '', ''],
 
@@ -564,13 +567,19 @@ TABLE_SCHEMA = {
          },
 
     'us_stock_basic':  # 美股基本信息表
-        {'columns':    ['ts_code', 'name', 'enname', 'classify',
-                        'list_date', 'delist_date'],
-         'dtypes':     ['varchar(20)', 'varchar(40)', 'varchar(80)', 'varchar(6)',
-                        'datetime', 'datetime'],
-         'remarks':    ['美股代码', '中文名称', '英文名称', '分类:ADR/GDR/EQT',
-                        '上市日期', '退市日期'],
+        {'columns':    ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country'],
+         'dtypes':     ['varchar(20)', 'varchar(255)', 'varchar(10)',
+                        'varchar(40)', 'varchar(80)', 'varchar(4)'],
+         'remarks':    ['股票代码', '公司名称', '交易所(NASDAQ/NYSE/AMEX)',
+                        '板块', '行业', '国家'],
          'prime_keys': [0]
+        },
+
+    'us_stock_currency':  # 美股币种映射表（source 解析出的 reportedCurrency 缓存）
+        {'columns':    ['ts_code', 'source', 'currency'],
+         'dtypes':     ['varchar(20)', 'varchar(10)', 'varchar(4)'],
+         'remarks':    ['股票代码', '数据源', 'reportedCurrency(USD/TWD/...)'],
+         'prime_keys': [0, 1]
         },
 
     'name_changes':  # 股票名称变更表
@@ -833,21 +842,21 @@ TABLE_SCHEMA = {
          },
 
     'us_income':
-        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year', 'currency',
+        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year',
                         'revenue', 'cost_of_revenue', 'gross_profit',
                         'rd_expense', 'sga_expense', 'operating_expense', 'cost_and_expense',
                         'interest_income', 'interest_expense', 'da', 'ebitda', 'ebit',
                         'operating_income', 'other_income', 'income_before_tax', 'income_tax',
                         'net_income_cont', 'net_income',
                         'eps', 'eps_diluted', 'shares_out', 'shares_out_dil'],
-         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)', 'varchar(3)',
+         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)',
                         'double', 'double', 'double',
                         'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double',
                         'double', 'double',
                         'double', 'double', 'double', 'double'],
-         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年', '报告货币',
+         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年',
                         '营业收入', '营业成本', '毛利润',
                         '研发费用', '销售管理费用', '运营费用', '总成本费用',
                         '利息收入', '利息支出', '折旧摊销', 'EBITDA', 'EBIT',
@@ -857,7 +866,7 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1, 2]},
 
     'us_balance':
-        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year', 'currency',
+        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year',
                         'cash', 'st_investments', 'cash_and_st_inv',
                         'net_receivables', 'inventory', 'other_current_assets', 'total_current_assets',
                         'ppe_net', 'goodwill', 'intangible_assets', 'lt_investments',
@@ -870,7 +879,7 @@ TABLE_SCHEMA = {
                         'common_stock', 'retained_earnings', 'aoci', 'total_equity',
                         'minority_interest', 'total_liab_equity',
                         'total_debt', 'net_debt'],
-         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)', 'varchar(3)',
+         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)',
                         'double', 'double', 'double',
                         'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double',
@@ -883,7 +892,7 @@ TABLE_SCHEMA = {
                         'double', 'double', 'double', 'double',
                         'double', 'double',
                         'double', 'double'],
-         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年', '报告货币',
+         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年',
                         '现金及等价物', '短期投资', '现金及短期投资',
                         '净应收款', '存货', '其他流动资产', '流动资产合计',
                         '固定资产净值', '商誉', '无形资产', '长期投资',
@@ -899,7 +908,7 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1, 2]},
 
     'us_cashflow':
-        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year', 'currency',
+        {'columns':    ['ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year',
                         'net_income', 'da', 'deferred_tax', 'sbc',
                         'chg_working_capital', 'other_non_cash', 'cfo',
                         'capex', 'acquisitions', 'purchases_inv', 'sales_inv',
@@ -908,7 +917,7 @@ TABLE_SCHEMA = {
                         'other_financing', 'cff',
                         'forex_effect', 'net_chg_cash', 'cash_end',
                         'ocf', 'fcf', 'income_tax_paid', 'interest_paid'],
-         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)', 'varchar(3)',
+         'dtypes':     ['varchar(20)', 'date', 'varchar(2)', 'date', 'varchar(4)',
                         'double', 'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double', 'double',
@@ -917,7 +926,7 @@ TABLE_SCHEMA = {
                         'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double', 'double'],
-         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年', '报告货币',
+         'remarks':    ['股票代码', '财报截止日', '报告类型(Q/Y)', '提交日期', '财年',
                         '净利润', '折旧摊销', '递延所得税', '股权激励',
                         '营运资本变动', '其他非现金项目', '经营活动现金流',
                         '资本支出', '并购净支出', '购入投资', '出售/到期投资',

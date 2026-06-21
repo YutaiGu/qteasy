@@ -435,6 +435,13 @@ def fetch_batched_table_data(
 
     fetch_table_data = _get_fetch_table_func(channel)
 
+    if channel == 'fmp':
+        # FMP 限速在 _fmp_get 请求层做（按请求计数），任务层 batch 关闭避免双重
+        from . import fmpfuncs
+        fmpfuncs.set_rate_limit(download_batch_size or None, download_batch_interval or None)
+        download_batch_size = 0
+        download_batch_interval = 0
+
     # 如果当总下载量小于batch_size时，就不用暂停了(为了实现truncate，必须把arg_list转化为list)
     if not isinstance(arg_list, list):
         arg_list = list(arg_list)
@@ -1740,7 +1747,7 @@ FMP_API_MAP = {
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', '', ''],
 
     'us_stock_daily_adj':
-        ['us_stock_daily_adj', 'ts_code', 'us_trade_date', '19901211', '', 'Y', ''],
+        ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
     'us_estimates':
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
