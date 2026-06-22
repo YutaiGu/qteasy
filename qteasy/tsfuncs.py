@@ -3799,3 +3799,41 @@ def cn_pmi(month=None, start=None, end=None):
     res = pro.cn_pmi(m=month, start_m=start, end_m=end, fields=fields)
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_pmi with start_m={start}, end_m={end}')
     return res
+
+
+def report_rc(ts_code: str = None,
+              report_date: str = None,
+              start: str = None,
+              end: str = None,
+              fields: [str, list] = None) -> pd.DataFrame:
+    """ 获取券商(卖方)每日研报盈利预测数据(report_rc)，数据从2010年开始。
+
+    ts_code: 股票代码，一次只读一只
+    report_date: optional 研报发布日 YYYYMMDD
+    start: optional 研报发布开始日期 YYYYMMDD(按 report_date 过滤)
+    end: optional 研报发布结束日期 YYYYMMDD
+    单次最大 3000 条；上层按 365 天分块调用，单股单年远不及上限。
+    """
+    if fields is None:
+        fields = ('ts_code,report_date,org_name,quarter,name,report_title,report_type,'
+                  'classify,author_name,op_rt,op_pr,tp,np,eps,pe,rd,roe,ev_ebitda,'
+                  'rating,max_price,min_price')
+    pro = ts.pro_api()
+    res = pro.report_rc(ts_code=ts_code, report_date=report_date,
+                        start_date=start, end_date=end, fields=fields)
+    # 主键 (ts_code, report_date, org_name, quarter) 任一为空则无法入库(MySQL 主键非空);
+    # 这类行多为未标预测报告期的研报，对一致预期无用，直接丢弃
+    res = res.dropna(subset=['ts_code', 'report_date', 'org_name', 'quarter'])
+    logger_core.info(f'downloaded {len(res)} rows of data from tushare'
+                     f' table report_rc with ts_code={ts_code}, start_date={start}, end_date={end}')
+    return res
+
+
+def estimates(ts_code=None, start=None, end=None, **_):
+    """A股券商一致预期(tushare 源): report_rc → estimates 稀疏时点 change-log。
+    返回该股去重后的 change-log df,交 channel 走正常管线写库(进度条按标的可见)。
+    依赖本地 report_rc(请先单独 refill report_rc)。"""
+    if ts_code is None:
+        return pd.DataFrame()
+    from .us_estimates_db import AEstimateDatabase
+    return AEstimateDatabase().build(ts_code, start_date=start, end_date=end)

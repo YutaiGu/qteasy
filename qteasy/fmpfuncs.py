@@ -329,13 +329,12 @@ def us_stock_daily_adj(ts_code: str = None,
 
 def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     """美股分析师一致预期下载(FMP 源)：拉取 analyst-estimates → 映射建表 → 按申报币种折算 USD →
-    交给 EstimateDatabase 做 change-log 过滤。fmp 专属流程都在本函数；EstimateDatabase 只保留
-    通用 schema / 币种(_currency_of) / changelog。
+    交给 UsEstimateDatabase(继承通用 EstimateDatabase) 做 change-log 过滤。fmp 专属流程都在本函数。
     """
     if ts_code is None:
         return pd.DataFrame()
-    from .us_estimates_db import EstimateDatabase
-    db = EstimateDatabase()
+    from .us_estimates_db import UsEstimateDatabase
+    db = UsEstimateDatabase()
 
     # FMP analyst-estimates 字段 -> us_estimates 表列
     fmp_map = {
