@@ -1537,7 +1537,7 @@ TUSHARE_API_MAP = {
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
     'report_rc':
-        ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '365'],
+        ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '366'],
 
     'estimates':  # 派生表: report_rc → 一致预期(稀疏时点 change-log)，逐股 refill
         ['estimates', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
