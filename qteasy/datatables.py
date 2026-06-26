@@ -1491,7 +1491,7 @@ TABLE_SCHEMA = {
                         'op_rt', 'op_pr', 'tp', 'np', 'eps', 'pe', 'rd', 'roe', 'ev_ebitda',
                         'rating', 'max_price', 'min_price'],
          'dtypes':     ['varchar(9)', 'date', 'varchar(50)', 'varchar(10)', 'varchar(20)', 'text',
-                        'varchar(20)', 'varchar(20)', 'varchar(50)',
+                        'varchar(20)', 'varchar(20)', 'varchar(255)',
                         'double', 'double', 'double', 'double', 'float', 'float', 'float', 'float', 'float',
                         'varchar(20)', 'float', 'float'],
          'remarks':    ['证券代码', '研报日期', '机构名称', '预测报告期', '股票名称', '报告标题',
