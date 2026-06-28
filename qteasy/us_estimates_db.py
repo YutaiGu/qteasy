@@ -20,11 +20,11 @@ class EstimateDatabase:
         if base is None:
             return True
         for c in self.COMPARE_KEYS:
-            if pd.isna(row[c]):
+            if pd.isna(row[c]) or pd.isna(base[c]):   # 任一侧缺值 → 当作相同，跳过该列
                 continue
             a, b = float(row[c]), float(base[c])
-            if pd.isna(b) or abs(a - b) > abs(b) * self.COMPARE_TOL:
-                return True  # 原来缺失、或相对变化超阈值 → 实质变化
+            if abs(a - b) > abs(b) * self.COMPARE_TOL:
+                return True  # 相对变化超阈值 → 实质变化
         return False
 
     def changelog(self, df: pd.DataFrame, data_source=None) -> pd.DataFrame:
