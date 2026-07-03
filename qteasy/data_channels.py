@@ -83,9 +83,26 @@ def _fetch_table_data_from_tushare(table, **kwargs):
     """
 
     from .tsfuncs import acquire_data
-    dnld_data = acquire_data(TUSHARE_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+    dnld_data = acquire_data(_api_map_row(TUSHARE_API_MAP, table)[API_MAP_COLUMNS.index('api')], **kwargs)
 
     return dnld_data
+
+
+def _api_map_row(api_map, table, provided=()):
+    """解析 API_MAP 配置行。唯一规则：取行必经此遍历
+    多模式表时，某行的迭代参数名(r[1])出现在调用方实际提供的参数名集合
+    provided 中就选该行；无匹配则落到 'none' 行(无迭代参数)
+    普通表原样返回，零影响。"""
+    rows = api_map[table]
+    if not (rows and isinstance(rows[0], list)):
+        return rows                                   # 普通表
+    for r in rows:
+        if r[1] in provided:                          # 该行需要的参数, 调用方真的给了
+            return r
+    for r in rows:
+        if r[1] == 'none':                            # 兜底: 无迭代参数的行
+            return r
+    return rows[0]
 
 
 def _fetch_table_data_from_akshare(table, **kwargs):
@@ -296,13 +313,19 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
     if table not in API_MAP:
         return {}
 
-    # get all tables in the API mapping
-    arg_name = API_MAP[table][1]
-    arg_type = API_MAP[table][2]
-    arg_range = API_MAP[table][3]
-    allowed_code_suffix = API_MAP[table][4]
-    additional_start_end = API_MAP[table][5]
-    start_end_chunk_size = API_MAP[table][6]
+    # get all tables in the API mapping; 多模式表按实际传入参数路由(见 _api_map_row)
+    provided = set()
+    if symbols:
+        provided |= {'ts_code', 'qt_code', 'symbol', 'index'}   # symbols 可满足的代码类迭代参数名
+    if list_arg_filter is not None:
+        provided.add('exchange')
+    map_row = _api_map_row(API_MAP, table, provided)
+    arg_name = map_row[1]
+    arg_type = map_row[2]
+    arg_range = map_row[3]
+    allowed_code_suffix = map_row[4]
+    additional_start_end = map_row[5]
+    start_end_chunk_size = map_row[6]
 
     if isinstance(symbols, list):
         symbols = list_to_str_format(symbols)
@@ -1207,7 +1230,11 @@ def get_api_map(channel: str) -> pd.DataFrame:
     else:
         raise NotImplementedError(f'channel {channel} is not supported')
 
-    api_map = pd.DataFrame(API_MAP).T
+    # 多模式表(嵌套列表)展平: 取带迭代参数的行(保留 table_index 依赖信息, 如 stock_basic)
+    flat = {t: (next((r for r in rows if r[1] != 'none'), rows[0])
+                if rows and isinstance(rows[0], list) else rows)
+            for t, rows in API_MAP.items()}
+    api_map = pd.DataFrame(flat).T
     api_map.columns = MAP_COLUMNS
 
     return api_map
@@ -1518,14 +1545,17 @@ TUSHARE_API_MAP = {
     'index_weight':
         ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', '7'],
 
-    'income':
-        ['income', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+    'income':  # 无symbols 按1天一段拉全市场; 有symbols 逐股回补
+        [['income', 'none', 'none', 'none', '', 'Y', '1'],
+         ['income', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'balance':
-        ['balance', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+    'balance':  # 无symbols 按1天一段拉全市场; 有symbols 逐股回补
+        [['balance', 'none', 'none', 'none', '', 'Y', '1'],
+         ['balance', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'cashflow':
-        ['cashflow', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+    'cashflow':  # 无symbols 按1天一段拉全市场; 有symbols 逐股回补
+        [['cashflow', 'none', 'none', 'none', '', 'Y', '1'],
+         ['cashflow', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'financial':
         ['indicators', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
@@ -1536,8 +1566,9 @@ TUSHARE_API_MAP = {
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'report_rc':
-        ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '366'],
+    'report_rc':  # 无symbols 按1天一段拉全市场,超3000行分页; 有symbols 逐股366天分段
+        [['report_rc', 'none', 'none', 'none', '', 'Y', '1'],
+         ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '366']],
 
     'estimates':  # 派生表: report_rc → 一致预期(稀疏时点 change-log)，逐股 refill
         ['estimates', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],

@@ -1249,7 +1249,26 @@ def fund_manager(ts_code=None,
 # Finance Data
 # ================
 
-def income(ts_code: str,
+def _vip_bisect(api, start, end, cap=9000, **kwargs):
+    """vip 财务接口全市场按公告日区间拉取(日更用)。tushare vip 单次上限9000行且【静默截断】(实测)：
+    返回行数达到 cap 即截断，将日期区间对半二分递归，直到每段完整。
+    不用 offset 翻页——服务端排序不稳定，翻页会重叠/漏行。"""
+    # vip 接口 YYYYMMDD
+    start = regulate_date_format(start, force_format='%Y%m%d')
+    end = regulate_date_format(end, force_format='%Y%m%d')
+    res = api(start_date=start, end_date=end, **kwargs)
+    if len(res) < cap or start >= end:
+        if len(res) >= cap:
+            logger_core.warning(f'{start}: {len(res)} rows in one single day, might still be truncated!')
+        return res
+    mid = (pd.to_datetime(start) + (pd.to_datetime(end) - pd.to_datetime(start)) / 2).strftime('%Y%m%d')
+    nxt = (pd.to_datetime(mid) + pd.Timedelta(days=1)).strftime('%Y%m%d')
+    logger_core.info(f'range {start}-{end} returned {len(res)} rows (>=cap {cap}), bisecting')
+    return pd.concat([_vip_bisect(api, start, mid, cap, **kwargs),
+                      _vip_bisect(api, nxt, end, cap, **kwargs)], ignore_index=True)
+
+
+def income(ts_code: str = None,
            rpt_date: str = None,
            start: str = None,
            end: str = None,
@@ -1381,6 +1400,13 @@ def income(ts_code: str,
     if end is not None:
         end = regulate_date_format(end)
     pro = ts.pro_api()
+    if not ts_code and period is None and rpt_date is None and start and end:
+        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
+        res = _vip_bisect(pro.income_vip, start, end,
+                          report_type=report_type, comp_type=comp_type, fields=fields)
+        logger_core.info(f'Downloaded {len(res)} rows from tushare: income (range mode) '
+                         f'start_date={start}, end_date={end}')
+        return res
     try:
         res = pro.income_vip(ts_code=ts_code,
                              ann_date=rpt_date,
@@ -1407,7 +1433,7 @@ def income(ts_code: str,
     return res
 
 
-def balance(ts_code: str,
+def balance(ts_code: str = None,
             rpt_date: str = None,
             start: str = None,
             end: str = None,
@@ -1629,6 +1655,13 @@ def balance(ts_code: str,
     if end is not None:
         end = regulate_date_format(end)
     pro = ts.pro_api()
+    if not ts_code and period is None and rpt_date is None and start and end:
+        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
+        res = _vip_bisect(pro.balancesheet_vip, start, end,
+                          report_type=report_type, comp_type=comp_type, fields=fields)
+        logger_core.info(f'Downloaded {len(res)} rows from tushare: balance (range mode) '
+                         f'start_date={start}, end_date={end}')
+        return res
     try:
         res = pro.balancesheet_vip(ts_code=ts_code,
                                    ann_date=rpt_date,
@@ -1655,7 +1688,7 @@ def balance(ts_code: str,
     return res
 
 
-def cashflow(ts_code: str,
+def cashflow(ts_code: str = None,
              rpt_date: str = None,
              start: str = None,
              end: str = None,
@@ -1823,6 +1856,13 @@ def cashflow(ts_code: str,
     if end is not None:
         end = regulate_date_format(end)
     pro = ts.pro_api()
+    if not ts_code and period is None and rpt_date is None and start and end:
+        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
+        res = _vip_bisect(pro.cashflow_vip, start, end,
+                          report_type=report_type, comp_type=comp_type, fields=fields)
+        logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow (range mode) '
+                         f'start_date={start}, end_date={end}')
+        return res
     try:
         res = pro.cashflow_vip(ts_code=ts_code,
                                ann_date=rpt_date,
@@ -3808,19 +3848,41 @@ def report_rc(ts_code: str = None,
               fields: [str, list] = None) -> pd.DataFrame:
     """ 获取券商(卖方)每日研报盈利预测数据(report_rc)，数据从2010年开始。
 
-    ts_code: 股票代码，一次只读一只
+    ts_code: 股票代码，一次只读一只；不传则走区间模式(按 report_date 区间拉全市场)
     report_date: optional 研报发布日 YYYYMMDD
     start: optional 研报发布开始日期 YYYYMMDD(按 report_date 过滤)
     end: optional 研报发布结束日期 YYYYMMDD
-    单次最大 3000 条；上层按 365 天分块调用，单股单年远不及上限。
+    文档口径单次最大 3000 条；区间模式按官方分页(limit/offset)循环取完。
+    (翻页稳定性已实测：单天 3 页拼合与一次拿全逐键一致，零漏零重)
     """
     if fields is None:
         fields = ('ts_code,report_date,org_name,quarter,name,report_title,report_type,'
                   'classify,author_name,op_rt,op_pr,tp,np,eps,pe,rd,roe,ev_ebitda,'
                   'rating,max_price,min_price')
     pro = ts.pro_api()
-    res = pro.report_rc(ts_code=ts_code, report_date=report_date,
-                        start_date=start, end_date=end, fields=fields)
+    if not ts_code and report_date is None and start and end:
+        # 区间模式(日更)：不指定个股，按研报日区间拉全市场；单次上限3000，offset 分页循环取完
+        start = regulate_date_format(start, force_format='%Y%m%d')
+        end = regulate_date_format(end, force_format='%Y%m%d')
+        pages, offset = [], 0
+        while True:
+            page = pro.report_rc(start_date=start, end_date=end,
+                                 fields=fields, limit=3000, offset=offset)
+            pages.append(page)
+            if len(page) < 3000:
+                break
+            offset += 3000
+        non_empty = [p for p in pages if len(p)]
+        if len(non_empty) <= 1:
+            res = non_empty[0] if non_empty else pages[0]
+        else:
+            import warnings
+            with warnings.catch_warnings():
+                warnings.simplefilter('ignore', FutureWarning)
+                res = pd.concat(non_empty, ignore_index=True)
+    else:
+        res = pro.report_rc(ts_code=ts_code, report_date=report_date,
+                            start_date=start, end_date=end, fields=fields)
     # 主键 (ts_code, report_date, org_name, quarter) 任一为空则无法入库(MySQL 主键非空);
     # 这类行多为未标预测报告期的研报，对一致预期无用，直接丢弃
     res = res.dropna(subset=['ts_code', 'report_date', 'org_name', 'quarter'])
