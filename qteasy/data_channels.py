@@ -1395,8 +1395,9 @@ TUSHARE_API_MAP = {
     'stock_hourly':
         ['mins60', 'ts_code', 'table_index', 'stock_basic', '', 'y', '360'],
 
-    'stock_daily':
-        ['daily', 'trade_date', 'trade_date', '19901211', '', '', ''],
+    'stock_daily':  # 双模式(按传参路由): 无symbols→按交易日全市场(首行=默认); 有symbols→逐股6000天分段(单次上限6000行)
+        [['daily', 'trade_date', 'trade_date', '19901211', '', '', ''],
+         ['daily', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '6000']],
 
     'stock_weekly':
         ['weekly', 'trade_date', 'trade_date', '19901221', '', '', ''],
@@ -1521,8 +1522,9 @@ TUSHARE_API_MAP = {
     'options_daily':
         ['options_daily', 'trade_date', 'trade_date', '20150209', '', '', ''],
 
-    'stock_adj_factor':
-        ['adj_factors', 'trade_date', 'trade_date', '19901219', '', '', ''],
+    'stock_adj_factor':  # 双模式: 同 stock_daily (adj_factor 单次上限同为6000行, 实测)
+        [['adj_factors', 'trade_date', 'trade_date', '19901219', '', '', ''],
+         ['adj_factors', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '6000']],
 
     'fund_adj_factor':
         ['fund_adj', 'trade_date', 'trade_date', '19980407', '', '', ''],
