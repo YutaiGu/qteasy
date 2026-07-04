@@ -44,6 +44,12 @@ def _get_api_key() -> str:
     return QT_CONFIG.get('fmp_api_key', '')
 
 
+def _get_proxy():
+    """qteasy.cfg 配置 fmp_proxy(如 http://127.0.0.1:7890)时仅 FMP 请求走该代理; 不配则直连。"""
+    proxy = QT_CONFIG.get('fmp_proxy', '')
+    return {'http': proxy, 'https': proxy} if proxy else None
+
+
 def _fmp_get(endpoint: str, **params) -> list:
     """向 FMP stable API 发起单次 GET 请求，返回 JSON list。
 
@@ -62,7 +68,8 @@ def _fmp_get(endpoint: str, **params) -> list:
     resp = None
     for attempt in range(3):
         try:
-            resp = requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10)
+            resp = requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
+                                proxies=_get_proxy())
             break
         except requests.exceptions.RequestException:
             if attempt == 2:
