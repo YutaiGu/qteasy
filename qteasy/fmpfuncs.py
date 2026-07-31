@@ -355,7 +355,8 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     }
     trade_date = pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None)  # 快照日(美东)
     rows = []
-    for period in ('annual', 'quarter'):
+    # for period in ('annual', 'quarter'):
+    for period in ('annual',):
         for item in _fmp_request('analyst-estimates', symbol=ts_code, period=period):
             d = item.get('date')
             if not d or len(d) < 10:
