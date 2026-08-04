@@ -65,19 +65,17 @@ def _fmp_get(endpoint: str, **params) -> list:
             if wait > 0:
                 time.sleep(wait)
             _fmp_last_call[0] = time.time()
-    resp = None
     for attempt in range(3):
         try:
-            resp = requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
-                                proxies=_get_proxy())
-            break
+            with requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
+                              proxies=_get_proxy()) as resp:
+                if not resp.ok:
+                    raise RuntimeError(f'FMP {endpoint} request failed: HTTP {resp.status_code}')
+                return resp.json()
         except requests.exceptions.RequestException:
             if attempt == 2:
                 raise RuntimeError(f'FMP {endpoint} request failed after 3 retries')
             time.sleep(1)
-    if not resp.ok:
-        raise RuntimeError(f'FMP {endpoint} request failed: HTTP {resp.status_code}')
-    return resp.json()
 
 
 def set_rate_limit(batch_size, interval):
