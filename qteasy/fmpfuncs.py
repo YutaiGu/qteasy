@@ -33,7 +33,7 @@ _fmp_last_call = [0.0]
 _FMP_API_LIMITS = {
     'historical-price-eod/dividend-adjusted': None,  # 用 from/to 过滤，不需分页
     'stock-list':                             None,
-    'analyst-estimates':                      1000,
+    'analyst-estimates':                      10,    # small 10, medium 1000
     'income-statement':                       1000,
     'balance-sheet-statement':                1000,
     'cash-flow-statement':                    1000,
