@@ -29,6 +29,7 @@ EXTRA_RETRY_API = [
     'options_daily',
     'fund_share',
     'fund_manager',
+    'fund_portfolio',
     'hibor',
     'libor',
 ]
@@ -1243,6 +1244,67 @@ def fund_manager(ts_code=None,
     res = pro.fund_manager(ts_code=ts_code, ann_date=ann_date, offset=offset)
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_manager with ts_code={ts_code}, '
                      f'ann_date={ann_date}, offset={offset}')
+    return res
+
+
+_FUND_PORTFOLIO_PAGE_SIZE = 8000
+
+
+def fund_portfolio(ts_code=None,
+                   ann_date=None,
+                   period=None,
+                   start=None,
+                   end=None):
+    """获取公募基金持仓数据，并按Tushare实测上限分页。
+
+    传入 ``ts_code`` 时先拉取该基金的全部持仓，再按 ``ann_date`` 在本地截取
+    ``start`` / ``end``；传入 ``ann_date`` 时拉取该公告日的全市场数据。
+    """
+    if not any((ts_code, ann_date, period)):
+        raise ValueError('ts_code, ann_date, and period can not all be None')
+
+    pro = ts.pro_api()
+    pages = []
+    offset = 0
+    while True:
+        page = pro.fund_portfolio(
+            ts_code=ts_code,
+            ann_date=ann_date,
+            period=period,
+            limit=_FUND_PORTFOLIO_PAGE_SIZE,
+            offset=offset,
+        )
+        if page.empty:
+            if not pages:
+                pages.append(page)
+            break
+        pages.append(page)
+        row_count = len(page)
+        offset += row_count
+        if row_count < _FUND_PORTFOLIO_PAGE_SIZE:
+            break
+
+    non_empty = [page for page in pages if not page.empty]
+    if len(non_empty) > 1:
+        res = pd.concat(non_empty, ignore_index=True)
+    elif non_empty:
+        res = non_empty[0].reset_index(drop=True)
+    else:
+        res = pages[0]
+
+    if ts_code and not res.empty and (start is not None or end is not None):
+        announcement_dates = pd.to_datetime(res['ann_date'], errors='coerce')
+        keep = announcement_dates.notna()
+        if start is not None:
+            keep &= announcement_dates >= pd.to_datetime(start)
+        if end is not None:
+            keep &= announcement_dates <= pd.to_datetime(end)
+        res = res.loc[keep].reset_index(drop=True)
+
+    logger_core.info(
+        f'Downloaded {len(res)} rows from tushare: fund_portfolio with ts_code={ts_code}, '
+        f'ann_date={ann_date}, period={period}, start={start}, end={end}, pages={len(pages)}'
+    )
     return res
 
 

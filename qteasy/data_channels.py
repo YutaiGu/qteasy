@@ -1477,6 +1477,10 @@ TUSHARE_API_MAP = {
     'fund_manager':
         ['fund_manager', 'ts_code', 'table_index', 'fund_basic', 'OF, SZ, SH', '', ''],
 
+    'fund_portfolio':  # 无symbols按公告日逐日全市场；有symbols按基金代码全量拉取后按公告日过滤
+        [['fund_portfolio', 'ann_date', 'datetime', '19980101', '', '', ''],
+         ['fund_portfolio', 'ts_code', 'table_index', 'fund_basic', 'OF, SZ, SH', 'Y', '']],
+
     'future_mapping':
         ['fut_mapping', 'trade_date', 'trade_date', '19901219', '', '', ''],
 

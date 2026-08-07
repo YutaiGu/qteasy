@@ -333,6 +333,9 @@ TABLE_MASTERS = {
     'fund_manager':
         ['fund_manager', '基金经理', 'events', 'FD', 'none', '', '', ''],
 
+    'fund_portfolio':
+        ['fund_portfolio', '公募基金持仓', 'comp', 'FD', 'd', '', '', ''],
+
     'future_mapping':  # New, 期货合约映射表!
         ['future_mapping', '期货合约映射表', 'data', 'FT', 'd', '', '', ''],
 
@@ -1022,6 +1025,16 @@ TABLE_SCHEMA = {
          'remarks':    ['证券代码', '公告日期', '基金经理姓名', '性别', '出生年份', '学历', '国籍', '任职日期',
                         '离任日期', '简历'],
          'prime_keys': [0, 1, 2]
+         },
+
+    'fund_portfolio':  # 公募基金持仓表
+        {'columns':    ['ts_code', 'ann_date', 'end_date', 'symbol', 'mkv', 'amount',
+                        'stk_mkv_ratio', 'stk_float_ratio'],
+         'dtypes':     ['varchar(24)', 'date', 'date', 'varchar(14)', 'double', 'double',
+                        'float', 'float'],
+         'remarks':    ['基金代码', '公告日期', '报告期截止日期', '股票代码', '持有股票市值（元）',
+                        '持有股票数量（股）', '占基金股票市值比例', '占股票流通股本比例'],
+         'prime_keys': [0, 1, 2, 3]
          },
 
     'future_mapping':  # New, 期货合约映射表!
@@ -2207,4 +2220,3 @@ class DataConflictWarning(Warning):
 class MissingDataWarning(Warning):
     """ Warning Type: Local Data Missing"""
     pass
-
