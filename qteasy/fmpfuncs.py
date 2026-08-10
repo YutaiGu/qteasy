@@ -65,17 +65,24 @@ def _fmp_get(endpoint: str, **params) -> list:
             if wait > 0:
                 time.sleep(wait)
             _fmp_last_call[0] = time.time()
-    for attempt in range(3):
+    retry_delays = (1, 2, 4)
+    retry_statuses = {429, 500, 502, 503, 504}
+    for attempt in range(len(retry_delays) + 1):
         try:
             with requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
                               proxies=_get_proxy()) as resp:
                 if not resp.ok:
-                    raise RuntimeError(f'FMP {endpoint} request failed: HTTP {resp.status_code}')
-                return resp.json()
+                    error = RuntimeError(
+                        f'FMP {endpoint} request failed: HTTP {resp.status_code}'
+                    )
+                    if resp.status_code not in retry_statuses or attempt == len(retry_delays):
+                        raise error
+                else:
+                    return resp.json()
         except requests.exceptions.RequestException:
-            if attempt == 2:
+            if attempt == len(retry_delays):
                 raise RuntimeError(f'FMP {endpoint} request failed after 3 retries')
-            time.sleep(1)
+        time.sleep(retry_delays[attempt])
 
 
 def set_rate_limit(batch_size, interval):
