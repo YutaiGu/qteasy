@@ -3151,6 +3151,9 @@ def composite(index: str = None,
 # =============
 
 
+_FUND_BASIC_PAGE_SIZE = 15000
+
+
 def fund_basic(market: str = None,
                status: str = None) -> pd.DataFrame:
     """ 获取基金列表
@@ -3210,7 +3213,29 @@ def fund_basic(market: str = None,
     if market is None:
         market = 'E'
     pro = ts.pro_api()
-    res = pro.fund_basic(market=market, status=status)
+    pages = []
+    offset = 0
+    while True:
+        page = pro.fund_basic(
+            market=market,
+            status=status,
+            limit=_FUND_BASIC_PAGE_SIZE,
+            offset=offset,
+        )
+        pages.append(page)
+        row_count = len(page)
+        if row_count < _FUND_BASIC_PAGE_SIZE:
+            break
+        offset += row_count
+
+    non_empty = [page for page in pages if not page.empty]
+    if len(non_empty) > 1:
+        res = pd.concat(non_empty, ignore_index=True)
+    elif non_empty:
+        res = non_empty[0].reset_index(drop=True)
+    else:
+        res = pages[0]
+
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_basic with market={market}, '
                      f'status={status}')
     return res
