@@ -65,7 +65,7 @@ def _fmp_get(endpoint: str, **params) -> list:
             if wait > 0:
                 time.sleep(wait)
             _fmp_last_call[0] = time.time()
-    retry_delays = (1, 2, 4)
+    retry_delays = (1, 5, 30, 60)
     retry_statuses = {429, 500, 502, 503, 504}
     for attempt in range(len(retry_delays) + 1):
         try:
@@ -81,7 +81,7 @@ def _fmp_get(endpoint: str, **params) -> list:
                     return resp.json()
         except requests.exceptions.RequestException:
             if attempt == len(retry_delays):
-                raise RuntimeError(f'FMP {endpoint} request failed after 3 retries')
+                raise RuntimeError(f'FMP {endpoint} request failed after 4 retries')
         time.sleep(retry_delays[attempt])
 
 
