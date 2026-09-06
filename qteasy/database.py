@@ -1586,6 +1586,40 @@ class DataSource:
         self._table_list.add(table)
         return rows_affected
 
+    @staticmethod
+    def _varchar_width(dtype) -> int:
+        """ 给出字段定义，返回varchar的宽度，非varchar字段返回0 """
+        dtype = str(dtype).strip().lower()
+        if not (dtype.startswith('varchar(') and dtype.endswith(')')):
+            return 0
+        try:
+            return int(dtype[8:-1])
+        except ValueError:
+            return 0
+
+    @staticmethod
+    def _drop_oversized_primary_keys(df, table, primary_keys, pk_dtypes) -> pd.DataFrame:
+        """ 丢弃主键值超出字段定义长度的行
+
+        数据源偶尔会返回带修订后缀的脏代码(如'833243!1.BJ')，主键值无法截断——
+        截断会改变数据的标识——因此只能整行丢弃。若不在此拦下，数据库会因为单行
+        超长而拒绝整个批次，导致当批数据全部丢失。
+        """
+        oversized = pd.Series(False, index=df.index)
+        for key, dtype in zip(primary_keys, pk_dtypes):
+            width = DataSource._varchar_width(dtype)
+            if width == 0 or key not in df.columns:
+                continue
+            oversized |= df[key].astype(str).str.len() > width
+        if not oversized.any():
+            return df
+
+        dropped = df.loc[oversized, primary_keys[0]].astype(str).unique()
+        msg = f'{oversized.sum()} row(s) dropped from table "{table}", primary key too long: ' \
+              f'{", ".join(map(repr, dropped[:10]))}'
+        warnings.warn(msg, RuntimeWarning, stacklevel=2)
+        return df.loc[~oversized]
+
     def update_table_data(self, table, df, merge_type='update') -> int:
         """ 检查输入的df，去掉不符合要求的列或行后，将数据合并到table中，包括以下步骤：
 
@@ -1643,6 +1677,10 @@ class DataSource:
         # 确保df与table的column顺序一致
         if len(missing_columns) > 0 or any(item_d != item_t for item_d, item_t in zip(dnld_columns, table_columns)):
             dnld_data = dnld_data.reindex(columns=table_columns, copy=False)
+        # 丢弃主键超长的行，否则单行脏数据会导致整批写入被数据库拒绝
+        dnld_data = self._drop_oversized_primary_keys(dnld_data, table, primary_keys, pk_dtypes)
+        if dnld_data.empty:
+            return 0
         if self.source_type == 'file':
             # 如果source_type == 'file'，需要将下载的数据与本地数据合并，本地数据必须全部下载，
             # 数据量大后非常费时
