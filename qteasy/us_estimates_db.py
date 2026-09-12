@@ -301,6 +301,7 @@ class AEstimateDatabase(EstimateDatabase):
         rc['_authors'] = rc['author_name'].map(self._authors) if 'author_name' in rc else [[]] * len(rc)
         disc = self._disclosure_map(ts_code, data_source)  # 期末 -> 最早披露日(右端切用)
         graded = self._graded(rc, ts_code, data_source)    # 已揭晓的分数，按人展开
+        shares = self._share_history(ts_code, data_source)  # 各交易日总股本，eps 换算用
         obs = rc['report_date_dt'].dropna()
         if start_date:
             obs = obs[obs >= pd.Timestamp(start_date)]
@@ -322,7 +323,7 @@ class AEstimateDatabase(EstimateDatabase):
             if key not in tables:
                 tables[key] = self._skill_tables(known)    # 能力只在有新结果揭晓时才变，按此缓存
             skill_of, herd = tables[key]
-            snap = self._snapshot(rc, day, ts_code, stale_days, disc, skill_of, herd)
+            snap = self._snapshot(rc, day, ts_code, stale_days, disc, skill_of, herd, shares)
             for _, row in snap.iterrows():
                 key = (row['target_date'], row['target_period'])
                 if self._changed(row, baseline.get(key)):
@@ -378,8 +379,8 @@ class AEstimateDatabase(EstimateDatabase):
         """report_rc 明细 → 附 target_date/target_period 及派生数值列(营收/净利 万元→元)。
 
         季报一律转成【单季】(本期累计 − 上期累计)，与 us_estimates 口径统一；年报(Y)保持全年。
-        缺相邻期时该条留空，不猜。eps 由净利润除以研报当时的股本派生，不用源数据的 eps，
-        避开各家股本口径不一致的问题。
+        缺相邻期时该条留空，不猜。只保留金额，不在此算 eps：跨送转日时各研报的股本口径不同，
+        逐条换算再加权会把新旧口径混在一起，eps 改由 _snapshot 用快照当日股本统一换算。
         """
         td_tp = rc['quarter'].apply(self._target)
         rc = rc.assign(target_date=[x[0] for x in td_tp], target_period=[x[1] for x in td_tp])
@@ -399,11 +400,15 @@ class AEstimateDatabase(EstimateDatabase):
 
         shares = self._share_history(ts_code, data_source) if data_source is not None else None
         if shares is None or shares.empty:
-            rc['_eps'] = None
+            rc['_shares'] = None
             return rc
         merged = pd.merge_asof(rc.sort_values('report_date_dt'), shares,
                                left_on='report_date_dt', right_on='trade_date', direction='backward')
-        merged['_eps'] = (merged['_net_profit'] / (merged['total_share'] * 1e4)).round(4)
+        merged['_shares'] = merged['total_share'] * 1e4              # 研报当日总股本(股)
+        # 少数研报只给每股收益不给金额：用研报【当日】股本折成金额，口径与其他条一致
+        only_eps = merged['_net_profit'].isna() & merged['_shares'].notna()
+        merged.loc[only_eps, '_net_profit'] = (
+            pd.to_numeric(merged.loc[only_eps, 'eps'], errors='coerce') * merged.loc[only_eps, '_shares'])
         return merged.drop(columns=['trade_date', 'total_share'])
 
     @staticmethod
@@ -576,7 +581,18 @@ class AEstimateDatabase(EstimateDatabase):
              for authors in group['_authors']], index=group.index)
         return self.weights(skill, herd.get(score_column, 0.0))
 
-    def _snapshot(self, rc, obs_date, ts_code, stale_days, disc=None, skill_of=None, herd=None):
+    @staticmethod
+    def _shares_at(shares, day):
+        """快照当日(或之前最近交易日)的总股本，单位股；查不到返回 None。"""
+        if shares is None or shares.empty:
+            return None
+        position = shares['trade_date'].searchsorted(day, side='right') - 1
+        if position < 0:
+            return None
+        return float(shares['total_share'].iloc[position]) * 1e4
+
+    def _snapshot(self, rc, obs_date, ts_code, stale_days, disc=None, skill_of=None, herd=None,
+                  shares=None):
         """obs_date 这天的共识快照(每机构取≤该日最新预测) → df(列对齐 self.COLUMNS)。
 
         只保留 obs_date < 该期披露日(预告/快报/财报最早者,缺则法定截止)的期:已披露=实际,不再算预期。
@@ -600,20 +616,28 @@ class AEstimateDatabase(EstimateDatabase):
             rev_w = self._metric_weights(g, 'score_op_rt', skill_of, herd)
             np_m,  np_h,  np_l  = self.consensus(g['_net_profit'], np_w)
             rev_m, rev_h, rev_l = self.consensus(g['_revenue'], rev_w)
-            eps_m, eps_h, eps_l = self.consensus(g['_eps'], np_w)     # eps 派生自净利润，跟随其权重
             if np_m is None and rev_m is None:                        # 该期无可用预测(如单季缺相邻期)
                 continue
-            tp_v = pd.to_numeric(g['_tp'],       errors='coerce').dropna()
-            dv_v = pd.to_numeric(g['_dividend'], errors='coerce').dropna()
+            # eps 由共识净利润除以【快照当日】股本派生：送转前后各研报的股本口径不同，
+            # 逐条换算再加权会混口径，统一用当日股本换算，送转日干净地跳一次
+            base = self._shares_at(shares, obs_date)
+            eps_m, eps_h, eps_l = ((round(v / base, 4) if v is not None else None)
+                                   for v in (np_m, np_h, np_l)) if base else (None, None, None)
+            # 目标价是每股价格，送转后旧研报的口径会失真，按股本比例折到当日再加权
+            target = pd.to_numeric(g['_tp'], errors='coerce')
+            if base and '_shares' in g:
+                target = target * pd.to_numeric(g['_shares'], errors='coerce') / base
+            tp_v, _, _ = self.consensus(target, np_w)
+            dv_v, _, _ = self.consensus(pd.to_numeric(g['_dividend'], errors='coerce'), np_w)
             rows.append({
                 'ts_code': ts_code, 'trade_date': obs_date.normalize(),
                 'target_date': tdate, 'target_period': tp,
                 'eps': eps_m, 'eps_high': eps_h, 'eps_low': eps_l,
                 'revenue': rev_m, 'revenue_high': rev_h, 'revenue_low': rev_l,
                 'net_profit': np_m, 'net_profit_high': np_h, 'net_profit_low': np_l,
-                'target_price': round(float(tp_v.mean()), 2) if not tp_v.empty else None,
-                'dividend': round(float(dv_v.mean()), 4) if not dv_v.empty else None,
-                'num_analysts_eps': int(pd.to_numeric(g['_eps'], errors='coerce').notna().sum()),
+                'target_price': round(tp_v, 2) if tp_v is not None else None,
+                'dividend': round(dv_v, 4) if dv_v is not None else None,
+                'num_analysts_eps': int(pd.to_numeric(g['_net_profit'], errors='coerce').notna().sum()),
                 'num_analysts_revenue': int(pd.to_numeric(g['_revenue'], errors='coerce').notna().sum()),
             })
         return pd.DataFrame(rows).reindex(columns=self.COLUMNS)
