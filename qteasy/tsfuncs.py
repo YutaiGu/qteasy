@@ -1312,9 +1312,12 @@ def fund_portfolio(ts_code=None,
 # ================
 
 def _vip_bisect(api, start, end, cap=9000, **kwargs):
-    """vip 财务接口全市场按公告日区间拉取(日更用)。tushare vip 单次上限9000行且【静默截断】(实测)：
+    """vip 财务接口全市场按公告日区间拉取(日更用)。tushare vip 单次上限【静默截断】(实测)：
     返回行数达到 cap 即截断，将日期区间对半二分递归，直到每段完整。
-    不用 offset 翻页——服务端排序不稳定，翻页会重叠/漏行。"""
+    不用 offset 翻页——服务端排序不稳定，翻页会重叠/漏行。
+
+    各接口上限不同(实测，官方未公布)：income/balancesheet/cashflow 9000，forecast 6500，express 5000。
+    调用时必须传本接口的 cap，不能沿用默认值。"""
     # vip 接口 YYYYMMDD
     start = regulate_date_format(start, force_format='%Y%m%d')
     end = regulate_date_format(end, force_format='%Y%m%d')
@@ -2250,6 +2253,12 @@ def forecast(ts_code: str = None,
     if end is not None:
         end = regulate_date_format(end)
     pro = ts.pro_api()
+    if not ts_code and ann_date is None and period is None and start and end:
+        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
+        res = _vip_bisect(pro.forecast_vip, start, end, cap=6500, type=type, fields=fields)
+        logger_core.info(f'Downloaded {len(res)} rows from tushare: forecast (range mode) '
+                         f'start_date={start}, end_date={end}')
+        return res
     try:
         res = pro.forecast_vip(ts_code=ts_code,
                                ann_date=ann_date,
@@ -2259,8 +2268,8 @@ def forecast(ts_code: str = None,
                                type=type,
                                fields=fields)
     except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.express_vip) not available, will fall back to normal API'
-                         f'(pro.express)')
+        logger_core.info(f'{e}, Access to tushare vip API (pro.forecast_vip) not available, will fall back to normal '
+                         f'API (pro.forecast)')
         res = pro.forecast(ts_code=ts_code,
                            ann_date=ann_date,
                            start_date=start,
@@ -2337,6 +2346,12 @@ def express(ts_code: str = None,
     if end is not None:
         end = regulate_date_format(end)
     pro = ts.pro_api()
+    if not ts_code and ann_date is None and period is None and start and end:
+        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
+        res = _vip_bisect(pro.express_vip, start, end, cap=5000, fields=fields)
+        logger_core.info(f'Downloaded {len(res)} rows from tushare: express (range mode) '
+                         f'start_date={start}, end_date={end}')
+        return res
     try:
         res = pro.express_vip(ts_code=ts_code,
                               ann_date=ann_date,

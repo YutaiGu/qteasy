@@ -1566,8 +1566,9 @@ TUSHARE_API_MAP = {
     'financial':
         ['indicators', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'forecast':
-        ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+    'forecast':  # 无symbols 按公告日区间拉全市场(首行=默认); 有symbols 逐股回补
+        [['forecast', 'none', 'none', 'none', '', 'Y', ''],
+         ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
@@ -1579,8 +1580,9 @@ TUSHARE_API_MAP = {
     'estimates':  # 派生表: report_rc → 一致预期(稀疏时点 change-log)，逐股 refill
         ['estimates', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'express':
-        ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
+    'express':  # 无symbols 按公告日区间拉全市场(首行=默认); 有symbols 逐股回补
+        [['express', 'none', 'none', 'none', '', 'Y', ''],
+         ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'dividend':
         ['dividend', 'ts_code', 'table_index', 'stock_basic', '', '', ''],
