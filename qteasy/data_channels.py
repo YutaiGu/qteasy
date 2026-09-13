@@ -1551,16 +1551,16 @@ TUSHARE_API_MAP = {
     'index_weight':
         ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', '7'],
 
-    'income':  # 无symbols 按公告日区间拉全市场(内部二分防截断); 有symbols 逐股回补
-        [['income', 'none', 'none', 'none', '', 'Y', ''],
+    'income':  # 无symbols 按公告日分1000天一段拉全市场(内部二分防截断); 有symbols 逐股回补
+        [['income', 'none', 'none', 'none', '', 'Y', '1000'],
          ['income', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'balance':  # 无symbols 按公告日区间拉全市场(内部二分防截断); 有symbols 逐股回补
-        [['balance', 'none', 'none', 'none', '', 'Y', ''],
+    'balance':  # 无symbols 按公告日分1000天一段拉全市场(内部二分防截断); 有symbols 逐股回补
+        [['balance', 'none', 'none', 'none', '', 'Y', '1000'],
          ['balance', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'cashflow':  # 无symbols 按公告日区间拉全市场(内部二分防截断); 有symbols 逐股回补
-        [['cashflow', 'none', 'none', 'none', '', 'Y', ''],
+    'cashflow':  # 无symbols 按公告日分1000天一段拉全市场(内部二分防截断); 有symbols 逐股回补
+        [['cashflow', 'none', 'none', 'none', '', 'Y', '1000'],
          ['cashflow', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'financial':
