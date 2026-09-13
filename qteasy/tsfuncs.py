@@ -1311,13 +1311,13 @@ def fund_portfolio(ts_code=None,
 # Finance Data
 # ================
 
-def _vip_bisect(api, start, end, cap=9000, **kwargs):
-    """vip 财务接口全市场按公告日区间拉取(日更用)。tushare vip 单次上限【静默截断】(实测)：
+def _vip_bisect(api, start, end, cap, **kwargs):
+    """vip 财务接口全市场按公告日区间拉取。tushare vip 单次上限【静默截断】(实测)：
     返回行数达到 cap 即截断，将日期区间对半二分递归，直到每段完整。
     不用 offset 翻页——服务端排序不稳定，翻页会重叠/漏行。
 
-    各接口上限不同(实测，官方未公布)：income/balancesheet/cashflow 9000，forecast 6500，express 5000。
-    调用时必须传本接口的 cap，不能沿用默认值。"""
+    各接口上限不同(实测，官方未公布)：income 9000、balancesheet 7000、cashflow 6400、
+    forecast 6500、express 5000。cap 设为必填：漏传就报错，好过沿用错的默认值静默丢数据。"""
     # vip 接口 YYYYMMDD
     start = regulate_date_format(start, force_format='%Y%m%d')
     end = regulate_date_format(end, force_format='%Y%m%d')
@@ -1467,7 +1467,7 @@ def income(ts_code: str = None,
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
         # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.income_vip, start, end,
+        res = _vip_bisect(pro.income_vip, start, end, cap=8500,
                           report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: income (range mode) '
                          f'start_date={start}, end_date={end}')
@@ -1722,7 +1722,7 @@ def balance(ts_code: str = None,
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
         # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.balancesheet_vip, start, end,
+        res = _vip_bisect(pro.balancesheet_vip, start, end, cap=6500,
                           report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: balance (range mode) '
                          f'start_date={start}, end_date={end}')
@@ -1923,7 +1923,7 @@ def cashflow(ts_code: str = None,
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
         # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.cashflow_vip, start, end,
+        res = _vip_bisect(pro.cashflow_vip, start, end, cap=6000,
                           report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow (range mode) '
                          f'start_date={start}, end_date={end}')
