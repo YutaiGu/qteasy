@@ -1124,7 +1124,7 @@ TABLE_SCHEMA = {
          },
 
     'income':  # 上市公司利润表
-        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'report_type', 'comp_type',
+        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'update_flag', 'report_type', 'comp_type',
                         'end_type', 'basic_eps', 'diluted_eps', 'total_revenue', 'revenue',
                         'int_income', 'prem_earned', 'comm_income', 'n_commis_income', 'n_oth_income',
                         'n_oth_b_income', 'prem_income', 'out_prem', 'une_prem_reser', 'reins_income',
@@ -1146,8 +1146,8 @@ TABLE_SCHEMA = {
                         'capit_comstock_div', 'net_after_nr_lp_correct', 'credit_impa_loss',
                         'net_expo_hedging_benefits', 'oth_impair_loss_assets', 'total_opcost',
                         'amodcost_fin_assets', 'oth_income', 'asset_disp_income',
-                        'continued_net_profit', 'end_net_profit', 'update_flag'],
-         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(6)', 'varchar(6)', 'varchar(6)',
+                        'continued_net_profit', 'end_net_profit'],
+         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(4)', 'varchar(6)', 'varchar(6)', 'varchar(6)',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
@@ -1158,8 +1158,8 @@ TABLE_SCHEMA = {
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
-                        'double', 'double', 'double', 'double', 'double', 'double', 'varchar(4)'],
-         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '报告类型 见底部表',
+                        'double', 'double', 'double', 'double', 'double', 'double'],
+         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '更新标识', '报告类型 见底部表',
                         '公司类型(1一般工商业2银行3保险4证券)', '报告期类型', '基本每股收益', '稀释每股收益',
                         '营业总收入', '营业收入', '利息收入', '已赚保费', '手续费及佣金收入', '手续费及佣金净收入',
                         '其他经营净收益', '加:其他业务净收益', '保险业务收入', '减:分出保费',
@@ -1180,12 +1180,12 @@ TABLE_SCHEMA = {
                         '应付优先股股利', '应付普通股股利', '转作股本的普通股股利',
                         '扣除非经常性损益后的净利润(更正前)', '信用减值损失', '净敞口套期收益',
                         '其他资产减值损失', '营业总成本(二)', '以摊余成本计量的金融资产终止确认收益',
-                        '其他收益', '资产处置收益', '持续经营净利润', '终止经营净利润', '更新标识'],
-         'prime_keys': [0, 1, 2, 3, 93]
+                        '其他收益', '资产处置收益', '持续经营净利润', '终止经营净利润'],
+         'prime_keys': [0, 1, 2, 3, 4]
          },
 
     'balance':  # 上市公司资产负债表
-        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'report_type', 'comp_type',
+        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'update_flag', 'report_type', 'comp_type',
                         'end_type', 'total_share', 'cap_rese', 'undistr_porfit', 'surplus_rese',
                         'special_rese', 'money_cap', 'trad_asset', 'notes_receiv', 'accounts_receiv',
                         'oth_receiv', 'prepayment', 'div_receiv', 'int_receiv', 'inventories',
@@ -1223,8 +1223,8 @@ TABLE_SCHEMA = {
                         'debt_invest', 'oth_debt_invest', 'oth_eq_invest', 'oth_illiq_fin_assets',
                         'oth_eq_ppbond', 'receiv_financing', 'use_right_assets', 'lease_liab',
                         'contract_assets', 'contract_liab', 'accounts_receiv_bill', 'accounts_pay',
-                        'oth_rcv_total', 'fix_assets_total', 'update_flag'],
-         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(10)', 'varchar(10)',
+                        'oth_rcv_total', 'fix_assets_total'],
+         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(2)', 'varchar(10)', 'varchar(10)',
                         'varchar(10)', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
@@ -1243,9 +1243,8 @@ TABLE_SCHEMA = {
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
-                        'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
-                        'varchar(2)'],
-         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '报表类型', '公司类型', '报告期类型',
+                        'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double'],
+         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '更新标识', '报表类型', '公司类型', '报告期类型',
                         '期末总股本', '资本公积金', '未分配利润', '盈余公积金', '专项储备', '货币资金',
                         '交易性金融资产', '应收票据', '应收账款', '其他应收款', '预付款项', '应收股利',
                         '应收利息', '存货', '长期待摊费用', '一年内到期的非流动资产', '结算备付金', '拆出资金',
@@ -1277,12 +1276,12 @@ TABLE_SCHEMA = {
                         '其他应付款(合计)(元)', '长期应付款(合计)(元)', '债权投资(元)', '其他债权投资(元)',
                         '其他权益工具投资(元)', '其他非流动金融资产(元)', '其他权益工具:永续债(元)',
                         '应收款项融资', '使用权资产', '租赁负债', '合同资产', '合同负债', '应收票据及应收账款',
-                        '应付票据及应付账款', '其他应收款(合计)(元)', '固定资产(合计)(元)', '更新标识'],
-         'prime_keys': [0, 1, 2, 3, 157]
+                        '应付票据及应付账款', '其他应收款(合计)(元)', '固定资产(合计)(元)'],
+         'prime_keys': [0, 1, 2, 3, 4]
          },
 
     'cashflow':  # 上市公司现金流量表
-        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'comp_type', 'report_type',
+        {'columns':    ['ts_code', 'end_date', 'ann_date', 'f_ann_date', 'update_flag', 'comp_type', 'report_type',
                         'end_type', 'net_profit', 'finan_exp', 'c_fr_sale_sg', 'recp_tax_rends',
                         'n_depos_incr_fi', 'n_incr_loans_cb', 'n_inc_borr_oth_fi',
                         'prem_fr_orig_contr', 'n_incr_insured_dep', 'n_reinsur_prem',
@@ -1311,8 +1310,8 @@ TABLE_SCHEMA = {
                         'conv_copbonds_due_within_1y', 'fa_fnc_leases', 'im_n_incr_cash_equ',
                         'net_dism_capital_add', 'net_cash_rece_sec', 'credit_impa_loss',
                         'use_right_asset_dep', 'oth_loss_asset', 'end_bal_cash', 'beg_bal_cash',
-                        'end_bal_cash_equ', 'beg_bal_cash_equ', 'update_flag'],
-         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(10)', 'varchar(10)',
+                        'end_bal_cash_equ', 'beg_bal_cash_equ'],
+         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'varchar(2)', 'varchar(10)', 'varchar(10)',
                         'varchar(10)', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
@@ -1324,8 +1323,8 @@ TABLE_SCHEMA = {
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
                         'double', 'double', 'double', 'double', 'double', 'double', 'double', 'double',
-                        'double', 'double', 'double', 'varchar(2)'],
-         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '公司类型', '报表类型', '报告期类型',
+                        'double', 'double', 'double'],
+         'remarks':    ['证券代码', '报告期', '公告日期', '实际公告日期', '更新标志(1最新)', '公司类型', '报表类型', '报告期类型',
                         '净利润', '财务费用', '销售商品、提供劳务收到的现金', '收到的税费返还',
                         '客户存款和同业存放款项净增加额', '向中央银行借款净增加额', '向其他金融机构拆入资金净增加额',
                         '收到原保险合同保费取得的现金', '保户储金净增加额', '收到再保业务现金净额',
@@ -1356,8 +1355,8 @@ TABLE_SCHEMA = {
                         '融资租入固定资产', '现金及现金等价物净增加额(间接法)', '拆出资金净增加额',
                         '代理买卖证券收到的现金净额(元)', '信用减值损失', '使用权资产折旧', '其他资产减值损失',
                         '现金的期末余额', '减:现金的期初余额', '加:现金等价物的期末余额',
-                        '减:现金等价物的期初余额', '更新标志(1最新)'],
-         'prime_keys': [0, 1, 2, 3, 96]
+                        '减:现金等价物的期初余额'],
+         'prime_keys': [0, 1, 2, 3, 4]
          },
 
     'financial':  # 上市公司财务指标数据
