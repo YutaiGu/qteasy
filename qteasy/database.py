@@ -505,7 +505,9 @@ class DataSource:
         if self.file_type == 'csv':
             # 这里针对csv文件进行了优化，通过分块读取文件，避免当文件过大时导致读取异常
             try:
-                df_reader = pd.read_csv(file_path_name, chunksize=chunk_size)
+                # csv 不存列类型，文本型主键按表定义读成字符串，否则 '1' 会被猜成整数 1，与新数据对不上
+                text_pk = {col: str for col, dtype in zip(primary_key, pk_dtypes) if dtype.startswith('varchar')}
+                df_reader = pd.read_csv(file_path_name, chunksize=chunk_size, dtype=text_pk)
             except FileNotFoundError:
                 raise FileNotFoundError(f'File {file_name} not found!')
             except FileExistsError:
