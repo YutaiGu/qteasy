@@ -1333,6 +1333,27 @@ def _vip_bisect(api, start, end, cap, **kwargs):
                       _vip_bisect(api, nxt, end, cap, **kwargs)], ignore_index=True)
 
 
+# 三大财报 vip 接口单次返回上限(留余量，实测截断值见 _vip_bisect)，日更与全量回补共用
+STATEMENT_CAPS = {'income': 8500, 'balance': 6500, 'cashflow': 6000}
+
+
+def _by_publish_day(api, start, end, cap, **kwargs):
+    """三大财报日更：区间内逐天按 f_ann_date(实际发布日) 拉全市场。
+
+    首次发布和公司日后的修订都记在实际发布那天，逐天拉就不重不漏；按公告日(start_date/end_date)
+    拉不到修订——修订沿用原始公告日。f_ann_date 只能查单天，达到 cap 也无法再切分，只能警告。"""
+    pages = []
+    for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d'):
+        page = api(f_ann_date=day, **kwargs)
+        if len(page) >= cap:
+            logger_core.warning(f'f_ann_date={day}: {len(page)} rows reached cap {cap}, might be truncated!')
+        pages.append(page)
+    non_empty = [page for page in pages if not page.empty]
+    if non_empty:
+        return pd.concat(non_empty, ignore_index=True)
+    return pages[-1] if pages else pd.DataFrame()
+
+
 def income(ts_code: str = None,
            rpt_date: str = None,
            start: str = None,
@@ -1466,9 +1487,9 @@ def income(ts_code: str = None,
         end = regulate_date_format(end)
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.income_vip, start, end, cap=8500,
-                          report_type=report_type, comp_type=comp_type, fields=fields)
+        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
+        res = _by_publish_day(pro.income_vip, start, end, cap=STATEMENT_CAPS['income'],
+                              report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: income (range mode) '
                          f'start_date={start}, end_date={end}')
         return res
@@ -1721,9 +1742,9 @@ def balance(ts_code: str = None,
         end = regulate_date_format(end)
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.balancesheet_vip, start, end, cap=6500,
-                          report_type=report_type, comp_type=comp_type, fields=fields)
+        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
+        res = _by_publish_day(pro.balancesheet_vip, start, end, cap=STATEMENT_CAPS['balance'],
+                              report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: balance (range mode) '
                          f'start_date={start}, end_date={end}')
         return res
@@ -1922,9 +1943,9 @@ def cashflow(ts_code: str = None,
         end = regulate_date_format(end)
     pro = ts.pro_api()
     if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.cashflow_vip, start, end, cap=6000,
-                          report_type=report_type, comp_type=comp_type, fields=fields)
+        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
+        res = _by_publish_day(pro.cashflow_vip, start, end, cap=STATEMENT_CAPS['cashflow'],
+                              report_type=report_type, comp_type=comp_type, fields=fields)
         logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow (range mode) '
                          f'start_date={start}, end_date={end}')
         return res

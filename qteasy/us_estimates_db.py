@@ -268,7 +268,7 @@ class AEstimateDatabase(EstimateDatabase):
         """
         dates = []
         for table in ('forecast', 'express', 'income'):
-            try:
+            try:   # income 同期多个版本全部读出，快报版的公告日也算披露
                 df = data_source.read_table_data(table, shares=ts_code, primary_key_in_index=False)
             except Exception:
                 continue
@@ -450,20 +450,27 @@ class AEstimateDatabase(EstimateDatabase):
     def _actuals(ts_code, data_source):
         """各期实际值与揭晓日：index=期末日，列 _net_profit/_revenue/reveal。
 
-        实际值取正式财报第一次公布的版本(不用事后调整版)，揭晓日即该次公告日——分数只有过了
-        这一天才允许使用，否则历史回放会用到当时还不知道的信息。
+        实际值取正式财报【首次发布】的版本，揭晓日即该次公告日——分数只有过了这一天才允许使用，
+        否则历史回放会用到当时还不知道的信息。income 同期存有多个版本，这里读全部版本自行挑：
+        ann_date 最晚的是正式报告(早于它的是快报/初步数) → 其中 ann_date = f_ann_date 的是首次发布
+        (f_ann_date 更晚的是公司日后的修订) → 同一天多条时优先 update_flag=1(tushare 补全过的)。
         """
         inc = data_source.read_table_data('income', shares=ts_code, primary_key_in_index=False)
         if inc.empty:
             return pd.DataFrame(columns=['_net_profit', '_revenue', 'reveal'])
         inc = inc.copy()
-        inc['end_date'] = pd.to_datetime(inc['end_date'], errors='coerce')
-        inc['ann_date'] = pd.to_datetime(inc['ann_date'], errors='coerce')
+        for column in ('end_date', 'ann_date', 'f_ann_date'):
+            inc[column] = pd.to_datetime(inc[column], errors='coerce')
         if 'report_type' in inc.columns:
             merged = inc[inc['report_type'].astype(str) == '1']       # 1 = 合并报表
             inc = merged if not merged.empty else inc
-        inc = inc.dropna(subset=['end_date', 'ann_date']).sort_values('ann_date')
-        first = inc.groupby('end_date').first()
+        inc = inc.dropna(subset=['end_date', 'ann_date'])
+        official = inc[inc['ann_date'] == inc.groupby('end_date')['ann_date'].transform('max')]
+        official = official.assign(_restated=official['f_ann_date'] != official['ann_date'],
+                                   _flag=official['update_flag'].astype(str))
+        official = official.sort_values(['end_date', '_restated', 'f_ann_date', '_flag'],
+                                        ascending=[True, True, True, False])
+        first = official.groupby('end_date').first()
         actual = pd.DataFrame({
             '_net_profit': pd.to_numeric(first.get('n_income_attr_p'), errors='coerce'),
             '_revenue': pd.to_numeric(first.get('revenue'), errors='coerce'),
@@ -471,11 +478,15 @@ class AEstimateDatabase(EstimateDatabase):
         })
         return actual[actual['reveal'].notna()]
 
-    def rescore(self, ts_code, data_source=None) -> int:
-        """给该股所有研报打分并写回 report_rc 的 score_* 列，返回打分条数。
+    def rescore(self, ts_code, data_source=None, start_date=None, end_date=None) -> int:
+        """给该股研报打分并写回 report_rc 的 score_* 列，返回写回行数。
 
         分数只给"该期尚未披露任何信息"时发出的预测：预告或快报一出，后续预测等于抄答案。
         同一披露窗口内每家机构取最新一条参与比较，窗口内不足 2 条则整窗不打分。
+
+        start_date/end_date 限定【实际值揭晓日】(正式财报公告日)：只重写该区间内揭晓的期对应的行，
+        其余行一概不碰；留空则全部重写。研报始终整只读入——若按研报日截断，被切开的窗口会少掉
+        比较对象，算出的分数就会错，并覆盖掉原本正确的值。
         """
         if data_source is None:
             from qteasy import QT_DATA_SOURCE
@@ -489,16 +500,27 @@ class AEstimateDatabase(EstimateDatabase):
         if rc.empty or actual.empty or not disc:
             return 0
 
+        revealed = actual['reveal']
+        if start_date is not None:
+            revealed = revealed[revealed >= pd.Timestamp(start_date)]
+        if end_date is not None:
+            revealed = revealed[revealed <= pd.Timestamp(end_date)]
+        targets = revealed.index
+        rows = rc.loc[rc['target_date'].isin(targets), '_row']           # 需要重写的 raw 行号
+        if rows.empty:
+            return 0
+
         bounds = pd.DatetimeIndex(sorted(set(disc.values())))
         rc['_window'] = bounds[bounds.searchsorted(rc['report_date_dt'], side='right') - 1].where(
             rc['report_date_dt'] >= bounds[0])
         rc['_cutoff'] = rc['target_date'].map(disc)                   # 该期最早披露日
         live = rc[rc['_cutoff'].notna() & (rc['report_date_dt'] < rc['_cutoff'])
                   & rc['_window'].notna()]
-        usable = live[live['target_date'].isin(actual.index)]
-        scored = 0
+        usable = live[live['target_date'].isin(targets)]
         for column, score_column in self.METRIC_SCORES.items():
-            raw[score_column] = np.nan
+            if score_column not in raw.columns:
+                raw[score_column] = np.nan
+            raw.loc[rows, score_column] = np.nan
             for _, group in usable.groupby(['target_date', 'target_period', '_window']):
                 target = group['target_date'].iloc[0]
                 latest = group.sort_values('report_date_dt').groupby('org_name').last()
@@ -506,10 +528,7 @@ class AEstimateDatabase(EstimateDatabase):
                 if value.empty:
                     continue
                 raw.loc[value.index, score_column] = value.values   # _row 即 raw 的行号
-                scored += len(value)
-        if not scored:
-            return 0
-        return data_source.update_table_data('report_rc', raw, merge_type='update')
+        return data_source.update_table_data('report_rc', raw.loc[rows], merge_type='update')
 
     def _graded(self, rc, ts_code, data_source):
         """已打分的研报 → 按作者展开的长表：analyst/score/bias/period/reveal/metric。
