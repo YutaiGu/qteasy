@@ -1,0 +1,219 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/3. optimization_algorithms.md:1
+msgid "优化算法的区别与使用情境"
+msgstr "優化算法的區別與使用情境"
+
+#: ../../source/optimization/3. optimization_algorithms.md:3
+msgid "为何需要了解不同算法"
+msgstr "爲何需要了解不同算法"
+
+#: ../../source/optimization/3. optimization_algorithms.md:5
+msgid ""
+"参数空间与计算成本差异大：网格搜索在小空间上可靠但组合爆炸；启发式或贝叶斯在有限评估次数下权衡精度与速度；不同算法对连续/离散/混合参数的支持也不同。"
+msgstr ""
+"參數空間與計算成本差異大：網格搜索在小空間上可靠但組合爆炸；啓發式或貝葉斯在有限評估次數下權衡精度與速度；不同算法對連續/離散/混合參數的支持也不同。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:7
+msgid "各优化算法对比（罗列并说明区别）"
+msgstr "各優化算法對比（羅列並說明區別）"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "算法"
+msgstr "算法"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "原理简述"
+msgstr "原理簡述"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "优点与局限"
+msgstr "優點與侷限"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "适用参数规模"
+msgstr "適用參數規模"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续/离散/混合"
+msgstr "連續/離散/混合"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "典型计算成本"
+msgstr "典型計算成本"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "grid"
+msgstr "grid"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "在网格点上穷举或遍历"
+msgstr "在網格點上窮舉或遍歷"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "实现简单、结果可复现；维数高时不可行"
+msgstr "實現簡單、結果可復現；維數高時不可行"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "小（2～3 维）"
+msgstr "小（2～3 維）"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "离散为主"
+msgstr "離散爲主"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "随点数线性增长"
+msgstr "隨點數線性增長"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "montecarlo"
+msgstr "montecarlo"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "随机采样参数组合"
+msgstr "隨機採樣參數組合"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "实现简单、易并行；需较多样本才稳定"
+msgstr "實現簡單、易並行；需較多樣本才穩定"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "中、大"
+msgstr "中、大"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "均可"
+msgstr "均可"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由 sample_count 决定"
+msgstr "由 sample_count 決定"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "GA"
+msgstr "GA"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "遗传、交叉、变异"
+msgstr "遺傳、交叉、變異"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "适合非凸、多峰；调参敏感"
+msgstr "適合非凸、多峯；調參敏感"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由代数与种群规模决定"
+msgstr "由代數與種羣規模決定"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "SA"
+msgstr "SA"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "模拟退火、概率接受劣解"
+msgstr "模擬退火、概率接受劣解"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "可跳出局部最优；收敛较慢"
+msgstr "可跳出局部最優；收斂較慢"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "中"
+msgstr "中"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由迭代次数决定"
+msgstr "由迭代次數決定"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "PSO"
+msgstr "PSO"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "粒子群位置与速度更新"
+msgstr "粒子羣位置與速度更新"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续空间表现好；离散需编码"
+msgstr "連續空間表現好；離散需編碼"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续为主"
+msgstr "連續爲主"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由粒子数与迭代决定"
+msgstr "由粒子數與迭代決定"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "bayesian"
+msgstr "bayesian"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "代理模型+采集函数"
+msgstr "代理模型+採集函數"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "样本少时效率高；高维成本高"
+msgstr "樣本少時效率高；高維成本高"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "小、中"
+msgstr "小、中"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由迭代与模型拟合决定"
+msgstr "由迭代與模型擬合決定"
+
+#: ../../source/optimization/3. optimization_algorithms.md:18
+msgid "使用情境与选择建议"
+msgstr "使用情境與選擇建議"
+
+#: ../../source/optimization/3. optimization_algorithms.md:20
+msgid "**参数少、离散**：优先 grid 或小规模 montecarlo。"
+msgstr "**參數少、離散**：優先 grid 或小規模 montecarlo。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:21
+msgid "**参数多、需少步数**：考虑 bayesian 或 GA/PSO。"
+msgstr "**參數多、需少步數**：考慮 bayesian 或 GA/PSO。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:22
+msgid "**连续空间、多峰**：PSO、GA 或 SA。"
+msgstr "**連續空間、多峯**：PSO、GA 或 SA。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:23
+msgid ""
+"**opti_sample_count、参数个数**：样本或迭代不足时，启发式可能早停；可适当增大 opti_sample_count 或降低参数维度。"
+msgstr ""
+"**opti_sample_count、參數個數**：樣本或迭代不足時，啓發式可能早停；可適當增大 opti_sample_count 或降低參數維度。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:25
+msgid "简要对比表"
+msgstr "簡要對比表"
+
+#: ../../source/optimization/3. optimization_algorithms.md:27
+msgid ""
+"见上表；实施时以当前 qteasy 支持的 opti_method 及文档为准，注意各算法的典型参数（如 GA "
+"的种群大小、变异率等）在配置中的名称与默认值。"
+msgstr ""
+"見上表；實施時以當前 qteasy 支持的 opti_method 及文檔爲準，注意各算法的典型參數（如 GA "
+"的種羣大小、變異率等）在配置中的名稱與默認值。"

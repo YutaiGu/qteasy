@@ -1,0 +1,482 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:2
+msgid "策略快照、启动门禁与长期可观测（5-A / 5-B / 5-C）"
+msgstr "ポリシーのスナップショット、アクセス制御のアクティブ化、および長期的な可観測性 (5-A / 5-B / 5-C)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:4
+msgid ""
+"亲爱的用户，本章介绍三项**进阶**能力：策略运行前的**数据快照**、开盘前的**启动门禁**、以及长跑时的**对账与日志**。若您尚未跑通基础 "
+"live，请先阅读 :doc:`2-configuration-and-run`。"
+msgstr ""
+"ユーザーの皆様、この章では 3 つの **高度な**機能を紹介します。戦略実行前の **データ スナップショット**、市場開始前の **スタートアップ "
+"アクセス制御**、長期取引中の **調整とログ**です。基本的な Live アプリケーションをまだ正常に実行していない場合は、まず "
+":doc:`2-configuration-and-run` をお読みください。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:6
+msgid ""
+"> **本章解决什么问题** > "
+"分钟级策略若在每一步都重复拉数据，既慢又容易缺行情；开盘前若配置或数据未就绪就下单，风险大。我们把这些检查做成可配置机制，并在日志里留痕，便于您复盘。"
+msgstr ""
+"**この章はどのような問題を扱っていますか?** "
+"すべてのステップでデータを繰り返し取得する分単位の戦略は時間がかかり、市場データが欠落する傾向があります。適切な設定やデータを持たずに市場が開く前に注文を行うと、重大なリスクが伴います。これらのチェックを構成可能にし、簡単に確認できるようにログに記録しました。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:10
+msgid "内部代号对照（维护者/冒烟文档会用到）"
+msgstr "内部コード名のマッピング (メンテナ/スモークドキュメントによって使用)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:12
+msgid ""
+"在 qteasy live 演进中，**5-A / 5-B / 5-C** "
+"分别指策略快照、启动门禁与长期可观测三类能力。冒烟文档与维护者笔记会使用代号；作为用户，您只需记住右侧「用户向名称」即可。下表建立代号与日常说法的对应关系——阅读本章后文时，可将「5-B」理解为「启动门禁」。"
+msgstr ""
+"qteasy ライブの進化において、**5-A / 5-B / 5-C** は、それぞれポリシー スナップショット、アクティベーション アクセス "
+"コントロール、長期観測可能性の 3 つの機能を指します。 Smoke "
+"のドキュメントと管理者のメモではコード名が使用されます。ユーザーは、右側の「ユーザー指定の名前」を覚えておくだけで済みます。以下の表は、コード名と一般的な使用法の対応を示しています。この章の残りの部分を読むと、「5-B」を「アクティベーション"
+" アクセス コントロール」として理解できます。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:14
+msgid "**各列含义**：**代号**为内部阶段编号；**用户向名称**为文档推荐叫法；**一句话**为该能力在 live 链路中的位置。"
+msgstr ""
+"**各列の意味:** **コード**は内部ステージ番号です。 **ユーザー割り当て名** は、ドキュメントで推奨されている名前です。 "
+"**一文**は、ライブ パイプラインにおけるこの機能の位置を示しています。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:16
+msgid ""
+"**如何使用**：看到正文出现 ``5-A`` 等代号时查本表；配置键名称见 :doc:`2-configuration-and-run` "
+"§4「策略快照」「启动门禁」行。"
+msgstr ""
+"**使用方法:** 本文中に `5-A` などのコードがある場合は、この表を参照してください。 :doc:`2-configuration-and-"
+"run` §4「ポリシー スナップショット」「アクセス制御の開始」行の構成キー名を参照してください。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:22
+msgid "代号"
+msgstr "コードネーム"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:23
+msgid "用户向名称"
+msgstr "ユーザー名"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:24
+msgid "一句话"
+msgstr "要するに"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:25
+msgid "**5-A**"
+msgstr "**5-A**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:26
+msgid "策略快照"
+msgstr "戦略のスナップショット"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:27
+msgid "策略运行前预先拉好数据，本步复用，减少重复 IO"
+msgstr "データは戦略の実行前にプリフェッチされ、このステップではデータを再利用して冗長 I/O を削減します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:28
+msgid "**5-B**"
+msgstr "**5-B**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:29
+msgid "启动门禁"
+msgstr "アクセス制御を有効にする"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:30
+msgid "开盘/run 前检查就绪状态，失败可告警或阻断"
+msgstr "開く/実行する前に、準備状況を確認してください。失敗した場合は、アラームまたはブロックがトリガーされる必要があります。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:31
+msgid "**5-C**"
+msgstr "**5-C**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:32
+msgid "长期可观测"
+msgstr "長期観測可能"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:33
+msgid "订单与券商号映射、risk 日志轮换、对账与在途单诊断"
+msgstr "証券口座との注文マッピング、リスクログローテーション、輸送中の注文の調整と診断"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:36
+msgid "5-A：策略快照（prepare_strategy_snapshot）"
+msgstr "5-A: 戦略のスナップショット"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:38
+msgid "**您可以把它理解为**：每次策略要「上考场」前，先把试卷和材料在案头摆好；真正答题时不再临时跑去打印室。"
+msgstr ""
+"次のように考えることができます。各「試験」の前に、机の上に試験用紙と資料を準備します。実際に質問に答えるときに、印刷室に急いで行く必要はもうありません。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:40
+msgid ""
+"当 ``live_trade_split_strategy_prepare=True`` 时，qteasy 会在每个 ``run_strategy`` "
+"计划时刻**之前**插入 ``prepare_strategy_snapshot`` 任务（提前量由 "
+"``live_trade_prepare_lead_seconds`` 控制；``0`` 表示同刻入队，但排序仍保证先 prepare）。"
+msgstr ""
+"`live_trade_split_strategy_prepare=True` の場合、qteasy は、各 `run_strategy` "
+"スケジュール時間の **前** に `prepare_strategy_snapshot` タスクを挿入します (リード タイムは "
+"`live_trade_prepare_lead_seconds` によって制御されます。`0` "
+"は同時にキューに入れることを意味しますが、順序により準備が最初であることが保証されます)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:41
+msgid ""
+"``prepare_strategy_snapshot`` 内完成原先 ``run_strategy`` 前的重活：子日频数据刷新、准备数据缓冲、更新 "
+"live 价、注入过程数据等；完成后在内存留下「快照有效」标记（交易日 + 步序号 + 时间）。"
+msgstr ""
+"`prepare_strategy_snapshot` 関数は、`run_strategy` の前に行われた重労働を完了します。つまり、1 "
+"日未満の頻度データの更新、データ バッファーの準備、ライブ価格の更新、およびプロセス "
+"データの挿入です。完了後、メモリ内に「スナップショット有効」マーカー (取引日 + ステップ番号 + 時間) が残ります。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:42
+msgid ""
+"随后 ``run_strategy`` 若发现快照仍在 ``live_trade_strategy_snapshot_max_age_seconds``"
+" 内且步序号一致，则**不再重复**上述拉取；否则记 ``snapshot_missing`` / ``snapshot_stale`` "
+"并**跳过本步策略**（避免用过期数据算信号）。"
+msgstr ""
+"その後、`run_strategy` がスナップショットがまだ "
+"`live_trade_strategy_snapshot_max_age_seconds` "
+"内にあり、ステップ番号が一致していることが判明した場合、**上記のフェッチは繰り返されません**。それ以外の場合は、`snapshot_missing`"
+" / `snapshot_stale` が記録され、このステップの戦略は **スキップ**されます "
+"(信号の計算に期限切れのデータを使用することを避けるため)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:43
+msgid ""
+"开启 split 时，``prepare_strategy_snapshot`` 与 ``run_strategy`` "
+"在**主线程同步**执行（与异步拉 live 价的任务分离），避免多线程同时碰 Operator。"
+msgstr ""
+"スプリットが有効な場合、`prepare_strategy_snapshot` と `run_strategy` はメインスレッドで "
+"(非同期のライブ価格設定タスクから分離されて) 同期的に実行され、複数のスレッドが同時に Operator にアクセスするのを防ぎます。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:45
+msgid "**与真实行为的差异**：快照在内存中，进程重启后需重新 prepare；不是磁盘上的永久缓存。"
+msgstr ""
+"**実際の動作との違い**: "
+"スナップショットはメモリ内にあるため、プロセスの再起動後に再度準備する必要があります。これらはディスク上の永続的なキャッシュではありません。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:48
+msgid "5-B：启动门禁（run_startup_gate）"
+msgstr "5-B: アクセス制御の開始(run_startup_gate)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:50
+msgid "**您可以把它理解为**：发车前的**安全检查**——策略是否就绪、必要数据表是否在、（可选）本地账本是否与券商端一致。"
+msgstr ""
+"これは、出発前の安全性チェック、つまり戦略の準備ができているかどうか、必要なデータ テーブルが利用可能かどうか、そして (オプションで) "
+"ローカル元帳が証券会社側と一致しているかどうかのチェックと考えることができます。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:52
+msgid "``live_trade_startup_gate_mode``："
+msgstr "``live_trade_startup_gate_mode``:"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:54
+msgid "``off`` — 关闭门禁"
+msgstr "`off` — アクセス制御をオフにする"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:55
+msgid "``warn`` — 失败只记日志/trace，**仍允许**交易（建议灰度先用）"
+msgstr ""
+"`warn` — 障害はログに記録/トレースされるだけですが、**ただしトランザクションは引き続き許可されます** "
+"(最初は段階的にロールアウトすることをお勧めします)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:56
+msgid "``block`` — 失败则拒绝 ``run_strategy`` 入队（``skip_reason=gate_failed``）"
+msgstr ""
+"`block` — 失敗した場合は拒否します。次に、`run_strategy` がキューに入れられます "
+"(`skip_reason=gate_failed`)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:58
+msgid "Trader 在生成当日日程后会调用门禁（非交易日快速跳过）。"
+msgstr "Trader は、毎日のスケジュールを生成した後、アクセス制御を呼び出します (非取引日はすぐにスキップされます)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:59
+msgid "检查分层（失败码会写入 trace ``failures``）："
+msgstr "階層化を確認します (障害コードはトレース ``failures`) に書き込まれます:"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:61
+msgid "**L1**：Operator 是否就绪、账户是否存在"
+msgstr "**L1:** Operator の準備はできていますか?アカウントは存在しますか?"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:62
+msgid "**L2**：主历史表是否在数据源中（按 ``asset_type`` 映射日频表等）"
+msgstr ""
+"**L2:** メイン履歴テーブルがデータ ソース内にあるかどうか (`asset_type` などによって日次頻度テーブルにマッピングされる)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:63
+msgid "**L3**（可选）：若 Broker 返回非空远端现金/持仓，则与本地比对；未实现远端 API 时不硬比"
+msgstr ""
+"**L3** (オプション): ブローカーが空ではないリモート キャッシュ/ポジションを返した場合、それをローカルのものと比較します。リモート API "
+"が実装されていない場合は、厳密な比較を実行しないでください。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:65
+msgid "手工冒烟全清单见 :doc:`7-manual-smoke-live-grid-roadmap`。"
+msgstr ""
+"手動排煙グリッド道路の完全なリストについては、:doc:`7-manual-smoke-live-grid-roadmap` を参照してください。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:68
+msgid "5-C：账本、日志与恢复可观测"
+msgstr "5-C: 台帳、ログ、およびリカバリの可観測性"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:70
+msgid "在 5-A/5-B 之上，便于**长跑排障与审计**（**不含**自动改单/补偿；真实 QMT 远端查询属后续版本）："
+msgstr ""
+"5-A/5-B を超えると、**長距離のトラブルシューティングと監査**が容易になります (**自動注文変更/補償を除く**。実際の QMT リモート "
+"クエリは新しいバージョンです)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:72
+msgid ""
+"**订单 ↔ 券商号映射**：受理成功后回写 ``broker_order_id`` / ``broker_name``；受理拒单则 "
+"``rejected`` 且 broker 字段空。"
+msgstr ""
+"**注文 ↔ ブローカー ID マッピング**: 承認が成功すると、``broker_order_id`` / ``broker_name`` will"
+" be written back; if the order is rejected, ``rejected`` が書き戻され、ブローカー "
+"フィールドは空になります。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:73
+msgid ""
+"**日志轮换扩展**：``rotate_trade_logs`` 除 trade CSV 外也清理超期 ``*.risk.log``（规则见 "
+":doc:`5-artifacts-and-troubleshooting`）。"
+msgstr ""
+"**ログ ローテーション拡張機能**: `rotate_trade_logs` は、取引 CSV に加えて、期限切れの `*.risk.log` "
+"をクリーンアップします (ルールについては、:doc:`5-artifacts-and-troubleshooting` を参照)。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:74
+msgid "**对账与诊断 trace**："
+msgstr "**調整および診断トレース:**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:76
+msgid ""
+"``pre_open`` / ``post_close`` 后输出 ``reconcile`` 检查点（``checkpoint_passed`` / "
+"``checkpoint_warn`` 等）"
+msgstr ""
+"`pre_open` および `post_close` コマンドは、`reconcile` チェックポイント "
+"(`checkpoint_passed`、`checkpoint_warn` など) を出力します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:77
+msgid "DEBUG 任务 ``diagnose_pending_orders``：只读对比本地与远端在途单差异"
+msgstr "デバッグタスク ``diagnose_pending_orders`: ローカルとリモートの未決注文の読み取り専用の比較。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:80
+msgid "给新手的结论：两种「拒单」"
+msgstr "初心者のための結論: 2 つのタイプの「注文拒否」"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:82
+msgid ""
+"在 live 订单链路中，「被拒」可能发生在 **RiskManager 复核台**（风控）或 **Broker "
+"受理**（柜台）两个站点，证据位置完全不同。:doc:`3-risk-and-order-lifecycle` 已从流程角度说明；下表从**订单表与 "
+"broker_order_id** 角度给出对照，供排错时快速对号入座。"
+msgstr ""
+"ライブ注文プロセスでは、**RiskManager レビューデスク** (リスク管理) または **ブローカー処理** (カウンター) "
+"のいずれかで「拒否」が発生する可能性があり、証拠はまったく異なる場所にあります。これについては、`3-risk-and-order-lifecycle`"
+" ドキュメントでプロセスの観点からすでに説明されています。以下の表は、迅速なトラブルシューティングのために **order table** と "
+"**broker_order_id** の比較を示しています。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:84
+msgid ""
+"**各列含义**：**路径**为拒单/成功类型；**本地订单表**是否新增行；**broker_order_id** "
+"是否回写；**审计**建议优先打开的文件或表。"
+msgstr ""
+"**列の意味:** **パス**は注​​文の拒否/成功のタイプを示します。 **ローカル順序テーブル** は、新しい行が追加されたかどうかを示します。 "
+"**broker_order_id** はライトバックが必要かどうかを示します。 **監査** "
+"は、最初に開くことが推奨されるファイルまたはテーブルを示します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:86
+msgid ""
+"**如何使用**：CLI 有 risk 英文拒因且无新订单 → 第一行；订单列表出现 ``rejected`` 且 broker 号空 → 第二行；有 "
+"broker 号 → 第三行，再查成交状态。"
+msgstr ""
+"**使用方法:** CLI には、危険な拒否理由と新しい注文がないことが表示されます → 最初の行;注文リストに「拒否」と表示され、ブローカー番号が空 "
+"→ 2 行目;ブローカー番号が存在する → 3 行目で、取引ステータスを確認します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:88
+msgid ""
+"**示例**：``risk_log`` 含 ``<RISK REJECTED>`` 且 ``orders`` 无对应新单 → 风控拒单，勿去查券商 "
+"connect。"
+msgstr ""
+"**例:** `risk_log` には「<リスク拒否>」が含まれています。 "
+"さらに、「注文」セクションに対応する新規注文がない場合、その注文はリスク管理によって拒否されます。証券会社の接続情報を確認しないでください。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:94
+msgid "路径"
+msgstr "パス"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:95
+msgid "本地订单表"
+msgstr "ローカル注文フォーム"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:96
+msgid "broker_order_id"
+msgstr "broker_order_id"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:97
+msgid "审计"
+msgstr "監査"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:98
+msgid "**风控拒单**"
+msgstr "**リスク管理による注文拒否**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:99
+msgid "**不入库**"
+msgstr "**保管庫には置かれていません**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:100
+msgid "—"
+msgstr "—"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:101
+msgid "``*.risk.log`` + ``<RISK REJECTED>``"
+msgstr "`*.risk.log` + ``<RISK REJECTED> ``"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:102
+msgid "**柜台受理拒单**"
+msgstr "C. 拒否された注文に対するカウンターの処理"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:103
+msgid "有行，``rejected``"
+msgstr "``rejected`` という行があります"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:104
+msgid "**空**"
+msgstr "**ヌル**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:105
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:109
+msgid "订单表 + trace"
+msgstr "オーダーフォーム+トレース"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:106
+msgid "**受理成功**"
+msgstr "**申請が成功しました**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:107
+msgid "``submitted`` 等"
+msgstr "`submitted` など"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:108
+msgid "**回写**"
+msgstr "**返信する**"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:112
+msgid "diagnose_pending_orders 输出字段（简要）"
+msgstr "Diagnostic_pending_orders 出力フィールド (概要)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:114
+msgid "``local_pending_count`` — 本地在途单数"
+msgstr "`local_pending_count` — ローカル保留カウント"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:115
+msgid "``remote_pending_count`` — 远端在途单数（simulator 常为空）"
+msgstr "``remote_pending_count` — 奇数のリモート保留リクエスト (シミュレーターは通常は空です)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:116
+msgid "``local_pending_without_broker_order_id`` — 已提交但缺券商号的本地单"
+msgstr ""
+"``local_pending_without_broker_order_id`` — ローカル注文が送信されましたが、ブローカー ID がありません"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:117
+msgid "``local_pending_missing_remote`` — 本地有券商号但远端不存在"
+msgstr "`local_pending_missing_remote` — 証券口座はローカルに存在しますが、リモートには存在しません。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:118
+msgid "``remote_pending_not_in_local`` — 远端有、本地未映射"
+msgstr ""
+"`remote_pending_not_in_local` — リモート エンドではマッピングされていますが、ローカル "
+"エンドではマッピングされていません。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:121
+msgid "CLI 与 DEBUG（运维）"
+msgstr "CLI とデバッグ (運用とメンテナンス)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:123
+msgid "Trader Shell（``--ui cli``）常用命令（help 为英文）："
+msgstr "Trader シェル (`--ui cli`) 一般的に使用されるコマンド (ヘルプは英語です):"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:125
+msgid "``gate`` / ``startup-gate`` — 手动跑启动门禁"
+msgstr "`gate` / `startup-gate` — ゲート制御の起動プロセスを手動で実行します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:126
+msgid "``reconcile`` / ``snapshot-reconcile`` — 对账 JSON"
+msgstr "`reconcile` / `snapshot-reconcile` — 調整 JSON"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:127
+msgid "``run --task diagnose_pending_orders`` — 在途单诊断（需 **DEBUG**）"
+msgstr "`run --task diagnose_pending_orders` — 未決注文を診断します (**DEBUG** が必要)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:128
+msgid "``artifacts`` / ``ls-artifacts`` — 四键产物路径"
+msgstr "`artifacts` / `ls-artifacts` — 4 結合アーティファクト パス"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:129
+msgid "``rotatelogs`` / ``rotate-logs`` — 手动日志轮换"
+msgstr "`rotatelogs` / `rotate-logs` — 手動ログローテーション"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:130
+msgid "``broker status|connect|disconnect`` — 券商会话（simulator 为标志位）"
+msgstr "``broker status|connect|disconnect`` — 仲介セッション (シミュレーターがフラグ)"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:131
+msgid "``sync`` / ``pull-state`` — **预留**，尚未实现真实远端同步"
+msgstr "`sync` / `pull-state` — **予約済み**、実際のリモート同期はまだ実装されていません。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:134
+msgid "下一交易日观察建议"
+msgstr "次の取引日の推奨事項"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:136
+msgid "**5-A**：trace 里 ``strategy_run_skipped`` 是否过多；live 价频率是否不低于策略步频。"
+msgstr ""
+"**5-A**: トレース内の `strategy_run_skipped` "
+"エントリが多すぎますか?ライブ価格の頻度は戦略ステップの頻度より低くありませんか?"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:137
+msgid ""
+"**5-B**：先用 ``warn``，核对 ``gate_warn`` / ``gate_failed``；CLI ``gate`` 复验后再试 "
+"``block``。"
+msgstr ""
+"**5-B**: 最初に `warn` を使用して `gate_warn` / `gate_failed` を確認します。次に、`block` "
+"を試す前に、CLI `gate` を使用して確認します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:138
+msgid ""
+"**5-C**：收盘 ``reconcile``、``diagnose_pending_orders``；必要时 ``rotatelogs --days"
+" N`` 验证 risk 清理。"
+msgstr ""
+"**5-C**: `reconcile` と `diagnose_pending_orders` "
+"でマーケットをクローズします。必要に応じて、`rotatelogs --days N` を使用してリスクのクリーンアップを確認します。"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:141
+msgid "相关文档"
+msgstr "関連資料"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:143
+msgid "配置：:doc:`2-configuration-and-run`"
+msgstr "起動と設定: :doc:`2-configuration-and-run`"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:144
+msgid "排错：:doc:`5-artifacts-and-troubleshooting`"
+msgstr "トラブルシューティング: :doc:`5-artifacts-and-troubleshooting`"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:145
+msgid "冒烟：:doc:`7-manual-smoke-live-grid-roadmap`"
+msgstr "煙: :doc:`7-manual-smoke-live-grid-roadmap`"
+
+#: ../../source/live_trading/6-trader-snapshot-gate.rst:146
+msgid "CLI：:doc:`8-cli-trader-capability-matrix`"
+msgstr "CLI: :doc:`8-cli-trader-capability-matrix`"

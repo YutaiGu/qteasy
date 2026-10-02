@@ -1,0 +1,126 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/manage_strategies/2. operator.md:1
+msgid "Operator：创建与基本配置"
+msgstr "Operator: 作成と基本構成"
+
+#: ../../source/manage_strategies/2. operator.md:3
+msgid "Operator 是 qteasy 中策略的容器与调度器，负责在回测或实盘中按既定频率与时间点运行策略并输出统一格式的信号。"
+msgstr ""
+"``Operator`` は、qteasy "
+"の戦略コンテナおよびスケジューラです。バックテストまたはライブ取引で設定された頻度と時間で戦略を実行し、統一された形式でシグナルを出力します。"
+
+#: ../../source/manage_strategies/2. operator.md:5
+msgid "创建 Operator"
+msgstr "Operator を作成する"
+
+#: ../../source/manage_strategies/2. operator.md:7
+msgid ""
+"使用 ``qt.Operator()`` 创建，可传入策略列表及 ``signal_type``、``run_freq``、``run_timing``"
+" 等："
+msgstr ""
+"``qt.Operator()``, optionally passing a strategy list and ``signal_type``, "
+"``run_freq``, ``run_timing`` およびその他の引数を使用して作成します。"
+
+#: ../../source/manage_strategies/2. operator.md:19
+msgid "添加策略"
+msgstr "戦略の追加"
+
+#: ../../source/manage_strategies/2. operator.md:21
+msgid ""
+"**add_strategy(stg, run_freq=None, run_timing=None)**：添加单个策略，可指定该策略的 "
+"``run_freq``/``run_timing``，与已有相同则归入同一 Group，否则新建 Group。"
+msgstr ""
+"**`⟦コード0⟧⟦コード1⟧⟦コード2⟧⟦コード3⟧⟦コード4⟧`;一致する場合は既存のグループに参加し、一致しない場合は新しいグループを作成します。"
+
+#: ../../source/manage_strategies/2. operator.md:22
+msgid ""
+"**add_strategies(stg_list, run_freq=None, run_timing=None)**：批量添加，同样按 "
+"``run_freq``/``run_timing`` 归组。"
+msgstr ""
+"**``add_strategies(stg_list, run_freq=None, run_timing=None)``**: Add "
+"multiple strategies and group them by ``run_freq``/``run_timing`` も同様です。"
+
+#: ../../source/manage_strategies/2. operator.md:30
+msgid "常用属性及含义"
+msgstr "共通の属性と意味"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "属性"
+msgstr "属性"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "含义"
+msgstr "意味"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "**signal_type**"
+msgstr "**signal_type**"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "信号类型：`PT` 择时（目标仓位）、`PS` 择股（选股列表）、`VS` 向量信号等。"
+msgstr ""
+"信号タイプ: ``PT`` position target, ``PS`` proportional signal, ``VS`` 値信号など。"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "**run_freq**"
+msgstr "**run_freq**"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "运行频率，如 `'d'` 日、`'1min'` 分钟等，与 DataType 的 freq 对应。"
+msgstr "実行頻度 (例: ``'d'`` daily or ``'1min'``; aligns with ``DataTypefreq``)。"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "**run_timing**"
+msgstr "**run_timing**"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "运行时刻，如 `'open'` 开盘、`'close'` 收盘等。"
+msgstr "実行タイミング (例: クローズ時の ``'open'`` at open or ``'close'``)。"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "**groups**"
+msgstr "**groups**"
+
+#: ../../source/manage_strategies/2. operator.md
+msgid "各 Group 信息（相同 run_freq/run_timing 的策略为一组）。"
+msgstr "グループの詳細 (同じ ``run_freq``/``run_timing`` を持つ戦略が 1 つのグループを形成します)。"
+
+#: ../../source/manage_strategies/2. operator.md:39
+msgid "设置策略参数"
+msgstr "戦略パラメータの設定"
+
+#: ../../source/manage_strategies/2. operator.md:41
+msgid ""
+"使用 **set_parameter(stg_id, pars=None, run_freq=None, run_timing=None, ...)**"
+" 为指定策略设置可调参数或归组："
+msgstr ""
+"**``set_parameter(stg_id, pars=None, run_freq=None, run_timing=None, "
+"...)``** を使用して、ストラテジーの調整可能なパラメーターまたはグループ割り当てを設定します。"
+
+#: ../../source/manage_strategies/2. operator.md:47
+msgid "运行前检查"
+msgstr "実行前チェック"
+
+#: ../../source/manage_strategies/2. operator.md:49
+msgid "**is_ready()**：检查 Operator 是否已配置好策略与数据要求，可用于回测/优化前自检。"
+msgstr ""
+"**``is_ready()``**: Operator に戦略とデータ要件が設定されているかどうかを確認します。バックテストや最適化の前に役立ちます。"

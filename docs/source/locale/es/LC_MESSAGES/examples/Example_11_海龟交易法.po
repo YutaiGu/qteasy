@@ -3,69 +3,78 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_11_海龟交易法.md:1
 msgid "海龟交易法策略（教学简化版）"
-msgstr ""
+msgstr "Estrategia de comercio de tortugas (tutorial simplificado)"
 
 #: ../../source/examples/Example_11_海龟交易法.md:3
 msgid ""
-"参考来源：`docs/_joinquant_migration_source/Example_11_海龟交易法.ipynb` 第一个 "
-"Markdown cell。"
+"参考来源：`docs/_joinquant_migration_source/Example_11_海龟交易法.ipynb` 第一个 Markdown "
+"cell。"
 msgstr ""
+"Fuente de referencia: `docs/_joinquant_migration_source/Example_11_Turtle "
+"Trading Method.ipynb` Primera celda de Markdown."
 
 #: ../../source/examples/Example_11_海龟交易法.md:5
 msgid "策略思路"
-msgstr ""
+msgstr "Estrategia e ideas"
 
 #: ../../source/examples/Example_11_海龟交易法.md:7
 msgid "使用唐奇安通道的突破信号作为开仓依据；"
 msgstr ""
+"Utilice señales de ruptura del Canal Donchian como base para abrir "
+"posiciones;"
 
 #: ../../source/examples/Example_11_海龟交易法.md:8
 msgid "价格突破上轨做多，跌破下轨做空；"
 msgstr ""
+"Compre cuando el precio supere la banda superior y venda cuando supere la "
+"banda inferior."
 
 #: ../../source/examples/Example_11_海龟交易法.md:9
 msgid "结合较短周期通道控制退出（简化版海龟规则）。"
 msgstr ""
+"Combinado con salida de control de canal de ciclo más corto (reglas de "
+"tortuga simplificadas)."
 
 #: ../../source/examples/Example_11_海龟交易法.md:11
 msgid "qteasy 实现"
-msgstr ""
+msgstr "QtEasy implementación"
 
 #: ../../source/examples/Example_11_海龟交易法.md:13
 msgid "策略类：`Example11Turtle`；"
-msgstr ""
+msgstr "Clase de estrategia: `Example11Turtle`;"
 
 #: ../../source/examples/Example_11_海龟交易法.md:14
 msgid "信号类型：`PT`；"
-msgstr ""
+msgstr "Tipo de señal: `PT`;"
 
 #: ../../source/examples/Example_11_海龟交易法.md:15
 msgid "默认脚本使用单标的教学版，便于验证链路和参数优化流程。"
 msgstr ""
+"El script predeterminado utiliza una versión de enseñanza de estándar único,"
+" que facilita la verificación del enlace y el proceso de optimización de "
+"parámetros."
 
 #: ../../source/examples/Example_11_海龟交易法.md:41
 msgid "可执行脚本"
-msgstr ""
+msgstr "Script ejecutable"
 
 #: ../../source/examples/Example_11_海龟交易法.md:43
 msgid "`examples/strategy_example_11.py`"
-msgstr ""
-
+msgstr "`examples/strategy_example_11.py`"

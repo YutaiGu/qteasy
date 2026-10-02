@@ -1,0 +1,720 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/manage_data/10. data_channels.md:1
+msgid "使用数据获取渠道自动填充数据"
+msgstr "データ取得チャネルを使用してデータを自動的に入力します。"
+
+#: ../../source/manage_data/10. data_channels.md:3
+msgid ""
+"前面介绍过`DataSource`对象的基本操作方法，但是在实际使用中，我们需要往`DataSource`对象中填充大量数据，如果使用前面章节介绍的`DataSource.update_table_data()`方法手动填充数据，这样的工作量是非常大的。"
+msgstr ""
+"`DataSource`オブジェクトの基本的な操作方法を紹介しました。ただし、実際に使用する場合は、`DataSource` "
+"オブジェクトに大量のデータを設定する必要があります。前の章で紹介した`DataSource.update_table_data()`方法を使用してデータを手動で入力すると、作業負荷が非常に大きくなります。"
+
+#: ../../source/manage_data/10. data_channels.md:5
+msgid "这里我们介绍如何使用数据获取渠道自动填充数据。"
+msgstr "ここでは、データ取得チャネルを使用してデータを自動的に入力する方法を紹介します。"
+
+#: ../../source/manage_data/10. data_channels.md:7
+msgid "QTEASY数据拉取功能"
+msgstr "QTEASY データ取得機能"
+
+#: ../../source/manage_data/10. data_channels.md:9
+msgid "`QTEASY`数据管理模块: ![数据获取模块结构](img/DataFetching.png)"
+msgstr "`QTEASY` データ管理モジュール: ![データ取得モジュールの構造](img/DataFetching.png)"
+
+#: ../../source/manage_data/10. data_channels.md:9
+msgid "数据获取模块结构"
+msgstr "データ収集モジュールの構造"
+
+#: ../../source/manage_data/10. data_channels.md:11
+msgid ""
+"如上图所示，`qteasy`的数据功能分为三层，第一层包括多种数据下载接口，用于从网络数据提供商获取数据，这个过程称为`DataFetching`。"
+msgstr ""
+"上の図に示すように、`qteasy` のデータ機能は 3 つの層に分かれています。最初の層には、オンライン データ "
+"プロバイダーからデータを取得するためのさまざまなデータ ダウンロード インターフェイスが含まれます。このプロセスは `DataFetching` "
+"と呼ばれます。"
+
+#: ../../source/manage_data/10. data_channels.md:13
+msgid "数据拉取接口`refill_data_source()`"
+msgstr "データ取得インターフェース `refill_data_source()`"
+
+#: ../../source/manage_data/10. data_channels.md:15
+msgid ""
+"`qteasy`提供了一个自动化数据下载接口`qteasy.refill_data_source()`，可以从多个不同的网络数据提供商拉取多种金融数据，满足不同用户的使用习惯。`qteasy`提供的数据拉取API具备强大的多线程并行下载、数据分块下载、下载流量控制和错误延时重试功能，以适应不同数据供应商各种变态的流量限制，同时数据拉取API可以方便地定期自动运行完成数据批量下载任务，不用担心错过高频数据。"
+msgstr ""
+"`qteasy` は、自動データ ダウンロード インターフェイス `qteasy.refill_data_source()` "
+"を提供します。これは、さまざまなユーザーの使用習慣に合わせて、複数の異なるオンライン データ プロバイダーからさまざまな財務データを取得できます。 "
+"`qteasy` が提供するデータ プル API は、強力なマルチスレッド並列ダウンロード、データ チャンク ダウンロード、ダウンロード "
+"トラフィック制御、エラー遅延再試行機能を備えており、さまざまなデータ プロバイダーのさまざまな予測不可能なトラフィック制限に適応します。同時に、データ "
+"プル API はバッチ データ ダウンロード タスクを定期的に簡単かつ自動的に実行できるため、高頻度のデータが欠落することを心配する必要はありません。"
+
+#: ../../source/manage_data/10. data_channels.md:17
+msgid ""
+"下面先用一个例子解释如何使用`qteasy.refill_data_source()`接口自动填充数据。我们先创建一个不含数据的`DataSource`对象，并向其中填充最基本的数据。"
+msgstr ""
+"まず、例を使用して、`qteasy.refill_data_source()` "
+"インターフェースを使用してデータを自動的に入力する方法を説明します。まず、データを含まない `DataSource` "
+"オブジェクトを作成し、次に最も基本的なデータを設定します。"
+
+#: ../../source/manage_data/10. data_channels.md:37
+msgid ""
+"我们可以看到，`DataSource`对象中已经有了一些数据表，为了进行下面的测试，我们将首先删除`trade_calendar`以及`stock_daily`两张数据表中的数据，然后再使用数据拉取接口自动填充它们。"
+msgstr ""
+"ご覧のとおり、`DataSource` オブジェクトにはすでにいくつかのデータ テーブルが含まれています。次のテストを実行するには、まず "
+"`trade_calendar` および `stock_daily` データ "
+"テーブルからデータを削除し、次にデータ取得インターフェイスを使用してこれらのテーブルに自動的にデータを入力します。"
+
+#: ../../source/manage_data/10. data_channels.md:39
+msgid "首先删除两张数据表，为了删除数据表，首先将数据源的`allow_drop_table`属性设置为`True`，然后再删除数据表。"
+msgstr ""
+"まず、2 つのデータ テーブルを削除します。データ テーブルを削除するには、まずデータ ソースの `allow_drop_table` 属性を "
+"`True` に設定してから、データ テーブルを削除します。"
+
+#: ../../source/manage_data/10. data_channels.md:58
+msgid "可以看到，`trade_calendar`和`stock_daily`两张数据表中的数据已经被删除。"
+msgstr "ご覧のとおり、`trade_calendar` テーブルと `stock_daily` テーブルのデータが削除されています。"
+
+#: ../../source/manage_data/10. data_channels.md:60
+msgid ""
+"接下来，我们使用`qteasy.refill_data_source()`接口自动填充数据，代码很简单，只有一行，剩下的工作`qteasy`会自动完成。"
+msgstr ""
+"次に、`qteasy.refill_data_source()` インターフェイスを使用してデータを自動的に入力します。コードは非常にシンプルで 1 "
+"行のみで、残りは `qteasy` が自動的に実行します。"
+
+#: ../../source/manage_data/10. data_channels.md:79
+msgid "拉取并填充数据后，可以检查数据已经下载成功了："
+msgstr "データを取得して入力した後、データが正常にダウンロードされたことを確認できます。"
+
+#: ../../source/manage_data/10. data_channels.md:146
+msgid "数据拉取API的功能特性"
+msgstr "データ取得 API の機能"
+
+#: ../../source/manage_data/10. data_channels.md:148
+msgid "分析数据拉取的过程，我们可以看到，`qteasy`自动完成了下面的工作："
+msgstr "データ取得プロセスを分析すると、`qteasy` が次のタスクを自動的に完了したことがわかります。"
+
+#: ../../source/manage_data/10. data_channels.md:150
+msgid ""
+"**自动查找依赖表** —— "
+"虽然我们只指定了`stock_daily`数据表，但是`qteasy`自动检测到`trade_calendar`数据表也是空的，且`stock_daily`表依赖交易日历表，所以也自动填充了`trade_calendar`数据表。"
+msgstr ""
+"**依存関係テーブルの自動検索** — `stock_daily` テーブルのみを指定しましたが、`qteasy` は `trade_calendar`"
+" テーブルも空であることを自動的に検出し、`stock_daily` テーブルはトレーディング カレンダー "
+"テーブルに依存しているため、`trade_calendar` テーブルにも自動的に値が設定されます。"
+
+#: ../../source/manage_data/10. data_channels.md:151
+msgid ""
+"**下载进度可视化** —— "
+"`qteasy`提供了下载进度可视化，可以看到每个数据分块的下载进度，以及总体下载进度，过程中可以显示剩余时间，方便用户查看数据下载的情况。"
+msgstr ""
+"**ダウンロードの進行状況の視覚化** — `qteasy` は、ダウンロードの進行状況を視覚化して、ユーザーが各データ "
+"ブロックのダウンロードの進行状況と全体的なダウンロードの進行状況を確認できるようにします。残り時間も表示されるので、データのダウンロード状況も簡単に把握できます。"
+
+#: ../../source/manage_data/10. data_channels.md:152
+msgid ""
+"**大数据量自动分块** —— "
+"上面的代码下载了2021年全年所有股票的日K线数据，这些数据量共有239万行，不管从任何数据渠道，这么大量的数据都不可能一次性下载下来，因此，`qteasy`自动将数据分块，每一块只有一天的数据，可以看到整年的数据被分成了243块，数据分块下载显著降低了每次网络申请的数据量，提高成功率且降低了被阻断的风险。"
+msgstr ""
+"**自動データチャンク** — 上記のコードは、2021 年中のすべての銘柄の毎日のローソク足チャート データ (合計 239 万行) "
+"をダウンロードしました。データソースに関係なく、このような大量のデータを一度にダウンロードすることはできません。したがって、`qteasy` "
+"はデータを自動的にチャンク化し、各チャンクには 1 日分のデータのみが含まれます。ご覧のとおり、1 年全体のデータは 243 "
+"のチャンクに分割されています。この分割ダウンロードにより、ネットワーク "
+"リクエストごとに要求されるデータ量が大幅に削減され、成功率が向上し、ブロックされるリスクが軽減されます。"
+
+#: ../../source/manage_data/10. data_channels.md:153
+msgid ""
+"**多线程并行下载** —— 实行数据分块下载后，`qteasy`自动使用多线程并行下载，加快数据下载速度，243个数据分块并行下载总共耗时仅16秒。"
+msgstr ""
+"**マルチスレッド並列ダウンロード** — ダウンロード用のデータ チャンク化を実装した後、`qteasy` "
+"は自動的にマルチスレッド並列ダウンロードを使用して、データ ダウンロード プロセスを高速化します。 243 個のデータ "
+"チャンクを並行してダウンロードする合計時間は、わずか 16 秒でした。"
+
+#: ../../source/manage_data/10. data_channels.md:155
+msgid ""
+"有了上面这些特性，`qteasy`的数据拉取功能可以满足几乎所有用户的数据获取需求，不管是下载大量数据，还是下载高频数据，`qteasy`都能提供高效的数据下载服务。"
+msgstr ""
+"これらの機能により、`qteasy` "
+"のデータ取得機能は、ほぼすべてのユーザーのデータ取得ニーズを満たすことができます。大量のデータをダウンロードする場合でも、高頻度のデータをダウンロードする場合でも、`qteasy`"
+" は効率的なデータ ダウンロード サービスを提供できます。"
+
+#: ../../source/manage_data/10. data_channels.md:157
+msgid "当然，除了上面提到的这些特性之外，`qteasy`还提供了更多的功能特性，以针对下载过程中出现的各种状况，这些功能特性我们在后面会逐步介绍："
+msgstr ""
+"もちろん、上記の機能に加えて、`qteasy` は、ダウンロード "
+"プロセス中に発生する可能性のあるさまざまな状況に対処するために、さらに多くの機能を提供します。これらの機能については後ほど詳しく紹介します。"
+
+#: ../../source/manage_data/10. data_channels.md:159
+msgid ""
+"**多渠道下载** —— `qteasy`提供了多种数据下载渠道，很多数据表可以从多个不同的渠道下载，而且随着版本更新，数据拉取渠道也在不断增加。"
+msgstr ""
+"**マルチチャネル ダウンロード** — `qteasy` は複数のデータ ダウンロード チャネルを提供します。多くのデータ "
+"テーブルは複数の異なるチャネルからダウンロードでき、データ取得チャネルの数はバージョンが更新されるたびに常に増加しています。"
+
+#: ../../source/manage_data/10. data_channels.md:160
+msgid ""
+"**流量控制** —— "
+"有些数据渠道对数据下载有流量限制，`qteasy`提供了流量控制功能，可以限制数据下载的速度，即下载一定分块数量的数据后，可以暂停一段时间，例如每下载300个分块的数据，就暂停一分钟，避免被数据渠道封禁。"
+msgstr ""
+"**トラフィック制御** - 一部のデータ チャネルでは、データのダウンロードにトラフィック制限があります。 "
+"`qteasy`は、データのダウンロード速度を制限できるトラフィック制御機能を提供します。つまり、一定数のデータ "
+"チャンクをダウンロードした後、一定期間一時停止できます。たとえば、データ チャネルによってブロックされないように、300 個のデータ "
+"チャンクをダウンロードした後、1 分間停止します。"
+
+#: ../../source/manage_data/10. data_channels.md:161
+msgid ""
+"**错误重试** —— "
+"有些数据渠道下载数据时，可能会出现网络错误，`qteasy`提供了错误重试功能，可以在下载失败后，自动重试下载，如果重试不成功，会延长重试等待时间再试，直到下载成功或超过重试次数并报错。"
+msgstr ""
+"**エラーの再試行** — 一部のデータ ソースからデータをダウンロードするときに、ネットワーク エラーが発生する場合があります。 `qteasy` "
+"はエラー再試行機能を提供し、失敗後にダウンロードを自動的に再試行できます。再試行が失敗した場合は、再試行の待機時間を延長し、ダウンロードが成功するか、再試行回数を超えてエラーが報告されるまで再試行します。"
+
+#: ../../source/manage_data/10. data_channels.md:162
+msgid ""
+"**日志记录** —— "
+"`qteasy`提供了数据下载日志记录功能，可以记录每次数据下载的详细信息，包括下载的数据量、下载的时间、下载的速度等，方便用户查看数据下载的情况。"
+msgstr ""
+"**ログ記録** — `qteasy` "
+"は、データダウンロードのログ記録機能を提供します。これにより、ダウンロードされたデータの量、ダウンロード時間、ダウンロード速度などを含む各データダウンロードの詳細情報を記録できるため、ユーザーはデータのダウンロード状況を確認するのに便利です。"
+
+#: ../../source/manage_data/10. data_channels.md:164
+msgid "多渠道拉取数据"
+msgstr "複数のチャネルから取得されたデータ"
+
+#: ../../source/manage_data/10. data_channels.md:166
+msgid "`qteasy`提供了多种数据下载渠道，很多数据表可以从多个不同的渠道下载，而且随着版本更新，数据拉取渠道也在不断增加。"
+msgstr ""
+"`qteasy` は複数のデータ ダウンロード チャネルを提供し、さまざまなチャネルから多くのデータ "
+"テーブルをダウンロードできます。さらに、バージョンが更新されるたびに、データ取得チャネルの数は増加し続けています。"
+
+#: ../../source/manage_data/10. data_channels.md:168
+msgid ""
+"refill_data_source()接口的channel参数可以指定数据下载渠道，如果不指定，`qteasy`会使用默认渠道`tushare`（见`qteasy/core.py`中`refill_data_source`的默认逻辑）。用户也可以手动指定数据下载渠道。"
+msgstr ""
+"`refill_data_source()` インターフェイスの `channel` パラメータは、データ ダウンロード "
+"チャネルを指定できます。指定しない場合、`qteasy` はデフォルトのデータ ダウンロード チャネル `tushare` "
+"を自動的に選択します。ただし、ユーザーは次のようにデータ ダウンロード チャネルを手動で指定することもできます。"
+
+#: ../../source/manage_data/10. data_channels.md:170
+msgid "当前内置四通道为：`tushare`、`akshare`、`eastmoney`（别名 `emoney`）、`sina`。"
+msgstr ""
+"現在内蔵されている 4 つのチャネルは、`tushare`、`akshare`、`eastmoney` (別名 `emoney`)、`sina` です。"
+
+#: ../../source/manage_data/10. data_channels.md:172
+msgid "四通道能力对照（常用表）"
+msgstr "4チャンネル能力比較（よく使われる表）"
+
+#: ../../source/manage_data/10. data_channels.md:174
+msgid ""
+"下表概括**常用数据表**在各通道下的支持情况（「支持」表示当前版本已实现映射并可走 refill 链路；「不支持」表示该通道无映射，refill "
+"会跳过并提示）。AKShare 完整 108 表状态见仓库内维护清单 `tests/akshare_data_test_checklist.md`。"
+msgstr ""
+"次の表は、各チャネルの **共通データ テーブル** のサポート ステータスをまとめたものです "
+"(「サポート」は、現在のバージョンでマッピングが実装されており、リフィル "
+"リンクを使用できることを意味します。「未サポート」は、チャネルにマッピングがなく、リフィルはスキップされてプロンプトが表示されることを意味します)。 "
+"AKShare 108 テーブルの完全なステータスについては、倉庫にあるメンテナンス リスト "
+"`tests/akshare_data_test_checklist.md` を参照してください。"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "数据表"
+msgstr "データシート"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "tushare"
+msgstr "tushare"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "akshare"
+msgstr "akshare"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "eastmoney"
+msgstr "eastmoney"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "sina"
+msgstr "sina"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "trade_calendar"
+msgstr "trade_calendar"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持（需 token/积分）"
+msgstr "サポート（トークン/ポイントが必要）"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "**支持**"
+msgstr "**サポート**"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "暂不支持"
+msgstr "まだサポートされていません"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "stock_basic"
+msgstr "stock_basic"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持（行业/上市日等完整）"
+msgstr "サポート（業界別/発売日別など）"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "**支持**（代码+简称索引；行业/地域等常为空）"
+msgstr "**サポート** (コード + 略語インデックス。業界/地域などは空白の場合が多い)"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "部分场景不支持"
+msgstr "一部のシナリオはサポートされていません"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "index_basic / fund_basic"
+msgstr "index_basic / fund_basic"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持"
+msgstr "サポート"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "**支持**（字段少于 Tushare 的项可能为空）"
+msgstr "**サポートされています** (Tushare よりもフィールドが少ない項目は空の場合があります)"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "部分"
+msgstr "一部"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "stock_daily / weekly / monthly"
+msgstr "stock_daily / weekly / monthly"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持（日/部分分）"
+msgstr "サポート（毎日・一部ポイント）"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持（日/分）"
+msgstr "サポート (日/分)"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "stock_5/15/30min、hourly"
+msgstr "stock_5/15/30min、hourly"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "stock_adj_factor"
+msgstr "stock_adj_factor"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "**支持**（新浪因子源）"
+msgstr "**サポート** (Sina 因子ソース)"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "index_daily / weekly / monthly"
+msgstr "index_daily / weekly / monthly"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "支持（日）"
+msgstr "サポート（日本）"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "fund_daily / weekly / monthly / 1min"
+msgstr "fund_daily / weekly / monthly / 1min"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "stock_suspend / money_flow / dividend"
+msgstr "stock_suspend / money_flow / dividend"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "new_share / stock_company"
+msgstr "new_share / stock_company"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "**支持**（字段可能少于 Tushare）"
+msgstr "**サポートされています** (Tushare よりもフィールドが少ない場合があります)"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "realtime_bars / realtime_quotes"
+msgstr "realtime_bars / realtime_quotes"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "index_1min 等指数分钟"
+msgstr "Index_1min はインデックス分と同じです"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "暂不支持（待 spike）"
+msgstr "まだサポートされていません (追加される予定)"
+
+#: ../../source/manage_data/10. data_channels.md:191
+msgid "说明："
+msgstr "例証します:"
+
+#: ../../source/manage_data/10. data_channels.md:193
+msgid ""
+"**basics 表与 `merge_type='update'`**：对 `table_usage=='basics'` 的表（如 "
+"`stock_basic`、`index_basic`、`fund_basic` "
+"等），主键冲突时**仅用下载侧非空字段覆盖对应列**，下载值为空字符串或 `NULL` 时保留本地已有值。因此可用 AKShare "
+"补全代码列表拉分钟线依赖表，而不会冲掉此前用 Tushare 写入的 `industry`、`list_date` "
+"等。按行业/地域筛选股票（`filter_stocks` / `filter_stock_codes`）仍建议以 **Tushare 的 "
+"`stock_basic`** 为准或先确认本地行业列非空。"
+msgstr ""
+"**基本テーブルと `merge_type='update'`**: `table_usage=='basics'` テーブル "
+"(`stock_basic`、`index_basic`、`fund_basic` など) "
+"の場合、主キーが競合する場合、*ダウンロード側の空でないフィールドのみを使用して対応する列を上書きします**、ダウンロード値が空の文字列または`NULL`、ローカルの既存の値が保持されます。したがって、AKShare"
+" を使用すると、Tushare で以前に作成した `industry`、`list_date` などを洗い流すことなく、コード "
+"リストを完成させ、分行依存関係テーブルを取得できます。業界/地域 (`filter_stocks` / `filter_stock_codes`) "
+"で銘柄をスクリーニングする場合は、**Tushare の `stock_basic`** "
+"を使用するか、最初に地元の業界列が空でないことを確認することをお勧めします。"
+
+#: ../../source/manage_data/10. data_channels.md:194
+msgid "**tushare**：覆盖最全，多数表需配置 `tushare_token` 及相应积分/权限。"
+msgstr ""
+"**tushare**: 最も完全なカバレッジで、ほとんどのテーブルは `tushare_token` "
+"と対応するポイント/権限で構成する必要があります。"
+
+#: ../../source/manage_data/10. data_channels.md:195
+msgid ""
+"**akshare**：无需 token；当前 **25 张**历史/基础/事件表已实现（见 "
+"`tests/akshare_data_test_checklist.md`），其余表仍为 `blocked` 或 "
+"`not_supported`。`stock_basic` 等 basics 表仅保证 **代码与名称索引**，不替代 Tushare 完整基本面。"
+msgstr ""
+"**akshare**: トークンは必要ありません。現在 **25** の履歴/基本/イベント テーブルが実装されており "
+"(`tests/akshare_data_test_checklist.md` を参照)、残りのテーブルはまだ `blocked` または "
+"`not_supported` です。 `stock_basic` などの基本テーブルは **コードと名前のインデックス** "
+"を保証するだけであり、Tushare の完全な基本を置き換えるものではありません。"
+
+#: ../../source/manage_data/10. data_channels.md:196
+msgid "**eastmoney**：无需 token；分钟线覆盖较全，部分基础表（如 `stock_basic`）可能无法从此通道拉取。"
+msgstr ""
+"**eastmoney**: トークンは必要ありません。分単位の行は比較的完全にカバーされており、一部の基本テーブル (`stock_basic` "
+"など) はこのチャネルから取得できない場合があります。"
+
+#: ../../source/manage_data/10. data_channels.md:197
+msgid "**sina**：无需 token；以股票日线与分钟线为主，无周/月线等。"
+msgstr "**sina**: トークンは必要ありません。主に株の日足線と分足線があり、週足/月足線などはありません。"
+
+#: ../../source/manage_data/10. data_channels.md:199
+msgid "下面的代码尝试从`eastmoney`数据渠道下载`stock_daily`数据表从2025年最初两个月的日K线数据："
+msgstr ""
+"次のコードは、`eastmoney` データ チャネルから 2025 年の最初の 2 か月間、`stock_daily` データ "
+"テーブルから毎日のローソク足データをダウンロードしようとします。"
+
+#: ../../source/manage_data/10. data_channels.md:217
+msgid "验证一下数据是否下载成功："
+msgstr "データが正常にダウンロードされたことを確認します。"
+
+#: ../../source/manage_data/10. data_channels.md:273
+msgid "数据下载显然也是成功的。分析上面的下载过程，可以发现几个特点："
+msgstr "データのダウンロードは明らかに成功しました。上記のダウンロード プロセスを分析すると、いくつかの特徴が観察できます。"
+
+#: ../../source/manage_data/10. data_channels.md:275
+msgid ""
+"不同渠道下载的数据格式是相同的，这是`qteasy`的设计原则，不同的数据下载渠道下载的数据会经历相同的清洗过程，这样用户可以方便地切换不同的数据下载渠道，而不用担心数据格式不同导致的数据处理问题。"
+msgstr ""
+"異なるチャネルからダウンロードされたデータは同じ形式です。これが`qteasy`の設計原則です。さまざまなチャネルからダウンロードされたデータは、同じクリーニング"
+" プロセスを受けます。これにより、ユーザーは、異なるデータ形式によって引き起こされるデータ処理の問題を心配することなく、異なるデータ ダウンロード "
+"チャネルを簡単に切り替えることができます。"
+
+#: ../../source/manage_data/10. data_channels.md:276
+msgid ""
+"不同的渠道下载分块方式不同，导致下载速度不同，`eastmoney`数据渠道下载速度较慢，需要约17分钟才能下载完成。这是由于不同下载渠道的特殊限制决定的。"
+msgstr ""
+"異なるダウンロード チャネルでは異なるチャンキング方法が使用されるため、ダウンロード速度が異なります。 `eastmoney` データ "
+"チャネルは低速で、完了までに約 17 分かかります。これは、各ダウンロード チャネルの固有の制限によるものです。"
+
+#: ../../source/manage_data/10. data_channels.md:277
+msgid ""
+"不同渠道的下载可以下载的数据表也不同，有些数据表无法通过某些渠道下载，可能是因为权限限制或者其他因素导致的，如果某个数据表无法下载，`qteasy`会自动跳过这个数据表，不会影响其他数据表的下载。"
+msgstr ""
+"ダウンロード チャネルが異なれば、異なるデータ テーブルのダウンロードが可能になる場合があります。一部のデータ "
+"テーブルは、許可制限やその他の要因により、特定のチャネルを通じてダウンロードできない場合があります。データテーブルをダウンロードできない場合、`qteasy`"
+" は他のデータテーブルのダウンロードに影響を与えることなく、そのデータテーブルを自動的にスキップします。"
+
+#: ../../source/manage_data/10. data_channels.md:279
+msgid "因此，用户需要根据自身的情况选择不同的渠道拉取数据。"
+msgstr "したがって、ユーザーは自分の状況に基づいてデータを取得するために異なるチャネルを選択する必要があります。"
+
+#: ../../source/manage_data/10. data_channels.md:281
+msgid "使用 AKShare 通道"
+msgstr "AKShare チャネルの使用"
+
+#: ../../source/manage_data/10. data_channels.md:283
+msgid "AKShare 适合**无 Tushare token**、仅需 P0 行情表的场景。使用前请安装依赖："
+msgstr ""
+"AKShare は、Tushare トークンがなく、P0 マーケット "
+"テーブルのみがあるシナリオに適しています。使用する前に依存関係をインストールしてください。"
+
+#: ../../source/manage_data/10. data_channels.md:289
+msgid "最小 refill 示例（短日期窗、指定 `channel='akshare'`）："
+msgstr "最小限のリフィルの例 (短い日付ウィンドウ、`channel='akshare'` を指定):"
+
+#: ../../source/manage_data/10. data_channels.md:302
+msgid ""
+"完整可运行脚本见仓库 "
+"[`examples/akshare_refill_minimal.py`](../../../examples/akshare_refill_minimal.py)（需联网）。"
+msgstr ""
+"完全な実行可能なスクリプトはウェアハウス "
+"[`examples/akshare_refill_minimal.py`](../../../examples/akshare_refill_minimal.py)"
+" にあります (インターネット接続が必要です)。"
+
+#: ../../source/manage_data/10. data_channels.md:304
+msgid "**限制与注意**："
+msgstr "**制限事項と注意事項**:"
+
+#: ../../source/manage_data/10. data_channels.md:306
+msgid "AKShare 接口由第三方维护，稳定性与速率不可控；失败时会按 `hist_dnld_retry_*` 配置重试。"
+msgstr ""
+"AKShare "
+"インターフェイスはサードパーティによって維持されており、安定性と速度は制御できません。失敗した場合は、`hist_dnld_retry_*` "
+"設定に従って再試行されます。"
+
+#: ../../source/manage_data/10. data_channels.md:307
+msgid ""
+"当前版本**不**承诺 108 张内置表均可从 AKShare 下载；扩表属于 S3.2 后续批次，详见 "
+"`tests/akshare_data_test_checklist.md`。"
+msgstr ""
+"現在のバージョンは、108 個の組み込みテーブルすべてを AKShare "
+"からダウンロードできることを保証するものではありません**。展開されたテーブルは S3.2 "
+"の後続のバッチに属します。詳細については、`tests/akshare_data_test_checklist.md` を参照してください。"
+
+#: ../../source/manage_data/10. data_channels.md:308
+msgid ""
+"拉取分钟线时若自动补 `stock_basic`，AKShare 会更新代码/名称，但**不会**用空值覆盖已有 `industry` "
+"等列；若库中从未写入过 Tushare 基本面，按行业选股前仍需 `refill_data_source(tables='stock_basic', "
+"channel='tushare')`。"
+msgstr ""
+"分ラインを引くときに `stock_basic` が自動的に追加される場合、AKShare はコード/名前を更新しますが、既存の `industry` "
+"および他の列を null 値で上書きしません。 Tushare "
+"のファンダメンタルズがライブラリに書き込まれたことがない場合でも、業界ごとに銘柄を選択する前に "
+"`refill_data_source(tables='stock_basic', channel='tushare')` が必要です。"
+
+#: ../../source/manage_data/10. data_channels.md:310
+msgid "通道切换与配置"
+msgstr "チャンネルの切り替えと設定"
+
+#: ../../source/manage_data/10. data_channels.md:312
+msgid ""
+"**一次性下载（脚本 / 交互）**：在 `refill_data_source(..., channel='...')` 中显式传入通道名即可，例如 "
+"Tushare 与 AKShare 对比如下："
+msgstr ""
+"**ワンタイム ダウンロード (スクリプト/インタラクション)**: `refill_data_source(..., channel='...')` "
+"にチャンネル名を明示的に渡すだけです。たとえば、Tushare と AKShare の比較は次のとおりです。"
+
+#: ../../source/manage_data/10. data_channels.md:319
+msgid "**实盘默认渠道**（写入 `qteasy.cfg` 或通过 `qt.configure()` 修改）："
+msgstr "**実際のオファーのデフォルト チャネル** (`qteasy.cfg` を書き込むか、`qt.configure()` で変更):"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "配置键"
+msgstr "設定キー"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "含义"
+msgstr "意味"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "默认值"
+msgstr "デフォルト値"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "`live_trade_data_refill_channel`"
+msgstr "`live_trade_data_refill_channel`"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "Trader 日更自动 refill 使用的通道"
+msgstr "Trader 毎日のアップデートにより、使用チャンネルが自動的に補充されます"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "`eastmoney`"
+msgstr "`eastmoney`"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "`live_price_acquire_channel`"
+msgstr "`live_price_acquire_channel`"
+
+#: ../../source/manage_data/10. data_channels.md
+msgid "实盘获取实时价格的通道"
+msgstr "実際のオファーのリアルタイム価格を取得するチャネル"
+
+#: ../../source/manage_data/10. data_channels.md:326
+msgid "示例："
+msgstr "例："
+
+#: ../../source/manage_data/10. data_channels.md:333
+msgid ""
+"修改后，实盘任务会使用新通道执行 refill / 取价；历史脚本仍可在每次 `refill_data_source` 调用中单独指定 "
+"`channel`，与全局配置无关。"
+msgstr ""
+"変更後、実際のオファータスクは新しいチャネルを使用して補充/価格のフェッチを実行します。過去のスクリプトでは、グローバル設定に関係なく、各 "
+"`refill_data_source` 呼び出しで個別に `channel` を指定できます。"
+
+#: ../../source/manage_data/10. data_channels.md:335
+msgid "实现下载流量控制"
+msgstr "ダウンロードトラフィック制御を実装する"
+
+#: ../../source/manage_data/10. data_channels.md:337
+msgid ""
+"`qteasy`的`refill_data_source`提供了流量控制功能，可以限制数据下载的速度，即下载一定分块数量的数据后，可以暂停一段时间，例如每下载300个分块的数据，就暂停一分钟，避免被数据渠道封禁。"
+msgstr ""
+"`qteasy` の `refill_data_source` "
+"は、データのダウンロード速度を制限できるフロー制御機能を提供します。つまり、一定数のデータ "
+"チャンクをダウンロードした後、一定期間停止することができます。たとえば、300 個のデータ チャンクをダウンロードした後、データ "
+"チャネルによってブロックされるのを避けるために 1 分間一時停止することができます。"
+
+#: ../../source/manage_data/10. data_channels.md:339
+msgid ""
+"这个功能通过refill_data_source()接口的`download_batch_size`和`download_batch_interval`两个参数实现："
+msgstr ""
+"この機能は、`refill_data_source()` インターフェイスの `download_batch_size` および "
+"`download_batch_interval` パラメータを通じて実現されます。"
+
+#: ../../source/manage_data/10. data_channels.md:341
+msgid "`download_batch_size`参数指定每次下载的数据分块数量，如果设置为300，则在下载300个数据分块后，会暂停一段时间。"
+msgstr ""
+"`download_batch_size` パラメータは、毎回ダウンロードされるデータ チャンクの数を指定します。 300 に設定すると、300 "
+"個のデータ チャンクをダウンロードした後、ダウンロードは一定期間一時停止します。"
+
+#: ../../source/manage_data/10. data_channels.md:342
+msgid "`download_batch_interval`参数指定每次下载数据分块后的暂停时间，默认为0，即不暂停。"
+msgstr ""
+"`download_batch_interval` パラメータは、各データ チャンクがダウンロードされた後の一時停止時間を指定します。デフォルト値は 0"
+" で、一時停止しないことを意味します。"
+
+#: ../../source/manage_data/10. data_channels.md:344
+msgid "下面的代码演示了如何使用`download_batch_size`和`download_batch_interval`参数实现下载流量控制："
+msgstr ""
+"次のコードは、`download_batch_size` パラメーターと `download_batch_interval` "
+"パラメーターを使用してダウンロード トラフィック制御を実装する方法を示しています。"
+
+#: ../../source/manage_data/10. data_channels.md:358
+msgid "如果是用流量控制，当然下载时间会变长，但是对于某些数据渠道，这是必须的，否则可能会被封禁或报错导致下载失败。"
+msgstr ""
+"トラフィック制御を使用すると、ダウンロード時間は当然長くなりますが、一部のデータ "
+"チャネルではこれが必要です。そうしないと、ダウンロードがブロックされたり、エラーが発生したりして、ダウンロードが失敗する可能性があります。"
+
+#: ../../source/manage_data/10. data_channels.md:360
+msgid "实现错误重试"
+msgstr "エラーの再試行を実装する"
+
+#: ../../source/manage_data/10. data_channels.md:362
+msgid "需要注意的是，数据下载过程中出错，`qteasy`会自动重试下载，重试机制如下："
+msgstr ""
+"データのダウンロード処理中にエラーが発生した場合、`qteasy` "
+"は自動的にダウンロードを再試行することに注意してください。再試行メカニズムは次のとおりです。"
+
+#: ../../source/manage_data/10. data_channels.md:364
+msgid "第一次下载失败后重试之前会等待一段时间，默认等待时间为1.0秒"
+msgstr "最初のダウンロードが失敗した後、再試行するまで少し待機します。デフォルトの待機時間は 1.0 秒です。"
+
+#: ../../source/manage_data/10. data_channels.md:365
+msgid "每次重试失败后，等待时间都会增加，默认等待时间增加为2倍，即第一次等待1.0秒，第二次等待2.0秒，第三次等待4.0秒，以此类推。"
+msgstr ""
+"再試行が失敗するたびに待機時間は増加し、デフォルトの待機時間は元の値の 2 倍に増加します。つまり、最初は 1.0 秒待機し、2 回目は 2.0 "
+"秒待機し、3 回目は 4.0 秒待機する、というようになります。"
+
+#: ../../source/manage_data/10. data_channels.md:366
+msgid "重试超过最大限额后停止重试并报错，默认情况下最多重复7次。"
+msgstr "最大再試行回数を超えると再試行が停止され、エラーが報告されます。デフォルトでは、最大再試行回数は 7 です。"
+
+#: ../../source/manage_data/10. data_channels.md:368
+msgid ""
+"以上三个错误重试参数都是通过`qteasy`的配置文件在设定的，用户可以通过`qt.config()`接口查看或修改这些参数，也可以在`qteasy`的初始配置文件中修改这些参数。"
+msgstr ""
+"上記の 3 つのエラー再試行パラメータはすべて、`qteasy` 設定ファイルを通じて設定されます。ユーザーは、`qt.config()` "
+"インターフェイスを介してこれらのパラメータを表示または変更することも、`qteasy` の初期設定ファイルでこれらのパラメータを変更することもできます。"
+
+#: ../../source/manage_data/10. data_channels.md:370
+msgid "`hist_dnld_retry_cnt` - 最大重试次数，默认为7次"
+msgstr "`hist_dnld_retry_cnt` - 再試行の最大数。デフォルトは 7 です。"
+
+#: ../../source/manage_data/10. data_channels.md:371
+msgid "`hist_dnld_retry_wait` - 第一次重试等待时间，默认为1.0秒"
+msgstr "`hist_dnld_retry_wait` - 最初の再試行の待ち時間。デフォルトは 1.0 秒です。"
+
+#: ../../source/manage_data/10. data_channels.md:372
+msgid "`hist_dnld_backoff` - 重试等待时间增加倍数，默认为2.0"
+msgstr "`hist_dnld_backoff` - 再試行待ち時間を増やすための乗数。デフォルトは 2.0 です。"
+
+#: ../../source/manage_data/10. data_channels.md:374
+msgid ""
+"关于如何修改配置文件，或者使用`qteasy`的初始配置文件，请参考[`qteasy`的配置文件章节](../api/api_reference.rst)。"
+msgstr ""
+"設定ファイルを変更する方法、または `qteasy` の初期設定ファイルを使用する方法については、`qteasy` の設定ファイル セクション "
+"(../api/api_reference.rst) を参照してください。"
+
+#: ../../source/manage_data/10. data_channels.md:376
+msgid "日志记录"
+msgstr "ロギング"
+
+#: ../../source/manage_data/10. data_channels.md:378
+msgid ""
+"`qteasy`提供了数据下载日志记录功能，可以记录每次数据下载的详细信息，包括下载的数据量、下载的时间、下载的速度等，方便用户查看数据下载的情况。"
+msgstr ""
+"`qteasy`はデータダウンロードログ記録機能を提供しており、ダウンロードしたデータ量、ダウンロード時間、ダウンロード速度など、各データダウンロードの詳細情報を記録できるため、ユーザーはデータダウンロード状況を確認するのに便利です。"
+
+#: ../../source/manage_data/10. data_channels.md:380
+msgid "其他功能"
+msgstr "その他の機能"
+
+#: ../../source/manage_data/10. data_channels.md:382
+msgid "`qteasy`的`refill_data_source()`接口还提供了其他一些功能，例如："
+msgstr "`qteasy` `refill_data_source()` インターフェイスは、次のような他の機能も提供します。"
+
+#: ../../source/manage_data/10. data_channels.md:384
+msgid ""
+"限制下载数据的范围，可以通过`start_date`和`end_date`参数限制下载数据的时间范围，通过`shares`参数限制下载数据的股票范围。"
+msgstr ""
+"ダウンロードされるデータの範囲を制限するには、`start_date` および `end_date` "
+"パラメータを使用してダウンロードされるデータの時間範囲を制限し、`shares` パラメータを使用してダウンロードされる株の範囲を制限します。"
+
+#: ../../source/manage_data/10. data_channels.md:385
+msgid ""
+"**未传 `start_date` / `end_date` 时的默认行为**：内部将 `start_date` 视为该表映射中的最早可用日（如 "
+"`new_share` 为 `19700101`），`end_date` 视为**当天**。因此 `tables='basics'` "
+"会包含需按日期分块下载的 **`new_share`（IPO 新股）**；若不传日期，会从 1970-01-01 "
+"分块拉至今日，耗时较长。若只需代码/行业类 basics、不要 IPO 表，请显式指定表名或传入较窄的日期窗。"
+msgstr ""
+"**`start_date` / `end_date` が渡されない場合のデフォルトの動作**: 内部的には、`start_date` はテーブル "
+"マッピングで最も早い利用可能な日とみなされ (`new_share` は `19700101` など)、`end_date` は **現在の日** "
+"とみなされます。したがって、`tables='basics'` には **`new_share` (IPO 新株)** "
+"が含まれ、日付ごとにまとめてダウンロードする必要があります。日付を過ぎないと、1970 年 1 月 1 "
+"日から今日までのチャンクで取得されるため、時間がかかります。コード/業界の基本のみが必要で、IPO "
+"テーブルが必要ない場合は、テーブル名を明示的に指定するか、より狭い日付ウィンドウを渡してください。"
+
+#: ../../source/manage_data/10. data_channels.md:386
+msgid "设置是否并行下载，可以通过`parallel`参数设置是否并行下载，如果设置为False，则会串行下载，否则会并行下载。"
+msgstr ""
+"並行してダウンロードするかどうかを設定するには、`parallel` パラメーターを使用できます。 False "
+"に設定すると、ダウンロードは連続的に実行されます。それ以外の場合、それらは並行して実行されます。"
+
+#: ../../source/manage_data/10. data_channels.md:387
+msgid ""
+"设置是否下载依赖表，可以通过`download_dependent`参数设置是否下载依赖表，如果设置为False，则不会下载依赖表，否则会下载依赖表。"
+msgstr ""
+"依存関係テーブルをダウンロードするかどうかを構成するには、`download_dependent` パラメーターを使用できます。 False "
+"に設定すると、依存関係テーブルはダウンロードされません。それ以外の場合はダウンロードされます。"
+
+#: ../../source/manage_data/10. data_channels.md:388
+msgid "设置是否强制更新交易日历表。"
+msgstr "取引カレンダーの更新を強制するかどうかを設定します。"
+
+#: ../../source/manage_data/10. data_channels.md:390
+msgid "其他更多关于该接口的解释，请参见`qteasy`的[API文档](../api/history_data.rst)。"
+msgstr ""
+"このインターフェイスの詳細については、`qteasy` API ドキュメント (../api/history_data.rst) を参照してください。"

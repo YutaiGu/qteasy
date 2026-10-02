@@ -1,0 +1,569 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:2
+msgid "CLI 与 Trader 能力对照表"
+msgstr "CLI と Trader の比較表"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:4
+msgid ""
+"亲爱的用户，本章汇总 **Trader Shell**（命令行界面）里有哪些命令、分别解决什么问题。Shell 里 help "
+"与即时输出为**英文**；下表说明为中文。"
+msgstr ""
+"ユーザーの皆様、この章では、**Trader シェル** (コマンドライン インターフェイス) "
+"で使用できるコマンドと、それらのコマンドによって解決される問題について概要を説明します。シェルのヘルプとリアルタイム出力は **英語** "
+"です。下の表は中国語です。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:6
+msgid ""
+"> **如何进入 Shell** > ``qt.run(op, mode=0, ...)`` 且 "
+"``live_trade_ui_type='cli'``，或运行示例时加 ``--ui cli``。进入后您可在提示符下输入命令，像与交易员对话。"
+msgstr ""
+"**シェルに入る方法** > `live_trade_ui_type='cli'` を指定して `qt.run(op, mode=0, ...)` "
+"を実行するか、サンプルの実行時に `--ui cli` "
+"を追加します。シェルに入ると、トレーダーと話しているかのようにプロンプ​​トにコマンドを入力できます。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:10
+msgid "适用范围"
+msgstr "適用範囲"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:12
+msgid ""
+"进入方式：``qt.run(op, mode=0, ...)`` 且 ``live_trade_ui_type='cli'``（或示例 ``--ui "
+"cli``）"
+msgstr ""
+"入力方法: ``qt.run(op, mode=0, ...)`` and ``live_trade_ui_type='cli'`` (or "
+"example ``--ui cli`)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:13
+msgid ""
+"**DEBUG 模式**：``run --task ...`` 及若干调试任务仅在 Trader ``debug=True`` 时可用（启动加 "
+"``--debug``，或 Shell 内 ``debug`` 命令切换）"
+msgstr ""
+"**デバッグ モード**: `run --task ...` およびいくつかのデバッグ タスクは、Trader が `debug=True` "
+"に設定されている場合にのみ使用できます (`--debug` で開始するか、シェルで `debug` コマンドを使用して切り替えます)。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:14
+msgid "用户可见 help / 输出为 **英文**；本文档说明为中文"
+msgstr "ヘルプ出力は **英語** でユーザーに表示されます。ドキュメントは中国語です。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:17
+msgid "命令别名"
+msgstr "コマンドエイリアス"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:19
+msgid ""
+"Trader Shell 支持**短别名**，便于少打字。别名在 qteasy 内部 rewrite 为正式命令名后再执行——help "
+"与日志仍以正式名为准。下表仅列运维相关别名；完整命令面见后文「能力对照表」。"
+msgstr ""
+"Trader シェルは **短いエイリアス** をサポートし、入力を軽減します。エイリアスは、実行前に qteasy "
+"内の正式なコマンド名に書き換えられます。ヘルプとログでは引き続き正式な名前が使用されます。以下の表には、運用と保守に関連する別名のみがリストされています。コマンドの詳細については、後述の「機能比較表」を参照してください。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:21
+msgid "**各列含义**：**您输入的别名**为 Shell 接受的写法；**内部命令**为实际调用的 ``do_*`` 处理器名。"
+msgstr ""
+"**各列の意味:** 入力したエイリアスは、シェルによって受け入れられる形式です。内部コマンドは、呼び出される `do_*` "
+"プロセッサの実際の名前です。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:23
+msgid ""
+"**如何使用**：习惯用连字符写法时查左列；脚本或文档引用正式名时用右列。例如排错文档写 ``gate``，您也可输入 ``startup-"
+"gate``。"
+msgstr ""
+"**使用方法:** "
+"ハイフン表記を使用する場合は、左の列を調べます。スクリプトまたはドキュメント内で正式な名前を参照する場合は、右側の列を使用します。たとえば、デバッグ "
+"ドキュメントで ``gate` が使用されている場合、``startup-gate` と入力することもできます。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:25
+msgid "**示例**：查日志路径时输入 ``ls-artifacts`` 与 ``artifacts`` 效果相同。"
+msgstr "**例:** ログのパスを確認する場合、`ls-artifacts` を入力すると、`artifacts` と同じ効果があります。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:31
+msgid "您输入的别名"
+msgstr "入力したエイリアス"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:32
+msgid "内部命令"
+msgstr "内部コマンド"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:33
+msgid "``ls-artifacts``"
+msgstr "`ls-artifacts`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:34
+msgid "``artifacts``"
+msgstr "`artifacts`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:35
+msgid "``live-config``"
+msgstr "`live-config`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:36
+msgid "``liveconfig``"
+msgstr "`liveconfig`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:37
+msgid "``startup-gate``"
+msgstr "`startup-gate`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:38
+msgid "``gate``"
+msgstr "`gate`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:39
+msgid "``snapshot-reconcile``"
+msgstr "``snapshot-reconcile``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:40
+msgid "``reconcile``"
+msgstr "`reconcile`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:41
+msgid "``rotate-logs``"
+msgstr "`rotate-logs`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:42
+msgid "``rotatelogs``"
+msgstr "`rotatelogs`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:43
+msgid "``pull-state``"
+msgstr "`pull-state`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:44
+msgid "``sync``"
+msgstr "`sync`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:47
+msgid "能力对照表"
+msgstr "能力比較表"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:49
+msgid ""
+"本表是 **Trader / Broker 公有能力** 与 **Shell 命令** 的主索引：左侧是「qteasy "
+"能做什么」，中间是「您该输入什么」，右侧是「当前版本是否已实现」。在 live 子系统中，CLI 是运维与冒烟的主入口之一；API 列供您在 "
+"Notebook 或脚本中调用同一能力。"
+msgstr ""
+"この表は、**Trader/Broker パブリック機能** と **シェル コマンド** の主要なインデックスです。左側は「qteasy "
+"でできること」、中央は「入力すべき内容」、右側は「現在のバージョンに実装されているか?」を示しています。ライブ サブシステムでは、CLI "
+"は操作とスモークの主要なエントリ ポイントの 1 つです。 API 列を使用すると、ノートブックまたはスクリプトで同じ機能を呼び出すことができます。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:51
+msgid "**各列含义**："
+msgstr "**各列の意味:**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:53
+msgid "**能力**：Trader/Broker 侧功能域"
+msgstr "**機能:** Trader/ブローカー側の機能ドメイン"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:54
+msgid "**典型用途**：您何时需要用它（排错场景）"
+msgstr "**典型的な使用例**: いつ使用する必要がありますか (トラブルシューティング シナリオ)?"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:55
+msgid "**绑定 API（摘要）**：Python 侧入口（非完整签名）"
+msgstr "**バインディング API (概要)**: Python サイド エントリ ポイント (不完全な署名)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:56
+msgid "**CLI 命令**：Shell 中名称；``—`` 表示无直接 CLI"
+msgstr "**CLI コマンド**: シェル名。 `--` は、直接 CLI コマンドがないことを示します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:57
+msgid "**状态**：``已支持`` / ``预留``（尚未实现）"
+msgstr "**ステータス**: `Supported` / `Reserved` (未実装)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:59
+msgid ""
+"**如何使用**：按「典型用途」找行——例如要找日志目录 → 找「查日志文件落在哪」→ 用 ``artifacts``。状态为 ``预留`` "
+"时勿当作故障（如 ``sync``）。"
+msgstr ""
+"**使用方法:** 「一般的な使用法」で検索します。たとえば、ログ ディレクトリを見つける場合は、「ログ "
+"ファイルの場所」を検索し、`artifacts` を使用します。 `reserved` のステータスを障害として扱わないでください (例: "
+"`sync`)。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:61
+msgid ""
+"**示例**：启动后想核对 live 配置 → 典型用途「核对当前 live 配置是否生效」→ 命令 ``liveconfig`` 或 ``live-"
+"config``。"
+msgstr ""
+"**例**: 起動後にライブ構成を確認する場合 → 典型的な使用例: 「現在のライブ構成が有効かどうかを確認する」 → コマンド "
+"`liveconfig` または `live-config`。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:67
+msgid "能力"
+msgstr "容量"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:68
+msgid "典型用途"
+msgstr "典型的な使用例"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:69
+msgid "绑定 API（摘要）"
+msgstr "API バインディング (概要)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:70
+msgid "CLI 命令"
+msgstr "CLIコマンド"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:71
+msgid "状态"
+msgstr "状態"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:72
+msgid "状态 / 暂停 / 退出"
+msgstr "ステータス / 一時停止 / 終了"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:73
+msgid "看是否在跑、暂停/恢复、退出 Shell"
+msgstr "実行中か、一時停止/再開中か、シェルを終了しているかを確認します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:74
+msgid "``status``, ``pause``, ``resume``, ``stop`` 等"
+msgstr "``status``, ``pause``, ``resume``, ``stop``など"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:75
+msgid "``status`` ``pause`` ``resume`` ``bye`` …"
+msgstr "``status`` ``pause`` ``resume`` ``bye`` …"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:76
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:81
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:86
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:91
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:96
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:101
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:106
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:111
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:116
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:121
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:126
+msgid "已支持"
+msgstr "サポートされています"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:77
+msgid "手动下单 / 撤单"
+msgstr "手動注文/注文キャンセル"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:78
+msgid "人工试单或撤单"
+msgstr "手動による注文のテストまたはキャンセル"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:79
+msgid "``submit_trade_order``, ``cancel``"
+msgstr "``submit_trade_order``, ``cancel``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:80
+msgid "``buy`` ``sell`` ``cancel ORDER_ID``"
+msgstr "``buy`` ``sell`` ``cancel ORDER_ID``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:82
+msgid "配置读写"
+msgstr "読み取り/書き込みを構成する"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:83
+msgid "查看或改运行中配置"
+msgstr "実行コンフィギュレーションを表示または変更する"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:84
+msgid "``get_config`` / ``update_config``"
+msgstr "``get_config`` / ``update_config``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:85
+msgid "``config``"
+msgstr "`config`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:87
+msgid "磁盘产物路径"
+msgstr "ディスクアーティファクトのパス"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:88
+msgid "**查日志文件落在哪**"
+msgstr "**ログ ファイルの場所を見つける**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:89
+msgid "``qt.list_live_trade_artifacts``"
+msgstr "``qt.list_live_trade_artifacts``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:90
+msgid "``artifacts`` / ``ls-artifacts``"
+msgstr "``artifacts`` / ``ls-artifacts``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:92
+msgid "Live 配置摘要"
+msgstr "ライブ構成の概要"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:93
+msgid "**核对当前 live 配置是否生效**"
+msgstr "**現在のライブ構成が有効かどうかを確認してください。**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:94
+msgid "``build_live_trade_config`` → ``to_summary_dict``"
+msgstr "``build_live_trade_config`` → ``to_summary_dict``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:95
+msgid "``liveconfig`` / ``live-config``"
+msgstr "``liveconfig`` / ``live-config``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:97
+msgid "任务队列"
+msgstr "タスクキュー"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:98
+msgid "看排队任务、取消任务"
+msgstr "キューに入れられたタスクの表示、タスクのキャンセル"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:99
+msgid "``list_tasks`` / ``cancel_task`` 等"
+msgstr "``list_tasks`` / ``cancel_task``など"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:100
+msgid "``tasks`` / ``task``"
+msgstr "``tasks`` / ``task``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:102
+msgid "启动门禁"
+msgstr "アクセス制御を有効にする"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:103
+msgid "**手动跑一次开盘前检查**"
+msgstr "**市場前チェックを手動で実行します**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:104
+msgid "``run_startup_gate``"
+msgstr "`run_startup_gate`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:105
+msgid "``gate`` / ``startup-gate``"
+msgstr "`gate` / `startup-gate`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:107
+msgid "对账快照"
+msgstr "調整スナップショット"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:108
+msgid "收盘等时点看对账 JSON"
+msgstr "閉店時間などに調整JSONを表示します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:109
+msgid "``collect_broker_reconcile_snapshot``"
+msgstr "``collect_broker_reconcile_snapshot``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:110
+msgid "``reconcile`` / ``snapshot-reconcile``"
+msgstr "``reconcile`` / ``snapshot-reconcile``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:112
+msgid "在途单诊断"
+msgstr "輸送中の診断"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:113
+msgid "本地 vs 远端在途单差异（只读）"
+msgstr "ローカルとリモートの輸送中の注文の違い (読み取り専用)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:114
+msgid "``collect_pending_order_diagnostics``"
+msgstr "``collect_pending_order_diagnostics``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:115
+msgid "``run --task diagnose_pending_orders``（DEBUG）"
+msgstr "``run --task diagnose_pending_orders`` (DEBUG)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:117
+msgid "日志轮换"
+msgstr "ログローテーション"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:118
+msgid "**手动清理过期 CSV / risk 日志**"
+msgstr "**期限切れの CSV/リスク ログを手動でクリーンアップします**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:119
+msgid "``qt.rotate_trade_logs``"
+msgstr "`qt.rotate_trade_logs`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:120
+msgid "``rotatelogs`` / ``rotate-logs``"
+msgstr "``rotatelogs`` / ``rotate-logs``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:122
+msgid "Broker 会话"
+msgstr "ブローカーセッション"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:123
+msgid "看模拟券商是否「已连接」"
+msgstr "シミュレートされた仲介業者が「接続」されているかどうかを確認します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:124
+msgid "``connect`` / ``disconnect`` / ``is_connected``"
+msgstr "Implement `connect` / `disconnect` / `is_connected`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:125
+msgid "``broker status|connect|disconnect``"
+msgstr "``broker status|connect|disconnect``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:127
+msgid "远端状态同步"
+msgstr "リモートステータス同期"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:128
+msgid "从真实券商拉状态（尚未实现）"
+msgstr "実在の証券会社からステータスを取得（未実装）"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:129
+msgid "（预留 ``sync_from_broker`` 类 API）"
+msgstr "(`sync_from_broker` クラス API 用に予約されています)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:130
+msgid "``sync`` / ``pull-state``"
+msgstr "`sync` / `pull-state`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:131
+msgid "**预留**"
+msgstr "**予約済み**"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:132
+msgid "主循环生命周期"
+msgstr "メインループのライフサイクル"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:133
+msgid "脚本/Notebook 侧启停"
+msgstr "スクリプト/ノートブック側の開始/停止"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:134
+msgid "``start`` / ``run`` / ``join``"
+msgstr "``start`` / ``run`` / ``join``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:135
+msgid "—"
+msgstr "—"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:136
+msgid "仅 Operator / Notebook"
+msgstr "Operator/ノートブックのみ"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:139
+msgid "Dashboard 与 interactive 模式"
+msgstr "7.1 ダッシュボードと対話モード"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:141
+msgid ""
+"启动后默认进入 **dashboard 模式**：终端底部单行显示下一任务倒计时、监视价与系统消息；Trader 主循环在后台继续运行。按 "
+"**Ctrl+C** 可切换模式或退出："
+msgstr ""
+"起動すると、デフォルトで **ダッシュボード "
+"モード**になります。ターミナルの下部に、次のタスクまでのカウントダウン、監視されている価格、およびシステム メッセージを示す 1 行が表示されます。 "
+"Trader メインループはバックグラウンドで実行され続けます。 **Ctrl+C** を押してモードを切り替えるか、終了します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:143
+msgid "**1** — 进入 interactive（命令）模式，输入 ``buy``、``config``、``artifacts`` 等"
+msgstr "**1** — `buy`、`config`、`artifacts` などを入力して対話型 (コマンド) モードに入ります。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:144
+msgid "**2** — 回到 dashboard"
+msgstr "**2** — ダッシュボードに戻る"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:145
+msgid "**3** — 退出 Shell 并停止 Trader"
+msgstr "**3** — シェルを終了し、Trader を停止します"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:147
+msgid ""
+"**5 秒内无输入**自动恢复中断前的模式；选单等待期间**再次按 Ctrl+C** 立即退出。在命令模式下输入 ``dashboard`` 可返回 "
+"dashboard。主循环若遇未预期异常，默认 **5 秒**后回到 dashboard（按 **3** 可退出）。"
+msgstr ""
+"** 5 秒以内に入力が受信されない場合、システムは中断前のモードから自動的に再開します。メニューの待機中に **Ctrl+C "
+"をもう一度押す**とすぐに終了します。コマンドモードで「`dashboard`」と入力すると、ダッシュボードに戻ります。メインループで予期しない例外が発生した場合、デフォルトでは"
+" **5 秒**後にダッシュボードに戻ります (**3** を押して終了します)。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:150
+msgid "DEBUG ``run --task`` 白名单"
+msgstr "デバッグ ``run --task`` ホワイトリスト"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:152
+msgid ""
+"仅在 **DEBUG** 模式下可通过 ``run --task TASK`` 手动触发（启动时 ``--debug`` 或 Shell 内 "
+"``debug``）："
+msgstr ""
+"**DEBUG** モードでのみ、`run --task TASK` を介して手動でトリガーできます (`--debug` を使用した起動時、または "
+"`debug` を使用したシェル内)。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:154
+msgid "``process_result``"
+msgstr "`process_result`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:155
+msgid "``pre_open`` / ``open_market`` / ``close_market`` / ``post_close``"
+msgstr "``pre_open`` / ``open_market`` / ``close_market`` / ``post_close``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:156
+msgid "``refill``（参数经 ``--args`` 传入）"
+msgstr "`refill` (`--args` 経由で渡される引数)"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:157
+msgid "``diagnose_pending_orders``"
+msgstr "``diagnose_pending_orders``"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:160
+msgid "Broker 子命令"
+msgstr "ブローカーのサブコマンド"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:162
+msgid "``broker status`` — 打印券商名、连接状态等"
+msgstr "`broker status` — ブローカー名、接続ステータスなどを出力します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:163
+msgid "``broker connect`` — 建立适配层会话（simulator 为标志位）"
+msgstr "`broker connect` — アダプテーション層セッションを確立します (シミュレーターはフラグです)。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:164
+msgid "``broker disconnect`` — 断开会话"
+msgstr "`broker disconnect` — セッションを切断します"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:167
+msgid "预留：sync"
+msgstr "予約済み: 同期"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:169
+msgid "``sync`` / ``pull-state`` 执行时会提示尚未实现，例如："
+msgstr "`sync` または `pull-state` 関数は、それらがまだ実装されていないことを示すエラーを表示します。次に例を示します。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:175
+msgid "**含义**：真实「从券商同步持仓/订单」尚未接入；看到此提示是预期行为，不是故障。"
+msgstr ""
+"**意味:** "
+"実際の「証券会社からの同期保有/注文」はまだ統合されていません。このメッセージが表示されるのは予期された動作であり、誤動作ではありません。"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:178
+msgid "相关文档"
+msgstr "関連資料"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:180
+msgid "快照 / 门禁 / 拒单：:doc:`6-trader-snapshot-gate`"
+msgstr "スナップショット / アクセス制御 / 注文拒否: :doc:`6-trader-snapshot-gate`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:181
+msgid "手工冒烟：:doc:`7-manual-smoke-live-grid-roadmap`"
+msgstr "手動喫煙: :doc:`7-manual-smoke-live-grid-roadmap`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:182
+msgid "产物与排错：:doc:`5-artifacts-and-troubleshooting`"
+msgstr "製品とトラブルシューティング: :doc:`5-artifacts-and-troubleshooting`"
+
+#: ../../source/live_trading/8-cli-trader-capability-matrix.rst:183
+msgid "配置与启动：:doc:`2-configuration-and-run`"
+msgstr "設定と起動: :doc:`2-configuration-and-run`"

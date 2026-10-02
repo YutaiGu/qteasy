@@ -48,6 +48,7 @@ qteasy的所有配置变量
    - 先跑起来：``live_trading/2-configuration-and-run.md``
    - 理解拒单与状态：``live_trading/3-risk-and-order-lifecycle.md``
    - 扩展 Broker：``live_trading/4-broker-adapter-and-integration.md``
+   - XtQuant/MiniQMT 契约 v1（英文）：``live_trading/4a-xtquant-broker-adapter-contract-v1.md``
    - 排错复盘：``live_trading/5-artifacts-and-troubleshooting.md``
    - 双路径实操教程：``tutorials/8-live-trade-risk-and-broker-walkthrough.md``
 
@@ -151,7 +152,7 @@ qteasy的所有配置变量
      - | 实盘交易时获取实时价格的方式：
        | eastmoney - 通过东方财富网获取实时价格
        | tushare  - 通过tushare获取实时价格(需要自行开通权限)
-       | akshare  - Not Implemented: 从akshare获取实时价格
+       | akshare  - 通过AKShare获取实时价格(部分表已实现，详见数据通道文档)
    * - ``live_price_acquire_freq``
      - 2
      - ``15MIN``

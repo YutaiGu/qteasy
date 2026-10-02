@@ -1,0 +1,217 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-08-21 22:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/index.rst:89
+msgid "``qteasy`` 快速入门"
+msgstr "``qteasy`` 快速入門"
+
+#: ../../source/index.rst:97
+msgid "``qteasy`` 使用教程"
+msgstr "``qteasy`` 使用教程"
+
+#: ../../source/index.rst:106
+msgid "``qteasy`` 架构与设计"
+msgstr "``qteasy`` 架構與設計"
+
+#: ../../source/index.rst:115
+msgid "下载并管理金融历史数据"
+msgstr "下載並管理金融歷史數據"
+
+#: ../../source/index.rst:124
+msgid "创建并操作交易策略"
+msgstr "創建並操作交易策略"
+
+#: ../../source/index.rst:133
+msgid "交易策略的回测并评价"
+msgstr "交易策略的回測並評價"
+
+#: ../../source/index.rst:142
+msgid "优化交易策略"
+msgstr "優化交易策略"
+
+#: ../../source/index.rst:151
+msgid "模拟实盘交易模块"
+msgstr "模擬實盤交易模塊"
+
+#: ../../source/index.rst:160
+msgid "模拟实盘运行交易策略"
+msgstr "模擬實盤運行交易策略"
+
+#: ../../source/index.rst:171
+msgid "QTEASY交易策略示例"
+msgstr "QTEASY交易策略示例"
+
+#: ../../source/index.rst:180
+msgid "API参考"
+msgstr "API參考"
+
+#: ../../source/index.rst:200
+msgid "LICENSE"
+msgstr "LICENSE"
+
+#: ../../source/index.rst:206
+msgid "关于 ``qteasy``"
+msgstr "关于 ``qteasy``"
+
+#: ../../source/index.rst:218
+msgid "常见问题"
+msgstr "常見問題"
+
+#: ../../source/index.rst:7
+msgid "欢迎使用 ``QTEASY`` 文档!"
+msgstr "歡迎使用 ``QTEASY`` 文檔!"
+
+#: ../../source/index.rst:15
+msgid ""
+"`qteasy`已经升级到2.0版本，使得交易策略能更加灵活有效地使用历史数据、同时简化了交易策略的定义过程、提高了效率。 由于 ``QTEASY`` "
+"仍处于测试中，软件中不免存在一些漏洞和bug，如果大家使用中出现问题，欢迎 `报告Issue`_ 或者提交 `新功能需求`_ 给我，也可以进入 "
+"`讨论区`_ 参与讨论。欢迎各位贡献代码！"
+msgstr ""
+"`qteasy`已經升級到2.0版本，使得交易策略能更加靈活有效地使用歷史數據、同時簡化了交易策略的定義過程、提高了效率。 由於 ``QTEASY`` "
+"仍處於測試中，軟件中不免存在一些漏洞和bug，如果大家使用中出現問題，歡迎 `報告Issue`_ 或者提交 `新功能需求`_ 給我，也可以進入 "
+"`討論區`_ 參與討論。歡迎各位貢獻代碼！"
+
+#: ../../source/index.rst:22
+msgid "作者: **Jackie PENG**"
+msgstr "作者: **Jackie PENG**"
+
+#: ../../source/index.rst:23
+msgid "email: *jackie_pengzhao@163.com*"
+msgstr "email: *jackie_pengzhao@163.com*"
+
+#: ../../source/index.rst:24
+msgid "创建日期: 2019, July, 16"
+msgstr "創建日期: 2019, July, 16"
+
+#: ../../source/index.rst:25
+msgid "最新版本: `2.6.4` — :doc:`发布历史 <RELEASE_HISTORY>`"
+msgstr "最新版本: `2.6.4` — :doc:`發佈歷史 <RELEASE_HISTORY>`"
+
+#: ../../source/index.rst:26
+msgid "License: BSD 3-Clause"
+msgstr "License: BSD 3-Clause"
+
+#: ../../source/index.rst:29
+msgid "简介"
+msgstr "簡介"
+
+#: ../../source/index.rst:31
+msgid "``QTEASY`` 是为量化交易人员开发的一套量化交易策略开发工具包，其特点如下："
+msgstr "``QTEASY`` 是爲量化交易人員開發的一套量化交易策略開發工具包，其特點如下："
+
+#: ../../source/index.rst:33
+msgid "**全流程覆盖** 从金融数据获取、存储，到交易策略的开发、回测、优化、实盘运行，一站式完成"
+msgstr "**全流程覆蓋** 從金融數據獲取、存儲，到交易策略的開發、回測、優化、實盤運行，一站式完成"
+
+#: ../../source/index.rst:34
+msgid "**完全本地化** 数据、回测与实盘运行均在本地完成，不依赖云端服务，配置清晰、结果可复现"
+msgstr "**完全本地化** 數據、回測與實盤運行均在本地完成，不依賴雲端服務，配置清晰、結果可復現"
+
+#: ../../source/index.rst:35
+msgid ""
+"**回测可信、实盘一致** "
+"策略逻辑在回测与实盘中同一套运行，数据按「当时能看到的」历史严格注入，从机制上避免未来函数与数据泄露，减少「回测漂亮、实盘走样」的落差"
+msgstr ""
+"**回測可信、實盤一致** "
+"策略邏輯在回測與實盤中同一套運行，數據按「當時能看到的」歷史嚴格注入，從機制上避免未來函數與數據泄露，減少「回測漂亮、實盤走樣」的落差"
+
+#: ../../source/index.rst:36
+msgid "**灵活易用** 多策略可像搭积木一样组合并自定义信号合并方式；内置超过70种策略开箱即用，涵盖常见技术指标、均线、突破、反转等"
+msgstr "**靈活易用** 多策略可像搭積木一樣組合並自定義信號合併方式；內置超過70種策略開箱即用，涵蓋常見技術指標、均線、突破、反轉等"
+
+#: ../../source/index.rst:38
+msgid ""
+"**高性能回测与防未来函数**：回测核心采用向量化 + "
+"Numba，时间维顺序、标的维单步向量化，多进程并行优化；每步仅向策略注入当时可见的数据窗口，从机制上防未来函数。详见《架构与设计》中的 "
+":doc:`回测引擎与性能 <design/07-backtest-engine-and-performance>`、:doc:`设计初衷与独特优势 "
+"<design/08-design-rationale-and-advantages>`，以及《回测并评价交易策略》目录下的「回测引擎与性能」章节。"
+msgstr ""
+"**高性能回測與防未來函數**：回測核心採用向量化 + "
+"Numba，時間維順序、標的維單步向量化，多進程並行優化；每步僅向策略注入當時可見的數據窗口，從機制上防未來函數。詳見《架構與設計》中的 "
+":doc:`回測引擎與性能 <design/07-backtest-engine-and-performance>`、:doc:`設計初衷與獨特優勢 "
+"<design/08-design-rationale-and-advantages>`，以及《回測並評價交易策略》目錄下的「回測引擎與性能」章節。"
+
+#: ../../source/index.rst:42
+msgid "``QTEASY`` 能做什么?"
+msgstr "``QTEASY`` 能做什麼?"
+
+#: ../../source/index.rst:45
+msgid "获取并管理金融历史数据"
+msgstr "獲取並管理金融歷史數據"
+
+#: ../../source/index.rst:47
+msgid "方便地从多渠道获取大量金融历史数据，进行数据清洗后以统一格式进行本地存储"
+msgstr "方便地從多渠道獲取大量金融歷史數據，進行數據清洗後以統一格式進行本地存儲"
+
+#: ../../source/index.rst:48
+msgid "通过`DataType`对象结构化管理金融数据中的可用信息，即便是复权价格、指数成份等复杂信息，也只需要一行代码即可获取"
+msgstr "通過`DataType`對象結構化管理金融數據中的可用資訊，即便是復權價格、指數成份等複雜資訊，也只需要一行代碼即可獲取"
+
+#: ../../source/index.rst:49
+msgid "基于`DataType`对象的金融数据可视化、统计分析以及分析结果可视化"
+msgstr "基於`DataType`對象的金融數據可視化、統計分析以及分析結果可視化"
+
+#: ../../source/index.rst:50
+msgid "数据本地存储、按需取用，为回测与实盘提供一致的数据基础，便于复现"
+msgstr "數據本地存儲、按需取用，爲回測與實盤提供一致的數據基礎，便於復現"
+
+#: ../../source/index.rst:58
+msgid "以简单、安全的方式创建交易策略"
+msgstr "以簡單、安全的方式創建交易策略"
+
+#: ../../source/index.rst:60
+msgid "通过`BaseStrategy`类，交易策略定义方法直观、逻辑清晰"
+msgstr "通過`BaseStrategy`類，交易策略定義方法直觀、邏輯清晰"
+
+#: ../../source/index.rst:61
+msgid "内置超过70种策略开箱即用，独特的策略混合和组机制，复杂策略可以通过简单策略拼装而来，过程如同搭积木"
+msgstr "內置超過70種策略開箱即用，獨特的策略混合和組機制，複雜策略可以通過簡單策略拼裝而來，過程如同搭積木"
+
+#: ../../source/index.rst:62
+msgid "交易策略的数据输入和使用方法完全封装且安全，完全避免无意中导致未来函数、数据泄露等问题，保证策略运行结果的真实性和可靠性"
+msgstr "交易策略的數據輸入和使用方法完全封裝且安全，完全避免無意中導致未來函數、數據泄露等問題，保證策略運行結果的真實性和可靠性"
+
+#: ../../source/index.rst:63
+msgid "同一套策略逻辑既用于回测也用于实盘，减少「回测漂亮、实盘走样」的落差"
+msgstr "同一套策略邏輯既用於回測也用於實盤，減少「回測漂亮、實盤走樣」的落差"
+
+#: ../../source/index.rst:71
+msgid "交易策略的回测评价、优化和模拟自动化交易"
+msgstr "交易策略的回測評價、優化和模擬自動化交易"
+
+#: ../../source/index.rst:73
+msgid "通过`Operator`交易员类管理策略运行，按照真实市场交易节奏回测策略，对交易结果进行多维度全方位评价，生成交易报告和结果图表"
+msgstr "通過`Operator`交易員類管理策略運行，按照真實市場交易節奏回測策略，對交易結果進行多維度全方位評價，生成交易報告和結果圖表"
+
+#: ../../source/index.rst:74
+msgid "提供多种优化算法，包括模拟退火、遗传算法、贝叶斯优化等在大参数空间中优化策略性能"
+msgstr "提供多種優化算法，包括模擬退火、遺傳算法、貝葉斯優化等在大參數空間中優化策略性能"
+
+#: ../../source/index.rst:75
+msgid "获取实时市场数据，运行策略模拟自动化交易，跟踪记录交易日志、股票持仓、账户资金变化等信息"
+msgstr "獲取實時市場數據，運行策略模擬自動化交易，跟蹤記錄交易日誌、股票持倉、賬戶資金變化等資訊"
+
+#: ../../source/index.rst:76
+msgid "回测、优化与实盘使用同一套运行机制，写一次策略即可全模式运行，配置清晰，便于复现与排查"
+msgstr "回測、優化與實盤使用同一套運行機制，寫一次策略即可全模式運行，配置清晰，便於復現與排查"
+
+#: ../../source/index.rst:77
+msgid "未来将通过QMT接口接入券商提供的实盘交易接口，实现自动化交易"
+msgstr "未來將通過QMT接口接入券商提供的實盤交易接口，實現自動化交易"

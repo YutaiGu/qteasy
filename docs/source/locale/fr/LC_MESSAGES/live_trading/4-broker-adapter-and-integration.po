@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-24 10:00+0800\n"
 "Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -311,8 +311,10 @@ msgid "返回 accepted、模拟 broker_order_id 等"
 msgstr "Retours acceptés, simule broker_order_id, etc."
 
 #: ../../source/live_trading/4-broker-adapter-and-integration.md
-msgid "柜台真实受理结果"
-msgstr "Résultats réels du traitement au comptoir"
+msgid "柜台真实受理结果（见 :doc:`4a-xtquant-broker-adapter-contract-v1`）"
+msgstr ""
+"Résultats réels d'acceptation au guichet (voir :doc:`4a-xtquant-broker-"
+"adapter-contract-v1`)"
 
 #: ../../source/live_trading/4-broker-adapter-and-integration.md
 msgid "异步回报"
@@ -467,10 +469,25 @@ msgid "4. 扩展新 Broker 类型"
 msgstr "4. Développez le type de courtier"
 
 #: ../../source/live_trading/4-broker-adapter-and-integration.md:94
+msgid ""
+"**XtQuant / MiniQMT**：配置项 ``live_trade_broker_type='xtquant'`` 已在 2.5.2 "
+"白名单中；实现细节与禁止双重下单等规则见英文契约 :doc:`4a-xtquant-broker-adapter-contract-v1`（协作方 PR"
+" 评审基准）。"
+msgstr ""
+"**XtQuant/MiniQMT** : élément de configuration "
+"``live_trade_broker_type='xtquant'`` 已在 2.5.2 白名单中；实现细节与禁止双重下单等规则见英文契约 "
+":doc:`4a-xtquant-broker-adapter-contract-v1` (référence de l'examen des "
+"relations publiques du collaborateur)."
+
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:96
 msgid "注册工厂（示例）："
 msgstr "Enregistrez une usine (exemple) :"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:103
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:105
+msgid "独立扩展包（推荐用于 QMT）："
+msgstr "Pack d'extension autonome (recommandé pour QMT) :"
+
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:114
 msgid ""
 "**CLI `sync`（别名 `pull-state`）**：当前为**预留**，执行会打印 `[NOT_IMPLEMENTED] "
 "...`，表示真实「从券商拉状态」尚未实现；对接 QMT 后将替换为可用实现。"
@@ -480,118 +497,118 @@ msgstr ""
 "d'extraction du courtage » n'a pas encore été implémenté ; elle sera "
 "remplacée par une implémentation disponible après intégration avec QMT."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:105
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:116
 msgid "5. 边界行为（接入时请注意）"
 msgstr ""
 "5. Comportement aux limites (veuillez faire attention lors de l'accès)"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:107
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:118
 msgid "未 `connect` 就 `submit` / `poll_fills`：应得到明确错误，而非静默失败"
 msgstr ""
 "La soumission ou l'interrogation sans connexion devrait entraîner une erreur"
 " explicite et non un échec silencieux."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:108
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:119
 msgid "`cancel` 未知委托号：应稳定返回「未撤成」"
 msgstr ""
 "`cancel` Numéro de délégation inconnu : doit systématiquement renvoyer "
 "\"Annulé\"."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:109
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:120
 msgid "`poll_fills` 超时：应返回空列表，而非脏数据"
 msgstr ""
 "`poll_fills` timeout : une liste vide doit être renvoyée, pas des données "
 "sales."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:110
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:121
 msgid "simulator 上 **`connect` 不代表真实券商会话**，仅表示适配层可受理"
 msgstr ""
 "Sur le simulateur, **`connect` ne représente pas une véritable session de "
 "courtage ; cela indique seulement que la couche d'adaptation peut le gérer."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:112
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:123
 msgid "6. 最小接入清单"
 msgstr "6. Liste d'accès minimum"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:114
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:125
 msgid "实现 `connect` / `disconnect` / `is_connected`"
 msgstr "Implémenter `connect` / `disconnect` / `is_connected`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:115
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:126
 msgid "打通 `submit_with_ack` → `poll_fills`"
 msgstr "Connectez `submit_with_ack` à `poll_fills`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:116
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:127
 msgid "回报字段满足契约校验"
 msgstr "Le champ de retour satisfait à la validation du contrat."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:117
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:128
 msgid "实现 `cancel` 与异常路径"
 msgstr "Implémentez `cancel` et les chemins d'exception"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:118
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:129
 msgid "（若需门禁/对账/sync）实现 `get_remote_*`"
 msgstr ""
 "(Si un contrôle d'accès/une réconciliation/une synchronisation est requis) "
 "Implémentez `get_remote_*`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:119
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:130
 msgid "在 CLI 下验证：`broker status`、`reconcile`、订单映射"
 msgstr ""
 "Vérifiez les éléments suivants dans la CLI : `broker status`, `reconcile` et"
 " mappage de commande."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:121
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:132
 msgid "7. 最小验收标准"
 msgstr "7. Critères d'acceptation minimaux"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:123
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:134
 msgid "`connect` 后 `is_connected=True`，可 `submit_with_ack`"
 msgstr "`is_connected=True` après `connect`, peut être `submit_with_ack`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:124
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:135
 msgid "受理成功：本地订单含 `broker_order_id`"
 msgstr "Traité avec succès : la commande locale contient `broker_order_id`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:125
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:136
 msgid "受理拒单：`rejected` 且 broker 字段空"
 msgstr "Rejet de la commande : `rejected` et le champ courtier est vide."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:126
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:137
 msgid "`poll_fills` 回报可校验"
 msgstr "Les retours `poll_fills` sont vérifiables."
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:127
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:138
 msgid "未连接 / 未知单 / 超时行为稳定"
 msgstr ""
 "Non connecté / Ordre inconnu / Le comportement du délai d'attente est stable"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:128
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:139
 msgid "CLI `broker` / `reconcile` 可观测"
 msgstr "CLI `broker` / `reconcile` observable"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:130
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:141
 msgid "8. 相关跳转"
 msgstr "8. Redirections associées"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:132
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:143
 msgid "生命周期与风控：:doc:`3-risk-and-order-lifecycle`"
 msgstr ""
 "Cycle de vie et contrôle des risques : cycle de vie à 3 risques et commandes"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:133
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:144
 msgid "产物与排错：:doc:`5-artifacts-and-troubleshooting`"
 msgstr "Produits et dépannage : :doc:`5-artifacts-and-troubleshooting`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:134
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:145
 msgid "快照/门禁：:doc:`6-trader-snapshot-gate`"
 msgstr "Instantané/Contrôle d'accès : :doc:`6-trader-snapshot-gate`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:135
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:146
 msgid "CLI 对照：:doc:`8-cli-trader-capability-matrix`"
 msgstr "Référence CLI : doc:`8-cli-trader-capability-matrix`"
 
-#: ../../source/live_trading/4-broker-adapter-and-integration.md:136
+#: ../../source/live_trading/4-broker-adapter-and-integration.md:147
 msgid ""
 "设计说明：[design/10-live-trading-s1.3-architecture.md](../design/10-live-"
 "trading-s1.3-architecture.md)"
@@ -755,3 +772,6 @@ msgstr ""
 
 #~ msgid "设计说明：`design/10-live-trading-s1.3-architecture.md`"
 #~ msgstr ""
+
+#~ msgid "柜台真实受理结果"
+#~ msgstr "Résultats réels du traitement au comptoir"

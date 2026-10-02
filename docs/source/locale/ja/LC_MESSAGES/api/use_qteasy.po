@@ -1,0 +1,140 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/use_qteasy.rst:2
+msgid "启动QTEASY"
+msgstr "QTEASY を開始します"
+
+#: ../../source/api/use_qteasy.rst:4
+msgid "启动qteasy的配置信息:"
+msgstr "`qteasy` 起動構成を管理する"
+
+#: of qteasy.core.run:1
+msgid "根据当前配置运行给定的 Operator，并进入回测、优化或实盘等不同工作模式。"
+msgstr "現在の設定に従って指定された Operator を実行し、バックテスト、最適化、ライブ取引などのさまざまな作業モードに入ります。"
+
+#: of qteasy.core.run:3
+msgid ""
+"本函数是 qteasy 的统一入口：根据全局配置 ``QT_CONFIG['mode']``（可通过 "
+"``qt.configure(mode=...)`` 暂时覆盖），选择实盘模式、回测模式、优化模式等， 自动准备所需数据源与日志对象并调用 "
+"``Operator.run()`` 执行完整流程。各模式 的详细行为与输出结构见文档「运行 qteasy 与工作模式」相关章节。"
+msgstr ""
+"この関数は、qteasy の統合エントリ ポイントです。グローバル設定 ``QT_CONFIG['mode']`` (which can be "
+"temporarily overridden via ``qt.configure(mode=...)``), it selects live "
+"trading mode, backtest mode, optimization mode, etc., automatically prepares"
+" the required data sources and log objects, and calls ``Operator.run()`` "
+"に基づいて、完全なワークフローを実行します。各モードの詳細な動作と出力構造については、ドキュメント「qteasy "
+"の実行と動作モード」の関連セクションを参照してください。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "参数"
+msgstr "パラメータ"
+
+#: of qteasy.core.run:8
+msgid "已配置好策略与运行参数的 Operator 对象。"
+msgstr "戦略と実行時パラメーターがすでに構成されている Operator オブジェクト。"
+
+#: of qteasy.core.run:10
+msgid ""
+"本次运行临时覆盖的配置项，键名需为合法的 qteasy 配置键，例如 "
+"``mode``、``asset_pool``、``invest_start``、``invest_end`` 等。"
+msgstr ""
+"この実行では構成項目が一時的に上書きされます。キー名は有効な qteasy 構成キー (``mode``, ``asset_pool``, "
+"``invest_start``, ``invest_end`` など) である必要があります。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "返回"
+msgstr "返品"
+
+#: of qteasy.core.run:13
+msgid ""
+"当 ``mode == 1``（回测模式）时通常返回包含回测结果的字典； 当 ``mode == 2``（优化模式）时通常返回包含多组参数结果的列表； "
+"实盘模式与其他模式的具体返回结构详见 Operator.run() 与相关文档说明。"
+msgstr ""
+"``mode == 1`` (backtest mode), it usually returns a dict containing backtest"
+" results; when ``mode == 2`` (最適化モード) の場合、通常、複数のパラメーター "
+"セットの結果を含むリストが返されます。ライブ取引モードおよびその他のモードでの正確なリターン構造については、Operator.run() "
+"および関連ドキュメントを参照してください。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "返回类型"
+msgstr "戻り値の型"
+
+#: of qteasy.core.info:11 qteasy.core.run:19
+msgid "示例"
+msgstr "例"
+
+#: of qteasy.core.run:20
+msgid "``run`` 通常会触及数据源、日志路径与运行模式等外部状态。下面示例展示最小的“可见且稳定”的调用准备："
+msgstr ""
+"``run`` は通常、データ ソース、ログ "
+"パス、実行モードなどの外部状態に影響します。以下の例は、最小限の「可視かつ安定した」通話セットアップを示しています。"
+
+#: of qteasy.core.run:27
+msgid "若你已正确配置数据源与资产池，可进一步执行（输出结构随模式而不同）：::"
+msgstr "データ ソースとアセット プールを正しく構成した場合は、さらに実行できます (出力構造はモードによって異なります):::"
+
+#: of qteasy.core.info:1
+msgid "qteasy 模块的帮助信息入口函数（预留）。"
+msgstr "qteasy モジュールのヘルプ情報の入力機能 (予約済み)。"
+
+#: of qteasy.core.info:3
+msgid "预留参数（当前版本未使用）。"
+msgstr "予約済みパラメータ (現在のバージョンでは使用されません)。"
+
+#: of qteasy.core.info:5
+msgid "当前版本未实现，调用将抛出 ``NotImplementedError``。"
+msgstr "現在のバージョンでは実装されていません。これを呼び出すと ``NotImplementedError`` が発生します。"
+
+#: of qteasy.core.info
+msgid "抛出"
+msgstr "レイズ"
+
+#: of qteasy.core.info:8
+msgid "当前版本未实现。"
+msgstr "現在のバージョンでは実装されていません。"
+
+#: of qteasy.core.info:12
+msgid "本函数为预留入口，建议使用 Sphinx 文档或 `help(qteasy)` 获取帮助信息："
+msgstr ""
+"この関数は予約されたエントリ ポイントです。ヘルプ情報を取得するには、Sphinx ドキュメントまたは `help(qteasy)` "
+"を使用することをお勧めします。"
+
+#: ../../source/api/use_qteasy.rst:12
+msgid "运行模式与常量速查"
+msgstr "実行モードと定数のクイックリファレンス"
+
+#: ../../source/api/use_qteasy.rst:14
+msgid ""
+"qteasy 使用一组全局常量表示运行模式（实盘/回测/优化/预测）。你可以在调用 ``qt.run`` 前后通过 "
+"``qt.configure(mode=...)`` 或在 ``qt.run(op, mode=...)`` 中临时覆盖。"
+msgstr ""
+"qteasy は、一連のグローバル定数を使用して実行モード (ライブ取引/バックテスト/最適化/予測) を表します。 ``qt.run`` via "
+"``qt.configure(mode=...)``, or within ``qt.run(op, mode=...)`` "
+"を呼び出す前または後に、それらを一時的にオーバーライドできます。"
+
+#: ../../source/api/use_qteasy.rst:17
+msgid "示例（常量值为稳定输出）：:"
+msgstr "例 (定数値は安定した出力を生成します)::"
+
+#: ../../source/api/use_qteasy.rst:23
+msgid "日志与根目录路径常量（值受配置影响，尤其是日志路径支持运行时热更新）：:"
+msgstr ""
+"ログおよびルート ディレクトリのパス定数 (値は構成によって影響され、特にログ パスはランタイム ホット アップデートをサポートします)::"

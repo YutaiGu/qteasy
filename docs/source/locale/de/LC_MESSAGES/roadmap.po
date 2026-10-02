@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 21:02+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-23 22:00+0800\n"
 "Last-Translator: Jackie PENG\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
-"X-Generator: Poedit 3.9\n"
 
 #: ../../source/roadmap.rst:2
 msgid "开发路线图"
@@ -131,8 +130,12 @@ msgid "✅ 从东方财经  ``eastmoney`` 获取历史数据和实时数据"
 msgstr "✅ Historische und Echtzeitdaten von Eastmoney.com abrufen."
 
 #: ../../source/roadmap.rst:37
-msgid "⬜ 从 ``akshare`` 获取数据"
-msgstr "⬜ Daten von `akshare` abrufen"
+msgid ""
+"✅ 从 ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``）"
+msgstr ""
+"✅ Von ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``)"
 
 #: ../../source/roadmap.rst:38
 msgid "⬜ 从 ``baostock`` 获取数据"
@@ -438,3 +441,20 @@ msgid "⬜ 产生交易信号后通过邮件/微信等方式发送通知"
 msgstr ""
 "⬜ Benachrichtigungen werden per E-Mail/WeChat usw. versendet, sobald ein "
 "Handelssignal generiert wurde."
+
+#: ../../source/roadmap.rst:109
+msgid "可选扩展"
+msgstr "Optionale Erweiterungen"
+
+#: ../../source/roadmap.rst:111
+msgid ""
+"✅ AI 自然语言编排外壳（**独立项目** `qteasy-ai <https://github.com/shepherdpp/qteasy-"
+"ai>`_，PyPI：``qteasy-ai``；依赖 qteasy 内核 API，不随 qteasy 版本发布）"
+msgstr ""
+"✅ KI-Orchestrierungs-Shell in natürlicher Sprache (**Unabhängiges Projekt** "
+"`qteasy-ai <https://github.com/shepherdpp/qteasy-ai>`_, PyPI: ``qteasy-ai``;"
+" abhängig von der qteasy-Kernel-API, nicht mit der qteasy-Version "
+"veröffentlicht)"
+
+#~ msgid "⬜ 从 ``akshare`` 获取数据"
+#~ msgstr "⬜ Daten von `akshare` abrufen"

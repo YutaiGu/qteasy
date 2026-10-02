@@ -1,0 +1,533 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:1
+msgid "风控与订单生命周期"
+msgstr "風控與訂單生命週期"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:3
+msgid ""
+"本章帮您弄清两件事：订单为什么有时「没出去」；出去之后为什么有时一直「部分成交」。重点区分**风控拒单**与**柜台拒单**——这是 live "
+"排错最常见的坑。"
+msgstr ""
+"本章幫您弄清兩件事：訂單爲什麼有時「沒出去」；出去之後爲什麼有時一直「部分成交」。重點區分**風控拒單**與**櫃檯拒單**——這是 live "
+"排錯最常見的坑。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:5
+msgid ""
+"亲爱的用户，模拟实盘里「没成交」并不总意味着策略没信号。可能是本地风控拦下了，也可能是模拟券商不收单。我们把两条路径分开讲，您就不会误把风控拒单当成「券商坏了」。"
+msgstr ""
+"親愛的用戶，模擬實盤裏「沒成交」並不總意味着策略沒信號。可能是本地風控攔下了，也可能是模擬券商不收單。我們把兩條路徑分開講，您就不會誤把風控拒單當成「券商壞了」。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:7
+msgid "0. 适用场景"
+msgstr "0. 適用場景"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:9
+msgid "您已能运行 live，但需要判断「未成交 / 拒单 / 撤单」到底发生了什么"
+msgstr "您已能運行 live，但需要判斷「未成交 / 拒單 / 撤單」到底發生了什麼"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:10
+msgid "您想把界面提示、日志与订单状态串成**同一条**可解释链路"
+msgstr "您想把界面提示、日誌與訂單狀態串成**同一條**可解釋鏈路"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:12
+msgid "1. 核心概念：两条「拒单」路径"
+msgstr "1. 核心概念：兩條「拒單」路徑"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:14
+msgid "很多用户第一次遇到拒单，会以为「都是券商拒的」。在 qteasy 里，请先分清："
+msgstr "很多用戶第一次遇到拒單，會以爲「都是券商拒的」。在 qteasy 裏，請先分清："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:24
+msgid ""
+"在 live 子系统中，订单从策略信号到最终成交须经过 **RiskManager（可选）→ 本地建单 → Broker 受理 → 成交回报** "
+"几站。下表归纳三种结局——排错时请先对号入座「类型」列，再按「优先查哪里」打开对应日志。"
+msgstr ""
+"在 live 子系統中，訂單從策略信號到最終成交須經過 **RiskManager（可選）→ 本地建單 → Broker 受理 → 成交回報** "
+"幾站。下表歸納三種結局——排錯時請先對號入座「類型」列，再按「優先查哪裏」打開對應日誌。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:26
+msgid ""
+"**各列含义**：**类型**为路径名称；**您会看到什么**为界面/返回值特征；**订单表有记录吗**指本地 "
+"`sys_op_trade_orders` 是否新增行；**优先查哪里**为建议的第一份证据。"
+msgstr ""
+"**各列含義**：**類型**爲路徑名稱；**您會看到什麼**爲界面/返回值特徵；**訂單表有記錄嗎**指本地 "
+"`sys_op_trade_orders` 是否新增行；**優先查哪裏**爲建議的第一份證據。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:28
+msgid ""
+"**如何使用**：CLI 出现英文 `Order rejected by risk rule` → 选「风控拒单」行 → 查 "
+"`risk_log`；订单列表里有 `rejected` 且无 broker 号 → 选「柜台受理拒单」行。"
+msgstr ""
+"**如何使用**：CLI 出現英文 `Order rejected by risk rule` → 選「風控拒單」行 → 查 "
+"`risk_log`；訂單列表裏有 `rejected` 且無 broker 號 → 選「櫃檯受理拒單」行。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "类型"
+msgstr "類型"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "您会看到什么"
+msgstr "您會看到什麼"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "订单表有记录吗"
+msgstr "訂單表有記錄嗎"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "优先查哪里"
+msgstr "優先查哪裏"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**风控拒单**"
+msgstr "**風控拒單**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "CLI 英文拒因；提交结果为空 `{}`"
+msgstr "CLI 英文拒因；提交結果爲空 `{}`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**没有**新行"
+msgstr "**沒有**新行"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "`risk_log`、`<RISK REJECTED>`"
+msgstr "`risk_log`、`<RISK REJECTED>`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**柜台受理拒单**"
+msgstr "**櫃檯受理拒單**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "有订单行，`status=rejected`，broker 号为空"
+msgstr "有訂單行，`status=rejected`，broker 號爲空"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**有**"
+msgstr "**有**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "订单表、trace"
+msgstr "訂單表、trace"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**受理成功**"
+msgstr "**受理成功**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "`submitted` 等，随后可能有成交"
+msgstr "`submitted` 等，隨後可能有成交"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "有，且通常有 `broker_order_id`"
+msgstr "有，且通常有 `broker_order_id`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "订单表、trade_log"
+msgstr "訂單表、trade_log"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:36
+msgid "完整对照表见 :doc:`6-trader-snapshot-gate`。"
+msgstr "完整對照表見 :doc:`6-trader-snapshot-gate`。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:38
+msgid ""
+"**RiskManager（风控管理器）** 像下单前的**复核台**：按您组装的规则链（白名单、单笔上限、交易时段等）依次检查 "
+"**OrderIntent（订单意图）** 与 **AccountSnapshot（账户快照）**；任一规则不通过则产出 "
+"**RiskDecision（风控决策）**——拒绝，并带英文 `reason` 与 `rule_id`。"
+msgstr ""
+"**RiskManager（風控管理器）** 像下單前的**複覈臺**：按您組裝的規則鏈（白名單、單筆上限、交易時段等）依次檢查 "
+"**OrderIntent（訂單意圖）** 與 **AccountSnapshot（賬戶快照）**；任一規則不通過則產出 "
+"**RiskDecision（風控決策）**——拒絕，並帶英文 `reason` 與 `rule_id`。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:40
+msgid "若放行，qteasy 才继续建单、校验，并交给 **Broker（券商）** 的 `submit_with_ack` 听柜台是否受理。"
+msgstr "若放行，qteasy 才繼續建單、校驗，並交給 **Broker（券商）** 的 `submit_with_ack` 聽櫃檯是否受理。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:42
+msgid "2. 风控如何工作（用户视角）"
+msgstr "2. 風控如何工作（用戶視角）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:44
+msgid "在 live 下单前，若您为 Trader 配置了 `RiskManager`："
+msgstr "在 live 下單前，若您爲 Trader 配置了 `RiskManager`："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:46
+msgid "qteasy 根据当前账本组装账户快照"
+msgstr "qteasy 根據當前賬本組裝賬戶快照"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:47
+msgid "把「这一笔打算下的单」交给规则链评估"
+msgstr "把「這一筆打算下的單」交給規則鏈評估"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:48
+msgid "**拒绝**：不写订单表、不进券商队列；英文拒因写入系统日志与 `risk_log`"
+msgstr "**拒絕**：不寫訂單表、不進券商隊列；英文拒因寫入系統日誌與 `risk_log`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:49
+msgid "**放行**：与未配风控时一样，继续提交"
+msgstr "**放行**：與未配風控時一樣，繼續提交"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:51
+msgid "若您**没有**传入 `RiskManager`，则跳过本地规则链，直接进入建单与提交——行为与旧版更接近。"
+msgstr "若您**沒有**傳入 `RiskManager`，則跳過本地規則鏈，直接進入建單與提交——行爲與舊版更接近。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:53
+msgid "2.1 规则示例（便于理解阈值）"
+msgstr "2.1 規則示例（便於理解閾值）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:55
+msgid ""
+"**RiskManager** 在 Trader 提交订单**之前**评估规则链——像复核台按 checklist "
+"逐项打勾。下表列举常见规则类型及用户可见结果，帮助您理解 `rule_id` 与拒因；**不是**内置规则全量列表（规则由您在 Python 中组装）。"
+msgstr ""
+"**RiskManager** 在 Trader 提交訂單**之前**評估規則鏈——像複覈臺按 checklist "
+"逐項打勾。下表列舉常見規則類型及用戶可見結果，幫助您理解 `rule_id` 與拒因；**不是**內置規則全量列表（規則由您在 Python 中組裝）。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:57
+msgid "**各列含义**：**场景**为业务情境；**您设定的规则**为规则语义；**会发生什么**为 live 中的表现。"
+msgstr "**各列含義**：**場景**爲業務情境；**您設定的規則**爲規則語義；**會發生什麼**爲 live 中的表現。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:59
+msgid ""
+"**如何使用**：对照 `risk_log` 或 CLI 英文拒因中的 `rule_id`（如 "
+"`MAX_ORDER_QTY`）反查类似场景，再调整阈值或白名单。"
+msgstr ""
+"**如何使用**：對照 `risk_log` 或 CLI 英文拒因中的 `rule_id`（如 "
+"`MAX_ORDER_QTY`）反查類似場景，再調整閾值或白名單。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:61
+msgid "**示例**：拒因含 `MAX_ORDER_QTY` → 对应「单笔数量」行 → 减小委托数量或提高规则上限。"
+msgstr "**示例**：拒因含 `MAX_ORDER_QTY` → 對應「單筆數量」行 → 減小委託數量或提高規則上限。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "场景"
+msgstr "場景"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "您设定的规则"
+msgstr "您設定的規則"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "会发生什么"
+msgstr "會發生什麼"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "白名单"
+msgstr "白名單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "只允许 `000001.SZ`"
+msgstr "只允許 `000001.SZ`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "对 `000300.SZ` 下单 → **拒绝**，日志说明不在名单"
+msgstr "對 `000300.SZ` 下單 → **拒絕**，日誌說明不在名單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "单笔数量"
+msgstr "單筆數量"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "最多 500 股"
+msgstr "最多 500 股"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "要买 501 股 → **拒绝**；500 股且其他通过 → **放行**"
+msgstr "要買 501 股 → **拒絕**；500 股且其他通過 → **放行**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "交易时段"
+msgstr "交易時段"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "仅 9:30–11:30、13:00–15:00"
+msgstr "僅 9:30–11:30、13:00–15:00"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "午休下单 → **拒绝**"
+msgstr "午休下單 → **拒絕**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "日成交额"
+msgstr "日成交額"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "当日累计 + 本笔超上限"
+msgstr "當日累計 + 本筆超上限"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**拒绝**；未超 → **放行**"
+msgstr "**拒絕**；未超 → **放行**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:70
+msgid ""
+"组装方式：在创建 Trader 前用 Python 构造 `RiskManager([规则1, 规则2, ...])` "
+"并传入；不传则关闭本地规则链。详见 :doc:`2-configuration-and-run` 与教程。"
+msgstr ""
+"組裝方式：在創建 Trader 前用 Python 構造 `RiskManager([規則1, 規則2, ...])` "
+"並傳入；不傳則關閉本地規則鏈。詳見 :doc:`2-configuration-and-run` 與教程。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:72
+msgid "2.2 用户可见英文拒因示例"
+msgstr "2.2 用戶可見英文拒因示例"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:74
+msgid "CLI/TUI 会显示类似："
+msgstr "CLI/TUI 會顯示類似："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:80
+msgid ""
+"含义：**风控规则 MAX_ORDER_QTY** 认为数量超限。请到 `risk_log` 搜 `<RISK REJECTED>` 核对细节。"
+msgstr ""
+"含義：**風控規則 MAX_ORDER_QTY** 認爲數量超限。請到 `risk_log` 搜 `<RISK REJECTED>` 覈對細節。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:82
+msgid "3. 订单状态生命周期"
+msgstr "3. 訂單狀態生命週期"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:84
+msgid "受理成功后，订单在 live 中会经历典型状态（您可在 CLI `orders` 或日志里看到）："
+msgstr "受理成功後，訂單在 live 中會經歷典型狀態（您可在 CLI `orders` 或日誌裏看到）："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:90
+msgid "也可能："
+msgstr "也可能："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:96
+msgid ""
+"受理成功后，订单在 live 中会经历若干**状态**（CLI `orders` "
+"或日志可见）。这些状态描述「委托在券商侧进行到哪一步」，与风控拒单（根本没有 "
+"submitted）不同。下表覆盖最常见状态；完整枚举以运行中实际输出为准。"
+msgstr ""
+"受理成功後，訂單在 live 中會經歷若干**狀態**（CLI `orders` "
+"或日誌可見）。這些狀態描述「委託在券商側進行到哪一步」，與風控拒單（根本沒有 "
+"submitted）不同。下表覆蓋最常見狀態；完整枚舉以運行中實際輸出爲準。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:98
+msgid "**各列含义**：**状态**为英文状态名；**含义**为投资语义；**您该关注什么**为排查或确认时的检查点。"
+msgstr "**各列含義**：**狀態**爲英文狀態名；**含義**爲投資語義；**您該關注什麼**爲排查或確認時的檢查點。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:100
+msgid ""
+"**如何使用**：长期停在某一状态 → 查该行「您该关注什么」→ 必要时到 :doc:`5-artifacts-and-troubleshooting`"
+" 剧本 D/E。"
+msgstr ""
+"**如何使用**：長期停在某一狀態 → 查該行「您該關注什麼」→ 必要時到 :doc:`5-artifacts-and-troubleshooting`"
+" 劇本 D/E。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "状态"
+msgstr "狀態"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "含义"
+msgstr "含義"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "您该关注什么"
+msgstr "您該關注什麼"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**submitted**"
+msgstr "**submitted**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "柜台已收单，尚未全部成交"
+msgstr "櫃檯已收單，尚未全部成交"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "是否有 `broker_order_id`"
+msgstr "是否有 `broker_order_id`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**partial-filled**"
+msgstr "**partial-filled**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "部分成交，累计量 < 委托量"
+msgstr "部分成交，累計量 < 委託量"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "累计成交量是否在增加"
+msgstr "累計成交量是否在增加"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**filled**"
+msgstr "**filled**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "累计成交量达到委托量"
+msgstr "累計成交量達到委託量"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "持仓与现金是否已更新"
+msgstr "持倉與現金是否已更新"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**canceled**"
+msgstr "**canceled**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "已撤单"
+msgstr "已撤單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "收盘或手动撤单后的终态"
+msgstr "收盤或手動撤單後的終態"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "**rejected**"
+msgstr "**rejected**"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "柜台受理阶段拒绝"
+msgstr "櫃檯受理階段拒絕"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md
+msgid "broker 号通常为空；**不是**风控拒单"
+msgstr "broker 號通常爲空；**不是**風控拒單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:110
+msgid "**排查思路**："
+msgstr "**排查思路**："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:111
+msgid "「根本没有 submitted」→ 先查风控与提交前校验（§1 表）"
+msgstr "「根本沒有 submitted」→ 先查風控與提交前校驗（§1 表）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:112
+msgid "「一直是 partial-filled」→ 查成交回报是否在持续到达（§4）"
+msgstr "「一直是 partial-filled」→ 查成交回報是否在持續到達（§4）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:114
+msgid "4. 分批成交与全部成交"
+msgstr "4. 分批成交與全部成交"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:116
+msgid ""
+"当一笔大单分多笔成交时，状态会先停在 **partial-filled**，像「委托只成交了一部分」。   "
+"当**累计成交量达到委托数量**时，qteasy 会将状态更新为 **filled**。若您看到长期 partial-"
+"filled，请对照成交回报与目标数量——有时只是行情或模拟撮合尚未凑满整单。"
+msgstr ""
+"當一筆大單分多筆成交時，狀態會先停在 **partial-filled**，像「委託只成交了一部分」。   "
+"當**累計成交量達到委託數量**時，qteasy 會將狀態更新爲 **filled**。若您看到長期 partial-"
+"filled，請對照成交回報與目標數量——有時只是行情或模擬撮合尚未湊滿整單。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:119
+msgid "5. 收盘后未成交订单"
+msgstr "5. 收盤後未成交訂單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:121
+msgid "收盘后，qteasy 会通过 `post_close` 任务统一收尾当日未决订单："
+msgstr "收盤後，qteasy 會通過 `post_close` 任務統一收尾當日未決訂單："
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:123
+msgid ""
+"**`submitted` / `partial-filled`**：视为曾进入柜台，收盘撤余量，终态为 "
+"**`canceled`**（可能有撤单成交记录）。"
+msgstr ""
+"**`submitted` / `partial-filled`**：視爲曾進入櫃檯，收盤撤餘量，終態爲 "
+"**`canceled`**（可能有撤單成交記錄）。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:124
+msgid ""
+"**`created`**：视为未成功报单的本地草稿（如报单链路中断或历史遗留），收盘置为 "
+"**`rejected`**，**不**与盘中柜台拒单混淆，也**不**写入撤单型成交结果。"
+msgstr ""
+"**`created`**：視爲未成功報單的本地草稿（如報單鏈路中斷或歷史遺留），收盤置爲 "
+"**`rejected`**，**不**與盤中櫃檯拒單混淆，也**不**寫入撤單型成交結果。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:126
+msgid ""
+"对您而言：收盘后请关注 `post_close` 相关日志与 `reconcile` 对账输出，确认在途单是否已按规则收尾，而不必记忆内部 API "
+"名称。"
+msgstr ""
+"對您而言：收盤後請關注 `post_close` 相關日誌與 `reconcile` 對賬輸出，確認在途單是否已按規則收尾，而不必記憶內部 API "
+"名稱。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:128
+msgid "6. 遇到异常时建议顺序"
+msgstr "6. 遇到異常時建議順序"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:130
+msgid "CLI/TUI **即时英文提示**（先记下 `rule_id` 或订单号）"
+msgstr "CLI/TUI **即時英文提示**（先記下 `rule_id` 或訂單號）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:131
+msgid "**`risk_log`**：是否有 `<RISK REJECTED>`（风控路径）"
+msgstr "**`risk_log`**：是否有 `<RISK REJECTED>`（風控路徑）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:132
+msgid "**订单与成交记录**：状态序列、`broker_order_id` 是否回写"
+msgstr "**訂單與成交記錄**：狀態序列、`broker_order_id` 是否回寫"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:134
+msgid "更系统的决策树见 :doc:`5-artifacts-and-troubleshooting` §3。"
+msgstr "更系統的決策樹見 :doc:`5-artifacts-and-troubleshooting` §3。"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:136
+msgid "7. 快速判定清单"
+msgstr "7. 快速判定清單"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:138
+msgid "这笔单是否进入提交链路（订单表或日志里能否找到）"
+msgstr "這筆單是否進入提交鏈路（訂單表或日誌裏能否找到）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:139
+msgid "若未提交：能否在 `risk_log` 或界面找到 `rule_id` / `reason`"
+msgstr "若未提交：能否在 `risk_log` 或界面找到 `rule_id` / `reason`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:140
+msgid "若已提交：是否有对应成交回报、状态是否与累计量一致"
+msgstr "若已提交：是否有對應成交回報、狀態是否與累計量一致"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:141
+msgid "拒单类型是否分清：风控（无订单行）vs 柜台（`rejected` 行）"
+msgstr "拒單類型是否分清：風控（無訂單行）vs 櫃檯（`rejected` 行）"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:143
+msgid "8. 相关跳转"
+msgstr "8. 相關跳轉"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:145
+msgid "配置启动：:doc:`2-configuration-and-run`"
+msgstr "配置啓動：:doc:`2-configuration-and-run`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:146
+msgid "排错手册：:doc:`5-artifacts-and-troubleshooting`"
+msgstr "排錯手冊：:doc:`5-artifacts-and-troubleshooting`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:147
+msgid "拒单与门禁细节：:doc:`6-trader-snapshot-gate`"
+msgstr "拒單與門禁細節：:doc:`6-trader-snapshot-gate`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:148
+msgid "CLI 命令：:doc:`8-cli-trader-capability-matrix`"
+msgstr "CLI 命令：:doc:`8-cli-trader-capability-matrix`"
+
+#: ../../source/live_trading/3-risk-and-order-lifecycle.md:149
+msgid ""
+"双路径教程：[tutorials/8-live-trade-risk-and-broker-"
+"walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"
+msgstr ""
+"雙路徑教程：[tutorials/8-live-trade-risk-and-broker-"
+"walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"

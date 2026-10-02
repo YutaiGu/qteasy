@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -100,10 +100,13 @@ msgstr ""
 "CLI."
 
 #: ../../source/live_trading/index.rst:24
-msgid "**准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。"
+msgid ""
+"**准备对接真实柜台（如 QMT）**：阅读 :doc:`4a-xtquant-broker-adapter-contract-v1`（英文契约 "
+"v1），再读 :doc:`4-broker-adapter-and-integration`。"
 msgstr ""
-"**Préparer l'interface avec un vrai courtier (tel que QMT) :** Lisez les "
-"notes d'adaptation du courtier au chapitre 4."
+"**Préparez-vous à vous connecter à de vrais compteurs (tels que QMT)** : "
+"Lisez :doc:`4a-xtquant-broker-adapter-contract-v1` (contrat anglais v1), "
+"puis lisez :doc:`4-broker-adapter-and-integration`."
 
 #: ../../source/live_trading/index.rst:27
 msgid "建议阅读顺序"
@@ -140,18 +143,26 @@ msgstr ""
 ":doc:`4-broker-adapter-and-integration` — Adaptation du courtage (avancé)"
 
 #: ../../source/live_trading/index.rst:36
+msgid ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT 契约 "
+"v1（英文，协作必读）"
+msgstr ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT Contract v1 "
+"(anglais, lecture obligatoire pour la collaboration)"
+
+#: ../../source/live_trading/index.rst:37
 msgid ":doc:`6-trader-snapshot-gate` — 策略快照与启动门禁"
 msgstr ""
 ":doc:`6-trader-snapshot-gate` — Instantanés de stratégie et portes de "
 "démarrage"
 
-#: ../../source/live_trading/index.rst:37
+#: ../../source/live_trading/index.rst:38
 msgid ":doc:`7-manual-smoke-live-grid-roadmap` — 手工冒烟清单"
 msgstr ""
 ":doc:`7-manual-smoke-live-grid-roadmap` — Liste de contrôle manuelle de la "
 "fumée"
 
-#: ../../source/live_trading/index.rst:38
+#: ../../source/live_trading/index.rst:39
 msgid ":doc:`8-cli-trader-capability-matrix` — CLI 能力对照表"
 msgstr ""
 ":doc:`8-cli-trader-capability-matrix` — Tableau de comparaison des capacités"
@@ -189,3 +200,8 @@ msgstr ""
 
 #~ msgid ":doc:`4-broker-adapter-and-integration`"
 #~ msgstr ""
+
+#~ msgid "**准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。"
+#~ msgstr ""
+#~ "**Préparer l'interface avec un vrai courtier (tel que QMT) :** Lisez les "
+#~ "notes d'adaptation du courtier au chapitre 4."

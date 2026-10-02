@@ -1,0 +1,73 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_05_类网格交易.md:1
+msgid "类网格交易策略"
+msgstr "類網格交易策略"
+
+#: ../../source/examples/Example_05_类网格交易.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_05_类网格交易.ipynb` 第一个 Markdown "
+"cell。"
+msgstr ""
+"參考來源：`docs/_joinquant_migration_source/Example_05_類網格交易.ipynb` 第一個 Markdown "
+"cell。"
+
+#: ../../source/examples/Example_05_类网格交易.md:5
+msgid "本策略首先计算过去300个价格数据的均值和标准差 (天数是一个可调参数)"
+msgstr "本策略首先計算過去300個價格數據的均值和標準差 (天數是一個可調參數)"
+
+#: ../../source/examples/Example_05_类网格交易.md:6
+msgid "并根据均值加减1和2个标准差得到网格的区间分界线,（加减标准差的倍数是可调参数)"
+msgstr "並根據均值加減1和2個標準差得到網格的區間分界線,（加減標準差的倍數是可調參數)"
+
+#: ../../source/examples/Example_05_类网格交易.md:7
+msgid "并分别配以0.3和0.5的仓位权重 (仓位权重是可调参数）"
+msgstr "並分別配以0.3和0.5的倉位權重 (倉位權重是可調參數）"
+
+#: ../../source/examples/Example_05_类网格交易.md:8
+msgid ""
+"然后根据价格所在的区间来配置仓位(+/-40为上下界,无实际意义): "
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40](具体价格等于均值+数字倍标准差) [-0.5, -0.3, 0.0, 0.3,"
+" 0.5] (资金比例,此处负号表示开空仓，回测时设置为允许持有空头仓位)"
+msgstr ""
+"然後根據價格所在的區間來配置倉位(+/-40爲上下界,無實際意義): "
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40](具體價格等於均值+數字倍標準差) [-0.5, -0.3, 0.0, 0.3,"
+" 0.5] (資金比例,此處負號表示開空倉，回測時設置爲允許持有空頭倉位)"
+
+#: ../../source/examples/Example_05_类网格交易.md:12
+msgid "回测数据为:HS300指数的1min数据 回测时间为:2022-03-01 09:30:00到2022-07-31 15:00:00"
+msgstr "回測數據爲:HS300指數的1min數據 回測時間爲:2022-03-01 09:30:00到2022-07-31 15:00:00"
+
+#: ../../source/examples/Example_05_类网格交易.md:20
+msgid "定义交易策略"
+msgstr "定義交易策略"
+
+#: ../../source/examples/Example_05_类网格交易.md:65
+msgid "设定交易员对象，并且设置交易配置，实施交易回测"
+msgstr "設定交易員對象，並且設置交易配置，實施交易回測"
+
+#: ../../source/examples/Example_05_类网格交易.md:133
+msgid "![png](img/output_3_1.png)"
+msgstr "![png](img/output_3_1.png)"
+
+#: ../../source/examples/Example_05_类网格交易.md:133
+msgid "png"
+msgstr "png"

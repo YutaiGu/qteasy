@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 21:02+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -144,8 +144,12 @@ msgstr ""
 "✅ Obtenez des données historiques et des données en temps réel d'Eastmoney"
 
 #: ../../source/roadmap.rst:37
-msgid "⬜ 从 ``akshare`` 获取数据"
-msgstr "⬜ Obtenez des données de ``akshare``"
+msgid ""
+"✅ 从 ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``）"
+msgstr ""
+"✅ De ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``)"
 
 #: ../../source/roadmap.rst:38
 msgid "⬜ 从 ``baostock`` 获取数据"
@@ -458,6 +462,19 @@ msgstr ""
 "⬜ Envoyez des notifications par e-mail/WeChat, etc. après avoir généré des "
 "signaux de trading"
 
+#: ../../source/roadmap.rst:109
+msgid "可选扩展"
+msgstr "Extensions facultatives"
+
+#: ../../source/roadmap.rst:111
+msgid ""
+"✅ AI 自然语言编排外壳（**独立项目** `qteasy-ai <https://github.com/shepherdpp/qteasy-"
+"ai>`_，PyPI：``qteasy-ai``；依赖 qteasy 内核 API，不随 qteasy 版本发布）"
+msgstr ""
+"✅ Shell d'orchestration de langage naturel IA (**Projet indépendant** "
+"`qteasy-ai <https://github.com/shepherdpp/qteasy-ai>`_, PyPI : ``qteasy-"
+"ai`` ; dépend de l'API du noyau qteasy, non publié avec la version qteasy)"
+
 #~ msgid "⬜ 获取港股、美股价格数据"
 #~ msgstr ""
 
@@ -493,3 +510,6 @@ msgstr ""
 
 #~ msgid "⬜ 提供交易记录文件和配置文件的清空和重置功能，允许用户清空交易记录文件，重新开始交易"
 #~ msgstr ""
+
+#~ msgid "⬜ 从 ``akshare`` 获取数据"
+#~ msgstr "⬜ Obtenez des données de ``akshare``"

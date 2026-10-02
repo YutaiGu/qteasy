@@ -1076,10 +1076,13 @@ class TestTrader(unittest.TestCase):
         # test history orders without results
         history_orders = ts.history_orders(with_trade_results=False)
         self.assertIsInstance(ts.history_orders(), pd.DataFrame)
-        self.assertEqual(history_orders.shape, (9, 8))
-        self.assertEqual(history_orders.columns.tolist(), ['symbol', 'position', 'direction', 'order_type',
+        self.assertEqual(history_orders.shape, (9, 10))
+        self.assertEqual(history_orders.columns.tolist(), ['order_id', 'broker_order_id', 'symbol', 'position',
+                                                           'direction', 'order_type',
                                                            'qty', 'price',
                                                            'submitted_time', 'status'])
+        print(' history_orders columns:', history_orders.columns.tolist())
+        self.assertTrue(history_orders['order_id'].between(1, 9).all())
         # test manual change of cashes and positions
         self.assertEqual(ts.account_cash, (73905.0, 73905.0, 100000.0))
         ts.manual_change_cash(10000.0)
@@ -2223,7 +2226,7 @@ class TestTraderAccountOrders(unittest.TestCase):
     def test_history_orders_without_results_columns(self):
         ho = self.trader.history_orders(with_trade_results=False)
         self.assertIsInstance(ho, pd.DataFrame)
-        for col in ['symbol', 'position', 'direction', 'qty', 'price', 'status']:
+        for col in ['order_id', 'broker_order_id', 'symbol', 'position', 'direction', 'qty', 'price', 'status']:
             self.assertIn(col, ho.columns)
 
     def test_history_orders_with_results_columns(self):
@@ -2516,6 +2519,56 @@ class TestTraderInfoAndMessages(unittest.TestCase):
         self.assertIn('normal line', filtered_lines[0])
         self.assertIn('strategy done.', filtered_lines[1])
         combined = ''.join(filtered_lines)
+        self.assertNotIn('symbols: []', combined)
+        if os.path.exists(path):
+            os.remove(path)
+
+    def test_read_sys_log_row_count_returns_n_logical_non_debug_entries(self):
+        """row_count 在过滤 DEBUG 后仍返回 N 条逻辑 INFO 记录（非物理行截断）。"""
+        print('\n[TestTraderInfoAndMessages] read_sys_log row_count after debug filter')
+        from qteasy.trading_util import sys_log_file_path_name
+
+        path = sys_log_file_path_name(self.trader.account_id, self.trader.datasource)
+        if os.path.exists(path):
+            os.remove(path)
+        with open(path, 'w', encoding='utf-8') as f:
+            for i in range(40):
+                f.write(f'INFO: replay_info_{i:02d}\n')
+            for i in range(40):
+                f.write(f'DEBUG: replay_debug_{i:02d}\n')
+
+        filtered = self.trader.read_sys_log(row_count=20, include_debug=False)
+        print(' filtered count:', len(filtered))
+        print(' filtered tail:', filtered)
+        self.assertEqual(len(filtered), 20)
+        for line in filtered:
+            self.assertIn('replay_info_', line)
+            self.assertNotIn('replay_debug_', line)
+        self.assertIn('replay_info_39', filtered[-1])
+        self.assertIn('replay_info_20', filtered[0])
+        if os.path.exists(path):
+            os.remove(path)
+
+    def test_read_sys_log_row_count_one_returns_last_non_debug_entry(self):
+        """row_count=1 在过滤 DEBUG 后返回最后一条非 DEBUG 逻辑记录。"""
+        print('\n[TestTraderInfoAndMessages] read_sys_log row_count=1 last non-debug entry')
+        from qteasy.trading_util import sys_log_file_path_name
+
+        path = sys_log_file_path_name(self.trader.account_id, self.trader.datasource)
+        if os.path.exists(path):
+            os.remove(path)
+        with open(path, 'w', encoding='utf-8') as f:
+            f.write('<DEBUG><May18 14:55:10>running: generated trade signals:\n')
+            f.write('symbols: []\n')
+            f.write('positions: []\n')
+            f.write('<May18 14:55:10>running: strategy done.\n')
+            f.write('INFO: trailing_info_record\n')
+
+        filtered = self.trader.read_sys_log(row_count=1, include_debug=False)
+        print(' filtered:', filtered)
+        self.assertEqual(len(filtered), 1)
+        self.assertIn('trailing_info_record', filtered[0])
+        combined = ''.join(filtered)
         self.assertNotIn('symbols: []', combined)
         if os.path.exists(path):
             os.remove(path)

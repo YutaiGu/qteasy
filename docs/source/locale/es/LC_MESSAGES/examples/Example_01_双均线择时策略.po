@@ -3,99 +3,121 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:1
 msgid "双均线择时策略"
-msgstr ""
+msgstr "Sincronización doble MA"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:3
 msgid ""
 "参考来源：`docs/_joinquant_migration_source/Example_01_双均线择时策略.ipynb` 第一个 "
 "Markdown cell。"
 msgstr ""
+"Fuente de referencia: `docs/_joinquant_migration_source/Example_01_Double "
+"Moving Average Timing Strategy.ipynb` Primera celda de Markdown."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:5
 msgid "本策略根据交易目标的其日K线数据建立简单移动平均线的双均线交易模型， 交易策略如下："
 msgstr ""
+"Esta estrategia establece un modelo de negociación de media móvil doble "
+"basado en los datos diarios de la línea K del objetivo comercial, y la "
+"estrategia comercial es la siguiente:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:8
 msgid ""
 "策略包含两个参数：短周期天数S、长周期天数L "
 "分别以两个不同的周期计算交易标的日K线收盘价的移动平均线，得到两根移动均线，以S为周期计算的均线为快均线，以L为周期计算的均线为慢均线，根据快慢均线的交叉情况产生交易信号："
 msgstr ""
+"La estrategia contiene dos parámetros: el número de días en el período corto"
+" S y el número de días en el período largo L. Calcule el promedio móvil del "
+"precio de cierre de la línea K diaria del objetivo comercial con dos "
+"períodos diferentes para obtener dos promedios móviles. La media móvil "
+"calculada con S como período es la media móvil rápida y la media móvil "
+"calculada con L como período es la media móvil lenta. Genere señales "
+"comerciales de acuerdo con la situación cruzada de las medias móviles "
+"rápidas y lentas:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:10
 msgid "当快均线由下向上穿越慢均线时全仓买入交易标的"
 msgstr ""
+"Cuando la media móvil rápida cruza la media móvil lenta de abajo hacia "
+"arriba, el objetivo comercial está completamente comprado."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:11
 msgid "当快均线由上向下穿越短均线时平仓"
 msgstr ""
+"Cuando la media móvil rápida cruza la media móvil corta de arriba a abajo, "
+"cierre la posición"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:13
 msgid "**模拟回测交易：**"
-msgstr ""
+msgstr "**Comercio de backtesting simulado:**"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:15
 msgid "回测数据为:沪深300指数（000300.SH)"
-msgstr ""
+msgstr "Datos retrospectivo: Índice 300 de Shanghai y Shenzhen (000300.SH)"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:16
 msgid "回测周期为2011年1月1日到2020年12月31日"
-msgstr ""
+msgstr "Período de backtest: 1 de enero de 2011 al 31 de diciembre de 2020"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:17
 msgid "生成交易结果图表"
-msgstr ""
+msgstr "Generar gráficos de resultados comerciales"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:19
 msgid "**策略参数优化：**"
-msgstr ""
+msgstr "**Optimización de parámetros de estrategia:**"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:21
 msgid "同样使用HS300指数，在2011年至2020年共十年的历史区间上搜索最佳策略参数"
 msgstr ""
+"Utilice el índice HS300 en el intervalo histórico de diez años de 2011 a "
+"2020 para buscar los mejores parámetros estratégicos"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:22
 msgid "并在2020年至2022年的数据上进行验证"
-msgstr ""
+msgstr "Prueba sobre datos de 2020 a 2022"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:23
 msgid "输出30组最佳参数的测试结果"
-msgstr ""
+msgstr "Resultados de la prueba de salida de los 30 mejores parámetros."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:26
 msgid "首先导入`qteasy`模块"
-msgstr ""
+msgstr "Primero, importe el módulo `qteasy`."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:31
 msgid "创建一个新的策略"
-msgstr ""
+msgstr "Crea una nueva estrategia"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:32
 msgid ""
-"使用`qt.RuleIterator`策略基类，可以创建规则迭代策略， "
-"这种策略可以把相同的规则迭代应用到投资组合中的所有股票上，适合在一个投资组合 中的所有股票上应用同一种择时规则。"
+"使用`qt.RuleIterator`策略基类，可以创建规则迭代策略， 这种策略可以把相同的规则迭代应用到投资组合中的所有股票上，适合在一个投资组合 "
+"中的所有股票上应用同一种择时规则。"
 msgstr ""
+"Utilice la clase base de estrategia `qt.RuleIterator` para crear una "
+"estrategia de iteración de reglas. Esta estrategia puede aplicar la misma "
+"iteración de reglas a todas las acciones de la cartera, lo que es adecuado "
+"para aplicar la misma regla de tiempo a todas las acciones de una cartera."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:92
 msgid "回测交易策略，查看结果"
-msgstr ""
+msgstr "Realice una prueba de la estrategia comercial y vea los resultados"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:94
 msgid ""
@@ -103,80 +125,111 @@ msgid ""
 "PS表示比例交易信号，此模式下信号在-1到1之间，1表示全仓买入，-1表示全部卖出，0表示不操作。 "
 "使用历史数据回测交易策略，使用历史数据生成交易信号后进行模拟交易，记录并分析交易结果"
 msgstr ""
+"Después de definir la estrategia, defina un objeto `Operator` que haga "
+"referencia a la estrategia que acaba de crear. Configure el modo de señal "
+"del operador en PS de acuerdo con las reglas de la estrategia. PS representa"
+" una señal comercial proporcional; En este modo, la señal varía de -1 a 1, "
+"donde 1 representa una compra completa, -1 representa una venta completa y 0"
+" representa ninguna acción. Realice una prueba retrospectiva de la "
+"estrategia comercial utilizando datos históricos. Después de generar señales"
+" comerciales utilizando datos históricos, realice operaciones simuladas, "
+"registre y analice los resultados comerciales."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:115
 msgid "交易结果如下；"
-msgstr ""
+msgstr "Los resultados de la negociación son los siguientes:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:160
 msgid "从上面的交易结果可以看到，十年间买入68次卖出68次，持仓时间为55%，最终收益率只有42.7%。"
 msgstr ""
+"Como se puede ver en los resultados comerciales anteriores, hubo 68 compras "
+"y 68 ventas durante diez años, con un período de tenencia del 55%, lo que "
+"resultó en un rendimiento final de solo el 42,7%."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:162
 msgid "下面是交易结果的可视化图表展示"
-msgstr ""
+msgstr "Aquí hay una visualización visual de los resultados comerciales."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:164
 msgid "![png](img/Example_01_output_3_1.png)"
-msgstr ""
+msgstr "![png](img/Example_01_output_3_1.png)"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:164
 #: ../../source/examples/Example_01_双均线择时策略.md:327
 #: ../../source/examples/Example_01_双均线择时策略.md:394
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:167
 msgid "交叉线交易策略的长短周期选择很重要，可以使用`qteasy`来搜索最优的策略参数："
 msgstr ""
+"La estrategia comercial entre líneas es muy importante para elegir los "
+"períodos largo y corto; puede usar `qteasy` para buscar los mejores "
+"parámetros de estrategia:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:169
 msgid "策略参数的优化"
-msgstr ""
+msgstr "Optimización de parámetros de estrategia."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:171
 msgid "我们可以在历史数据上搜索最优的策略参数，找到在历史数据上表现最好的参数组合，并检验它们在独立测试区间上的表现，以检验是否过拟合。"
 msgstr ""
+"Podemos buscar los parámetros de política óptimos en datos históricos, "
+"encontrar las combinaciones de parámetros que funcionan mejor en datos "
+"históricos y examinar su desempeño en intervalos de prueba independientes "
+"para verificar si hay sobreajuste."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:189
 msgid "策略优化可能会花很长时间，qt会显示一个进度条："
 msgstr ""
+"La optimización de la estrategia puede llevar mucho tiempo y qt mostrará una"
+" barra de progreso:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:199
 msgid "优化完成，显示最好的30组参数及其相关信息："
 msgstr ""
+"La optimización está completa y muestra los mejores 30 conjuntos de "
+"parámetros e información relacionada:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:261
 msgid "这三十组参数会被用于独立测试，以检验它们是否过拟合："
 msgstr ""
+"Estos treinta conjuntos de parámetros se utilizarán para pruebas "
+"independientes para ver si están sobreajustados:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:325
 msgid "参数优化结果以及各个指标的可视化图表展示："
 msgstr ""
+"Visualización de resultados de optimización de parámetros y varios "
+"indicadores:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:327
 msgid "![png](img/Example_01_output_4_5.png)"
-msgstr ""
+msgstr "![png](img/Example_01_output_4_5.png)"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:329
 msgid "优化之后我们可以检验一下找到的最佳参数："
 msgstr ""
+"Podemos comprobar los mejores parámetros encontrados después de la "
+"optimización:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:345
 msgid "得到结果："
-msgstr ""
+msgstr "Resultados obtenidos:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:389
 msgid "优化后总回报率达到了98.85%，比优化前的参数好很多。"
 msgstr ""
+"La tasa de retorno total optimizada alcanzó el 98,85%, que es mucho mejor "
+"que los parámetros antes de la optimización."
 
 #: ../../source/examples/Example_01_双均线择时策略.md:391
 msgid "优化后的结果可视化图表如下："
-msgstr ""
+msgstr "Visualización de los resultados después de la optimización:"
 
 #: ../../source/examples/Example_01_双均线择时策略.md:394
 msgid "![png](img/Example_01_output_6_1.png)"
-msgstr ""
+msgstr "![png](img/Example_01_output_6_1.png)"
 
 #~ msgid "首先导入qteasy模块"
 #~ msgstr ""
@@ -198,4 +251,3 @@ msgstr ""
 
 #~ msgid "![png](img/output_5_1.png)"
 #~ msgstr ""
-

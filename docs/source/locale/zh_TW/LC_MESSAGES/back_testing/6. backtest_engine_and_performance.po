@@ -1,0 +1,230 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:1
+msgid "回测引擎与性能"
+msgstr "回測引擎與性能"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:3
+msgid ""
+"本章从**使用与结果**角度说明 qteasy "
+"的回测引擎如何工作，以及**性能与向量化**的实现方式，便于用户理解回测速度与正确性的来源。更底层的架构说明见《架构与设计》中的 "
+"[回测引擎与性能（设计视角）](../design/07-backtest-engine-and-performance.md)。"
+msgstr ""
+"本章從**使用與結果**角度說明 qteasy "
+"的回測引擎如何工作，以及**性能與向量化**的實現方式，便於用戶理解回測速度與正確性的來源。更底層的架構說明見《架構與設計》中的 "
+"[回測引擎與性能（設計視角）](../design/07-backtest-engine-and-performance.md)。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:5
+msgid "1. 回测引擎概览"
+msgstr "1. 回測引擎概覽"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:7
+#, python-format
+msgid ""
+"回测入口与流程已在 [回测概览](1.%20overview.md) 与 [如何运行回测](2.%20run_backtest.md) 中说明：通过 "
+"`qt.run(op, mode=1, ...)` 进入回测模式，内部按 **group_timing_table** "
+"的每个时间步运行策略、解析信号并模拟成交。"
+msgstr ""
+"回測入口與流程已在 [回測概覽](1.%20overview.md) 與 [如何運行回測](2.%20run_backtest.md) 中說明：通過 "
+"`qt.run(op, mode=1, ...)` 進入回測模式，內部按 **group_timing_table** "
+"的每個時間步運行策略、解析信號並模擬成交。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:9
+msgid "与“逐 bar 事件驱动”或“全时间轴一次性矩阵运算”不同，qteasy 采用 **时间维顺序步进、单步内标的维向量化** 的方式："
+msgstr "與“逐 bar 事件驅動”或“全時間軸一次性矩陣運算”不同，qteasy 採用 **時間維順序步進、單步內標的維向量化** 的方式："
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:11
+msgid "**时间维**：按真实交易节奏顺序执行每个时间步，以正确维护现金、持仓、交割队列（如 T+1）等状态。"
+msgstr "**時間維**：按真實交易節奏順序執行每個時間步，以正確維護現金、持倉、交割隊列（如 T+1）等狀態。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:12
+msgid ""
+"**标的维**：在每个时间步内，对资产池中所有标的的买卖量、费用、持仓更新等做 **向量化计算**（NumPy 数组 + Numba "
+"加速），单步效率高。"
+msgstr ""
+"**標的維**：在每個時間步內，對資產池中所有標的的買賣量、費用、持倉更新等做 **向量化計算**（NumPy 數組 + Numba "
+"加速），單步效率高。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:14
+msgid "这样既保证了与实盘一致的状态与规则，又避免了纯事件驱动下的逐笔循环带来的性能损失。"
+msgstr "這樣既保證了與實盤一致的狀態與規則，又避免了純事件驅動下的逐筆循環帶來的性能損失。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:16
+msgid "2. 性能与向量化"
+msgstr "2. 性能與向量化"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:18
+msgid "2.1 核心计算加速"
+msgstr "2.1 核心計算加速"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:20
+msgid "回测与交易结果计算中的以下核心函数均使用 **Numba JIT**（`@njit(nogil=True, cache=True)`）加速："
+msgstr ""
+"回測與交易結果計算中的以下核心函數均使用 **Numba JIT**（`@njit(nogil=True, cache=True)`）加速："
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:22
+msgid "**backtest_step**：单步内对整批标的计算买卖量、费用、持仓与交割更新。"
+msgstr "**backtest_step**：單步內對整批標的計算買賣量、費用、持倉與交割更新。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:23
+msgid "**calculate_trade_results**：交易结果与资金变动计算。"
+msgstr "**calculate_trade_results**：交易結果與資金變動計算。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:24
+msgid "**backtest_batch_steps**：在 Numba 内按时间步循环调用 `backtest_step`，完成整段回测。"
+msgstr "**backtest_batch_steps**：在 Numba 內按時間步循環調用 `backtest_step`，完成整段回測。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:25
+msgid "**backtest_flash_steps**：优化模式下使用，仅保留最终资金与持仓以节省内存，同样在 Numba 内完成批量步进。"
+msgstr "**backtest_flash_steps**：優化模式下使用，僅保留最終資金與持倉以節省內存，同樣在 Numba 內完成批量步進。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:27
+msgid ""
+"信号混合（如多策略合并）在 `blender` 模块中部分算子也使用 `@njit` 加速。因此，回测主体是 **向量化 + Numba** "
+"实现的，而非纯 Python 循环。"
+msgstr ""
+"信號混合（如多策略合併）在 `blender` 模塊中部分算子也使用 `@njit` 加速。因此，回測主體是 **向量化 + Numba** "
+"實現的，而非純 Python 循環。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:29
+msgid "2.2 时间维顺序与标的维向量化"
+msgstr "2.2 時間維順序與標的維向量化"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "维度"
+msgstr "維度"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "做法说明"
+msgstr "做法說明"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "时间维"
+msgstr "時間維"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "顺序步进，以正确维护 T+1、交割周期、MOQ 等状态，与实盘一致。"
+msgstr "順序步進，以正確維護 T+1、交割週期、MOQ 等狀態，與實盤一致。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "标的维"
+msgstr "標的維"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "单步内对所有标的做数组运算（如 `op_signal`、`own_amounts` 等为 1D 数组），实现向量化。"
+msgstr "單步內對所有標的做數組運算（如 `op_signal`、`own_amounts` 等爲 1D 數組），實現向量化。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "优化模式"
+msgstr "優化模式"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "多组参数通过多进程并行回测；每组内部使用 `backtest_flash_steps` 等高效路径，减少内存与计算。"
+msgstr "多組參數通過多進程並行回測；每組內部使用 `backtest_flash_steps` 等高效路徑，減少內存與計算。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:37
+msgid "首次运行或参数变化时，Numba 会编译相关函数，可能带来一次性的启动延迟；后续同类型回测会复用缓存，速度更快。"
+msgstr "首次運行或參數變化時，Numba 會編譯相關函數，可能帶來一次性的啓動延遲；後續同類型回測會複用緩存，速度更快。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:39
+msgid "2.3 与 VectorBT 的简要对比"
+msgstr "2.3 與 VectorBT 的簡要對比"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "对比项"
+msgstr "對比項"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "qteasy"
+msgstr "qteasy"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "VectorBT"
+msgstr "VectorBT"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "顺序步进，每步内向量化"
+msgstr "順序步進，每步內向量化"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "全时间轴一次性矩阵运算，无显式时间循环"
+msgstr "全時間軸一次性矩陣運算，無顯式時間循環"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "状态与约束"
+msgstr "狀態與約束"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "显式维护 T+1、交割、MOQ 等，贴近实盘"
+msgstr "顯式維護 T+1、交割、MOQ 等，貼近實盤"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "多为简化资金曲线，不强调交割/MOQ"
+msgstr "多爲簡化資金曲線，不強調交割/MOQ"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "适用场景"
+msgstr "適用場景"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "需要正确模拟 A 股规则、多策略合并、精细成本与交割时"
+msgstr "需要正確模擬 A 股規則、多策略合併、精細成本與交割時"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md
+msgid "海量参数组合快速筛选、研究向回测"
+msgstr "海量參數組合快速篩選、研究向回測"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:47
+msgid ""
+"qteasy 在保证**状态正确性与规则可配置**的前提下，通过时间维顺序 + 标的维向量化 + Numba "
+"单步，兼顾速度；多组参数优化则通过多进程并行弥补“单次不能全矩阵广播”的差异。"
+msgstr ""
+"qteasy 在保證**狀態正確性與規則可配置**的前提下，通過時間維順序 + 標的維向量化 + Numba "
+"單步，兼顧速度；多組參數優化則通過多進程並行彌補“單次不能全矩陣廣播”的差異。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:49
+msgid "3. 本目录与相关文档"
+msgstr "3. 本目錄與相關文檔"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:51
+#, python-format
+msgid "回测入口与配置：[1. 回测概览](1.%20overview.md)、[2. 如何运行回测](2.%20run_backtest.md)。"
+msgstr ""
+"回測入口與配置：[1. 回測概覽](1.%20overview.md)、[2. 如何運行回測](2.%20run_backtest.md)。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:52
+#, python-format
+msgid ""
+"回测结果与评价：[3. 回测结果的结构](3.%20result_structure.md)、[5. "
+"回测结果评价与分析](5.%20evaluate_and_analyze.md)。"
+msgstr ""
+"回測結果與評價：[3. 回測結果的結構](3.%20result_structure.md)、[5. "
+"回測結果評價與分析](5.%20evaluate_and_analyze.md)。"
+
+#: ../../source/back_testing/6. backtest_engine_and_performance.md:53
+msgid ""
+"架构与实现细节：[设计：回测引擎与性能](../design/07-backtest-engine-and-"
+"performance.md)、[设计：设计初衷与独特优势](../design/08-design-rationale-and-"
+"advantages.md)。"
+msgstr ""
+"架構與實現細節：[設計：回測引擎與性能](../design/07-backtest-engine-and-"
+"performance.md)、[設計：設計初衷與獨特優勢](../design/08-design-rationale-and-"
+"advantages.md)。"

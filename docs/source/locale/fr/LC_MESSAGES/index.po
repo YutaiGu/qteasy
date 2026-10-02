@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-24 12:00+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -62,15 +62,15 @@ msgstr "QTEASY Exemples de stratégies de trading"
 msgid "API参考"
 msgstr "Référence API"
 
-#: ../../source/index.rst:199
+#: ../../source/index.rst:200
 msgid "LICENSE"
 msgstr "LICENCE"
 
-#: ../../source/index.rst:205
+#: ../../source/index.rst:206
 msgid "关于 ``qteasy``"
 msgstr "À propos de ``QTEASY``"
 
-#: ../../source/index.rst:217
+#: ../../source/index.rst:218
 msgid "常见问题"
 msgstr "FAQ"
 
@@ -103,7 +103,7 @@ msgid "创建日期: 2019, July, 16"
 msgstr "Créé le 16 juillet 2019"
 
 #: ../../source/index.rst:25
-msgid "最新版本: `2.5.1` — :doc:`发布历史 <RELEASE_HISTORY>`"
+msgid "最新版本: `2.6.4` — :doc:`发布历史 <RELEASE_HISTORY>`"
 msgstr "Dernière version : `2.5.1` — :doc:`Release History <RELEASE_HISTORY>`"
 
 #: ../../source/index.rst:26

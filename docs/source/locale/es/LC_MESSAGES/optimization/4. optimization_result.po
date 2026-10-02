@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
@@ -11,93 +10,114 @@ msgstr ""
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/optimization/4. optimization_result.md:1
 msgid "优化结果的结构与读取"
-msgstr ""
+msgstr "Estructura y acceso a los resultados de la optimización"
 
 #: ../../source/optimization/4. optimization_result.md:3
 msgid "返回值说明"
-msgstr ""
+msgstr "Descripción general del valor de retorno"
 
 #: ../../source/optimization/4. optimization_result.md:5
 msgid ""
-"**qt.run(op, mode=2)** 返回的对象通常为优化结果容器（如优化结果列表、Besttester 或类似结构），与 qteasy "
-"2.0 API 一致。"
+"**qt.run(op, mode=2)** 返回的对象通常为优化结果容器（如优化结果列表、Besttester 或类似结构），与 qteasy 2.0"
+" API 一致。"
 msgstr ""
+"**``qt.run(op, mode=2)``** usually returns an optimization result container "
+"(such as a result list, ``Besttester``, o estructura similar), consistente "
+"con la API qteasy 2.0."
 
 #: ../../source/optimization/4. optimization_result.md:7
 msgid "优化结果字段完整列表（罗列并简短解释）"
 msgstr ""
+"Lista completa de campos de resultados de optimización (con breves "
+"explicaciones)"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "字段/属性"
-msgstr ""
+msgstr "Campo / Atributo"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "含义"
-msgstr ""
+msgstr "Significado"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "每组参数"
-msgstr ""
+msgstr "Conjunto de parámetros"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "各次评估的参数组合（如 short_period、long_period）。"
 msgstr ""
+"Combinación de parámetros para cada evaluación (por ejemplo, "
+"``short_period``, ``long_period``)."
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "回测指标"
-msgstr ""
+msgstr "Métricas de prueba retrospectiva"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "该组参数对应的夏普、回撤、收益等。"
 msgstr ""
+"Relación de Sharpe, reducción, retorno, etc., para ese conjunto de "
+"parámetros."
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "目标函数值"
-msgstr ""
+msgstr "Valor objetivo"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "用于排序的目标值（如夏普）。"
 msgstr ""
+"Objetivo utilizado para la clasificación (por ejemplo, ratio de Sharpe)."
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "排序方式"
-msgstr ""
+msgstr "Clasificación"
 
 #: ../../source/optimization/4. optimization_result.md
 msgid "通常按目标函数降序（越大越优）或升序（如回撤越小越优）。"
 msgstr ""
+"Por lo general, descendente (cuanto más alto, mejor) o ascendente (por "
+"ejemplo, una reducción más baja es mejor)."
 
 #: ../../source/optimization/4. optimization_result.md:16
 msgid "其他可能字段：评估耗时、约束是否满足等，以实际返回为准。"
 msgstr ""
+"Otros campos posibles incluyen el tiempo de evaluación y la satisfacción de "
+"restricciones; Consulte el objeto de devolución real."
 
 #: ../../source/optimization/4. optimization_result.md:18
 msgid "如何读取最优参数"
-msgstr ""
+msgstr "Cómo leer los mejores parámetros"
 
 #: ../../source/optimization/4. optimization_result.md:20
 msgid ""
-"从结果对象中通过属性或方法取出**最优参数组合**（如 **best_pars**、**get_best_parameters()** "
-"等），以当前 API 文档为准。"
+"从结果对象中通过属性或方法取出**最优参数组合**（如 **best_pars**、**get_best_parameters()** 等），以当前 "
+"API 文档为准。"
 msgstr ""
+"Extraiga la **mejor combinación de parámetros** del objeto de resultado "
+"mediante atributos o métodos (por ejemplo, **``best_pars``**, "
+"**``get_best_parameters()``**, etc.); consulte la documentación API actual."
 
 #: ../../source/optimization/4. optimization_result.md:22
 msgid "如何读取 Top-K 结果"
-msgstr ""
+msgstr "Cómo leer los resultados de Top-K"
 
 #: ../../source/optimization/4. optimization_result.md:24
 msgid ""
 "结果中通常提供多组较优参数及对应表现（如前 opti_output_count 组）；通过结果对象的列表、DataFrame "
 "或专用方法访问，便于分析多组候选参数。"
 msgstr ""
-
+"Los resultados generalmente incluyen múltiples conjuntos de parámetros "
+"sólidos y su rendimiento (por ejemplo, los grupos principales "
+"``opti_output_count``). Acceda a ellos a través de listas, DataFrames o "
+"métodos dedicados en el objeto de resultado para comparar los parámetros "
+"candidatos."

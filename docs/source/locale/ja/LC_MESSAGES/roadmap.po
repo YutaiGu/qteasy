@@ -1,0 +1,360 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/roadmap.rst:2
+msgid "开发路线图"
+msgstr "開発ロードマップ"
+
+#: ../../source/roadmap.rst:4
+msgid "开发 ``qteasy`` 的目标是为了给量化交易从业者提供一套简单易用、效率高、完全本地化运行的量化交易工具包。"
+msgstr ""
+"「`qteasy`」開発の目標は、クオンツ取引実務者向けに、シンプルで効率的で完全にローカライズされたクオンツ取引ツールキットを提供することです。"
+
+#: ../../source/roadmap.rst:6
+msgid "以下开发路线图罗列了计划中 ``qteasy`` 拥有的功能，有些功能还在不断地开发完善中，我们将在未来的版本不断更新。"
+msgstr ""
+"次のロードマップには ``qteasy`` "
+"の予定されている機能がリストされており、その一部はまだ開発および改善中であり、将来のバージョンでも引き続き更新されます。"
+
+#: ../../source/roadmap.rst:10
+msgid "金融数据"
+msgstr "財務データ"
+
+#: ../../source/roadmap.rst:12
+msgid "✅ 提供标准数据表，从数据提供商获取数据，清洗后存入本地数据源:"
+msgstr "✅ 標準データテーブルを提供し、データプロバイダーからデータを取得し、ローカルデータソースにクリーンアップして保存します。"
+
+#: ../../source/roadmap.rst:14
+msgid "✅ 获取上市公司基本面数据、财务报表数据"
+msgstr "✅ 上場企業の基礎データ、財務諸表データを取得"
+
+#: ../../source/roadmap.rst:15
+msgid "✅ 获取股票、指数、基金日线价格数据及复权因子"
+msgstr "✅ 株式、指数、ファンドの毎日の価格データと調整要素を取得します"
+
+#: ../../source/roadmap.rst:16
+msgid "✅ 获取股票、指数、基金分钟线价格数据"
+msgstr "✅ 株式、指数、ファンドの詳細な価格データを取得"
+
+#: ../../source/roadmap.rst:17
+msgid "✅ 获取股票、指数、基金实时价格数据"
+msgstr "✅ 株式、指数、ファンドのリアルタイムの価格データを取得"
+
+#: ../../source/roadmap.rst:18
+msgid "✅ 获取股票、指数、基金的财务指标数据"
+msgstr "✅ 株式、インデックス、ファンドの財務指標データを取得"
+
+#: ../../source/roadmap.rst:19
+msgid "✅ 获取宏观经济数据"
+msgstr "✅ マクロ経済データを取得する"
+
+#: ../../source/roadmap.rst:20
+msgid "✅ 获取期货价格数据"
+msgstr "✅ 先物価格データの取得"
+
+#: ../../source/roadmap.rst:21
+msgid "✅ 获取期权价格数据"
+msgstr "✅ オプション価格データを取得する"
+
+#: ../../source/roadmap.rst:22
+msgid "⬜ 获取外汇数据"
+msgstr "⬜ 外国為替データを取得する"
+
+#: ../../source/roadmap.rst:23
+msgid "✅ 获取港股、美股价格数据"
+msgstr "✅ 香港株と米国株の価格データを取得"
+
+#: ../../source/roadmap.rst:24
+msgid "⬜ 获取数字货币数据"
+msgstr "⬜ 暗号通貨データを取得する"
+
+#: ../../source/roadmap.rst:26
+msgid "✅ 支持多种数据存储格式，如 ``csv``、``hdf5``、``mysql`` 等"
+msgstr "✅ ``csv``, ``hdf5``, ``mysql``などの複数のデータストレージ形式をサポートします。"
+
+#: ../../source/roadmap.rst:28
+msgid "✅ 支持 ``csv`` 格式"
+msgstr "✅ ``csv`` 形式をサポート"
+
+#: ../../source/roadmap.rst:29
+msgid "✅ 支持 ``hdf5`` 格式"
+msgstr "✅ ``hdf5`` 形式をサポート"
+
+#: ../../source/roadmap.rst:30
+msgid "✅ 支持 ``feather`` 格式"
+msgstr "✅ ``feather`` 形式をサポート"
+
+#: ../../source/roadmap.rst:31
+msgid "✅ 支持 ``mysql`` 数据库"
+msgstr "✅ ``mysql`` データベースをサポート"
+
+#: ../../source/roadmap.rst:33
+msgid "✅ 从多个不同的数据提供商获取数据，统一格式后存入本地数据源"
+msgstr "✅ 複数の異なるデータプロバイダーからデータを取得し、形式を統一して、ローカルデータソースに保存します"
+
+#: ../../source/roadmap.rst:35
+msgid "✅ 从tushare获取历史数据和实时数据"
+msgstr "✅ tushareから履歴データとリアルタイムデータを取得します"
+
+#: ../../source/roadmap.rst:36
+msgid "✅ 从东方财经  ``eastmoney`` 获取历史数据和实时数据"
+msgstr "✅ Eastmoney から履歴データとリアルタイムデータを取得します"
+
+#: ../../source/roadmap.rst:37
+msgid ""
+"✅ 从 ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``）"
+msgstr ""
+"✅ ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 "
+"``tests/akshare_data_test_checklist.md``より）"
+
+#: ../../source/roadmap.rst:38
+msgid "⬜ 从 ``baostock`` 获取数据"
+msgstr "⬜ ``baostock`` からデータを取得"
+
+#: ../../source/roadmap.rst:39
+msgid "⬜ 从 ``joinquant`` 获取数据"
+msgstr "⬜ ``joinquant`` からデータを取得"
+
+#: ../../source/roadmap.rst:41
+msgid "✅ 从本地数据源获取数据，以 ``DataFrame`` 或 ``HistoryPanel`` 的形式返回"
+msgstr "✅ ローカルデータソースからデータを取得し、``DataFrame`` or ``HistoryPanel`` の形式で返します"
+
+#: ../../source/roadmap.rst:42
+msgid "✅ 基于 HistoryPanel 的多图表类型可视化（K 线、成交量、MACD、折线等），支持多标的对比和静态/交互双模"
+msgstr ""
+"✅ HistoryPanel ベースのマルチチャートタイプの視覚化 "
+"(ローソク足、出来高、MACD、折れ線グラフなど)、複数資産の比較と静的/対話型モードの両方をサポート"
+
+#: ../../source/roadmap.rst:43
+msgid "⬜ 本地存储财务数据直接输出为财务报表"
+msgstr "⬜ ローカルに保存されている財務データを財務諸表として出力"
+
+#: ../../source/roadmap.rst:44
+msgid "⬜ 本地存储宏观经济数据直接输出为宏观经济图表"
+msgstr "⬜ ローカルに保存されたマクロ経済データをマクロ経済チャートとして出力"
+
+#: ../../source/roadmap.rst:45
+msgid "⬜ 允许用户自定义数据类型，添加到数据源，按自定义数据获取方式获取数据"
+msgstr "⬜ ユーザーがデータ型を定義し、データ ソースに追加し、カスタム データ取得方法に従ってデータを取得できるようにします。"
+
+#: ../../source/roadmap.rst:46
+msgid "⬜ 提供数据统计分析功能，如均值、标准差、相关系数、协方差等，整合到 ``HistoryPanel`` 类中"
+msgstr "⬜ 平均、標準偏差、相関係数、共分散などのデータ統計分析関数を「`HistoryPanel`」クラスに統合して提供します"
+
+#: ../../source/roadmap.rst:50
+msgid "交易策略"
+msgstr "取引戦略"
+
+#: ../../source/roadmap.rst:52
+msgid "✅ 提供多种内置交易策略，通过策略ID调用"
+msgstr "✅ 複数の組み込み取引戦略を提供し、戦略 ID で呼び出します"
+
+#: ../../source/roadmap.rst:53
+msgid "✅ 所有交易策略均实现参数化调用，用户通过参数控制策略的行为；允许用户定义交易策略时定义可调参数，通过可调参数影响策略的运行表现"
+msgstr ""
+"✅ "
+"すべての取引戦略はパラメーター化された呼び出しであり、ユーザーはパラメーターを通じて戦略の動作を制御します。ユーザーが取引戦略を定義するときに調整可能なパラメーターを定義できるようにし、調整可能なパラメーターを通じて戦略の実行パフォーマンスに影響を与えることができます。"
+
+#: ../../source/roadmap.rst:55
+msgid "✅ 用户可以在一个策略中订阅多种历史数据，但所有数据的频率和时间周期必须相同"
+msgstr "✅ ユーザーは戦略内の複数の履歴データをサブスクライブできますが、すべてのデータの頻度と期間は同じである必要があります"
+
+#: ../../source/roadmap.rst:56
+msgid "✅ 用户可以在一个策略中订阅多种历史数据，且允许历史数据有不同的时间周期和时间频率"
+msgstr "✅ ユーザーは 1 つの戦略内で複数の種類の履歴データをサブスクライブでき、履歴データには異なる期間と頻度を含めることができます"
+
+#: ../../source/roadmap.rst:58
+msgid "✅ 提供交易策略的基类，用户可以继承基类，实现自己的交易策略，实现的交易策略可以直接用于回测、实盘运行和参数优化"
+msgstr ""
+"✅ "
+"取引戦略の基本クラスを提供し、ユーザーは基本クラスを継承して独自の取引戦略を実装でき、実装された取引戦略はバックテスト、リアルタイム操作、パラメーターの最適化に直接使用できます。"
+
+#: ../../source/roadmap.rst:59
+msgid "✅ 提供交易策略的回测功能，用户可以通过回测功能测试自己的交易策略，获取回测报告，以图表形式查看回测结果"
+msgstr ""
+"✅ "
+"取引戦略のバックテスト機能を提供し、ユーザーはバックテスト機能を通じて取引戦略をテストし、バックテストレポートを取得し、バックテスト結果をチャート形式で表示できます"
+
+#: ../../source/roadmap.rst:60
+msgid "✅ 提供多种回测指标，如年化收益率、最大回撤、夏普比率、信息比率、胜率、盈亏比等"
+msgstr "✅ 年率リターン、最大ドローダウン、シャープレシオ、情報レシオ、勝率、損益率などの複数のバックテスト指標を提供します。"
+
+#: ../../source/roadmap.rst:61
+msgid "✅ 提供交易策略优化调参功能，用户可以通过该功能自动寻找最优参数组合，并以图表形式查看优化结果"
+msgstr ""
+"✅ "
+"取引戦略最適化パラメーター調整機能を提供し、ユーザーはこの機能を通じて最適なパラメーターの組み合わせを自動的に見つけ、最適化結果をチャート形式で表示できます。"
+
+#: ../../source/roadmap.rst:62
+msgid "✅ 提供多种策略优化算法，如网格搜索、遗传算法、模拟退火，以及机器学习算法"
+msgstr "✅ グリッド検索、遺伝的アルゴリズム、シミュレーテッドアニーリング、機械学習アルゴリズムなどの複数の戦略最適化アルゴリズムを提供します"
+
+#: ../../source/roadmap.rst:64
+msgid "✅ 网格搜索"
+msgstr "✅ グリッド検索"
+
+#: ../../source/roadmap.rst:65
+msgid "✅ 蒙特卡洛搜索算法"
+msgstr "✅ モンテカルロ検索アルゴリズム"
+
+#: ../../source/roadmap.rst:66
+msgid "✅ 遗传算法"
+msgstr "遺伝的アルゴリズム検索"
+
+#: ../../source/roadmap.rst:67
+msgid "✅ 模拟退火"
+msgstr "模擬焼なまし検索"
+
+#: ../../source/roadmap.rst:68
+msgid "✅ 粒子群算法"
+msgstr "粒子群最適化探索"
+
+#: ../../source/roadmap.rst:69
+msgid "✅ 贝叶斯优化"
+msgstr "ベイジアン最適化検索"
+
+#: ../../source/roadmap.rst:71
+msgid "⬜ 允许用户在定义策略时引用特殊数据类型："
+msgstr "⬜ 戦略を定義するときに、ユーザーが特別なデータ型を参照できるようにします。"
+
+#: ../../source/roadmap.rst:73
+msgid "⬜ 时、分、日期、星期、月份、季度、年份等时间数据"
+msgstr "⬜ 時間、分、日付、週、月、四半期、年など。"
+
+#: ../../source/roadmap.rst:74
+msgid "✅ 历史成交数据，包括成交量、成交额等"
+msgstr "✅ 取引量、取引金額などを含む過去の取引データ"
+
+#: ../../source/roadmap.rst:75
+msgid "✅ 当前持仓数据，包括持仓量、持仓成本等"
+msgstr "✅ ポジションサイズ、ポジションコストなどを含む現在のポジションデータ。"
+
+#: ../../source/roadmap.rst:77
+msgid "⬜ 允许用户在定义策略时添加自定义数据类型"
+msgstr "⬜ 戦略を定義するときにユーザーがカスタム データ型を追加できるようにする"
+
+#: ../../source/roadmap.rst:80
+msgid "实盘运行"
+msgstr "ライブ取引"
+
+#: ../../source/roadmap.rst:82
+msgid ""
+"✅ "
+"提供模拟实盘运行功能，使用实时数据运行交易策略，模拟交易所处理交易指令,生成模拟交易结果，记录交易结果并模拟跟踪交易策略的运行表现，跟踪交易策略的资金曲线、持股变动和收益情况"
+msgstr ""
+"✅ "
+"シミュレートされたライブ取引機能を提供し、リアルタイムデータを使用して取引戦略を実行し、取引指示の交換処理をシミュレートし、シミュレートされた取引結果を生成し、取引結果を記録し、取引戦略のパフォーマンスの追跡をシミュレートし、取引戦略の資本曲線、株式の変動と収益状況を追跡します"
+
+#: ../../source/roadmap.rst:83
+msgid "✅ 提供多种模拟交易所的参数选项，允许用户自定义交易所的参数，设置不同的交易费率、滑点、交易时间等参数"
+msgstr ""
+"✅ "
+"シミュレートされた取引所に複数のパラメータオプションを提供し、ユーザーが取引所のパラメータをカスタマイズしたり、異なる取引手数料、スリッページ、取引時間などを設定したりできるようにします。"
+
+#: ../../source/roadmap.rst:84
+msgid "✅ 允许用户自定义创建不同的交易账户，自定义初始资金等参数，随时切换不同的交易账户进行不同的模拟交易"
+msgstr ""
+"✅ "
+"ユーザーはいつでも異なる取引アカウントを作成し、初期資本やその他のパラメータをカスタマイズし、異なる取引アカウントを切り替えて異なるシミュレーション取引を行うことができます。"
+
+#: ../../source/roadmap.rst:85
+msgid "✅ 提供完整交易指令的记录功能，将交易指令、交易结果、资金、持股变动和收益等情况记录在log文件中"
+msgstr "✅ 完全な取引指示記録機能を提供し、取引指示、取引結果、資金、株式の変動、収益をログファイルに記録します。"
+
+#: ../../source/roadmap.rst:87
+msgid "✅ 实盘运行过程生成system_log文件，将交易过程记录在system_log中"
+msgstr "✅ ライブ操作中にsystem_logファイルを生成し、取引プロセスをsystem_logに記録します"
+
+#: ../../source/roadmap.rst:88
+msgid "✅ 实盘运行过程生成trade_log文件，将交易指令、交易结果、资金、持股变动和收益等情况记录在trade_log中"
+msgstr "✅ ライブ操作中に trade_log ファイルを生成し、取引指示、取引結果、資金、株式の変動、収益を trade_log に記録します。"
+
+#: ../../source/roadmap.rst:89
+msgid "✅ 提供交易参数配置文件，将交易参数保存在配置文件中，重新开始交易时可以直接加载配置文件读取交易参数"
+msgstr ""
+"✅ "
+"取引パラメータを保存するための取引パラメータ設定ファイルを提供します。取引を再開するときに、設定ファイルを直接ロードして取引パラメータを読み取ることができます。"
+
+#: ../../source/roadmap.rst:90
+msgid "✅ 提供交易记录文件和配置文件的清空和重置功能，允许用户清空交易记录文件，重新开始交易"
+msgstr "✅ 取引ログファイルと設定ファイルをクリアおよびリセットする機能を提供し、ユーザーが取引ログをクリアして取引を再開できるようにします"
+
+#: ../../source/roadmap.rst:92
+msgid "✅ 提供命令行CLI工具，方便用户输入交易指令，查看交易结果、资金曲线、持股变动和收益情况"
+msgstr "✅ コマンドライン CLI ツールを提供し、ユーザーが取引指示を入力し、取引結果、資本曲線、株価の変化、収入を表示できるようにします"
+
+#: ../../source/roadmap.rst:94
+msgid "✅ CLI工具提供dashboard模式，显示当前所有交易状态和实时交易结果"
+msgstr "✅ CLIツールはダッシュボードモードを提供し、現在の取引ステータスとリアルタイムの取引結果をすべて表示します。"
+
+#: ../../source/roadmap.rst:95
+msgid "✅ CLI工具提供交易指令输入模式，允许用户输入交易指令，或者查看和修改关键配置信息"
+msgstr "✅ CLI ツールは取引指示入力モードを提供し、ユーザーが取引指示を入力したり、主要な設定情報を表示および変更したりできるようにします"
+
+#: ../../source/roadmap.rst:97
+msgid "✅ 提供命令行图形化工具TUI，方便用户查看交易指令、交易结果、资金曲线、持股变动和收益情况"
+msgstr "✅ コマンドライングラフィカルツールTUIを提供し、ユーザーが取引指示、取引結果、資本曲線、株価の変動、収益を表示できるようにします"
+
+#: ../../source/roadmap.rst:99
+msgid "✅ TUI工具提供可视化的图形界面，显示当前所有交易状态和实时交易结果"
+msgstr "✅ TUIツールはビジュアルなグラフィカルインターフェイスを提供し、現在の取引ステータスとリアルタイムの取引結果をすべて表示します。"
+
+#: ../../source/roadmap.rst:100
+msgid "⬜ TUI工具提供可视化命令输入接口，允许用户输入交易指令，或者查看和修改关键配置信息"
+msgstr ""
+"✅ TUI "
+"ツールは視覚的なコマンド入力インターフェイスを提供し、ユーザーが取引指示を入力したり、主要な設定情報を表示および変更したりできるようにします。"
+
+#: ../../source/roadmap.rst:102
+msgid ""
+"⬜ "
+"提供实盘交易接口，实际连接交易所，自动传达交易指令至交易所，获取交易结果，记录交易结果并实盘跟踪交易策略的运行表现，跟踪交易策略的资金曲线、持股变动和收益情况"
+msgstr ""
+"⬜ "
+"リアルタイムの取引インターフェイスを提供し、実際に取引所に接続し、取引指示を取引所に自動的に伝達し、取引結果を取得し、取引結果を記録し、実際に取引戦略のパフォーマンスを追跡し、資本曲線、株価の変化、取引戦略の収入を追跡します。"
+
+#: ../../source/roadmap.rst:103
+msgid "⬜ 提供多种实盘交易接口，如证券交易所、期货交易所、数字货币交易所等"
+msgstr "⬜ 証券取引所、先物取引所、仮想通貨取引所などの複数のリアルタイム取引インターフェイスを提供します。"
+
+#: ../../source/roadmap.rst:104
+msgid "✅ 提供模拟交易或实盘交易的图形化用户界面"
+msgstr "✅ シミュレートされた取引またはライブ取引のためのグラフィカル ユーザー インターフェイスを提供します"
+
+#: ../../source/roadmap.rst:105
+msgid "⬜ 产生交易信号后通过邮件/微信等方式发送通知"
+msgstr "⬜取引シグナル生成後、電子メール/WeChatなどで通知を送信"
+
+#: ../../source/roadmap.rst:109
+msgid "可选扩展"
+msgstr "オプションの拡張機能"
+
+#: ../../source/roadmap.rst:111
+msgid ""
+"✅ AI 自然语言编排外壳（**独立项目** `qteasy-ai <https://github.com/shepherdpp/qteasy-"
+"ai>`_，PyPI：``qteasy-ai``；依赖 qteasy 内核 API，不随 qteasy 版本发布）"
+msgstr ""
+"✅ AI 自然言語オーケストレーション シェル (**独立したプロジェクト** `qteasy-ai "
+"<https://github.com/shepherdpp/qteasy-ai>`_、PyPI: ``qteasy-ai``; qteasy カーネル"
+" API に依存し、qteasy バージョンではリリースされません)"
+
+#~ msgid "⬜ 从 ``akshare`` 获取数据"
+#~ msgstr "⬜ ``akshare`` からデータを取得"

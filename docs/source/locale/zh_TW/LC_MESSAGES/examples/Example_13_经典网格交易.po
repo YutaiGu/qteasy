@@ -1,0 +1,77 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_13_经典网格交易.md:1
+msgid "经典网格交易策略"
+msgstr "經典網格交易策略"
+
+#: ../../source/examples/Example_13_经典网格交易.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_13_经典网格交易.ipynb` 第一个 Markdown"
+" cell。"
+msgstr ""
+"參考來源：`docs/_joinquant_migration_source/Example_13_經典網格交易.ipynb` 第一個 Markdown"
+" cell。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:5
+msgid ""
+"本策略是一个经典的网格交易策略 "
+"策略的运行标的是000651.SZ格力电器，策略第一次运行时，买入1000股并持有，同时设定当前买入价格（四舍五入到0.1元）为基准网格， "
+"并根据网格尺寸计算出卖出网格和买入网格， 接下来每隔5分钟运行一次，当股票价格触及买入网格或卖出网格时，产生交易信号，并刷新网格："
+msgstr ""
+"本策略是一個經典的網格交易策略 "
+"策略的運行標的是000651.SZ格力電器，策略第一次運行時，買入1000股並持有，同時設定當前買入價格（四捨五入到0.1元）爲基準網格， "
+"並根據網格尺寸計算出賣出網格和買入網格， 接下來每隔5分鐘運行一次，當股票價格觸及買入網格或賣出網格時，產生交易信號，並刷新網格："
+
+#: ../../source/examples/Example_13_经典网格交易.md:9
+msgid "例如："
+msgstr "例如："
+
+#: ../../source/examples/Example_13_经典网格交易.md:10
+msgid "假设当前基准网格为30元，网格尺寸为0.5元，卖出网格为30.5元，买入网格为29.5元"
+msgstr "假設當前基準網格爲30元，網格尺寸爲0.5元，賣出網格爲30.5元，買入網格爲29.5元"
+
+#: ../../source/examples/Example_13_经典网格交易.md:11
+msgid "当价格触及卖出网格30.5元时，产生卖出信号，卖出200股并更新基准网格为30.5元，同时计算出新的卖出网格31元和买入网格30元"
+msgstr "當價格觸及賣出網格30.5元時，產生賣出信號，賣出200股並更新基準網格爲30.5元，同時計算出新的賣出網格31元和買入網格30元"
+
+#: ../../source/examples/Example_13_经典网格交易.md:13
+msgid "交易回测的标的是：000651.SZ格力电器，"
+msgstr "交易回測的標的是：000651.SZ格力電器，"
+
+#: ../../source/examples/Example_13_经典网格交易.md:15
+msgid "交易回测区间是：2023年1月1日至2023年3月1日"
+msgstr "交易回測區間是：2023年1月1日至2023年3月1日"
+
+#: ../../source/examples/Example_13_经典网格交易.md:17
+msgid "注，由于策略网格参数在每次交易以后都会被刷新，因此该策略只能以stepwise方式进行回测，为了方便生成交易信号，该策略使用了VS信号类型"
+msgstr "注，由於策略網格參數在每次交易以後都會被刷新，因此該策略只能以stepwise方式進行回測，爲了方便生成交易信號，該策略使用了VS信號類型"
+
+#: ../../source/examples/Example_13_经典网格交易.md:97
+msgid "回测的结果如下："
+msgstr "回測的結果如下："
+
+#: ../../source/examples/Example_13_经典网格交易.md:146
+msgid "![png](img/output_13_1.png)"
+msgstr "![png](img/output_13_1.png)"
+
+#: ../../source/examples/Example_13_经典网格交易.md:146
+msgid "png"
+msgstr "png"

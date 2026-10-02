@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language: es\n"
 "Language-Team: es <LL@li.org>\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -29,24 +28,23 @@ msgstr "Autor: **Jackie PENG**"
 
 #: ../../source/about.md:5
 msgid "Email: *jackie_pengzhao@163.com*"
-msgstr ""
+msgstr "Email: *jackie_pengzhao@163.com*"
 
 #: ../../source/about.md:6
 msgid "创建日期: 2019, July, 16"
 msgstr "Creado el: 2019, Julio, 16"
 
 #: ../../source/about.md:7
-#, fuzzy
-msgid "最新版本: `2.5.1`"
+msgid "最新版本: `2.6.4`"
 msgstr "Última versión: `1.4.11`"
 
 #: ../../source/about.md:8
 msgid "[发布历史](RELEASE_HISTORY.md)"
-msgstr ""
+msgstr "[Historial de versiones](RELEASE_HISTORY.md)"
 
 #: ../../source/about.md:9
 msgid "License: BSD 3-Clause"
-msgstr ""
+msgstr "License: BSD 3-Clause"
 
 #~ msgid "最新版本: `1.4.8`"
 #~ msgstr ""

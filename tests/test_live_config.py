@@ -16,7 +16,11 @@ import warnings
 
 from qteasy._arg_validators import ConfigDict
 from qteasy.broker import SimulatorBroker
-from qteasy.live_config import LiveTradeConfig, build_live_trade_config
+from qteasy.live_config import (
+    LiveTradeConfig,
+    _ALLOWED_LIVE_TRADE_BROKER_TYPES,
+    build_live_trade_config,
+)
 from qteasy.trader import Trader
 
 from tests.trader_test_helpers import (
@@ -100,7 +104,33 @@ class TestBuildLiveTradeConfig(unittest.TestCase):
         print(' broker/ui:', cfg.live_trade_broker_type, cfg.live_trade_ui_type)
         self.assertEqual(cfg.live_trade_broker_type, 'simulator')
         self.assertEqual(cfg.live_trade_ui_type, 'cli')
-        self.assertIn(cfg.live_trade_broker_type, {'simulator', 'simple', 'manual', 'random'})
+        self.assertIn(cfg.live_trade_broker_type, _ALLOWED_LIVE_TRADE_BROKER_TYPES)
+
+    def test_build_accepts_xtquant_broker_type(self) -> None:
+        print('\n[TestBuildLiveTradeConfig] A4 xtquant broker type accepted')
+        base = _minimal_valid_live_mapping()
+        base['live_trade_broker_type'] = 'xtquant'
+        cfg = build_live_trade_config(base)
+        print(' broker_type:', cfg.live_trade_broker_type)
+        self.assertEqual(cfg.live_trade_broker_type, 'xtquant')
+        self.assertIn(cfg.live_trade_broker_type, _ALLOWED_LIVE_TRADE_BROKER_TYPES)
+
+    def test_build_normalizes_xtquant_broker_type_case(self) -> None:
+        print('\n[TestBuildLiveTradeConfig] A5 XtQuant -> xtquant normalization')
+        base = _minimal_valid_live_mapping()
+        base['live_trade_broker_type'] = 'XtQuant'
+        cfg = build_live_trade_config(base)
+        print(' broker_type:', cfg.live_trade_broker_type)
+        self.assertEqual(cfg.live_trade_broker_type, 'xtquant')
+
+    def test_configdict_accepts_xtquant_broker_type(self) -> None:
+        print('\n[TestBuildLiveTradeConfig] A6 ConfigDict/qt.configure validator accepts xtquant')
+        mapping = _minimal_valid_live_mapping()
+        mapping['live_trade_broker_type'] = 'xtquant'
+        cd = ConfigDict(mapping)
+        print(' ConfigDict broker_type:', cd['live_trade_broker_type'])
+        cfg = build_live_trade_config(cd)
+        self.assertEqual(cfg.live_trade_broker_type, 'xtquant')
 
     def test_build_accepts_random_broker_with_deprecation_warning(self) -> None:
         print('\n[TestBuildLiveTradeConfig] A3 random broker FutureWarning')
@@ -205,10 +235,18 @@ class TestBuildLiveTradeConfig(unittest.TestCase):
             build_live_trade_config(base)
         self.assertTrue(str(ctx.exception).isascii())
 
-    def test_rejects_invalid_refill_channel(self) -> None:
-        print('\n[TestBuildLiveTradeConfig] F2 invalid refill channel (case-sensitive)')
+    def test_normalizes_refill_channel_case(self) -> None:
+        print('\n[TestBuildLiveTradeConfig] F2 refill channel case-insensitive via validate_channel')
         base = _minimal_valid_live_mapping()
         base['live_trade_data_refill_channel'] = 'Eastmoney'
+        cfg = build_live_trade_config(base)
+        print(' normalized refill channel:', cfg.live_trade_data_refill_channel)
+        self.assertEqual(cfg.live_trade_data_refill_channel, 'eastmoney')
+
+    def test_rejects_invalid_refill_channel(self) -> None:
+        print('\n[TestBuildLiveTradeConfig] F3 invalid refill channel')
+        base = _minimal_valid_live_mapping()
+        base['live_trade_data_refill_channel'] = 'invalid_ch'
         with self.assertRaises(ValueError) as ctx:
             build_live_trade_config(base)
         self.assertTrue(str(ctx.exception).isascii())

@@ -1,0 +1,223 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:1
+msgid "回测引擎与性能（设计视角）"
+msgstr "回測引擎與性能（設計視角）"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:3
+msgid ""
+"本章从**架构与实现**角度说明 qteasy 回测引擎的向量化与 Numba 使用方式，以及与 VectorBT "
+"等框架的差异，供需要深入理解或做技术选型的读者参考。使用层面的说明见《回测并评价交易策略》中的 [6. "
+"回测引擎与性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+msgstr ""
+"本章從**架構與實現**角度說明 qteasy 回測引擎的向量化與 Numba 使用方式，以及與 VectorBT "
+"等框架的差異，供需要深入理解或做技術選型的讀者參考。使用層面的說明見《回測並評價交易策略》中的 [6. "
+"回測引擎與性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:5
+msgid "1. 回测引擎在整体中的位置"
+msgstr "1. 回測引擎在整體中的位置"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:7
+msgid ""
+"回测模式（mode=1）的流程在 [回测、实盘与优化](06-backtest-live-optimization.md) 中已概括：准备历史数据 → "
+"构建 Backtester → 按 group_timing_table 逐步运行 Operator 生成信号 → 解析信号并模拟成交 → "
+"评价与输出。其中，“解析信号并模拟成交”由 **backtest** 模块中的 Numba 函数完成，实现“时间维顺序、标的维向量化”。"
+msgstr ""
+"回測模式（mode=1）的流程在 [回測、實盤與優化](06-backtest-live-optimization.md) 中已概括：準備歷史數據 → "
+"構建 Backtester → 按 group_timing_table 逐步運行 Operator 生成信號 → 解析信號並模擬成交 → "
+"評價與輸出。其中，“解析信號並模擬成交”由 **backtest** 模塊中的 Numba 函數完成，實現“時間維順序、標的維向量化”。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:9
+msgid "2. Numba 使用点与向量化结构"
+msgstr "2. Numba 使用點與向量化結構"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:11
+msgid "2.1 核心函数"
+msgstr "2.1 核心函數"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:13
+msgid "在 `qteasy/backtest.py` 中："
+msgstr "在 `qteasy/backtest.py` 中："
+
+#: ../../source/design/07-backtest-engine-and-performance.md:15
+msgid ""
+"**backtest_step**：`@njit(nogil=True, "
+"cache=True)`。单步内根据信号与当前持仓、现金、交割队列，计算买卖量、费用、持仓更新与交割队列更新；对整批标的做数组运算。"
+msgstr ""
+"**backtest_step**：`@njit(nogil=True, "
+"cache=True)`。單步內根據信號與當前持倉、現金、交割隊列，計算買賣量、費用、持倉更新與交割隊列更新；對整批標的做數組運算。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:16
+msgid "**calculate_trade_results**：`@njit`，用于交易结果与资金变动计算。"
+msgstr "**calculate_trade_results**：`@njit`，用於交易結果與資金變動計算。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:17
+msgid ""
+"**backtest_batch_steps**：`@njit(nogil=True, cache=True)`。在 Numba 内按 "
+"`signal_count`（时间步数）循环，每步调用 `backtest_step`，完成整段回测，实现“时间维顺序、标的维向量化”。"
+msgstr ""
+"**backtest_batch_steps**：`@njit(nogil=True, cache=True)`。在 Numba 內按 "
+"`signal_count`（時間步數）循環，每步調用 `backtest_step`，完成整段回測，實現“時間維順序、標的維向量化”。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:18
+msgid ""
+"**backtest_flash_steps**：`@njit(nogil=True, cache=True)`。与 "
+"`backtest_batch_steps` 类似，但不保留中间资金与持仓序列，仅保留最终状态，用于优化阶段多组参数回测时节省内存。"
+msgstr ""
+"**backtest_flash_steps**：`@njit(nogil=True, cache=True)`。與 "
+"`backtest_batch_steps` 類似，但不保留中間資金與持倉序列，僅保留最終狀態，用於優化階段多組參數回測時節省內存。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:20
+msgid ""
+"在 `qteasy/blender.py` 中，信号混合用的部分算子（如 `op_sum`、`op_floor` 等）也使用 `@njit` 加速。"
+msgstr ""
+"在 `qteasy/blender.py` 中，信號混合用的部分算子（如 `op_sum`、`op_floor` 等）也使用 `@njit` 加速。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:22
+msgid "2.2 时间维顺序与标的维向量化"
+msgstr "2.2 時間維順序與標的維向量化"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:24
+msgid "**时间维必须顺序**：因为存在交割队列、T+1、MOQ 等状态，下一笔交易依赖当前持仓与交割状态，无法在时间轴上完全并行或一次性矩阵化。"
+msgstr "**時間維必須順序**：因爲存在交割隊列、T+1、MOQ 等狀態，下一筆交易依賴當前持倉與交割狀態，無法在時間軸上完全並行或一次性矩陣化。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:25
+msgid ""
+"**标的维向量化**：在每一个时间步内，对所有标的的 signal、持仓、买卖量、费用等用 NumPy 数组与 Numba 内联运算，避免 Python"
+" 层循环。"
+msgstr ""
+"**標的維向量化**：在每一個時間步內，對所有標的的 signal、持倉、買賣量、費用等用 NumPy 數組與 Numba 內聯運算，避免 Python"
+" 層循環。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:27
+msgid "因此，单次回测可以理解为：**一层 Numba 内的时间步循环 + 每步内的向量化计算**。"
+msgstr "因此，單次回測可以理解爲：**一層 Numba 內的時間步循環 + 每步內的向量化計算**。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:29
+msgid "2.3 优化阶段"
+msgstr "2.3 優化階段"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:31
+msgid ""
+"在 `qteasy/optimization.py` 中，多组参数通过多进程（如 `ProcessPoolExecutor`）并行执行回测；每组内部使用"
+" `backtest_flash_steps` 等路径，只保留最终资金/持仓，以降低内存占用并提高吞吐。"
+msgstr ""
+"在 `qteasy/optimization.py` 中，多組參數通過多進程（如 `ProcessPoolExecutor`）並行執行回測；每組內部使用"
+" `backtest_flash_steps` 等路徑，只保留最終資金/持倉，以降低內存佔用並提高吞吐。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:33
+msgid "3. 与 VectorBT 的架构差异"
+msgstr "3. 與 VectorBT 的架構差異"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "维度"
+msgstr "維度"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "qteasy"
+msgstr "qteasy"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "VectorBT"
+msgstr "VectorBT"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "时间维度"
+msgstr "時間維度"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "顺序步进（for 步），每步内向量化"
+msgstr "順序步進（for 步），每步內向量化"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "全时间轴一次性矩阵运算，无显式时间循环"
+msgstr "全時間軸一次性矩陣運算，無顯式時間循環"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "标的维度"
+msgstr "標的維度"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "每步对全部标的做数组运算（1D 数组）"
+msgstr "每步對全部標的做數組運算（1D 數組）"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "标的与时间一起参与广播，多策略/多参数可一并广播"
+msgstr "標的與時間一起參與廣播，多策略/多參數可一併廣播"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "核心加速"
+msgstr "核心加速"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid ""
+"backtest_step、backtest_batch_steps、backtest_flash_steps 等为 "
+"@njit；信号解析、交割队列等也用 Numba"
+msgstr ""
+"backtest_step、backtest_batch_steps、backtest_flash_steps 等爲 "
+"@njit；信號解析、交割隊列等也用 Numba"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "NumPy + Numba，策略表达为纯数组运算"
+msgstr "NumPy + Numba，策略表達爲純數組運算"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "状态与约束"
+msgstr "狀態與約束"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "显式维护现金、持仓、交割队列（T+1 等），状态依赖下一笔，故时间维必须顺序"
+msgstr "顯式維護現金、持倉、交割隊列（T+1 等），狀態依賴下一筆，故時間維必須順序"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "多为简化资金曲线，不强调 T+1/交割/MOQ，易做全矩阵"
+msgstr "多爲簡化資金曲線，不強調 T+1/交割/MOQ，易做全矩陣"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:42
+msgid ""
+"**结论**：qteasy 并非“缺乏向量化/Numba”，而是在保证**状态正确性**（T+1、交割、MOQ、多策略合并等）的前提下，选择了“时间顺序"
+" + 标的维向量化 + Numba 单步”的折中；与 VectorBT 的“全矩阵广播”各有适用场景（qteasy "
+"偏规则严谨与实盘一致，VectorBT 偏海量参数快速筛选）。"
+msgstr ""
+"**結論**：qteasy 並非“缺乏向量化/Numba”，而是在保證**狀態正確性**（T+1、交割、MOQ、多策略合併等）的前提下，選擇了“時間順序"
+" + 標的維向量化 + Numba 單步”的折中；與 VectorBT 的“全矩陣廣播”各有適用場景（qteasy "
+"偏規則嚴謹與實盤一致，VectorBT 偏海量參數快速篩選）。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:44
+msgid "4. 相关文档"
+msgstr "4. 相關文檔"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:46
+msgid "统一入口与模式：[回测、实盘与优化](06-backtest-live-optimization.md)。"
+msgstr "統一入口與模式：[回測、實盤與優化](06-backtest-live-optimization.md)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:47
+msgid ""
+"使用侧说明：[回测并评价交易策略 - "
+"回测引擎与性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+msgstr ""
+"使用側說明：[回測並評價交易策略 - "
+"回測引擎與性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:48
+msgid "设计初衷与数据隔离：[设计初衷与独特优势](08-design-rationale-and-advantages.md)。"
+msgstr "設計初衷與數據隔離：[設計初衷與獨特優勢](08-design-rationale-and-advantages.md)。"

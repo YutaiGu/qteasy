@@ -1,0 +1,220 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:1
+msgid "Live Trading S1.3 设计理念与架构"
+msgstr "ライブトレーディング S1.3 の設計哲学とアーキテクチャ"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:3
+msgid "本文从设计视角解释 S1.3 的 live trading 改造思路：为什么这样分层、如何保持兼容、以及这些设计如何帮助后续扩展。"
+msgstr ""
+"この記事では、設計の観点から、S1.3 のライブ トレーディング リファクタリング "
+"アプローチ、つまり階層化がこの方法で行われる理由、互換性がどのように維持されるか、およびこれらの設計が将来の拡張機能にどのように役立つかを説明します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:5
+msgid "0. 文档定位"
+msgstr "0. 文書の位置決め"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:7
+msgid "本文是设计说明，不是使用教程"
+msgstr "この文書は設計仕様書であり、ユーザー チュートリアルではありません。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:8
+msgid "重点回答“为什么这样做”，而不是“如何一步步操作”"
+msgstr "「段階的にどのように運用するか」ではなく、「なぜこのようにするのか」に答えることに重点を置いています。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:9
+msgid ""
+"若需要实操路径，请转到 `live_trading/2-configuration-and-run.md` 与 `tutorials/8-live-"
+"trade-risk-and-broker-walkthrough.md`"
+msgstr ""
+"実践的なパスが必要な場合は、`live_trading/2-configuration-and-run.md` および "
+"`tutorials/8-live-trade-risk-and-broker-walkthrough.md` にアクセスしてください。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:11
+msgid "1. 设计目标"
+msgstr "1. 設計目標"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:13
+msgid "在不破坏既有用户路径的前提下，提升 live 链路的可校验性与可审计性"
+msgstr "既存のユーザー フローを中断することなく、ライブ パスの検証可能性と監査可能性を向上させます。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:14
+msgid "把风险控制前置到“下单写库之前”"
+msgstr "リスク管理を「注文とデータベースへの書き込み前」に進める"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:15
+msgid "抽象 Broker 适配层，为未来真实柜台接入预留稳定边界"
+msgstr "ブローカー アダプター レイヤーを抽象化し、実際のブローカー フロント エンドとの将来の統合に備えて安定した境界を確保します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:17
+msgid "2. 分层结构"
+msgstr "2. 階層構造"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:19
+msgid "S1.3 的 live 相关职责可抽象为："
+msgstr "S1.3 のライブ関連の責任は次のように抽象化できます。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:21
+msgid "`Operator`：策略运行调度与信号来源"
+msgstr "`Operator`: 戦略実行のスケジューリングとシグナルソース"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:22
+msgid "`Trader`：订单意图落地、风险闸门与执行协调"
+msgstr "`Trader`: 注文意図、リスクゲーティング、実行調整を具体化します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:23
+msgid "`RiskManager`：纯逻辑规则评估，不依赖 IO"
+msgstr "`RiskManager`: 純粋な論理ルール評価、IO 依存関係なし"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:24
+msgid "`Broker`：提交、取消、回报、连接语义"
+msgstr "`Broker`: 送信、キャンセル、レポート、および接続セマンティクス"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:25
+msgid "`trade_io`：订单/成交数据契约校验"
+msgstr "`trade_io`: 注文/取引データの契約の検証"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:27
+msgid "3. 关键设计原则"
+msgstr "3. 主要な設計原則"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:29
+msgid "3.1 契约先行"
+msgstr "3.1 契約優先"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:31
+msgid "订单 dict 与成交 dict 在边界处校验，避免“结构错了还能跑”导致的静默错误。"
+msgstr ""
+"「構造が間違っている場合でも実行される」ことによって引き起こされるサイレント エラーを回避するために、境界で順序 dict と fill dict "
+"を検証します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:33
+msgid "3.2 风控前置"
+msgstr "3.2 リスク管理を左にシフトする"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:35
+msgid "风险评估在写库和入队之前完成，拒单不污染执行数据。"
+msgstr "リスク評価はデータベースに書き込んでキューに入れる前に完了するため、拒否された注文によって実行データが汚染されることはありません。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:37
+msgid "3.3 适配解耦"
+msgstr "3.3 アダプターのデカップリング"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:39
+msgid "通过 broker adapter API 承载未来接入，降低 Trader 与具体柜台的耦合度。"
+msgstr "ブローカー アダプター API を介して将来の統合を実行し、Trader と特定のブローカー システム間の結合を軽減します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:41
+msgid "3.4 可审计"
+msgstr "3.4 監査可能"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:43
+msgid "拒因以 `rule_id` 和英文 `reason` 对外可见，支持运维检索与复盘。"
+msgstr ""
+"拒否の理由は、`rule_id` および英語の `reason` を介して外部から確認でき、作戦検索とインシデント後のレビューをサポートします。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:45
+msgid "4. 典型疑难点与取舍"
+msgstr "4. 一般的な注意が必要な点とトレードオフ"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:47
+msgid "4.1 拒单兼容语义"
+msgstr "4.1 拒否命令の互換性セマンティクス"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:49
+msgid "保持历史兼容（拒单可表现为空结果），同时增强可见性（CLI/TUI 摘要 + 日志）。"
+msgstr "可視性 (CLI/TUI の概要 + ログ) を向上させながら、下位互換性を維持します (拒否は空の結果として表示される場合があります)。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:51
+msgid "4.2 新旧链路并存"
+msgstr "4.2 新しいフローと従来のフローの共存"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:53
+msgid "保留 legacy queue 兼容路径，避免一次性迁移带来的回归风险。"
+msgstr "ワンショット移行による回帰リスクを回避するために、レガシー キューの互換性パスを維持します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:55
+msgid "4.3 状态一致性"
+msgstr "4.3 状態の一貫性"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:57
+msgid "分批成交场景下，状态应以累计成交量为准，减少用户观察到的语义偏差。"
+msgstr "部分充填シナリオでは、ユーザーが観察する意味上の矛盾を減らすために、ステータスは累積充填量に基づく必要があります。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:59
+msgid "5. 与 S2.1 的关系"
+msgstr "5. S2.1との関係"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:61
+msgid "S1.3 不是柜台接入终点，而是前置地基："
+msgstr "S1.3 はブローカー統合のエンドポイントではなく、基礎となる基盤です。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:63
+msgid "先稳定接口边界"
+msgstr "まず界面の境界を安定させます"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:64
+msgid "再逐步接入真实柜台"
+msgstr "その後、徐々に実際のブローカー システムに接続します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:65
+msgid "最后在不破坏上层用法的前提下扩展能力"
+msgstr "最後に、上流での使用を中断することなく機能を拡張します。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:67
+msgid "6. 对用户行为的影响"
+msgstr "6. ユーザーの行動への影響"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:69
+msgid "配置错误更早暴露"
+msgstr "構成エラーは早期に明らかになります。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:70
+msgid "拒单原因更容易定位"
+msgstr "拒否の理由を特定するのが簡単になります。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:71
+msgid "live 运行中的状态变化更容易解释"
+msgstr "ライブ操作中の状態変化は説明しやすいです。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:72
+msgid "扩展第三方 broker 的成本更可控"
+msgstr "サードパーティブローカーを拡張するコストはより制御可能です。"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:74
+msgid "7. 相关阅读"
+msgstr "7. さらに読む"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:76
+msgid "模块总览：`live_trading/1-overview.md`"
+msgstr "モジュールの概要: `live_trading/1-overview.md`"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:77
+msgid "运行与配置：`live_trading/2-configuration-and-run.md`"
+msgstr "操作と設定: `live_trading/2-configuration-and-run.md`"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:78
+msgid "风控与状态：`live_trading/3-risk-and-order-lifecycle.md`"
+msgstr "リスク管理と状態: `live_trading/3-risk-and-order-lifecycle.md`"
+
+#: ../../source/design/10-live-trading-s1.3-architecture.md:79
+msgid "Broker 接入：`live_trading/4-broker-adapter-and-integration.md`"
+msgstr "ブローカーの統合: `live_trading/4-broker-adapter-and-integration.md`"

@@ -3,69 +3,83 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_09_日内回转交易.md:1
 msgid "日内回转交易策略（教学等价版）"
 msgstr ""
+"Estrategia comercial de respuesta intradía (equivalente a la versión "
+"tutorial)"
 
 #: ../../source/examples/Example_09_日内回转交易.md:3
 msgid ""
-"参考来源：`docs/_joinquant_migration_source/Example_09_日内回转交易.ipynb` 第一个 "
-"Markdown cell。"
+"参考来源：`docs/_joinquant_migration_source/Example_09_日内回转交易.ipynb` 第一个 Markdown"
+" cell。"
 msgstr ""
+"Fuente de referencia: "
+"`docs/_joinquant_migration_source/Example_09_日内回转交易.ipynb` Primera celda de "
+"Markdown."
 
 #: ../../source/examples/Example_09_日内回转交易.md:5
 msgid "策略思路"
-msgstr ""
+msgstr "Estrategia e ideas"
 
 #: ../../source/examples/Example_09_日内回转交易.md:7
 msgid "使用分钟级价格计算 MACD；"
-msgstr ""
+msgstr "Calcule MACD utilizando precios a nivel de minutos;"
 
 #: ../../source/examples/Example_09_日内回转交易.md:8
 msgid "MACD 为正时加仓、为负时减仓；"
 msgstr ""
+"Aumente su posición cuando el MACD sea positivo y reduzca su posición cuando"
+" sea negativo."
 
 #: ../../source/examples/Example_09_日内回转交易.md:9
 msgid "通过 `VS` 信号输出固定交易数量，形成日内回转风格。"
 msgstr ""
+"Al generar un número fijo de operaciones utilizando la señal `VS`, se puede "
+"formar un estilo de reversión intradía."
 
 #: ../../source/examples/Example_09_日内回转交易.md:11
 msgid "诚实说明"
-msgstr ""
+msgstr "Honestidad"
 
 #: ../../source/examples/Example_09_日内回转交易.md:13
 msgid "原始策略强调 A 股日内回转，但真实 A 股存在 T+1 约束；"
 msgstr ""
+"La estrategia original hacía hincapié en las reversiones intradía de las "
+"acciones A, pero en realidad las acciones A están sujetas a restricciones "
+"T+1."
 
 #: ../../source/examples/Example_09_日内回转交易.md:14
 msgid "本示例仅演示 qteasy 的日内信号处理链路，不等同于真实可执行的 A 股 T+0 回转；"
 msgstr ""
+"Este ejemplo solo demuestra la cadena de procesamiento de señales intradía "
+"de qteasy y no es equivalente a un cambio real ejecutable de acción A T+0;"
 
 #: ../../source/examples/Example_09_日内回转交易.md:15
 msgid "若需要贴近实盘，请改用 ETF 或期货标的，并校准交易制度参数。"
 msgstr ""
+"Si necesita parecerse mucho al comercio real, utilice ETF o contratos de "
+"futuros y calibre los parámetros del sistema de comercio."
 
 #: ../../source/examples/Example_09_日内回转交易.md:40
 msgid "可执行脚本"
-msgstr ""
+msgstr "Script ejecutable"
 
 #: ../../source/examples/Example_09_日内回转交易.md:42
 msgid "`examples/strategy_example_09.py`"
-msgstr ""
-
+msgstr "`examples/strategy_example_09.py`"

@@ -255,6 +255,23 @@ class TestBrokerContract(unittest.TestCase):
         self.assertEqual(result['transaction_fee'], 5.0)
         validate_raw_trade_result(result, context='test.legacy')
 
+    def test_get_result_partial_fills_use_order_qty_not_shadowed(self):
+        print('\n[TestBrokerContract] 分段成交 order_qty 不被循环内 qty 覆盖')
+        broker = MinimalBrokerForContractTest()
+        broker.connect()
+        order_qty = float(self.order['qty'])
+        half_qty = round(order_qty / 2, 4)
+        remain_qty = round(order_qty - half_qty, 4)
+        print(' order_qty:', order_qty, ' expected fills:', half_qty, remain_qty)
+        broker._get_result(self.order)
+        first = broker.result_queue.get()
+        second = broker.result_queue.get()
+        print(' first fill:', first)
+        print(' second fill:', second)
+        self.assertEqual(first['filled_qty'], half_qty)
+        self.assertEqual(second['filled_qty'], remain_qty)
+        self.assertTrue(broker.result_queue.empty())
+
     def test_submit_rejects_invalid_order_dict(self):
         print('\n[TestBrokerContract] submit 拒绝非法订单')
         broker = MinimalBrokerForContractTest()

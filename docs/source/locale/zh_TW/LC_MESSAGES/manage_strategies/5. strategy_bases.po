@@ -1,0 +1,145 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:1
+msgid "三种策略基类：RuleIterator、FactorSorter、GeneralStg"
+msgstr "三種策略基類：RuleIterator、FactorSorter、GeneralStg"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:3
+msgid ""
+"qteasy 中自定义策略通常继承自三种基类之一，按使用场景选择：**RuleIterator** "
+"适用于择时或单规则迭代；**FactorSorter** 适用于因子选股；**GeneralStg** 适用于通用多资产或多规则信号。"
+msgstr ""
+"qteasy 中自定義策略通常繼承自三種基類之一，按使用場景選擇：**RuleIterator** "
+"適用於擇時或單規則迭代；**FactorSorter** 適用於因子選股；**GeneralStg** 適用於通用多資產或多規則信號。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:5
+msgid "何时用哪种基类"
+msgstr "何時用哪種基類"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:7
+msgid ""
+"**RuleIterator**：单标的或单规则、逐周期迭代（如均线择时、MACD 择时）。输入多为单标的或多标的的行情序列，输出为仓位或单一信号。"
+msgstr ""
+"**RuleIterator**：單標的或單規則、逐週期迭代（如均線擇時、MACD 擇時）。輸入多爲單標的或多標的的行情序列，輸出爲倉位或單一信號。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:8
+msgid ""
+"**FactorSorter**：多标的按某一因子排序，选取前 N 或后 N 名（选股）。需设置 "
+"**max_sel_count**、**sort_ascending** 等。"
+msgstr ""
+"**FactorSorter**：多標的按某一因子排序，選取前 N 或後 N 名（選股）。需設置 "
+"**max_sel_count**、**sort_ascending** 等。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:9
+msgid ""
+"**GeneralStg**：更通用的多资产、多规则或自定义输入输出形状的策略，当 RuleIterator/FactorSorter 无法满足时使用。"
+msgstr ""
+"**GeneralStg**：更通用的多資產、多規則或自定義輸入輸出形狀的策略，當 RuleIterator/FactorSorter 無法滿足時使用。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:11
+msgid "RuleIterator"
+msgstr "RuleIterator"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:13
+msgid ""
+"**输入/输出**：通常通过 ``get_data(dtype_id)`` 获取 OHLCV 等，在 ``realize()`` "
+"中计算并返回一维信号（如目标仓位 0～1）。"
+msgstr ""
+"**輸入/輸出**：通常通過 ``get_data(dtype_id)`` 獲取 OHLCV 等，在 ``realize()`` "
+"中計算並返回一維信號（如目標倉位 0～1）。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:14
+msgid "**典型用法**：均线金叉死叉、MACD 柱状图符号等。"
+msgstr "**典型用法**：均線金叉死叉、MACD 柱狀圖符號等。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:15
+msgid "简短示例（逻辑示意）："
+msgstr "簡短示例（邏輯示意）："
+
+#: ../../source/manage_strategies/5. strategy_bases.md:29
+msgid "多标的参数（必读）"
+msgstr "多標的參數（必讀）"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:31
+msgid ""
+"**需要每股不同参数时**：必须在 ``set_shares`` / ``Operator.set_shares`` 之后，用 **字典** 调用 "
+"``update_par_values({代码: (参数元组), ...})``（或通过 ``Operator.set_parameter(..., "
+"par_values={...})`` 等效传入）。字典的键须与当前标的列表中的字符串 **完全一致**。框架据此建立按标的顺序排列的 per-"
+"share 参数；之后在 ``realize()`` 里用 ``get_pars()`` / ``update_par_values()`` "
+"即可，由框架在 ``generate()`` 循环内对齐当前股票。"
+msgstr ""
+"**需要每股不同參數時**：必須在 ``set_shares`` / ``Operator.set_shares`` 之後，用 **字典** 調用 "
+"``update_par_values({代碼: (參數元組), ...})``（或通過 ``Operator.set_parameter(..., "
+"par_values={...})`` 等效傳入）。字典的鍵須與當前標的列表中的字符串 **完全一致**。框架據此建立按標的順序排列的 per-"
+"share 參數；之後在 ``realize()`` 裏用 ``get_pars()`` / ``update_par_values()`` "
+"即可，由框架在 ``generate()`` 循環內對齊當前股票。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:32
+msgid ""
+"**若用元组 / 位置参数初始化**：多标的时运行时 **全体共享一套** 策略参数（单一 "
+"``_pars``）。若本意是「每只股票独立一套参数」却未传字典，易产生静默语义偏差；**刻意让所有股票共用一套初值并一起演化** "
+"时，用元组是合理选择。"
+msgstr ""
+"**若用元組 / 位置參數初始化**：多標的時運行時 **全體共享一套** 策略參數（單一 "
+"``_pars``）。若本意是「每隻股票獨立一套參數」卻未傳字典，易產生靜默語義偏差；**刻意讓所有股票共用一套初值並一起演化** "
+"時，用元組是合理選擇。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:33
+msgid ""
+"**``default`` 键（不是 ``others``）**：字典中除具体股票代码外，可额外提供键 "
+"``\"default\"``，其值为一个参数元组；凡 **未在字典中单独列出** "
+"的标的，初始化时都会使用该元组作为初值。之后各标的在回测/实盘中的参数仍可在 ``realize()`` 内通过 "
+"``update_par_values`` 独立演进。实现上 **没有** ``others``、``rest`` "
+"等其它魔法键名，请勿使用未文档化的键。"
+msgstr ""
+"**``default`` 鍵（不是 ``others``）**：字典中除具體股票代碼外，可額外提供鍵 "
+"``\"default\"``，其值爲一個參數元組；凡 **未在字典中單獨列出** "
+"的標的，初始化時都會使用該元組作爲初值。之後各標的在回測/實盤中的參數仍可在 ``realize()`` 內通過 "
+"``update_par_values`` 獨立演進。實現上 **沒有** ``others``、``rest`` "
+"等其它魔法鍵名，請勿使用未文檔化的鍵。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:35
+msgid "FactorSorter"
+msgstr "FactorSorter"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:37
+msgid ""
+"**输入/输出**：获取因子数据（如收益率、波动率），在 ``realize()`` 中返回每个标的的因子值；基类按 "
+"**sort_ascending** 排序后取前 **max_sel_count** 个形成选股列表。"
+msgstr ""
+"**輸入/輸出**：獲取因子數據（如收益率、波動率），在 ``realize()`` 中返回每個標的的因子值；基類按 "
+"**sort_ascending** 排序後取前 **max_sel_count** 個形成選股列表。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:38
+msgid "**属性**：max_sel_count（选股数量）、sort_ascending（True 升序取最小，False 降序取最大）等。"
+msgstr "**屬性**：max_sel_count（選股數量）、sort_ascending（True 升序取最小，False 降序取最大）等。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:40
+msgid "GeneralStg"
+msgstr "GeneralStg"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:42
+msgid "**输入/输出**：更灵活，可自定义所需 DataType 与返回数组形状，适用于多资产权重、多规则组合等。"
+msgstr "**輸入/輸出**：更靈活，可自定義所需 DataType 與返回數組形狀，適用於多資產權重、多規則組合等。"
+
+#: ../../source/manage_strategies/5. strategy_bases.md:43
+msgid "**适用场景**：不限于单标的择时或简单因子选股时的自定义逻辑。"
+msgstr "**適用場景**：不限於單標的擇時或簡單因子選股時的自定義邏輯。"

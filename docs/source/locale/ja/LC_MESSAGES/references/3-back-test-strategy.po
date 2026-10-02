@@ -1,0 +1,1012 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/references/3-back-test-strategy.md:1
+msgid "创建交易策略并评价回测结果"
+msgstr "バックテストと戦略の評価"
+
+#: ../../source/references/3-back-test-strategy.md:3
+msgid ""
+"`qteasy`中的所有交易策略都是通过`qteast.Operator`（交易员）对象来实现回测和运行的，`Operator`对象是一个策略容器，一个交易员可以同时"
+" 管理多个不同的交易策略，哪怕这些交易策略有不同的运行时机和运行频率，或者不同的用途，例如一个策略用于选股、另一个策略用于大盘择时，再一个策 "
+"略用于风险控制，用户可以非常灵活地添加或修改`Operator`对象中的策略。"
+msgstr ""
+"`qteasy` すべての取引戦略は、バックテストと操作のために `qteast.Operator` (トレーダー) オブジェクトを通じて実装されます。"
+" `Operator` "
+"オブジェクトは戦略コンテナーであり、トレーダーは複数の異なる取引戦略を、異なる操作タイミングや頻度、または異なる目的を持っている場合でも、同時に管理できます。たとえば、ある戦略は銘柄の選択に使用され、別の戦略は市場のタイミングに使用され、別の戦略はリスク管理に使用されます。ユーザーは、`Operator`"
+" オブジェクト内の戦略を柔軟に追加または変更できます。"
+
+#: ../../source/references/3-back-test-strategy.md:7
+msgid ""
+"将策略交给`Operator`后，只要设置好交易的资产类别，资产池的大小，设定好每个策略的运行时机和频率后，`Operator`对象就会在合适的时间启动相应的"
+" 交易策略，生成策略信号，并将所有的策略信号混合(`blend`)后解析成为交易信号。"
+msgstr ""
+"戦略を`Operator`に引き渡した後、取引する資産クラス、資産プールのサイズ、各戦略の動作タイミングと頻度が設定されている限り、`Operator`オブジェクトは適切なタイミングで対応する取引戦略を開始し、戦略シグナルを生成し、すべての戦略シグナルを混合（`blend`）して取引シグナルに解決します。"
+
+#: ../../source/references/3-back-test-strategy.md:10
+msgid "关于`Operator`对象的更多介绍，请参见`qteasy`文档"
+msgstr "`Operator` オブジェクトの詳細については、`qteasy` のドキュメントを参照してください。"
+
+#: ../../source/references/3-back-test-strategy.md:12
+msgid "`qteasy`提供了两种方式创建交易策略："
+msgstr "`qteasy` は、取引戦略を作成する 2 つの方法を提供します。"
+
+#: ../../source/references/3-back-test-strategy.md:14
+msgid "*使用内置交易策略组合*："
+msgstr "*組み込みの取引戦略の組み合わせを使用する*"
+
+#: ../../source/references/3-back-test-strategy.md:15
+msgid ""
+"`qteasy`提供多种内置交易策略可供用户使用，不需要手工创建。通过引用内置策略的名称（关于所有内置策略的介绍，请参 "
+"见详细文档）用户可以快速建立策略，还可以通过多个简单的策略混合成较为复杂的复合策略。"
+msgstr ""
+"`qteasy` は、ユーザーが手動で作成せずに使用できる、さまざまな組み込みの取引戦略を提供します。組み込み戦略の名前を参照することで "
+"(すべての組み込み戦略に関する詳細なドキュメントを参照)、ユーザーは戦略を迅速に確立したり、複数の単純な戦略を組み合わせてより複雑な複合戦略を作成したりできます。"
+
+#: ../../source/references/3-back-test-strategy.md:17
+msgid "*通过策略类自行创建策略*："
+msgstr "～戦略を創る戦略授業を通して～"
+
+#: ../../source/references/3-back-test-strategy.md:18
+msgid "当用户的策略非常复杂时，可以通过`qteasy.Strategy`类来自定义一个策略。"
+msgstr "ユーザーの戦略が非常に複雑な場合、`qteasy.Strategy` クラスを通じて戦略をカスタマイズできます。"
+
+#: ../../source/references/3-back-test-strategy.md:21
+msgid ""
+"创建交易策略，并且使用历史数据回溯测试交易策略的交易结果，并对交易结果进行评价是`qteasy`的核心功能之一。 "
+"qteasy通过一个交易员对象（`Operator`）汇总一系列的交易策略，并且通过`qt.run()`函数在一段设定好的历史时间段内模拟交易策略的运行，生成交易信号，使用历史价格进行模拟交易，生成交易结果，计算评价指标，并以可视化形式输出为图表。"
+msgstr ""
+"取引戦略の作成、履歴データを使用した取引戦略の取引結果のバックテスト、および取引結果の評価は、qteasy の中核機能の 1 つです。 "
+"qteasyは、トレーダーオブジェクト(Operator)を通じて一連の取引戦略を要約し、qt.run()関数を使用して設定された履歴期間内の取引戦略の動作をシミュレートし、取引シグナルの生成、履歴価格を使用した取引のシミュレーション、取引結果の生成、評価指標の計算、およびチャートとして視覚的な形式で出力します。"
+
+#: ../../source/references/3-back-test-strategy.md:24
+msgid "本章节以一个最常见的基金择时投资策略为例子，演示了以下内容："
+msgstr "ここでは、一般的なファンド タイミング投資戦略の例を示し、次の内容を示します。"
+
+#: ../../source/references/3-back-test-strategy.md:25
+msgid "创建一个简单的dma择时投资策略，创建一个交易员对象使用这个策略，演示如何修改、添加策略"
+msgstr "単純な DMA タイミング投資戦略を作成し、この戦略を使用してトレーダー オブジェクトを作成し、戦略を変更および追加する方法を示します。"
+
+#: ../../source/references/3-back-test-strategy.md:26
+msgid "通过`qt.configure()`设置相关的环境变量，使用过去10年的沪深300指数历史数据，回测策略表现"
+msgstr ""
+"`qt.configure()` で関連する環境変数を設定し、過去 10 年間の CSI 300 "
+"インデックスの履歴データを使用して戦略のパフォーマンスをバックテストします。"
+
+#: ../../source/references/3-back-test-strategy.md:27
+msgid "通过对过去10年左右的沪深300指数历史数据，对策略进行参数寻优，最终演示寻优后的结果"
+msgstr "過去 10 年間の CSI 300 インデックスの履歴データを使用して戦略パラメーターを最適化し、最終的に最適化後の結果を実証します"
+
+#: ../../source/references/3-back-test-strategy.md:29
+msgid "首先我们导入qteasy模块 为了在线打印图表，使用`matplotlib inline`设置图表打印模式为在线打印"
+msgstr ""
+"まず、qteasy モジュールをインポートします。チャートをオンラインで印刷するには、`matplotlib inline` "
+"を使用してチャートの印刷モードをオンライン印刷に設定します。"
+
+#: ../../source/references/3-back-test-strategy.md:33
+msgid "创建Strategy对象和Operator对象"
+msgstr "戦略と Operator オブジェクトを作成する"
+
+#: ../../source/references/3-back-test-strategy.md:34
+msgid "`qteasy`中的每一个交易策略都被定义为交易策略（`Strategy`）对象。每个交易对象包含了一系列的交易规则，这些规则包括三个方面："
+msgstr ""
+"qteasy のすべての取引戦略は、取引戦略 (Strategy) オブジェクトとして定義されます。各取引オブジェクトには、次の 3 "
+"つの側面を含む一連の取引ルールが含まれています。"
+
+#: ../../source/references/3-back-test-strategy.md:35
+msgid "**策略运行规则**，包括策略运行的频率，所使用的历史数据类型，历史数据窗口长度，定义了策略如何运行以及如何使用历史数据"
+msgstr ""
+"**戦略実行ルール**には、戦略の実行頻度、使用される履歴データの種類、履歴データ "
+"ウィンドウの長さが含まれており、戦略の動作方法と履歴データの使用方法を定義します。"
+
+#: ../../source/references/3-back-test-strategy.md:36
+msgid "**信号生成规则**，交易信号的生成规则，即如何根据相关历史数据生成何种交易信号，这是交易策略的核心"
+msgstr ""
+"**シグナル生成ルール** "
+"取引シグナルを生成するためのルール、つまり、取引戦略の核となる、関連する履歴データに基づいてどのような取引シグナルを生成するかというルール"
+
+#: ../../source/references/3-back-test-strategy.md:37
+msgid "**交易信号类型**，交易信号的不同类型决定了模拟交易模块如何处理交易信号"
+msgstr ""
+"**取引シグナルのタイプ** さまざまなタイプの取引シグナルにより、シミュレーション取引モジュールが取引シグナルを処理する方法が決まります。"
+
+#: ../../source/references/3-back-test-strategy.md:39
+msgid ""
+"在`qteasy`中，交易策略是由交易员对象（`Operator`）执行的，同一时间只能有一个`Operator`对象在运行，但是同一个交易员可以同时执行一个或多个交易策略，这些交易策略可以针对同一个投资组合进行交易，用户可以定义特定的“混合”方法，把多个简单交易策略混合成为一个复杂交易策略运行。"
+msgstr ""
+"qteasy では、取引戦略はトレーダー オブジェクト (Operator) によって実行されます。同時に実行できるのは 1 つの Operator "
+"オブジェクトのみですが、同じトレーダーは 1 "
+"つ以上の取引戦略を同時に実行できます。これらの取引戦略は同じポートフォリオで取引でき、ユーザーは特定の「混合」方法を定義して、複数の単純な取引戦略を複雑な取引戦略に組み合わせることができます。"
+
+#: ../../source/references/3-back-test-strategy.md:41
+msgid "创建Strategy对象"
+msgstr "戦略オブジェクトの作成"
+
+#: ../../source/references/3-back-test-strategy.md:43
+msgid "创建`Strategy`对象的最简单方法是使用`qt.built_in`模块, 也可以在创建`Operator`对象的时候同时创建。"
+msgstr ""
+"Strategy オブジェクトの作成は、qt.built_in モジュールを使用するのが最も簡単で、Operator "
+"オブジェクトの作成時に作成することもできます。"
+
+#: ../../source/references/3-back-test-strategy.md:69
+msgid "从上面的输出可以看到这个交易策略的基本信息。除了名称、描述以外，比较重要的信息包括："
+msgstr "出力からこの取引戦略の基本情報を確認できます。名前と説明に加えて、次の重要な情報が含まれます。"
+
+#: ../../source/references/3-back-test-strategy.md:71
+msgid ""
+"**策略参数 Strategy "
+"Parameter**。策略参数是策略运行过程中所需的外部参数，根据策略规则的不同，策略使用的参数也不同，这些参数对策略的运行过程产生影响，不同的参数会影响策略的输出。例如，在双均线则时策略中，长均线的计算周期和短均线的计算周期就是两个策略参数。"
+msgstr ""
+"**戦略パラメータ**。ストラテジ "
+"パラメータは、ストラテジの動作中に必要な外部パラメータです。異なる戦略ルールに応じて、戦略で使用されるパラメータも異なります。これらのパラメータは戦略の動作に影響し、さまざまなパラメータは戦略の出力に影響します。例えば、デュアル移動平均戦略では、長期移動平均の計算期間と短期移動平均の計算期間が"
+" 2 つの戦略パラメータになります。"
+
+#: ../../source/references/3-back-test-strategy.md:72
+msgid ""
+"**参数类型/范围 Parameter Types / Range**: "
+"不同的策略参数会极大地影响一个策略的最终结果，设置好参数的取值范围和类型之后，qteasy可以通过不同方法在参数空间内搜索最佳参数，使策略的性能达到最佳。"
+msgstr ""
+"**パラメータのタイプ/範囲**: "
+"さまざまな戦略パラメータは、戦略の最終結果に大きな影響を与える可能性があります。パラメータの値の範囲とタイプを設定した後、qteasy "
+"はさまざまな方法でパラメータ空間内で最適なパラメータを検索し、戦略のパフォーマンスを最適化できます。"
+
+#: ../../source/references/3-back-test-strategy.md:73
+msgid ""
+"**策略数据频率和运行频率 Data Frequcney / Sample "
+"Frequency**。策略运行的频率以及所需数据的频率，例如每周执行一次，每月执行一次或每分钟执行一次等等，一般来说数据频率与执行频率相关"
+msgstr ""
+"**戦略データの頻度 / サンプル頻度**。戦略の実行頻度と必要なデータの頻度 (週に 1 回、月に 1 回、または 1 分に 1 "
+"回など)。一般に、データの頻度は実行頻度に関連します。"
+
+#: ../../source/references/3-back-test-strategy.md:74
+msgid "**数据类型 Data Types**：运行策略所需要读取的历史数据类型。对DMA策略来说，仅需要收盘价即可。"
+msgstr "**データ タイプ**: 戦略を実行するために必要な履歴データ タイプ。 DMA 戦略の場合、必要なのは終値のみです。"
+
+#: ../../source/references/3-back-test-strategy.md:76
+msgid ""
+"也要查看所有的内置策略，可以使用qt.built_ins()函数，如果不给出函数的参数，则会显示所有内置策略的列表，如果给出参数，则会显示指定内置策略的详细信息。"
+" 例如："
+msgstr ""
+"すべての組み込み戦略を表示したい場合は、qt.built_ins() "
+"関数を使用できます。関数パラメータを指定しない場合、すべての組み込み戦略のリストが表示されます。パラメーターを指定すると、指定された組み込み戦略に関する詳細情報が表示されます。例えば："
+
+#: ../../source/references/3-back-test-strategy.md:82
+msgid "得到："
+msgstr "結果："
+
+#: ../../source/references/3-back-test-strategy.md:106
+msgid "更多关于内置策略的函数包括："
+msgstr "その他の組み込み戦略関数には次のものがあります。"
+
+#: ../../source/references/3-back-test-strategy.md:108
+msgid "`qt.built_ins(stg_id=None)`"
+msgstr "`qt.built_ins(stg_id=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:109
+msgid "如果stg_id=None，显示所有内置策略的列表，否则显示指定内置策略的详细信息"
+msgstr ""
+"stg_id=None の場合は、すべての組み込み戦略のリストを表示します。それ以外の場合は、指定された組み込み戦略に関する詳細情報を表示します。"
+
+#: ../../source/references/3-back-test-strategy.md:110
+msgid "`qt.built_in_list(stg_id=None)`"
+msgstr "`qt.built_in_list(stg_id=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:111
+#: ../../source/references/3-back-test-strategy.md:113
+msgid "如果stg_id=None，返回所有内置策略的列表，否则返回指定内置策略的详细信息"
+msgstr ""
+"stg_id=None の場合は、すべての組み込み戦略のリストを返します。それ以外の場合は、指定された組み込み戦略に関する詳細情報を返します。"
+
+#: ../../source/references/3-back-test-strategy.md:112
+msgid "`qt.built_in_strategies(stg_id=None)`"
+msgstr "`qt.built_in_strategies(stg_id=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:114
+msgid "`qt.get_built_in_strategy(stg_id)`"
+msgstr "`qt.get_built_in_strategy(stg_id)`"
+
+#: ../../source/references/3-back-test-strategy.md:115
+msgid "根据给出的内置策略ID，返回内置策略对象"
+msgstr "指定された組み込み戦略 ID に従って、組み込み戦略オブジェクトを返します。"
+
+#: ../../source/references/3-back-test-strategy.md:117
+msgid "创建Operator对象"
+msgstr "Operator オブジェクトを作成する"
+
+#: ../../source/references/3-back-test-strategy.md:119
+msgid ""
+"使用`qt.Operator()`可以创建`Operator`对象。 "
+"创建一个Operator对象后，所有的交易策略都由交易员对象来负责运行。创建交易员对象时可以指定交易信号的处理方式以及交易运行的方式："
+msgstr ""
+"`Operator` オブジェクトの作成は、`qt.Operator()` を使用して行うことができます。 Operator "
+"オブジェクトを作成した後、すべての取引戦略はトレーダー オブジェクトによって実行されます。トレーダー "
+"オブジェクトを作成するときに、取引シグナルの処理方法と取引の実行方法を指定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:122
+msgid "`qt.Operator(strategies=None, signal_type=None, op_type=None)`"
+msgstr "`qt.Operator(strategies=None, signal_type=None, op_type=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:124
+msgid ""
+"`strategies`: "
+"交易员对象中的交易策略，可以是一个或多个交易策略，也可以是一个交易策略的列表。如果不指定交易策略，则创建一个空的交易员对象，交易策略可以事后添加或删除。一旦添加了交易策略，交易员对象会为每一个交易策略赋予一个唯一的ID，这个ID可以用来引用这个交易策略。同时，交易员对象会根据策略的运行频率和运行时机，自动为每一个交易策略分配一个运行时机，只有在运行时机到来时，交易员对象才会执行这个交易策略，生成交易信号。"
+msgstr ""
+"`strategies`: トレーダー オブジェクト内の取引戦略は、1 "
+"つ以上の取引戦略、または取引戦略のリストです。取引戦略が指定されていない場合は、空のトレーダー "
+"オブジェクトが作成され、後で取引戦略を追加または削除できます。取引戦略が追加されると、トレーダー オブジェクトは各取引戦略に一意の ID "
+"を割り当てます。この ID "
+"は、この取引戦略を参照するために使用できます。同時に、トレーダーオブジェクトは、戦略の動作頻度とタイミングに従って、各取引戦略に動作タイミングを自動的に割り当てます。操作タイミングが到来した場合にのみ、トレーダー"
+" オブジェクトはこの取引戦略を実行し、取引シグナルを生成します。"
+
+#: ../../source/references/3-back-test-strategy.md:125
+msgid ""
+"`signal_type`: "
+"交易信号的类型，可以是`'pt'`，`'ps'`或者`'vs'`，默认`'pt'`，分别代表目标持仓比例信号，百分比交易信号和数量交易信号。不同的交易信号类型决定了交易员对象如何处理交易信号，以及交易员对象如何将多个交易策略的交易信号混合成为一个交易信号。"
+msgstr ""
+"`signal_type`: 取引シグナルのタイプは、`'pt'`、`'ps'`、または `'vs'` で、デフォルトは `'pt'` "
+"で、それぞれ目標保有率シグナル、パーセンテージ取引シグナル、数量取引シグナルを表します。さまざまなタイプの取引シグナルにより、トレーダー "
+"オブジェクトが取引シグナルを処理する方法と、トレーダー オブジェクトが複数の取引戦略の取引シグナルを単一の取引シグナルに混合する方法が決まります。"
+
+#: ../../source/references/3-back-test-strategy.md:126
+msgid ""
+"`op_type`: "
+"交易员对象的运行模式，可以是`'batch'`或者`'realtime'`，默认`'batch'`，分别代表批量运行模式和实时运行模式。在批量运行模式下，交易员对象会在回测或者优化模式下，预先生成交易信号，再批量进行模拟交易，运行速度较快。在实时运行模式下，交易员对象会生成交易信号立即模拟交易，产生模拟交易结果后，再进行下一次交易信号生成，适用于实盘交易运行模式，或特殊情况下的回测模式。"
+msgstr ""
+"`op_type`: トレーダー オブジェクトの動作モードは `'batch'` または `'realtime'` で、デフォルトは `'batch'`"
+" で、それぞれバッチ動作モードとリアルタイム動作モードを表します。バッチ操作モードでは、トレーダー "
+"オブジェクトはバックテストまたは最適化モードで事前に取引シグナルを生成し、バッチでシミュレートされた取引を実行します。これにより、より高速になります。リアルタイム操作モードでは、トレーダー"
+" "
+"オブジェクトは取引シグナルを生成し、すぐに取引をシミュレートします。シミュレートされた取引結果を生成した後、実際の取引操作モードまたは特別なバックテストモードに適した次の取引シグナルを生成します。"
+
+#: ../../source/references/3-back-test-strategy.md:128
+msgid "对于qteasy来说，交易策略的交易信号和股票/基金的交易订单是两个不同的概念。"
+msgstr "qteasy の場合、取引戦略の取引シグナルと株式/ファンドの取引注文は 2 つの異なる概念です。"
+
+#: ../../source/references/3-back-test-strategy.md:130
+msgid "所有的交易策略都是基于历史数据生成的交易信号，而交易员对象则根据交易信号生成交易订单，然后模拟交易员的交易行为，最终生成交易结果。"
+msgstr ""
+"すべての取引戦略は取引シグナルを生成する履歴データに基づいており、トレーダー "
+"オブジェクトは取引シグナルに基づいて取引注文を生成し、トレーダーの取引行動をシミュレートし、最終的に取引結果を生成します。"
+
+#: ../../source/references/3-back-test-strategy.md:133
+msgid "策略的三种信号类型"
+msgstr "3種類の戦略シグナル"
+
+#: ../../source/references/3-back-test-strategy.md:135
+msgid ""
+"在qteasy中，交易信号是一个浮点数，同一个交易信号可以代表不同的含义，从而被交易员对象解读为不同的交易订单。交易信号的含义由交易员对象的信号类型决定，交易员对象的信号类型可以是`'pt'`，`'ps'`或者`'vs'`，分别代表目标持仓比例信号，百分比交易信号和数量交易信号。"
+msgstr ""
+"qteasy では、取引シグナルは浮動小数点数であり、同じ取引シグナルでも異なる意味を表すことができ、トレーダー "
+"オブジェクトによって異なる取引注文として解釈されます。取引シグナルの意味は、トレーダー オブジェクトのシグナル タイプによって決まります。シグナル "
+"タイプは、`'pt'`、`'ps'`、または `'vs'` で、それぞれ目標保有率シグナル、パーセンテージ取引シグナル、数量取引シグナルを表します。"
+
+#: ../../source/references/3-back-test-strategy.md:137
+msgid "交易信号的类型包括三类："
+msgstr "取引シグナルには次の 3 種類があります。"
+
+#: ../../source/references/3-back-test-strategy.md:138
+msgid ""
+"**PT**: "
+"此时交易信号代表目标持仓比例，也就是说持有的股票的价值占总资产的比例，例如当前总资产为100万元时，0.2代表控制当前某股票或基金的持有数量，使其市值为100万元的20%也就是20万元。在这种情况下，买入或卖出股票的数量取决于当前持有的股票的数量，如果当前持有的股票数量为0，则买入20万元的股票，如果当前持有的股票价值为30万元，则需要卖出10万元。"
+msgstr ""
+"**PT**: この取引シグナルは目標保有比率を表します。これは、保有株式の価値が総資産に占める割合を意味します。たとえば、現在の総資産が 100 "
+"万元の場合、0.2 は、特定の株式やファンドの時価が 100 万元の 20%、つまり 20 "
+"万元になるように保有量をコントロールすることを意味します。この場合、売買される株数は現在の保有株数に応じて決まります。現在の保有株数が0株であれば、20万元分の株を購入します。現在保有している株式の価値が30万元であれば、10万元分を売却します。"
+
+#: ../../source/references/3-back-test-strategy.md:139
+msgid ""
+"**PS**: "
+"此时交易信号直接代表买卖比例，在这种情况下，买入或卖出股票的数量与当前持有的股票的数量无关，只与总资产有关。如果总资产为100万元时，0.2代表买入20万元的股票。"
+msgstr ""
+"**PS**: "
+"この取引シグナルは売買比率を直接表します。この場合、売買される株数は現在の保有株数とは関係なく、総資産にのみ関係します。総資産が100万元であれば、0.2というのは20万元分の株を買うことになります。"
+
+#: ../../source/references/3-back-test-strategy.md:140
+msgid "**VS**: 此时交易信号直接代表买卖数量，在这种情况下，买入或卖出股票的数量与总资产或持股数量无关。2000代表买入2000股的股票。"
+msgstr ""
+"**VS**: この場合、取引シグナルは売買数量を直接表します。この場合、売買する株数は総資産や保有株数とは無関係です。 2000 は 2000 "
+"株の株式を購入することを意味します。"
+
+#: ../../source/references/3-back-test-strategy.md:142
+msgid "不仅如此，如果根据交易员操作的账户类型不同（如股票账户或期货账户），生成的交易订单也会不同。具体的说明如下表："
+msgstr ""
+"さらに、トレーダーが運用する口座の種類（株式口座や先物口座など）によって生成される取引注文が異なる場合、生成される取引注文も異なります。具体的な説明を次の表に示します。"
+
+#: ../../source/references/3-back-test-strategy.md:279
+msgid "交易信号的混合"
+msgstr "取引シグナルのブレンド"
+
+#: ../../source/references/3-back-test-strategy.md:281
+msgid ""
+"尽管同一个Operator对象同时只能生成一种类型的信号，但由于Operator对象能容纳无限多个不同的交易策略，因而Operator对象 "
+"也能产生无限多组同类型的交易策略。为了节省交易回测时的计算开销，避免冲突的交易信号或重复的交易信号占用计算资源，同时也 "
+"为了增加交易信号的灵活度，应该将所有交易信号首先混合成一组，再送入回测程序进行回测。"
+msgstr ""
+"同じ Operator オブジェクトは同時に 1 種類のシグナルしか生成できませんが、Operator "
+"オブジェクトは無限数の異なる取引戦略に対応できるため、同じタイプの取引戦略のセットを無限数生成することもできます。取引バックテスト中の計算オーバーヘッドを節約し、コンピューティング"
+" リソースを占有する競合または重複した取引シグナルを回避し、取引シグナルの柔軟性を高めるには、テストのためにバックテスト "
+"プログラムに送信される前に、すべての取引シグナルをセットに混合する必要があります。"
+
+#: ../../source/references/3-back-test-strategy.md:285
+msgid ""
+"不过，在一个Operator对象中，不同策略生成的交易信号可能运行的交易价格是不同的，例如，某些策略生成开盘价交易信号，而另一 "
+"些策略生成的是收盘价交易策略，那么不同的交易价格信号当然不应该混合。但除此之外，只要是交易价格相同的信号，都应该全部混合。"
+msgstr ""
+"ただし、Operator "
+"オブジェクトでは、異なる戦略によって生成された取引シグナルが異なる取引価格で実行される可能性があります。たとえば、一部の戦略は始値取引シグナルを生成しますが、他の戦略は終値取引戦略を生成します。この場合、異なる取引価格シグナルを混合すべきではありません。しかしそれ以外は、取引価格が同じである限り、すべてのシグナルが混在するはずです。"
+
+#: ../../source/references/3-back-test-strategy.md:288
+msgid ""
+"交易信号的混合即交易信号的各种运算或函数，从简单的逻辑运算、加减运算一直到复杂的自定义函数，只要能够应用于一个ndarray的 "
+"函数，理论上都可以用于混合交易信号，只要最终输出的交易信号有意义即可。"
+msgstr ""
+"取引シグナルのブレンドとは、単純な論理演算や加算/減算演算から複雑なカスタム関数まで、取引シグナルのさまざまな演算または関数を意味します。 "
+"ndarray 関数に適用できる限り、最終出力の取引シグナルが意味のあるものである限り、理論的には取引シグナルを混合するために使用できます。"
+
+#: ../../source/references/3-back-test-strategy.md:291
+msgid ""
+"交易信号的混合基于一系列事先定义的运算和函数，这些函数或运算都被称为\"原子函数\"或\"算子\"，用户利用这些\"算子\"来操作 "
+"Operator对象生成的交易信号，并将多个交易信号组变换成一个唯一的交易信号组，同时保持其形状不变，数字有意义。"
+msgstr ""
+"信号ブレンディングは、「アトミック関数」または「演算子」と呼ばれる、一連の事前定義された操作および関数に基づいています。ユーザーは、これらの「演算子」を使用して、Operator"
+" "
+"オブジェクトによって生成された取引シグナルを操作し、形状と意味のある数値を維持しながら、複数の取引シグナルのセットを固有の取引シグナルのセットに変換します。"
+
+#: ../../source/references/3-back-test-strategy.md:294
+msgid "交易信号的混合是由一个混合表达式`blender`来确定的，例如`s0 and (s1 + s2) * avg(s3, s4)`"
+msgstr ""
+"信号はブレンディング式 `blender` (例: `s0 and (s1 + s2) * avg(s3, s4)`) によってブレンドされます。"
+
+#: ../../source/references/3-back-test-strategy.md:296
+msgid "`blender`表达式中支持的函数如下："
+msgstr "`blender` 式は次の関数をサポートします。"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "元素"
+msgstr "要素"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "示例"
+msgstr "例"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "说明"
+msgstr "説明"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "策略序号"
+msgstr "戦略インデックス"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`s1`"
+msgstr "`s1`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "以s开头，数字结尾的字符串，数字为`Operator`中的策略的序号，代表这个策略生成的交易信号"
+msgstr ""
+"s で始まり数字で終わる文字列。数字は `Operator` "
+"のストラテジーのシーケンス番号であり、このストラテジーによって生成された取引シグナルを表します。"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "数字"
+msgstr "数字"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`-1.35`"
+msgstr "`-1.35`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "任何合法的数字，参与表达式运算的数字"
+msgstr "任意の有効な数値、式演算に参加する数値"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "运算符"
+msgstr "オペレーター"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`+`"
+msgstr "`+`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "包括`'+-*/^'`等四则运算符"
+msgstr "`'+-*/^'` およびその他の四則演算子を含む"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "逻辑运算符"
+msgstr "論理演算子"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`and`"
+msgstr "`and`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "支持`'&|~'`以及`'and/or/not'`形式的逻辑运算符"
+msgstr "`'&|~'` や `'and/or/not'` などの形式で論理演算子をサポートします"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "函数"
+msgstr "機能"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`sum()`"
+msgstr "`sum()`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "支持的函数参见后表"
+msgstr "サポートされている機能は次の表に示されています"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "括号"
+msgstr "かっこ"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "`()`"
+msgstr "`()`"
+
+#: ../../source/references/3-back-test-strategy.md
+msgid "组合运算"
+msgstr "複合操作"
+
+#: ../../source/references/3-back-test-strategy.md:307
+#, python-format
+msgid ""
+"关于更多的混合表达式的例子，请参见`qteasy` [Tutorial 04 - "
+"使用内置交易策略](https://github.com/shepherdpp/qteasy/blob/master/tutorials/Tutorial%2004%20-%20使用内置交易策略.md)"
+msgstr ""
+"ブレンド式のその他の例については、`qteasy` [チュートリアル 04 - 組み込みストラテジーの使用](../tutorials/4-built-"
+"in-strategies.md) を参照してください。"
+
+#: ../../source/references/3-back-test-strategy.md:323
+msgid ""
+"交易员对象是一个策略容器，在一个Operator对象中可以添加任意多个交易策略，同时，在Operator对象中，可以管理交易策略的混合方式(blender)，交易信号的处理方式以及交易运行的方式。"
+msgstr ""
+"Operator オブジェクトは戦略コンテナであり、任意の数の取引戦略を Operator "
+"オブジェクトに追加できます。同時に、取引戦略のブレンディング方法（ブレンダー）、取引信号処理方法、取引操作方法をOperatorオブジェクトで管理することができます。"
+
+#: ../../source/references/3-back-test-strategy.md:325
+msgid "常用的Operator属性及方法如下："
+msgstr "通常のOperatorの属性とメソッドは次のとおりです。"
+
+#: ../../source/references/3-back-test-strategy.md:327
+msgid "获取Operator对象的基本信息"
+msgstr "Operatorオブジェクトの基本情報を取得"
+
+#: ../../source/references/3-back-test-strategy.md:329
+msgid "`op.info()`"
+msgstr "`op.info()`"
+
+#: ../../source/references/3-back-test-strategy.md:330
+msgid "打印Operator对象的重要信息"
+msgstr "Operatorオブジェクトの重要な情報を出力します"
+
+#: ../../source/references/3-back-test-strategy.md:332
+msgid "`op.strategies`"
+msgstr "`op.strategies`"
+
+#: ../../source/references/3-back-test-strategy.md:333
+msgid "获取Operator对象中所有交易策略的清单"
+msgstr "Operator オブジェクト内のすべての取引戦略のリストを取得します"
+
+#: ../../source/references/3-back-test-strategy.md:335
+msgid "`op.strategy_ids`"
+msgstr "`op.strategy_ids`"
+
+#: ../../source/references/3-back-test-strategy.md:336
+msgid "获取Operator对象中所有交易策略的ID"
+msgstr "Operator オブジェクト内のすべての取引戦略の ID を取得します"
+
+#: ../../source/references/3-back-test-strategy.md:338
+msgid "`op.strategy_count`"
+msgstr "`op.strategy_count`"
+
+#: ../../source/references/3-back-test-strategy.md:339
+msgid "获取Operator对象中交易策略的数量"
+msgstr "Operator オブジェクト内の取引戦略の数を取得します"
+
+#: ../../source/references/3-back-test-strategy.md:341
+msgid "`op.signal_type`"
+msgstr "`op.signal_type`"
+
+#: ../../source/references/3-back-test-strategy.md:342
+msgid "Operator对象的信号类型，代表交易信号的含义及处理方式："
+msgstr "Operator オブジェクトのシグナルタイプ。取引シグナルの意味と処理方法を表します。"
+
+#: ../../source/references/3-back-test-strategy.md:343
+msgid ""
+"**`pt`: "
+"目标持仓比例信号**，在这个模式下，交易员关注一个投资组合中各个成份股票的持仓比例，通过适时的买入和买出，维持各个成份股的持仓比例在一个目标值上；"
+msgstr ""
+"**「pt」: "
+"目標保有比率シグナル**、このモードでは、トレーダーはポートフォリオ内の各構成銘柄の保有比率に焦点を当てます。適時売買を行うことで、各構成銘柄の保有比率を目標値に維持する。"
+
+#: ../../source/references/3-back-test-strategy.md:344
+msgid "**`ps`: 百分比交易信号**，在这个模式下，交易员关注定时产生的比例交易信号，根据交易信号按比例买入或买出股票"
+msgstr ""
+"**「ps」: "
+"取引シグナルの割合**、このモードでは、トレーダーは一定の間隔で生成される取引シグナルの割合に焦点を当て、取引シグナルに従って株式を比例的に売買します。"
+
+#: ../../source/references/3-back-test-strategy.md:345
+msgid "**`vs`: 数量交易信号**，在这个模式下，交易员关注定时产生的交易信号，按照交易信号买入或买出一定数量的股票"
+msgstr ""
+"**「vs」: "
+"数量取引シグナル**、このモードでは、トレーダーは一定の間隔で生成される取引シグナルに焦点を当て、取引シグナルに従って特定の数の株を売買します。"
+
+#: ../../source/references/3-back-test-strategy.md:347
+msgid "`op.op_type`"
+msgstr "`op.op_type`"
+
+#: ../../source/references/3-back-test-strategy.md:348
+msgid "Operator对象的运行模式："
+msgstr "Operator オブジェクトの実行モード:"
+
+#: ../../source/references/3-back-test-strategy.md:349
+msgid "`batch`: 批量运行模式，在回测模式或优化模式下，预先生成交易清单，再批量进行模拟交易，运行速度较快"
+msgstr ""
+"'batch': "
+"バッチ操作モード。バックテストまたは最適化モードでは、事前に取引リストを生成し、バッチでシミュレートされた取引を実行します。これにより高速化されます。"
+
+#: ../../source/references/3-back-test-strategy.md:350
+msgid ""
+"`realtime`: 实时运行模式，生成交易信号立即模拟交易，产生模拟交易结果后，再进行下一次交易信号生成，适用于实时运行模式，或特殊情况下的回测模式"
+msgstr ""
+"「リアルタイム」: "
+"リアルタイム操作モード。取引シグナルを生成し、すぐに取引をシミュレートします。シミュレートされた取引結果を生成した後、リアルタイム操作モードまたは特別なバックテスト"
+" モードに適した次の取引シグナルを生成します。"
+
+#: ../../source/references/3-back-test-strategy.md:352
+msgid "获取交易策略"
+msgstr "取引戦略を取得する"
+
+#: ../../source/references/3-back-test-strategy.md:354
+msgid "`op.get_stg(stg_id)`"
+msgstr "`op.get_stg(stg_id)`"
+
+#: ../../source/references/3-back-test-strategy.md:355
+msgid "通过策略ID获取策略对象，下面的方法效果相同，且可以通过数字序号来获取策略"
+msgstr "戦略 ID によって戦略オブジェクトを取得します。次のメソッドは同じ効果があり、番号シーケンスによる戦略を取得するために使用できます。"
+
+#: ../../source/references/3-back-test-strategy.md:361
+msgid "添加或修改交易策略"
+msgstr "取引戦略の追加または変更"
+
+#: ../../source/references/3-back-test-strategy.md:363
+msgid "`op.add_strategy(stg, **kwargs)`"
+msgstr "`op.add_strategy(stg, **kwargs)`"
+
+#: ../../source/references/3-back-test-strategy.md:364
+msgid "添加一个策略到Operator，添加策略的同时可以同时设置策略参数"
+msgstr "Operatorにストラテジを追加し、同時にストラテジパラメータを設定します"
+
+#: ../../source/references/3-back-test-strategy.md:366
+msgid "`op.add_strategies(strategies)`"
+msgstr "`op.add_strategies(strategies)`"
+
+#: ../../source/references/3-back-test-strategy.md:367
+msgid "批量添加一系列策略到Operator，添加的同时不能同时设置策略参数"
+msgstr "一連のストラテジをバッチでOperatorに追加します。ストラテジパラメータを同時に設定することはできません"
+
+#: ../../source/references/3-back-test-strategy.md:369
+msgid "`op.remove_strategy(id_or_pos=None)`"
+msgstr "`op.remove_strategy(id_or_pos=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:370
+msgid "从Operator中删除一个策略"
+msgstr "Operator から戦略を削除します"
+
+#: ../../source/references/3-back-test-strategy.md:372
+msgid "`op.clear_strategies()`"
+msgstr "`op.clear_strategies()`"
+
+#: ../../source/references/3-back-test-strategy.md:373
+msgid "清除Operator中的所有交易策略"
+msgstr "Operator のすべての取引戦略を削除します"
+
+#: ../../source/references/3-back-test-strategy.md:375
+msgid "设置策略参数或Operator参数"
+msgstr "戦略パラメータまたはOperatorパラメータを設定します"
+
+#: ../../source/references/3-back-test-strategy.md:377
+msgid ""
+"`op.set_parameter(stg_id, pars=None, opt_tag=None, par_range=None, "
+"par_types=None, data_freq=None, run_freq=None, window_length=None, "
+"data_types=None, strategy_run_timing=None, **kwargs)`"
+msgstr ""
+"`op.set_parameter(stg_id, pars=None, opt_tag=None, par_range=None, "
+"par_types=None, data_freq=None, run_freq=None, window_length=None, "
+"data_types=None, strategy_run_timing=None, **kwargs)`"
+
+#: ../../source/references/3-back-test-strategy.md:378
+msgid "指定一个交易策略的ID，设置这个交易策略的策略参数或其他属性"
+msgstr "取引戦略 ID を指定して、この取引戦略の戦略パラメーターまたはその他の属性を設定します。"
+
+#: ../../source/references/3-back-test-strategy.md:380
+msgid "`op.set_blender(price_type=None, blender=None)`"
+msgstr "`op.set_blender(price_type=None, blender=None)`"
+
+#: ../../source/references/3-back-test-strategy.md:381
+msgid ""
+"设置交易策略的混合方式。当Operator中有多个交易策略时，每个交易策略分别运行生成多组交易信号，再按照用户定义的规则混合后输出一组交易信号，用于交易"
+msgstr ""
+"取引戦略のブレンド方法を設定します。 "
+"Operatorに複数の取引戦略がある場合、各取引戦略は個別に実行されて複数の取引シグナルセットを生成し、ユーザー定義の取引ルールに従って一連の取引シグナルを出力します。"
+
+#: ../../source/references/3-back-test-strategy.md:383
+msgid "我们可以用下面的代码将刚创建的DMA策略加入到Operator中去，并设置必要的策略参数"
+msgstr "次のコードを使用して、新しく作成した DMA 戦略を Operator に追加し、必要な戦略パラメータを設定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:385
+msgid ""
+"所有的参数设置都可以使用`operator.set_parameter`方法，可以同时传入多个参数 "
+"通过设置策略的`opt_tag`可以控制策略是否参与优化，而`par_range`参数定义了策略优化时需要用到的参数空间 "
+"在此时我们并不知道对于过去15年的沪深300指数来说，最优的DMA择时参数是什么，因此可以输入几个随机的参数，进行一次回测，看看结果如何"
+msgstr ""
+"すべてのパラメータ設定は `operator.set_parameter` "
+"メソッドを使用して行うことができ、複数のパラメータを同時に渡すことができます。ストラテジーの `opt_tag` "
+"を設定することで、ストラテジーが最適化に参加するかどうかを制御でき、`par_range` "
+"パラメーターはストラテジーの最適化に必要なパラメーター空間を定義します。現時点では、CSI 300 指数の過去 15 年間における最適な DMA "
+"タイミング パラメーターがわからないため、いくつかのランダムなパラメーターを入力してバックテストを実施し、その結果がどのようになるかを確認できます。"
+
+#: ../../source/references/3-back-test-strategy.md:430
+msgid "配置qteasy的回测参数"
+msgstr "qteasy のバックテストパラメータを設定する"
+
+#: ../../source/references/3-back-test-strategy.md:432
+msgid "Operator对象创建好并添加策略后就可以开始进行回测了"
+msgstr "バックテストは、Operator オブジェクトが作成され、戦略が追加された後に開始できます。"
+
+#: ../../source/references/3-back-test-strategy.md:434
+msgid ""
+"qteasy提供了丰富的环境参数以控制回测的具体过程 "
+"所有的环境参数变量值都可以通过`qt.Configuration()`查看，并通过`qt.Configure()`来设置。"
+msgstr ""
+"qteasy "
+"は、バックテストの特定のプロセスを制御するための豊富な環境パラメーターを提供します。すべての環境パラメーター変数の値は、`qt.Configuration()`"
+" を通じて表示し、`qt.Configure()` を通じて設定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:437
+msgid "`qt.configuration()`"
+msgstr "`qt.configuration()`"
+
+#: ../../source/references/3-back-test-strategy.md:438
+msgid "查看qteasy运行环境变量"
+msgstr "qteasy 実行環境変数を確認してください"
+
+#: ../../source/references/3-back-test-strategy.md:440
+msgid "`qt.configure()`"
+msgstr "`qt.configure()`"
+
+#: ../../source/references/3-back-test-strategy.md:441
+msgid "设置qteasy运行环境变量"
+msgstr "qteasy 実行環境変数を設定します"
+
+#: ../../source/references/3-back-test-strategy.md:443
+msgid "与回测相关的主要环境变量参数包括："
+msgstr "バックテストに関連する環境変数パラメータには次のものがあります。"
+
+#: ../../source/references/3-back-test-strategy.md:445
+msgid "回测交易的目标股票/指数"
+msgstr "バックテスト対象銘柄・指数"
+
+#: ../../source/references/3-back-test-strategy.md:446
+msgid "回测交易的起止时间段"
+msgstr "バックテストの開始期間と終了期間"
+
+#: ../../source/references/3-back-test-strategy.md:447
+msgid "回测交易的初始投资金额"
+msgstr "バックテストの初期投資額"
+
+#: ../../source/references/3-back-test-strategy.md:448
+msgid "回测交易的交易费用和交易规则"
+msgstr "バックテストの取引手数料と取引ルール"
+
+#: ../../source/references/3-back-test-strategy.md:449
+msgid "交易结果评价的基准指数"
+msgstr "取引成績を評価するためのベンチマーク指標"
+
+#: ../../source/references/3-back-test-strategy.md:451
+msgid "以上所有回测交易参数都可以通过`qt.configure()`设置:"
+msgstr "上記のバックテスト取引パラメーターはすべて、`qt.configure()` を通じて設定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:468
+msgid "启动qteasy并开始运行Operator"
+msgstr "qteasy を起動し、Operator を実行します"
+
+#: ../../source/references/3-back-test-strategy.md:470
+msgid "`qt.run(operator, **config)`"
+msgstr "`qt.run(operator, **config)`"
+
+#: ../../source/references/3-back-test-strategy.md:471
+msgid "开始运行`Operator`，根据运行的mode，`qteasy`会进入到不同的运行模式，输出不同的结果："
+msgstr "Operator の実行を開始します。動作モードに応じて、qteasy は異なる動作モードに入り、異なる結果を出力します。"
+
+#: ../../source/references/3-back-test-strategy.md:473
+msgid ""
+"**mode 0 "
+"实时模式**：读取最近的（实时）数据，生成当前最新的交易信号。再此模式下，可以设置qteasy定期执行，定期读取最新数据，定期生成实时交易信号"
+msgstr ""
+"**モード 0 リアルタイム モード**: 最新 (リアルタイム) データを読み取り、最新の取引シグナルを生成します。このモードでは、qteasy "
+"を定期的に実行し、最新のデータを定期的に読み取り、リアルタイムの取引シグナルを定期的に生成するように設定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:474
+msgid "**mode 1 回测模式**：读取过去一段时间内的历史数据，使用该数据生成交易信号并模拟交易，输出模拟交易的结果"
+msgstr ""
+"**モード 1 バックテスト モード**: "
+"一定期間にわたる履歴データを読み取り、そのデータを使用して取引シグナルを生成し、取引をシミュレートしてシミュレートされた取引の結果を出力します。"
+
+#: ../../source/references/3-back-test-strategy.md:475
+msgid ""
+"**mode 2 优化模式**：读取过去一段时间内的历史数据，通过反复运行同一套交易策略但使用不同的参数组合，搜索在这段时间内表现最佳的策略参数"
+msgstr ""
+"**モード 2 最適化モード**: "
+"一定期間にわたる履歴データを読み取り、同じ一連の取引戦略を繰り返し実行しますが、異なるパラメーターの組み合わせを使用して、この期間中に最もパフォーマンスの高い戦略パラメーターを検索します。"
+
+#: ../../source/references/3-back-test-strategy.md:477
+msgid ""
+"只要运行`qteasy.run(operator, "
+"**config)`就可以开始运行`Operator`了，其中`**config`是测试环境参数，在`qt.run()`中以参数形式传入的环境变量仅仅在本次运行中有效，但是在`qt.configure()`中设置的环境变量将一直有效，直到下次改变为止"
+msgstr ""
+"Operator は、`qteasy.run(operator, **config)` を実行することで開始できます。`**config` "
+"はテスト環境パラメーターです。 qt.run() のパラメータとして渡された環境変数は、この実行でのみ有効ですが、qt.configure() "
+"で設定された環境変数は、次回変更されるまで有効のままです。"
+
+#: ../../source/references/3-back-test-strategy.md:480
+msgid "回测最终资产为19万元，年化收益率只有4.83%，夏普率只有0.0783，收益率低于同期沪深300指数"
+msgstr ""
+"最終的なバックテスト資産は 190,000 元、年率リターンはわずか 4.83%、シャープ レシオはわずか 0.0783、同期間のリターンは CSI "
+"300 指数よりも低い"
+
+#: ../../source/references/3-back-test-strategy.md:487
+msgid "运行qteasy后，系统会自动读取历史数据，进行回测，完成结果评价并打印回测报告。"
+msgstr ""
+"システムは自動的に履歴データを読み取り、バックテストを実施し、結果評価を完了し、qteasy の実行後にバックテスト レポートを印刷します。"
+
+#: ../../source/references/3-back-test-strategy.md:489
+msgid "回测报告会包含以下信息："
+msgstr "バックテスト レポートには次の情報が含まれます。"
+
+#: ../../source/references/3-back-test-strategy.md:491
+msgid "回测计算耗时"
+msgstr "バックテストにかかった合計時間"
+
+#: ../../source/references/3-back-test-strategy.md:492
+msgid "回测区间开始日期及结束日期、持续时间等信息"
+msgstr "バックテスト間隔の開始日と終了日、期間、その他の情報"
+
+#: ../../source/references/3-back-test-strategy.md:493
+msgid "交易统计信息：如买入次数、卖出次数，满仓比例，空仓比例、总交易费用等"
+msgstr "取引統計: 買い数、売り数、フルポジション比率、空ポジション比率、総取引コストなど。"
+
+#: ../../source/references/3-back-test-strategy.md:494
+msgid "收益信息：初始投资额，最终资产额，总收益率，年化收益率，基准总收益率，基准年化收益率，收益率的峰度和偏度"
+msgstr "リターン情報: 初期投資額、最終資産額、総収益率、年率収益率、ベンチマーク総収益率、ベンチマーク年率収益率、収益率の尖度と歪度"
+
+#: ../../source/references/3-back-test-strategy.md:495
+msgid "投资组合评价指标：Alpha，Beta、夏普率、信息比率、波动率以及最大回撤"
+msgstr "ポートフォリオ評価の指標：アルファ、ベータ、シャープレシオ、インフォメーションレシオ、ボラティリティ、最大ドローダウン"
+
+#: ../../source/references/3-back-test-strategy.md:539
+msgid "除了回测报告以外，一张可视化图表也会被打印出来，显示整个回测过程的详细信息。"
+msgstr "バックテスト レポートを除き、バックテスト プロセス全体の詳細情報を示す視覚的なチャートも印刷されます。"
+
+#: ../../source/references/3-back-test-strategy.md:541
+msgid "在这张信息图中，会显示以下信息："
+msgstr "この情報チャートには次の情報が表示されます。"
+
+#: ../../source/references/3-back-test-strategy.md:543
+msgid "整个回测历史的收益率曲线图（同时显示持仓区间、卖卖点、基准收益率曲线和最大回撤区间）"
+msgstr "バックテスト履歴全体の収益率曲線 (保有期間、売買ポイント、ベンチマーク収益率曲線、最大ドローダウン期間を表示)"
+
+#: ../../source/references/3-back-test-strategy.md:544
+msgid "对数比例收益率曲线和基准收益率对比图"
+msgstr "対数スケールの返品率曲線とベンチマーク"
+
+#: ../../source/references/3-back-test-strategy.md:545
+msgid "每日收益变动图"
+msgstr "日次還元率推移グラフ"
+
+#: ../../source/references/3-back-test-strategy.md:546
+msgid "滚动夏普率和alpha率变动图（投资组合盈利能力评价）"
+msgstr "ローリングシャープレシオとアルファレート推移グラフ（ポートフォリオ収益性評価）"
+
+#: ../../source/references/3-back-test-strategy.md:547
+msgid "滚动波动率（Volatility）和Beta率变动图（投资组合风险评价）"
+msgstr "ルーリングボラティリティとベータレートの変化チャート（ポートフォリオリスク評価）"
+
+#: ../../source/references/3-back-test-strategy.md:548
+msgid "历史回撤分析图（潜水图）"
+msgstr "ドローダウン分析チャート（サブマリンチャート）"
+
+#: ../../source/references/3-back-test-strategy.md:549
+msgid "月度、年度收益率热力图和条形图"
+msgstr "月次および年次返品率のヒートマップと棒グラフ"
+
+#: ../../source/references/3-back-test-strategy.md:550
+msgid "月度收益率统计频率直方图"
+msgstr "月次返品率統計頻度ヒストグラム"
+
+#: ../../source/references/3-back-test-strategy.md:553
+msgid "![png](../tutorials/img/output_12_2.png)"
+msgstr "![png](../tutorials/img/output_12_2.png)"
+
+#: ../../source/references/3-back-test-strategy.md:553
+#: ../../source/references/3-back-test-strategy.md:744
+#: ../../source/references/3-back-test-strategy.md:809
+msgid "png"
+msgstr "png"
+
+#: ../../source/references/3-back-test-strategy.md:555
+msgid "在`qteasy`模拟的交易过程中，可以设置丰富的参数，例如："
+msgstr "`qteasy` のシミュレートされた取引プロセスでは、次のような多数のパラメーターを設定できます。"
+
+#: ../../source/references/3-back-test-strategy.md:557
+msgid "投入资金的数量、日期、或者设置分批多次投入资金；"
+msgstr "投資された資金の合計額、日付、または複数回のバッチで投資するように設定された資金。"
+
+#: ../../source/references/3-back-test-strategy.md:558
+msgid "买入和卖出交易的费用、包括佣金费率、最低费用、固定费用、以及滑点。各种费率都可以针对买入和卖出分别设定"
+msgstr "売買にかかる取引手数料には、手数料率、最低手数料、固定手数料、スリッページが含まれます。売買でさまざまなレートを個別に設定可能"
+
+#: ../../source/references/3-back-test-strategy.md:559
+msgid "买入和卖出交易的交割时间，也就是T+N日交割制度"
+msgstr "売買取引の納期、つまりT+N納品システム"
+
+#: ../../source/references/3-back-test-strategy.md:560
+msgid "买入和卖出交易的最小批量，例如是否允许分数份额交易、还是必须整数份额、甚至整百份交易"
+msgstr "売買取引の最小バッチサイズ（端株が許可されるかどうか、または取引に整数株または数百株が必要かどうかなど）"
+
+#: ../../source/references/3-back-test-strategy.md:562
+msgid "最终打印的回测结果是考虑上述所有交易参数之后的最终结果，因此可以看到总交易成本。详细的交易参数设置请参见详细文档。"
+msgstr ""
+"最終的に印刷されるバックテスト結果は、上記のすべての取引パラメータを考慮した後の最終結果であるため、総取引コストを確認できます。取引パラメータの詳細設定については、詳細ドキュメントを参照してください。"
+
+#: ../../source/references/3-back-test-strategy.md:564
+msgid ""
+"另外，`qteasy`还给给出了关于策略表现的几个指标： "
+"如alpha和beta分别是0.067和1.002，而夏普率为0.041。最大回撤发生在2009年8月3日到2014年7月10日，回撤了35.0%，且到了2014年12月16日才翻盘。"
+msgstr ""
+"さらに、`qteasy` は戦略のパフォーマンスに関するいくつかの指標も提供します。アルファとベータはそれぞれ 0.067 と 1.002、シャープ "
+"レシオは 0.041 です。最大ドローダウンは 2009 年 8 月 3 日から 2014 年 7 月 10 日までに発生し、ドローダウンは 35.0%"
+" でしたが、ドローダウンが反転したのは 2014 年 12 月 16 日でした。"
+
+#: ../../source/references/3-back-test-strategy.md:567
+msgid ""
+"在上面的回测结果中我们给出了参数`visual=False`，如果令`visual=True`，就能得到可视化的回测结果，以图表的形式给出，并提供可视化信息："
+msgstr ""
+"上記のバックテスト結果では、パラメーター `visual=False` を設定しました。 `visual=True` "
+"を設定すると、視覚的なバックテスト結果をグラフの形式で取得し、視覚的な情報を提供できます。"
+
+#: ../../source/references/3-back-test-strategy.md:569
+msgid "投资策略的历史资金曲线"
+msgstr "投資戦略の資本曲線"
+
+#: ../../source/references/3-back-test-strategy.md:570
+msgid "参考数据（沪深300指数）的历史曲线"
+msgstr "ベンチマーク データ (CSI 300 インデックス) の履歴曲線"
+
+#: ../../source/references/3-back-test-strategy.md:571
+msgid "买点和卖点（在参考数据上以红色、绿色箭头显示）"
+msgstr "売買ポイント（参考データでは赤と緑の矢印で表示）"
+
+#: ../../source/references/3-back-test-strategy.md:572
+msgid "持仓区间（绿色表示持仓）"
+msgstr "保有期間（緑は保有）"
+
+#: ../../source/references/3-back-test-strategy.md:573
+msgid "投资策略的评价指标（alpha、sharp等）"
+msgstr "投資戦略評価指標（アルファ、シャープなど）"
+
+#: ../../source/references/3-back-test-strategy.md:574
+msgid "历史回撤分析（显示五次最大的回撤）"
+msgstr "ドローダウン分析 (5 つの最大ドローダウンを表示)"
+
+#: ../../source/references/3-back-test-strategy.md:575
+msgid "历史收益率热力图、山积图等图表"
+msgstr "返品率ヒートマップ、山積みチャート等"
+
+#: ../../source/references/3-back-test-strategy.md:578
+msgid "`qteasy`提供了丰富的策略回测选项，例如："
+msgstr "`qteasy` は、次のような豊富な戦略バックテスト オプションを提供します。"
+
+#: ../../source/references/3-back-test-strategy.md:580
+msgid "回测开始结束日期"
+msgstr "バックテストの開始日と終了日"
+
+#: ../../source/references/3-back-test-strategy.md:581
+msgid "回测结果评价指标"
+msgstr "投資戦略の評価指標"
+
+#: ../../source/references/3-back-test-strategy.md:582
+msgid "回测时是否允许持有负数仓位（用于模拟期货交易卖空行为，也可以使用专门的期货交易模拟算法）"
+msgstr ""
+"バックテスト中にマイナスのポジションが許可される場合 (先物取引の空売り動作をシミュレートするために使用されるか、特別な先物取引シミュレーション "
+"アルゴリズムを使用できます)"
+
+#: ../../source/references/3-back-test-strategy.md:584
+msgid "更多的选项请参见详细文档"
+msgstr "その他のオプションについては、詳細なドキュメントを参照してください。"
+
+#: ../../source/references/3-back-test-strategy.md:586
+msgid "单择时策略的优化"
+msgstr "単一タイミング戦略の最適化"
+
+#: ../../source/references/3-back-test-strategy.md:587
+msgid "显然，没有经过优化的参数无法得到理想的回测结果，因此我们需要进行一次优化"
+msgstr "明らかに、最適化されていないパラメーターでは理想的なバックテスト結果を達成できないため、最適化を実行する必要があります。"
+
+#: ../../source/references/3-back-test-strategy.md:589
+msgid "通过设置context对象的各个参数，我们可以设置优化方式并控制优化过程： 以下参数的含义分别如下："
+msgstr ""
+"コンテキスト オブジェクトのさまざまなパラメータを設定することで、最適化方法を設定し、最適化プロセスを制御できます。 "
+"次のパラメータの意味は次のとおりです。"
+
+#: ../../source/references/3-back-test-strategy.md:592
+msgid "优化方法设置为1，使用蒙特卡洛优化，对于较大的参数空间有较好的寻优能力"
+msgstr "最適化方法は 1 に設定され、モンテカルロ最適化を使用します。これは、より大きなパラメーター空間に対して優れた最適化機能を備えています。"
+
+#: ../../source/references/3-back-test-strategy.md:593
+msgid "输出结果数量设置为30"
+msgstr "出力結果の数量は 30 に設定されます"
+
+#: ../../source/references/3-back-test-strategy.md:594
+msgid "优化过程迭代次数为1000次"
+msgstr "最適化プロセスの反復数は 1000 です"
+
+#: ../../source/references/3-back-test-strategy.md:595
+msgid "parallel参数设置为True会使用多核处理器的所有核心进行并行计算节省时间"
+msgstr "並列パラメータが True に設定されている場合、時間を節約するためにマルチコア プロセッサのすべてのコアが並列計算に使用されます。"
+
+#: ../../source/references/3-back-test-strategy.md:597
+msgid "最后开始优化，使用`perfs_dma`和`pars_dma`两个变量来存储优化结果 优化过程中会显示进度条，结束后会显示优化结果"
+msgstr ""
+"次に、`perfs_dma` および `pars_dma` "
+"変数を使用して最適化結果を保存し、最適化を開始します。最適化プロセス中は進行状況バーが表示され、完了後に最適化結果が表示されます。"
+
+#: ../../source/references/3-back-test-strategy.md:744
+msgid "![png](../tutorials/img/output_14_2.png)"
+msgstr "![png](../tutorials/img/output_14_2.png)"
+
+#: ../../source/references/3-back-test-strategy.md:752
+msgid "优化结束后，可以看到三十组最佳参数，其中最差的一组也能实现最终资产6万元以上。我们可以手动选取其中最佳的参数，再进行一次回测："
+msgstr ""
+"最適化後、30 組の最良のパラメーターが確認でき、最悪のパラメーターでも最終資産が 60,000 "
+"元を超える可能性があります。それらから最適なパラメーターを手動で選択し、別のバックテストを実行できます。"
+
+#: ../../source/references/3-back-test-strategy.md:754
+msgid "能发现终值从上次回测的1.9万暴涨至12.4万，年化收益18.9%，夏普率也上升到了0.833"
+msgstr ""
+"最終値は前回のバックテストの 19,000 から 124,000 に急上昇し、年率リターンは 18.9% となり、シャープ レシオも 0.833 "
+"に上昇したことがわかります。"
+
+#: ../../source/references/3-back-test-strategy.md:763
+msgid "输出回测结果如下："
+msgstr "出力されるバックテスト結果は次のとおりです。"
+
+#: ../../source/references/3-back-test-strategy.md:809
+msgid "![png](../tutorials/img/output_16_2.png)"
+msgstr "![png](../tutorials/img/output_16_2.png)"
+
+#: ../../source/references/3-back-test-strategy.md:811
+msgid "创建一个自定义策略"
+msgstr "カスタム戦略を作成する"
+
+#: ../../source/references/3-back-test-strategy.md:813
+msgid "使用qteasy不仅可以使用内置策略，也可以创建自定义策略。下面有一个简单的例子，定义了一个简单的轮动交易策略"
+msgstr ""
+"qteasy では、組み込み戦略の使用だけでなく、カスタム戦略の作成も可能です。以下は、単純なローテーション取引戦略を定義する簡単な例です。"

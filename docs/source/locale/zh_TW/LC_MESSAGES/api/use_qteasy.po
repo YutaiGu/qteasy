@@ -1,0 +1,129 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/use_qteasy.rst:2
+msgid "启动QTEASY"
+msgstr "啓動QTEASY"
+
+#: ../../source/api/use_qteasy.rst:4
+msgid "启动qteasy的配置信息:"
+msgstr "啓動qteasy的配置資訊:"
+
+#: of qteasy.core.run:1
+msgid "根据当前配置运行给定的 Operator，并进入回测、优化或实盘等不同工作模式。"
+msgstr "根據當前配置運行給定的 Operator，並進入回測、優化或實盤等不同工作模式。"
+
+#: of qteasy.core.run:3
+msgid ""
+"本函数是 qteasy 的统一入口：根据全局配置 ``QT_CONFIG['mode']``（可通过 "
+"``qt.configure(mode=...)`` 暂时覆盖），选择实盘模式、回测模式、优化模式等， 自动准备所需数据源与日志对象并调用 "
+"``Operator.run()`` 执行完整流程。各模式 的详细行为与输出结构见文档「运行 qteasy 与工作模式」相关章节。"
+msgstr ""
+"本函數是 qteasy 的統一入口：根據全局配置 ``QT_CONFIG['mode']``（可通過 "
+"``qt.configure(mode=...)`` 暫時覆蓋），選擇實盤模式、回測模式、優化模式等， 自動準備所需數據源與日誌對象並調用 "
+"``Operator.run()`` 執行完整流程。各模式 的詳細行爲與輸出結構見文檔「運行 qteasy 與工作模式」相關章節。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "参数"
+msgstr "參數"
+
+#: of qteasy.core.run:8
+msgid "已配置好策略与运行参数的 Operator 对象。"
+msgstr "已配置好策略與運行參數的 Operator 對象。"
+
+#: of qteasy.core.run:10
+msgid ""
+"本次运行临时覆盖的配置项，键名需为合法的 qteasy 配置键，例如 "
+"``mode``、``asset_pool``、``invest_start``、``invest_end`` 等。"
+msgstr ""
+"本次運行臨時覆蓋的配置項，鍵名需爲合法的 qteasy 配置鍵，例如 "
+"``mode``、``asset_pool``、``invest_start``、``invest_end`` 等。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "返回"
+msgstr "返回"
+
+#: of qteasy.core.run:13
+msgid ""
+"当 ``mode == 1``（回测模式）时通常返回包含回测结果的字典； 当 ``mode == 2``（优化模式）时通常返回包含多组参数结果的列表； "
+"实盘模式与其他模式的具体返回结构详见 Operator.run() 与相关文档说明。"
+msgstr ""
+"當 ``mode == 1``（回測模式）時通常返回包含回測結果的字典； 當 ``mode == 2``（優化模式）時通常返回包含多組參數結果的列表； "
+"實盤模式與其他模式的具體返回結構詳見 Operator.run() 與相關文檔說明。"
+
+#: of qteasy.core.info qteasy.core.run
+msgid "返回类型"
+msgstr "返回類型"
+
+#: of qteasy.core.info:11 qteasy.core.run:19
+msgid "示例"
+msgstr "示例"
+
+#: of qteasy.core.run:20
+msgid "``run`` 通常会触及数据源、日志路径与运行模式等外部状态。下面示例展示最小的“可见且稳定”的调用准备："
+msgstr "``run`` 通常會觸及數據源、日誌路徑與運行模式等外部狀態。下面示例展示最小的“可見且穩定”的調用準備："
+
+#: of qteasy.core.run:27
+msgid "若你已正确配置数据源与资产池，可进一步执行（输出结构随模式而不同）：::"
+msgstr "若你已正確配置數據源與資產池，可進一步執行（輸出結構隨模式而不同）：::"
+
+#: of qteasy.core.info:1
+msgid "qteasy 模块的帮助信息入口函数（预留）。"
+msgstr "qteasy 模塊的幫助資訊入口函數（預留）。"
+
+#: of qteasy.core.info:3
+msgid "预留参数（当前版本未使用）。"
+msgstr "預留參數（當前版本未使用）。"
+
+#: of qteasy.core.info:5
+msgid "当前版本未实现，调用将抛出 ``NotImplementedError``。"
+msgstr "當前版本未實現，調用將拋出 ``NotImplementedError``。"
+
+#: of qteasy.core.info
+msgid "抛出"
+msgstr "拋出"
+
+#: of qteasy.core.info:8
+msgid "当前版本未实现。"
+msgstr "當前版本未實現。"
+
+#: of qteasy.core.info:12
+msgid "本函数为预留入口，建议使用 Sphinx 文档或 `help(qteasy)` 获取帮助信息："
+msgstr "本函數爲預留入口，建議使用 Sphinx 文檔或 `help(qteasy)` 獲取幫助資訊："
+
+#: ../../source/api/use_qteasy.rst:12
+msgid "运行模式与常量速查"
+msgstr "運行模式與常量速查"
+
+#: ../../source/api/use_qteasy.rst:14
+msgid ""
+"qteasy 使用一组全局常量表示运行模式（实盘/回测/优化/预测）。你可以在调用 ``qt.run`` 前后通过 "
+"``qt.configure(mode=...)`` 或在 ``qt.run(op, mode=...)`` 中临时覆盖。"
+msgstr ""
+"qteasy 使用一組全局常量表示運行模式（實盤/回測/優化/預測）。你可以在調用 ``qt.run`` 前後通過 "
+"``qt.configure(mode=...)`` 或在 ``qt.run(op, mode=...)`` 中臨時覆蓋。"
+
+#: ../../source/api/use_qteasy.rst:17
+msgid "示例（常量值为稳定输出）：:"
+msgstr "示例（常量值爲穩定輸出）：:"
+
+#: ../../source/api/use_qteasy.rst:23
+msgid "日志与根目录路径常量（值受配置影响，尤其是日志路径支持运行时热更新）：:"
+msgstr "日誌與根目錄路徑常量（值受配置影響，尤其是日誌路徑支持運行時熱更新）：:"

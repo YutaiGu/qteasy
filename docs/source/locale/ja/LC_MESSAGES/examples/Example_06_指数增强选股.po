@@ -1,0 +1,100 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_06_指数增强选股.md:1
+msgid "指数增强选股策略"
+msgstr "インデックス銘柄の選択の強化"
+
+#: ../../source/examples/Example_06_指数增强选股.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_06_指数增强选股.ipynb` 第一个 Markdown"
+" cell。"
+msgstr ""
+"参照元：`docs/_joinquant_migration_source/Example_06_index-enhanced stock "
+"selection.ipynb` 最初のMarkdownセル。"
+
+#: ../../source/examples/Example_06_指数增强选股.md:5
+msgid ""
+"本策略以0.8为初始权重跟踪指数标的沪深300中权重大于0.35%的成份股. 个股所占的百分比为(0.8*成份股权重)*100%.然后根据个股是否: "
+"1.连续上涨5天 2.连续下跌5天 来判定个股是否为强势股/弱势股,并对其把权重由0.8调至1.0或0.6"
+msgstr ""
+"この戦略は、初期ウェイト 0.8 で上海および深セン 300 の指数構成銘柄を追跡します。個別銘柄の割合は、(0.8 * 構成銘柄ウェイト) * "
+"100% です。次に、個別銘柄が 1. 5 日連続上昇 2. 5 日連続下落 に応じて、個別銘柄が強い銘柄か弱い銘柄かを判定し、ウェイトを 0.8 から"
+" 1.0 または 0.6 に調整します。"
+
+#: ../../source/examples/Example_06_指数增强选股.md:10
+msgid "策略运行频率：每日运行 策略运行时间：每日收盘前"
+msgstr "戦略の実行頻度: 毎日の操作 戦略の実行時間: 毎日の終了前"
+
+#: ../../source/examples/Example_06_指数增强选股.md:13
+msgid "回测时间为:2021-01-01到2022-12-31"
+msgstr "バックテスト期間: 2021-01-01 ～ 2022-12-31"
+
+#: ../../source/examples/Example_06_指数增强选股.md:15
+msgid "1. 策略代码"
+msgstr "1. 戦略コード"
+
+#: ../../source/examples/Example_06_指数增强选股.md:17
+msgid "创建自定义交易策略："
+msgstr "カスタム取引戦略を作成します。"
+
+#: ../../source/examples/Example_06_指数增强选股.md:72
+msgid "2. 策略回测"
+msgstr "2. 戦略バックテスト"
+
+#: ../../source/examples/Example_06_指数增强选股.md:74
+msgid "回测参数："
+msgstr "バックテストパラメータ:"
+
+#: ../../source/examples/Example_06_指数增强选股.md:75
+msgid "回测时间：2021-01-01到2022-12-31"
+msgstr "バックテスト期間: 2021-01-01 ～ 2022-12-31"
+
+#: ../../source/examples/Example_06_指数增强选股.md:76
+msgid "资产类型：股票"
+msgstr "資産の種類: 株式"
+
+#: ../../source/examples/Example_06_指数增强选股.md:77
+msgid "资产池：沪深300成份股"
+msgstr "資産プール: 上海と深センの300の構成銘柄"
+
+#: ../../source/examples/Example_06_指数增强选股.md:78
+msgid "初始资金：100万"
+msgstr "初期投資：100万"
+
+#: ../../source/examples/Example_06_指数增强选股.md:79
+msgid "买入批量：100股"
+msgstr "購入バッチ：100株"
+
+#: ../../source/examples/Example_06_指数增强选股.md:80
+msgid "卖出批量：1股"
+msgstr "売りバッチ: 1 株"
+
+#: ../../source/examples/Example_06_指数增强选股.md:103
+msgid "回测结果"
+msgstr "バックテスト結果"
+
+#: ../../source/examples/Example_06_指数增强选股.md:176
+msgid "![png](img/output_4_1_3.png)"
+msgstr "![png](img/output_4_1_3.png)"
+
+#: ../../source/examples/Example_06_指数增强选股.md:176
+msgid "png"
+msgstr "png"

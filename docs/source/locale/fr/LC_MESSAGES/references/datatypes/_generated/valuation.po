@@ -1,0 +1,5231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.6\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: fr <LL@li.org>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/references/datatypes/_generated/valuation.md:6
+msgid "估值与财务"
+msgstr "Valorisation et Finance"
+
+#: ../../source/references/datatypes/_generated/valuation.md:8
+msgid ""
+"本分册由 `docs/scripts/generate_datatype_catalog.py` 从 "
+"`qteasy.datatypes.get_dtype_map()` 按**业务类别**生成，共 **558** 条。"
+msgstr ""
+"Ce volume est généré par `docs/scripts/generate_datatype_catalog.py` à "
+"partir de `qteasy.datatypes.get_dtype_map()` par **catégorie d'activité**, "
+"avec un total de **558** articles."
+
+#: ../../source/references/datatypes/_generated/valuation.md:10
+msgid ""
+"请勿手改；更新内置类型后请重跑生成脚本。列含义与推荐读法见 [清单入口](../index.md)。`acquisition_type` / "
+"`table_name` 仅供对照 refill。"
+msgstr ""
+"Veuillez ne pas le modifier à la main ; veuillez réexécuter le script de "
+"génération après avoir mis à jour le type intégré. Pour connaître la "
+"signification des colonnes et les lectures recommandées, voir [Entrée de "
+"liste](../index.md). `acquisition_type` / `table_name` sont uniquement "
+"destinés à une recharge de comparaison."
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "name"
+msgstr "name"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "freq"
+msgstr "freq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "asset_type"
+msgstr "asset_type"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "description"
+msgstr "description"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "kind"
+msgstr "kind"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "usable_in"
+msgstr "usable_in"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acquisition_type"
+msgstr "acquisition_type"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "table_name"
+msgstr "table_name"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acc_exp"
+msgstr "acc_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q"
+msgstr "q"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "E"
+msgstr "E"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 预提费用"
+msgstr "Bilan de la société publique - Charges à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "history"
+msgstr "history"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "history_panel,strategy"
+msgstr "history_panel,strategy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "direct"
+msgstr "direct"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "balance"
+msgstr "balance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acc_receivable"
+msgstr "acc_receivable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收款项"
+msgstr "Bilan des sociétés cotées - créances"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "accounts_pay"
+msgstr "accounts_pay"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付票据及应付账款"
+msgstr "Bilan des sociétés cotées - Notes à payer et comptes à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "accounts_receiv"
+msgstr "accounts_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收账款"
+msgstr "Bilan des sociétés cotées - créances"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "accounts_receiv_bill"
+msgstr "accounts_receiv_bill"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收票据及应收账款"
+msgstr "Bilan des sociétés cotées - effets à recevoir et créances"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acct_payable"
+msgstr "acct_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付账款"
+msgstr "Bilan des sociétés cotées - comptes créditeurs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acting_trading_sec"
+msgstr "acting_trading_sec"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 代理买卖证券款"
+msgstr ""
+"Bilan des sociétés cotées - Paiements d'agence pour les opérations sur "
+"titres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "acting_uw_sec"
+msgstr "acting_uw_sec"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 代理承销证券款"
+msgstr ""
+"Bilan des sociétés cotées - agence de souscription de titres paiements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "activity"
+msgstr "activity"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "d"
+msgstr "d"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 活跃度(%)"
+msgstr "Indicateurs techniques boursiers - Activité (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stock_indicator2"
+msgstr "stock_indicator2"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "adj_lossgain"
+msgstr "adj_lossgain"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 调整以前年度损益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Ajustement des profits et pertes "
+"des années précédentes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income"
+msgstr "income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "admin_exp"
+msgstr "admin_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:管理费用"
+msgstr "Compte de résultat des sociétés cotées - moins : frais administratifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "adminexp_of_gr"
+msgstr "adminexp_of_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 管理费用/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais administratifs/résultat "
+"d'exploitation total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "financial"
+msgstr "financial"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "adv_receipts"
+msgstr "adv_receipts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 预收款项"
+msgstr "Bilan des sociétés cotées - Avances sur recettes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "agency_bus_liab"
+msgstr "agency_bus_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 代理业务负债"
+msgstr "Bilan des sociétés cotées - passif des activités d'agence"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "amodcost_fin_assets"
+msgstr "amodcost_fin_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 以摊余成本计量的金融资产终止确认收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Gains provenant de la "
+"décomptabilisation d'actifs financiers évalués au coût amorti"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "amor_exp"
+msgstr "amor_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期待摊费用"
+msgstr "Bilan des sociétés cotées - charges différées à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "amort_intang_assets"
+msgstr "amort_intang_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 无形资产摊销"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Amortissement des "
+"immobilisations incorporelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cashflow"
+msgstr "cashflow"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ar_turn"
+msgstr "ar_turn"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 应收账款周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de rotation des comptes "
+"clients"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "arturn_days"
+msgstr "arturn_days"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 应收账款周转天数"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Jours de rotation des comptes "
+"clients"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ass_invest_income"
+msgstr "ass_invest_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其中:对联营企业和合营企业的投资收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - comprenant : revenus de placements "
+"des entreprises associées et coentreprises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "asset_disp_income"
+msgstr "asset_disp_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 资产处置收益"
+msgstr "Compte de résultat des sociétés cotées - Revenus de cession d'actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "assets_impair_loss"
+msgstr "assets_impair_loss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:资产减值损失"
+msgstr ""
+"Compte de résultat des sociétés cotées - Moins : pertes de valeur d'actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "assets_to_eqt"
+msgstr "assets_to_eqt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 权益乘数"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - multiplicateur de capitaux "
+"propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "assets_turn"
+msgstr "assets_turn"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 总资产周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de rotation total des "
+"actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "assets_yoy"
+msgstr "assets_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 资产总计相对年初增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du total des"
+" actifs par rapport au début de l'année (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "attack"
+msgstr "attack"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 攻击波(%)"
+msgstr "Indicateur technique boursier – Vague d’attaque (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "avg_price"
+msgstr "avg_price"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 平均价"
+msgstr "Indicateurs techniques boursiers – Prix moyen"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "avg_turnover"
+msgstr "avg_turnover"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 笔换手"
+msgstr "Indicateurs techniques boursiers – Les stylos changent de mains"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "basic_eps"
+msgstr "basic_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 基本每股收益"
+msgstr "Compte de résultat des sociétés cotées - Résultat de base par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "basic_eps_yoy"
+msgstr "basic_eps_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 基本每股收益同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du bénéfice "
+"de base par action sur un an (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "beg_bal_cash"
+msgstr "beg_bal_cash"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 减:现金的期初余额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - moins : solde "
+"d'ouverture de la trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "beg_bal_cash_equ"
+msgstr "beg_bal_cash_equ"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 减:现金等价物的期初余额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - moins : solde "
+"d'ouverture des équivalents de trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "biz_tax_surchg"
+msgstr "biz_tax_surchg"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:营业税金及附加"
+msgstr ""
+"Compte de résultat des sociétés cotées - moins : taxes professionnelles et "
+"surtaxes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "bond_payable"
+msgstr "bond_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付债券"
+msgstr "Bilan des sociétés cotées - obligations à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "bps"
+msgstr "bps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 每股净资产"
+msgstr "Rapport de performance des sociétés cotées - actif net par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express"
+msgstr "express"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "bps_yoy"
+msgstr "bps_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股净资产相对年初增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Actif net par action rapporté "
+"au taux de croissance du début d'année (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "buying"
+msgstr "buying"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 外盘（主动买， 手）"
+msgstr "Indicateurs techniques boursiers - Marché externe (achat actif, lot)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_cash_equ_beg_period"
+msgstr "c_cash_equ_beg_period"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 期初现金及现金等价物余额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - solde d'ouverture de "
+"trésorerie et équivalents de trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_cash_equ_end_period"
+msgstr "c_cash_equ_end_period"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 期末现金及现金等价物余额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Solde de clôture de la "
+"trésorerie et des équivalents de trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_disp_withdrwl_invest"
+msgstr "c_disp_withdrwl_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收回投资收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant du"
+" recouvrement des investissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_fr_oth_operate_a"
+msgstr "c_fr_oth_operate_a"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到其他与经营活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - autres liquidités "
+"reçues liées aux activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_fr_sale_sg"
+msgstr "c_fr_sale_sg"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 销售商品、提供劳务收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - liquidités provenant de"
+" la vente de biens et de la prestation de services"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_inf_fr_operate_a"
+msgstr "c_inf_fr_operate_a"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营活动现金流入小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - sous-total des entrées "
+"de trésorerie liées aux activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_paid_for_taxes"
+msgstr "c_paid_for_taxes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付的各项税费"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - divers impôts payés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_paid_goods_s"
+msgstr "c_paid_goods_s"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 购买商品、接受劳务支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - espèces payées pour "
+"l'achat de biens et la réception de services"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_paid_invest"
+msgstr "c_paid_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 投资支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie versée pour "
+"les investissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_paid_to_for_empl"
+msgstr "c_paid_to_for_empl"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付给职工以及为职工支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie versée aux "
+"salariés et pour les salariés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_pay_acq_const_fiolta"
+msgstr "c_pay_acq_const_fiolta"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 购建固定资产、无形资产和其他长期资产支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - liquidités versées pour"
+" l'achat et la construction d'immobilisations, d'actifs incorporels et "
+"d'autres actifs à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_pay_claims_orig_inco"
+msgstr "c_pay_claims_orig_inco"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付原保险合同赔付款项的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - liquidités utilisées "
+"pour payer les sinistres du contrat d'assurance initial"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_pay_dist_dpcp_int_exp"
+msgstr "c_pay_dist_dpcp_int_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 分配股利、利润或偿付利息支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - liquidités versées pour"
+" les dividendes, les bénéfices ou les paiements d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_prepay_amt_borr"
+msgstr "c_prepay_amt_borr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 偿还债务支付的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie versée pour "
+"rembourser la dette"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_recp_borrow"
+msgstr "c_recp_borrow"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 取得借款收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant "
+"d'emprunts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_recp_cap_contrib"
+msgstr "c_recp_cap_contrib"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 吸收投资收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant "
+"des investissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "c_recp_return_invest"
+msgstr "c_recp_return_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 取得投资收益收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant "
+"des revenus de placements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ca_to_assets"
+msgstr "ca_to_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 流动资产/总资产"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - actif circulant/actif total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ca_turn"
+msgstr "ca_turn"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 流动资产周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Taux de rotation actuel des "
+"actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cap_rese"
+msgstr "cap_rese"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 资本公积金"
+msgstr "Bilan des sociétés cotées - Fonds de réserve de capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "capit_comstock_div"
+msgstr "capit_comstock_div"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 转作股本的普通股股利"
+msgstr ""
+"État des résultats des sociétés cotées - Dividendes sur les actions "
+"ordinaires convertis en capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "capital_rese_ps"
+msgstr "capital_rese_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股资本公积"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - réserve de capital par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "capitalized_to_da"
+msgstr "capitalized_to_da"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 资本支出/折旧和摊销"
+msgstr ""
+"Paramètres financiers des sociétés ouvertes – Dépenses en "
+"capital/Dépréciation et amortissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cash_ratio"
+msgstr "cash_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 保守速动比率"
+msgstr "Indicateurs financiers des sociétés cotées - quick ratio conservateur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cash_reser_cb"
+msgstr "cash_reser_cb"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 现金及存放中央银行款项"
+msgstr ""
+"Bilan des sociétés cotées - Trésorerie et dépôts auprès de la Banque "
+"Centrale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cash_to_liqdebt"
+msgstr "cash_to_liqdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 货币资金／流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Fonds monétaires/passifs "
+"courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cash_to_liqdebt_withinterest"
+msgstr "cash_to_liqdebt_withinterest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 货币资金／带息流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - fonds monétaires/passifs "
+"courants portant intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cashflow_credit_impa_loss"
+msgstr "cashflow_credit_impa_loss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 信用减值损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées – Pertes de valeur sur "
+"crédit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cb_borr"
+msgstr "cb_borr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 向中央银行借款"
+msgstr "Bilan des sociétés cotées - Emprunts auprès de la Banque Centrale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cfps"
+msgstr "cfps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股现金流量净额"
+msgstr "Indicateurs financiers des sociétés cotées - cash-flow net par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cfps_yoy"
+msgstr "cfps_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股经营活动产生的现金流量净额同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux de trésorerie net généré "
+"par les activités opérationnelles par action taux de croissance sur un an "
+"(%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cip"
+msgstr "cip"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 在建工程"
+msgstr "Bilan des sociétés cotées - construction en cours"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cip_total"
+msgstr "cip_total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 在建工程(合计)(元)"
+msgstr "Bilan des sociétés cotées - construction en cours (total) (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "circ_mv"
+msgstr "circ_mv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 流通市值（万元）"
+msgstr ""
+"Indicateurs techniques boursiers - capitalisation boursière en circulation "
+"(10 000 yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stock_indicator"
+msgstr "stock_indicator"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "client_depos"
+msgstr "client_depos"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其中：客户资金存款"
+msgstr ""
+"Bilan des sociétés cotées - comprenant : dépôts de fonds de la clientèle"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "client_prov"
+msgstr "client_prov"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其中：客户备付金"
+msgstr "Bilan des sociétés cotées - comprenant : provisions clientèle"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cogs_of_sales"
+msgstr "cogs_of_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售成本率"
+msgstr "Indicateurs financiers des sociétés cotées - ratio coût des ventes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "comm_exp"
+msgstr "comm_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:手续费及佣金支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - moins : frais de dossier et frais "
+"de commissions"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "comm_income"
+msgstr "comm_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 手续费及佣金收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Revenus de frais et commissions"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "comm_payable"
+msgstr "comm_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付手续费及佣金"
+msgstr "Bilan des sociétés cotées - Frais et commissions à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "compens_payout"
+msgstr "compens_payout"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 赔付总支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - Charges de rémunération totales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "compens_payout_refu"
+msgstr "compens_payout_refu"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:摊回赔付支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - Moins : charges de rémunération "
+"amorties"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "compr_inc_attr_m_s"
+msgstr "compr_inc_attr_m_s"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 归属于少数股东的综合收益总额"
+msgstr ""
+"Compte de résultat des sociétés cotées - résultat global total attribuable "
+"aux actionnaires minoritaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "compr_inc_attr_p"
+msgstr "compr_inc_attr_p"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 归属于母公司(或股东)的综合收益总额"
+msgstr ""
+"Compte de résultat des sociétés cotées - résultat global total attribuable à"
+" la société mère (ou aux actionnaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "comshare_payable_dvd"
+msgstr "comshare_payable_dvd"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 应付普通股股利"
+msgstr ""
+"État des résultats des sociétés cotées - Dividendes payables sur les actions"
+" ordinaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "const_materials"
+msgstr "const_materials"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 工程物资"
+msgstr "Bilan des Sociétés Cotées - Fournitures d'Ingénierie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "continued_net_profit"
+msgstr "continued_net_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 持续经营净利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice net des activités "
+"poursuivies"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "contract_assets"
+msgstr "contract_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 合同资产"
+msgstr "Bilan des sociétés cotées - Actifs sur contrat"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "contract_liab"
+msgstr "contract_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 合同负债"
+msgstr "Bilan des sociétés ouvertes - Passifs contractuels"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "conv_copbonds_due_within_1y"
+msgstr "conv_copbonds_due_within_1y"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 一年内到期的可转换公司债券"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - obligations "
+"convertibles d'entreprises à un an maximum"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "conv_debt_into_cap"
+msgstr "conv_debt_into_cap"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 债务转为资本"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - dette sur capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "cost_fin_assets"
+msgstr "cost_fin_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 以摊余成本计量的金融资产"
+msgstr "Bilans des sociétés cotées - actifs financiers évalués au coût amorti"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "current_exint"
+msgstr "current_exint"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 无息流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - passifs courants sans intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "current_ratio"
+msgstr "current_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 流动比率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - ratio de liquidité générale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "currentdebt_to_debt"
+msgstr "currentdebt_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 流动负债/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - passif courant/total passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "daa"
+msgstr "daa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 折旧与摊销"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Dépréciations et amortissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "debt_invest"
+msgstr "debt_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 债权投资(元)"
+msgstr "Bilan des sociétés cotées - investissement en dette (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "debt_to_assets"
+msgstr "debt_to_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 资产负债率"
+msgstr "Indicateurs financiers des sociétés cotées - ratio actif-passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "debt_to_eqt"
+msgstr "debt_to_eqt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 产权比率"
+msgstr "Indicateurs financiers des sociétés cotées - ratio de fonds propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "decr_def_inc_tax_assets"
+msgstr "decr_def_inc_tax_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 递延所得税资产减少"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Diminution des actifs "
+"d'impôts différés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "decr_deferred_exp"
+msgstr "decr_deferred_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 待摊费用减少"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - réduction des charges à "
+"répartir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "decr_in_disbur"
+msgstr "decr_in_disbur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 发放贷款及垫款"
+msgstr "Bilan des sociétés cotées - Prêts et avances accordés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "decr_inventories"
+msgstr "decr_inventories"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 存货的减少"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - réduction des stocks"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "decr_oper_payable"
+msgstr "decr_oper_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营性应收项目的减少"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - diminution des créances "
+"d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "defer_inc_non_cur_liab"
+msgstr "defer_inc_non_cur_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 递延收益-非流动负债"
+msgstr ""
+"Bilan des sociétés cotées - Produits constatés d'avance - Passifs non "
+"courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "defer_tax_assets"
+msgstr "defer_tax_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 递延所得税资产"
+msgstr "Bilan des sociétés ouvertes - Actifs d'impôt sur le revenu différé"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "defer_tax_liab"
+msgstr "defer_tax_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 递延所得税负债"
+msgstr "Bilan des sociétés ouvertes - Passifs d'impôt sur le revenu différé"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "deferred_inc"
+msgstr "deferred_inc"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 递延收益"
+msgstr "Bilan des sociétés ouvertes - Bénéfices différés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depos"
+msgstr "depos"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 吸收存款"
+msgstr "Bilan des sociétés cotées - Dépôts acceptés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depos_ib_deposits"
+msgstr "depos_ib_deposits"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 吸收存款及同业存放"
+msgstr ""
+"Bilan des sociétés cotées - Dépôts de la clientèle et dépôts interbancaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depos_in_oth_bfi"
+msgstr "depos_in_oth_bfi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 存放同业和其它金融机构款项"
+msgstr ""
+"Bilan des sociétés cotées - dépôts auprès des banques et autres institutions"
+" financières"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depos_oth_bfi"
+msgstr "depos_oth_bfi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 同业和其它金融机构存放款项"
+msgstr ""
+"Bilan des sociétés cotées - dépôts des banques et autres institutions "
+"financières"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depos_received"
+msgstr "depos_received"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 存入保证金"
+msgstr "Bilan des sociétés cotées - Dépôt de marge"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "depr_fa_coga_dpba"
+msgstr "depr_fa_coga_dpba"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 固定资产折旧、油气资产折耗、生产性生物资产折旧"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - amortissement des "
+"immobilisations, amortissement des actifs pétroliers et gaziers, "
+"amortissement des actifs biologiques productifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "deriv_assets"
+msgstr "deriv_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 衍生金融资产"
+msgstr "Bilans des sociétés cotées - Actifs financiers dérivés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "deriv_liab"
+msgstr "deriv_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 衍生金融负债"
+msgstr "Bilans des sociétés cotées - Passifs financiers dérivés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "diluted2_eps"
+msgstr "diluted2_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 期末摊薄每股收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat dilué par action en "
+"fin de période"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "diluted_eps"
+msgstr "diluted_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 稀释每股收益"
+msgstr "Compte de résultat des sociétés cotées - Résultat dilué par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "diluted_roe"
+msgstr "diluted_roe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 净资产收益率(摊薄)(%)"
+msgstr ""
+"Rapport de performance des sociétés cotées - Rendement des capitaux propres "
+"(dilué) (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "distable_profit"
+msgstr "distable_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 可分配利润"
+msgstr "Compte de résultat des sociétés cotées - Bénéfice distribuable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "distr_profit_shrhder"
+msgstr "distr_profit_shrhder"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 可供股东分配的利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - bénéfices distribuables aux "
+"actionnaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "div_payable"
+msgstr "div_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付股利"
+msgstr "Bilan des sociétés cotées - Dividendes à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "div_payt"
+msgstr "div_payt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 保户红利支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - Charges de dividendes des "
+"titulaires de polices"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "div_receiv"
+msgstr "div_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收股利"
+msgstr "Bilan des sociétés cotées - Dividendes à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dp_assets_to_eqt"
+msgstr "dp_assets_to_eqt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 权益乘数(杜邦分析)"
+msgstr ""
+"Indicateurs financiers des entreprises publiques - Multiplicateur de "
+"capitaux propres (analyse DuPont)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dt_eps"
+msgstr "dt_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 稀释每股收益"
+msgstr "Paramètres financiers des sociétés cotées - Bénéfice dilué par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dt_eps_yoy"
+msgstr "dt_eps_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 稀释每股收益同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du bénéfice "
+"dilué par action sur un an (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dt_netprofit_yoy"
+msgstr "dt_netprofit_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属母公司股东的净利润-扣除非经常损益同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net part du groupe - "
+"taux de croissance sur un an après gains et pertes non récurrents (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dtprofit_to_profit"
+msgstr "dtprofit_to_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 扣除非经常损益后的净利润/净利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net/bénéfice net après"
+" déduction des gains et pertes extraordinaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dv_ratio"
+msgstr "dv_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 股息率 （%）"
+msgstr "Indicateur technique boursier - Rendement des dividendes (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "dv_ttm"
+msgstr "dv_ttm"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 股息率（TTM）（%）"
+msgstr "Indicateur technique boursier – Rendement des dividendes (TTM) (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebit"
+msgstr "ebit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 息税前利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice avant intérêts et "
+"impôts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebit_of_gr"
+msgstr "ebit_of_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 息税前利润/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice avant intérêts et "
+"impôts/résultat d'exploitation total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebit_ps"
+msgstr "ebit_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股息税前利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice avant impôt par "
+"dividende"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebit_to_interest"
+msgstr "ebit_to_interest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 已获利息倍数(EBIT/利息费用)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - ratio des intérêts gagnés "
+"(EBIT/charges d'intérêts)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebitda"
+msgstr "ebitda"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 息税折旧摊销前利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Résultat avant intérêts, impôts"
+" et amortissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebitda_to_debt"
+msgstr "ebitda_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 息税折旧摊销前利润/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Bénéfice avant intérêts, "
+"impôts, dépréciations et amortissements/total du passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ebt_yoy"
+msgstr "ebt_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 利润总额同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance annuel du "
+"bénéfice total (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eff_fx_flu_cash"
+msgstr "eff_fx_flu_cash"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 汇率变动对现金的影响"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - impact des variations "
+"de taux de change sur la trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "end_bal_cash"
+msgstr "end_bal_cash"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 现金的期末余额"
+msgstr ""
+"État des flux de trésorerie des sociétés ouvertes - Solde de clôture des "
+"liquidités"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "end_bal_cash_equ"
+msgstr "end_bal_cash_equ"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 加:现金等价物的期末余额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - plus : solde de clôture"
+" des équivalents de trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "end_net_profit"
+msgstr "end_net_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 终止经营净利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice net des activités "
+"abandonnées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eps"
+msgstr "eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 基本每股收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat de base par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eps_last_year"
+msgstr "eps_last_year"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期每股收益"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice par action pour la "
+"même période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eqt_to_debt"
+msgstr "eqt_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属于母公司的股东权益/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Total capitaux propres/passif "
+"part du groupe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eqt_to_interestdebt"
+msgstr "eqt_to_interestdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属于母公司的股东权益/带息债务"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - capitaux propres/dettes portant"
+" intérêts part du groupe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eqt_to_talcapital"
+msgstr "eqt_to_talcapital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属于母公司的股东权益/全部投入资本"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - capitaux propres part du groupe"
+" / capital total investi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "eqt_yoy"
+msgstr "eqt_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属母公司的股东权益相对年初增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Capitaux propres part du groupe"
+" rapportés au taux de croissance du début de l'année (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "equity_yoy"
+msgstr "equity_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产同比增长率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance sur un an de"
+" l'actif net"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "estimated_liab"
+msgstr "estimated_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 预计负债"
+msgstr "Bilan des sociétés cotées - passif estimé"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "expense_of_sales"
+msgstr "expense_of_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售期间费用率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de surcharge de la période"
+" de vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_bps"
+msgstr "express_bps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股净资产"
+msgstr "Indicateurs financiers des sociétés cotées - actif net par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_diluted_eps"
+msgstr "express_diluted_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 每股收益(摊薄)(元)"
+msgstr ""
+"Rapport de performance des sociétés cotées - Résultat par action (dilué) "
+"(yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_n_income"
+msgstr "express_n_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 净利润(元)"
+msgstr "Rapport de performance des sociétés cotées - bénéfice net (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_operate_profit"
+msgstr "express_operate_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 营业利润(元)"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice d'exploitation (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_revenue"
+msgstr "express_revenue"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 营业收入(元)"
+msgstr ""
+"Rapport de performance des sociétés cotées - résultat opérationnel (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_total_assets"
+msgstr "express_total_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 总资产(元)"
+msgstr "Rapport de performance des sociétés cotées - actif total (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_total_hldr_eqy_exc_min_int"
+msgstr "express_total_hldr_eqy_exc_min_int"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 股东权益合计(不含少数股东权益)(元)"
+msgstr ""
+"Rapport de performance des sociétés cotées - capitaux propres totaux (hors "
+"intérêts des actionnaires minoritaires) (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "express_total_profit"
+msgstr "express_total_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 利润总额(元)"
+msgstr ""
+"Rapport sur les performances des sociétés cotées - bénéfice total (yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "extra_item"
+msgstr "extra_item"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 非经常性损益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - gains et pertes non récurrents"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fa_avail_for_sale"
+msgstr "fa_avail_for_sale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 可供出售金融资产"
+msgstr "Bilan des sociétés cotées - Actifs financiers disponibles à la vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fa_fnc_leases"
+msgstr "fa_fnc_leases"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 融资租入固定资产"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Location Financement "
+"Immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fa_turn"
+msgstr "fa_turn"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 固定资产周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de rotation des "
+"immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fair_value_fin_assets"
+msgstr "fair_value_fin_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 以公允价值计量且其变动计入其他综合收益的金融资产"
+msgstr ""
+"Bilans des sociétés cotées - actifs financiers à la juste valeur par "
+"capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fcfe"
+msgstr "fcfe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 股权自由现金流量"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - cash-flow libre par rapport aux"
+" capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fcfe_ps"
+msgstr "fcfe_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股股东自由现金流量"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - cash-flow libre par actionnaire"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fcff"
+msgstr "fcff"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 企业自由现金流量"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - cash flow libre des entreprises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fcff_ps"
+msgstr "fcff_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股企业自由现金流量"
+msgstr ""
+"Indicateurs financiers des sociétés ouvertes – flux de trésorerie disponible"
+" par action de l’entreprise"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fd_share"
+msgstr "fd_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "FD"
+msgstr "FD"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "基金份额（万）"
+msgstr "Parts de fonds (10 000)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fund_share"
+msgstr "fund_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fin_exp"
+msgstr "fin_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:财务费用"
+msgstr "Compte de résultat des sociétés cotées - moins : charges financières"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fin_exp_int_exp"
+msgstr "fin_exp_int_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 财务费用:利息费用"
+msgstr ""
+"Compte de résultat des sociétés cotées - Charges financières : Charges "
+"d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fin_exp_int_inc"
+msgstr "fin_exp_int_inc"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 财务费用:利息收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Charges financières : revenus "
+"d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "finaexp_of_gr"
+msgstr "finaexp_of_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 财务费用/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais financiers/résultat "
+"opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "finan_exp"
+msgstr "finan_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 财务费用"
+msgstr "Tableau des flux de trésorerie des sociétés cotées - frais financiers"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fix_assets"
+msgstr "fix_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 固定资产"
+msgstr "Bilan des sociétés cotées - Immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fix_assets_total"
+msgstr "fix_assets_total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 固定资产(合计)(元)"
+msgstr "Bilan des sociétés cotées - immobilisations (total) (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fixed_assets"
+msgstr "fixed_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 固定资产合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - total des immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fixed_assets_disp"
+msgstr "fixed_assets_disp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 固定资产清理"
+msgstr "Bilan des sociétés cotées - Liquidation d'immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "float_mv"
+msgstr "float_mv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "IDX"
+msgstr "IDX"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 当日流通市值（元）"
+msgstr ""
+"Indicateur technique de l'indice - Capitalisation boursière de la "
+"circulation actuelle (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "index_indicator"
+msgstr "index_indicator"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "float_mv_2"
+msgstr "float_mv_2"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 流通市值(亿元)"
+msgstr ""
+"Indicateurs techniques boursiers - capitalisation boursière en circulation "
+"(100 millions de yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "float_share"
+msgstr "float_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 流通股本 （万股）"
+msgstr ""
+"Indicateurs techniques boursiers - actions en circulation (10 000 actions)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 当日流通股本（股）"
+msgstr ""
+"Indicateurs techniques de l’indice – Actions du jour en cours (Action)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "float_share_b"
+msgstr "float_share_b"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 流通股本(亿)"
+msgstr ""
+"Indicateurs techniques boursiers - capital social en circulation (milliards)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "forex_differ"
+msgstr "forex_differ"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 外币报表折算差额"
+msgstr ""
+"Bilan des sociétés cotées - écarts de conversion des relevés en devises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "forex_gain"
+msgstr "forex_gain"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 加:汇兑净收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - plus : résultat net de change"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "free_cashflow"
+msgstr "free_cashflow"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 企业自由现金流量"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - cash-flow libre des "
+"entreprises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "free_share"
+msgstr "free_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 自由流通股本（万）"
+msgstr ""
+"Indicateurs techniques boursiers - Capital social flottant (dix milliers)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 当日自由流通股本（股）"
+msgstr ""
+"Indicateurs techniques de l'indice - Actions flottantes (actions) pour la "
+"journée"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "fv_value_chg_gain"
+msgstr "fv_value_chg_gain"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 加:公允价值变动净收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - majoré : résultat net des "
+"variations de juste valeur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "gc_of_gr"
+msgstr "gc_of_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业总成本/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - charges d'exploitation "
+"totales/résultat d'exploitation total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "goodwill"
+msgstr "goodwill"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 商誉"
+msgstr "Bilan de la société publique - Goodwill"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "gross_margin"
+msgstr "gross_margin"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 毛利"
+msgstr "Indicateurs financiers des sociétés cotées - marge brute"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "grossprofit_margin"
+msgstr "grossprofit_margin"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售毛利率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - marge bénéficiaire brute des "
+"ventes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "growth_assets"
+msgstr "growth_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 比年初增长率:总资产"
+msgstr ""
+"Rapport de performance des sociétés cotées - Taux de croissance depuis le "
+"début de l'année : total du bilan"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "growth_bps"
+msgstr "growth_bps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 比年初增长率:归属于母公司股东的每股净资产"
+msgstr ""
+"Rapport de performance des sociétés cotées - Taux de croissance depuis le "
+"début de l'année : Actif net par action attribuable aux actionnaires de la "
+"société mère"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "hfs_assets"
+msgstr "hfs_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 持有待售的资产"
+msgstr "Bilans des sociétés ouvertes - Actifs détenus en vue de la vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "hfs_sales"
+msgstr "hfs_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 持有待售的负债"
+msgstr "Bilan des sociétés ouvertes - Passifs détenus en vue de la vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "htm_invest"
+msgstr "htm_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 持有至到期投资"
+msgstr ""
+"Bilans des sociétés ouvertes - Placements détenus jusqu'à leur échéance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ifc_cash_incr"
+msgstr "ifc_cash_incr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收取利息和手续费净增加额"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - augmentation nette des "
+"intérêts et frais perçus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "im_n_incr_cash_equ"
+msgstr "im_n_incr_cash_equ"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 现金及现金等价物净增加额(间接法)"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette de "
+"la trésorerie et des équivalents de trésorerie (méthode indirecte)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "im_net_cashflow_oper_act"
+msgstr "im_net_cashflow_oper_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营活动产生的现金流量净额(间接法)"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - flux nets de trésorerie"
+" générés par les activités opérationnelles (méthode indirecte)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "impai_ttm"
+msgstr "impai_ttm"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 资产减值损失/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Pertes de valeur "
+"d'actifs/résultat opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "incl_cash_rec_saims"
+msgstr "incl_cash_rec_saims"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 其中:子公司吸收少数股东投资收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - comprenant : trésorerie"
+" reçue par les filiales provenant des investissements des actionnaires "
+"minoritaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "incl_dvd_profit_paid_sc_ms"
+msgstr "incl_dvd_profit_paid_sc_ms"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 其中:子公司支付给少数股东的股利、利润"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - comprenant : dividendes"
+" et bénéfices versés par les filiales aux actionnaires minoritaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income_credit_impa_loss"
+msgstr "income_credit_impa_loss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 信用减值损失"
+msgstr "Compte de résultat des sociétés cotées – Pertes de valeur sur crédits"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income_ebit"
+msgstr "income_ebit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 息税前利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice avant intérêts et impôts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income_ebitda"
+msgstr "income_ebitda"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 息税折旧摊销前利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice avant intérêts, impôts et "
+"amortissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income_rd_exp"
+msgstr "income_rd_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 研发费用"
+msgstr ""
+"Compte de résultat des sociétés cotées - Frais de recherche et développement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "income_tax"
+msgstr "income_tax"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 所得税费用"
+msgstr ""
+"Compte de résultat des sociétés cotées - Charge d'impôt sur le résultat"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "incr_acc_exp"
+msgstr "incr_acc_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 预提费用增加"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - augmentation des charges"
+" à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "incr_def_inc_tax_liab"
+msgstr "incr_def_inc_tax_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 递延所得税负债增加"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Augmentation des "
+"passifs d'impôts différés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "incr_oper_payable"
+msgstr "incr_oper_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营性应付项目的增加"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - augmentation des dettes "
+"d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "indem_payable"
+msgstr "indem_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付赔付款"
+msgstr "Bilan des sociétés cotées - Créances à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "indep_acct_assets"
+msgstr "indep_acct_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 独立账户资产"
+msgstr "Bilan des sociétés ouvertes - Actifs des comptes séparés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "indept_acc_liab"
+msgstr "indept_acc_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 独立账户负债"
+msgstr "Bilan des sociétés publiques - Passif du compte distinct"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "insur_reser_refu"
+msgstr "insur_reser_refu"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:摊回保险责任准备金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Moins : Amortissement des réserves "
+"pour passif d'assurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "insurance_exp"
+msgstr "insurance_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 保险业务支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - Dépenses des activités d'assurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "int_exp"
+msgstr "int_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:利息支出"
+msgstr "Compte de résultat des sociétés cotées - Moins : charges d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "int_income"
+msgstr "int_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 利息收入"
+msgstr "Compte de résultat des sociétés cotées - Revenus d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "int_payable"
+msgstr "int_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付利息"
+msgstr "Bilan des sociétés cotées - Intérêts à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "int_receiv"
+msgstr "int_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收利息"
+msgstr "Bilan des sociétés cotées - intérêts à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "int_to_talcap"
+msgstr "int_to_talcap"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 带息债务/全部投入资本"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - dette portant intérêt/total du "
+"capital investi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "intan_assets"
+msgstr "intan_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 无形资产"
+msgstr "Bilan des sociétés cotées - immobilisations incorporelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "interestdebt"
+msgstr "interestdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 带息债务"
+msgstr "Indicateurs financiers des sociétés cotées - dette portant intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "interst_income"
+msgstr "interst_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 利息费用"
+msgstr "Indicateurs financiers des sociétés cotées - Charges d'intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "interval_3"
+msgstr "interval_3"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 近3月涨幅"
+msgstr "Indicateurs techniques boursiers – Gains au cours des 3 derniers mois"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "interval_6"
+msgstr "interval_6"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 近6月涨幅"
+msgstr "Indicateurs techniques boursiers – Gains au cours des 6 derniers mois"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "inv_turn"
+msgstr "inv_turn"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 存货周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de rotation des stocks"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "inventories"
+msgstr "inventories"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 存货"
+msgstr "Bilan des sociétés publiques - Inventaire"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_as_receiv"
+msgstr "invest_as_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收款项类投资"
+msgstr "Bilan des sociétés cotées - Placements à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_capital"
+msgstr "invest_capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 全部投入资本"
+msgstr "Indicateurs financiers des sociétés cotées - tout le capital investi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_income"
+msgstr "invest_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 加:投资净收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - plus : revenus nets des placements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_loss"
+msgstr "invest_loss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 投资损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - pertes sur "
+"investissements"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_loss_unconf"
+msgstr "invest_loss_unconf"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 未确认的投资损失"
+msgstr ""
+"Bilans des sociétés ouvertes – Pertes sur placements non comptabilisées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invest_real_estate"
+msgstr "invest_real_estate"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 投资性房地产"
+msgstr "Bilans des sociétés cotées - immeubles de placement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "investincome_of_ebt"
+msgstr "investincome_of_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 价值变动净收益/利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net de variation de "
+"valeur/bénéfice total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "invturn_days"
+msgstr "invturn_days"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 存货周转天数"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - jours de rotation des stocks"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lease_liab"
+msgstr "lease_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 租赁负债"
+msgstr "Bilan des sociétés ouvertes - Dettes locatives"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lending_funds"
+msgstr "lending_funds"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 融出资金"
+msgstr "Bilan des sociétés cotées - Financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "loan_oth_bank"
+msgstr "loan_oth_bank"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 拆入资金"
+msgstr "Bilan des sociétés cotées - Fonds d'emprunt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "loanto_oth_bank_fi"
+msgstr "loanto_oth_bank_fi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 拆出资金"
+msgstr "Bilans des sociétés cotées - Placements et fonds"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "long_pay_total"
+msgstr "long_pay_total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期应付款(合计)(元)"
+msgstr "Bilan des sociétés cotées - dettes à long terme (total) (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "longdeb_to_debt"
+msgstr "longdeb_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 非流动负债/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - passifs non courants/total "
+"passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "longdebt_to_workingcapital"
+msgstr "longdebt_to_workingcapital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 长期债务与营运资金比率"
+msgstr ""
+"Paramètres financiers des sociétés ouvertes – Ratio dette à long terme/fonds"
+" de roulement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "loss_disp_fiolta"
+msgstr "loss_disp_fiolta"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 处置固定、无形资产和其他长期资产的损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - pertes sur cessions "
+"d'immobilisations corporelles, incorporelles et autres actifs à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "loss_fv_chg"
+msgstr "loss_fv_chg"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 公允价值变动损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Perte résultant des "
+"variations de juste valeur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "loss_scr_fa"
+msgstr "loss_scr_fa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 固定资产报废损失"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - pertes liées à la mise "
+"au rebut d'immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_amor_exp"
+msgstr "lt_amor_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_amort_deferred_exp"
+msgstr "lt_amort_deferred_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 长期待摊费用摊销"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - amortissement des "
+"charges reportées à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_borr"
+msgstr "lt_borr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期借款"
+msgstr "Bilan des sociétés cotées - emprunts à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_eqt_invest"
+msgstr "lt_eqt_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期股权投资"
+msgstr "Bilan des sociétés cotées - placement en actions à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_payable"
+msgstr "lt_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期应付款"
+msgstr "Bilan des sociétés cotées - dettes à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_payroll_payable"
+msgstr "lt_payroll_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期应付职工薪酬"
+msgstr ""
+"Bilan des sociétés cotées - avantages du personnel à long terme à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "lt_rec"
+msgstr "lt_rec"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期应收款"
+msgstr "Bilan des sociétés cotées - créances à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "minority_gain"
+msgstr "minority_gain"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 少数股东损益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice et perte des actionnaires "
+"minoritaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "minority_int"
+msgstr "minority_int"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 少数股东权益"
+msgstr "Bilans des sociétés publiques - Intérêts minoritaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "money_cap"
+msgstr "money_cap"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 货币资金"
+msgstr "Bilan des sociétés cotées - Fonds monétaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_asset_mg_income"
+msgstr "n_asset_mg_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 受托客户资产管理业务净收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Résultat net des activités de "
+"gestion d'actifs des clients fiduciaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_cap_incr_repur"
+msgstr "n_cap_incr_repur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 回购业务资金净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"fonds des entreprises de rachat"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_cash_flows_fnc_act"
+msgstr "n_cash_flows_fnc_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 筹资活动产生的现金流量净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Flux de trésorerie nets"
+" liés aux activités de financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_cashflow_act"
+msgstr "n_cashflow_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营活动产生的现金流量净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - flux nets de trésorerie"
+" générés par les activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_cashflow_inv_act"
+msgstr "n_cashflow_inv_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 投资活动产生的现金流量净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Flux de trésorerie nets"
+" liés aux activités d'investissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_commis_income"
+msgstr "n_commis_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 手续费及佣金净收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Revenus nets de frais et "
+"commissions"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_depos_incr_fi"
+msgstr "n_depos_incr_fi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 客户存款和同业存放款项净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Augmentation nette des "
+"dépôts clientèle et des dépôts interbancaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_disp_subs_oth_biz"
+msgstr "n_disp_subs_oth_biz"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 取得子公司及其他营业单位支付的现金净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie nette versée"
+" aux filiales et autres unités commerciales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_inc_borr_oth_fi"
+msgstr "n_inc_borr_oth_fi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 向其他金融机构拆入资金净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"fonds empruntés auprès d'autres institutions financières"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_income_attr_p"
+msgstr "n_income_attr_p"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 净利润(不含少数股东损益)"
+msgstr ""
+"Compte de résultat des sociétés cotées - résultat net (hors gains et pertes "
+"des actionnaires minoritaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_cash_cash_equ"
+msgstr "n_incr_cash_cash_equ"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 现金及现金等价物净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette de "
+"la trésorerie et équivalents de trésorerie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_clt_loan_adv"
+msgstr "n_incr_clt_loan_adv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 客户贷款及垫款净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Augmentation nette des "
+"prêts et avances à la clientèle"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_dep_cbob"
+msgstr "n_incr_dep_cbob"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 存放央行和同业款项净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Augmentation nette des "
+"dépôts auprès de la Banque Centrale et des comptes interbancaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_disp_faas"
+msgstr "n_incr_disp_faas"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 处置可供出售金融资产净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"cessions d'actifs financiers disponibles à la vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_disp_tfa"
+msgstr "n_incr_disp_tfa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 处置交易性金融资产净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"cessions d'actifs financiers de transaction"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_insured_dep"
+msgstr "n_incr_insured_dep"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 保户储金净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Augmentation nette de "
+"l'épargne des assurés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_loans_cb"
+msgstr "n_incr_loans_cb"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 向中央银行借款净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"emprunts auprès de la banque centrale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_loans_oth_bank"
+msgstr "n_incr_loans_oth_bank"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 拆入资金净增加额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - augmentation nette des "
+"fonds d'emprunt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_incr_pledge_loan"
+msgstr "n_incr_pledge_loan"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 质押贷款净增加额"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - augmentation nette des "
+"prêts nantis"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_op_profit_of_ebt"
+msgstr "n_op_profit_of_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业外收支净额/利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - produits et charges nets hors "
+"exploitation/bénéfices totaux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_oth_b_income"
+msgstr "n_oth_b_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 加:其他业务净收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Ajouter : Résultat net des autres "
+"activités"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_oth_income"
+msgstr "n_oth_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他经营净收益"
+msgstr ""
+"Compte de Résultat des Sociétés Cotées - Autres Résultat Net Opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_recp_disp_fiolta"
+msgstr "n_recp_disp_fiolta"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 处置固定资产、无形资产和其他长期资产收回的现金净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie nette "
+"provenant de la cession d'immobilisations, d'actifs incorporels et d'autres "
+"actifs à long terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_recp_disp_sobu"
+msgstr "n_recp_disp_sobu"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 处置子公司及其他营业单位收到的现金净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie nette reçue "
+"de la cession des filiales et autres unités commerciales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_reinsur_prem"
+msgstr "n_reinsur_prem"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到再保业务现金净额"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie nette reçue "
+"des activités de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_sec_tb_income"
+msgstr "n_sec_tb_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 代理买卖证券业务净收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Résultat net des activités de "
+"négoce de titres en agence"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "n_sec_uw_income"
+msgstr "n_sec_uw_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 证券承销业务净收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Résultat net des activités de "
+"souscription de titres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "nca_disploss"
+msgstr "nca_disploss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其中:减:非流动资产处置净损失"
+msgstr ""
+"Compte de résultat des sociétés cotées - comprenant : moins : perte nette "
+"sur cession d'actifs non courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "nca_to_assets"
+msgstr "nca_to_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 非流动资产/总资产"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Actifs non courants/Actif total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "nca_within_1y"
+msgstr "nca_within_1y"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 一年内到期的非流动资产"
+msgstr "Bilan des sociétés cotées - actifs non courants à un an au plus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_after_nr_lp_correct"
+msgstr "net_after_nr_lp_correct"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 扣除非经常性损益后的净利润（更正前）"
+msgstr ""
+"Compte de résultat des sociétés cotées - bénéfice net après déduction des "
+"gains et pertes non récurrents (avant correction)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_cash_rece_sec"
+msgstr "net_cash_rece_sec"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 代理买卖证券收到的现金净额(元)"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie nette reçue "
+"du négoce de titres en agence (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_dism_capital_add"
+msgstr "net_dism_capital_add"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 拆出资金净增加额"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - augmentation nette des "
+"fonds de placement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_expo_hedging_benefits"
+msgstr "net_expo_hedging_benefits"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 净敞口套期收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Revenus de couverture de "
+"l'exposition nette"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_income"
+msgstr "net_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 净利润(含少数股东损益)"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice net (y compris le bénéfice"
+" et la perte des actionnaires minoritaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "net_profit"
+msgstr "net_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 净利润"
+msgstr "Tableau des flux de trésorerie des sociétés cotées - bénéfice net"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "netdebt"
+msgstr "netdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净债务"
+msgstr "Indicateurs financiers des sociétés cotées - dette nette"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "netprofit_margin"
+msgstr "netprofit_margin"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售净利率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - marge bénéficiaire nette des "
+"ventes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "netprofit_yoy"
+msgstr "netprofit_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属母公司股东的净利润同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance sur un an du"
+" bénéfice net attribuable aux actionnaires de la société mère (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "networking_capital"
+msgstr "networking_capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营运流动资本"
+msgstr "Indicateurs financiers des sociétés cotées - Liquidité d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "non_cur_liab_due_1y"
+msgstr "non_cur_liab_due_1y"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 一年内到期的非流动负债"
+msgstr "Bilan des sociétés cotées - passifs non courants à un an au plus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "non_op_profit"
+msgstr "non_op_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 非营业利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat hors exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "non_oper_exp"
+msgstr "non_oper_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:营业外支出"
+msgstr ""
+"Compte de résultat des sociétés cotées - moins : charges hors exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "non_oper_income"
+msgstr "non_oper_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 加:营业外收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - plus : résultat hors exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "noncurrent_exint"
+msgstr "noncurrent_exint"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 无息非流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - passifs non courants ne portant"
+" pas intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "nop_to_ebt"
+msgstr "nop_to_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 非营业利润／利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat hors "
+"exploitation/bénéfice total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "notes_payable"
+msgstr "notes_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付票据"
+msgstr "Bilan des sociétés cotées - Effets à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "notes_receiv"
+msgstr "notes_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收票据"
+msgstr "Bilan des sociétés cotées - Effets à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "np_last_year"
+msgstr "np_last_year"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期净利润"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice net pour la même "
+"période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "npta"
+msgstr "npta"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 总资产净利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net sur actif total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_debt"
+msgstr "ocf_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux nets de trésorerie liés "
+"aux activités opérationnelles/total du passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_interestdebt"
+msgstr "ocf_to_interestdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/带息债务"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux nets de trésorerie liés "
+"aux activités opérationnelles/dette portant intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_netdebt"
+msgstr "ocf_to_netdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/净债务"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux nets de trésorerie liés "
+"aux activités opérationnelles/endettement net"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_opincome"
+msgstr "ocf_to_opincome"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/经营活动净收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie générés "
+"par les activités opérationnelles/résultat net des activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_or"
+msgstr "ocf_to_or"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/营业收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie "
+"provenant des activités opérationnelles/résultat opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_profit"
+msgstr "ocf_to_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额／营业利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie "
+"provenant des activités opérationnelles/résultat opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_to_shortdebt"
+msgstr "ocf_to_shortdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额/流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux nets de trésorerie liés "
+"aux activités opérationnelles/passifs courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocf_yoy"
+msgstr "ocf_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance sur un an "
+"des flux nets de trésorerie liés aux activités opérationnelles (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ocfps"
+msgstr "ocfps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股经营活动产生的现金流量净额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie "
+"provenant des activités opérationnelles par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oil_and_gas_assets"
+msgstr "oil_and_gas_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 油气资产"
+msgstr "Bilans des sociétés publiques - Actifs pétroliers et gaziers"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_income"
+msgstr "op_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动净收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des activités "
+"opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_last_year"
+msgstr "op_last_year"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期营业利润"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice d'exploitation pour la"
+" même période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_of_gr"
+msgstr "op_of_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel/résultat "
+"opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_to_debt"
+msgstr "op_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润／负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel/total "
+"passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_to_ebt"
+msgstr "op_to_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润／利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel/bénéfice "
+"total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_to_liqdebt"
+msgstr "op_to_liqdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润／流动负债"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel/passifs "
+"courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "op_yoy"
+msgstr "op_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du résultat "
+"opérationnel sur un an (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "open_bps"
+msgstr "open_bps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 期初每股净资产"
+msgstr ""
+"Rapport de performance des sociétés cotées - Actif net par action en début "
+"de période"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "open_net_assets"
+msgstr "open_net_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 期初净资产"
+msgstr "Rapport de performance des sociétés cotées - Actif net d'ouverture"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oper_cost"
+msgstr "oper_cost"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:营业成本"
+msgstr ""
+"Compte de résultat des sociétés cotées - moins : frais de fonctionnement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oper_exp"
+msgstr "oper_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业支出"
+msgstr "Compte de résultat des sociétés cotées – Charges opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "operate_profit"
+msgstr "operate_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业利润"
+msgstr "Compte de résultat des sociétés cotées - Résultat opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "opincome_of_ebt"
+msgstr "opincome_of_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动净收益/利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des activités "
+"opérationnelles/bénéfice total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "or_last_year"
+msgstr "or_last_year"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期营业收入"
+msgstr ""
+"Rapport de performance des sociétés cotées - résultat opérationnel pour la "
+"même période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "or_yoy"
+msgstr "or_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业收入同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du résultat "
+"opérationnel sur un an (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ordin_risk_reser"
+msgstr "ordin_risk_reser"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 一般风险准备"
+msgstr "Bilans des sociétés cotées - provisions générales pour risques"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_assets"
+msgstr "oth_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他资产"
+msgstr "Bilan des sociétés cotées - autres actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_b_income"
+msgstr "oth_b_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他业务收入"
+msgstr "Compte de résultat des sociétés cotées - Autres revenus d'entreprises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_cash_pay_oper_act"
+msgstr "oth_cash_pay_oper_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付其他与经营活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - autres décaissements "
+"liés aux activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_cash_recp_ral_fnc_act"
+msgstr "oth_cash_recp_ral_fnc_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到其他与筹资活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie reçue liée "
+"aux autres activités de financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_cashpay_ral_fnc_act"
+msgstr "oth_cashpay_ral_fnc_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付其他与筹资活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Paiements en espèces "
+"liés à d'autres activités de financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_comp_income"
+msgstr "oth_comp_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他综合收益"
+msgstr "Bilan des sociétés cotées - autres éléments du résultat global"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_compr_income"
+msgstr "oth_compr_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他综合收益"
+msgstr ""
+"Compte de résultat des sociétés cotées - Autres éléments du résultat global"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_cur_assets"
+msgstr "oth_cur_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他流动资产"
+msgstr "Bilan des sociétés cotées - autres actifs courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_cur_liab"
+msgstr "oth_cur_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他流动负债"
+msgstr "Bilan des sociétés cotées - autres passifs courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_debt_invest"
+msgstr "oth_debt_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他债权投资(元)"
+msgstr "Bilan des sociétés cotées - autres investissements en dette (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_eq_invest"
+msgstr "oth_eq_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他权益工具投资(元)"
+msgstr ""
+"Bilan des sociétés cotées - Investissements en autres instruments de "
+"capitaux propres (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_eq_ppbond"
+msgstr "oth_eq_ppbond"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他权益工具:永续债(元)"
+msgstr ""
+"Bilan des sociétés cotées - autres instruments de capitaux propres : "
+"obligations perpétuelles (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_eqt_tools"
+msgstr "oth_eqt_tools"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他权益工具"
+msgstr "Bilan des sociétés cotées - autres instruments de capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_eqt_tools_p_shr"
+msgstr "oth_eqt_tools_p_shr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他权益工具(优先股)"
+msgstr ""
+"Bilan des sociétés cotées - autres instruments de capitaux propres (actions "
+"de préférence)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_illiq_fin_assets"
+msgstr "oth_illiq_fin_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他非流动金融资产(元)"
+msgstr ""
+"Bilan des sociétés cotées - autres actifs financiers non courants (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_impair_loss_assets"
+msgstr "oth_impair_loss_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他资产减值损失"
+msgstr ""
+"Compte de résultat des sociétés cotées - Pertes de valeur sur autres actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_income"
+msgstr "oth_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他收益"
+msgstr "Compte de résultat des sociétés cotées - Autres revenus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_liab"
+msgstr "oth_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他负债"
+msgstr "Bilan des sociétés cotées - autres passifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_loss_asset"
+msgstr "oth_loss_asset"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 其他资产减值损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Pertes de valeur sur "
+"autres actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_nca"
+msgstr "oth_nca"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他非流动资产"
+msgstr "Bilan des sociétés cotées - autres actifs non courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_ncl"
+msgstr "oth_ncl"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他非流动负债"
+msgstr "Bilan des sociétés cotées - autres passifs non courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_pay_ral_inv_act"
+msgstr "oth_pay_ral_inv_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付其他与投资活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Paiements en espèces "
+"liés à d'autres activités d'investissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_pay_total"
+msgstr "oth_pay_total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他应付款(合计)(元)"
+msgstr "Bilan des sociétés cotées - autres dettes (total) (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_payable"
+msgstr "oth_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他应付款"
+msgstr "Bilan des sociétés cotées - autres dettes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_rcv_total"
+msgstr "oth_rcv_total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他应收款(合计)（元）"
+msgstr "Bilan des sociétés cotées - autres créances (total) (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_receiv"
+msgstr "oth_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其他应收款"
+msgstr "Bilan des sociétés cotées - autres créances"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "oth_recp_ral_inv_act"
+msgstr "oth_recp_ral_inv_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到其他与投资活动有关的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie reçue liée à"
+" d'autres activités d'investissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "other_bus_cost"
+msgstr "other_bus_cost"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他业务成本"
+msgstr "Compte de résultat des sociétés cotées - Autres coûts commerciaux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "others"
+msgstr "others"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 其他"
+msgstr "Tableau des flux de trésorerie des sociétés cotées - Autres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "out_prem"
+msgstr "out_prem"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:分出保费"
+msgstr "Compte de résultat des sociétés cotées - Moins : primes cédées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pay_comm_insur_plcy"
+msgstr "pay_comm_insur_plcy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付保单红利的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie utilisée "
+"pour payer les dividendes des polices"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pay_handling_chrg"
+msgstr "pay_handling_chrg"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 支付手续费的现金"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - trésorerie utilisée pour"
+" payer les frais de dossier"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "payable_to_reinsurer"
+msgstr "payable_to_reinsurer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付分保账款"
+msgstr "Bilan des sociétés cotées - dettes de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "payables"
+msgstr "payables"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付款项"
+msgstr "Bilan des sociétés cotées - Comptes fournisseurs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "payroll_payable"
+msgstr "payroll_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付职工薪酬"
+msgstr "Bilan des sociétés cotées - Avantages sociaux à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pb"
+msgstr "pb"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 市净率（总市值/净资产）"
+msgstr ""
+"Indicateurs techniques boursiers - Ratio cours/valeur comptable "
+"(capitalisation boursière totale/actif net)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 市净率"
+msgstr "Indicateur technique de l'indice - Ratio cours/valeur comptable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pe"
+msgstr "pe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 市盈率（总市值/净利润， 亏损的PE为空）"
+msgstr ""
+"Indicateurs techniques boursiers - ratio cours/bénéfice (capitalisation "
+"boursière totale/bénéfice net, PE déficitaire vide)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 市盈率"
+msgstr "Indicateur technique de l’indice – Ratio cours/bénéfice"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pe_2"
+msgstr "pe_2"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 动态市盈率"
+msgstr "Indicateur technique boursier - Ratio P/E dynamique"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pe_ttm"
+msgstr "pe_ttm"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 市盈率（TTM，亏损的PE为空）"
+msgstr ""
+"Indicateurs techniques boursiers - Ratio cours/bénéfice (TTM, PE déficitaire"
+" est vide)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 市盈率TTM"
+msgstr "Indicateur technique de l'indice - Ratio cours/bénéfice TTM"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "perf_summary"
+msgstr "perf_summary"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 业绩简要说明"
+msgstr ""
+"Performance Express des sociétés cotées - Brève description de la "
+"performance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "none"
+msgstr "none"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ph_invest"
+msgstr "ph_invest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 保户储金及投资款"
+msgstr "Bilans des sociétés cotées - Épargne et placements des assurés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ph_pledge_loans"
+msgstr "ph_pledge_loans"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 保户质押贷款"
+msgstr "Bilan des sociétés cotées - Prêt sur gage des assurés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pledge_borr"
+msgstr "pledge_borr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其中:质押借款"
+msgstr "Bilan des sociétés cotées - comprenant : prêts gagés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "policy_div_payable"
+msgstr "policy_div_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付保单红利"
+msgstr "Bilan des sociétés cotées - Dividendes politiques à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prec_metals"
+msgstr "prec_metals"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 贵金属"
+msgstr "Bilans des sociétés ouvertes - Métaux précieux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prem_earned"
+msgstr "prem_earned"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 已赚保费"
+msgstr "Compte de résultat des sociétés cotées - Primes acquises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prem_fr_orig_contr"
+msgstr "prem_fr_orig_contr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到原保险合同保费取得的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant "
+"des primes reçues des contrats d'assurance initiaux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prem_income"
+msgstr "prem_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 保险业务收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Revenus des activités d'assurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prem_receiv_adva"
+msgstr "prem_receiv_adva"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 预收保费"
+msgstr "Bilan des sociétés cotées - primes reçues d'avance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prem_refund"
+msgstr "prem_refund"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 退保金"
+msgstr "Compte de résultat des sociétés cotées - Remboursement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "premium_receiv"
+msgstr "premium_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收保费"
+msgstr "Bilan des sociétés cotées - Primes à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prepayment"
+msgstr "prepayment"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 预付款项"
+msgstr "Bilan des sociétés cotées - acomptes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prfshare_payable_dvd"
+msgstr "prfshare_payable_dvd"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 应付优先股股利"
+msgstr ""
+"Compte de résultat des sociétés cotées - Dividendes d'actions privilégiées à"
+" payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "proc_issue_bonds"
+msgstr "proc_issue_bonds"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 发行债券收到的现金"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - trésorerie provenant de"
+" l'émission d'obligations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "produc_bio_assets"
+msgstr "produc_bio_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 生产性生物资产"
+msgstr "Bilan des sociétés cotées - actifs biologiques productifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "profit_dedt"
+msgstr "profit_dedt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 扣除非经常性损益后的净利润（扣非净利润）"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net après déduction "
+"des gains et pertes non récurrents (déduction faite du bénéfice non net)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "profit_prefin_exp"
+msgstr "profit_prefin_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 扣除财务费用前营业利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel avant "
+"charges financières"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "profit_to_gr"
+msgstr "profit_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净利润/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net/résultat "
+"opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "profit_to_op"
+msgstr "profit_to_op"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 利润总额／营业收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat total/résultat "
+"d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "prov_depr_assets"
+msgstr "prov_depr_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 加:资产减值准备"
+msgstr ""
+"Tableau de flux de trésorerie des sociétés cotées - majoré : provision pour "
+"dépréciation d'actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ps"
+msgstr "ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 市销率"
+msgstr "Indicateur technique des actions - Ratio prix/ventes"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "ps_ttm"
+msgstr "ps_ttm"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 市销率（TTM）"
+msgstr "Indicateur technique des actions - Ratio prix/ventes (TTM)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "pur_resale_fa"
+msgstr "pur_resale_fa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 买入返售金融资产"
+msgstr ""
+"Bilan des sociétés cotées - actifs financiers acquis en pension livrée"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_adminexp_to_gr"
+msgstr "q_adminexp_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 管理费用／营业总收入 (单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais administratifs/résultat "
+"d'exploitation total (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_dt_roe"
+msgstr "q_dt_roe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产单季度收益率(扣除非经常损益)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement de l'actif net sur un"
+" seul trimestre (hors gains et pertes extraordinaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_dtprofit"
+msgstr "q_dtprofit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 扣除非经常损益后的单季度净利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net trimestriel après "
+"déduction des gains et pertes extraordinaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_dtprofit_to_profit"
+msgstr "q_dtprofit_to_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 扣除非经常损益后的净利润／净利润(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net/bénéfice net après"
+" déduction des gains et pertes extraordinaires (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_eps"
+msgstr "q_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股收益(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice par action (un seul "
+"trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_exp_to_sales"
+msgstr "q_exp_to_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售期间费用率(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de surcharge de la période"
+" de vente (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_finaexp_to_gr"
+msgstr "q_finaexp_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 财务费用／营业总收入 (单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais financiers/résultat "
+"opérationnel total (sur un trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_gc_to_gr"
+msgstr "q_gc_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业总成本／营业总收入 (单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - charges d'exploitation "
+"totales/résultats d'exploitation totaux (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_gr_qoq"
+msgstr "q_gr_qoq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业总收入环比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance trimestriel "
+"du résultat opérationnel total (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_gr_yoy"
+msgstr "q_gr_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业总收入同比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance annuel du "
+"résultat opérationnel total (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_gsprofit_margin"
+msgstr "q_gsprofit_margin"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售毛利率(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - marge bénéficiaire brute des "
+"ventes (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_impair_to_gr_ttm"
+msgstr "q_impair_to_gr_ttm"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 资产减值损失／营业总收入(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Pertes de valeur "
+"d'actifs/résultat opérationnel total (sur un trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_investincome"
+msgstr "q_investincome"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 价值变动单季度净收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Résultat net pour un seul "
+"trimestre de variation de valeur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_investincome_to_ebt"
+msgstr "q_investincome_to_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 价值变动净收益／利润总额(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des variations de "
+"valeur/bénéfice total (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_netprofit_margin"
+msgstr "q_netprofit_margin"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售净利率(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - marge bénéficiaire nette des "
+"ventes (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_netprofit_qoq"
+msgstr "q_netprofit_qoq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属母公司股东的净利润环比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Bénéfice net attribuable aux "
+"actionnaires de la société mère Taux de croissance trimestriel (%) "
+"(trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_netprofit_yoy"
+msgstr "q_netprofit_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 归属母公司股东的净利润同比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Bénéfice net part du groupe "
+"taux de croissance sur un an (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_npta"
+msgstr "q_npta"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 总资产净利润(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net sur le total du "
+"bilan (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_ocf_to_or"
+msgstr "q_ocf_to_or"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额／经营活动净收益(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie "
+"provenant des activités opérationnelles/résultat net des activités "
+"opérationnelles (sur un trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_ocf_to_sales"
+msgstr "q_ocf_to_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动产生的现金流量净额／营业收入(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - flux net de trésorerie "
+"provenant des activités opérationnelles/résultat opérationnel (sur un "
+"trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_op_qoq"
+msgstr "q_op_qoq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润环比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance trimestriel "
+"du bénéfice d'exploitation (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_op_to_gr"
+msgstr "q_op_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润／营业总收入(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel/résultat "
+"opérationnel total (sur un trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_op_yoy"
+msgstr "q_op_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业利润同比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du bénéfice "
+"d'exploitation sur un an (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_opincome"
+msgstr "q_opincome"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动单季度净收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des activités "
+"opérationnelles sur un seul trimestre"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_opincome_to_ebt"
+msgstr "q_opincome_to_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 经营活动净收益／利润总额(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des activités "
+"opérationnelles/bénéfice total (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_profit_qoq"
+msgstr "q_profit_qoq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净利润环比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance trimestriel "
+"du bénéfice net (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_profit_to_gr"
+msgstr "q_profit_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净利润／营业总收入(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice net/résultat "
+"d'exploitation total (sur un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_profit_yoy"
+msgstr "q_profit_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净利润同比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du bénéfice "
+"net sur un an (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_roe"
+msgstr "q_roe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产收益率(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement de l'actif net (un "
+"seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_saleexp_to_gr"
+msgstr "q_saleexp_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售费用／营业总收入 (单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais de ventes/résultat "
+"d'exploitation total (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_sales_qoq"
+msgstr "q_sales_qoq"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业收入环比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Taux de croissance trimestriel "
+"du résultat opérationnel (%) (trimestre unique)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_sales_yoy"
+msgstr "q_sales_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业收入同比增长率(%)(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Taux de croissance du résultat "
+"opérationnel sur un an (%) (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "q_salescash_to_or"
+msgstr "q_salescash_to_or"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售商品提供劳务收到的现金／营业收入(单季度)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - trésorerie/revenus "
+"d'exploitation provenant de la vente de biens et de la prestation de "
+"services (un seul trimestre)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "quick_ratio"
+msgstr "quick_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 速动比率"
+msgstr "Indicateurs financiers des sociétés cotées - ratio rapide"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "r_and_d"
+msgstr "r_and_d"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 研发支出"
+msgstr "Bilans des sociétés publiques - Dépenses de R&D"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rd_exp"
+msgstr "rd_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 研发费用"
+msgstr "Indicateurs financiers des sociétés cotées - Dépenses de R&D"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "receiv_financing"
+msgstr "receiv_financing"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收款项融资"
+msgstr "Bilan des sociétés ouvertes - Financement des créances"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "recp_tax_rends"
+msgstr "recp_tax_rends"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 收到的税费返还"
+msgstr ""
+"État des flux de trésorerie d'une société publique - Remboursements d'impôts"
+" reçus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "refund_cap_depos"
+msgstr "refund_cap_depos"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 存出资本保证金"
+msgstr "Bilan des sociétés cotées - Dépôts en capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "refund_depos"
+msgstr "refund_depos"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 存出保证金"
+msgstr "Bilan des sociétés cotées - Dépôt de marge"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reins_cost_refund"
+msgstr "reins_cost_refund"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:摊回分保费用"
+msgstr ""
+"Compte de résultat des sociétés cotées - moins : amortissement des charges "
+"de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reins_exp"
+msgstr "reins_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 分保费用"
+msgstr "Compte de résultat des sociétés cotées - Charges de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reins_income"
+msgstr "reins_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其中:分保费收入"
+msgstr ""
+"Compte de résultat des sociétés cotées - comprenant : revenus de primes de "
+"réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reinsur_receiv"
+msgstr "reinsur_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保账款"
+msgstr "Bilan des sociétés cotées - créances de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reinsur_res_receiv"
+msgstr "reinsur_res_receiv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保合同准备金"
+msgstr ""
+"Bilan des sociétés cotées - réserves à recevoir sur contrats de réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reser_insur_liab"
+msgstr "reser_insur_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取保险责任准备金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Retrait des réserves de "
+"responsabilité d'assurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reser_lins_liab"
+msgstr "reser_lins_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 寿险责任准备金"
+msgstr "Bilans des sociétés cotées - Réserves au passif de l'assurance-vie"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reser_lthins_liab"
+msgstr "reser_lthins_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 长期健康险责任准备金"
+msgstr ""
+"Bilans des sociétés cotées - Réserves pour passif d'assurance maladie à long"
+" terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reser_outstd_claims"
+msgstr "reser_outstd_claims"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 未决赔款准备金"
+msgstr "Bilan des sociétés cotées - réserves pour créances impayées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "reser_une_prem"
+msgstr "reser_une_prem"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 未到期责任准备金"
+msgstr "Bilan des sociétés cotées - Réserves pour passifs non acquis"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "retained_earnings"
+msgstr "retained_earnings"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 留存收益"
+msgstr "Indicateurs financiers des sociétés cotées - Bénéfices non distribués"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "retainedps"
+msgstr "retainedps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股留存收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice non distribué par "
+"action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "revenue"
+msgstr "revenue"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业收入"
+msgstr "Compte de Résultat des Sociétés Cotées - Résultat Opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "revenue_ps"
+msgstr "revenue_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股营业收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel par "
+"action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roa"
+msgstr "roa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 总资产报酬率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement du total des actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roa2_yearly"
+msgstr "roa2_yearly"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 年化总资产报酬率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement annualisé du total "
+"des actifs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roa_dp"
+msgstr "roa_dp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 总资产净利率(杜邦分析)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - marge bénéficiaire nette sur le"
+" total du bilan (analyse DuPont)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roa_yearly"
+msgstr "roa_yearly"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 年化总资产净利率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux d'intérêt net annualisé "
+"sur le total du bilan"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe"
+msgstr "roe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产收益率"
+msgstr "Indicateurs financiers des sociétés cotées - rendement de l'actif net"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe_avg"
+msgstr "roe_avg"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 平均净资产收益率(增发条件)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement moyen de l'actif net "
+"(conditions d'émission complémentaire)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe_dt"
+msgstr "roe_dt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产收益率(扣除非经常损益)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement de l'actif net (hors "
+"gains et pertes extraordinaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe_waa"
+msgstr "roe_waa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 加权平均净资产收益率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement moyen pondéré des "
+"capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe_yearly"
+msgstr "roe_yearly"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 年化净资产收益率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement annualisé de l'actif "
+"net"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roe_yoy"
+msgstr "roe_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 净资产收益率(摊薄)同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance du rendement"
+" des capitaux propres (dilué) sur un an (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roic"
+msgstr "roic"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 投入资本回报率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - retour sur capital investi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "roic_yearly"
+msgstr "roic_yearly"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 年化投入资本回报率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - rendement annualisé du capital "
+"investi"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rr_reins_lins_liab"
+msgstr "rr_reins_lins_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保寿险责任准备金"
+msgstr ""
+"Bilan des sociétés cotées - réserves à recevoir au titre des passifs "
+"d'assurance vie en réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rr_reins_lthins_liab"
+msgstr "rr_reins_lthins_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保长期健康险责任准备金"
+msgstr ""
+"Bilan des sociétés cotées - Réserves à recevoir pour dettes d'assurance "
+"maladie à long terme à recevoir"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rr_reins_outstd_cla"
+msgstr "rr_reins_outstd_cla"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保未决赔款准备金"
+msgstr ""
+"Bilan des sociétés cotées - réserves pour sinistres à recevoir des "
+"assurances cédées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rr_reins_une_prem"
+msgstr "rr_reins_une_prem"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应收分保未到期责任准备金"
+msgstr ""
+"Bilan des sociétés cotées - Réserves de passif non échues pour créances de "
+"réassurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "rsrv_insur_cont"
+msgstr "rsrv_insur_cont"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 保险合同准备金"
+msgstr "Bilan des sociétés cotées - Réserves pour contrats d'assurance"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "saleexp_to_gr"
+msgstr "saleexp_to_gr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售费用/营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - frais commerciaux/résultat "
+"opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "salescash_to_or"
+msgstr "salescash_to_or"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 销售商品提供劳务收到的现金/营业收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - liquidités/revenus "
+"d'exploitation provenant de la vente de biens et de la prestation de "
+"services"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "sell_exp"
+msgstr "sell_exp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 减:销售费用"
+msgstr "Compte de résultat des sociétés cotées - moins : frais de vente"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "selling"
+msgstr "selling"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 内盘（主动卖，手）"
+msgstr ""
+"Indicateurs techniques boursiers - Marché intérieur (vente active, lots)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "sett_rsrv"
+msgstr "sett_rsrv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 结算备付金"
+msgstr "Bilan des sociétés cotées - Dispositions de règlement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "sold_for_repur_fa"
+msgstr "sold_for_repur_fa"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 卖出回购金融资产款"
+msgstr "Bilan des sociétés cotées - Actifs financiers vendus et rachetés"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "special_rese"
+msgstr "special_rese"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 专项储备"
+msgstr "Bilan des sociétés cotées - réserves spéciales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "specific_payables"
+msgstr "specific_payables"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 专项应付款"
+msgstr "Bilan des sociétés cotées - Comptes créditeurs spéciaux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "st_bonds_payable"
+msgstr "st_bonds_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付短期债券"
+msgstr "Bilan des sociétés cotées - obligations à court terme à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "st_borr"
+msgstr "st_borr"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 短期借款"
+msgstr "Bilan des sociétés cotées - emprunts à court terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "st_cash_out_act"
+msgstr "st_cash_out_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 经营活动现金流出小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - sous-total des sorties "
+"de trésorerie liées aux activités opérationnelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "st_fin_payable"
+msgstr "st_fin_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应付短期融资款"
+msgstr "Bilan des sociétés cotées - dettes de financement à court terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stot_cash_in_fnc_act"
+msgstr "stot_cash_in_fnc_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 筹资活动现金流入小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - sous-total des entrées "
+"de trésorerie liées aux activités de financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stot_cashout_fnc_act"
+msgstr "stot_cashout_fnc_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 筹资活动现金流出小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - sous-total des sorties "
+"de trésorerie liées aux activités de financement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stot_inflows_inv_act"
+msgstr "stot_inflows_inv_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 投资活动现金流入小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Sous-total des entrées "
+"de trésorerie liées aux activités d'investissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "stot_out_inv_act"
+msgstr "stot_out_inv_act"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 投资活动现金流出小计"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - sous-total des sorties "
+"de trésorerie liées aux activités d'investissement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "strength"
+msgstr "strength"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 强弱度(%)"
+msgstr "Indicateurs techniques boursiers - Force (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "surplus_rese"
+msgstr "surplus_rese"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 盈余公积金"
+msgstr "Bilan des sociétés cotées - Fonds de réserve excédentaire"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "surplus_rese_ps"
+msgstr "surplus_rese_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股盈余公积"
+msgstr "Indicateurs financiers des sociétés cotées - Résultat par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "swing"
+msgstr "swing"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 振幅"
+msgstr "Indicateur technique boursier – Amplitude"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "t_compr_income"
+msgstr "t_compr_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 综合收益总额"
+msgstr "Compte de résultat des sociétés cotées - Résultat global total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tangasset_to_intdebt"
+msgstr "tangasset_to_intdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 有形资产/带息债务"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - immobilisations "
+"corporelles/dettes portant intérêts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tangible_asset"
+msgstr "tangible_asset"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 有形资产"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - Immobilisations corporelles"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tangibleasset_to_debt"
+msgstr "tangibleasset_to_debt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 有形资产/负债合计"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - total actif/passif corporel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tangibleasset_to_netdebt"
+msgstr "tangibleasset_to_netdebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 有形资产/净债务"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - immobilisations "
+"corporelles/dette nette"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tax_to_ebt"
+msgstr "tax_to_ebt"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 所得税/利润总额"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - impôt sur le revenu/bénéfice "
+"total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "taxes_payable"
+msgstr "taxes_payable"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 应交税费"
+msgstr "Bilan des sociétés cotées - impôts à payer"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tbassets_to_totalassets"
+msgstr "tbassets_to_totalassets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 有形资产/总资产"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - immobilisations "
+"corporelles/actif total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "time_deposits"
+msgstr "time_deposits"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 定期存款"
+msgstr "Bilan des sociétés cotées - Dépôts à terme"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_assets"
+msgstr "total_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 资产总计"
+msgstr "Bilan des sociétés ouvertes - Actif total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_cogs"
+msgstr "total_cogs"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业总成本"
+msgstr ""
+"Compte de résultat des sociétés cotées - Total des coûts d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_cur_assets"
+msgstr "total_cur_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 流动资产合计"
+msgstr "Bilan des sociétés cotées - total actif circulant"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_cur_liab"
+msgstr "total_cur_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 流动负债合计"
+msgstr "Bilan des sociétés cotées - total du passif courant"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_fa_trun"
+msgstr "total_fa_trun"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 固定资产合计周转率"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de rotation du total des "
+"immobilisations"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_hldr_eqy_exc_min_int"
+msgstr "total_hldr_eqy_exc_min_int"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 股东权益合计(不含少数股东权益)"
+msgstr ""
+"Bilan des sociétés cotées - capitaux propres totaux (hors intérêts "
+"minoritaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_hldr_eqy_inc_min_int"
+msgstr "total_hldr_eqy_inc_min_int"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 股东权益合计(含少数股东权益)"
+msgstr ""
+"Bilan des sociétés cotées - capitaux propres totaux (y compris capitaux "
+"propres minoritaires)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_liab"
+msgstr "total_liab"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 负债合计"
+msgstr "Bilan des sociétés cotées - total du passif"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_liab_hldr_eqy"
+msgstr "total_liab_hldr_eqy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 负债及股东权益总计"
+msgstr "Bilan des sociétés cotées - total du passif et capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_mv"
+msgstr "total_mv"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 总市值 （万元）"
+msgstr ""
+"Indicateurs techniques boursiers - capitalisation boursière totale (10 000 "
+"yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 当日总市值（元）"
+msgstr ""
+"Indicateurs techniques de l'indice - valeur marchande totale du jour (yuan)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_mv_2"
+msgstr "total_mv_2"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 总市值(亿元)"
+msgstr ""
+"Indicateurs techniques boursiers - capitalisation boursière totale (100 "
+"millions de yuans)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_nca"
+msgstr "total_nca"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 非流动资产合计"
+msgstr "Bilan des sociétés cotées - total des actifs non courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_ncl"
+msgstr "total_ncl"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 非流动负债合计"
+msgstr "Bilan des sociétés cotées - Total des passifs non courants"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_opcost"
+msgstr "total_opcost"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业总成本（二）"
+msgstr ""
+"Compte de résultat des sociétés cotées - Total des charges d'exploitation "
+"(2)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_profit"
+msgstr "total_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 利润总额"
+msgstr "Compte de résultat des sociétés cotées - bénéfice total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_revenue"
+msgstr "total_revenue"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 营业总收入"
+msgstr "Compte de résultat des sociétés cotées - Résultat opérationnel total"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_revenue_ps"
+msgstr "total_revenue_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股营业总收入"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat opérationnel total par"
+" action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_share"
+msgstr "total_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 总股本 （万股）"
+msgstr ""
+"Indicateurs techniques boursiers - Capital social total (10 000 actions)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 当日总股本（股）"
+msgstr ""
+"Indicateurs techniques de l'indice – Total des capitaux propres (action) du "
+"jour"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 期末总股本"
+msgstr ""
+"Bilan des sociétés cotées - total des capitaux propres à la fin de la "
+"période"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "total_share_b"
+msgstr "total_share_b"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 总股本(亿)"
+msgstr ""
+"Indicateurs techniques boursiers - Capital social total (100 millions)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tp_last_year"
+msgstr "tp_last_year"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期利润总额"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice total pour la même "
+"période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "tr_yoy"
+msgstr "tr_yoy"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业总收入同比增长率(%)"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - taux de croissance sur un an du"
+" résultat opérationnel total (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "trad_asset"
+msgstr "trad_asset"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 交易性金融资产"
+msgstr "Bilan des sociétés cotées - négoce d'actifs financiers"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "trading_fl"
+msgstr "trading_fl"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 交易性金融负债"
+msgstr "Bilan des sociétés cotées - passifs financiers de transaction"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "transac_seat_fee"
+msgstr "transac_seat_fee"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 其中:交易席位费"
+msgstr ""
+"Bilan des sociétés cotées - comprenant : frais de siège de négociation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "transfer_housing_imprest"
+msgstr "transfer_housing_imprest"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 住房周转金转入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Transfert du fonds de roulement du "
+"logement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "transfer_oth"
+msgstr "transfer_oth"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 其他转入"
+msgstr "Compte de résultat des sociétés cotées - autres transferts"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "transfer_surplus_rese"
+msgstr "transfer_surplus_rese"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 盈余公积转入"
+msgstr ""
+"Compte de résultat des sociétés cotées - Transfert des réserves "
+"excédentaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "treasury_share"
+msgstr "treasury_share"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 减:库存股"
+msgstr "Bilan des sociétés cotées - moins : actions propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "turn_days"
+msgstr "turn_days"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营业周期"
+msgstr "Indicateurs financiers des sociétés cotées - cycle d'exploitation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "turn_over"
+msgstr "turn_over"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 换手率"
+msgstr "Indicateur technique boursier – Chiffre d’affaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "turnover_rate"
+msgstr "turnover_rate"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 换手率（%）"
+msgstr "Indicateurs techniques des stocks - taux de rotation (%)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 换手率"
+msgstr "Indicateur technique de l'indice - Chiffre d'affaires"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "turnover_rate_f"
+msgstr "turnover_rate_f"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 换手率（自由流通股）"
+msgstr ""
+"Indicateur technique des actions - Chiffre d'affaires (Flottant gratuit)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "指数技术指标 - 换手率(基于自由流通股本)"
+msgstr ""
+"Indicateur technique de l’indice – Chiffre d’affaires (basé sur les actions "
+"flottantes)"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "uncon_invest_loss"
+msgstr "uncon_invest_loss"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 未确认投资损失"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Pertes sur "
+"investissements non comptabilisées"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "undist_profit"
+msgstr "undist_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 年初未分配利润"
+msgstr ""
+"Compte de résultat des sociétés cotées - Bénéfice non distribué en début "
+"d'année"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "undist_profit_ps"
+msgstr "undist_profit_ps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 每股未分配利润"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - bénéfice non distribué par "
+"action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "undistr_porfit"
+msgstr "undistr_porfit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 未分配利润"
+msgstr "Bilan des sociétés cotées - Bénéfices non distribués"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "une_prem_reser"
+msgstr "une_prem_reser"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取未到期责任准备金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Retrait des réserves de passif non "
+"échues"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "use_right_asset_dep"
+msgstr "use_right_asset_dep"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司现金流量表 - 使用权资产折旧"
+msgstr ""
+"Tableau des flux de trésorerie des sociétés cotées - Amortissement des "
+"actifs au titre du droit d'utilisation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "use_right_assets"
+msgstr "use_right_assets"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司资产负债表 - 使用权资产"
+msgstr "Bilan des sociétés ouvertes - Actifs au titre du droit d'utilisation"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "valuechange_income"
+msgstr "valuechange_income"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 价值变动净收益"
+msgstr ""
+"Indicateurs financiers des sociétés cotées - résultat net des variations de "
+"valeur"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "vol_ratio"
+msgstr "vol_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "股票技术指标 - 量比"
+msgstr "Indicateurs techniques boursiers - Ratio de volume"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "volume_ratio"
+msgstr "volume_ratio"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "withdra_biz_devfund"
+msgstr "withdra_biz_devfund"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取企业发展基金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Retrait du fonds de développement "
+"des entreprises"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "withdra_legal_pubfund"
+msgstr "withdra_legal_pubfund"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取法定公益金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Retrait du fonds statutaire de "
+"protection sociale"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "withdra_legal_surplus"
+msgstr "withdra_legal_surplus"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取法定盈余公积"
+msgstr ""
+"Compte de résultat des sociétés cotées - Suppression de la réserve légale "
+"sur le résultat"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "withdra_oth_ersu"
+msgstr "withdra_oth_ersu"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取任意盈余公积金"
+msgstr ""
+"Compte de résultat des sociétés cotées - Retrait du fonds de réserve "
+"discrétionnaire pour les excédents"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "withdra_rese_fund"
+msgstr "withdra_rese_fund"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 提取储备基金"
+msgstr "Compte de résultat des sociétés cotées - Retrait du fonds de réserve"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "workers_welfare"
+msgstr "workers_welfare"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司利润表 - 职工奖金福利"
+msgstr "Compte de résultat des sociétés cotées - primes et avantages sociaux"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "working_capital"
+msgstr "working_capital"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司财务指标 - 营运资金"
+msgstr "Indicateurs financiers des sociétés cotées - fonds de roulement"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_dedu_np"
+msgstr "yoy_dedu_np"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增长率:归属母公司股东的净利润"
+msgstr ""
+"Rapport de performance des sociétés cotées - taux de croissance sur un an : "
+"bénéfice net attribuable aux actionnaires de la société mère"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_eps"
+msgstr "yoy_eps"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增长率:基本每股收益"
+msgstr ""
+"Rapport de performance des sociétés cotées - taux de croissance sur un an : "
+"bénéfice de base par action"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_equity"
+msgstr "yoy_equity"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 比年初增长率:归属母公司的股东权益"
+msgstr ""
+"Rapport de performance des sociétés cotées - Taux de croissance par rapport "
+"au début de l'année : Capitaux propres part du groupe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_net_profit"
+msgstr "yoy_net_profit"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 去年同期修正后净利润"
+msgstr ""
+"Rapport de performance des sociétés cotées - bénéfice net révisé pour la "
+"même période de l'année dernière"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_op"
+msgstr "yoy_op"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增长率:营业利润"
+msgstr ""
+"Rapport de performance des sociétés cotées - taux de croissance sur un an : "
+"résultat opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_roe"
+msgstr "yoy_roe"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增减:加权平均净资产收益率"
+msgstr ""
+"Rapport de performance des sociétés cotées - augmentation ou diminution "
+"d'une année sur l'autre : rendement moyen pondéré des capitaux propres"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_sales"
+msgstr "yoy_sales"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增长率:营业收入"
+msgstr ""
+"Rapport de performance des sociétés cotées - taux de croissance sur un an : "
+"résultat opérationnel"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "yoy_tp"
+msgstr "yoy_tp"
+
+#: ../../source/references/datatypes/_generated/valuation.md
+msgid "上市公司业绩快报 - 同比增长率:利润总额"
+msgstr ""
+"Rapport de performance des sociétés cotées - taux de croissance d'une année "
+"sur l'autre : bénéfice total"

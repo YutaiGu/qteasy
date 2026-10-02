@@ -1,0 +1,83 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/1. overview.md:1
+msgid "交易策略优化总览"
+msgstr "交易策略優化總覽"
+
+#: ../../source/optimization/1. overview.md:3
+msgid "优化旨在在参数空间中寻找使目标函数更优（如夏普最大化）的参数组合；本质是多次回测加目标函数比较。"
+msgstr "優化旨在在參數空間中尋找使目標函數更優（如夏普最大化）的參數組合；本質是多次回測加目標函數比較。"
+
+#: ../../source/optimization/1. overview.md:5
+msgid "总体介绍"
+msgstr "總體介紹"
+
+#: ../../source/optimization/1. overview.md:7
+msgid "**目的**：在策略可调参数范围内，通过搜索或优化算法找到表现更好的参数（如均线周期、阈值等）。"
+msgstr "**目的**：在策略可調參數範圍內，通過搜索或優化算法找到表現更好的參數（如均線週期、閾值等）。"
+
+#: ../../source/optimization/1. overview.md:8
+msgid "**与回测的关系**：优化 = 多次回测（每次一组参数）+ 按目标函数（如夏普、回撤）比较并排序，选出最优或 Top-K 组。"
+msgstr "**與回測的關係**：優化 = 多次回測（每次一組參數）+ 按目標函數（如夏普、回撤）比較並排序，選出最優或 Top-K 組。"
+
+#: ../../source/optimization/1. overview.md:10
+msgid "优化流程概览"
+msgstr "優化流程概覽"
+
+#: ../../source/optimization/1. overview.md:12
+msgid "**设定参数空间与目标**：策略的 Parameter 与 par_range 定义搜索空间；目标函数由配置指定（如夏普最大化）。"
+msgstr "**設定參數空間與目標**：策略的 Parameter 與 par_range 定義搜索空間；目標函數由配置指定（如夏普最大化）。"
+
+#: ../../source/optimization/1. overview.md:13
+msgid "**选择优化算法**：opti_method 可选 grid、montecarlo、GA、SA、PSO、bayesian 等。"
+msgstr "**選擇優化算法**：opti_method 可選 grid、montecarlo、GA、SA、PSO、bayesian 等。"
+
+#: ../../source/optimization/1. overview.md:14
+msgid "**qt.run(mode=2)**：运行策略优化。"
+msgstr "**qt.run(mode=2)**：運行策略優化。"
+
+#: ../../source/optimization/1. overview.md:15
+msgid "**获取结果与最优参数**：从返回对象中读取最优参数组合及 Top-K 结果。"
+msgstr "**獲取結果與最優參數**：從返回對象中讀取最優參數組合及 Top-K 結果。"
+
+#: ../../source/optimization/1. overview.md:17
+msgid "本目录各章导航"
+msgstr "本目錄各章導航"
+
+#: ../../source/optimization/1. overview.md:19
+msgid "**2. 如何运行策略优化** — 入口、优化算法与运行参数列表、参数空间、最小示例。"
+msgstr "**2. 如何運行策略優化** — 入口、優化算法與運行參數列表、參數空間、最小示例。"
+
+#: ../../source/optimization/1. overview.md:20
+msgid "**3. 优化算法的区别与使用情境** — 各算法对比与选择建议。"
+msgstr "**3. 優化算法的區別與使用情境** — 各算法對比與選擇建議。"
+
+#: ../../source/optimization/1. overview.md:21
+msgid "**4. 优化结果的结构与读取** — 返回值、结果字段、读取最优与 Top-K。"
+msgstr "**4. 優化結果的結構與讀取** — 返回值、結果字段、讀取最優與 Top-K。"
+
+#: ../../source/optimization/1. overview.md:22
+msgid "**5. 优化结果的分析与使用** — 结果分析、目标函数与约束、将最优参数写回策略、注意事项。"
+msgstr "**5. 優化結果的分析與使用** — 結果分析、目標函數與約束、將最優參數寫回策略、注意事項。"
+
+#: ../../source/optimization/1. overview.md:24
+msgid "更多算法细节见《优化交易策略》references（如 references/5-optimize-strategy.md）。"
+msgstr "更多算法細節見《優化交易策略》references（如 references/5-optimize-strategy.md）。"

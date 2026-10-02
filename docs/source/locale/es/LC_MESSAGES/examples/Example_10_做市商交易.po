@@ -3,65 +3,77 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.5\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_10_做市商交易.md:1
 msgid "做市商交易策略（教学近似版）"
-msgstr ""
+msgstr "Estrategias comerciales de creadores de mercado (versión tutorial)"
 
 #: ../../source/examples/Example_10_做市商交易.md:3
 msgid ""
-"参考来源：`docs/_joinquant_migration_source/Example_10_做市商交易.ipynb` 第一个 "
-"Markdown cell。"
+"参考来源：`docs/_joinquant_migration_source/Example_10_做市商交易.ipynb` 第一个 Markdown "
+"cell。"
 msgstr ""
+"Fuente de referencia: `docs/_joinquant_migration_source/Example_10_Market "
+"Maker Trading.ipynb` Primera celda de Markdown."
 
 #: ../../source/examples/Example_10_做市商交易.md:5
 msgid "策略思路"
-msgstr ""
+msgstr "Estrategia e ideas"
 
 #: ../../source/examples/Example_10_做市商交易.md:7
 msgid "真实做市策略依赖逐笔盘口、挂撤单队列和成交优先级；"
 msgstr ""
+"Las estrategias reales de creación de mercado se basan en la cartera de "
+"pedidos tick por tick, las colas de pedidos y la prioridad de los pedidos."
 
 #: ../../source/examples/Example_10_做市商交易.md:8
 msgid "qteasy 回测层是 Bar 级撮合抽象，本示例以“均值回归双边挂单”近似做市行为；"
 msgstr ""
+"La capa de backtesting qteasy es una abstracción de coincidencia a nivel de "
+"barra. Este ejemplo se aproxima al comportamiento de creación de mercado con"
+" \"colocación de órdenes bilaterales de regresión media\"."
 
 #: ../../source/examples/Example_10_做市商交易.md:9
 msgid "当价格偏离均值上轨时卖出，偏离下轨时买入，中间区域观望。"
 msgstr ""
+"Venda cuando el precio se desvíe de la banda superior del promedio, compre "
+"cuando se desvíe de la banda inferior y observe en el rango medio."
 
 #: ../../source/examples/Example_10_做市商交易.md:11
 msgid "诚实说明"
-msgstr ""
+msgstr "Honestidad"
 
 #: ../../source/examples/Example_10_做市商交易.md:13
 msgid "本示例不是交易所级别的真实做市仿真；"
 msgstr ""
+"Este ejemplo no es una simulación real de creación de mercado a nivel "
+"cambiario;"
 
 #: ../../source/examples/Example_10_做市商交易.md:14
 msgid "仅用于讲解 qteasy 在高频风格场景下的 `VS` 信号和 stepwise 回测流程。"
 msgstr ""
+"Esto solo pretende explicar la señal `VS` y el proceso de prueba "
+"retrospectiva paso a paso de qteasy en escenarios de estilo de alta "
+"frecuencia."
 
 #: ../../source/examples/Example_10_做市商交易.md:39
 msgid "可执行脚本"
-msgstr ""
+msgstr "Script ejecutable"
 
 #: ../../source/examples/Example_10_做市商交易.md:41
 msgid "`examples/strategy_example_10.py`"
-msgstr ""
-
+msgstr "`examples/strategy_example_10.py`"

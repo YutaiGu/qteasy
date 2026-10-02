@@ -34,7 +34,7 @@
 
  - ✅ 从tushare获取历史数据和实时数据
  - ✅ 从东方财经  ``eastmoney`` 获取历史数据和实时数据
- - ⬜ 从 ``akshare`` 获取数据
+ - ✅ 从 ``akshare`` 获取历史与实时数据（25 张表 + 实时，详见数据通道文档与 ``tests/akshare_data_test_checklist.md``）
  - ⬜ 从 ``baostock`` 获取数据
  - ⬜ 从 ``joinquant`` 获取数据
 
@@ -104,4 +104,14 @@
 - ✅ 提供模拟交易或实盘交易的图形化用户界面
 - ⬜ 产生交易信号后通过邮件/微信等方式发送通知
 
+
+可选扩展
+--------------
+
+- ✅ AI 自然语言编排外壳（**独立项目** `qteasy-ai <https://github.com/shepherdpp/qteasy-ai>`_，PyPI：``qteasy-ai``；依赖 qteasy 内核 API，不随 qteasy 版本发布）
+
+  - Ask / Plan / Agent 模式、安全边界与 ``preview`` 迁移见 qteasy-ai `docs/USER_GUIDE.md <https://github.com/shepherdpp/qteasy-ai/blob/main/docs/USER_GUIDE.md>`_
+  - Ask 只解释 qteasy 概念（如 PT/PS/VS），不替代回测引擎；落盘与计算仍经 qteasy API
+  - StrategyBuilder（Q-AI.4）已关单；边界见同仓 ``USER_GUIDE.md`` §6 与 `LIVE_FIRE_DRILL_QAI4.md <https://github.com/shepherdpp/qteasy-ai/blob/main/docs/LIVE_FIRE_DRILL_QAI4.md>`_
+  - 阶段 E（Q-AI.5）与阶段 F（Q-AI.6）实弹已关单；阶段 G（Q-AI.7）工作台**雏形**已交（Web + 最小 TUI）；**1.0** 标签待工作台可用性与开放环操作面齐备后发布
 

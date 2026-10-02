@@ -9,6 +9,7 @@
 # ======================================
 
 import argparse
+import ast
 import re
 import shutil
 import sys, os
@@ -17,7 +18,7 @@ import warnings
 import numpy as np
 import pandas as pd
 
-from typing import Union
+from typing import Literal, Mapping, Optional, Union, Any
 
 from numba import njit
 from functools import wraps, lru_cache
@@ -276,6 +277,86 @@ def next_main_freq(freq, direction='up'):
             return target_freq
 
 
+# hist 下载 retry 装饰器：命中后立即失败（与 2.6 前 str(e) 子串判断等价）
+_RETRY_IMMEDIATE_FAIL_MARKERS = (
+    '没有访问该接口的权限',
+    '权限',
+    '最多访问该接口',
+)
+
+# 通道全量测试等场景：权限/频次/积分类（在 message blob 上匹配）
+_DOWNLOAD_PERMISSION_MARKERS = _RETRY_IMMEDIATE_FAIL_MARKERS + (
+    '频率超限',
+    '频次超限',
+    '积分不足',
+    '没有权限',
+    'permission denied',
+    'insufficient privilege',
+)
+
+# 公网 HTTP 连接/代理/对端关闭等（主要在 eastmoney 测试跳过中使用）
+_DOWNLOAD_TRANSIENT_HTTP_MARKERS = (
+    'eastmoney k-line http request failed',
+    'eastmoney realtime quote http request failed',
+    'connection aborted',
+    'remotedisconnected',
+    'remote end closed connection without response',
+    'max retries exceeded',
+    'unable to connect to proxy',
+    'proxyerror',
+)
+
+DownloadErrorKind = Literal['permission', 'transient_http', 'other']
+
+
+def download_error_message_blob(exc: BaseException) -> str:
+    """合并异常及其 __cause__ 链上的文本（小写），便于匹配包装后的 requests 错误。"""
+    parts = [str(exc), repr(exc)]
+    cause = exc.__cause__
+    while cause is not None:
+        parts.append(str(cause))
+        parts.append(repr(cause))
+        cause = cause.__cause__
+    return ' '.join(parts).lower()
+
+
+def _download_markers_in_text(text: str, markers: tuple[str, ...]) -> bool:
+    text_lower = text.lower()
+    return any(marker.lower() in text_lower for marker in markers)
+
+
+def download_error_should_not_retry(exc: BaseException) -> bool:
+    """历史数据 acquire_data 的 retry 装饰器是否应立即放弃（不重试）。"""
+    return _download_markers_in_text(str(exc), _RETRY_IMMEDIATE_FAIL_MARKERS)
+
+
+def classify_download_error(
+        exc: BaseException,
+        channel: Optional[str] = None,
+) -> DownloadErrorKind:
+    """将下载异常归类为权限类、公网瞬时 HTTP 类或其它。
+
+    Parameters
+    ----------
+    exc : BaseException
+        异常或用于承载日志文案的伪异常（如 ``Exception(log_message)``）。
+    channel : str, optional
+        数据通道名；保留供后续按通道细分，当前分类仅依赖文案。
+
+    Returns
+    -------
+    DownloadErrorKind
+        ``permission``、``transient_http`` 或 ``other``。
+    """
+    del channel  # 预留扩展，避免未使用参数告警
+    blob = download_error_message_blob(exc)
+    if _download_markers_in_text(blob, _DOWNLOAD_PERMISSION_MARKERS):
+        return 'permission'
+    if _download_markers_in_text(blob, _DOWNLOAD_TRANSIENT_HTTP_MARKERS):
+        return 'transient_http'
+    return 'other'
+
+
 def retry(exception_to_check, tries=3, delay=1., backoff=2., mute=False, logger=None):
     """一个装饰器，当被装饰的函数抛出异常时，反复重试直至次数耗尽，重试前等待并延长等待时间.
 
@@ -305,8 +386,7 @@ def retry(exception_to_check, tries=3, delay=1., backoff=2., mute=False, logger=
                     return f(*args, **kwargs)
                 except exception_to_check as e:
                     exception_to_escape = [ValueError, TypeError, AttributeError, FileNotFoundError, PermissionError, ]
-                    error_str = str(e)
-                    if ('没有访问该接口的权限' in error_str) or ('权限' in error_str) or ('最多访问该接口' in error_str):
+                    if download_error_should_not_retry(e):
                         raise e
                     if e.__class__ in exception_to_escape:
                         raise e
@@ -679,22 +759,32 @@ def input_to_list(pars, dim=None, padder=None):
 
 
 def regulate_date_format(date_str: Union[str, object],
-                         force_format: str = None) -> str:
-    """ 把YY-MM-DD或YYYY/MM/DD等各种格式的纯日期转化为YYYY-MM-DD格式
-        将日期时间字符串转化为YYYY-MM-DD HH:MM:SS格式
+                         force_format: str = None,
+                         boundary_mode: bool = False) -> str:
+    """把多种日期输入规范为指定 strftime 格式的字符串。
+
+    默认（``boundary_mode=False``）保持历史宽松语义：交由 ``pd.to_datetime`` 解析
+    斜杠、横杠、紧凑数字等多种字符串及 ``datetime`` / ``Timestamp`` 等对象。
+
+    ``boundary_mode=True`` 用于数据下载边界日期：仅接受 8 位 ``YYYYMMDD`` 字符串或
+    日历类型（``date`` / ``datetime`` / ``Timestamp`` / ``datetime64``），拒绝裸
+    ``int``/``float``、``None`` 及无法按边界规则解析的字符串。
 
     Parameters
     ----------
-    date_str: str, date time like
-        时间日期字符串
-    force_format: str, optional
-        强制使用某种格式输出，默认None, 可选'date': '%Y-%m-%d' 或 'datetime': '%Y-%m-%d %H:%M:%S'
-        或者其他给出的合法的strftime格式字符串
+    date_str : str or object
+        待规范化的日期或时间。
+    force_format : str, optional
+        强制输出格式；``None`` 时按是否含时分秒选择 ``%Y-%m-%d`` 或
+        ``%Y-%m-%d %H:%M:%S``；亦可为 ``'date'``、``'datetime'`` 或其它合法
+        ``strftime`` 格式（如 ``'%Y%m%d'``）。
+    boundary_mode : bool, default False
+        是否启用下载边界日期的严格输入规则。
 
     Returns
     -------
-    date_time: str
-    格式为'%Y-%m-%d' 或 '%Y-%m-%d %H:%M:%S'
+    str
+        按 ``force_format``（或默认规则）格式化后的日期时间字符串。
 
     Examples
     --------
@@ -705,23 +795,50 @@ def regulate_date_format(date_str: Union[str, object],
     >>> regulate_date_format('2023-08-01 11:22:33')
     '2023-08-01 11:22:33'
     """
-    try:
-        date_time = pd.to_datetime(date_str)
-    except Exception as e:
-        raise ValueError(f'{e}: {date_str} is not a valid date-time')
-    from datetime import time
+    from datetime import date as dt_date, datetime as dt_datetime, time
+
     if force_format is None:
-        if date_time.time() == time.min:  # if datetime.time() == datetime.time(0, 0)
-            str_format = '%Y-%m-%d'
-        else:
-            str_format = '%Y-%m-%d %H:%M:%S'
+        str_format = None
+    elif force_format == 'date':
+        str_format = '%Y-%m-%d'
+    elif force_format == 'datetime':
+        str_format = '%Y-%m-%d %H:%M:%S'
     else:
-        if force_format == 'date':
-            str_format = '%Y-%m-%d'
-        elif force_format == 'datetime':
-            str_format = '%Y-%m-%d %H:%M:%S'
+        str_format = force_format
+
+    if boundary_mode:
+        if date_str is None:
+            raise TypeError('date value must not be None')
+        if isinstance(date_str, (int, float)):
+            raise TypeError(
+                f'expected str or calendar date, got {type(date_str).__name__}'
+            )
+        if isinstance(date_str, str):
+            text = date_str.strip()
+            if len(text) != 8 or not text.isdigit():
+                raise ValueError(f'Invalid date {date_str!r}: expected YYYYMMDD')
+            date_time = pd.to_datetime(text, format='%Y%m%d', errors='coerce')
+            if pd.isna(date_time):
+                raise ValueError(
+                    f'Invalid date {date_str!r}: not a valid calendar date'
+                )
+        elif isinstance(date_str, (dt_date, dt_datetime, pd.Timestamp, np.datetime64)):
+            date_time = pd.Timestamp(date_str)
         else:
-            str_format = force_format
+            raise TypeError(
+                f'expected str or calendar date, got {type(date_str).__name__}'
+            )
+    else:
+        try:
+            date_time = pd.to_datetime(date_str)
+        except Exception as e:
+            raise ValueError(f'{e}: {date_str} is not a valid date-time')
+
+    if str_format is None:
+        if date_time.time() == time.min:
+            str_format = '%Y-%m-%d'
+        else:
+            str_format = '%Y-%m-%d %H:%M:%S'
 
     return date_time.strftime(str_format)
 
@@ -1558,6 +1675,8 @@ def _lev_ratio(s, t):
 
     s = s.lower()
     t = t.lower()
+    if len(s) == 0 or len(t) == 0:
+        return 0.0
     # Initialize matrix of zeros
     rows = len(s) + 1
     cols = len(t) + 1
@@ -1704,6 +1823,140 @@ def ffill_3d_data(arr, init_val=0.):
     return arr
 
 
+def bfill_3d_data(arr: np.ndarray, init_val: float = np.nan) -> np.ndarray:
+    """沿时间轴（axis=1）后向填充三维数组中的 NaN。
+
+    用后方最近的有效值填充缺失；若末行仍为 NaN，则使用 ``init_val``。
+    实现为时间轴翻转后调用 :func:`ffill_3d_data` 再翻回。
+    与 ``ffill_3d_data`` 一样会修改并返回传入的 ``arr``。
+    典型调用方：``HistoryPanel.bfill``。
+
+    Parameters
+    ----------
+    arr : np.ndarray
+        形状 ``(levels, rows, columns)`` 的三维数组。
+    init_val : float, default np.nan
+        末行仍缺失时的填充值。
+
+    Returns
+    -------
+    np.ndarray
+        填充后的同一数组对象。
+
+    Examples
+    --------
+    >>> a = np.array([[[np.nan], [np.nan], [3.0]]])
+    >>> bfill_3d_data(a.copy())
+    array([[[3.],
+            [3.],
+            [3.]]])
+    """
+    arr = np.asarray(arr, dtype=float)
+    flipped = np.ascontiguousarray(arr[:, ::-1, :])
+    ffill_3d_data(flipped, init_val)
+    arr[:, :, :] = flipped[:, ::-1, :]
+    return arr
+
+
+def eval_htype_arithmetic_expr(
+        expression: str,
+        columns: Mapping[str, np.ndarray],
+) -> np.ndarray:
+    """安全求值「列名算术」表达式，仅允许白名单 AST 节点。
+
+    允许：列名标识符、``+ - * / **``、一元正负号、括号、int/float 字面量。
+    禁止：函数调用、属性、下标、导入、比较/布尔以及任意 ``eval``/numexpr。
+    典型调用方：``HistoryPanel.expr``。
+
+    Parameters
+    ----------
+    expression : str
+        算术表达式字符串，如 ``'(high + low) / 2'``。
+    columns : mapping of str to ndarray
+        列名到数组的映射（通常为 ``(M, L)`` float 数组）。
+
+    Returns
+    -------
+    np.ndarray
+        表达式结果（dtype float）；形状与参与运算的列数组广播结果一致。
+
+    Raises
+    ------
+    ValueError
+        语法错误、不支持的语法节点、或未知列名时抛出（英文消息）。
+
+    Examples
+    --------
+    >>> cols = {'high': np.array([[4., 6.]]), 'low': np.array([[2., 4.]])}
+    >>> eval_htype_arithmetic_expr('(high + low) / 2', cols)
+    array([[3., 5.]])
+    """
+    if not isinstance(expression, str):
+        raise ValueError(
+            f'expression must be a str, got {type(expression).__name__}'
+        )
+    try:
+        tree = ast.parse(expression, mode='eval')
+    except SyntaxError as e:
+        raise ValueError(f'invalid expression syntax: {e.msg}') from e
+
+    def _eval_node(node: ast.AST) -> Any:
+        if isinstance(node, ast.Expression):
+            return _eval_node(node.body)
+        if isinstance(node, ast.BinOp):
+            left = _eval_node(node.left)
+            right = _eval_node(node.right)
+            op = node.op
+            with np.errstate(divide='ignore', invalid='ignore'):
+                if isinstance(op, ast.Add):
+                    return left + right
+                if isinstance(op, ast.Sub):
+                    return left - right
+                if isinstance(op, ast.Mult):
+                    return left * right
+                if isinstance(op, ast.Div):
+                    return left / right
+                if isinstance(op, ast.Pow):
+                    return left ** right
+            raise ValueError(
+                f'unsupported binary operator: {type(op).__name__}'
+            )
+        if isinstance(node, ast.UnaryOp):
+            operand = _eval_node(node.operand)
+            if isinstance(node.op, ast.UAdd):
+                return +operand
+            if isinstance(node.op, ast.USub):
+                return -operand
+            raise ValueError(
+                f'unsupported unary operator: {type(node.op).__name__}'
+            )
+        if isinstance(node, ast.Name):
+            name = node.id
+            if name not in columns:
+                raise ValueError(
+                    f'unknown column {name!r} in expression; '
+                    'only existing identifier htypes are allowed '
+                    '(use assign() for non-identifier column names)'
+                )
+            return np.asarray(columns[name], dtype=float)
+        if isinstance(node, ast.Constant):
+            val = node.value
+            if isinstance(val, bool) or not isinstance(val, (int, float)):
+                raise ValueError(
+                    f'unsupported literal type: {type(val).__name__}'
+                )
+            return float(val)
+        # py3.9 仍可能见到已弃用的 Num（兼容）
+        if hasattr(ast, 'Num') and isinstance(node, ast.Num):  # type: ignore[attr-defined]
+            return float(node.n)  # type: ignore[attr-defined]
+        raise ValueError(
+            f'unsupported syntax: {type(node).__name__}'
+        )
+
+    result = _eval_node(tree)
+    return np.asarray(result, dtype=float)
+
+
 @njit()
 def ffill_2d_data(arr, init_val=0.):
     """ 给定一个二维np数组，如果数组中有nan值时，使用axis=0的前一个非Nan值填充Nan
@@ -1738,6 +1991,62 @@ def ffill_2d_data(arr, init_val=0.):
         r0 = r_c
         arr[i, :] = r_c
     return arr
+
+
+def shift_ndarray(
+        arr: np.ndarray,
+        periods: int,
+        *,
+        axis: int = 1,
+        fill_value: float = np.nan,
+) -> np.ndarray:
+    """沿指定轴拷贝位移数组，空出位置填充 ``fill_value``。
+
+    正 ``periods`` 将数据向轴正方向推移（靠前位置留空），与 pandas ``shift`` 一致。
+    典型调用方：``HistoryPanel.shift`` / ``diff`` / ``pct_change``（沿 hdates 轴，默认 ``axis=1``）。
+
+    Parameters
+    ----------
+    arr : np.ndarray
+        输入数组；本函数不修改原数组。
+    periods : int
+        位移步数；可为负。``|periods| >=`` 该轴长度时，结果整轴为 ``fill_value``。
+    axis : int, default 1
+        位移所沿的轴。
+    fill_value : float, default np.nan
+        空位填充值。
+
+    Returns
+    -------
+    np.ndarray
+        与 ``arr`` 同形的新数组（dtype 为 float）。
+
+    Examples
+    --------
+    >>> a = np.arange(6, dtype=float).reshape(2, 3)
+    >>> shift_ndarray(a, 1, axis=1)
+    array([[nan,  0.,  1.],
+           [nan,  3.,  4.]])
+    """
+    arr = np.asarray(arr)
+    n = arr.shape[axis]
+    out = np.full(arr.shape, fill_value, dtype=float)
+    if periods == 0:
+        out[...] = arr
+        return out
+    if abs(periods) >= n:
+        return out
+    src = [slice(None)] * arr.ndim
+    dst = [slice(None)] * arr.ndim
+    if periods > 0:
+        dst[axis] = slice(periods, None)
+        src[axis] = slice(0, n - periods)
+    else:
+        p = -periods
+        dst[axis] = slice(0, n - p)
+        src[axis] = slice(p, None)
+    out[tuple(dst)] = arr[tuple(src)]
+    return out
 
 
 @njit()

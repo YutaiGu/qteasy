@@ -1,0 +1,282 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/00-overview.md:1
+msgid "qteasy 总体架构与设计思路"
+msgstr "qteasy 全体的なアーキテクチャと設計アプローチ"
+
+#: ../../source/design/00-overview.md:3
+msgid "1. 引言：为什么需要从“架构”理解 qteasy"
+msgstr "1. はじめに: qteasy を「アーキテクチャ」の観点から理解する必要がある理由"
+
+#: ../../source/design/00-overview.md:5
+msgid ""
+"qteasy 是一套本地化、可复现的量化交易工具包。在使用教程和 API "
+"文档之外，若能从**系统架构**和**设计思路**理解各模块如何分层、如何协作，可以更准确地使用接口、排查问题，并在扩展自定义策略或数据时少走弯路。本章从整体上概括"
+" qteasy 的架构与三条设计主线，后续各章再分模块展开。"
+msgstr ""
+"qteasy は、ローカライズされた再現可能な定量取引ツールキットです。ユーザー ガイドや API ドキュメントを超えて、**システム "
+"アーキテクチャ** と **設計理論的根拠** "
+"の観点からモジュールがどのように階層化され、連携するかを理解することは、インターフェイスをより正確に使用し、問題をトラブルシューティングし、カスタム戦略やデータを拡張する際の迂回路を回避するのに役立ちます。この章では、qteasy"
+" のアーキテクチャと 3 つの主要な設計スレッドの全体的な概要を説明します。後続の章では各モジュールについて詳しく説明します。"
+
+#: ../../source/design/00-overview.md:7
+msgid "2. 三条设计主线（简述）"
+msgstr "2. 3 つの主要な設計スレッド (概要)"
+
+#: ../../source/design/00-overview.md:9
+msgid "2.1 数据：从“原始表”到“类型化信息”（DataType）"
+msgstr "2.1 データ: 「生のテーブル」から「型付き情報」へ (DataType)"
+
+#: ../../source/design/00-overview.md:11
+msgid ""
+"原始行情、财务等数据经拉取与清洗后，以统一表结构存入 **DataSource**（文件或数据库）。qteasy "
+"并不让策略直接读写这些表，而是把“可被策略使用的信息”抽象成 **DataType**（由 name、freq、asset_type 等构成，对应唯一的"
+" **dtype_id**）。策略只**声明**自己需要哪些 DataType 以及多长的历史窗口（window_length），运行时由引擎按声明从 "
+"DataSource "
+"取出数据、整理成**数据窗口**并注入策略。这样做的目的包括：回测与实盘使用同一套数据视图、策略接口统一、从机制上避免“未来函数”（策略只能看到引擎按时间步注入的过去数据）。"
+msgstr ""
+"生の市場データ、財務データ、およびその他のデータが取得されてクリーンアップされた後、統合されたテーブル スキーマを使用して **DataSource**"
+" (ファイルまたはデータベース) に保存されます。 qteasy "
+"では、ストラテジーがこれらのテーブルを直接読み書きすることはできません。代わりに、「戦略で使用できる情報」を **DataType** (一意の "
+"**dtype_id** に対応する名前、頻度、資産タイプなどで構成される) に抽象化します。戦略は、必要な DataType と必要な履歴ウィンドウ "
+"(window_length) の長さを**宣言**するだけです。実行時に、エンジンは宣言に従って DataSource からデータを取得し、**データ"
+" "
+"ウィンドウ**に編成して、ストラテジに挿入します。その目的には、バックテストとライブ取引に同じデータビューを使用すること、ストラテジーインターフェイスを統合すること、メカニズムレベルでの「先読みバイアス」を防止することが含まれます（ストラテジーは各タイムステップでエンジンによって注入された過去のデータのみを確認できます）。"
+
+#: ../../source/design/00-overview.md:13
+msgid "2.2 策略：四大要素与统一的 realize()"
+msgstr "2.2 戦略: 4 つの主要な要素と統合された Realize()"
+
+#: ../../source/design/00-overview.md:15
+msgid "一个策略在概念上包含四类要素："
+msgstr "概念的には、戦略には 4 つのカテゴリの要素が含まれます。"
+
+#: ../../source/design/00-overview.md:17
+msgid ""
+"**运行时机**：何时、以何频率运行（如每日收盘）——在 qteasy 2.0 中由策略所属的 **Group** 管理，不在策略类内部写死。"
+msgstr ""
+"**実行タイミング**: 実行するタイミングと頻度 (例: 毎日の市場終了時) — qteasy 2.0 では、これはストラテジー "
+"クラス内にハードコーディングされず、ストラテジーの **グループ** によって管理されます。"
+
+#: ../../source/design/00-overview.md:18
+msgid "**所需数据**：需要哪些 DataType、多长窗口（data_types、window_length 等），在策略初始化时声明。"
+msgstr ""
+"**必須データ**: 必要な DataType、ウィンドウの長さ (data_types、window_length "
+"など)。ストラテジの初期化中に宣言されます。"
+
+#: ../../source/design/00-overview.md:19
+msgid ""
+"**可调参数**：由 **Parameter** 定义，运行前通过 `set_parameter` 等设置，优化时由 Optimizer "
+"在参数空间中搜索。"
+msgstr ""
+"**調整可能なパラメーター**: **パラメーター** によって定義され、`set_parameter` "
+"などを介して実行前に設定されます。最適化中に、オプティマイザーはパラメーター空間を検索します。"
+
+#: ../../source/design/00-overview.md:20
+msgid ""
+"**逻辑**：通过无参的 **realize()** 实现；在方法内通过 `get_pars()`、`get_data(dtype_id)` "
+"获取当前步的参数与数据，计算并返回交易信号。"
+msgstr ""
+"**ロジック**: パラメーターなしの **realize()** によって実装されます。メソッド内で、`get_pars()` と "
+"`get_data(dtype_id)` を使用して現在のステップのパラメーターとデータを取得し、取引シグナルを計算して返します。"
+
+#: ../../source/design/00-overview.md:22
+msgid "同一段 `realize()` 在回测与实盘中复用，保证行为一致。"
+msgstr "一貫した動作を保証するために、同じ `realize()` がバックテストとライブ取引の両方で再利用されます。"
+
+#: ../../source/design/00-overview.md:24
+msgid "2.3 运行：Operator 与 Group、按时间步驱动、统一 run(config)"
+msgstr "2.3 実行: Operator とグループ、タイムステップによる駆動、統合された run(config)"
+
+#: ../../source/design/00-overview.md:26
+msgid ""
+"**Operator** 既是策略的容器，也是运行的入口：它持有多个 **Group**，每个 Group 是一组具有相同 "
+"**run_freq**、**run_timing**（以及 "
+"signal_type、blender）的策略。**group_timing_table** 是一张“时间步 × Group”的表，表示每个时间步有哪些"
+" Group 需要运行。单步流程可以概括为：根据当前步查表得到要运行的 Group → 为这些 Group 内的每个策略准备数据窗口并注入 → "
+"调用各策略的 `generate()`（内部调用 `realize()`）→ 用 Group 的 **blender** 混合同组信号 → "
+"得到该步的合并信号。回测、实盘、优化都基于同一套“按 group_timing_table 逐步运行 Operator”的机制；差异仅在于数据来源（历史"
+" vs 实时）和结果处理（模拟成交 vs 真实下单 vs 参数搜索）。"
+msgstr ""
+"**Operator** は、ストラテジのコンテナと実行のエントリ ポイントの両方です。複数の **Group** を保持し、各グループは同じ "
+"**run_freq** と **run_timing** (および signal_type と Blender) を持つストラテジのセットです。 "
+"**group_timing_table** は、各タイム ステップでどのグループを実行する必要があるかを示す「タイム ステップ × "
+"グループ」テーブルです。シングルステップのワークフローは次のように要約できます: 現在のステップのテーブルを検索して実行するグ​​ループを取得 → "
+"それらのグループの各戦略のデータ ウィンドウを準備して挿入 → 各戦略の `generate()` (内部で `realize()` を呼び出します) "
+"を呼び出します → グループの **ブレンダー** を使用してグループ内の信号をブレンドします → "
+"そのステップのマージされた信号を取得します。バックテスト、ライブ取引、最適化はすべて、「group_timing_table に従って Operator"
+" を段階的に実行する」という同じメカニズムに基づいています。違いは、データ ソース (ヒストリカル vs リアルタイム) と結果処理 "
+"(シミュレートされた約定 vs 実際の注文 vs パラメーター検索) のみです。"
+
+#: ../../source/design/00-overview.md:28
+msgid "2.4 可视化：HistoryPanel 与多后端图表"
+msgstr "2.4 視覚化: HistoryPanel およびマルチバックエンド チャート"
+
+#: ../../source/design/00-overview.md:30
+msgid "在数据与运行之上，qteasy 提供了**基于 HistoryPanel 的可视化栈**："
+msgstr "データと実行に加えて、qteasy は **HistoryPanel ベースの視覚化スタック** を提供します。"
+
+#: ../../source/design/00-overview.md:32
+msgid ""
+"HistoryPanel 作为三维数据容器（shares × hdates × htypes），既是 `get_history_data` "
+"的自然返回值，也是可视化的前置数据结构；"
+msgstr ""
+"3D データ コンテナ (shares × hdates × htypes) として、HistoryPanel は、`get_history_data`"
+" の自然な戻り値であり、視覚化の前提条件となるデータ構造でもあります。"
+
+#: ../../source/design/00-overview.md:34
+msgid ""
+"`HistoryPanel.plot(...)` 是统一的绘图入口，根据 htypes 与 shares 自动选择 合适的图表类型（K "
+"线、成交量、MACD、折线等），并生成**与后端无关的图表规格**；"
+msgstr ""
+"`HistoryPanel.plot(...)` は、統合されたプロットのエントリ ポイントです。 htypes "
+"とsharesに基づいて適切なチャートタイプ（ローソク足、出来高、MACD、折れ線チャートなど）を自動的に選択し、**バックエンドに依存しないチャート仕様**を生成します。"
+
+#: ../../source/design/00-overview.md:36
+msgid "静态后端（matplotlib）和交互后端（Plotly）在同一套规格之上渲染图表， 保证静态/交互视图在配色、布局和语义上的一致性；"
+msgstr ""
+"静的バックエンド (matplotlib) と対話型バックエンド (Plotly) "
+"は、同じ仕様セットに基づいてチャートをレンダリングし、配色、レイアウト、セマンティクスにおける静的ビューと対話型ビューの間の一貫性を確保します。"
+
+#: ../../source/design/00-overview.md:38
+msgid ""
+"上层的 `qt.candle(...)` 等 API 只是“取数 → 构建 HistoryPanel → 调用 `hp.plot()`” 的包装器。"
+msgstr ""
+"`qt.candle(...)` などの上位層 API は、「データの取得 → HistoryPanel の構築 → `hp.plot()` "
+"の呼び出し」の単なるラッパーです。"
+
+#: ../../source/design/00-overview.md:41
+msgid "这样，可视化逻辑与数据获取、回测引擎解耦，便于独立演进和测试。"
+msgstr "このようにして、視覚化ロジックがデータ取得やバックテスト エンジンから切り離され、独立して進化してテストすることが容易になります。"
+
+#: ../../source/design/00-overview.md:44
+msgid "3. 总体架构图（三层）"
+msgstr "3. 全体アーキテクチャ図（3層）"
+
+#: ../../source/design/00-overview.md:46
+msgid "qteasy 从职责上可划分为三层，如下图所示（文字版）："
+msgstr "qteasy は、以下の図 (テキスト版) に示すように、責任に応じて 3 つの層に分けることができます。"
+
+#: ../../source/design/00-overview.md:99
+msgid ""
+"**数据层**：DataSource、数据表、DataType、以及面向外部的 get_history_data / "
+"HistoryPanel，为策略与运行层提供“按类型、按窗口”的历史信息。"
+msgstr ""
+"**データ レイヤー**: DataSource、データ テーブル、DataType、および外部向きの get_history_data / "
+"HistoryPanel は、ストラテジー レイヤーとランタイム レイヤーに「タイプ別、ウィンドウ別」の履歴情報を提供します。"
+
+#: ../../source/design/00-overview.md:100
+msgid ""
+"**策略层**：BaseStrategy 及子类（如 "
+"RuleIterator、FactorSorter、GeneralStg）、Parameter、data_types / "
+"window_length，负责声明需求并实现 realize()。"
+msgstr ""
+"**戦略層**: BaseStrategy とそのサブクラス (RuleIterator、FactorSorter、GeneralStg "
+"など)、パラメーター、data_types / window_length、要件の宣言と Realize() の実装を担当します。"
+
+#: ../../source/design/00-overview.md:101
+msgid ""
+"**运行层**：Operator、Group、group_timing_table、blender，以及 Backtester / Trader / "
+"Optimizer，负责按时间驱动策略、汇总信号并执行回测/实盘/优化。"
+msgstr ""
+"**ランタイム レイヤー**: Operator、グループ、group_timing_table、ブレンダー、および Backtester / "
+"Trader / オプティマイザー。時間の経過とともに戦略を推進し、シグナルを集約し、バックテスト / ライブ トレード / 最適化を実行します。"
+
+#: ../../source/design/00-overview.md:103
+msgid "4. 核心对象关系图"
+msgstr "4. コアオブジェクト関係図"
+
+#: ../../source/design/00-overview.md:128
+msgid "Operator 包含多个 Group，每个 Group 包含多个 Strategy。"
+msgstr "Operator には複数のグループが含まれており、各グループには複数の戦略が含まれています。"
+
+#: ../../source/design/00-overview.md:129
+msgid "每个 Strategy 声明自己依赖的 DataType（及 window_length），并通过 Parameter 定义可调参数。"
+msgstr ""
+"各ストラテジーは、依存する DataType (および window_length) を宣言し、パラメーターを介して調整可能なパラメーターを定義します。"
+
+#: ../../source/design/00-overview.md:130
+msgid "运行入口为 `op.run(config, datasource, logger)`，由 config 与 datasource 驱动。"
+msgstr ""
+"エントリ ポイントは `op.run(config, datasource, logger)` で、構成とデータソースによって駆動されます。"
+
+#: ../../source/design/00-overview.md:132
+msgid "5. 数据与信号的大致流向"
+msgstr "5. データと信号の大まかな流れ"
+
+#: ../../source/design/00-overview.md:134
+msgid "从数据源到策略再到回测/实盘/优化，整体流向可简化为："
+msgstr "データソースから戦略、バックテスト/ライブ取引/最適化に至るまで、全体的なフローは次のように簡略化できます。"
+
+#: ../../source/design/00-overview.md:155
+msgid "用户通过 `qt.run(op, mode=...)` 进入回测（1）、实盘（0）或优化（2）。"
+msgstr ""
+"ユーザーは、`qt.run(op, mode=...)` を介してバックテスト (1)、ライブ取引 (0)、または最適化 (2) を入力します。"
+
+#: ../../source/design/00-overview.md:156
+msgid ""
+"Operator 根据 config 与策略声明向 DataSource 请求数据，再按 group_timing_table 逐步调用策略并混合信号。"
+msgstr ""
+"設定とストラテジの宣言に基づいて、Operator は DataSource にデータを要求し、group_timing_table "
+"に従ってステップごとにストラテジを呼び出し、信号をブレンドします。"
+
+#: ../../source/design/00-overview.md:157
+msgid ""
+"回测时，信号序列交给 Backtester 做模拟成交与评价；实盘时交给 Trader/Broker 执行；优化时由 Optimizer "
+"多次回测并汇总。"
+msgstr ""
+"バックテストでは、シミュレーションされたフィルと評価のために信号シーケンスが Backtester "
+"に渡されます。ライブ取引では、執行のためにTrader/ブローカーに渡されます。最適化では、オプティマイザーはバックテストを複数回実行し、結果を集計します。"
+
+#: ../../source/design/00-overview.md:159
+msgid "6. 本系列各章与教程、API、示例的阅读顺序建议"
+msgstr "6. このシリーズの章、チュートリアル、API ドキュメント、サンプルの推奨読む順序"
+
+#: ../../source/design/00-overview.md:161
+msgid ""
+"**本系列（架构与设计）**：建议先读本章（00）和 [核心概念速览](01-concepts.md)，再按需阅读 [数据层](02-data-"
+"layer.md)、[策略中的数据](03-data-in-strategies.md)、[Operator 与 Group](04-operator-"
+"and-groups.md)、[Strategy 运行与参数](05-strategy-"
+"lifecycle.md)、[回测/实盘/优化](06-backtest-live-optimization.md)，以建立整体图景。"
+msgstr ""
+"**このシリーズ (アーキテクチャとデザイン)**: 最初にこの章 (00) と [コア概念の概要](01-concepts.md) "
+"を読んでから、必要に応じて [データ レイヤー](02-data-layer.md)、[戦略におけるデータ](03-data-in-"
+"strategies.md)、[Operator および[グループ](04-operator-and-"
+"groups.md)、[戦略の実行とパラメーター](05-strategy-"
+"lifecycle.md)、[バックテスト/ライブ取引/最適化](06-backtest-live-optimization.md) "
+"を使用して、全体像を構築します。"
+
+#: ../../source/design/00-overview.md:162
+msgid "**使用教程**：侧重“手把手”操作，适合在了解架构后按需选读，用于完成具体任务（如下载数据、编写策略、运行回测）。"
+msgstr ""
+"**ユーザー ガイド**: 「実践的な」ステップバイステップの操作に焦点を当てています。アーキテクチャを理解した後、特定のタスク "
+"(データのダウンロード、戦略の作成、バックテストの実行など) を完了するために、必要に応じて選択的に読むのに適しています。"
+
+#: ../../source/design/00-overview.md:163
+msgid "**下载并管理金融历史数据**、**API 参考**：用于查询数据配置、接口参数与返回值；本系列只讲“结构与机制”，不替代 API 文档。"
+msgstr ""
+"**過去の財務データをダウンロードして管理**、**API リファレンス**: データ構成、インターフェイス "
+"パラメーター、および戻り値を検索するために使用されます。このシリーズでは「構造とメカニズム」のみを取り上げており、API "
+"ドキュメントに代わるものではありません。"
+
+#: ../../source/design/00-overview.md:164
+msgid "**示例**：提供完整可运行示例，可与教程、本系列配合使用。"
+msgstr "**例**: チュートリアルおよびこのシリーズと一緒に使用できる完全な実行可能な例を提供します。"

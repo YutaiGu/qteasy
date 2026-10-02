@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-24 10:00+0800\n"
 "Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: fr <LL@li.org>\n"
@@ -542,14 +542,166 @@ msgstr ""
 " de zéro."
 
 #: ../../source/faq.md:270
+msgid "如何查有哪些 DataType（信息 ID）？"
+msgstr "Comment vérifier quel DataType (ID de message) existe-t-il ?"
+
+#: ../../source/faq.md:272
+msgid ""
+"`DataType` 是「可从本地表提取并直接使用」的一类信息，由 `name` + `freq` + `asset_type` "
+"唯一确定；用户日常写字符串 ID。推荐："
+msgstr ""
+"`DataType` est un type d'information qui « peut être extrait de la table "
+"locale et utilisé directement » et est déterminé de manière unique par "
+"`name` + `freq` + `asset_type` ; les utilisateurs écrivent quotidiennement "
+"des identifiants de chaîne. recommander:"
+
+#: ../../source/faq.md:274
+msgid "用 `qt.find_history_data('pe')` / 中文关键词 / 通配符检索，看结果里的 `kind` 与推荐入口；"
+msgstr ""
+"Utilisez `qt.find_history_data('pe')`/mots-clés chinois/recherche générique "
+"et regardez `kind` et l'entrée recommandée dans les résultats ;"
+
+#: ../../source/faq.md:275
+#, python-format
+msgid "阅读概念与精选表：[DataType 概念章](manage_data/02.%20datatypes.md)；"
+msgstr ""
+"Lecture des concepts et des tableaux sélectionnés : [DataType Chapitre "
+"Concept](manage_data/02.%20datatypes.md) ;"
+
+#: ../../source/faq.md:276
+msgid "浏览完整内置清单：[references/datatypes](references/datatypes/index.md)。"
+msgstr ""
+"Parcourez la liste intégrée complète : [références/types de "
+"données](références/types de données/index.md)."
+
+#: ../../source/faq.md:278
+msgid ""
+"**按形状取数**：History 用 `get_history_data` / `get_kline`；宏观与基准用 "
+"`get_reference_data`；行业/上市日等用 `get_static_data`。不要假定检索到的每一条都能 "
+"`get_history_data`；清单里 `usable_in=none` 的类型今天没有一等入口。"
+msgstr ""
+"**Nombre basé sur la forme** : L'historique utilise `get_history_data` / "
+"`get_kline` ; utilisation de la macro et du benchmark `get_reference_data` ;"
+" secteur/date de cotation, etc. utilisez `get_static_data`. Ne présumez pas "
+"que chaque élément récupéré peut être `get_history_data` ; le type "
+"`usable_in=none` dans la liste n'a pas d'entrée de première classe "
+"aujourd'hui."
+
+#: ../../source/faq.md:280
+msgid "如何取 GDP / 北向资金 / 行业这类数据？"
+msgstr ""
+"Comment obtenir des données telles que le PIB/les fonds vers le "
+"nord/l'industrie ?"
+
+#: ../../source/faq.md:282
+msgid ""
+"**GDP、北向资金、SHIBOR 等**（仅时间维）：`qt.get_reference_data('cn_gdp', start=..., "
+"end=...)`（无需 `shares`）。把某指数收盘价当基准可用造法 `close-000300.SH`（或完整 id "
+"`close-000300.SH_IDX_d`），同样走 `get_reference_data`。"
+msgstr ""
+"**PIB, fonds vers le nord, SHIBOR, etc.** (dimension temporelle "
+"uniquement) : `qt.get_reference_data('cn_gdp', start=..., end=...)` (aucun "
+"`shares` n'est requis). Pour utiliser le cours de clôture d'un indice comme "
+"référence, vous pouvez utiliser la méthode de construction `close-000300.SH`"
+" (ou l'identifiant complet `close-000300.SH_IDX_d`), et la même méthode est "
+"`get_reference_data`."
+
+#: ../../source/faq.md:283
+msgid ""
+"**行业、上市日、证券名称等**（仅标的维）：`qt.get_static_data('industry', shares='000001.SZ, "
+"000002.SZ')`（或完整 id）。不要用 `get_history_data`「顺便」取，也不要在策略 `data_types` 里声明 "
+"Static。"
+msgstr ""
+"**Secteur d'activité, date de cotation, nom du titre, etc.** (dimension du "
+"sujet uniquement) : `qt.get_static_data('industry', shares='000001.SZ, "
+"000002.SZ')` (ou identifiant complet). N'utilisez pas `get_history_data` "
+"pour l'obtenir \"en passant\", et ne déclarez pas Static dans la politique "
+"`data_types`."
+
+#: ../../source/faq.md:287
+msgid "只想做数据分析、暂不写策略怎么走？"
+msgstr ""
+"Que se passe-t-il si vous souhaitez simplement analyser des données et ne "
+"pas rédiger de stratégies pour le moment ?"
+
+#: ../../source/faq.md:289
+msgid "按 **数据体验支路** 即可，无需进入 Operator 回测："
+msgstr ""
+"Appuyez simplement sur **Data Experience Branch**, pas besoin de saisir le "
+"backtest Operator :"
+
+#: ../../source/faq.md:291
+msgid ""
+"[获取并管理金融数据](tutorials/2.0-get-data.md) — 配置 Token、下载 "
+"[最小数据集清单](tutorials/2.0-get-data.md#最小数据集清单供-25-使用)"
+msgstr ""
+"[Obtenir et gérer les données financières](tutorials/2.0-get-data.md) — "
+"Configurer le jeton, télécharger [Liste des ensembles de données "
+"minimum](tutorials/2.0-get-data.md#Liste des ensembles de données minimum "
+"pour -25 utilisations)"
+
+#: ../../source/faq.md:292
+msgid ""
+"[HistoryPanel 数据面板基础操作](tutorials/2.4-historypanel-basics.md) — 结构、切片、扩列、对齐与"
+" DataFrame 互转"
+msgstr ""
+"[HistoryPanel Opérations de base du panneau de "
+"données](tutorials/2.4-historypanel-basics.md) — Structure, découpage, "
+"expansion des colonnes, alignement et conversion DataFrame"
+
+#: ../../source/faq.md:293
+msgid ""
+"[玩数据与因子分析](tutorials/2.5-historypanel-data-analysis.md) — 取数、出图、简单因子与 "
+"benchmark 粗对比"
+msgstr ""
+"[Jouer avec les données et l'analyse "
+"factorielle](tutorials/2.5-historypanel-data-analysis.md) — Récupération de "
+"nombres, tracé, comparaison approximative entre des facteurs simples et un "
+"benchmark"
+
+#: ../../source/faq.md:294
+msgid "运行 `python examples/data_playground_e2e.py` 验证本地数据与 API"
+msgstr ""
+"Exécutez `python examples/data_playground_e2e.py` pour vérifier les données "
+"locales et l'API"
+
+#: ../../source/faq.md:296
+msgid ""
+"进阶可选：[纵向择时](tutorials/2.6-historypanel-advanced-vertical-"
+"timeaxis.md)、[横截面选股](tutorials/2.7-historypanel-advanced-horizontal-"
+"multifactor.md)、[事件型形态](tutorials/2.8-historypanel-advanced-event-kline-"
+"pattern.md)。"
+msgstr ""
+"Options avancées : [Synchronisation verticale] (tutoriels/2.6-historypanel-"
+"advanced-vertical-timeaxis.md), [Sélection de titres transversale] "
+"(tutoriels/2.7-historypanel-advanced-horizontal-multifactor.md), [Modèle "
+"d'événement] (tutoriels/2.8-historypanel-advanced-event-kline-pattern.md)."
+
+#: ../../source/faq.md:298
+msgid ""
+"注意：`HistoryPanel.portfolio` / `cum_return` "
+"等为**研究向**工具，不含交易成本与交割语义；若要严肃评价策略，仍须回到 [第一个策略](tutorials/3-start-first-"
+"strategy.md) 或 [研究到回测迁移路径](tutorials/2.5-historypanel-data-"
+"analysis.md#从-historypanel-研究到-strategy--operator迁移路径)。"
+msgstr ""
+"Remarque : `HistoryPanel.portfolio` / `cum_return` sont des outils "
+"**orientés vers la recherche** et n'incluent pas les coûts de transaction ni"
+" la sémantique de livraison ; si vous souhaitez évaluer sérieusement la "
+"stratégie, vous devez toujours revenir à [Première "
+"stratégie](tutorials/3-start-first-strategy.md) ou [Recherche vers le chemin"
+" de migration du backtesting](tutorials/2.5-historypanel-data-"
+"analysis.md#From-historypanel-research to-strategy--operator migration "
+"path)."
+
+#: ../../source/faq.md:302
 msgid "回测/优化为什么慢？"
 msgstr "Pourquoi le backtesting/l'optimisation est-il lent ?"
 
-#: ../../source/faq.md:272
+#: ../../source/faq.md:304
 msgid "可能原因包括："
 msgstr "Les raisons possibles incluent :"
 
-#: ../../source/faq.md:274
+#: ../../source/faq.md:306
 msgid "**数据量与窗口长度**：回测区间越长、资产池越大、策略的 `window_length` 越大，单次回测需要准备与计算的数据越多。"
 msgstr ""
 "**Volume des données et longueur de la fenêtre :** Plus l'intervalle de "
@@ -557,7 +709,7 @@ msgstr ""
 "`window_length` de la stratégie est grand, plus de données doivent être "
 "préparées et calculées pour un seul backtest."
 
-#: ../../source/faq.md:275
+#: ../../source/faq.md:307
 msgid ""
 "**参数组数**：优化模式（mode=2）下，参数组合越多，需要执行的单次回测次数越多；已通过多进程并行缓解，但仍与机器核心数及任务规模相关。"
 msgstr ""
@@ -566,7 +718,7 @@ msgstr ""
 "effectué ; ce problème a été atténué grâce au parallélisme multi-processus, "
 "mais il reste lié au nombre de cœurs de machine et à l'ampleur de la tâche."
 
-#: ../../source/faq.md:276
+#: ../../source/faq.md:308
 msgid ""
 "**首次 Numba 编译**：核心回测函数（如 `backtest_step`、`backtest_batch_steps`）使用 Numba "
 "JIT，首次运行或参数类型变化时会触发编译，产生一次性延迟；后续同类型回测会复用缓存，速度会明显提升。"
@@ -578,7 +730,7 @@ msgstr ""
 "ultérieurs du même type réutiliseront le cache, ce qui améliorera "
 "considérablement la vitesse."
 
-#: ../../source/faq.md:277
+#: ../../source/faq.md:309
 msgid "**数据准备**：若 DataSource 中数据未提前准备好，回测前会触发数据拉取与窗口装配，也会增加首次运行时间。"
 msgstr ""
 "**Préparation des données** : Si les données du DataSource ne sont pas "
@@ -586,7 +738,7 @@ msgstr ""
 "fenêtres seront déclenchés avant le backtest, ce qui augmentera également le"
 " temps de première exécution."
 
-#: ../../source/faq.md:279
+#: ../../source/faq.md:311
 msgid ""
 "若需进一步了解回测引擎与性能设计，可参阅 "
 "[回测引擎与性能](back_testing/6.%20backtest_engine_and_performance.md) 与《架构与设计》中的 "
@@ -599,11 +751,11 @@ msgstr ""
 "conception)](design/07-backtest-engine-and-performance.md) dans "
 "« Architecture et conception »."
 
-#: ../../source/faq.md:283
+#: ../../source/faq.md:315
 msgid "如何理解「防未来函数」？"
 msgstr "Comment comprendre les « fonctions d’avenir » ?"
 
-#: ../../source/faq.md:285
+#: ../../source/faq.md:317
 msgid ""
 "qteasy 从机制上避免策略在回测中“看到”未来数据：每个时间步运行时，引擎仅向策略注入**该步当时可见**的历史数据窗口，策略在 "
 "`realize()` 中通过 `get_data(dtype_id)` 取到的只是该窗口内的数据；在此窗口上计算指标（如 "
@@ -624,11 +776,11 @@ msgstr ""
 "[Intention de conception et avantages uniques] (design/08-design-rationale-"
 "and-advantages.md) dans « Architecture et conception »."
 
-#: ../../source/faq.md:289
+#: ../../source/faq.md:321
 msgid "use_latest_data_cycle 是什么，如何设置？"
 msgstr "Qu'est-ce que `use_latest_data_cycle` et comment est-il défini ?"
 
-#: ../../source/faq.md:291
+#: ../../source/faq.md:323
 msgid ""
 "**use_latest_data_cycle**（常简写为 ulc）控制策略所用数据窗口是否包含**当根 K 线**（当前时刻的最新数据）：设为 "
 "`True` 时，窗口可含当前 bar（如收盘价），对应“交易时是否允许用当时最新价”；设为 `False` "

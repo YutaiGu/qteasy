@@ -267,6 +267,38 @@ qteasy在调用所有的tushare函数时，会自动retry，每两次retry之间
 
 ---
 
+## 如何查有哪些 DataType（信息 ID）？
+
+`DataType` 是「可从本地表提取并直接使用」的一类信息，由 `name` + `freq` + `asset_type` 唯一确定；用户日常写字符串 ID。推荐：
+
+1. 用 `qt.find_history_data('pe')` / 中文关键词 / 通配符检索，看结果里的 `kind` 与推荐入口；
+2. 阅读概念与精选表：[DataType 概念章](manage_data/02.%20datatypes.md)；
+3. 浏览完整内置清单：[references/datatypes](references/datatypes/index.md)。
+
+**按形状取数**：History 用 `get_history_data` / `get_kline`；宏观与基准用 `get_reference_data`；行业/上市日等用 `get_static_data`。不要假定检索到的每一条都能 `get_history_data`；清单里 `usable_in=none` 的类型今天没有一等入口。
+
+## 如何取 GDP / 北向资金 / 行业这类数据？
+
+- **GDP、北向资金、SHIBOR 等**（仅时间维）：`qt.get_reference_data('cn_gdp', start=..., end=...)`（无需 `shares`）。把某指数收盘价当基准可用造法 `close-000300.SH`（或完整 id `close-000300.SH_IDX_d`），同样走 `get_reference_data`。
+- **行业、上市日、证券名称等**（仅标的维）：`qt.get_static_data('industry', shares='000001.SZ, 000002.SZ')`（或完整 id）。不要用 `get_history_data`「顺便」取，也不要在策略 `data_types` 里声明 Static。
+
+---
+
+## 只想做数据分析、暂不写策略怎么走？
+
+按 **数据体验支路** 即可，无需进入 Operator 回测：
+
+1. [获取并管理金融数据](tutorials/2.0-get-data.md) — 配置 Token、下载 [最小数据集清单](tutorials/2.0-get-data.md#最小数据集清单供-25-使用)
+2. [HistoryPanel 数据面板基础操作](tutorials/2.4-historypanel-basics.md) — 结构、切片、扩列、对齐与 DataFrame 互转
+3. [玩数据与因子分析](tutorials/2.5-historypanel-data-analysis.md) — 取数、出图、简单因子与 benchmark 粗对比
+4. 运行 `python examples/data_playground_e2e.py` 验证本地数据与 API
+
+进阶可选：[纵向择时](tutorials/2.6-historypanel-advanced-vertical-timeaxis.md)、[横截面选股](tutorials/2.7-historypanel-advanced-horizontal-multifactor.md)、[事件型形态](tutorials/2.8-historypanel-advanced-event-kline-pattern.md)。
+
+注意：`HistoryPanel.portfolio` / `cum_return` 等为**研究向**工具，不含交易成本与交割语义；若要严肃评价策略，仍须回到 [第一个策略](tutorials/3-start-first-strategy.md) 或 [研究到回测迁移路径](tutorials/2.5-historypanel-data-analysis.md#从-historypanel-研究到-strategy--operator迁移路径)。
+
+---
+
 ## 回测/优化为什么慢？
 
 可能原因包括：

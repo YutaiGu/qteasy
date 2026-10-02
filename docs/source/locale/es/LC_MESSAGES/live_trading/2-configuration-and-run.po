@@ -3,51 +3,62 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/live_trading/2-configuration-and-run.md:1
 msgid "模拟实盘：配置与运行"
-msgstr ""
+msgstr "Plataforma de negociación simulada: configuración y funcionamiento"
 
 #: ../../source/live_trading/2-configuration-and-run.md:3
 msgid "本章带您从「已有回测策略」到「第一次稳定启动模拟实盘」：该配哪些项、如何确认、启动后该看什么。"
 msgstr ""
+"Este capítulo lo guía desde las \"estrategias de backtesting existentes\" "
+"hasta \"el primer inicio estable de una cuenta comercial real simulada\": "
+"qué elementos configurar, cómo confirmarlos y qué buscar después del inicio."
 
 #: ../../source/live_trading/2-configuration-and-run.md:5
 msgid ""
 "亲爱的用户，若您手里已经有一个能回测的 **Operator（交易员容器）**，本章就是进入 live "
 "的最短路径。我们先把必要配置讲清楚，再谈可选的「策略快照」「启动门禁」等进阶项。"
 msgstr ""
+"Estimado usuario, si ya tiene un **Operator (contenedor comercial)** que "
+"puede realizar pruebas retrospectivas, este capítulo es el camino más corto "
+"para realizar pruebas en vivo. Primero explicaremos las configuraciones "
+"necesarias y luego analizaremos las funciones avanzadas opcionales, como "
+"\"instantáneas de estrategia\" y \"control de acceso de inicio\"."
 
 #: ../../source/live_trading/2-configuration-and-run.md:7
 msgid "0. 适用场景"
-msgstr ""
+msgstr "0. Escenarios aplicables"
 
 #: ../../source/live_trading/2-configuration-and-run.md:9
 msgid "您已有可运行的 Operator，准备从回测进入模拟实盘"
 msgstr ""
+"Tiene un Operator en funcionamiento y está listo para pasar del backtesting "
+"a la simulación en vivo."
 
 #: ../../source/live_trading/2-configuration-and-run.md:10
 msgid "您希望先跑通最小路径，再逐步补充风控、门禁与运维细节"
 msgstr ""
+"Primero desea probar el camino más corto antes de agregar gradualmente "
+"control de riesgos, control de acceso y detalles operativos."
 
 #: ../../source/live_trading/2-configuration-and-run.md:12
 msgid "1. 核心概念（本章术语）"
-msgstr ""
+msgstr "1. Conceptos básicos (terminología para este capítulo)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:14
 msgid ""
@@ -55,525 +66,652 @@ msgid ""
 "账户**负责「记钱记仓」，**本地数据源**负责「给价给历史」——三者缺一，Trader 无法稳定运行。下表说明各自在 live "
 "子系统中的位置及您要准备的内容。"
 msgstr ""
+"Antes de iniciar Live, confirme la relación entre los tres componentes. En "
+"Qteasy, **Operator** es responsable de \"calcular señales\", la **cuenta "
+"real** es responsable de \"mantener cuentas y posiciones\" y la **fuente de "
+"datos local** es responsable de \"proporcionar precios y datos históricos\";"
+" sin ninguno de estos, el Trader no puede funcionar de manera estable. La "
+"siguiente tabla ilustra la posición de cada componente en el subsistema Live"
+" y lo que necesita preparar."
 
 #: ../../source/live_trading/2-configuration-and-run.md:16
 msgid "**各列含义**：**角色**为组件名；**作用**为在 live 链路中的职责；**您需要准备什么**为启动前检查项。"
 msgstr ""
+"**El significado de cada columna:** **Rol** es el nombre del componente; "
+"**Función** es la responsabilidad en el proceso en vivo; **Lo que necesitas "
+"preparar** son las comprobaciones previas al lanzamiento."
 
 #: ../../source/live_trading/2-configuration-and-run.md:18
 msgid "**如何使用**：逐项打勾；若某一列准备不足，先补数据或账户再 `qt.run(op)`。"
 msgstr ""
+"**Cómo utilizar:** Marque las casillas una por una; Si una columna es "
+"insuficiente, agregue primero los datos o la información de la cuenta y "
+"luego ejecute `qt.run(op)`."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "角色"
-msgstr ""
+msgstr "Role"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "作用"
-msgstr ""
+msgstr "efecto"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "您需要准备什么"
-msgstr ""
+msgstr "¿Qué necesitas preparar?"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "**Operator**"
-msgstr ""
+msgstr "**Operator**"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "持有策略与信号逻辑"
-msgstr ""
+msgstr "Estrategia de retención y lógica de señales."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "与回测时同一个 `op` 对象"
-msgstr ""
+msgstr "Mismo objeto `op` que durante el backtesting"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "**live 账户**"
-msgstr ""
+msgstr "**cuenta real**"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "记录现金、持仓、订单"
-msgstr ""
+msgstr "Registre efectivo, tenencias y pedidos."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_trade_account_id` 或 `live_trade_account_name`"
-msgstr ""
+msgstr "⟦CÓDIGO0⟧ o ⟦CÓDIGO1⟧"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "**本地数据源**"
-msgstr ""
+msgstr "**Fuente de datos local**"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "提供历史与实时行情"
-msgstr ""
+msgstr "Proporciona cotizaciones históricas y en tiempo real."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "表数据覆盖策略频率（如分钟策略需分钟表）"
 msgstr ""
+"Frecuencia de la estrategia de cobertura de datos de tablas (por ejemplo, la"
+" estrategia basada en minutos requiere tablas basadas en minutos)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:26
 msgid ""
-"**LiveTradeConfig（live 配置快照）**：qteasy 在启动 Trader 前，会把分散在 "
-"`qt.configure(...)` 里的 live "
-"相关项**校验并冻结**成一份不可变快照——像起飞前签字的检查单，避免运行中被意外改配置。您可在 Shell 里用 `liveconfig` "
-"查看摘要。"
+"**LiveTradeConfig（live 配置快照）**：qteasy 在启动 Trader 前，会把分散在 `qt.configure(...)`"
+" 里的 live 相关项**校验并冻结**成一份不可变快照——像起飞前签字的检查单，避免运行中被意外改配置。您可在 Shell 里用 "
+"`liveconfig` 查看摘要。"
 msgstr ""
+"**LiveTradeConfig (instantánea de configuración en vivo):** Antes de iniciar"
+" Trader, qteasy verifica y congela los elementos relacionados en vivo "
+"dispersos en `qt.configure(...)` en una instantánea inmutable, como una "
+"lista de verificación firmada antes del despegue, para evitar cambios "
+"accidentales de configuración durante el tiempo de ejecución. Puede ver un "
+"resumen usando `liveconfig` en el shell."
 
 #: ../../source/live_trading/2-configuration-and-run.md:28
 msgid "2. 最小配置集"
-msgstr ""
+msgstr "2. Conjunto de configuración mínimo"
 
 #: ../../source/live_trading/2-configuration-and-run.md:30
 msgid ""
 "以下为常见**必配**项（不设或设错时，往往在启动阶段就会报错）。这些键通过 `qt.configure(...)` 写入全局配置，启动时并入 "
 "**LiveTradeConfig** 快照；它们决定「是不是 live、交易什么资产、用哪个账户、价从哪来、单交给谁撮合」。"
 msgstr ""
+"Los siguientes son elementos de configuración **esenciales** comunes (si no "
+"se configuran o se configuran incorrectamente, a menudo se producirán "
+"errores durante el inicio). Estas claves se escriben en la configuración "
+"global a través de `qt.configure(...)` y se incorporan a la instantánea "
+"**LiveTradeConfig** al inicio; determinan \"si está activo, qué activos se "
+"negocian, qué cuenta se utiliza, de dónde proviene el precio y quién iguala "
+"las órdenes\"."
 
 #: ../../source/live_trading/2-configuration-and-run.md:32
 msgid ""
 "**各列含义**：**配置键**为 `QT_CONFIG` 中的名称；**含义**为该键控制的 "
 "behavior；**不设会怎样**为常见后果（便于判断当前报错是否与此键有关）。"
 msgstr ""
+"**Significado de cada columna:** La **clave de configuración** es el nombre "
+"en `QT_CONFIG`; **significado** es el comportamiento controlado por esta "
+"clave; **qué sucede si no está configurado** son consecuencias comunes (para"
+" ayudar a determinar si el error actual está relacionado con esta clave)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:34
 msgid "**如何使用**：首次 live 请全部显式设置；启动失败时对照「不设会怎样」列排查。示例见 §5 模板 A/B。"
 msgstr ""
+"**Cómo utilizar:** Para su primera sesión en vivo, establezca explícitamente"
+" todas las configuraciones; Si el inicio falla, consulte la columna \"¿Qué "
+"sucede si no configuro nada?\" para solucionar el problema. Consulte §5 "
+"Plantilla A/B para ver ejemplos."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "配置键"
-msgstr ""
+msgstr "Clave de configuración"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "含义"
-msgstr ""
+msgstr "Significado"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "不设会怎样"
-msgstr ""
+msgstr "¿Qué pasaría si no estableciésemos uno?"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`mode=0`"
-msgstr ""
+msgstr "`mode=0`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "进入 live / 模拟实盘"
-msgstr ""
+msgstr "Ingrese al comercio en vivo/demo"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "仍走回测或其他模式"
-msgstr ""
+msgstr "Todavía usando backtesting u otros modos"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`asset_type`"
 msgstr ""
+"The set of names of the historical data to be fetched, if htypes is empty, "
+"the system will try to create all possible htypes by basing on the name of "
+"the historical data and the freq/asset_type parameter. the input can be str "
+"or list: - str: 'open, high, low, close' - list: ['open', 'high', 'low', "
+"'close'] - list: ['open', 'high', 'low', 'close'] - list: ['open', 'high', "
+"'low', 'close'] 'high', 'low', 'close']"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "资产类型，如 `E` 股票、`FD` 场内基金"
-msgstr ""
+msgstr "Tipos de activos, como acciones E y acciones F (ETF)."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "交易规则与数据表可能对不上"
 msgstr ""
+"Es posible que las reglas comerciales y las tablas de datos no coincidan."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "使用哪个模拟账户"
-msgstr ""
+msgstr "¿Qué cuenta demo usar?"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "无法绑定账本"
-msgstr ""
+msgstr "No se puede vincular el libro mayor"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_trade_broker_type`"
-msgstr ""
+msgstr "``live_trade_broker_type``"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "券商类型，初学用 `simulator`"
-msgstr ""
+msgstr "Tipos de firmas de corretaje, uso para principiantes `simulator`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "无成交通道"
-msgstr ""
+msgstr "Sin canal de transacciones"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_price_acquire_channel`"
-msgstr ""
+msgstr "``live_price_acquire_channel``"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "实时价渠道，如 `eastmoney`"
-msgstr ""
+msgstr "Canales de precios en tiempo real, como `eastmoney`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "无法获取 live 价"
-msgstr ""
+msgstr "No se puede obtener el precio en vivo"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_price_acquire_freq`"
-msgstr ""
+msgstr "``live_price_acquire_freq``"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "拉价频率，如 `15MIN`"
-msgstr ""
+msgstr "Frecuencia de aumento de precio, como `15MIN`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "与策略步频不协调时可能缺数据"
 msgstr ""
+"Es posible que falten datos cuando el ritmo de la estrategia no está "
+"coordinado."
 
 #: ../../source/live_trading/2-configuration-and-run.md:45
 msgid ""
 "以下键**非启动硬性门槛**，但强烈建议确认——它们影响最小成交单位、日志落盘与磁盘占用。与上表同属 `qt.configure` "
 "范围，可在同一脚本里一并写入。"
 msgstr ""
+"Las siguientes claves **no son requisitos estrictos para el inicio**, pero "
+"se recomienda encarecidamente confirmarlas: afectan la unidad mínima de "
+"transacción, las escrituras de registros en el disco y el uso del disco. "
+"Pertenecen al alcance `qt.configure` junto con la tabla anterior y se pueden"
+" escribir en el mismo script."
 
 #: ../../source/live_trading/2-configuration-and-run.md:47
 msgid "**如何使用**：若成交数量「对不齐整手」或日志找不到文件，回头查本表对应行。"
 msgstr ""
+"**Cómo utilizar:** Si la cantidad de la transacción no está \"en lotes "
+"completos\" o no se puede encontrar el archivo de registro, regrese y "
+"verifique la fila correspondiente en esta tabla."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`trade_batch_size` / `sell_batch_size`"
-msgstr ""
+msgstr "`trade_batch_size` / `sell_batch_size`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "买卖最小单位"
-msgstr ""
+msgstr "Unidad mínima de venta"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "使用默认值"
-msgstr ""
+msgstr "Usar valores predeterminados"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`cash_decimal_places` / `amount_decimal_places`"
-msgstr ""
+msgstr "`cash_decimal_places` / `amount_decimal_places`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "现金/数量小数位"
-msgstr ""
+msgstr "Efectivo/cantidad decimales"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`sys_log_file_path` / `trade_log_file_path`"
-msgstr ""
+msgstr "`sys_log_file_path` / `trade_log_file_path`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "系统/交易日志目录"
-msgstr ""
+msgstr "Directorio de registro de transacciones/sistema"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "使用包内默认路径"
-msgstr ""
+msgstr "Utilice la ruta predeterminada dentro del paquete."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`trade_log_keep_days`"
-msgstr ""
+msgstr "``trade_log_keep_days``"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "日志保留天数（含 risk 日志）"
-msgstr ""
+msgstr "Días de retención de registros (incluidos registros de riesgos)"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "默认 3 天自动清理"
-msgstr ""
+msgstr "Limpieza automática cada 3 días de forma predeterminada"
 
 #: ../../source/live_trading/2-configuration-and-run.md:56
 msgid "3. 查看配置快照"
-msgstr ""
+msgstr "3. Ver instantánea de configuración"
 
 #: ../../source/live_trading/2-configuration-and-run.md:58
 msgid "**Python**（脚本里自检）："
-msgstr ""
+msgstr "**Python** (autocomprobación en el script):"
 
 #: ../../source/live_trading/2-configuration-and-run.md:68
 msgid "**CLI（Trader Shell）**：命令 `liveconfig`（别名 `live-config`）"
-msgstr ""
+msgstr "**CLI (Trader Shell)**: Comando `liveconfig` (alias `live-config`)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:70
 msgid "默认：稳定字段子集"
-msgstr ""
+msgstr "Valor predeterminado: subconjunto de campos estables"
 
 #: ../../source/live_trading/2-configuration-and-run.md:71
 msgid "加 `--detail`：额外含启动门禁、策略快照等键"
 msgstr ""
+"Agregar `--detail`: incluye además claves para habilitar el control de "
+"acceso, instantáneas de políticas, etc."
 
 #: ../../source/live_trading/2-configuration-and-run.md:73
 msgid ""
 "说明：Shell 内的 `liveconfig` 是根据当前 Trader "
 "**重新汇总**的摘要，不是启动那一刻对象的内存引用——但对您核对「现在生效的配置」足够用。"
 msgstr ""
+"Nota: El `liveconfig` en el Shell es un resumen basado en el Trader actual, "
+"no una referencia de memoria del objeto al inicio, pero es suficiente para "
+"que usted verifique \"la configuración que está actualmente vigente\"."
 
 #: ../../source/live_trading/2-configuration-and-run.md:75
 msgid "4. 配置键分组（主要 live 键）"
-msgstr ""
+msgstr "4. Configure grupos de claves (principalmente la clave en vivo)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:77
 msgid ""
-"live 相关配置键数量较多。为便于查阅，我们按**功能分组**归纳（非 API 全量列表；完整字段以 `LiveTradeConfig` "
-"为准）。在 qteasy 中，这些键在启动前被校验并冻结——您改 `qt.configure` 后需重启 live 进程才能完全生效。"
+"live 相关配置键数量较多。为便于查阅，我们按**功能分组**归纳（非 API 全量列表；完整字段以 `LiveTradeConfig` 为准）。在 "
+"qteasy 中，这些键在启动前被校验并冻结——您改 `qt.configure` 后需重启 live 进程才能完全生效。"
 msgstr ""
+"Hay muchas claves de configuración relacionadas con Live. Para facilitar la "
+"referencia, los hemos agrupado por **función** (no es una lista de API "
+"completa; los campos completos se basan en `LiveTradeConfig`). En qteasy, "
+"estas claves se validan y congelan antes del inicio; debe reiniciar el "
+"proceso en vivo después de modificar `qt.configure` para que los cambios "
+"surtan efecto."
 
 #: ../../source/live_trading/2-configuration-and-run.md:79
 msgid ""
 "**各列含义**：**分组**为 live "
 "子系统内的职责域；**代表键**列出该组最常改动的键（同组可能还有未列出的键）；**说明**为该组在运行中的作用。"
 msgstr ""
+"**Significados de las columnas:** **Agrupación** representa el dominio de "
+"responsabilidad dentro del subsistema activo; **Claves representativas** "
+"enumera las claves modificadas con más frecuencia en este grupo (puede haber"
+" otras claves en el mismo grupo que no aparecen en la lista); "
+"**Descripciones** describen la función de este grupo durante la operación."
 
 #: ../../source/live_trading/2-configuration-and-run.md:81
 msgid ""
 "**如何使用**：按您当前任务选分组——例如排日志问题看「日志」行并跳转 :doc:`5-artifacts-and-"
 "troubleshooting`；开分钟策略先看「行情与 refill」与策略步频是否匹配。"
 msgstr ""
+"**Cómo utilizar:** Seleccione el grupo según su tarea actual; por ejemplo, "
+"para solucionar problemas de registro, mire la línea \"Registro\" y vaya a: "
+":doc:`5-artifacts-and-troubleshooting`; Al abrir una estrategia minuto a "
+"minuto, primero verifique si los \"Datos de Mercado y Recarga\" coinciden "
+"con la frecuencia de la estrategia."
 
 #: ../../source/live_trading/2-configuration-and-run.md:83
 msgid ""
-"**示例**：子日频策略常改「行情与 refill」组的 "
-"`live_price_acquire_freq`，并视需要开启「策略快照（5-A）」组中的 "
+"**示例**：子日频策略常改「行情与 refill」组的 `live_price_acquire_freq`，并视需要开启「策略快照（5-A）」组中的 "
 "`live_trade_split_strategy_prepare`。"
 msgstr ""
+"**Ejemplo**: Las estrategias de frecuencia subdiaria a menudo modifican "
+"`live_price_acquire_freq` en el grupo \"Datos de mercado y recarga\" y "
+"habilitan `live_trade_split_strategy_prepare` en el grupo \"Instantáneas de "
+"estrategias (5-A)\" según sea necesario."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "分组"
-msgstr ""
+msgstr "Agrupamiento"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "代表键"
-msgstr ""
+msgstr "Clave representativa"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "说明"
-msgstr ""
+msgstr "Nota"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "账户与 UI"
-msgstr ""
+msgstr "Cuentas y UI"
 
 #: ../../source/live_trading/2-configuration-and-run.md
-msgid "`live_trade_account_id`, `live_trade_account_name`, `live_trade_ui_type`"
+msgid ""
+"`live_trade_account_id`, `live_trade_account_name`, `live_trade_ui_type`"
 msgstr ""
+"`live_trade_account_id`, `live_trade_account_name`, `live_trade_ui_type`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "账户与 CLI / TUI 选择"
-msgstr ""
+msgstr "Selección de cuenta y CLI/TUI"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "行情与 refill"
-msgstr ""
+msgstr "Condiciones de mercado y recarga"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid ""
 "`live_price_acquire_channel`, `live_price_acquire_freq`, "
 "`live_trade_data_refill_channel`, `live_trade_*_refill_tables`"
 msgstr ""
+"`live_price_acquire_channel`, `live_price_acquire_freq`, "
+"`live_trade_data_refill_channel`, `live_trade_*_refill_tables`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "实时价与定时补数据"
-msgstr ""
+msgstr "Actualizaciones de datos cronometradas y precios en tiempo real"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "交易规则"
-msgstr ""
+msgstr "Reglas comerciales"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid ""
 "`trade_batch_size`, `sell_batch_size`, `stock_delivery_period`, "
 "`cash_delivery_period`, `pt_buy_threshold`, `pt_sell_threshold`"
 msgstr ""
+"`trade_batch_size`, `sell_batch_size`, `stock_delivery_period`, "
+"`cash_delivery_period`, `pt_buy_threshold`, `pt_sell_threshold`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "与回测语义对齐"
-msgstr ""
+msgstr "Alinearse con la semántica del backtesting"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "Broker"
-msgstr ""
+msgstr "Broker"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_trade_broker_type`, `live_trade_broker_params`"
-msgstr ""
+msgstr "`live_trade_broker_type`, `live_trade_broker_params`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "默认 `simulator`；扩展见 :doc:`4-broker-adapter-and-integration`"
 msgstr ""
+"El valor predeterminado es `simulator`; consulte `doc:`4-broker-adapter-and-"
+"integration` para obtener extensiones."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "策略快照（5-A）"
-msgstr ""
+msgstr "Panorama de la estrategia (5-A)"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid ""
 "`live_trade_split_strategy_prepare`, `live_trade_prepare_lead_seconds`, "
 "`live_trade_strategy_snapshot_max_age_seconds`"
 msgstr ""
+"`live_trade_split_strategy_prepare`, `live_trade_prepare_lead_seconds`, "
+"`live_trade_strategy_snapshot_max_age_seconds`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "策略运行前预拉数据；详见 :doc:`6-trader-snapshot-gate`"
 msgstr ""
+"Los datos se obtienen previamente antes de que se ejecute la estrategia; "
+"consulte :doc:`6-trader-snapshot-gate` para obtener más detalles."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "启动门禁（5-B）"
-msgstr ""
+msgstr "Activar control de acceso (5-B)"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`live_trade_startup_gate_mode`（`off` / `warn` / `block`）"
-msgstr ""
+msgstr "`live_trade_startup_gate_mode` (`off` / `warn` / `block`)"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "开盘前安全检查；CLI `gate`"
-msgstr ""
+msgstr "Control de seguridad previo a la comercialización; CLI ⟦CÓDIGO0⟧"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "日志"
-msgstr ""
+msgstr "registro"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`sys_log_file_path`, `trade_log_file_path`, `trade_log_keep_days`"
-msgstr ""
+msgstr "`sys_log_file_path`, `trade_log_file_path`, `trade_log_keep_days`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "含 `*.risk.log` 轮换；见 :doc:`5-artifacts-and-troubleshooting`"
-msgstr ""
+msgstr "Incluye rotación `*.risk.log`; ver:doc:⟦CÓDIGO1⟧"
 
 #: ../../source/live_trading/2-configuration-and-run.md:95
 msgid "完整字段以 `LiveTradeConfig` 为准；各键合法取值见配置校验逻辑。"
 msgstr ""
+"Los campos completos se basan en `LiveTradeConfig`; Los valores válidos para"
+" cada clave se definen en la lógica de validación de configuración."
 
 #: ../../source/live_trading/2-configuration-and-run.md:97
 msgid "5. 推荐配置模板"
-msgstr ""
+msgstr "5. Plantilla de configuración recomendada"
 
 #: ../../source/live_trading/2-configuration-and-run.md:99
 msgid "模板 A：股票（E + 模拟券商）"
-msgstr ""
+msgstr "Plantilla A: Acciones (corretaje simulado E+)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:101
 msgid "以下代码在 `qt.run(op)` **之前**执行，告诉 qteasy：用股票规则、东方财富 15 分钟价、模拟柜台成交。"
 msgstr ""
+"El siguiente código se ejecuta **antes** de `qt.run(op)`, indicando a qteasy"
+" que utilice reglas de acciones, el precio de 15 minutos de Eastmoney y "
+"operaciones de contraataque simuladas."
 
 #: ../../source/live_trading/2-configuration-and-run.md:116
 msgid "模板 B：场内基金 / ETF（FD + 模拟券商）"
-msgstr ""
+msgstr "Plantilla B: Fondos negociados en bolsa/ETF (FD + corretaje simulado)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:118
 msgid "与模板 A 相同，仅 `asset_type='FD'`，适用于 ETF 等示例路径。"
 msgstr ""
+"Igual que la plantilla A, excepto que `asset_type='FD'` se aplica a rutas de"
+" ejemplo como ETF."
 
 #: ../../source/live_trading/2-configuration-and-run.md:133
 msgid "模板 C：策略快照 + 启动门禁（冒烟 / 进阶）"
 msgstr ""
+"Plantilla C: Instantánea de política + Activar control de acceso "
+"(Smoke/Avanzado)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:135
 msgid "与 :doc:`7-manual-smoke-live-grid-roadmap` 一致；建议在熟悉模板 A/B 后再开。"
 msgstr ""
+"Consistente con :doc:`7-manual-smoke-live-grid-roadmap`; Se recomienda abrir"
+" esto después de familiarizarse con la plantilla A/B."
 
 #: ../../source/live_trading/2-configuration-and-run.md:146
 msgid "6. 启动流程（分步说明）"
-msgstr ""
+msgstr "6. Proceso de inicio (instrucciones paso a paso)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:148
 msgid "**写好配置**：按 §2 完成 `qt.configure(...)`，确认账户 ID/名称。"
 msgstr ""
+"**Complete la configuración:** Siga §2 para completar `qt.configure(...)` y "
+"confirme el ID/nombre de la cuenta."
 
 #: ../../source/live_trading/2-configuration-and-run.md:149
 msgid "**（可选）核对快照**：运行 §3 的 Python 片段，或启动后进 Shell 执行 `liveconfig --detail`。"
 msgstr ""
+"**(Opcional) Verificar instantánea**: ejecute el fragmento de Python en §3 o"
+" ejecute `liveconfig --detail` en el Shell después del inicio."
 
 #: ../../source/live_trading/2-configuration-and-run.md:150
 msgid "**启动**：`qt.run(op)`；命令行示例常用 `--ui cli` 进入 **Trader Shell**。"
 msgstr ""
+"**Inicio**: `qt.run(op)`; Los ejemplos comunes de línea de comandos usan "
+"`--ui cli` para ingresar al **Trader Shell**."
 
 #: ../../source/live_trading/2-configuration-and-run.md:151
 msgid "**观察**：看状态、订单、日志是否按预期写入（§7）。"
 msgstr ""
+"**Observación**: Verifique si el estado, los pedidos y los registros están "
+"escritos como se esperaba (§7)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:153
 msgid "启动前快速打印几项关键配置："
 msgstr ""
+"Imprima varios elementos de configuración clave rápidamente antes del "
+"inicio:"
 
 #: ../../source/live_trading/2-configuration-and-run.md:163
 msgid "7. 启动后建议先看什么（CLI）"
-msgstr ""
+msgstr "7. ¿Qué debo verificar primero después del inicio (CLI)?"
 
 #: ../../source/live_trading/2-configuration-and-run.md:165
 msgid ""
 "进入 Trader Shell 后，下列命令帮助您确认「配置是否生效、日志在哪、券商是否可受理、门禁是否通过」。它们对应 :doc:`8-cli-"
 "trader-capability-matrix` 中的运维子集——**不是** Shell 全部命令。"
 msgstr ""
+"Una vez que ingrese al Shell Trader, los siguientes comandos lo ayudarán a "
+"confirmar si la configuración es efectiva, dónde se encuentran los "
+"registros, si la firma de corretaje puede procesar su solicitud y si el "
+"control de acceso es exitoso. Estos corresponden al subconjunto de "
+"operaciones en :doc:`8-cli-trader-capability-matrix`—**no** todos los "
+"comandos de Shell."
 
 #: ../../source/live_trading/2-configuration-and-run.md:167
 msgid "**各列含义**：**命令**为在提示符下输入的名称（含别名见矩阵章）；**典型用途**为该命令最常解决的疑问。"
 msgstr ""
+"**Significado de cada columna:** **Comando:** El nombre ingresado en el "
+"mensaje (consulte el capítulo Matrix para conocer los alias); **Usos "
+"típicos:** Las preguntas que este comando resuelve con mayor frecuencia."
 
 #: ../../source/live_trading/2-configuration-and-run.md:169
 msgid ""
 "**如何使用**：启动后按表从上到下快速扫一遍；若某步异常，带着命令输出转 :doc:`5-artifacts-and-"
 "troubleshooting`。"
 msgstr ""
+"**Cómo utilizar:** Después de comenzar, escanee rápidamente la tabla de "
+"arriba a abajo; si un paso es anormal, redirija la salida del comando a "
+":doc:`5-artifacts-and-troubleshooting`."
 
 #: ../../source/live_trading/2-configuration-and-run.md:171
 msgid "**示例**：不确定日志路径 → 输入 `artifacts` → 打开返回的 `sys_log` 路径查看启动 trace。"
 msgstr ""
+"**Ejemplo:** No estoy seguro de la ruta del registro → Ingrese `artifacts` →"
+" Abra la ruta `sys_log` devuelta para ver el seguimiento de inicio."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "命令"
-msgstr ""
+msgstr "el comando"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "典型用途"
-msgstr ""
+msgstr "Casos de uso típicos"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`liveconfig`"
-msgstr ""
+msgstr "`liveconfig`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "当前 live 配置摘要"
-msgstr ""
+msgstr "Resumen de configuración en vivo actual"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`artifacts`"
-msgstr ""
+msgstr "`artifacts`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "四键产物路径（日志在哪）"
 msgstr ""
+"Ruta del producto de cuatro enlaces (dónde se encuentran los registros)"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`gate`"
-msgstr ""
+msgstr "`gate`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "手动跑一次启动门禁（调试）"
 msgstr ""
+"Ejecute manualmente el sistema de control de acceso una vez (para depurar)."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`broker status`"
-msgstr ""
+msgstr "`broker status`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "模拟券商是否「已连接」"
-msgstr ""
+msgstr "¿Está \"conectada\" la firma de corretaje simulada?"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`reconcile`"
-msgstr ""
+msgstr "`reconcile`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "对账快照 JSON"
-msgstr ""
+msgstr "Instantánea de conciliación JSON"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "`run --task diagnose_pending_orders`"
-msgstr ""
+msgstr "`run --task diagnose_pending_orders`"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "在途单诊断（需 **DEBUG** 模式）"
-msgstr ""
+msgstr "Diagnóstico en tránsito (requiere modo **DEBUG**)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:182
 msgid "命令全集见 :doc:`8-cli-trader-capability-matrix`。"
 msgstr ""
+"Para ver el conjunto completo de comandos, consulte :doc:`8-cli-trader-"
+"capability-matrix`."
 
 #: ../../source/live_trading/2-configuration-and-run.md:184
 msgid "7.1 Dashboard 与 interactive 模式"
-msgstr ""
+msgstr "7.1 Panel de control y modo interactivo"
 
 #: ../../source/live_trading/2-configuration-and-run.md:186
 msgid ""
@@ -581,244 +719,307 @@ msgid ""
 "模式**：单行状态区滚动显示下一任务倒计时、监视列表实时价与系统消息，无需输入命令即可观察运行节奏。需要手动下单、查配置或执行运维命令时，按 "
 "**Ctrl+C** 打开模式选单，或在 interactive（命令）模式下输入 **`dashboard`** 返回 dashboard。"
 msgstr ""
+"Trader Shell se inicia en **modo de panel** de forma predeterminada: un área"
+" de estado de una sola línea se desplaza para mostrar la cuenta regresiva "
+"para la siguiente tarea, precios en tiempo real en la lista de monitoreo y "
+"mensajes del sistema, lo que le permite observar el ritmo operativo sin "
+"ingresar comandos. Para realizar pedidos manualmente, verificar "
+"configuraciones o ejecutar comandos de mantenimiento, presione **Ctrl+C** "
+"para abrir el menú de modo o escriba **`dashboard`** en el modo interactivo "
+"(comando) para regresar al tablero."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "模式"
-msgstr ""
+msgstr "Modo"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "行为"
-msgstr ""
+msgstr "Comportamiento"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "**dashboard**"
-msgstr ""
+msgstr "**dashboard**"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "自动刷新状态行与监视价；Trader 主循环在后台继续运行"
 msgstr ""
+"La fila de estado y el precio monitoreado se actualizan automáticamente; el "
+"bucle principal Trader continúa ejecutándose en segundo plano."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "**interactive（命令）**"
-msgstr ""
+msgstr "**interactivo (comando)**"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "传统 `Cmd` 提示符，可输入 `buy`、`config`、`artifacts` 等命令"
 msgstr ""
+"El mensaje tradicional `Cmd` le permite ingresar comandos como `buy`, "
+"`config` y `artifacts`."
 
 #: ../../source/live_trading/2-configuration-and-run.md:193
 msgid "**Ctrl+C 模式选单（dashboard 或命令模式下均可用）**"
 msgstr ""
+"**Menú de selección de modo Ctrl+C (disponible tanto en el modo panel como "
+"en el modo comando)**"
 
 #: ../../source/live_trading/2-configuration-and-run.md:195
 msgid "在 **5 秒**内按 **1** → 进入命令模式；**2** → 回到 dashboard；**3** → 退出并停止 Trader"
 msgstr ""
+"Dentro de **5 segundos**, presione **1** → para ingresar al modo de comando;"
+" **2** → para regresar al tablero; **3** → para salir y detener Trader."
 
 #: ../../source/live_trading/2-configuration-and-run.md:196
 msgid "**无需按 Enter**，数字键立即生效"
 msgstr ""
+"**No es necesario presionar Enter, las teclas numéricas surten efecto "
+"inmediatamente.**"
 
 #: ../../source/live_trading/2-configuration-and-run.md:197
 msgid "**5 秒内无输入** → 自动恢复中断前的模式"
 msgstr ""
+"**Sin entrada en 5 segundos** → Reanuda automáticamente el modo antes de la "
+"interrupción."
 
 #: ../../source/live_trading/2-configuration-and-run.md:198
 msgid "**选单等待期间再次按 Ctrl+C** → 立即退出（与选 **3** 等效）"
 msgstr ""
+"**Presione Ctrl+C nuevamente durante el tiempo de espera del menú** → Salir "
+"inmediatamente (equivalente a seleccionar **3**)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:200
 msgid ""
 "若主循环发生未预期异常，Shell 会提示按 **1** 回到 dashboard 或 **3** 退出；**5 秒无输入**时默认回到 "
 "dashboard，Trader 继续运行。"
 msgstr ""
+"Si ocurre una excepción inesperada en el bucle principal, Shell le pedirá "
+"que presione **1** para regresar al panel o **3** para salir; Si no se "
+"realiza ninguna entrada durante **5 segundos**, volverá al panel de control "
+"de forma predeterminada y Trader continuará ejecutándose."
 
 #: ../../source/live_trading/2-configuration-and-run.md:202
 msgid "8. 运行前检查清单"
-msgstr ""
+msgstr "8. Lista de verificación previa a la operación"
 
 #: ../../source/live_trading/2-configuration-and-run.md:204
 msgid "账户 ID/名称可用，且与策略资产池匹配"
 msgstr ""
+"El ID/nombre de la cuenta está disponible y coincide con el grupo de activos"
+" de la estrategia."
 
 #: ../../source/live_trading/2-configuration-and-run.md:205
 msgid "`asset_type` 与 `asset_pool` 一致（股票/基金不要混用规则）"
 msgstr ""
+"`asset_type` debe ser coherente con `asset_pool` (no mezcle reglas para "
+"acciones y fondos)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:206
 msgid "`live_trade_broker_type` 为 `simulator`（或您已实现的类型）"
 msgstr ""
+"`live_trade_broker_type` debe ser `simulator` (o un tipo que ya haya "
+"implementado)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:207
 msgid "live 价频率 **不低于** 策略运行步频（分钟策略需足够密的 live 价）"
 msgstr ""
+"Frecuencia de precios en vivo **no menos que** la frecuencia de ejecución de"
+" la estrategia (las estrategias basadas en minutos requieren precios en vivo"
+" suficientemente frecuentes)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:208
 msgid "日志路径合法、磁盘可写"
-msgstr ""
+msgstr "La ruta del registro es válida y se puede escribir en el disco."
 
 #: ../../source/live_trading/2-configuration-and-run.md:209
 msgid "`trade_log_keep_days` 符合您的留存预期（含 risk 日志）"
 msgstr ""
+"`trade_log_keep_days` cumple con sus expectativas de retención (incluidos "
+"los registros de riesgo)."
 
 #: ../../source/live_trading/2-configuration-and-run.md:211
 msgid "9. 常见启动失败与处理"
-msgstr ""
+msgstr "9. Fallos comunes de inicio y solución de problemas"
 
 #: ../../source/live_trading/2-configuration-and-run.md:213
 msgid "启动阶段报错时，现象往往集中在配置、账户、数据、路径、频率或启动门禁几类。下表按**您看到的现象**索引，避免在日志里盲目搜索。"
 msgstr ""
+"Cuando se producen errores durante el inicio, los síntomas suelen "
+"clasificarse en algunas categorías: configuración, cuenta, datos, ruta, "
+"frecuencia o control de acceso al inicio. La siguiente tabla está indexada "
+"por **los síntomas que observa** para evitar buscar ciegamente en los "
+"registros."
 
 #: ../../source/live_trading/2-configuration-and-run.md:215
 msgid "**各列含义**：**现象**为启动或首屏时的表现；**可能原因**为常见根因（非穷尽）；**建议**为下一步操作。"
 msgstr ""
+"**Explicación de cada columna:** **Fenómeno:** El comportamiento durante el "
+"inicio o en la primera pantalla; **Posibles causas:** Causas fundamentales "
+"comunes (no exhaustivas); **Sugerencias:** Los próximos pasos."
 
 #: ../../source/live_trading/2-configuration-and-run.md:217
 msgid ""
 "**如何使用**：先匹配「现象」列；若仍无法解决，用 §7 命令导出 `liveconfig` 与 `artifacts` 路径，对照 "
 ":doc:`5-artifacts-and-troubleshooting` 决策树。"
 msgstr ""
+"**Cómo utilizar:** Primero, haga coincidir la columna \"fenómeno\"; si el "
+"problema persiste, utilice el comando §7 para exportar las rutas a "
+"`liveconfig` y `artifacts`, y consulte el árbol de decisión en "
+":doc:`5-artifacts-and-troubleshooting`."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "现象"
-msgstr ""
+msgstr "Fenómeno"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "可能原因"
-msgstr ""
+msgstr "Posibles razones"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "建议"
-msgstr ""
+msgstr "Sugerencia"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "配置校验失败"
-msgstr ""
+msgstr "La verificación de la configuración falló."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "某 live 键非法或互斥"
-msgstr ""
+msgstr "Una determinada clave activa no es válida o es mutuamente excluyente."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "按报错字段修正后重启"
-msgstr ""
+msgstr "Después de corregir los mensajes de error, reinicie."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "账户不可用"
-msgstr ""
+msgstr "Cuenta no disponible"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "ID/名称错误或未初始化"
-msgstr ""
+msgstr "ID/nombre incorrecto o no inicializado"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "检查账户创建参数"
-msgstr ""
+msgstr "Verificar parámetros de creación de cuenta"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "数据不可用"
-msgstr ""
+msgstr "Datos no disponibles"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "渠道/频率/本地表缺失"
-msgstr ""
+msgstr "Falta la tabla de canal/frecuencia/local"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "检查 refill 与 `stock_1min` 等表"
-msgstr ""
+msgstr "Consulta las tablas de recarga y `stock_1min`, etc."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "路径错误"
-msgstr ""
+msgstr "Error de ruta"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "日志目录不可写"
-msgstr ""
+msgstr "El directorio de registro no se puede escribir"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "检查 `sys_log_file_path` 等"
-msgstr ""
+msgstr "Marque `sys_log_file_path`, etc."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "频率不协调"
-msgstr ""
+msgstr "Incoordinación de frecuencia"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "live 价比策略步频更稀"
 msgstr ""
+"La estrategia de rentabilidad en vivo con mayor frecuencia de pasos es más "
+"rara"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "提高 `live_price_acquire_freq` 或降策略频"
 msgstr ""
+"Aumente `live_price_acquire_freq` o disminuya la frecuencia de la política."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "gate block"
-msgstr ""
+msgstr "gate block"
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "启动门禁 `block` 且检查未过"
 msgstr ""
+"El control de acceso `block` está activado pero la verificación falla."
 
 #: ../../source/live_trading/2-configuration-and-run.md
 msgid "看 `gate` 输出与 trace 中 `failures`"
-msgstr ""
+msgstr "Vea la salida `gate` y la sección `failures` en el seguimiento."
 
 #: ../../source/live_trading/2-configuration-and-run.md:228
 msgid "10. 相关跳转"
-msgstr ""
+msgstr "10. Redirecciones relacionadas"
 
 #: ../../source/live_trading/2-configuration-and-run.md:230
 msgid "风控与订单：:doc:`3-risk-and-order-lifecycle`"
-msgstr ""
+msgstr "Control de riesgos y órdenes: ciclo de vida de 3 riesgos y órdenes"
 
 #: ../../source/live_trading/2-configuration-and-run.md:231
 msgid "产物与排错：:doc:`5-artifacts-and-troubleshooting`"
 msgstr ""
+"Productos y solución de problemas: :doc:`5-artifacts-and-troubleshooting`"
 
 #: ../../source/live_trading/2-configuration-and-run.md:232
 msgid "Broker 适配：:doc:`4-broker-adapter-and-integration`"
-msgstr ""
+msgstr "Adaptación del corredor: :doc:`4-broker-adapter-and-integration`"
 
 #: ../../source/live_trading/2-configuration-and-run.md:233
 msgid "快照/门禁：:doc:`6-trader-snapshot-gate`"
-msgstr ""
+msgstr "Instantánea/Control de acceso: :doc:`6-trader-snapshot-gate`"
 
 #: ../../source/live_trading/2-configuration-and-run.md:234
 msgid "冒烟清单：:doc:`7-manual-smoke-live-grid-roadmap`"
-msgstr ""
+msgstr "Lista de humo: :doc:`7-manual-smoke-live-grid-roadmap`"
 
 #: ../../source/live_trading/2-configuration-and-run.md:235
 msgid "CLI 对照：:doc:`8-cli-trader-capability-matrix`"
-msgstr ""
+msgstr "Referencia CLI: :doc:`8-cli-trader-capability-matrix`"
 
 #: ../../source/live_trading/2-configuration-and-run.md:236
 msgid ""
 "完整演练：[tutorials/8-live-trade-risk-and-broker-"
 "walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"
 msgstr ""
+"Tutorial completo: [tutorials/8-live-trade-risk-and-broker-"
+"walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"
 
 #: ../../source/live_trading/2-configuration-and-run.md:238
 msgid "11. 最小验收标准"
-msgstr ""
+msgstr "11. Criterios mínimos de aceptación"
 
 #: ../../source/live_trading/2-configuration-and-run.md:240
 msgid "可在 E 或 FD 路径下稳定启动"
-msgstr ""
+msgstr "El inicio estable es posible bajo la ruta E o FD"
 
 #: ../../source/live_trading/2-configuration-and-run.md:241
 msgid "`liveconfig` / `artifacts` 输出符合预期"
-msgstr ""
+msgstr "La salida de `liveconfig` / `artifacts` es la esperada."
 
 #: ../../source/live_trading/2-configuration-and-run.md:242
 msgid "能观察到至少一条：订单提交、风控拒绝或柜台受理"
 msgstr ""
+"Se puede observar al menos uno de los siguientes: envío de órdenes, rechazo "
+"de control de riesgos o contraprocesamiento."
 
 #: ../../source/live_trading/2-configuration-and-run.md:243
 msgid "若风控拒绝：能在 `risk_log` 找到记录；若柜台拒单：订单为 `rejected` 且 broker 号为空"
 msgstr ""
+"Si control de riesgos rechaza el pedido: se puede encontrar un registro en "
+"el `risk_log`; si el corredor rechaza la orden: la orden se marca como "
+"`rejected` y el número del corredor está vacío."
 
 #: ../../source/live_trading/2-configuration-and-run.md:244
 msgid "日志目录中能找到对应运行产物"
 msgstr ""
+"Los artefactos de tiempo de ejecución correspondientes se pueden encontrar "
+"en el directorio de registro."
 
 #~ msgid "live_trading 配置与运行"
 #~ msgstr ""
@@ -963,4 +1164,3 @@ msgstr ""
 
 #~ msgid "日志目录中可找到对应运行产物"
 #~ msgstr ""
-

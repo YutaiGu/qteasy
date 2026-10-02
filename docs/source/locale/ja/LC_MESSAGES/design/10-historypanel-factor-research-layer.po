@@ -1,0 +1,260 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:1
+msgid "HistoryPanel 与可选「FactorResearch」辅助层（评估结论）"
+msgstr "HistoryPanel およびオプションの「FactorResearch」ヘルパー層 (評価結論)"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:3
+msgid ""
+"本文档回答路线图中的评估项：**是否需要在 `HistoryPanel` 之上再抽象一层轻量 API（工作名 "
+"`FactorResearch`），专门计算 IC/IR、分位数组合收益、long-short 曲线等？**"
+msgstr ""
+"この文書は、ロードマップの評価項目に答えます: "
+"**IC/IR、分位数ポートフォリオのリターン、ロングショート曲線などの計算専用の、`HistoryPanel` (作業名 "
+"`FactorResearch`) の上に別の軽量 API 抽象化レイヤーを追加する必要がありますか?**"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:5
+msgid "1. 当前能力边界（已满足的部分）"
+msgstr "1. 現在の機能の境界 (すでにカバーされている内容)"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:7
+msgid "以下能力已由 `HistoryPanel` 及相关 API 覆盖，无需重复造轮子："
+msgstr "次の機能は、`HistoryPanel` および関連 API ですでにカバーされているため、車輪を再発明する必要はありません。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:9
+msgid "**因子列生产**：`assign`、`__setitem__`、`returns`、`kline`、`apply_ta` 等；"
+msgstr "**因子列の生成**: `assign`、`__setitem__`、`returns`、`kline`、`apply_ta` など。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:10
+msgid "**截面变换**：`rank`、`zscore(method='cs'|'ts')`；"
+msgstr "**断面変換**: `rank`、`zscore(method='cs'|'ts')`;"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:11
+msgid "**粗组合与基准**：`portfolio`（等权/加权、`groups`、`benchmark`）；"
+msgstr "**大まかなポートフォリオとベンチマーク**: `portfolio` (均等加重/加重、`groups`、`benchmark`);"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:12
+msgid "**研究向收益展示**：`cum_return`、`normalize` 与 `mask=`；"
+msgstr "**研究指向の戻り表示**: `cum_return`、`normalize`、および `mask=`;"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:13
+msgid "**可视化**：`plot` 与 `(M,L)` mask 高亮；"
+msgstr "**視覚化**: `plot` および (M,L) マスクの強調表示。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:14
+msgid "**与计量工具衔接**：`to_df_dict`、手工长表化后接 pandas / statsmodels（见教程 2.5 §11）。"
+msgstr ""
+"**測定/分析ツールとの統合**: `to_df_dict`、または手動で長い形式に再形成してから、pandas / statsmodels "
+"を使用します (チュートリアル 2.5 §11 を参照)。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:16
+msgid "对「轻量因子研究 + 粗验」目标，上述已构成**完整底座**。"
+msgstr "「軽量化要素の調査 + 大まかな検証」という目的に向けて、上記は既に **完全な基盤** を形成しています。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:18
+msgid "2. 若增加 `FactorResearch` 层，能解决什么？"
+msgstr "2. `FactorResearch` レイヤーを追加すると、何が解決できますか?"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:20
+msgid "典型封装可包括："
+msgstr "典型的なラッパーには次のものが含まれます。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:22
+msgid "给定 **因子列** 与 **收益列**（或标签），输出 **逐期 IC**、**IC 均值/IR**；"
+msgstr "**因子列**と**戻り列** (またはラベル) を指定すると、**期間ごとの IC**、**IC 平均/IR** が出力されます。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:23
+msgid "**分位数组合**（按截面分桶）的净值或收益序列；"
+msgstr "**分位ポートフォリオ**の NAV またはリターン シリーズ (クロスセクションごとにバケット化)。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:24
+msgid "**多空组合**（top minus bottom）的时间序列。"
+msgstr "**ロング/ショート ポートフォリオ**の時系列 (上部から下部を引いたもの)。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:26
+msgid ""
+"这些均可用现有 `rank` / `portfolio` / `values` + pandas **在用户侧或独立模块中**几十行实现；封装的价值在于"
+" **API 稳定、参数约定统一、减少复制粘贴错误**。"
+msgstr ""
+"これらはすべて、ユーザー側の数十行で、または既存の `rank` / `portfolio` / `values` + pandas "
+"を使用する独立したモジュールで実装できます。ラッピングの価値は、**安定した "
+"API、統一されたパラメーター規則、およびコピー＆ペーストのエラーの減少**にあります。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:28
+msgid "3. 结论（短期不引入类库级 `FactorResearch`）"
+msgstr "3. 結論 (短期的にはライブラリレベルの `FactorResearch` を導入しないでください)"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:30
+msgid "**结论：当前阶段不在 qteasy 内核或 HistoryPanel 上强制增加 `FactorResearch` 类/子模块。**"
+msgstr ""
+"**結論: 現段階では、qteasy カーネルまたは HistoryPanel 上に `FactorResearch` "
+"クラス/サブモジュールを強制的に追加することはありません。**"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:32
+msgid "理由简述："
+msgstr "簡単な根拠:"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:34
+msgid ""
+"**职责清晰**：`HistoryPanel` "
+"已定位为三维研究容器与显式对齐/重采样；IC/IR、分位组合等属于**研究工作流约定**更强的「分析配方」，放在独立教程、示例或未来可选包中更合适，避免"
+" HP API 膨胀。"
+msgstr ""
+"**明確な責任**: `HistoryPanel` は、明示的な位置合わせ/リサンプリングを備えた 3D 研究コンテナとしてすでに位置づけられています。"
+" IC/IR、クォンタイルポートフォリオなどは、より強力な**リサーチワークフロー規約**を備えた「分析レシピ」です。これらは、HP API "
+"の肥大化を避けるために、スタンドアロンのチュートリアル、サンプル、または将来のオプション パッケージに適しています。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:35
+msgid ""
+"**避免错误预期**：单独命名模块易让用户以为框架已内置「发表级因子检验」（如多重检验、样本划分、HAC 标准误），而实际仍需用户在 "
+"statsmodels 等侧完成推断。"
+msgstr ""
+"**誤った期待を避ける**: スタンドアロン モジュールという名前を付けると、ユーザーはフレームワークにすでに「出版グレードの要素テスト」 "
+"(複数のテスト、サンプル分割、HAC 標準誤差など) "
+"が含まれていると簡単に思い込む可能性がありますが、実際にはユーザーは統計モデル側などで推論を行う必要があります。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:36
+msgid ""
+"**与中期「内置因子库」的关系**：顶层路线图中的 **内置因子库（M2.1）** 若落地，更自然的做法是 **因子定义 + 注册 + 与 "
+"FactorSorter/回测衔接**；批量 IC/分层可作为因子库周边的 **可选工具函数**，而非 HistoryPanel 实例方法。"
+msgstr ""
+"**中期的な「組み込み因子ライブラリ」** との関係: 最上位ロードマップの **組み込み因子ライブラリ (M2.1)** "
+"が実装される場合、より自然なアプローチは **因子定義 + 登録 + FactorSorter/バックテストとの統合** になります。バッチ "
+"IC/階層化は、HistoryPanel インスタンス メソッドではなく、因子ライブラリに関する **オプションのユーティリティ関数** "
+"にすることができます。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:37
+msgid "**维护成本**：IC 需约定收益前瞻窗口、停牌、退市、权重（市值加权 vs 等权）等，参数组合多，若无统一数据契约易引发支持成本。"
+msgstr ""
+"**メンテナンスコスト**: IC には、フォワードリターンウィンドウ、取引停止、上場廃止、重み付け (価値重み付けと等重み付け) "
+"などの規則が必要です。パラメーターの組み合わせは多数あります。統一されたデータ契約がなければ、サポートコストが簡単に上昇する可能性があります。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:39
+msgid "4. 若未来引入，建议形态（备忘）"
+msgstr "4. 今後導入する場合の提案フォーム（メモ）"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:41
+msgid ""
+"若社区需求明确，推荐 **独立模块**（例如 `qteasy.research.factor_stats` 或项目外 `qteasy-"
+"research`），而非 `HistoryPanel` 方法："
+msgstr ""
+"コミュニティの需要が明らかな場合は、`HistoryPanel` メソッドではなく **独立モジュール** (例: "
+"`qteasy.research.factor_stats` または外部 `qteasy-research` プロジェクト) を推奨します。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:43
+msgid "入参：`HistoryPanel` 或 `DataFrame` + 列名 + 前瞻期数；"
+msgstr "入力: `HistoryPanel` または `DataFrame` + 列名 + 将来予測期間。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:44
+msgid "出参：`DataFrame` / `Series`（可再绘图为辅）；"
+msgstr "出力: `DataFrame` / `Series` (オプションで補足として再プロット);"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:45
+msgid ""
+"文档：明确 **非** 替代 Backtester，且 **不** 内置 Fama–MacBeth / Newey–West（仍导出到 "
+"statsmodels）。"
+msgstr ""
+"ドキュメント: Backtester の代替品ではない**こと、および Fama–MacBeth / Newey–West "
+"が組み込まれていない**ことを明確に述べています (統計モデルにはまだエクスポートされています)。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:47
+msgid "届时应配套 **TDD** 与英文 `ValueError` 契约，与现有 HP 测试风格一致。"
+msgstr ""
+"その時点で、既存の HP テスト スタイルと一致する **TDD** と英語の `ValueError` コントラクトが付属している必要があります。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:49
+msgid "4.1 路线图衔接（2026-08-11）"
+msgstr "4.1 ロードマップの関係 (2026-08-11)"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:51
+msgid ""
+"顶层任务 **M2.2** 已将上述「独立模块」形态纳入二阶段实施范围（函数 API：`factor_ic` / "
+"`quantile_portfolio` / `long_short_return` 等），并与 HP 内核 pandas "
+"级补齐（`shift`/`diff`/`dropna`/`expr` 等）同批规划。"
+msgstr ""
+"トップレベルタスク **M2.2** は、上記の「独立したモジュール」形式を第 2 段階の実装スコープ (関数 API: `factor_ic` / "
+"`quantile_portfolio` / `long_short_return` など) に組み込み、HP カーネル pandas "
+"レベルで補完しました。 (`shift`/`diff`/`dropna`/`expr` など) を同じバッチで計画します。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:53
+msgid ""
+"执行计划：[m2.2_hp二阶段扩展_da0c19a3.plan.md](../../../.cursor/plans/m2.2_hp二阶段扩展_da0c19a3.plan.md)"
+msgstr ""
+"実行計画: [m2.2_hp 2 段階拡張_da0c19a3.plan.md](../../../.cursor/plans/m2.2_hp 2 "
+"段階拡張_da0c19a3.plan.md)"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:54
+msgid "进度真源：顶层展望 §7.1 **M2.2**"
+msgstr "進歩の真の源: トップレベルの見通し §7.1 **M2.2**"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:55
+msgid ""
+"**截至 CP-A（Phase 1–3）**：HP 内核已落地 `shift` / `diff` / `pct_change`、`bfill` / "
+"`dropna`、填充类 `inplace=`、以及 `expr`；用户文档见教程 2.4/2.5 与 [HistoryPanel "
+"API](../api/HistoryPanel.rst)。"
+msgstr ""
+"**CP-A (フェーズ 1 ～ 3) 時点**: HP カーネル `shift` / `diff` / `pct_change`、`bfill` / "
+"`dropna`、パディング クラス `inplace=`、および `expr` が実装されています。ユーザードキュメントについては、チュートリアル "
+"2.4/2.5 および [HistoryPanel API](../api/HistoryPanel.rst) を参照してください。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:56
+msgid ""
+"**截至 CP-B（Phase 4–6）**：HP 内核已落地 `drop` / `rename`、统计对称（`sum` / `median` / "
+"`var` / `quantile`）、以及 `slice`/`segment`/`isegment`/`candle` 的英文弃用警告；文档同上。"
+msgstr ""
+"**CP-B (フェーズ 4 ～ 6) 時点**: HP カーネルは、`drop` / `rename`、統計的対称性 (`sum` / "
+"`median` / `var` / `quantile`)、および英語の非推奨警告を導入しました。 "
+"⟦コード6⟧/⟦コード7⟧/⟦コード8⟧/⟦コード9⟧;ドキュメントは上記と同じです。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:57
+msgid ""
+"**截至 CP-D / CP-E（Phase 8–11）**：`qteasy.research` 已落地模块级 `factor_ic` / "
+"`factor_ic_summary` / `quantile_portfolio` / `long_short_return`；HP 已落地 "
+"`corr` / `cov`；导出推荐名与可跟跑示例见 [research API](../api/research.rst)、教程 2.5 "
+"cookbook 与 `examples/historypanel_research_factor_workflow.py`。"
+msgstr ""
+"**CP-D / CP-E (フェーズ 8 ～ 11)**: `qteasy.research` はモジュール レベル `factor_ic` / "
+"`factor_ic_summary` / `quantile_portfolio` / `long_short_return` で実装されています。 "
+"HP `corr` / `cov` が実装されました。エクスポートされた推奨名と従うべき例については、[research "
+"API](../api/research.rst)、`examples/historypanel_research_factor_workflow.py`"
+" のチュートリアル 2.5 クックブックを参照してください。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:58
+msgid ""
+"本节 §3「短期不引入类库级 FactorResearch」结论仍然有效：M2.2 落地的是 **`qteasy.research` "
+"模块级函数**，不是挂在 HistoryPanel 上的重型研究类。"
+msgstr ""
+"このセクションの §3 の結論「ライブラリレベルの FactorResearch は短期的には導入されない」は依然として有効です。M2.2 "
+"は、HistoryPanel に依存する重い研究クラスではなく、**`qteasy.research` モジュールレベルの関数** を実装します。"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:60
+msgid "5. 与教程的关系"
+msgstr "5. チュートリアルとの関係"
+
+#: ../../source/design/10-historypanel-factor-research-layer.md:62
+msgid ""
+"实操路径以 [教程 2.5：使用 HistoryPanel 操作和分析历史数据](../tutorials/2.5-historypanel-data-"
+"analysis.md) 的 §9–§11 为准；本设计文档仅记录 **架构层面的评估结论**，不增加用户必读的 API 面。"
+msgstr ""
+"実際のワークフローについては、[チュートリアル 2.5: HistoryPanel "
+"を使用した履歴データの操作と分析](../tutorials/2.5-historypanel-data-analysis.md) の §9 ～ §11"
+" に従ってください。この設計ドキュメントは **アーキテクチャ レベルの評価結果**を記録するだけであり、ユーザーに必読の API "
+"サーフェスは追加されていません。"

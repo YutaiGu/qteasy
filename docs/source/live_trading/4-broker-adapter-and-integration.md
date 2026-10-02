@@ -58,7 +58,7 @@ Operator.run_live_trade()
 | 接口 | 语义 | simulator 上您会看到 | 真实 QMT（规划中） |
 |------|------|----------------------|---------------------|
 | `connect` / `disconnect` | 会话 | 内部标志置位；非真实登录 | 真实登录与重连 |
-| `submit_with_ack` | 同步受理 | 返回 accepted、模拟 broker_order_id 等 | 柜台真实受理结果 |
+| `submit_with_ack` | 同步受理 | 返回 accepted、模拟 broker_order_id 等 | 柜台真实受理结果（见 :doc:`4a-xtquant-broker-adapter-contract-v1`） |
 | `poll_fills` | 异步回报 | 模拟成交队列 | 真实成交推送/轮询 |
 | `get_remote_*` | 远端账本 | 常为空或 None | 对账、门禁、sync 的数据源 |
 | `cancel` | 撤单 | 模拟实现 | 真实撤单号映射 |
@@ -91,6 +91,8 @@ Operator.run_live_trade()
 
 ## 4. 扩展新 Broker 类型
 
+**XtQuant / MiniQMT**：配置项 ``live_trade_broker_type='xtquant'`` 已在 2.5.2 白名单中；实现细节与禁止双重下单等规则见英文契约 :doc:`4a-xtquant-broker-adapter-contract-v1`（协作方 PR 评审基准）。
+
 注册工厂（示例）：
 
 ```python
@@ -98,6 +100,15 @@ from qteasy.broker import register_broker_factory
 
 register_broker_factory('my_broker', MyBrokerFactory)
 # qt.configure(live_trade_broker_type='my_broker')
+```
+
+独立扩展包（推荐用于 QMT）：
+
+```python
+import qteasy_xtquant
+
+qteasy_xtquant.register()
+# qt.configure(live_trade_broker_type='xtquant')
 ```
 
 **CLI `sync`（别名 `pull-state`）**：当前为**预留**，执行会打印 `[NOT_IMPLEMENTED] ...`，表示真实「从券商拉状态」尚未实现；对接 QMT 后将替换为可用实现。

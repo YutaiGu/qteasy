@@ -49,6 +49,8 @@ from qteasy.trader_cli import (
     _parse_error_recovery_choice,
     _read_line_with_timeout,
     _read_line_with_timeout_unix,
+    _normalize_task_status_filter,
+    format_trader_tasks_table,
 )
 from qteasy.trading_util import (
     process_account_delivery,
@@ -1299,16 +1301,16 @@ class TestTraderCLI(unittest.TestCase):
         print('\n[TestCommandLiveconfig] help returns False')
         self.assertFalse(tss.do_liveconfig('-h'))
 
-        print('[TestCommandLiveconfig] summary JSON keys')
+        print('[TestCommandLiveconfig] human-readable summary')
         buf = io.StringIO()
         with redirect_stdout(buf):
             self.assertIsNone(tss.do_liveconfig(''))
-        summary = json.loads(buf.getvalue())
-        print(' summary:', summary)
-        self.assertIn('broker_type', summary)
-        self.assertIn('asset_pool', summary)
-        self.assertIn('live_trade_account_id', summary)
-        self.assertEqual(summary['broker_type'], 'simulator')
+        out = buf.getvalue()
+        print(' summary output:', out)
+        self.assertIn('Live Trade Config - Broker', out)
+        self.assertIn('Broker Type', out)
+        self.assertIn('simulator', out)
+        self.assertNotIn('"broker_type"', out)
 
         print('[TestCommandLiveconfig] live-config alias via precmd')
         self.assertEqual(tss.precmd('live-config --detail'), 'liveconfig --detail')
@@ -1316,21 +1318,23 @@ class TestTraderCLI(unittest.TestCase):
         buf = io.StringIO()
         with redirect_stdout(buf):
             self.assertIsNone(tss.do_liveconfig('--detail'))
-        detail = json.loads(buf.getvalue())
-        print(' detail keys:', sorted(detail.keys()))
-        self.assertIn('live_trade_startup_gate_mode', detail)
+        detail_out = buf.getvalue()
+        print(' detail output:', detail_out)
+        self.assertIn('Live Trade Config - Extended', detail_out)
+        self.assertIn('Startup Gate Mode', detail_out)
 
     def test_command_tasks(self):
         """test tasks list and task show/cancel"""
         tss = self.tss
 
-        print('\n[TestCommandTasks] empty queue')
+        print('\n[TestCommandTasks] empty queue table')
         buf = io.StringIO()
         with redirect_stdout(buf):
             self.assertIsNone(tss.do_tasks(''))
         out = buf.getvalue()
         print(' tasks output:', out)
-        self.assertIn('Trader tasks: 0', out)
+        self.assertIn('Trader Tasks:', out)
+        self.assertIn('No trader tasks found.', out)
 
         print('[TestCommandTasks] add task then list/show/cancel')
         task_id = tss.trader.add_task('refill', 'stock_daily')
@@ -1340,9 +1344,10 @@ class TestTraderCLI(unittest.TestCase):
             self.assertIsNone(tss.do_tasks(''))
         out = buf.getvalue()
         print(' tasks after add:', out)
-        self.assertIn('Trader tasks: 1', out)
+        self.assertIn('Trader Tasks:', out)
         self.assertIn(task_id, out)
-        self.assertIn('name=refill', out)
+        self.assertIn('refill', out)
+        self.assertIn('status', out)
 
         buf = io.StringIO()
         with redirect_stdout(buf):
@@ -1375,7 +1380,9 @@ class TestTraderCLI(unittest.TestCase):
                 self.assertIsNone(tss.do_gate(''))
             out = buf.getvalue()
             print(' gate allowed output:', out)
-            self.assertIn('allowed=True', out)
+            self.assertIn('Startup Gate', out)
+            self.assertIn('Allowed', out)
+            self.assertIn('True', out)
 
         with patch.object(tss.trader, 'run_startup_gate', return_value=False):
             buf = io.StringIO()
@@ -1383,7 +1390,8 @@ class TestTraderCLI(unittest.TestCase):
                 self.assertIsNone(tss.do_gate(''))
             out = buf.getvalue()
             print(' gate blocked output:', out)
-            self.assertIn('allowed=False', out)
+            self.assertIn('Startup Gate', out)
+            self.assertIn('False', out)
 
         print('[TestCommandGate] startup-gate alias via precmd')
         self.assertEqual(tss.precmd('startup-gate'), 'gate')
@@ -1399,13 +1407,12 @@ class TestTraderCLI(unittest.TestCase):
         buf = io.StringIO()
         with redirect_stdout(buf):
             self.assertIsNone(tss.do_reconcile(''))
-        snapshot = json.loads(buf.getvalue())
-        print(' reconcile snapshot:', snapshot)
-        self.assertIn('is_ok', snapshot)
-        self.assertIn('failures', snapshot)
-        self.assertIn('remote_orders_count', snapshot)
-        self.assertIsInstance(snapshot['is_ok'], bool)
-        self.assertIsInstance(snapshot['failures'], list)
+        out = buf.getvalue()
+        print(' reconcile output:', out)
+        self.assertIn('Broker Reconcile', out)
+        self.assertIn('Overall OK', out)
+        self.assertIn('Remote Orders Count', out)
+        self.assertNotIn('"is_ok"', out)
 
         print('[TestCommandReconcile] snapshot-reconcile alias via precmd')
         self.assertEqual(tss.precmd('snapshot-reconcile'), 'reconcile')
@@ -1418,6 +1425,7 @@ class TestTraderCLI(unittest.TestCase):
         self.assertEqual(CLI_COMMAND_ALIASES.get('startup-gate'), 'gate')
         self.assertEqual(CLI_COMMAND_ALIASES.get('snapshot-reconcile'), 'reconcile')
         self.assertEqual(CLI_COMMAND_ALIASES.get('rotate-logs'), 'rotatelogs')
+        self.assertEqual(CLI_COMMAND_ALIASES.get('rotatelog'), 'rotatelogs')
         self.assertEqual(CLI_COMMAND_ALIASES.get('pull-state'), 'sync')
         self.assertEqual(len(DEBUG_RUN_TASK_CHOICES), 7)
 
@@ -1450,11 +1458,12 @@ class TestTraderCLI(unittest.TestCase):
             qt.QT_TRADE_LOG_PATH = tmp_dir
             buf = io.StringIO()
             with redirect_stdout(buf):
-                self.assertIsNone(tss.do_rotatelogs('--days 30'))
+                self.assertIsNone(tss.do_rotatelogs('--days 30 --yes'))
             out = buf.getvalue()
             print(' rotatelogs output:', out)
             print(' files after rotation:', sorted(os.listdir(tmp_dir)))
             self.assertIn('Trade log rotation completed', out)
+            self.assertIn('removed=1', out)
             self.assertIn(tmp_dir, out)
             self.assertFalse(os.path.exists(old_path))
             self.assertTrue(os.path.exists(recent_path))
@@ -1477,7 +1486,9 @@ class TestTraderCLI(unittest.TestCase):
             self.assertIsNone(tss.do_broker('status'))
         status_out = buf.getvalue()
         print(' status output:', status_out)
-        self.assertIn('is_connected=False', status_out)
+        self.assertIn('Broker Status', status_out)
+        self.assertIn('Connected', status_out)
+        self.assertIn('False', status_out)
 
         print('[TestCommandBroker] connect then status')
         buf = io.StringIO()
@@ -1491,7 +1502,8 @@ class TestTraderCLI(unittest.TestCase):
             self.assertIsNone(tss.do_broker('status'))
         status_out = buf.getvalue()
         print(' status after connect:', status_out)
-        self.assertIn('is_connected=True', status_out)
+        self.assertIn('Broker Status', status_out)
+        self.assertIn('True', status_out)
 
         buf = io.StringIO()
         with redirect_stdout(buf):
@@ -1501,6 +1513,188 @@ class TestTraderCLI(unittest.TestCase):
 
         print(' BROKER_SUBCOMMANDS:', BROKER_SUBCOMMANDS)
         self.assertFalse(tss.do_broker(''))
+
+    def test_orders_shows_order_ids(self):
+        """orders 输出应包含 order_id 与 broker_order_id 列。"""
+        tss = self.tss
+        print('\n[TestOrdersShowsOrderIds] orders table includes id columns')
+
+        order_ids = save_parsed_trade_orders(
+                account_id=1,
+                symbols=['000001.SZ'],
+                positions=['long'],
+                directions=['buy'],
+                quantities=[100],
+                prices=[10.0],
+                data_source=tss.trader.datasource,
+        )
+        order_id = order_ids[0]
+        submit_order(order_id, tss.trader.datasource)
+        detail = read_trade_order_detail(order_id=order_id, data_source=tss.trader.datasource)
+        print(' order detail:', detail)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertIsNone(tss.do_orders('--status submitted'))
+        out = buf.getvalue()
+        print(' orders output:\n', out)
+        self.assertIn('id', out)
+        self.assertIn('broker_id', out)
+        self.assertIn(str(order_id), out)
+
+    def test_history_excludes_unfilled_and_canceled(self):
+        """history 应过滤无成交与已取消订单，仅保留 filled_qty>0 的记录。"""
+        tss = self.tss
+        test_ds = tss.trader.datasource
+        print('\n[TestHistoryExcludesUnfilled] filter canceled/unfilled rows')
+
+        filled_order_ids = save_parsed_trade_orders(
+                account_id=1,
+                symbols=['000001.SZ'],
+                positions=['long'],
+                directions=['buy'],
+                quantities=[100],
+                prices=[10.0],
+                data_source=test_ds,
+        )
+        filled_order_id = filled_order_ids[0]
+        submit_order(filled_order_id, test_ds)
+        process_trade_result(
+                raw_trade_result={
+                    'order_id': filled_order_id,
+                    'filled_qty': 100,
+                    'price': 10.5,
+                    'transaction_fee': 5.0,
+                    'canceled_qty': 0.0,
+                },
+                data_source=test_ds,
+        )
+
+        canceled_order_ids = save_parsed_trade_orders(
+                account_id=1,
+                symbols=['000002.SZ'],
+                positions=['long'],
+                directions=['buy'],
+                quantities=[100],
+                prices=[11.0],
+                data_source=test_ds,
+        )
+        canceled_order_id = canceled_order_ids[0]
+        submit_order(canceled_order_id, test_ds)
+        tss.do_cancel(str(canceled_order_id))
+
+        history_df = tss.trader.history_orders()
+        print(' history_orders:\n', history_df[['order_id', 'symbol', 'status', 'filled_qty', 'execution_time']])
+        filled_rows = history_df[
+            (history_df['filled_qty'].fillna(0) > 0) & history_df['execution_time'].notna()
+        ]
+        canceled_rows = history_df[history_df['order_id'] == canceled_order_id]
+        print(' filled_rows count:', len(filled_rows), ' canceled row filled_qty:', canceled_rows['filled_qty'].tolist())
+        self.assertEqual(len(filled_rows), 1)
+        self.assertTrue(pd.isna(canceled_rows.iloc[0]['filled_qty']) or canceled_rows.iloc[0]['filled_qty'] == 0)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertIsNone(tss.do_history(''))
+        out = buf.getvalue()
+        print(' history output:\n', out)
+        self.assertIn('000001.SZ', out)
+        self.assertNotIn('000002.SZ', out)
+        self.assertEqual(out.count('000001.SZ'), 1)
+
+    def test_task_list_default_queued_and_all(self):
+        """task -l 默认仅 queued；task -l -s all 与 tasks 等价。"""
+        tss = self.tss
+        print('\n[TestTaskList] default queued filter and all listing')
+
+        queued_id = tss.trader.add_task('refill', 'stock_daily')
+        done_spec = tss.trader._new_task_spec('pre_open', ())
+        done_spec.status = 'done'
+        tss.trader._task_registry[done_spec.task_id] = done_spec
+        print(' queued_id:', queued_id, ' done_id:', done_spec.task_id)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertIsNone(tss.do_task('--list'))
+        queued_out = buf.getvalue()
+        print(' task -l output:', queued_out)
+        self.assertIn(queued_id, queued_out)
+        self.assertNotIn(done_spec.task_id, queued_out)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertIsNone(tss.do_task('--list --status all'))
+        all_task_out = buf.getvalue()
+        print(' task -l -s all output:', all_task_out)
+        self.assertIn(queued_id, all_task_out)
+        self.assertIn(done_spec.task_id, all_task_out)
+
+        buf = io.StringIO()
+        with redirect_stdout(buf):
+            self.assertIsNone(tss.do_tasks(''))
+        tasks_out = buf.getvalue()
+        print(' tasks output:', tasks_out)
+        self.assertIn(queued_id, tasks_out)
+        self.assertIn(done_spec.task_id, tasks_out)
+
+        print(' normalize in-queue alias:', _normalize_task_status_filter('in queue'))
+        self.assertEqual(_normalize_task_status_filter('in queue'), 'queued')
+
+    def test_tasks_table_format_helper(self):
+        """format_trader_tasks_table 输出 schedule 风格表格。"""
+        print('\n[TestTasksTableFormat] helper table columns')
+        task_spec = self.tss.trader._new_task_spec('refill', ('stock_daily',))
+        table = format_trader_tasks_table([task_spec])
+        print(' table:\n', table)
+        self.assertIn('task_id', table)
+        self.assertIn('name', table)
+        self.assertIn('status', table)
+        self.assertIn(task_spec.task_id, table)
+
+    def test_rotatelogs_preview_and_confirm(self):
+        """rotatelogs 预览、非 TTY 中止、--yes 执行删除。"""
+        tss = self.tss
+        print('\n[TestRotatelogsConfirm] preview/confirm/--yes behavior')
+
+        tmp_dir = tempfile.mkdtemp()
+        original_path = qt.QT_TRADE_LOG_PATH
+        try:
+            old_path = os.path.join(tmp_dir, 'old_account.risk.log')
+            with open(old_path, 'w', encoding='utf-8') as f:
+                f.write('old-risk\n')
+            old_time = time.time() - 40 * 24 * 3600
+            os.utime(old_path, (old_time, old_time))
+            qt.QT_TRADE_LOG_PATH = tmp_dir
+
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                self.assertIsNone(tss.do_rotatelogs('--days 30'))
+            aborted_out = buf.getvalue()
+            print(' non-interactive output:', aborted_out)
+            self.assertIn('Rotation aborted (non-interactive)', aborted_out)
+            self.assertTrue(os.path.exists(old_path))
+
+            with patch('builtins.input', return_value='n'):
+                with patch('qteasy.trader_cli._is_tty_stream', return_value=True):
+                    buf = io.StringIO()
+                    with redirect_stdout(buf):
+                        self.assertIsNone(tss.do_rotatelogs('--days 30'))
+            canceled_out = buf.getvalue()
+            print(' user declined output:', canceled_out)
+            self.assertIn('Rotation canceled', canceled_out)
+            self.assertTrue(os.path.exists(old_path))
+
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                self.assertIsNone(tss.do_rotatelogs('--days 30 --yes'))
+            yes_out = buf.getvalue()
+            print(' --yes output:', yes_out)
+            self.assertIn('Trade log rotation completed', yes_out)
+            self.assertFalse(os.path.exists(old_path))
+        finally:
+            qt.QT_TRADE_LOG_PATH = original_path
+            if os.path.isdir(tmp_dir):
+                shutil.rmtree(tmp_dir, ignore_errors=True)
 
     def test_command_sync_stub(self):
         """test sync stub and pull-state alias"""
@@ -1699,6 +1893,36 @@ class TestTraderCLIDashboardDisplay(unittest.TestCase):
             self.assertEqual(out.count('cli_dashboard_extra_info_line'), 1)
             self.assertEqual(out.count('cli_dashboard_extra_debug_line'), 0)
             self.assertEqual(out.count('cli_dashboard_debug_logged_only'), 0)
+        finally:
+            clear_tables(test_ds)
+
+    def test_replay_dashboard_logs_returns_requested_entry_count(self):
+        """``_replay_dashboard_logs(N)`` 在 debug=False 时回放 N 条非 DEBUG 逻辑记录。"""
+        from tests.trader_test_helpers import create_trader_with_account, clear_tables
+
+        print('\n[TestTraderCLIDashboardDisplay] replay returns N non-debug entries')
+        trader, test_ds = create_trader_with_account(debug=False, legacy=True)
+        try:
+            _detach_live_logger_handlers()
+            log_path = sys_log_file_path_name(trader.account_id, test_ds)
+            with open(log_path, 'w', encoding='utf-8') as f:
+                for i in range(30):
+                    f.write(f'INFO: cli_replay_info_{i:02d}\n')
+                for i in range(30):
+                    f.write(f'DEBUG: cli_replay_debug_{i:02d}\n')
+            shell = TraderShell(trader)
+            buf = io.StringIO()
+            with redirect_stdout(buf):
+                shell._replay_dashboard_logs(20)
+            out = buf.getvalue()
+            print(' replay line count in stdout:', out.count('\n'))
+            info_hits = sum(out.count(f'cli_replay_info_{i:02d}') for i in range(30))
+            debug_hits = sum(out.count(f'cli_replay_debug_{i:02d}') for i in range(30))
+            print(' info_hits:', info_hits, ' debug_hits:', debug_hits)
+            self.assertEqual(info_hits, 20)
+            self.assertEqual(debug_hits, 0)
+            self.assertIn('cli_replay_info_29', out)
+            self.assertIn('cli_replay_info_10', out)
         finally:
             clear_tables(test_ds)
 

@@ -1,0 +1,3032 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-08-21 22:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/HistoryPanel.rst:2
+msgid "HistoryPanel 类"
+msgstr "HistoryPanel 類"
+
+#: ../../source/api/HistoryPanel.rst:4
+msgid "历史数据类 HistoryPanel 及相关辅助函数。"
+msgstr "歷史數據類 HistoryPanel 及相關輔助函數。"
+
+#: ../../source/api/HistoryPanel.rst:7
+msgid "HistoryPanel 数据结构与切片"
+msgstr "HistoryPanel 數據結構與切片"
+
+#: ../../source/api/HistoryPanel.rst:9
+msgid "HistoryPanel 本质上是一个三维 ``numpy.ndarray``，三个轴分别表示："
+msgstr "HistoryPanel 本質上是一個三維 ``numpy.ndarray``，三個軸分別表示："
+
+#: ../../source/api/HistoryPanel.rst:11
+msgid "axis 0 / levels: 标的维度，每一层对应一只股票或一个指数，标签列表为 ``shares``；"
+msgstr "axis 0 / levels: 標的維度，每一層對應一隻股票或一個指數，標籤列表爲 ``shares``；"
+
+#: ../../source/api/HistoryPanel.rst:12
+msgid "axis 1 / rows: 时间维度，每一行对应一个时间点，标签列表为 ``hdates``；"
+msgstr "axis 1 / rows: 時間維度，每一行對應一個時間點，標籤列表爲 ``hdates``；"
+
+#: ../../source/api/HistoryPanel.rst:13
+msgid "axis 2 / columns: 历史数据类型维度，每一列对应一种数据类型，标签列表为 ``htypes``。"
+msgstr "axis 2 / columns: 歷史數據類型維度，每一列對應一種數據類型，標籤列表爲 ``htypes``。"
+
+#: ../../source/api/HistoryPanel.rst:15
+msgid ""
+"借助这三个轴标签，可以通过方括号 ``[]`` 对 HistoryPanel 进行灵活切片，基本规则为 ``[htype_slicer, "
+"share_slicer, date_slicer]``；省略维度时与单段写法 （如 ``hp['close']``）仍返回子 "
+"``HistoryPanel`` （带轴标签），裸矩阵请用 ``.values`` / ``.to_numpy()``。"
+msgstr ""
+"藉助這三個軸標籤，可以通過方括號 ``[]`` 對 HistoryPanel 進行靈活切片，基本規則爲 ``[htype_slicer, "
+"share_slicer, date_slicer]``；省略維度時與單段寫法 （如 ``hp['close']``）仍返回子 "
+"``HistoryPanel`` （帶軸標籤），裸矩陣請用 ``.values`` / ``.to_numpy()``。"
+
+#: ../../source/api/HistoryPanel.rst:18
+msgid ""
+"时间轴 （第三段）还支持：单个 ``pandas.Timestamp``、时间标签列表、长度 ``L = len(hdates)`` 的一维 "
+"``bool`` 列表或 ``numpy`` 一维 ``bool`` 数组；与只读属性 ``hp.loc[key]`` 等价于 ``hp[:, :, "
+"key]``。格点级 ``(M, L, N)`` 布尔掩码不属于 ``loc`` / 第三轴索引语义，请用 "
+":meth:`~qteasy.HistoryPanel.where`。"
+msgstr ""
+"時間軸 （第三段）還支持：單個 ``pandas.Timestamp``、時間標籤列表、長度 ``L = len(hdates)`` 的一維 "
+"``bool`` 列表或 ``numpy`` 一維 ``bool`` 數組；與只讀屬性 ``hp.loc[key]`` 等價於 ``hp[:, :, "
+"key]``。格點級 ``(M, L, N)`` 布爾掩碼不屬於 ``loc`` / 第三軸索引語義，請用 "
+":meth:`~qteasy.HistoryPanel.where`。"
+
+#: ../../source/api/HistoryPanel.rst:20
+msgid "典型写法示例::"
+msgstr "典型寫法示例::"
+
+#: ../../source/api/HistoryPanel.rst:30
+msgid "兼容 API（已弃用）"
+msgstr "相容 API（已棄用）"
+
+#: ../../source/api/HistoryPanel.rst:32
+msgid ""
+"下列方法仍保留兼容行为，但会发出英文 ``DeprecationWarning`` （含 ``use … instead``）。**新代码请使用右侧推荐"
+" API**："
+msgstr ""
+"下列方法仍保留相容行爲，但會發出英文 ``DeprecationWarning`` （含 ``use … "
+"instead``）。**新程式碼請使用右側推薦 API**："
+
+#: ../../source/api/HistoryPanel.rst:34
+msgid "``slice(...)`` → :meth:`~qteasy.HistoryPanel.subpanel`"
+msgstr "``slice(...)`` → :meth:`~qteasy.HistoryPanel.subpanel`"
+
+#: ../../source/api/HistoryPanel.rst:35
+msgid ""
+"``segment(...)`` → :attr:`~qteasy.HistoryPanel.loc` 或 "
+"``subpanel(hdates=...)``"
+msgstr ""
+"``segment(...)`` → :attr:`~qteasy.HistoryPanel.loc` 或 "
+"``subpanel(hdates=...)``"
+
+#: ../../source/api/HistoryPanel.rst:36
+msgid ""
+"``isegment(...)`` → ``panel[:, :, start:end]`` 或 ``subpanel(hdates=...)``"
+msgstr ""
+"``isegment(...)`` → ``panel[:, :, start:end]`` 或 ``subpanel(hdates=...)``"
+
+#: ../../source/api/HistoryPanel.rst:37
+msgid ""
+"``candle(...)`` → :meth:`~qteasy.HistoryPanel.plot` （``candle`` 现委托 "
+"``plot``，不再抛出 ``NotImplementedError``）"
+msgstr ""
+"``candle(...)`` → :meth:`~qteasy.HistoryPanel.plot` （``candle`` 現委託 "
+"``plot``，不再拋出 ``NotImplementedError``）"
+
+#: ../../source/api/HistoryPanel.rst:39
+msgid "``slice`` / ``segment`` / ``isegment`` 仅增加警告，**未**改写原实现（避免语义漂移）。"
+msgstr "``slice`` / ``segment`` / ``isegment`` 僅增加警告，**未**改寫原實現（避免語義漂移）。"
+
+#: of qteasy.history.HistoryPanel:1
+msgid "qteasy 中用于统一管理多标的、多时间点、多数据类型历史数据的三维数据容器。"
+msgstr "qteasy 中用於統一管理多標的、多時間點、多數據類型歷史數據的三維數據容器。"
+
+#: of qteasy.history.HistoryPanel:3
+msgid "HistoryPanel 本质是一个三维 ``numpy.ndarray``，三条轴分别表示标的 （shares）、时间"
+msgstr "HistoryPanel 本質是一個三維 ``numpy.ndarray``，三條軸分別表示標的 （shares）、時間"
+
+#: of qteasy.history.HistoryPanel:4
+msgid "（hdates）和历史数据类型 （htypes），支持按任意轴灵活切片、重标记以及与"
+msgstr "（hdates）和歷史數據類型 （htypes），支持按任意軸靈活切片、重標記以及與"
+
+#: of qteasy.history.HistoryPanel:5
+msgid "pandas DataFrame 之间的互相转换，并作为 get_history_data 与可视化栈"
+msgstr "pandas DataFrame 之間的互相轉換，並作爲 get_history_data 與可視化棧"
+
+#: of qteasy.history.HistoryPanel:6
+msgid "（如 ``HistoryPanel.plot()`` 与 ``qt.candle``）之间的核心桥梁。"
+msgstr "（如 ``HistoryPanel.plot()`` 與 ``qt.candle``）之間的核心橋樑。"
+
+#: of qteasy.history.HistoryPanel:8
+msgid ""
+"**索引与数组出口**：``__getitem__`` 始终返回带正确轴标签的子 ``HistoryPanel``；需要 裸 ``ndarray`` "
+"时用 ``.values`` 或 ``.to_numpy(copy=...)``。**单列原地赋值** ``panel['列名'] = value`` "
+"由 ``__setitem__`` 实现 （仅非空面板、仅 ``str`` 键）， 值广播为 ``(标的数, 时间长度)`` 并以 "
+"``float64`` 存储；覆盖已有列或追加新列。 子面板与父对象共享缓冲时的语义见 ``__getitem__`` / ``subpanel`` /"
+" ``__setitem__`` 各方法说明。"
+msgstr ""
+"**索引與數組出口**：``__getitem__`` 始終返回帶正確軸標籤的子 ``HistoryPanel``；需要 裸 ``ndarray`` "
+"時用 ``.values`` 或 ``.to_numpy(copy=...)``。**單列原地賦值** ``panel['列名'] = value`` "
+"由 ``__setitem__`` 實現 （僅非空面板、僅 ``str`` 鍵）， 值廣播爲 ``(標的數, 時間長度)`` 並以 "
+"``float64`` 存儲；覆蓋已有列或追加新列。 子面板與父對象共享緩衝時的語義見 ``__getitem__`` / ``subpanel`` /"
+" ``__setitem__`` 各方法說明。"
+
+#: of qteasy.history.HistoryPanel:14
+msgid ""
+"**体验向 API**：合法 Python 标识符且存在于 ``htypes`` 的列名可用属性只读访问 （如 ``panel.close``， 等价 "
+"``panel['close']``）；比较运算 （如 ``panel.close > panel.open``）返回 ``numpy`` 布尔数组； "
+"``panel.loc[key]`` 等价 ``panel[:, :, key]``，仅沿时间轴筛选 （不接 ``where`` 的三维掩码）。 "
+"用户文档见 Sphinx **HistoryPanel** 页与教程「使用 HistoryPanel 操作和分析历史数据」 （§6 及 §6.1）。"
+msgstr ""
+"**體驗向 API**：合法 Python 標識符且存在於 ``htypes`` 的列名可用屬性只讀訪問 （如 ``panel.close``， 等價 "
+"``panel['close']``）；比較運算 （如 ``panel.close > panel.open``）返回 ``numpy`` 布爾數組； "
+"``panel.loc[key]`` 等價 ``panel[:, :, key]``，僅沿時間軸篩選 （不接 ``where`` 的三維掩碼）。 "
+"用戶文檔見 Sphinx **HistoryPanel** 頁與教程「使用 HistoryPanel 操作和分析歷史數據」 （§6 及 §6.1）。"
+
+#: of qteasy.history.HistoryPanel:19
+msgid "更详细的结构说明 （轴标签、切片示例、标签管理等）见文档「HistoryPanel 类」相关章节。"
+msgstr "更詳細的結構說明 （軸標籤、切片示例、標籤管理等）見文檔「HistoryPanel 類」相關章節。"
+
+#: of qteasy.history.HistoryPanel.__eq__:1
+msgid "逐元素 ``self == other``；不支持的类型返回 ``NotImplemented``。"
+msgstr "逐元素 ``self == other``；不支持的類型返回 ``NotImplemented``。"
+
+#: ../../source/api/HistoryPanel.rst of qteasy.core.get_history_data
+#: qteasy.history.HistoryPanel.__getattr__
+#: qteasy.history.HistoryPanel.__getitem__
+#: qteasy.history.HistoryPanel.__setitem__
+#: qteasy.history.HistoryPanel.align_to qteasy.history.HistoryPanel.bfill
+#: qteasy.history.HistoryPanel.copy qteasy.history.HistoryPanel.corr
+#: qteasy.history.HistoryPanel.cov qteasy.history.HistoryPanel.cum_return
+#: qteasy.history.HistoryPanel.describe qteasy.history.HistoryPanel.diff
+#: qteasy.history.HistoryPanel.drop qteasy.history.HistoryPanel.expr
+#: qteasy.history.HistoryPanel.ffill
+#: qteasy.history.HistoryPanel.flattened_head
+#: qteasy.history.HistoryPanel.flattened_tail qteasy.history.HistoryPanel.head
+#: qteasy.history.HistoryPanel.isegment qteasy.history.HistoryPanel.join
+#: qteasy.history.HistoryPanel.max qteasy.history.HistoryPanel.mean
+#: qteasy.history.HistoryPanel.median qteasy.history.HistoryPanel.min
+#: qteasy.history.HistoryPanel.normalize
+#: qteasy.history.HistoryPanel.pct_change qteasy.history.HistoryPanel.quantile
+#: qteasy.history.HistoryPanel.rank qteasy.history.HistoryPanel.re_label
+#: qteasy.history.HistoryPanel.rename qteasy.history.HistoryPanel.resample
+#: qteasy.history.HistoryPanel.rolling qteasy.history.HistoryPanel.segment
+#: qteasy.history.HistoryPanel.shift qteasy.history.HistoryPanel.slice
+#: qteasy.history.HistoryPanel.slice_to_dataframe
+#: qteasy.history.HistoryPanel.std qteasy.history.HistoryPanel.subpanel
+#: qteasy.history.HistoryPanel.sum qteasy.history.HistoryPanel.tail
+#: qteasy.history.HistoryPanel.to_df_dict
+#: qteasy.history.HistoryPanel.to_multi_index_dataframe
+#: qteasy.history.HistoryPanel.to_numpy qteasy.history.HistoryPanel.var
+#: qteasy.history.HistoryPanel.where qteasy.history.HistoryPanel.zscore
+#: qteasy.history.HistoryPanelRolling.apply qteasy.history.stack_dataframes
+msgid "参数"
+msgstr "參數"
+
+#: of qteasy.history.HistoryPanel.__eq__:3
+#: qteasy.history.HistoryPanel.__ne__:3
+msgid "右操作数。"
+msgstr "右操作數。"
+
+#: ../../docstring ../../source/api/HistoryPanel.rst of
+#: qteasy.HistoryPanel.loc qteasy.core.get_history_data
+#: qteasy.history.HistoryPanel.__getattr__
+#: qteasy.history.HistoryPanel.__getitem__
+#: qteasy.history.HistoryPanel.__setitem__
+#: qteasy.history.HistoryPanel.align_to qteasy.history.HistoryPanel.bfill
+#: qteasy.history.HistoryPanel.copy qteasy.history.HistoryPanel.corr
+#: qteasy.history.HistoryPanel.cov qteasy.history.HistoryPanel.cum_return
+#: qteasy.history.HistoryPanel.describe qteasy.history.HistoryPanel.diff
+#: qteasy.history.HistoryPanel.drop qteasy.history.HistoryPanel.expr
+#: qteasy.history.HistoryPanel.ffill
+#: qteasy.history.HistoryPanel.flattened_head
+#: qteasy.history.HistoryPanel.flattened_tail qteasy.history.HistoryPanel.head
+#: qteasy.history.HistoryPanel.isegment qteasy.history.HistoryPanel.len
+#: qteasy.history.HistoryPanel.max qteasy.history.HistoryPanel.mean
+#: qteasy.history.HistoryPanel.median qteasy.history.HistoryPanel.min
+#: qteasy.history.HistoryPanel.normalize
+#: qteasy.history.HistoryPanel.pct_change qteasy.history.HistoryPanel.quantile
+#: qteasy.history.HistoryPanel.rank qteasy.history.HistoryPanel.rename
+#: qteasy.history.HistoryPanel.resample qteasy.history.HistoryPanel.rolling
+#: qteasy.history.HistoryPanel.segment qteasy.history.HistoryPanel.shift
+#: qteasy.history.HistoryPanel.slice qteasy.history.HistoryPanel.std
+#: qteasy.history.HistoryPanel.subpanel qteasy.history.HistoryPanel.sum
+#: qteasy.history.HistoryPanel.tail qteasy.history.HistoryPanel.to_df_dict
+#: qteasy.history.HistoryPanel.to_numpy qteasy.history.HistoryPanel.var
+#: qteasy.history.HistoryPanel.where qteasy.history.HistoryPanel.zscore
+#: qteasy.history.HistoryPanelRolling.apply qteasy.history.stack_dataframes
+msgid "返回"
+msgstr "返回"
+
+#: of qteasy.history.HistoryPanel.__eq__:6
+#: qteasy.history.HistoryPanel.__ne__:6
+msgid "可比较时为 ``bool`` 数组；否则 ``NotImplemented``。"
+msgstr "可比較時爲 ``bool`` 數組；否則 ``NotImplemented``。"
+
+#: ../../docstring ../../source/api/HistoryPanel.rst of
+#: qteasy.HistoryPanel.loc qteasy.history.HistoryPanel.__getattr__
+#: qteasy.history.HistoryPanel.__getitem__
+#: qteasy.history.HistoryPanel.__setitem__
+#: qteasy.history.HistoryPanel.align_to qteasy.history.HistoryPanel.bfill
+#: qteasy.history.HistoryPanel.copy qteasy.history.HistoryPanel.corr
+#: qteasy.history.HistoryPanel.cov qteasy.history.HistoryPanel.cum_return
+#: qteasy.history.HistoryPanel.describe qteasy.history.HistoryPanel.diff
+#: qteasy.history.HistoryPanel.drop qteasy.history.HistoryPanel.expr
+#: qteasy.history.HistoryPanel.ffill qteasy.history.HistoryPanel.info
+#: qteasy.history.HistoryPanel.isegment qteasy.history.HistoryPanel.join
+#: qteasy.history.HistoryPanel.len qteasy.history.HistoryPanel.max
+#: qteasy.history.HistoryPanel.mean qteasy.history.HistoryPanel.median
+#: qteasy.history.HistoryPanel.min qteasy.history.HistoryPanel.normalize
+#: qteasy.history.HistoryPanel.pct_change qteasy.history.HistoryPanel.quantile
+#: qteasy.history.HistoryPanel.rank qteasy.history.HistoryPanel.re_label
+#: qteasy.history.HistoryPanel.rename qteasy.history.HistoryPanel.resample
+#: qteasy.history.HistoryPanel.rolling qteasy.history.HistoryPanel.segment
+#: qteasy.history.HistoryPanel.shift qteasy.history.HistoryPanel.slice
+#: qteasy.history.HistoryPanel.slice_to_dataframe
+#: qteasy.history.HistoryPanel.std qteasy.history.HistoryPanel.subpanel
+#: qteasy.history.HistoryPanel.sum qteasy.history.HistoryPanel.to_df_dict
+#: qteasy.history.HistoryPanel.to_multi_index_dataframe
+#: qteasy.history.HistoryPanel.to_numpy qteasy.history.HistoryPanel.var
+#: qteasy.history.HistoryPanel.where qteasy.history.HistoryPanel.zscore
+#: qteasy.history.HistoryPanelRolling.apply qteasy.history.stack_dataframes
+msgid "返回类型"
+msgstr "返回類型"
+
+#: of qteasy.history.HistoryPanel.__ge__:1
+msgid ""
+"等价于以 ``operator`` 模块的 ``ge`` 逐元素比较 ``self`` 与 ``other``；返回 dtype 为 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+msgstr ""
+"等價於以 ``operator`` 模塊的 ``ge`` 逐元素比較 ``self`` 與 ``other``；返回 dtype 爲 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+
+#: of qteasy.history.HistoryPanel.__ge__:3
+#: qteasy.history.HistoryPanel.__gt__:3 qteasy.history.HistoryPanel.__le__:3
+msgid "右操作数；语义同 :meth:`__lt__`。"
+msgstr "右操作數；語義同 :meth:`__lt__`。"
+
+#: of qteasy.history.HistoryPanel.__ge__:6
+#: qteasy.history.HistoryPanel.__gt__:6 qteasy.history.HistoryPanel.__le__:6
+#: qteasy.history.HistoryPanel.__lt__:6
+msgid "布尔结果数组。"
+msgstr "布爾結果數組。"
+
+#: of qteasy.history.HistoryPanel.__getattr__:1
+msgid "将合法标识符列名解析为 ``self[name]`` （只读）；非标识符或未知列名请用方括号索引。"
+msgstr "將合法標識符列名解析爲 ``self[name]`` （只讀）；非標識符或未知列名請用方括號索引。"
+
+#: of qteasy.history.HistoryPanel.__getattr__:3
+msgid "列赋值仍请使用 ``hp['col'] = ...``；不与 pandas 的属性写路径对齐。"
+msgstr "列賦值仍請使用 ``hp['col'] = ...``；不與 pandas 的屬性寫路徑對齊。"
+
+#: of qteasy.history.HistoryPanel.__getattr__:5
+msgid "属性名；须为合法 Python 标识符才可能对应到 ``htypes`` 列 （非空面板）。"
+msgstr "屬性名；須爲合法 Python 標識符纔可能對應到 ``htypes`` 列 （非空面板）。"
+
+#: of qteasy.history.HistoryPanel.__getattr__:8
+msgid "与 ``self[name]`` 相同的子面板；空面板上委托 ``__getitem__``，返回空子面板。"
+msgstr "與 ``self[name]`` 相同的子面板；空面板上委託 ``__getitem__``，返回空子面板。"
+
+#: ../../source/api/HistoryPanel.rst of
+#: qteasy.history.HistoryPanel.__getattr__
+#: qteasy.history.HistoryPanel.__setitem__
+#: qteasy.history.HistoryPanel.align_to qteasy.history.HistoryPanel.corr
+#: qteasy.history.HistoryPanel.cov qteasy.history.HistoryPanel.cum_return
+#: qteasy.history.HistoryPanel.drop qteasy.history.HistoryPanel.expr
+#: qteasy.history.HistoryPanel.normalize qteasy.history.HistoryPanel.quantile
+#: qteasy.history.HistoryPanel.rank qteasy.history.HistoryPanel.rename
+#: qteasy.history.HistoryPanel.resample qteasy.history.HistoryPanel.where
+#: qteasy.history.HistoryPanel.zscore
+msgid "抛出"
+msgstr "拋出"
+
+#: of qteasy.history.HistoryPanel.__getattr__:11
+msgid "非法标识符、或当前面板中不存在的列名 （英文，提示使用 bracket indexing）。"
+msgstr "非法標識符、或當前面板中不存在的列名 （英文，提示使用 bracket indexing）。"
+
+#: of qteasy.history.HistoryPanel.__getattr__:14
+#: qteasy.history.HistoryPanel.__getitem__:15
+#: qteasy.history.HistoryPanel.candle:4 qteasy.history.HistoryPanel.plot:36
+#: qteasy.history.HistoryPanel.subpanel:20
+#: qteasy.history.HistoryPanel.where:24
+#: qteasy.history.HistoryPanelRolling.apply:13
+msgid "备注"
+msgstr "備註"
+
+#: of qteasy.history.HistoryPanel.__getattr__:15
+msgid ""
+"已有方法名 / 描述符 （如 ``where``、``values``）优先于列名：同名列仍须用 ``hp['where']`` "
+"等形式访问。非标识符列名 （如 ``close|b``）不可用点号。"
+msgstr ""
+"已有方法名 / 描述符 （如 ``where``、``values``）優先於列名：同名列仍須用 ``hp['where']`` "
+"等形式訪問。非標識符列名 （如 ``close|b``）不可用點號。"
+
+#: ../../docstring of qteasy.HistoryPanel.loc:11
+#: qteasy.core.get_history_data:58 qteasy.history.HistoryPanel.__getattr__:19
+#: qteasy.history.HistoryPanel.__getitem__:29
+#: qteasy.history.HistoryPanel.__setitem__:21
+#: qteasy.history.HistoryPanel.align_to:28
+#: qteasy.history.HistoryPanel.bfill:14 qteasy.history.HistoryPanel.copy:16
+#: qteasy.history.HistoryPanel.corr:19 qteasy.history.HistoryPanel.cov:18
+#: qteasy.history.HistoryPanel.cum_return:20
+#: qteasy.history.HistoryPanel.describe:22 qteasy.history.HistoryPanel.diff:14
+#: qteasy.history.HistoryPanel.drop:20 qteasy.history.HistoryPanel.expr:19
+#: qteasy.history.HistoryPanel.ffill:12
+#: qteasy.history.HistoryPanel.flattened_head:10
+#: qteasy.history.HistoryPanel.flattened_tail:10
+#: qteasy.history.HistoryPanel.head:10 qteasy.history.HistoryPanel.info:6
+#: qteasy.history.HistoryPanel.isegment:15 qteasy.history.HistoryPanel.join:20
+#: qteasy.history.HistoryPanel.len:7 qteasy.history.HistoryPanel.max:12
+#: qteasy.history.HistoryPanel.mean:14 qteasy.history.HistoryPanel.median:12
+#: qteasy.history.HistoryPanel.min:12 qteasy.history.HistoryPanel.normalize:19
+#: qteasy.history.HistoryPanel.pct_change:15
+#: qteasy.history.HistoryPanel.plot:42 qteasy.history.HistoryPanel.quantile:16
+#: qteasy.history.HistoryPanel.rank:19 qteasy.history.HistoryPanel.re_label:13
+#: qteasy.history.HistoryPanel.rename:17
+#: qteasy.history.HistoryPanel.resample:18
+#: qteasy.history.HistoryPanel.rolling:20
+#: qteasy.history.HistoryPanel.segment:15 qteasy.history.HistoryPanel.shift:17
+#: qteasy.history.HistoryPanel.slice:14
+#: qteasy.history.HistoryPanel.slice_to_dataframe:22
+#: qteasy.history.HistoryPanel.std:12 qteasy.history.HistoryPanel.sum:12
+#: qteasy.history.HistoryPanel.tail:10
+#: qteasy.history.HistoryPanel.to_df_dict:12
+#: qteasy.history.HistoryPanel.to_multi_index_dataframe:12
+#: qteasy.history.HistoryPanel.to_numpy:14 qteasy.history.HistoryPanel.var:14
+#: qteasy.history.HistoryPanel.where:36 qteasy.history.HistoryPanel.zscore:25
+#: qteasy.history.HistoryPanelRolling.apply:19
+#: qteasy.history.stack_dataframes:20
+msgid "示例"
+msgstr "示例"
+
+#: of qteasy.history.HistoryPanel.__getitem__:1
+msgid "按 htypes / shares / hdates 三轴切片，返回带正确轴标签的子 ``HistoryPanel``。"
+msgstr "按 htypes / shares / hdates 三軸切片，返回帶正確軸標籤的子 ``HistoryPanel``。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:3
+msgid ""
+"第一个切片为数据类型 （htypes），第二个为标的 （shares），第三个为时间 （hdates）；省略时该轴为全选。 需要裸 "
+"``ndarray`` 时请使用 ``sub.values`` 或 ``sub.to_numpy()``。子面板 ``values`` 可能与父面板 "
+"共享内存 （numpy 视图规则）；需要独立副本请用 ``subpanel(..., copy=True)`` 或 ``sub.copy()``。"
+msgstr ""
+"第一個切片爲數據類型 （htypes），第二個爲標的 （shares），第三個爲時間 （hdates）；省略時該軸爲全選。 需要裸 "
+"``ndarray`` 時請使用 ``sub.values`` 或 ``sub.to_numpy()``。子面板 ``values`` 可能與父面板 "
+"共享內存 （numpy 視圖規則）；需要獨立副本請用 ``subpanel(..., copy=True)`` 或 ``sub.copy()``。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:7
+msgid ""
+"在 **父对象** 上使用 ``__setitem__`` 追加新列时，会替换父面板整块 ``values``：默认 ``copy=False`` "
+"的子面板 **不会** 出现新列名，且其 ``values`` 可能仍指向扩列前的旧数组； ``subpanel(copy=True)`` "
+"得到的子对象不受影响。在父面板上 **覆盖** 已有列时，与子视图共享的 切片数据会随父缓冲一并更新 （仍为同一底层块上的视图时）。"
+msgstr ""
+"在 **父對象** 上使用 ``__setitem__`` 追加新列時，會替換父面板整塊 ``values``：默認 ``copy=False`` "
+"的子面板 **不會** 出現新列名，且其 ``values`` 可能仍指向擴列前的舊數組； ``subpanel(copy=True)`` "
+"得到的子對象不受影響。在父面板上 **覆蓋** 已有列時，與子視圖共享的 切片數據會隨父緩衝一併更新 （仍爲同一底層塊上的視圖時）。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:12
+msgid "空面板 （``is_empty``）上任意索引均返回空的 ``HistoryPanel``。"
+msgstr "空面板 （``is_empty``）上任意索引均返回空的 ``HistoryPanel``。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:16
+msgid ""
+"**时间轴 （第三段 ``hdates``）** 除 ``slice`` / 整数 / 区间字符串外，还支持：在 ``rows`` 字典中可查的 "
+"**单个时间标签** （如 ``pandas.Timestamp``）、**时间标签列表**，以及 长度等于 ``row_count`` 的一维 "
+"``bool`` 列表或一维 ``numpy.ndarray`` （布尔 dtype）；与 :attr:`loc` 所接受的 ``key`` "
+"一致。格点级 ``(M, L, N)`` 布尔数组 **不** 用作第三轴索引， 请使用 :meth:`where`。"
+msgstr ""
+"**時間軸 （第三段 ``hdates``）** 除 ``slice`` / 整數 / 區間字符串外，還支持：在 ``rows`` 字典中可查的 "
+"**單個時間標籤** （如 ``pandas.Timestamp``）、**時間標籤列表**，以及 長度等於 ``row_count`` 的一維 "
+"``bool`` 列表或一維 ``numpy.ndarray`` （布爾 dtype）；與 :attr:`loc` 所接受的 ``key`` "
+"一致。格點級 ``(M, L, N)`` 布爾數組 **不** 用作第三軸索引， 請使用 :meth:`where`。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:22
+msgid "切片键；三元组 ``(htypes, shares, hdates)`` 与历史行为一致。"
+msgstr "切片鍵；三元組 ``(htypes, shares, hdates)`` 與歷史行爲一致。"
+
+#: of qteasy.history.HistoryPanel.__getitem__:25
+msgid "子面板；取矩阵请用其 ``.values`` / ``.to_numpy()``。"
+msgstr "子面板；取矩陣請用其 ``.values`` / ``.to_numpy()``。"
+
+#: of qteasy.history.HistoryPanel.__gt__:1
+msgid ""
+"等价于以 ``operator`` 模块的 ``gt`` 逐元素比较 ``self`` 与 ``other``；返回 dtype 为 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+msgstr ""
+"等價於以 ``operator`` 模塊的 ``gt`` 逐元素比較 ``self`` 與 ``other``；返回 dtype 爲 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+
+#: of qteasy.history.HistoryPanel.__le__:1
+msgid ""
+"等价于以 ``operator`` 模块的 ``le`` 逐元素比较 ``self`` 与 ``other``；返回 dtype 为 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+msgstr ""
+"等價於以 ``operator`` 模塊的 ``le`` 逐元素比較 ``self`` 與 ``other``；返回 dtype 爲 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+
+#: of qteasy.history.HistoryPanel.__lt__:1
+msgid ""
+"等价于以 ``operator`` 模块的 ``lt`` 逐元素比较 ``self`` 与 ``other``；返回 dtype 为 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+msgstr ""
+"等價於以 ``operator`` 模塊的 ``lt`` 逐元素比較 ``self`` 與 ``other``；返回 dtype 爲 ``bool`` "
+"的 ``numpy.ndarray``  （非子面板）。"
+
+#: of qteasy.history.HistoryPanel.__lt__:3
+msgid "标量、可广播 ``ndarray`` 或另一 ``HistoryPanel`` （须满足对齐规则）。"
+msgstr "標量、可廣播 ``ndarray`` 或另一 ``HistoryPanel`` （須滿足對齊規則）。"
+
+#: of qteasy.history.HistoryPanel.__lt__:9
+msgid "不支持的操作数类型 （英文）。"
+msgstr "不支持的操作數類型 （英文）。"
+
+#: of qteasy.history.HistoryPanel.__lt__:10
+msgid "两面板无法按规则对齐或广播时抛出 （英文）。"
+msgstr "兩面板無法按規則對齊或廣播時拋出 （英文）。"
+
+#: of qteasy.history.HistoryPanel.__ne__:1
+msgid "逐元素 ``self != other``；不支持的类型返回 ``NotImplemented``。"
+msgstr "逐元素 ``self != other``；不支持的類型返回 ``NotImplemented``。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:1
+msgid "按列名原地追加一列或覆盖已有列 （``htypes`` 第三轴）。"
+msgstr "按列名原地追加一列或覆蓋已有列 （``htypes`` 第三軸）。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:3
+msgid ""
+"仅接受运行期为 **非空** 字符串的 ``key``；多列批量赋值由后续 ``assign`` 等 API 提供。 ``value`` 将广播到 "
+"``(share 数, 时间长度)`` 并以 ``float64`` 落盘；已存在列名 **静默覆盖**， 语义对齐 pandas 单列赋值。父面板上 "
+"**追加** 新列会替换整块 ``values``：``subpanel(copy=False)`` / ``__getitem__`` 子视图通常 "
+"**看不到** 新列且可能仍指向旧缓冲；``subpanel(..., copy=True)`` 与 ``to_numpy(copy=True)`` "
+"不受影响。父 **覆盖** 已有列时，与父共享底层块的子视图会随父更新。"
+msgstr ""
+"僅接受運行期爲 **非空** 字符串的 ``key``；多列批量賦值由後續 ``assign`` 等 API 提供。 ``value`` 將廣播到 "
+"``(share 數, 時間長度)`` 並以 ``float64`` 落盤；已存在列名 **靜默覆蓋**， 語義對齊 pandas 單列賦值。父面板上 "
+"**追加** 新列會替換整塊 ``values``：``subpanel(copy=False)`` / ``__getitem__`` 子視圖通常 "
+"**看不到** 新列且可能仍指向舊緩衝；``subpanel(..., copy=True)`` 與 ``to_numpy(copy=True)`` "
+"不受影響。父 **覆蓋** 已有列時，與父共享底層塊的子視圖會隨父更新。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:9
+msgid ""
+"列名 （htype）。须为 ``str``；非 ``str`` 抛 ``TypeError``，空字符串抛 ``ValueError`` （英文信息）。"
+msgstr ""
+"列名 （htype）。須爲 ``str``；非 ``str`` 拋 ``TypeError``，空字符串拋 ``ValueError`` （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:11
+msgid "可 ``np.asarray`` 且可广播到 ``(M, L)`` 的数值 （标量、``(M, L)``、``(M, L, 1)`` 等）。"
+msgstr ""
+"可 ``np.asarray`` 且可廣播到 ``(M, L)`` 的數值 （標量、``(M, L)``、``(M, L, 1)`` 等）。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:14
+msgid "原地修改本对象，无返回值。"
+msgstr "原地修改本對象，無返回值。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:17
+msgid "``key`` 不是 ``str`` 时抛出 （英文信息）。"
+msgstr "``key`` 不是 ``str`` 時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.__setitem__:18
+msgid "面板为空、``key`` 为空字符串、或 ``value`` 无法广播到 ``(M, L)`` 时抛出 （英文信息）。"
+msgstr "面板爲空、``key`` 爲空字符串、或 ``value`` 無法廣播到 ``(M, L)`` 時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.as_type:1
+msgid "将HistoryPanel的数据类型转换为dtype类型，dtype只能为'float'或'int'"
+msgstr "將HistoryPanel的數據類型轉換爲dtype類型，dtype只能爲'float'或'int'"
+
+#: of qteasy.history.HistoryPanel.as_type:3
+msgid "需要转换的目标数据类型"
+msgstr "需要轉換的目標數據類型"
+
+#: of qteasy.history.HistoryPanel.as_type:8
+msgid "当输入的数据类型不正确或输入除float/int外的其他数据类型时"
+msgstr "當輸入的數據類型不正確或輸入除float/int外的其他數據類型時"
+
+#: of qteasy.history.HistoryPanel.candle:1
+msgid "基于当前 ``HistoryPanel`` 数据绘制蜡烛图（已弃用，请用 ``plot()``）。"
+msgstr "基於當前 ``HistoryPanel`` 資料繪製蠟燭圖（已棄用，請用 ``plot()``）。"
+
+#: of qteasy.history.HistoryPanel.candle:5
+msgid ""
+"新版可视化推荐直接调用 ``HistoryPanel.plot()``，并通过 htypes / layout 控制是否输出 K 线、成交量等图表类型。"
+msgstr ""
+"新版可視化推薦直接調用 ``HistoryPanel.plot()``，並通過 htypes / layout 控制是否輸出 K 線、成交量等圖表類型。"
+
+#: of qteasy.history.HistoryPanel.candle:7
+msgid "本方法在内部委托给 ``plot()``，行为与 ``plot()`` 保持一致，仅作为语义化别名存在。"
+msgstr "本方法在內部委託給 ``plot()``，行爲與 ``plot()`` 保持一致，僅作爲語義化別名存在。"
+
+#: of qteasy.HistoryPanel.column_count:1
+msgid "获取HistoryPanel的列数量或历史数据数量"
+msgstr "獲取HistoryPanel的列數量或歷史數據數量"
+
+#: of qteasy.HistoryPanel.columns:1
+msgid "返回一个字典，代表HistoryPanel的历史数据，将历史数据与列号进行对应 这样便于内部根据股票代码对数据进行切片"
+msgstr "返回一個字典，代表HistoryPanel的歷史數據，將歷史數據與列號進行對應 這樣便於內部根據股票代碼對數據進行切片"
+
+#: of qteasy.history.HistoryPanel.copy:1
+msgid "复制一个新的 HistoryPanel 对象。"
+msgstr "複製一個新的 HistoryPanel 對象。"
+
+#: of qteasy.history.HistoryPanel.copy:3
+msgid ""
+"默认返回 **深拷贝**，即新对象与原对象的 ``values`` 底层数组互不影响；当需要与 NumPy "
+"视图语义保持一致、在性能敏感场景中共享底层数据时，可设置 ``deep=False``。"
+msgstr ""
+"默認返回 **深拷貝**，即新對象與原對象的 ``values`` 底層數組互不影響；當需要與 NumPy "
+"視圖語義保持一致、在性能敏感場景中共享底層數據時，可設置 ``deep=False``。"
+
+#: of qteasy.history.HistoryPanel.copy:6
+msgid ""
+"是否深拷贝底层数值数组 ``values``：  - True：深拷贝，修改副本不影响原对象； - False：浅拷贝 "
+"（共享底层数组），修改副本会同步影响原对象。"
+msgstr ""
+"是否深拷貝底層數值數組 ``values``：  - True：深拷貝，修改副本不影響原對象； - False：淺拷貝 "
+"（共享底層數組），修改副本會同步影響原對象。"
+
+#: of qteasy.history.HistoryPanel.copy:6
+msgid "是否深拷贝底层数值数组 ``values``："
+msgstr "是否深拷貝底層數值數組 ``values``："
+
+#: of qteasy.history.HistoryPanel.copy:8
+msgid "True：深拷贝，修改副本不影响原对象；"
+msgstr "True：深拷貝，修改副本不影響原對象；"
+
+#: of qteasy.history.HistoryPanel.copy:9
+msgid "False：浅拷贝 （共享底层数组），修改副本会同步影响原对象。"
+msgstr "False：淺拷貝 （共享底層數組），修改副本會同步影響原對象。"
+
+#: of qteasy.history.HistoryPanel.copy:12
+msgid "复制后的新对象，轴标签 （``shares``/``hdates``/``htypes``）与原对象一致。"
+msgstr "複製後的新對象，軸標籤 （``shares``/``hdates``/``htypes``）與原對象一致。"
+
+#: of qteasy.history.HistoryPanel.flattened_head:1
+msgid "以multi-index DataFrame的形式返回HistoryPanel的最初几行，默认五行"
+msgstr "以multi-index DataFrame的形式返回HistoryPanel的最初幾行，默認五行"
+
+#: of qteasy.history.HistoryPanel.flattened_head:3
+#: qteasy.history.HistoryPanel.flattened_tail:3
+#: qteasy.history.HistoryPanel.head:3 qteasy.history.HistoryPanel.tail:3
+msgid "打印的行数"
+msgstr "列印的行數"
+
+#: of qteasy.history.HistoryPanel.flattened_head:6
+#: qteasy.history.HistoryPanel.head:6
+msgid ""
+"* *dataframe, multi-indexed by share and htype as columns, with only first "
+"row_count rows* * *一个dataframe，以share和htype为列的多重索引，只包含前row_count行*"
+msgstr ""
+"* *dataframe, multi-indexed by share and htype as columns, with only first "
+"row_count rows* * *一個dataframe，以share和htype爲列的多重索引，只包含前row_count行*"
+
+#: of qteasy.history.HistoryPanel.flattened_head:6
+#: qteasy.history.HistoryPanel.head:6
+msgid ""
+"*dataframe, multi-indexed by share and htype as columns, with only first "
+"row_count rows*"
+msgstr ""
+"*dataframe, multi-indexed by share and htype as columns, with only first "
+"row_count rows*"
+
+#: of qteasy.history.HistoryPanel.flattened_head:7
+#: qteasy.history.HistoryPanel.head:7
+msgid "*一个dataframe，以share和htype为列的多重索引，只包含前row_count行*"
+msgstr "*一個dataframe，以share和htype爲列的多重索引，只包含前row_count行*"
+
+#: of qteasy.history.HistoryPanel.flattened_tail:1
+msgid "以multi-index DataFrame的形式返回HistoryPanel的最后几行，默认五行"
+msgstr "以multi-index DataFrame的形式返回HistoryPanel的最後幾行，默認五行"
+
+#: of qteasy.history.HistoryPanel.flattened_tail:6
+msgid ""
+"* *dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows* * *一个dataframe，以share和htype为列的多重索引，只包含后row_count行*"
+msgstr ""
+"* *dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows* * *一個dataframe，以share和htype爲列的多重索引，只包含後row_count行*"
+
+#: of qteasy.history.HistoryPanel.flattened_tail:6
+#: qteasy.history.HistoryPanel.tail:6
+msgid ""
+"*dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows*"
+msgstr ""
+"*dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows*"
+
+#: of qteasy.history.HistoryPanel.flattened_tail:7
+msgid "*一个dataframe，以share和htype为列的多重索引，只包含后row_count行*"
+msgstr "*一個dataframe，以share和htype爲列的多重索引，只包含後row_count行*"
+
+#: of qteasy.HistoryPanel.hdate_count:1
+msgid "获取 HistoryPanel 的历史日期（hdates）数量"
+msgstr "獲取 HistoryPanel 的歷史日期（hdates）數量"
+
+#: of qteasy.HistoryPanel.hdates:1
+msgid "获取HistoryPanel的历史日期时间戳list"
+msgstr "獲取HistoryPanel的歷史日期時間戳list"
+
+#: of qteasy.history.HistoryPanel.head:1
+msgid "返回HistoryPanel的最初几行，默认五行"
+msgstr "返回HistoryPanel的最初幾行，默認五行"
+
+#: of qteasy.HistoryPanel.htype_count:1
+msgid "获取HistoryPanel的历史数据类型数量"
+msgstr "獲取HistoryPanel的歷史數據類型數量"
+
+#: of qteasy.HistoryPanel.htypes:1
+msgid "获取HistoryPanel的历史数据类型列表"
+msgstr "獲取HistoryPanel的歷史數據類型列表"
+
+#: of qteasy.history.HistoryPanel.info:1
+msgid "打印本HistoryPanel对象的信息"
+msgstr "列印本HistoryPanel對象的資訊"
+
+#: of qteasy.HistoryPanel.is_empty:1
+msgid "判断HistoryPanel是否为空"
+msgstr "判斷HistoryPanel是否爲空"
+
+#: of qteasy.history.HistoryPanel.isegment:1
+msgid ""
+"获取 HistoryPanel 的一个整数下标日期片段（已弃用，请用 ``panel[:, :, start:end]`` 或 "
+"``subpanel(hdates=...)``）。"
+msgstr ""
+"獲取 HistoryPanel 的一個整數下標日期片段（已棄用，請用 ``panel[:, :, start:end]`` 或 "
+"``subpanel(hdates=...)``）。"
+
+#: of qteasy.history.HistoryPanel.isegment:3
+msgid ""
+"start_index 和 end_index 都是 int，表示日期序号，返回这两个序号之间的所有数据； 返回类型为 "
+"HistoryPanel，包含所有 share 和 htypes 的数据。"
+msgstr ""
+"start_index 和 end_index 都是 int，表示日期序號，返回這兩個序號之間的所有資料； 返回類型爲 "
+"HistoryPanel，包含所有 share 和 htypes 的資料。"
+
+#: of qteasy.history.HistoryPanel.isegment:6
+msgid "开始日期序号"
+msgstr "開始日期序號"
+
+#: of qteasy.history.HistoryPanel.isegment:8
+msgid "结束日期序号"
+msgstr "結束日期序號"
+
+#: of qteasy.history.HistoryPanel.isegment:11
+#: qteasy.history.HistoryPanel.segment:11
+msgid "**out** -- 一个HistoryPanel，包含start_date到end_date之间所有share和htypes的数据"
+msgstr "**out** -- 一個HistoryPanel，包含start_date到end_date之間所有share和htypes的數據"
+
+#: of qteasy.history.HistoryPanel.join:1
+msgid "将一个HistoryPanel对象与另一个HistoryPanel对象连接起来，生成一个新的HistoryPanel："
+msgstr "將一個HistoryPanel對象與另一個HistoryPanel對象連接起來，生成一個新的HistoryPanel："
+
+#: of qteasy.history.HistoryPanel.join:3
+msgid ""
+"新HistoryPanel的行、列、层标签分别是两个原始HistoryPanel的行、列、层标签的并集，也就是说，新的HistoryPanel的行、列 "
+"层标签完全包含两个HistoryPanel对象的对应标签。"
+msgstr ""
+"新HistoryPanel的行、列、層標籤分別是兩個原始HistoryPanel的行、列、層標籤的並集，也就是說，新的HistoryPanel的行、列 "
+"層標籤完全包含兩個HistoryPanel對象的對應標籤。"
+
+#: of qteasy.history.HistoryPanel.join:6
+msgid "需要合并的另一个HistoryPanel"
+msgstr "需要合併的另一個HistoryPanel"
+
+#: of qteasy.history.HistoryPanel.join:8
+msgid "两个HP的shares是否相同，如果相同，可以省去shares维度的标签合并，以节省时间。默认False，"
+msgstr "兩個HP的shares是否相同，如果相同，可以省去shares維度的標籤合併，以節省時間。默認False，"
+
+#: of qteasy.history.HistoryPanel.join:10
+msgid "两个HP的htypes是否相同，如果相同，可以省去htypes维度的标签合并，以节省时间。默认False，"
+msgstr "兩個HP的htypes是否相同，如果相同，可以省去htypes維度的標籤合併，以節省時間。默認False，"
+
+#: of qteasy.history.HistoryPanel.join:12
+msgid "两个HP的hdates是否相同，如果相同，可以省去hdates维度的标签合并，以节省时间。默认False，"
+msgstr "兩個HP的hdates是否相同，如果相同，可以省去hdates維度的標籤合併，以節省時間。默認False，"
+
+#: of qteasy.history.HistoryPanel.join:14
+msgid "空数据填充值，当组合后的HP存在空数据时，应该以什么值填充，默认为np.nan"
+msgstr "空數據填充值，當組合後的HP存在空數據時，應該以什麼值填充，默認爲np.nan"
+
+#: of qteasy.history.HistoryPanel.len:1
+msgid "返回HistoryPanel对象的长度，即日期个数"
+msgstr "返回HistoryPanel對象的長度，即日期個數"
+
+#: of qteasy.history.HistoryPanel.len:3
+msgid "日期个数"
+msgstr "日期個數"
+
+#: of qteasy.HistoryPanel.level_count:1
+msgid "返回HistoryPanel中股票或资产品种的数量"
+msgstr "返回HistoryPanel中股票或資產品種的數量"
+
+#: of qteasy.HistoryPanel.levels:1
+msgid "返回 HistoryPanel 的层标签字典（股票代码到层下标的映射）。"
+msgstr "返回 HistoryPanel 的層標籤字典（股票代碼到層下標的映射）。"
+
+#: of qteasy.HistoryPanel.levels:3
+msgid "在库内部可与 ``values`` 组合做按层索引；外部请优先使用方括号切片访问各层数据。"
+msgstr "在庫內部可與 ``values`` 組合做按層索引；外部請優先使用方括號切片訪問各層數據。"
+
+#: of qteasy.history.HistoryPanel.plot:1
+msgid "根据 HistoryPanel 中已有的 htypes 与 shares 自动选择图表类型并绘制图表。"
+msgstr "根據 HistoryPanel 中已有的 htypes 與 shares 自動選擇圖表類型並繪製圖表。"
+
+#: of qteasy.history.HistoryPanel.plot:3
+msgid ""
+"本方法只消费已有数据不做新增计算，图表类型由内部注册表基于 htypes 决定 （如 OHLC→K 线，vol→成交量，MACD 三列→MACD "
+"图，其余→折线），支持单标的与多标 的 overlay/stack 布局，以及基于 matplotlib 的静态图和基于 Plotly 的交互式图表。"
+msgstr ""
+"本方法只消費已有數據不做新增計算，圖表類型由內部註冊表基於 htypes 決定 （如 OHLC→K 線，vol→成交量，MACD 三列→MACD "
+"圖，其餘→折線），支持單標的與多標 的 overlay/stack 佈局，以及基於 matplotlib 的靜態圖和基於 Plotly 的交互式圖表。"
+
+#: of qteasy.history.HistoryPanel.plot:7
+msgid "要参与绘图的标的子集；默认使用 HistoryPanel 的全部 shares。"
+msgstr "要參與繪圖的標的子集；默認使用 HistoryPanel 的全部 shares。"
+
+#: of qteasy.history.HistoryPanel.plot:9
+msgid ""
+"多标的布局方式；'overlay' 为同组叠加，'stack' 为多组分行展示，'auto' 时 "
+"``HP_OVERLAY_GROUP_SHARE_COUNT`` 只标的用 overlay，其余用 stack。"
+msgstr ""
+"多標的佈局方式；'overlay' 爲同組疊加，'stack' 爲多組分行展示，'auto' 時 "
+"``HP_OVERLAY_GROUP_SHARE_COUNT`` 只標的用 overlay，其餘用 stack。"
+
+#: of qteasy.history.HistoryPanel.plot:12
+msgid ""
+"为 True 时使用 Plotly 交互后端 （需安装 plotly 及 anywidget/ipywidgets）； 为 False 时使用 "
+"matplotlib 静态后端。"
+msgstr ""
+"爲 True 時使用 Plotly 交互後端 （需安裝 plotly 及 anywidget/ipywidgets）； 爲 False 時使用 "
+"matplotlib 靜態後端。"
+
+#: of qteasy.history.HistoryPanel.plot:15
+msgid ""
+"高亮配置，可为 ``{'condition': 'max'|'min' 或布尔数组, 'style': {...}}``， 或简写为 'max' / "
+"'min'。"
+msgstr ""
+"高亮配置，可爲 ``{'condition': 'max'|'min' 或布爾數組, 'style': {...}}``， 或簡寫爲 'max' / "
+"'min'。"
+
+#: of qteasy.history.HistoryPanel.plot:18
+msgid ""
+"仅当 ``interactive=True`` 时有效。在 Notebook 中选择 Plotly 呈现方式： ``'auto'`` 优先 "
+"``FigureWidget``，失败则回退 HTML 包装；``'FigureWidget'`` 强制 Widget，失败抛错；``'html'`` "
+"强制 HTML 包装，失败抛错。非 Notebook 脚本环境下 ``'auto'`` 仍可能返回原始 ``Figure``。"
+msgstr ""
+"僅當 ``interactive=True`` 時有效。在 Notebook 中選擇 Plotly 呈現方式： ``'auto'`` 優先 "
+"``FigureWidget``，失敗則回退 HTML 包裝；``'FigureWidget'`` 強制 Widget，失敗拋錯；``'html'`` "
+"強制 HTML 包裝，失敗拋錯。非 Notebook 腳本環境下 ``'auto'`` 仍可能返回原始 ``Figure``。"
+
+#: of qteasy.history.HistoryPanel.plot:23
+msgid "单张图中最多展示的 share 数量。当请求 shares 数量超过该值时，会按页分割； 可通过 ``page`` 参数选择要展示的页码。"
+msgstr "單張圖中最多展示的 share 數量。當請求 shares 數量超過該值時，會按頁分割； 可通過 ``page`` 參數選擇要展示的頁碼。"
+
+#: of qteasy.history.HistoryPanel.plot:26
+msgid ""
+"要展示的页码 （1-based）。当 shares 数量超过 ``max_shares_per_figure`` 时， ``page=1`` 为第 1 "
+"页，``page=2`` 为第 2 页，以此类推。"
+msgstr ""
+"要展示的頁碼 （1-based）。當 shares 數量超過 ``max_shares_per_figure`` 時， ``page=1`` 爲第 1 "
+"頁，``page=2`` 爲第 2 頁，以此類推。"
+
+#: of qteasy.history.HistoryPanel.plot:29
+msgid "预留的扩展参数，当前版本中不使用。"
+msgstr "預留的擴展參數，當前版本中不使用。"
+
+#: of qteasy.history.HistoryPanel.plot:31
+msgid ""
+"interactive=False 时返回 matplotlib Figure； interactive=True 时依 "
+"``plotly_backend_app`` 返回 FigureWidget、HTML 包装器或原始 Figure。"
+msgstr ""
+"interactive=False 時返回 matplotlib Figure； interactive=True 時依 "
+"``plotly_backend_app`` 返回 FigureWidget、HTML 包裝器或原始 Figure。"
+
+#: of qteasy.history.HistoryPanel.plot:37
+msgid ""
+"当注册表产出 **完整 OHLC K 线** 主图时，会显示顶部 OHLC 摘要区：静态图固定为时间轴上 **最后一根** bar "
+"的摘要；交互图初始与之一致，点击某 bar 后更新为该 bar （面向用户的 摘要文案为英文）。无 K 线主图 （例如仅 close "
+"折线）时不显示该摘要区。"
+msgstr ""
+"當註冊表產出 **完整 OHLC K 線** 主圖時，會顯示頂部 OHLC 摘要區：靜態圖固定爲時間軸上 **最後一根** bar "
+"的摘要；交互圖初始與之一致，點擊某 bar 後更新爲該 bar （面向用戶的 摘要文案爲英文）。無 K 線主圖 （例如僅 close "
+"折線）時不顯示該摘要區。"
+
+#: of qteasy.history.HistoryPanel.plot:52
+msgid ":obj:`qt.get_kline`"
+msgstr ":obj:`qt.get_kline`"
+
+#: of qteasy.history.HistoryPanel.plot:53
+msgid "获取 K 线数据并可选 ``as_panel=True`` 得到 HistoryPanel。"
+msgstr "獲取 K 線數據並可選 ``as_panel=True`` 得到 HistoryPanel。"
+
+#: of qteasy.history.HistoryPanel.re_label:1
+msgid "给HistoryPanel对象的层、行、列标签重新赋值"
+msgstr "給HistoryPanel對象的層、行、列標籤重新賦值"
+
+#: of qteasy.history.HistoryPanel.re_label:3
+msgid "股票列表"
+msgstr "股票列表"
+
+#: of qteasy.history.HistoryPanel.re_label:5
+msgid "数据类型列表"
+msgstr "數據類型列表"
+
+#: of qteasy.history.HistoryPanel.re_label:7
+msgid "日期列表"
+msgstr "日期列表"
+
+#: of qteasy.HistoryPanel.row_count:1
+msgid "获取HistoryPanel的行数量"
+msgstr "獲取HistoryPanel的行數量"
+
+#: of qteasy.HistoryPanel.rows:1
+msgid "返回Hi storyPanel的日期字典，通过这个字典建立日期与行号的联系： 因此内部可以较快地进行数据切片或数据访问"
+msgstr "返回Hi storyPanel的日期字典，通過這個字典建立日期與行號的聯繫： 因此內部可以較快地進行數據切片或數據訪問"
+
+#: of qteasy.HistoryPanel.rows:4
+msgid "日期字典"
+msgstr "日期字典"
+
+#: of qteasy.history.HistoryPanel.segment:1
+msgid "获取 HistoryPanel 的一个日期片段（已弃用，请用 ``loc`` 或 ``subpanel(hdates=...)``）。"
+msgstr "獲取 HistoryPanel 的一個日期片段（已棄用，請用 ``loc`` 或 ``subpanel(hdates=...)``）。"
+
+#: of qteasy.history.HistoryPanel.segment:3
+msgid ""
+"start_date 和 end_date 都是日期型数据，返回这两个日期之间的所有数据； 返回类型为 HistoryPanel，包含所有 share "
+"和 htypes 的数据。"
+msgstr ""
+"start_date 和 end_date 都是日期型資料，返回這兩個日期之間的所有資料； 返回類型爲 HistoryPanel，包含所有 share "
+"和 htypes 的資料。"
+
+#: of qteasy.HistoryPanel.shape:1
+msgid "获取HistoryPanel的各个维度的尺寸"
+msgstr "獲取HistoryPanel的各個維度的尺寸"
+
+#: of qteasy.HistoryPanel.share_count:1
+msgid "获取HistoryPanel中股票或资产品种的数量"
+msgstr "獲取HistoryPanel中股票或資產品種的數量"
+
+#: of qteasy.HistoryPanel.shares:1
+msgid "返回HistoryPanel的层标签——股票列表"
+msgstr "返回HistoryPanel的層標籤——股票列表"
+
+#: of qteasy.history.HistoryPanel.slice:1
+msgid "获取 HistoryPanel 的股票或数据类型片段（已弃用，请用 ``subpanel(...)``）。"
+msgstr "獲取 HistoryPanel 的股票或資料類型片段（已棄用，請用 ``subpanel(...)``）。"
+
+#: of qteasy.history.HistoryPanel.slice:3
+msgid "shares 和 htypes 可以为列表或逗号分隔字符串，表示需要获取的股票或数据类型。"
+msgstr "shares 和 htypes 可以爲列表或逗號分隔字符串，表示需要獲取的股票或資料類型。"
+
+#: of qteasy.history.HistoryPanel.slice:5
+msgid "需要的股票列表"
+msgstr "需要的股票列表"
+
+#: of qteasy.history.HistoryPanel.slice:7
+msgid "需要的数据类型列表"
+msgstr "需要的數據類型列表"
+
+#: of qteasy.history.HistoryPanel.slice:10
+msgid "**out** -- 一个HistoryPanel，包含shares和htypes中指定的股票和数据类型的数据"
+msgstr "**out** -- 一個HistoryPanel，包含shares和htypes中指定的股票和數據類型的數據"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:1
+msgid "将HistoryPanel对象中的指定片段转化为DataFrame"
+msgstr "將HistoryPanel對象中的指定片段轉化爲DataFrame"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:3
+msgid ""
+"指定htype或者share，将这个htype或share对应的数据切片转化为一个DataFrame。 "
+"由于HistoryPanel对象包含三维数据，因此在转化时必须指定htype或者share参数中的一个"
+msgstr ""
+"指定htype或者share，將這個htype或share對應的數據切片轉化爲一個DataFrame。 "
+"由於HistoryPanel對象包含三維數據，因此在轉化時必須指定htype或者share參數中的一個"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:6
+msgid ""
+"表示需要生成DataFrame的数据类型切片 "
+"如果给出此参数，定位该htype对应的切片后，将该htype对应的所有股票所有日期的数据转化为一个DataFrame "
+"如果类型为str，表示htype的名称，如果类型为int，代表该htype所在的列序号"
+msgstr ""
+"表示需要生成DataFrame的數據類型切片 "
+"如果給出此參數，定位該htype對應的切片後，將該htype對應的所有股票所有日期的數據轉化爲一個DataFrame "
+"如果類型爲str，表示htype的名稱，如果類型爲int，代表該htype所在的列序號"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:10
+msgid ""
+"表示需要生成DataFrame的股票代码切片 "
+"如果给出此参数，定位该share对应的切片后，将该share对应的所有数据类型所有日期的数据转化为一个DataFrame "
+"如果类型为str，表示股票代码，如果类型为int，代表该share所在的层序号"
+msgstr ""
+"表示需要生成DataFrame的股票代碼切片 "
+"如果給出此參數，定位該share對應的切片後，將該share對應的所有數據類型所有日期的數據轉化爲一個DataFrame "
+"如果類型爲str，表示股票代碼，如果類型爲int，代表該share所在的層序號"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:14
+msgid "是否去除NaN值"
+msgstr "是否去除NaN值"
+
+#: of qteasy.history.HistoryPanel.slice_to_dataframe:16
+msgid "是否将inf值当成NaN值一同去掉，当dropna为False时无效"
+msgstr "是否將inf值當成NaN值一同去掉，當dropna爲False時無效"
+
+#: of qteasy.history.HistoryPanel.subpanel:1
+msgid "按具名参数沿 htypes / shares / hdates 取子面板，避免三元组轴顺序混淆。"
+msgstr "按具名參數沿 htypes / shares / hdates 取子面板，避免三元組軸順序混淆。"
+
+#: of qteasy.history.HistoryPanel.subpanel:3
+msgid ""
+"``None`` 表示该轴全选。默认 ``copy=True``，得到与父对象数据缓冲区脱钩的副本；需要零拷贝时可设 ``copy=False`` "
+"（子面板 ``values`` 可能与父面板共享内存）。父对象上 ``__setitem__`` 追加新列时会 替换父面板整块 "
+"``values``，``copy=False`` 子面板通常 **不会** 自动带上新列，且可能仍引用扩列前的缓冲区。"
+msgstr ""
+"``None`` 表示該軸全選。默認 ``copy=True``，得到與父對象數據緩衝區脫鉤的副本；需要零拷貝時可設 ``copy=False`` "
+"（子面板 ``values`` 可能與父面板共享內存）。父對象上 ``__setitem__`` 追加新列時會 替換父面板整塊 "
+"``values``，``copy=False`` 子面板通常 **不會** 自動帶上新列，且可能仍引用擴列前的緩衝區。"
+
+#: of qteasy.history.HistoryPanel.subpanel:7
+msgid "列 （数据类型）选择，语义与 ``panel[htypes, ...]`` 第一段一致。"
+msgstr "列 （數據類型）選擇，語義與 ``panel[htypes, ...]`` 第一段一致。"
+
+#: of qteasy.history.HistoryPanel.subpanel:9
+msgid "标的层选择，语义与 ``panel[:, shares, ...]`` 第二段一致。"
+msgstr "標的層選擇，語義與 ``panel[:, shares, ...]`` 第二段一致。"
+
+#: of qteasy.history.HistoryPanel.subpanel:11
+msgid "时间轴选择，语义与 ``panel[..., hdates]`` 第三段一致。"
+msgstr "時間軸選擇，語義與 ``panel[..., hdates]`` 第三段一致。"
+
+#: of qteasy.history.HistoryPanel.subpanel:13
+msgid "为 True 时对切片结果做数组拷贝。"
+msgstr "爲 True 時對切片結果做數組拷貝。"
+
+#: of qteasy.history.HistoryPanel.subpanel:16
+msgid "所选轴子集构成的子面板；空输入对应空面板。"
+msgstr "所選軸子集構成的子面板；空輸入對應空面板。"
+
+#: of qteasy.history.HistoryPanel.subpanel:21
+msgid ""
+"与 ``__getitem__`` 的 ``copy=False`` 切片类似：父级 ``__setitem__`` "
+"追加列之后，``copy=False`` 子对象通常不含新列；需要稳定快照请保持 ``copy=True`` （默认）。"
+msgstr ""
+"與 ``__getitem__`` 的 ``copy=False`` 切片類似：父級 ``__setitem__`` "
+"追加列之後，``copy=False`` 子對象通常不含新列；需要穩定快照請保持 ``copy=True`` （默認）。"
+
+#: of qteasy.history.HistoryPanel.tail:1
+msgid "返回HistoryPanel的最末几行，默认五行"
+msgstr "返回HistoryPanel的最末幾行，默認五行"
+
+#: of qteasy.history.HistoryPanel.tail:6
+msgid ""
+"* *dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows* * *一个dataframe，以share和htype为列的多重索引，只包含最后row_count行*"
+msgstr ""
+"* *dataframe, multi-indexed by share and htype as columns, with only last "
+"row_count rows* * *一個dataframe，以share和htype爲列的多重索引，只包含最後row_count行*"
+
+#: of qteasy.history.HistoryPanel.tail:7
+msgid "*一个dataframe，以share和htype为列的多重索引，只包含最后row_count行*"
+msgstr "*一個dataframe，以share和htype爲列的多重索引，只包含最後row_count行*"
+
+#: of qteasy.history.HistoryPanel.to_numpy:1
+msgid "返回与 ``values`` 相同形状的 ndarray；需要独立副本时使用 ``copy=True``。"
+msgstr "返回與 ``values`` 相同形狀的 ndarray；需要獨立副本時使用 ``copy=True``。"
+
+#: of qteasy.history.HistoryPanel.to_numpy:3
+msgid ""
+"空面板返回形状为 ``(0, 0, 0)`` 的 float 数组。非空时 ``copy=False`` 与 "
+"``numpy.asarray(self.values)`` 语义一致，可与内部缓冲区共享内存。若之后在父对象上用 ``__setitem__`` "
+"**追加** 新列，父对象会替换 整块缓冲；此前用 ``copy=False`` 拿到的数组 **不会** 自动带上新列，不宜再视为当前面板的权威快照。"
+msgstr ""
+"空面板返回形狀爲 ``(0, 0, 0)`` 的 float 數組。非空時 ``copy=False`` 與 "
+"``numpy.asarray(self.values)`` 語義一致，可與內部緩衝區共享內存。若之後在父對象上用 ``__setitem__`` "
+"**追加** 新列，父對象會替換 整塊緩衝；此前用 ``copy=False`` 拿到的數組 **不會** 自動帶上新列，不宜再視爲當前面板的權威快照。"
+
+#: of qteasy.history.HistoryPanel.to_numpy:7
+msgid "为 True 时返回数组拷贝，修改返回值不影响本对象数据。"
+msgstr "爲 True 時返回數組拷貝，修改返回值不影響本對象數據。"
+
+#: of qteasy.history.HistoryPanel.to_numpy:10
+msgid "与 ``values`` 同形状的三维数组；空面板时为 ``(0, 0, 0)``。"
+msgstr "與 ``values`` 同形狀的三維數組；空面板時爲 ``(0, 0, 0)``。"
+
+#: of qteasy.HistoryPanel.values:1
+msgid "返回当前对象内部的三维数据缓冲区 （与 ``_values`` 同一引用）。"
+msgstr "返回當前對象內部的三維數據緩衝區 （與 ``_values`` 同一引用）。"
+
+#: of qteasy.HistoryPanel.values:3
+msgid ""
+"非空时与 ``to_numpy(copy=False)`` 指向同一块内存；修改返回值会直接改动本对象数据。 通过 ``__setitem__`` "
+"追加新列时，内部可能 **替换** 整块数组，此前由子视图 （``__getitem__`` / "
+"``subpanel(copy=False)``）持有的 ``values`` 可能仍指向扩列前的旧缓冲， 且不会自动出现新列。需要稳定快照请使用 "
+"``subpanel(..., copy=True)`` 或 ``to_numpy(copy=True)``。 原地写入列时，若原数组非 "
+"``float64``，内部会升级为 ``float64`` 再存储。"
+msgstr ""
+"非空時與 ``to_numpy(copy=False)`` 指向同一塊內存；修改返回值會直接改動本對象數據。 通過 ``__setitem__`` "
+"追加新列時，內部可能 **替換** 整塊數組，此前由子視圖 （``__getitem__`` / "
+"``subpanel(copy=False)``）持有的 ``values`` 可能仍指向擴列前的舊緩衝， 且不會自動出現新列。需要穩定快照請使用 "
+"``subpanel(..., copy=True)`` 或 ``to_numpy(copy=True)``。 原地寫入列時，若原數組非 "
+"``float64``，內部會升級爲 ``float64`` 再存儲。"
+
+#: of qteasy.HistoryPanel.values:9
+msgid "形状 ``(level_count, row_count, column_count)``；空面板为 ``None``。"
+msgstr "形狀 ``(level_count, row_count, column_count)``；空面板爲 ``None``。"
+
+#: ../../source/api/HistoryPanel.rst:48
+msgid ""
+"HistoryPanel 对象提供了常用的金融数据统计与聚合方法，包括数据的描述性统计、滚动窗口计算、收益与风险指标计算，以及 K "
+"线与技术指标计算等，具体如下："
+msgstr ""
+"HistoryPanel 對象提供了常用的金融數據統計與聚合方法，包括數據的描述性統計、滾動窗口計算、收益與風險指標計算，以及 K "
+"線與技術指標計算等，具體如下："
+
+#: ../../source/api/HistoryPanel.rst:51
+msgid "基础统计与聚合"
+msgstr "基礎統計與聚合"
+
+#: ../../source/api/HistoryPanel.rst:53
+msgid ""
+"以下方法在 HistoryPanel 的三维数据上提供类似 pandas 的统计功能。``mean`` / ``std`` / ``min`` / "
+"``max`` 以及 ``sum`` / ``median`` / ``var`` / ``quantile`` 均沿 **hdates** "
+"（axis=1）聚合，返回 ``DataFrame(index=shares, columns=htypes)``；``by='htype'`` "
+"仅为转置。``var`` 默认 ``ddof=1`` （与 ``std`` 对齐）；``quantile`` 仅接受标量 ``q`` 且 ``0 <= "
+"q <= 1``。"
+msgstr ""
+"以下方法在 HistoryPanel 的三維資料上提供類似 pandas 的統計功能。``mean`` / ``std`` / ``min`` / "
+"``max`` 以及 ``sum`` / ``median`` / ``var`` / ``quantile`` 均沿 **hdates** "
+"（axis=1）聚合，返回 ``DataFrame(index=shares, columns=htypes)``；``by='htype'`` "
+"僅爲轉置。``var`` 預設 ``ddof=1`` （與 ``std`` 對齊）；``quantile`` 僅接受標量 ``q`` 且 ``0 <= "
+"q <= 1``。"
+
+#: ../../source/api/HistoryPanel.rst:55
+msgid ""
+"注意区分：面板级 :meth:`~qteasy.HistoryPanel.sum` 返回 "
+"``DataFrame``；:class:`~qteasy.history.HistoryPanelRolling` 的 ``sum`` 返回滚动后的 "
+"``HistoryPanel``。"
+msgstr ""
+"注意區分：面板級 :meth:`~qteasy.HistoryPanel.sum` 返回 "
+"``DataFrame``；:class:`~qteasy.history.HistoryPanelRolling` 的 ``sum`` 返回滾動後的 "
+"``HistoryPanel``。"
+
+#: of qteasy.history.HistoryPanel.describe:1
+msgid "对 HistoryPanel 进行基础统计描述，类似 pandas.DataFrame.describe。"
+msgstr "對 HistoryPanel 進行基礎統計描述，類似 pandas.DataFrame.describe。"
+
+#: of qteasy.history.HistoryPanel.describe:3
+msgid ""
+"可以按标的 （share）、历史数据类型 （htype）或全局视角对数值数据做 count、 mean、std、min、max 及给定分位数等统计描述。"
+msgstr ""
+"可以按標的 （share）、歷史數據類型 （htype）或全局視角對數值數據做 count、 mean、std、min、max 及給定分位數等統計描述。"
+
+#: of qteasy.history.HistoryPanel.describe:6
+msgid ""
+"统计视角： - 'share'：每只股票一个 describe 结果，拼接成列为 (htype, stat) 的 MultiIndex； - "
+"'htype'：每个 htype 在所有股票与时间上的分布； - None：将全部数值视作一个整体样本池。"
+msgstr ""
+"統計視角： - 'share'：每隻股票一個 describe 結果，拼接成列爲 (htype, stat) 的 MultiIndex； - "
+"'htype'：每個 htype 在所有股票與時間上的分佈； - None：將全部數值視作一個整體樣本池。"
+
+#: of qteasy.history.HistoryPanel.describe:11
+msgid "需要计算的分位数列表，值应在 (0, 1) 区间。"
+msgstr "需要計算的分位數列表，值應在 (0, 1) 區間。"
+
+#: of qteasy.history.HistoryPanel.describe:13
+msgid "当前仅支持数值型统计，非数值列会被自动忽略。"
+msgstr "當前僅支持數值型統計，非數值列會被自動忽略。"
+
+#: of qteasy.history.HistoryPanel.describe:15
+msgid "计算标准差时的自由度参数，仅在 ``by is None`` 时生效。"
+msgstr "計算標準差時的自由度參數，僅在 ``by is None`` 時生效。"
+
+#: of qteasy.history.HistoryPanel.describe:18
+msgid "描述性统计结果表，其 index/columns 结构取决于 by 的取值。"
+msgstr "描述性統計結果表，其 index/columns 結構取決於 by 的取值。"
+
+#: of qteasy.history.HistoryPanel.mean:1
+msgid "按标的或数据类型对 HistoryPanel 进行均值统计。"
+msgstr "按標的或數據類型對 HistoryPanel 進行均值統計。"
+
+#: of qteasy.history.HistoryPanel.mean:3
+msgid ""
+"统计维度： - 'share'：对每只股票在时间轴上的均值，返回 index 为 shares、columns 为 htypes 的 "
+"DataFrame； - 'htype'：对每个 htype 在所有股票上的均值，返回转置后的 DataFrame。"
+msgstr ""
+"統計維度： - 'share'：對每隻股票在時間軸上的均值，返回 index 爲 shares、columns 爲 htypes 的 "
+"DataFrame； - 'htype'：對每個 htype 在所有股票上的均值，返回轉置後的 DataFrame。"
+
+#: of qteasy.history.HistoryPanel.mean:7
+msgid "是否在计算均值时忽略 NaN。"
+msgstr "是否在計算均值時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.mean:10
+msgid "按指定维度聚合后的均值结果表。"
+msgstr "按指定維度聚合後的均值結果表。"
+
+#: of qteasy.history.HistoryPanel.std:1
+msgid "按标的或数据类型对 HistoryPanel 进行标准差统计 （ddof=1）。"
+msgstr "按標的或數據類型對 HistoryPanel 進行標準差統計 （ddof=1）。"
+
+#: of qteasy.history.HistoryPanel.max:3 qteasy.history.HistoryPanel.median:3
+#: qteasy.history.HistoryPanel.min:3 qteasy.history.HistoryPanel.quantile:5
+#: qteasy.history.HistoryPanel.std:3 qteasy.history.HistoryPanel.var:3
+msgid "统计维度，语义同 ``mean()``。"
+msgstr "統計維度，語義同 ``mean()``。"
+
+#: of qteasy.history.HistoryPanel.std:5
+msgid "是否在计算标准差时忽略 NaN。"
+msgstr "是否在計算標準差時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.std:8
+msgid "按指定维度聚合后的标准差结果表。"
+msgstr "按指定維度聚合後的標準差結果表。"
+
+#: of qteasy.history.HistoryPanel.min:1
+msgid "按标的或数据类型对 HistoryPanel 进行最小值统计。"
+msgstr "按標的或數據類型對 HistoryPanel 進行最小值統計。"
+
+#: of qteasy.history.HistoryPanel.min:5
+msgid "是否在计算最小值时忽略 NaN。"
+msgstr "是否在計算最小值時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.min:8
+msgid "按指定维度聚合后的最小值结果表。"
+msgstr "按指定維度聚合後的最小值結果表。"
+
+#: of qteasy.history.HistoryPanel.max:1
+msgid "按标的或数据类型对 HistoryPanel 进行最大值统计。"
+msgstr "按標的或數據類型對 HistoryPanel 進行最大值統計。"
+
+#: of qteasy.history.HistoryPanel.max:5
+msgid "是否在计算最大值时忽略 NaN。"
+msgstr "是否在計算最大值時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.max:8
+msgid "按指定维度聚合后的最大值结果表。"
+msgstr "按指定維度聚合後的最大值結果表。"
+
+#: of qteasy.history.HistoryPanel.sum:1
+msgid "按标的或数据类型对 HistoryPanel 进行求和统计。"
+msgstr "按標的或資料類型對 HistoryPanel 進行求和統計。"
+
+#: of qteasy.history.HistoryPanel.sum:3
+msgid "统计维度，语义同 ``mean()``：沿 hdates 聚合；``htype`` 时返回转置表。"
+msgstr "統計維度，語義同 ``mean()``：沿 hdates 聚合；``htype`` 時返回轉置表。"
+
+#: of qteasy.history.HistoryPanel.sum:5
+msgid "是否在求和时忽略 NaN。"
+msgstr "是否在求和時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.sum:8
+msgid "按指定维度聚合后的求和结果表。"
+msgstr "按指定維度聚合後的求和結果表。"
+
+#: of qteasy.history.HistoryPanel.median:1
+msgid "按标的或数据类型对 HistoryPanel 进行中位数统计。"
+msgstr "按標的或資料類型對 HistoryPanel 進行中位數統計。"
+
+#: of qteasy.history.HistoryPanel.median:5
+msgid "是否在计算中位数时忽略 NaN。"
+msgstr "是否在計算中位數時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.median:8
+msgid "按指定维度聚合后的中位数结果表。"
+msgstr "按指定維度聚合後的中位數結果表。"
+
+#: of qteasy.history.HistoryPanel.var:1
+msgid "按标的或数据类型对 HistoryPanel 进行方差统计。"
+msgstr "按標的或資料類型對 HistoryPanel 進行方差統計。"
+
+#: of qteasy.history.HistoryPanel.var:5
+msgid "是否在计算方差时忽略 NaN。"
+msgstr "是否在計算方差時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.var:7
+msgid "自由度修正，与 ``std()`` 默认一致。"
+msgstr "自由度修正，與 ``std()`` 預設一致。"
+
+#: of qteasy.history.HistoryPanel.var:10
+msgid "按指定维度聚合后的方差结果表。"
+msgstr "按指定維度聚合後的方差結果表。"
+
+#: of qteasy.history.HistoryPanel.quantile:1
+msgid "按标的或数据类型对 HistoryPanel 计算分位数。"
+msgstr "按標的或資料類型對 HistoryPanel 計算分位數。"
+
+#: of qteasy.history.HistoryPanel.quantile:3
+msgid "分位点，须满足 ``0 <= q <= 1``（仅支持标量）。"
+msgstr "分位點，須滿足 ``0 <= q <= 1``（僅支持標量）。"
+
+#: of qteasy.history.HistoryPanel.quantile:7
+msgid "是否在计算分位数时忽略 NaN。"
+msgstr "是否在計算分位數時忽略 NaN。"
+
+#: of qteasy.history.HistoryPanel.quantile:10
+msgid "按指定维度聚合后的分位数结果表。"
+msgstr "按指定維度聚合後的分位數結果表。"
+
+#: of qteasy.history.HistoryPanel.quantile:13
+msgid "``q`` 越界或 ``by`` 非法。"
+msgstr "``q`` 越界或 ``by`` 非法。"
+
+#: ../../source/api/HistoryPanel.rst:77
+msgid "相关与协方差 （corr / cov）"
+msgstr "相關與協方差 （corr / cov）"
+
+#: ../../source/api/HistoryPanel.rst:79
+msgid ""
+"对指定 ``htype``，将每个 share 的时间序列视为一列，返回 ``shares × shares`` 相关 / 协方差矩阵 "
+"（``DataFrame``，index/columns 均为 ``shares``）。空面板返回空表。"
+msgstr ""
+"對指定 ``htype``，將每個 share 的時間序列視爲一列，返回 ``shares × shares`` 相關 / 協方差矩陣 "
+"（``DataFrame``，index/columns 均爲 ``shares``）。空面板返回空表。"
+
+#: ../../source/api/HistoryPanel.rst:81
+msgid ""
+"与 :mod:`qteasy.research` 中的 ``factor_ic`` "
+"（**逐日截面**相关）语义不同：本方法是**跨时间、标的两两**的时序矩阵。"
+msgstr ""
+"與 :mod:`qteasy.research` 中的 ``factor_ic`` "
+"（**逐日截面**相關）語義不同：本方法是**跨時間、標的兩兩**的時序矩陣。"
+
+#: of qteasy.history.HistoryPanel.corr:1
+msgid "对指定 htype，在 share 维上计算时序两两相关系数矩阵。"
+msgstr "對指定 htype，在 share 維上計算時序兩兩相關係數矩陣。"
+
+#: of qteasy.history.HistoryPanel.corr:3
+msgid ""
+"将每个标的在该 ``htype`` 上的时间序列视为一列，返回 ``shares × shares`` 相关矩阵。 与 "
+"``qteasy.research.factor_ic``（逐日截面相关）语义不同。"
+msgstr ""
+"將每個標的在該 ``htype`` 上的時間序列視爲一列，返回 ``shares × shares`` 相關矩陣。 與 "
+"``qteasy.research.factor_ic``（逐日截面相關）語義不同。"
+
+#: of qteasy.history.HistoryPanel.corr:6 qteasy.history.HistoryPanel.cov:5
+msgid "参与计算的数据类型列名。"
+msgstr "參與計算的資料類型列名。"
+
+#: of qteasy.history.HistoryPanel.corr:8
+msgid "相关系数方法。"
+msgstr "相關係數方法。"
+
+#: of qteasy.history.HistoryPanel.corr:10
+msgid "计算每对相关所需的最少有效观测数，透传给 pandas。"
+msgstr "計算每對相關所需的最少有效觀測數，透傳給 pandas。"
+
+#: of qteasy.history.HistoryPanel.corr:13 qteasy.history.HistoryPanel.cov:12
+msgid "index/columns 均为 ``shares``；空面板返回空表。"
+msgstr "index/columns 均爲 ``shares``；空面板返回空表。"
+
+#: of qteasy.history.HistoryPanel.corr:16
+msgid "未知 ``htype``、非法 ``method`` / ``min_periods``。"
+msgstr "未知 ``htype``、非法 ``method`` / ``min_periods``。"
+
+#: of qteasy.history.HistoryPanel.cov:1
+msgid "对指定 htype，在 share 维上计算时序两两协方差矩阵。"
+msgstr "對指定 htype，在 share 維上計算時序兩兩協方差矩陣。"
+
+#: of qteasy.history.HistoryPanel.cov:3
+msgid "语义同 ``corr``：每个标的一条时间序列，返回 ``shares × shares`` 协方差矩阵。"
+msgstr "語義同 ``corr``：每個標的一條時間序列，返回 ``shares × shares`` 協方差矩陣。"
+
+#: of qteasy.history.HistoryPanel.cov:7
+msgid "计算每对协方差所需的最少有效观测数，透传给 pandas。"
+msgstr "計算每對協方差所需的最少有效觀測數，透傳給 pandas。"
+
+#: of qteasy.history.HistoryPanel.cov:9
+msgid "自由度修正，透传给 ``DataFrame.cov``。"
+msgstr "自由度修正，透傳給 ``DataFrame.cov``。"
+
+#: of qteasy.history.HistoryPanel.cov:15
+msgid "未知 ``htype``、非法 ``min_periods``。"
+msgstr "未知 ``htype``、非法 ``min_periods``。"
+
+#: ../../source/api/HistoryPanel.rst:89
+msgid "研究与掩码 （where）"
+msgstr "研究與掩碼 （where）"
+
+#: ../../source/api/HistoryPanel.rst:91
+msgid ""
+"将任意可广播条件规整为与 ``values`` 同形的 ``bool`` 数组，供后续研究 API 的 ``mask=`` 参数使用 "
+"（如累计收益、归一化、组合聚合等）。二维 ``(M, L)`` 条件会沿 htype 轴复制到 ``(M, L, N)``；详见方法 docstring"
+" 与教程「使用 HistoryPanel 操作和分析历史数据」。"
+msgstr ""
+"將任意可廣播條件規整爲與 ``values`` 同形的 ``bool`` 數組，供後續研究 API 的 ``mask=`` 參數使用 "
+"（如累計收益、歸一化、組合聚合等）。二維 ``(M, L)`` 條件會沿 htype 軸複製到 ``(M, L, N)``；詳見方法 docstring"
+" 與教程「使用 HistoryPanel 操作和分析歷史數據」。"
+
+#: of qteasy.history.HistoryPanel.where:1
+msgid "将条件广播为与 ``values`` 同形的 bool 掩码，供研究 API 的 ``mask=`` 等参数使用。"
+msgstr "將條件廣播爲與 ``values`` 同形的 bool 掩碼，供研究 API 的 ``mask=`` 等參數使用。"
+
+#: of qteasy.history.HistoryPanel.where:3
+msgid ""
+"不改变本对象。返回数组为 ``dtype=bool``、形状 ``(share 数, 时间长度, htype 数)``，与 "
+"``panel.values`` 一致。条件可为数组 （可广播到上述形状）或 ``callable(panel)`` 返回类数组。"
+msgstr ""
+"不改變本對象。返回數組爲 ``dtype=bool``、形狀 ``(share 數, 時間長度, htype 數)``，與 "
+"``panel.values`` 一致。條件可爲數組 （可廣播到上述形狀）或 ``callable(panel)`` 返回類數組。"
+
+#: of qteasy.history.HistoryPanel.where:6
+msgid "研究向掩码与 Backtester 中 NaN 价格处理无关。整数 ``0``/``1`` 等会按 numpy 规则转为 bool。"
+msgstr "研究向掩碼與 Backtester 中 NaN 價格處理無關。整數 ``0``/``1`` 等會按 numpy 規則轉爲 bool。"
+
+#: of qteasy.history.HistoryPanel.where:8
+msgid ""
+"形状 **恰好为** ``(M, L)`` 的数组视为「每个 ``(share, 时间)`` 对所有 ``htype`` 共用同一布尔值」， "
+"内部会先变为 ``(M, L, 1)`` 再广播到 ``(M, L, N)`` （因标准 numpy 无法将二维 ``(M,L)`` 直接广播到三维）。"
+" 一维 ``(M,)`` 与二维 ``(M, 1)`` 视为仅随标的变化，会展开为 ``(M, 1, 1)`` 再广播。"
+msgstr ""
+"形狀 **恰好爲** ``(M, L)`` 的數組視爲「每個 ``(share, 時間)`` 對所有 ``htype`` 共用同一布爾值」， "
+"內部會先變爲 ``(M, L, 1)`` 再廣播到 ``(M, L, N)`` （因標準 numpy 無法將二維 ``(M,L)`` 直接廣播到三維）。"
+" 一維 ``(M,)`` 與二維 ``(M, 1)`` 視爲僅隨標的變化，會展開爲 ``(M, 1, 1)`` 再廣播。"
+
+#: of qteasy.history.HistoryPanel.where:12
+msgid ""
+"类数组：先 ``np.asarray(..., dtype=bool)`` 再广播到 ``self.shape``。 若为 "
+"``callable``，则调用 ``condition(self)`` 得到数组后再处理。 裸 ``str`` 不接受，将引发 "
+"``TypeError`` （英文）。"
+msgstr ""
+"類數組：先 ``np.asarray(..., dtype=bool)`` 再廣播到 ``self.shape``。 若爲 "
+"``callable``，則調用 ``condition(self)`` 得到數組後再處理。 裸 ``str`` 不接受，將引發 "
+"``TypeError`` （英文）。"
+
+#: of qteasy.history.HistoryPanel.where:17
+msgid "与 ``self.shape`` 相同的三维 bool 数组 （拷贝，与内部 ``values`` 不共享写缓冲）。"
+msgstr "與 ``self.shape`` 相同的三維 bool 數組 （拷貝，與內部 ``values`` 不共享寫緩衝）。"
+
+#: of qteasy.history.HistoryPanel.where:20
+msgid "``condition`` 为 ``str`` 时抛出 （英文）。"
+msgstr "``condition`` 爲 ``str`` 時拋出 （英文）。"
+
+#: of qteasy.history.HistoryPanel.where:21
+msgid "无法将返回值转为 bool 数组或无法广播到 ``self.shape`` 时抛出 （英文）。"
+msgstr "無法將返回值轉爲 bool 數組或無法廣播到 ``self.shape`` 時拋出 （英文）。"
+
+#: of qteasy.history.HistoryPanel.where:25
+msgid ""
+"``condition`` 可为 **富比较** 的直接结果 （自 2.2.8 起）：例如 ``panel.where(panel.close > "
+"100.0)`` 或 ``panel.where(panel['close'] > panel['open'])``，其中 ``>`` 等对 "
+"``HistoryPanel`` 与标量 / 可广播数组 / 另一面板 （须满足对齐规则）返回 ``numpy.ndarray`` "
+"（``dtype=bool``），再由本方法 广播到与 ``panel.values`` 同形。"
+msgstr ""
+"``condition`` 可爲 **富比較** 的直接結果 （自 2.2.8 起）：例如 ``panel.where(panel.close > "
+"100.0)`` 或 ``panel.where(panel['close'] > panel['open'])``，其中 ``>`` 等對 "
+"``HistoryPanel`` 與標量 / 可廣播數組 / 另一面板 （須滿足對齊規則）返回 ``numpy.ndarray`` "
+"（``dtype=bool``），再由本方法 廣播到與 ``panel.values`` 同形。"
+
+#: of qteasy.history.HistoryPanel.where:30
+msgid ""
+"``cum_return``、``normalize`` 与 ``portfolio`` 的 ``mask=`` 可直接使用本方法返回值或与其同形、 "
+"``dtype=bool`` 的数组。 更多场景见文档「使用 HistoryPanel 操作和分析历史数据」教程与 Sphinx "
+"**HistoryPanel** API 中 「研究与掩码 （where）」小节。"
+msgstr ""
+"``cum_return``、``normalize`` 與 ``portfolio`` 的 ``mask=`` 可直接使用本方法返回值或與其同形、 "
+"``dtype=bool`` 的數組。 更多場景見文檔「使用 HistoryPanel 操作和分析歷史數據」教程與 Sphinx "
+"**HistoryPanel** API 中 「研究與掩碼 （where）」小節。"
+
+#: of qteasy.history.HistoryPanel.where:37
+msgid "空面板得到 ``(0,0,0)`` 的 bool 数组："
+msgstr "空面板得到 ``(0,0,0)`` 的 bool 數組："
+
+#: of qteasy.history.HistoryPanel.where:43
+msgid "与 ``values`` 同形的比较结果可直接传入："
+msgstr "與 ``values`` 同形的比較結果可直接傳入："
+
+#: of qteasy.history.HistoryPanel.where:58
+msgid "标量 ``True`` / ``False`` 填满整块："
+msgstr "標量 ``True`` / ``False`` 填滿整塊："
+
+#: of qteasy.history.HistoryPanel.where:64
+msgid "``(M, L)`` 条件沿 htype 轴广播 （例如事件日）："
+msgstr "``(M, L)`` 條件沿 htype 軸廣播 （例如事件日）："
+
+#: of qteasy.history.HistoryPanel.where:72
+msgid "``(M, L, 1)`` 与 ``(M, L)`` 语义一致，沿 htype 维复制："
+msgstr "``(M, L, 1)`` 與 ``(M, L)`` 語義一致，沿 htype 維複製："
+
+#: of qteasy.history.HistoryPanel.where:79
+msgid "使用 ``lambda`` 基于面板数据构造条件："
+msgstr "使用 ``lambda`` 基於面板數據構造條件："
+
+#: of qteasy.history.HistoryPanel.where:85
+msgid "复合布尔条件："
+msgstr "複合布爾條件："
+
+#: ../../source/api/HistoryPanel.rst:95
+msgid "以下为与教程互补的稍长示例 （不依赖网络；可与 docstring 中 doctest 对照）："
+msgstr "以下爲與教程互補的稍長示例 （不依賴網絡；可與 docstring 中 doctest 對照）："
+
+#: ../../source/api/HistoryPanel.rst:117
+msgid ""
+"可将 ``mask = hp.where(...)`` 直接传入 :meth:`~qteasy.HistoryPanel.cum_return` 与 "
+":meth:`~qteasy.HistoryPanel.normalize` 的 ``mask=`` 参数 （广播规则与 ``where`` 一致）。"
+msgstr ""
+"可將 ``mask = hp.where(...)`` 直接傳入 :meth:`~qteasy.HistoryPanel.cum_return` 與 "
+":meth:`~qteasy.HistoryPanel.normalize` 的 ``mask=`` 參數 （廣播規則與 ``where`` 一致）。"
+
+#: ../../source/api/HistoryPanel.rst:120
+msgid "列属性访问、比较与 ``loc`` （与 pandas 的差异）"
+msgstr "列屬性訪問、比較與 ``loc`` （與 pandas 的差異）"
+
+#: ../../source/api/HistoryPanel.rst:122
+msgid ""
+"**属性**：合法标识符列名可用 ``hp.close`` （只读），等价 ``hp['close']``；含 ``|`` "
+"等非法标识符的列名、以及未知名仍须用 ``hp['...']``。赋值请统一 ``hp['col'] = ...``。已有方法 / 描述符 （如 "
+"``where``、``values``）与同名列冲突时，点号仍解析为 API，列请用方括号。"
+msgstr ""
+"**屬性**：合法標識符列名可用 ``hp.close`` （只讀），等價 ``hp['close']``；含 ``|`` "
+"等非法標識符的列名、以及未知名仍須用 ``hp['...']``。賦值請統一 ``hp['col'] = ...``。已有方法 / 描述符 （如 "
+"``where``、``values``）與同名列衝突時，點號仍解析爲 API，列請用方括號。"
+
+#: ../../source/api/HistoryPanel.rst:123
+msgid ""
+"**比较**：``hp > 0``、``hp['close'] > hp['open']`` 等返回 ``numpy.ndarray`` （布尔 "
+"dtype），不返回 ``HistoryPanel``；可与 ``hp.where(...)`` 衔接。两侧均为面板时须 "
+"``shares``、``hdates`` 一致；``htypes`` 须一致，或两侧均为单列切片 （如两列比较）。"
+msgstr ""
+"**比較**：``hp > 0``、``hp['close'] > hp['open']`` 等返回 ``numpy.ndarray`` （布爾 "
+"dtype），不返回 ``HistoryPanel``；可與 ``hp.where(...)`` 銜接。兩側均爲面板時須 "
+"``shares``、``hdates`` 一致；``htypes`` 須一致，或兩側均爲單列切片 （如兩列比較）。"
+
+#: ../../source/api/HistoryPanel.rst:124
+msgid ""
+"**loc 索引**：``hp.loc[k]`` 等价 ``hp[:, :, k]``，仅沿时间轴 （``hdates``）筛选；不接受 "
+"``where`` 的 ``(M, L, N)`` 布尔立方，格点掩码请 ``where`` + ``mask=``。"
+msgstr ""
+"**loc 索引**：``hp.loc[k]`` 等價 ``hp[:, :, k]``，僅沿時間軸 （``hdates``）篩選；不接受 "
+"``where`` 的 ``(M, L, N)`` 布爾立方，格點掩碼請 ``where`` + ``mask=``。"
+
+#: ../../source/api/HistoryPanel.rst:125
+msgid "**算术与拷贝**："
+msgstr "**算術與拷貝**："
+
+#: ../../source/api/HistoryPanel.rst:127
+msgid "``hp + 1``、``hp * arr`` 等算术运算会返回新的 ``HistoryPanel``，不修改原对象。"
+msgstr "``hp + 1``、``hp * arr`` 等算術運算會返回新的 ``HistoryPanel``，不修改原對象。"
+
+#: ../../source/api/HistoryPanel.rst:128
+msgid "``hp += 1``、``hp *= arr`` 等就地运算符会显式修改原对象。"
+msgstr "``hp += 1``、``hp *= arr`` 等就地運算符會顯式修改原對象。"
+
+#: ../../source/api/HistoryPanel.rst:129
+msgid ""
+"``hp.copy(deep=True)`` （默认）返回深拷贝，修改副本不影响原对象；``hp.copy(deep=False)`` "
+"共享底层数组，修改副本会同步影响原对象。"
+msgstr ""
+"``hp.copy(deep=True)`` （默認）返回深拷貝，修改副本不影響原對象；``hp.copy(deep=False)`` "
+"共享底層數組，修改副本會同步影響原對象。"
+
+#: ../../source/api/HistoryPanel.rst:132
+msgid "与 ``plot`` 的衔接：用 (M,L) mask 做高亮"
+msgstr "與 ``plot`` 的銜接：用 (M,L) mask 做高亮"
+
+#: ../../source/api/HistoryPanel.rst:134
+msgid ""
+"在研究场景中，事件日/信号/可交易池常见输出为二维布尔矩阵 ``mask_ml``，形状为 ``(M, L)`` （标的数 × 时间长度）。 "
+"`HistoryPanel.plot()` 的 ``highlight`` 支持把该二维 mask 映射到当前图形中的高亮点："
+msgstr ""
+"在研究場景中，事件日/信號/可交易池常見輸出爲二維布爾矩陣 ``mask_ml``，形狀爲 ``(M, L)`` （標的數 × 時間長度）。 "
+"`HistoryPanel.plot()` 的 ``highlight`` 支持把該二維 mask 映射到當前圖形中的高亮點："
+
+#: ../../source/api/HistoryPanel.rst:137
+msgid ""
+"**子集 mask**：若 ``mask_ml.shape == (M_plot, L)``，其中 ``M_plot`` 为本次 "
+"``plot(shares=...)`` 选中的 share 数，则按绘图 share 顺序对应；"
+msgstr ""
+"**子集 mask**：若 ``mask_ml.shape == (M_plot, L)``，其中 ``M_plot`` 爲本次 "
+"``plot(shares=...)`` 選中的 share 數，則按繪圖 share 順序對應；"
+
+#: ../../source/api/HistoryPanel.rst:138
+msgid ""
+"**全量 mask**：若 ``mask_ml.shape == (M_all, L)`` （``M_all == "
+"len(hp.shares)``），则按 share 名抽取当前绘图子集 （禁止按位置静默截断）；"
+msgstr ""
+"**全量 mask**：若 ``mask_ml.shape == (M_all, L)`` （``M_all == "
+"len(hp.shares)``），則按 share 名抽取當前繪圖子集 （禁止按位置靜默截斷）；"
+
+#: ../../source/api/HistoryPanel.rst:139
+msgid ""
+"**overlay**：当 ``layout='overlay'`` 且两标的叠加时，默认 primary-only 显示高亮 （与 Plotly "
+"highlight 既有语义一致）。"
+msgstr ""
+"**overlay**：當 ``layout='overlay'`` 且兩標的疊加時，默認 primary-only 顯示高亮 （與 Plotly "
+"highlight 既有語義一致）。"
+
+#: ../../source/api/HistoryPanel.rst:141 ../../source/api/HistoryPanel.rst:176
+msgid "示例::"
+msgstr "示例::"
+
+#: ../../docstring of qteasy.HistoryPanel.loc:1
+msgid "沿 ``hdates`` （时间轴）选取子面板的只读索引器。"
+msgstr "沿 ``hdates`` （時間軸）選取子面板的只讀索引器。"
+
+#: ../../docstring of qteasy.HistoryPanel.loc:3
+msgid ""
+"``hp.loc[key]`` 与 ``hp[:, :, key]`` 等价，用于切片、时间标签、标签列表、``:`` 或 长度等于 "
+"``row_count`` 的一维布尔掩码。格点级 ``(M,L,N)`` 布尔条件请用 :meth:`where` 与后续 "
+"``mask=``；格点级条件不要传入 ``loc``。"
+msgstr ""
+"``hp.loc[key]`` 與 ``hp[:, :, key]`` 等價，用於切片、時間標籤、標籤列表、``:`` 或 長度等於 "
+"``row_count`` 的一維布爾掩碼。格點級 ``(M,L,N)`` 布爾條件請用 :meth:`where` 與後續 "
+"``mask=``；格點級條件不要傳入 ``loc``。"
+
+#: ../../docstring of qteasy.HistoryPanel.loc:7
+msgid "轻量代理；对其使用 ``[...]`` 即按时间轴取子面板。"
+msgstr "輕量代理；對其使用 ``[...]`` 即按時間軸取子面板。"
+
+#: ../../source/api/HistoryPanel.rst:153
+msgid "列级 DSL：assign"
+msgstr "列級 DSL：assign"
+
+#: ../../source/api/HistoryPanel.rst:155
+msgid ""
+"``assign`` 提供类似 pandas 的列级 "
+"DSL，可以一次性派生或更新多列，支持在单次调用中基于已有列或刚新增的列构造新因子；支持返回新面板或在原面板上原地扩列。"
+msgstr ""
+"``assign`` 提供類似 pandas 的列級 "
+"DSL，可以一次性派生或更新多列，支持在單次調用中基於已有列或剛新增的列構造新因子；支持返回新面板或在原面板上原地擴列。"
+
+#: of qteasy.history.HistoryPanel.assign:1
+msgid "批量派生或更新列 （htypes），支持多列一次性追加或覆盖。"
+msgstr "批量派生或更新列 （htypes），支持多列一次性追加或覆蓋。"
+
+#: of qteasy.history.HistoryPanel.assign:3
+msgid ""
+"``assign()`` 提供类似 pandas 的列级 DSL：可以同时为多个新列命名，并通过 "
+"可调用对象或数组/标量在单次调用中完成派生；同一次调用中，后定义的列 可以依赖前面刚新增的列。该方法既支持返回新面板，也支持在原面板上原地 扩列/覆盖。"
+msgstr ""
+"``assign()`` 提供類似 pandas 的列級 DSL：可以同時爲多個新列命名，並通過 "
+"可調用對象或數組/標量在單次調用中完成派生；同一次調用中，後定義的列 可以依賴前面剛新增的列。該方法既支持返回新面板，也支持在原面板上原地 擴列/覆蓋。"
+
+#: of qteasy.history.HistoryPanel.assign:8
+msgid ""
+"为 ``True`` 时在当前 ``HistoryPanel`` 上原地追加/覆盖列并返回自身； 为 ``False`` "
+"时在当前数据的拷贝上追加/覆盖列并返回新 ``HistoryPanel``。"
+msgstr ""
+"爲 ``True`` 時在當前 ``HistoryPanel`` 上原地追加/覆蓋列並返回自身； 爲 ``False`` "
+"時在當前數據的拷貝上追加/覆蓋列並返回新 ``HistoryPanel``。"
+
+#: of qteasy.history.HistoryPanel.assign:11
+msgid ""
+"每个关键字参数的键为新列名 （htype），必须为非空字符串；值可以是 ``Callable[[HistoryPanel], "
+"np.ndarray]``，也可以是可被 ``np.asarray`` 且可广播到 ``(M, L)`` 的数组/标量。"
+msgstr ""
+"每個關鍵字參數的鍵爲新列名 （htype），必須爲非空字符串；值可以是 ``Callable[[HistoryPanel], "
+"np.ndarray]``，也可以是可被 ``np.asarray`` 且可廣播到 ``(M, L)`` 的數組/標量。"
+
+#: of qteasy.history.HistoryPanel.assign:15
+msgid "当 ``inplace=False`` 时返回新增列后的新面板；``inplace=True`` 时返回原面板。"
+msgstr "當 ``inplace=False`` 時返回新增列後的新面板；``inplace=True`` 時返回原面板。"
+
+#: of qteasy.history.HistoryPanel.assign:18
+msgid "面板为空、列名为空字符串，或可调用对象/数组返回的结果无法广播到     ``(M, L)`` 时抛出 （英文信息）。"
+msgstr "面板爲空、列名爲空字符串，或可調用對象/數組返回的結果無法廣播到     ``(M, L)`` 時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.assign:19
+msgid "列名不是字符串时抛出 （英文信息）。"
+msgstr "列名不是字符串時拋出 （英文資訊）。"
+
+#: ../../source/api/HistoryPanel.rst:159
+msgid "简短示例 （可与 :meth:`~qteasy.HistoryPanel.where` 联用）："
+msgstr "簡短示例 （可與 :meth:`~qteasy.HistoryPanel.where` 聯用）："
+
+#: ../../source/api/HistoryPanel.rst:170
+msgid "列表达式：expr"
+msgstr "列表達式：expr"
+
+#: ../../source/api/HistoryPanel.rst:172
+msgid ""
+"``expr`` 用受限字符串算术表达式派生新列：仅允许现有 **identifier** 列名与 ``+ - * / ** ()`` "
+"及数字字面量（AST 白名单，无任意 ``eval``）。默认 ``inplace=False`` 返回新面板。含 ``|`` 的复权列名请用 "
+":meth:`~qteasy.HistoryPanel.assign` 或 ``hp['close|b']``。"
+msgstr ""
+"``expr`` 用受限字符串算術表達式派生新列：僅允許現有 **identifier** 列名與 ``+ - * / ** ()`` "
+"及數字字面量（AST 白名單，無任意 ``eval``）。預設 ``inplace=False`` 返回新面板。含 ``|`` 的復權列名請用 "
+":meth:`~qteasy.HistoryPanel.assign` 或 ``hp['close|b']``。"
+
+#: of qteasy.history.HistoryPanel.expr:1
+msgid "用受限列名算术表达式派生新列并写入 ``new_htype``。"
+msgstr "用受限列名算術表達式派生新列並寫入 ``new_htype``。"
+
+#: of qteasy.history.HistoryPanel.expr:3
+msgid ""
+"仅允许现有 **identifier** 列名与 ``+ - * / **``、一元正负号、括号及数字字面量。 含 ``|`` 等非标识符复权列名请使用"
+" :meth:`assign` 或括号赋值。"
+msgstr ""
+"僅允許現有 **identifier** 列名與 ``+ - * / **``、一元正負號、括號及數字字面量。 含 ``|`` 等非標識符復權列名請使用"
+" :meth:`assign` 或括號賦值。"
+
+#: of qteasy.history.HistoryPanel.expr:6
+msgid "输出列名，必须为非空 Python 标识符；已存在则覆盖。"
+msgstr "輸出列名，必須爲非空 Python 標識符；已存在則覆蓋。"
+
+#: of qteasy.history.HistoryPanel.expr:8
+msgid "算术表达式，如 ``'(high + low) / 2'``。"
+msgstr "算術表達式，如 ``'(high + low) / 2'``。"
+
+#: of qteasy.history.HistoryPanel.expr:10
+msgid "True 时原地写入并返回 ``self``；False 时返回新面板。"
+msgstr "True 時原地寫入並返回 ``self``；False 時返回新面板。"
+
+#: of qteasy.history.HistoryPanel.expr:13
+msgid "含 ``new_htype`` 列的面板。"
+msgstr "含 ``new_htype`` 列的面板。"
+
+#: of qteasy.history.HistoryPanel.expr:16
+msgid "空面板、非法列名/表达式、或不支持的语法时抛出（英文消息）。"
+msgstr "空面板、非法列名/表達式、或不支持的語法時拋出（英文消息）。"
+
+#: ../../source/api/HistoryPanel.rst:181
+msgid "时序变换：shift / diff / pct_change"
+msgstr "時序變換：shift / diff / pct_change"
+
+#: ../../source/api/HistoryPanel.rst:183
+msgid ""
+"沿时间轴 （``hdates``，axis=1）对指定列做位移、一阶差分或百分比变化；均返回**新** "
+"``HistoryPanel``，``shape`` 与轴标签不变。``periods`` 须为非零整数；``htypes=None`` "
+"表示全部列，指定时未选中列保持原值拷贝。"
+msgstr ""
+"沿時間軸 （``hdates``，axis=1）對指定列做位移、一階差分或百分比變化；均返回**新** "
+"``HistoryPanel``，``shape`` 與軸標籤不變。``periods`` 須爲非零整數；``htypes=None`` "
+"表示全部列，指定時未選中列保持原值拷貝。"
+
+#: ../../source/api/HistoryPanel.rst:185
+msgid ""
+":meth:`~qteasy.HistoryPanel.pct_change` 与 "
+":meth:`~qteasy.HistoryPanel.returns` 的区别：前者对任意列做通用百分比变化，不绑定价格语义、不调用 "
+"``_resolve_price_htype``；后者面向价格列并解析复权根名。"
+msgstr ""
+":meth:`~qteasy.HistoryPanel.pct_change` 與 "
+":meth:`~qteasy.HistoryPanel.returns` 的區別：前者對任意列做通用百分比變化，不綁定價格語義、不調用 "
+"``_resolve_price_htype``；後者面向價格列並解析復權根名。"
+
+#: of qteasy.history.HistoryPanel.shift:1
+msgid "沿时间轴（hdates）位移指定列；正 ``periods`` 为向后看历史（与 pandas 一致）。"
+msgstr "沿時間軸（hdates）位移指定列；正 ``periods`` 爲向後看歷史（與 pandas 一致）。"
+
+#: of qteasy.history.HistoryPanel.shift:3
+msgid "返回新 ``HistoryPanel``，shape/轴标签不变，移位空位为 ``fill_value``。 未指定的列保持原值拷贝。"
+msgstr "返回新 ``HistoryPanel``，shape/軸標籤不變，移位空位爲 ``fill_value``。 未指定的列保持原值拷貝。"
+
+#: of qteasy.history.HistoryPanel.shift:6
+msgid "非零整数位移步数；负值表示向前看未来。"
+msgstr "非零整數位移步數；負值表示向前看未來。"
+
+#: of qteasy.history.HistoryPanel.shift:8
+msgid "要位移的列；``None`` 表示全部列。"
+msgstr "要位移的列；``None`` 表示全部列。"
+
+#: of qteasy.history.HistoryPanel.shift:10
+msgid "空位填充值。"
+msgstr "空位填充值。"
+
+#: of qteasy.history.HistoryPanel.diff:10
+#: qteasy.history.HistoryPanel.pct_change:11
+#: qteasy.history.HistoryPanel.shift:13
+msgid "新面板；空面板返回空 ``HistoryPanel()``。"
+msgstr "新面板；空面板返回空 ``HistoryPanel()``。"
+
+#: of qteasy.history.HistoryPanel.diff:1
+msgid "一阶差分：``x[t] - x[t-periods]``；``htypes=None`` 时对全部列。"
+msgstr "一階差分：``x[t] - x[t-periods]``；``htypes=None`` 時對全部列。"
+
+#: of qteasy.history.HistoryPanel.diff:3
+msgid "前 ``periods`` 行（正位移）为 NaN；返回新面板，未选中列保持原值。"
+msgstr "前 ``periods`` 行（正位移）爲 NaN；返回新面板，未選中列保持原值。"
+
+#: of qteasy.history.HistoryPanel.diff:5
+msgid "非零整数差分步数。"
+msgstr "非零整數差分步數。"
+
+#: of qteasy.history.HistoryPanel.diff:7
+msgid "要差分的列；``None`` 表示全部列。"
+msgstr "要差分的列；``None`` 表示全部列。"
+
+#: of qteasy.history.HistoryPanel.pct_change:1
+msgid "列级百分比变化：``(x[t] / x[t-periods]) - 1``。"
+msgstr "列級百分比變化：``(x[t] / x[t-periods]) - 1``。"
+
+#: of qteasy.history.HistoryPanel.pct_change:3
+msgid ""
+"与 :meth:`returns` 的区别：不绑定价格语义、不调用 ``_resolve_price_htype``； "
+"可对任意列做通用百分比变化。除零结果遵循 NumPy（``±inf``）。"
+msgstr ""
+"與 :meth:`returns` 的區別：不綁定價格語義、不調用 ``_resolve_price_htype``； "
+"可對任意列做通用百分比變化。除零結果遵循 NumPy（``±inf``）。"
+
+#: of qteasy.history.HistoryPanel.pct_change:6
+msgid "非零整数间隔步数。"
+msgstr "非零整數間隔步數。"
+
+#: of qteasy.history.HistoryPanel.pct_change:8
+msgid "要计算的列；``None`` 表示全部列。"
+msgstr "要計算的列；``None`` 表示全部列。"
+
+#: ../../source/api/HistoryPanel.rst:194
+msgid "缺失值：fillna / ffill / fillinf / bfill / dropna"
+msgstr "缺失值：fillna / ffill / fillinf / bfill / dropna"
+
+#: ../../source/api/HistoryPanel.rst:196
+msgid "填充与丢弃缺失时请注意**可变性契约**（与 pandas 默认 copy 习惯不同的部分已用 ``inplace=`` 显式化）："
+msgstr "填充與丟棄缺失時請注意**可變性契約**（與 pandas 預設 copy 習慣不同的部分已用 ``inplace=`` 顯式化）："
+
+#: ../../source/api/HistoryPanel.rst:202
+msgid "API"
+msgstr "API"
+
+#: ../../source/api/HistoryPanel.rst:203
+msgid "默认 ``inplace``"
+msgstr "默认 ``inplace``"
+
+#: ../../source/api/HistoryPanel.rst:204
+msgid "说明"
+msgstr "說明"
+
+#: ../../source/api/HistoryPanel.rst:205
+msgid "``fillna`` / ``ffill`` / ``fillinf``"
+msgstr "``fillna`` / ``ffill`` / ``fillinf``"
+
+#: ../../source/api/HistoryPanel.rst:206
+msgid "``True``"
+msgstr "``True``"
+
+#: ../../source/api/HistoryPanel.rst:207
+msgid "历史默认原地；``inplace=False`` 返回拷贝"
+msgstr "歷史預設原地；``inplace=False`` 返回拷貝"
+
+#: ../../source/api/HistoryPanel.rst:208
+msgid "``bfill``"
+msgstr "``bfill``"
+
+#: ../../source/api/HistoryPanel.rst:209
+msgid "``False``"
+msgstr "``False``"
+
+#: ../../source/api/HistoryPanel.rst:210
+msgid "新 API，默认返回新对象"
+msgstr "新 API，預設返回新物件"
+
+#: ../../source/api/HistoryPanel.rst:211
+msgid "``dropna``"
+msgstr "``dropna``"
+
+#: ../../source/api/HistoryPanel.rst:212
+msgid "（无该参数）"
+msgstr "（無該參數）"
+
+#: ../../source/api/HistoryPanel.rst:213
+msgid "始终返回新面板；可能缩短某一维"
+msgstr "始終返回新面板；可能縮短某一維"
+
+#: ../../source/api/HistoryPanel.rst:215
+msgid ""
+"``dropna`` 支持 ``axis='hdates'|'shares'|'htypes'``，以及 ``how`` / ``thresh`` / "
+"``subset`` （``subset`` 仅在 ``axis='hdates'`` 时限制参与判断的 "
+"``htypes``）；若某轴被删空则返回空面板。"
+msgstr ""
+"``dropna`` 支持 ``axis='hdates'|'shares'|'htypes'``，以及 ``how`` / ``thresh`` / "
+"``subset`` （``subset`` 僅在 ``axis='hdates'`` 時限制參與判斷的 "
+"``htypes``）；若某軸被刪空則返回空面板。"
+
+#: of qteasy.history.HistoryPanel.fillna:1
+msgid "使用 ``with_val`` 填充 HistoryPanel 中的所有 NaN 值。"
+msgstr "使用 ``with_val`` 填充 HistoryPanel 中的所有 NaN 值。"
+
+#: of qteasy.history.HistoryPanel.fillinf:3
+#: qteasy.history.HistoryPanel.fillna:3
+msgid "填充值。"
+msgstr "填充值。"
+
+#: of qteasy.history.HistoryPanel.ffill:5
+#: qteasy.history.HistoryPanel.fillinf:5 qteasy.history.HistoryPanel.fillna:5
+msgid "True 时原地修改并返回 ``self``；False 时返回新面板且不修改原对象。"
+msgstr "True 時原地修改並返回 ``self``；False 時返回新面板且不修改原物件。"
+
+#: of qteasy.history.HistoryPanel.bfill:10 qteasy.history.HistoryPanel.ffill:8
+#: qteasy.history.HistoryPanel.fillinf:8 qteasy.history.HistoryPanel.fillna:8
+msgid "填充后的面板。"
+msgstr "填充後的面板。"
+
+#: of qteasy.history.HistoryPanel.ffill:1
+msgid "前向填充缺失值：用缺失值以前的最近有效数据填充。"
+msgstr "前向填充缺失值：用缺失值以前的最近有效資料填充。"
+
+#: of qteasy.history.HistoryPanel.ffill:3
+msgid "第一行仍为 NaN、无前序有效数据时使用的填充值。"
+msgstr "第一行仍爲 NaN、無前序有效資料時使用的填充值。"
+
+#: of qteasy.history.HistoryPanel.fillinf:1
+msgid "使用 ``with_val`` 填充 HistoryPanel 中的所有 Inf 值。"
+msgstr "使用 ``with_val`` 填充 HistoryPanel 中的所有 Inf 值。"
+
+#: of qteasy.history.HistoryPanel.bfill:1
+msgid "沿时间轴后向填充缺失值；末行仍缺时使用 ``init_val``。"
+msgstr "沿時間軸後向填充缺失值；末行仍缺時使用 ``init_val``。"
+
+#: of qteasy.history.HistoryPanel.bfill:3
+msgid "默认 ``inplace=False``（返回新面板），与历史 ``ffill`` 默认原地相对照。"
+msgstr "預設 ``inplace=False``（返回新面板），與歷史 ``ffill`` 預設原地相對照。"
+
+#: of qteasy.history.HistoryPanel.bfill:5
+msgid "末行仍为 NaN、无后续有效数据时使用的填充值。"
+msgstr "末行仍爲 NaN、無後續有效資料時使用的填充值。"
+
+#: of qteasy.history.HistoryPanel.bfill:7
+msgid "True 时原地修改并返回 ``self``；False 时返回新面板。"
+msgstr "True 時原地修改並返回 ``self``；False 時返回新面板。"
+
+#: of qteasy.history.HistoryPanel.dropna:1
+msgid "按轴丢弃含缺失值的切片，返回可能缩短某一维的新面板。"
+msgstr "按軸丟棄含缺失值的切片，返回可能縮短某一維的新面板。"
+
+#: of qteasy.history.HistoryPanel.dropna:3
+msgid "丢弃所沿的轴。"
+msgstr "丟棄所沿的軸。"
+
+#: of qteasy.history.HistoryPanel.dropna:5
+msgid "``any``：切片中存在任一 NaN 则丢弃；``all``：切片全为 NaN 才丢弃。 若给出 ``thresh`` 则忽略本参数。"
+msgstr "``any``：切片中存在任一 NaN 則丟棄；``all``：切片全爲 NaN 才丟棄。 若給出 ``thresh`` 則忽略本參數。"
+
+#: of qteasy.history.HistoryPanel.dropna:8
+msgid "切片上非 NaN 个数小于该阈值则丢弃；指定时忽略 ``how``。"
+msgstr "切片上非 NaN 個數小於該閾值則丟棄；指定時忽略 ``how``。"
+
+#: of qteasy.history.HistoryPanel.dropna:10
+msgid "仅 ``axis='hdates'`` 时可用：限制参与判定的 ``htypes``。"
+msgstr "僅 ``axis='hdates'`` 時可用：限制參與判定的 ``htypes``。"
+
+#: of qteasy.history.HistoryPanel.dropna:13
+msgid "新面板；若某轴被删空则返回空面板。"
+msgstr "新面板；若某軸被刪空則返回空面板。"
+
+#: of qteasy.history.HistoryPanel.dropna:16
+msgid "``axis`` / ``how`` 非法，或在非 ``hdates`` 轴上使用 ``subset``。"
+msgstr "``axis`` / ``how`` 非法，或在非 ``hdates`` 軸上使用 ``subset``。"
+
+#: ../../source/api/HistoryPanel.rst:228
+msgid "轴标签：drop / rename"
+msgstr "軸標籤：drop / rename"
+
+#: ../../source/api/HistoryPanel.rst:230
+msgid ""
+":meth:`~qteasy.HistoryPanel.drop` 与 :meth:`~qteasy.HistoryPanel.rename` "
+"均返回**新** ``HistoryPanel``，不修改原对象，也不改写 ``hdates``。"
+msgstr ""
+":meth:`~qteasy.HistoryPanel.drop` 與 :meth:`~qteasy.HistoryPanel.rename` "
+"均返回**新** ``HistoryPanel``，不修改原物件，也不改寫 ``hdates``。"
+
+#: ../../source/api/HistoryPanel.rst:232
+msgid ""
+"``drop(*, htypes=, shares=, errors='raise'|'ignore')``：至少指定 ``htypes`` 或 "
+"``shares`` 一侧；标签精确匹配（含 ``close|b``）；某轴删空则返回空面板。"
+msgstr ""
+"``drop(*, htypes=, shares=, errors='raise'|'ignore')``：至少指定 ``htypes`` 或 "
+"``shares`` 一側；標籤精確匹配（含 ``close|b``）；某軸刪空則返回空面板。"
+
+#: ../../source/api/HistoryPanel.rst:233
+msgid ""
+"``rename(*, htypes=, shares=)``：映射式重命名，未映射标签保持不变；目标冲突或两源同目标时抛出英文 "
+"``ValueError``。"
+msgstr ""
+"``rename(*, htypes=, shares=)``：映射式重命名，未映射標籤保持不變；目標衝突或兩源同目標時拋出英文 "
+"``ValueError``。"
+
+#: ../../source/api/HistoryPanel.rst:235
+msgid ""
+"与 :meth:`~qteasy.HistoryPanel.re_label` 的对照：``re_label`` "
+"为**原地**整轴重赋（保留）；``rename`` 为映射式便捷 API（默认新对象）。"
+msgstr ""
+"與 :meth:`~qteasy.HistoryPanel.re_label` 的對照：``re_label`` "
+"爲**原地**整軸重賦（保留）；``rename`` 爲映射式便捷 API（預設新物件）。"
+
+#: of qteasy.history.HistoryPanel.drop:1
+msgid "按 htypes 和/或 shares 标签删除列/标的，返回新 HistoryPanel。"
+msgstr "按 htypes 和/或 shares 標籤刪除列/標的，返回新 HistoryPanel。"
+
+#: of qteasy.history.HistoryPanel.drop:3
+msgid ""
+"至少指定 htypes 或 shares 一侧；两侧可同时删除。不修改原对象，也不删除 hdates。 标签按精确列名/标的名匹配（含 "
+"``close|b`` 等非标识符）；``str`` 可用逗号串。 若某一轴删至长度 0，返回空 ``HistoryPanel()``。更多细节见文档 "
+"HistoryPanel 章节。"
+msgstr ""
+"至少指定 htypes 或 shares 一側；兩側可同時刪除。不修改原物件，也不刪除 hdates。 標籤按精確列名/標的名匹配（含 "
+"``close|b`` 等非標識符）；``str`` 可用逗號串。 若某一軸刪至長度 0，返回空 ``HistoryPanel()``。更多細節見文件 "
+"HistoryPanel 章節。"
+
+#: of qteasy.history.HistoryPanel.drop:7
+msgid "待删除的数据类型标签；None 表示不删 htypes。"
+msgstr "待刪除的資料類型標籤；None 表示不刪 htypes。"
+
+#: of qteasy.history.HistoryPanel.drop:9
+msgid "待删除的标的标签；None 表示不删 shares。"
+msgstr "待刪除的標的標籤；None 表示不刪 shares。"
+
+#: of qteasy.history.HistoryPanel.drop:11
+msgid "遇到未知标签时：raise 抛出 ValueError；ignore 跳过。"
+msgstr "遇到未知標籤時：raise 拋出 ValueError；ignore 跳過。"
+
+#: of qteasy.history.HistoryPanel.drop:14
+msgid "删除后的新面板；空输入或删空某轴时可能为空面板。"
+msgstr "刪除後的新面板；空輸入或刪空某軸時可能爲空面板。"
+
+#: of qteasy.history.HistoryPanel.drop:17
+msgid "两侧皆未指定、errors 非法，或 errors='raise' 时标签未知。"
+msgstr "兩側皆未指定、errors 非法，或 errors='raise' 時標籤未知。"
+
+#: of qteasy.history.HistoryPanel.rename:1
+msgid "按映射重命名 htypes 和/或 shares 标签，返回新 HistoryPanel。"
+msgstr "按映射重命名 htypes 和/或 shares 標籤，返回新 HistoryPanel。"
+
+#: of qteasy.history.HistoryPanel.rename:3
+msgid ""
+"至少指定一侧映射；未出现在映射中的标签保持不变。不修改原对象，也不改 hdates。 与 "
+"``re_label``（原地整轴重赋）并存。目标名与保留轴上其它标签冲突，或两源映射到同一目标时抛出 ValueError。"
+msgstr ""
+"至少指定一側映射；未出現在映射中的標籤保持不變。不修改原物件，也不改 hdates。 與 "
+"``re_label``（原地整軸重賦）並存。目標名與保留軸上其它標籤衝突，或兩源映射到同一目標時拋出 ValueError。"
+
+#: of qteasy.history.HistoryPanel.rename:6
+msgid "数据类型旧名 → 新名；None 表示不重命名 htypes。"
+msgstr "資料類型舊名 → 新名；None 表示不重命名 htypes。"
+
+#: of qteasy.history.HistoryPanel.rename:8
+msgid "标的旧名 → 新名；None 表示不重命名 shares。"
+msgstr "標的舊名 → 新名；None 表示不重命名 shares。"
+
+#: of qteasy.history.HistoryPanel.rename:11
+msgid "重命名后的新面板。"
+msgstr "重命名後的新面板。"
+
+#: of qteasy.history.HistoryPanel.rename:14
+msgid "两侧映射皆未指定，或目标名冲突。"
+msgstr "兩側映射皆未指定，或目標名衝突。"
+
+#: ../../source/api/HistoryPanel.rst:242
+msgid "横截面与标准化：rank / zscore"
+msgstr "橫截面與標準化：rank / zscore"
+
+#: ../../source/api/HistoryPanel.rst:244
+msgid ""
+"``rank`` 与 ``zscore`` 用于轻量因子研究中的“逐日截面排名/标准化”与“逐股时序滚动标准化”。 ``zscore`` 通过 "
+"``method`` 显式区分两种语义："
+msgstr ""
+"``rank`` 與 ``zscore`` 用於輕量因子研究中的“逐日截面排名/標準化”與“逐股時序滾動標準化”。 ``zscore`` 通過 "
+"``method`` 顯式區分兩種語義："
+
+#: ../../source/api/HistoryPanel.rst:247
+msgid "``method='cs'``：固定日期，在 share 维做截面标准化；"
+msgstr "``method='cs'``：固定日期，在 share 維做截面標準化；"
+
+#: ../../source/api/HistoryPanel.rst:248
+msgid "``method='ts'``：固定 share，在时间轴上做滚动标准化 （需要 ``window``）。"
+msgstr "``method='ts'``：固定 share，在時間軸上做滾動標準化 （需要 ``window``）。"
+
+#: of qteasy.history.HistoryPanel.rank:1
+msgid "按时间逐日对横截面 （share 维）做排名并追加一列返回新面板。"
+msgstr "按時間逐日對橫截面 （share 維）做排名並追加一列返回新面板。"
+
+#: of qteasy.history.HistoryPanel.rank:3
+msgid ""
+"参与排名的列名 （htype）。会先经 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等复权后缀列。"
+msgstr ""
+"參與排名的列名 （htype）。會先經 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等復權後綴列。"
+
+#: of qteasy.history.HistoryPanel.rank:6
+msgid "目前仅支持沿 share 维做截面排名。"
+msgstr "目前僅支持沿 share 維做截面排名。"
+
+#: of qteasy.history.HistoryPanel.rank:8
+msgid "并列值 （tie）的排名处理方式，语义与 pandas ``Series.rank(method=...)`` 一致。"
+msgstr "並列值 （tie）的排名處理方式，語義與 pandas ``Series.rank(method=...)`` 一致。"
+
+#: of qteasy.history.HistoryPanel.rank:10
+msgid "输出列名；为 None 时默认使用 ``rank_{by}``。"
+msgstr "輸出列名；爲 None 時默認使用 ``rank_{by}``。"
+
+#: of qteasy.history.HistoryPanel.rank:13
+msgid "追加排名列后的新面板；不修改原对象。空面板返回空面板。"
+msgstr "追加排名列後的新面板；不修改原對象。空面板返回空面板。"
+
+#: of qteasy.history.HistoryPanel.rank:16
+#: qteasy.history.HistoryPanel.zscore:22
+msgid "当参数非法、列不存在、或输出列名冲突时抛出 （英文信息）。"
+msgstr "當參數非法、列不存在、或輸出列名衝突時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.zscore:1
+msgid "对指定列计算标准化分数 （zscore）并追加一列返回新面板。"
+msgstr "對指定列計算標準化分數 （zscore）並追加一列返回新面板。"
+
+#: of qteasy.history.HistoryPanel.zscore:3
+msgid "本方法通过 ``method`` 参数显式区分两种常用语义："
+msgstr "本方法通過 ``method`` 參數顯式區分兩種常用語義："
+
+#: of qteasy.history.HistoryPanel.zscore:5
+msgid "``method='cs'`` （cross-sectional）：固定每个时间点，在 share 维做截面标准化；"
+msgstr "``method='cs'`` （cross-sectional）：固定每個時間點，在 share 維做截面標準化；"
+
+#: of qteasy.history.HistoryPanel.zscore:6
+msgid "``method='ts'`` （time-series rolling）：固定每个 share，在时间轴上做滚动标准化。"
+msgstr "``method='ts'`` （time-series rolling）：固定每個 share，在時間軸上做滾動標準化。"
+
+#: of qteasy.history.HistoryPanel.zscore:8
+msgid ""
+"参与标准化的列名 （htype）。会先经 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等复权后缀列。"
+msgstr ""
+"參與標準化的列名 （htype）。會先經 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等復權後綴列。"
+
+#: of qteasy.history.HistoryPanel.zscore:11
+msgid "标准化语义：截面 （cs）或时序滚动 （ts）。"
+msgstr "標準化語義：截面 （cs）或時序滾動 （ts）。"
+
+#: of qteasy.history.HistoryPanel.zscore:13
+msgid "``method='ts'`` 时的滚动窗口长度 （bar 数），必须为正整数；``method='cs'`` 时必须为 None。"
+msgstr "``method='ts'`` 時的滾動窗口長度 （bar 數），必須爲正整數；``method='cs'`` 時必須爲 None。"
+
+#: of qteasy.history.HistoryPanel.zscore:16
+msgid "输出列名；为 None 时默认使用 ``cs_z_{by}`` 或 ``ts_z_{by}_{window}``。"
+msgstr "輸出列名；爲 None 時默認使用 ``cs_z_{by}`` 或 ``ts_z_{by}_{window}``。"
+
+#: of qteasy.history.HistoryPanel.zscore:19
+msgid "追加 zscore 列后的新面板；不修改原对象。空面板返回空面板。"
+msgstr "追加 zscore 列後的新面板；不修改原對象。空面板返回空面板。"
+
+#: ../../source/api/HistoryPanel.rst:255
+msgid "对齐与重采样：align_to / resample"
+msgstr "對齊與重採樣：align_to / resample"
+
+#: ../../source/api/HistoryPanel.rst:257
+msgid ""
+"当你需要对两个 ``HistoryPanel`` 做逐元素运算 （例如相除、相减、相关性等）时，若两者的 ``shares`` 或 ``hdates``"
+" 不一致，NumPy 广播可能产生静默错行 （silent misalignment）。因此本项目提供显式对齐入口："
+msgstr ""
+"當你需要對兩個 ``HistoryPanel`` 做逐元素運算 （例如相除、相減、相關性等）時，若兩者的 ``shares`` 或 ``hdates``"
+" 不一致，NumPy 廣播可能產生靜默錯行 （silent misalignment）。因此本項目提供顯式對齊入口："
+
+#: ../../source/api/HistoryPanel.rst:260
+msgid ""
+":meth:`~qteasy.HistoryPanel.align_to`：按标签对齐 ``shares`` 与 ``hdates``，支持 "
+"``join='inner'|'outer'``，缺失处填 ``fill_value``；"
+msgstr ""
+":meth:`~qteasy.HistoryPanel.align_to`：按標籤對齊 ``shares`` 與 ``hdates``，支持 "
+"``join='inner'|'outer'``，缺失處填 ``fill_value``；"
+
+#: ../../source/api/HistoryPanel.rst:261
+msgid ""
+":meth:`~qteasy.HistoryPanel.resample`：沿时间轴重采样，必须显式提供 ``agg=`` （覆盖全部 "
+"``htypes``），避免聚合语义不明导致“看似成功但结果不可解释”。"
+msgstr ""
+":meth:`~qteasy.HistoryPanel.resample`：沿時間軸重採樣，必須顯式提供 ``agg=`` （覆蓋全部 "
+"``htypes``），避免聚合語義不明導致“看似成功但結果不可解釋”。"
+
+#: of qteasy.history.HistoryPanel.align_to:1
+msgid "将两个 HistoryPanel 沿 shares 与 hdates 轴按标签对齐，避免 silent 错行。"
+msgstr "將兩個 HistoryPanel 沿 shares 與 hdates 軸按標籤對齊，避免 silent 錯行。"
+
+#: of qteasy.history.HistoryPanel.align_to:3
+msgid ""
+"本方法**不会**按 iloc/位置对齐；仅使用 axis labels 做显式对齐。对齐后返回两块 新的面板，它们具有完全一致的 "
+"``shares``、``hdates`` 与 ``htypes``，缺失格点用 ``fill_value`` 填充。"
+msgstr ""
+"本方法**不會**按 iloc/位置對齊；僅使用 axis labels 做顯式對齊。對齊後返回兩塊 新的面板，它們具有完全一致的 "
+"``shares``、``hdates`` 與 ``htypes``，缺失格點用 ``fill_value`` 填充。"
+
+#: of qteasy.history.HistoryPanel.align_to:7
+msgid "需要对齐的另一个面板。"
+msgstr "需要對齊的另一個面板。"
+
+#: of qteasy.history.HistoryPanel.align_to:9
+msgid ""
+"对齐方式：  - ``inner``：取两者 shares 与 hdates 的交集；  - ``outer``：取两者 shares 与 hdates"
+" 的并集。  输出顺序为稳定顺序：交集以 ``self`` 的顺序为准；并集为 ``self`` 在前、再追加 ``other`` 中未出现元素。"
+msgstr ""
+"對齊方式：  - ``inner``：取兩者 shares 與 hdates 的交集；  - ``outer``：取兩者 shares 與 hdates"
+" 的並集。  輸出順序爲穩定順序：交集以 ``self`` 的順序爲準；並集爲 ``self`` 在前、再追加 ``other`` 中未出現元素。"
+
+#: of qteasy.history.HistoryPanel.align_to:9
+msgid "对齐方式："
+msgstr "對齊方式："
+
+#: of qteasy.history.HistoryPanel.align_to:11
+msgid "``inner``：取两者 shares 与 hdates 的交集；"
+msgstr "``inner``：取兩者 shares 與 hdates 的交集；"
+
+#: of qteasy.history.HistoryPanel.align_to:13
+msgid "``outer``：取两者 shares 与 hdates 的并集。"
+msgstr "``outer``：取兩者 shares 與 hdates 的並集。"
+
+#: of qteasy.history.HistoryPanel.align_to:15
+msgid "输出顺序为稳定顺序：交集以 ``self`` 的顺序为准；并集为 ``self`` 在前、再追加 ``other`` 中未出现元素。"
+msgstr "輸出順序爲穩定順序：交集以 ``self`` 的順序爲準；並集爲 ``self`` 在前、再追加 ``other`` 中未出現元素。"
+
+#: of qteasy.history.HistoryPanel.align_to:18
+msgid "对齐后缺失位置的填充值。"
+msgstr "對齊後缺失位置的填充值。"
+
+#: of qteasy.history.HistoryPanel.align_to:21
+msgid "对齐后的 ``(self_aligned, other_aligned)``。"
+msgstr "對齊後的 ``(self_aligned, other_aligned)``。"
+
+#: of qteasy.history.HistoryPanel.align_to:24
+msgid "``other`` 不是 ``HistoryPanel`` 时抛出 （英文信息）。"
+msgstr "``other`` 不是 ``HistoryPanel`` 時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.align_to:25
+msgid "``join`` 非法、或两者 ``htypes`` 不完全一致时抛出 （英文信息）。"
+msgstr "``join`` 非法、或兩者 ``htypes`` 不完全一致時拋出 （英文資訊）。"
+
+#: of qteasy.history.HistoryPanel.resample:1
+msgid "沿时间轴 （hdates）按规则重采样并返回新面板。"
+msgstr "沿時間軸 （hdates）按規則重採樣並返回新面板。"
+
+#: of qteasy.history.HistoryPanel.resample:3
+msgid "为避免聚合语义不明导致 silent 错行，本方法要求显式提供 ``agg``，并且必须覆盖 当前面板的全部 ``htypes``。"
+msgstr "爲避免聚合語義不明導致 silent 錯行，本方法要求顯式提供 ``agg``，並且必須覆蓋 當前面板的全部 ``htypes``。"
+
+#: of qteasy.history.HistoryPanel.resample:6
+msgid "pandas 兼容的重采样规则字符串，如 ``'W'``、``'M'``、``'5D'`` 等。"
+msgstr "pandas 兼容的重採樣規則字符串，如 ``'W'``、``'M'``、``'5D'`` 等。"
+
+#: of qteasy.history.HistoryPanel.resample:8
+msgid ""
+"聚合规则字典：``{htype_name: agg_name}``，其中 ``agg_name`` 支持 "
+"``'first'|'last'|'min'|'max'|'sum'|'mean'``。必须覆盖全部 ``htypes``。"
+msgstr ""
+"聚合規則字典：``{htype_name: agg_name}``，其中 ``agg_name`` 支持 "
+"``'first'|'last'|'min'|'max'|'sum'|'mean'``。必須覆蓋全部 ``htypes``。"
+
+#: of qteasy.history.HistoryPanel.resample:12
+msgid "重采样后的新面板；不修改原对象。空面板返回空面板。"
+msgstr "重採樣後的新面板；不修改原對象。空面板返回空面板。"
+
+#: of qteasy.history.HistoryPanel.resample:15
+msgid "当 ``agg`` 缺失、未覆盖全部列、包含未知列名、聚合方法非法或 ``rule`` 非法时抛出 （英文信息）。"
+msgstr "當 ``agg`` 缺失、未覆蓋全部列、包含未知列名、聚合方法非法或 ``rule`` 非法時拋出 （英文資訊）。"
+
+#: ../../source/api/HistoryPanel.rst:268
+msgid "滚动窗口"
+msgstr "滾動窗口"
+
+#: ../../source/api/HistoryPanel.rst:270
+msgid "使用滚动窗口方法可以在 ``HistoryPanel`` 的时间维度上进行滑动计算，支持常见的滚动平均、滚动标准差等操作："
+msgstr "使用滾動窗口方法可以在 ``HistoryPanel`` 的時間維度上進行滑動計算，支持常見的滾動平均、滾動標準差等操作："
+
+#: of qteasy.history.HistoryPanel.rolling:1
+msgid "基于 HistoryPanel 构造滚动窗口统计对象。"
+msgstr "基於 HistoryPanel 構造滾動窗口統計對象。"
+
+#: of qteasy.history.HistoryPanel.rolling:3
+msgid "滚动仅沿时间轴 （rows / hdates）进行，``window`` 为整数 bar 数。"
+msgstr "滾動僅沿時間軸 （rows / hdates）進行，``window`` 爲整數 bar 數。"
+
+#: of qteasy.history.HistoryPanel.rolling:5
+msgid "滚动窗口长度。"
+msgstr "滾動窗口長度。"
+
+#: of qteasy.history.HistoryPanel.rolling:7
+msgid "最小有效观测数，小于该数时结果为 ``NaN``。默认与 ``window`` 相同。"
+msgstr "最小有效觀測數，小於該數時結果爲 ``NaN``。默認與 ``window`` 相同。"
+
+#: of qteasy.history.HistoryPanel.rolling:9
+msgid "是否使用居中窗口，语义与 ``pandas.Series.rolling`` 一致。"
+msgstr "是否使用居中窗口，語義與 ``pandas.Series.rolling`` 一致。"
+
+#: of qteasy.history.HistoryPanel.rolling:11
+msgid ""
+"指定滚动的分组方式： - 'share': 每只股票的每个 htype 独立做滚动统计 （最常用）； - 'htype': 每个 htype "
+"在所有股票上独立做滚动统计。"
+msgstr ""
+"指定滾動的分組方式： - 'share': 每隻股票的每個 htype 獨立做滾動統計 （最常用）； - 'htype': 每個 htype "
+"在所有股票上獨立做滾動統計。"
+
+#: of qteasy.history.HistoryPanel.rolling:16
+msgid "滚动窗口统计对象，支持调用 mean(), std(), min(), max() 等"
+msgstr "滾動窗口統計對象，支持調用 mean(), std(), min(), max() 等"
+
+#: of qteasy.history.HistoryPanelRolling:1
+msgid "HistoryPanel 的滚动窗口统计对象。"
+msgstr "HistoryPanel 的滾動窗口統計對象。"
+
+#: of qteasy.history.HistoryPanelRolling:3
+msgid ""
+"该对象通常由 :meth:`HistoryPanel.rolling` 创建，对应一个固定的窗口 参数组合，并提供 "
+"``mean/std/sum/min/max/apply`` 等方法，返回新的 HistoryPanel。"
+msgstr ""
+"該對象通常由 :meth:`HistoryPanel.rolling` 創建，對應一個固定的窗口 參數組合，並提供 "
+"``mean/std/sum/min/max/apply`` 等方法，返回新的 HistoryPanel。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:1
+msgid "在滚动窗口上应用自定义函数。"
+msgstr "在滾動窗口上應用自定義函數。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:3
+msgid "自定义函数，接受一个窗口向量并返回标量。"
+msgstr "自定義函數，接受一個窗口向量並返回標量。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:5
+msgid "为 ``True`` 时向 func 传入 ``ndarray``，否则传入 ``Series``。"
+msgstr "爲 ``True`` 時向 func 傳入 ``ndarray``，否則傳入 ``Series``。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:7
+msgid "透传给 func 的其他参数。"
+msgstr "透傳給 func 的其他參數。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:9
+msgid "应用自定义函数后的滚动结果面板，shares/hdates/htypes 标签保持不变。"
+msgstr "應用自定義函數後的滾動結果面板，shares/hdates/htypes 標籤保持不變。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:14
+msgid "与 pandas 一致：当窗口内有效样本数小于 ``min_periods`` 时，结果为 NaN。"
+msgstr "與 pandas 一致：當窗口內有效樣本數小於 ``min_periods`` 時，結果爲 NaN。"
+
+#: of qteasy.history.HistoryPanelRolling.apply:15
+msgid "``func`` 应返回标量数值；返回数组或非数值类型可能导致 pandas 报错或产生 不符合预期的结果。"
+msgstr "``func`` 應返回標量數值；返回數組或非數值類型可能導致 pandas 報錯或產生 不符合預期的結果。"
+
+#: of qteasy.history.HistoryPanelRolling.max:1
+msgid "计算滚动窗口最大值并返回新面板。"
+msgstr "計算滾動窗口最大值並返回新面板。"
+
+#: of qteasy.history.HistoryPanelRolling.max:3
+msgid "滚动最大值结果面板，标签与原面板一致。"
+msgstr "滾動最大值結果面板，標籤與原面板一致。"
+
+#: of qteasy.history.HistoryPanelRolling.mean:1
+msgid "计算滚动窗口均值并返回新面板。"
+msgstr "計算滾動窗口均值並返回新面板。"
+
+#: of qteasy.history.HistoryPanelRolling.mean:3
+msgid "滚动均值结果面板，标签与原面板一致。"
+msgstr "滾動均值結果面板，標籤與原面板一致。"
+
+#: of qteasy.history.HistoryPanelRolling.min:1
+msgid "计算滚动窗口最小值并返回新面板。"
+msgstr "計算滾動窗口最小值並返回新面板。"
+
+#: of qteasy.history.HistoryPanelRolling.min:3
+msgid "滚动最小值结果面板，标签与原面板一致。"
+msgstr "滾動最小值結果面板，標籤與原面板一致。"
+
+#: of qteasy.history.HistoryPanelRolling.std:1
+msgid "计算滚动窗口标准差并返回新面板。"
+msgstr "計算滾動窗口標準差並返回新面板。"
+
+#: of qteasy.history.HistoryPanelRolling.std:3
+msgid "滚动标准差结果面板，标签与原面板一致。"
+msgstr "滾動標準差結果面板，標籤與原面板一致。"
+
+#: of qteasy.history.HistoryPanelRolling.sum:1
+msgid "计算滚动窗口求和并返回新面板。"
+msgstr "計算滾動窗口求和並返回新面板。"
+
+#: of qteasy.history.HistoryPanelRolling.sum:3
+msgid "滚动求和结果面板，标签与原面板一致。"
+msgstr "滾動求和結果面板，標籤與原面板一致。"
+
+#: ../../source/api/HistoryPanel.rst:279
+msgid "收益与风险指标"
+msgstr "收益與風險指標"
+
+#: of qteasy.history.HistoryPanel.returns:1
+msgid "基于指定价格序列计算收益率。"
+msgstr "基於指定價格序列計算收益率。"
+
+#: of qteasy.history.HistoryPanel.returns:3
+msgid "用于计算收益率的价格类型，必须在 htypes 中存在。"
+msgstr "用於計算收益率的價格類型，必須在 htypes 中存在。"
+
+#: of qteasy.history.HistoryPanel.returns:5
+msgid ""
+"- simple: r_t = p_t / p_{t-periods} - 1 - log: r_t = log(p_t) - "
+"log(p_{t-periods})"
+msgstr ""
+"- simple: r_t = p_t / p_{t-periods} - 1 - log: r_t = log(p_t) - "
+"log(p_{t-periods})"
+
+#: of qteasy.history.HistoryPanel.returns:6
+msgid "simple: r_t = p_t / p_{t-periods} - 1"
+msgstr "simple: r_t = p_t / p_{t-periods} - 1"
+
+#: of qteasy.history.HistoryPanel.returns:7
+msgid "log: r_t = log(p_t) - log(p_{t-periods})"
+msgstr "log: r_t = log(p_t) - log(p_{t-periods})"
+
+#: of qteasy.history.HistoryPanel.returns:9
+msgid "收益率间隔的 bar 数。"
+msgstr "收益率間隔的 bar 數。"
+
+#: of qteasy.history.HistoryPanel.returns:11
+msgid ""
+"False 返回 DataFrame （index=时间，columns=shares）； True 返回 HistoryPanel （htypes "
+"仅含 ret_{price_htype}）。"
+msgstr ""
+"False 返回 DataFrame （index=時間，columns=shares）； True 返回 HistoryPanel （htypes "
+"僅含 ret_{price_htype}）。"
+
+#: of qteasy.history.HistoryPanel.returns:14
+msgid "True 时删除全为 NaN 的起始行。"
+msgstr "True 時刪除全爲 NaN 的起始行。"
+
+#: of qteasy.history.HistoryPanel.cum_return:1
+msgid "沿时间维逐标的计算累计收益 （研究向），返回新面板。"
+msgstr "沿時間維逐標的計算累計收益 （研究向），返回新面板。"
+
+#: of qteasy.history.HistoryPanel.cum_return:3
+msgid ""
+"默认对 ``close`` 列 （经 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等）计算。 "
+"输出列名为 ``cumret_<用户传入的列名>``，与 :meth:`returns` 使用 ``ret_<price_htype>`` 的策略一致。"
+" 若时间路径上出现 NaN 或非正价格，自该点起后续结果均为 NaN （路径断开）。"
+msgstr ""
+"默認對 ``close`` 列 （經 :meth:`_resolve_price_htype` 解析，支持 ``close|b`` 等）計算。 "
+"輸出列名爲 ``cumret_<用戶傳入的列名>``，與 :meth:`returns` 使用 ``ret_<price_htype>`` 的策略一致。"
+" 若時間路徑上出現 NaN 或非正價格，自該點起後續結果均爲 NaN （路徑斷開）。"
+
+#: of qteasy.history.HistoryPanel.cum_return:7
+msgid "参与计算的列名；``None`` 时仅处理 ``close`` （解析后）。"
+msgstr "參與計算的列名；``None`` 時僅處理 ``close`` （解析後）。"
+
+#: of qteasy.history.HistoryPanel.cum_return:9
+msgid ""
+"``simple``：自首个有效正价 ``t0`` 起 "
+"``p_t/p_{t0}-1``；``log``：``log(p_t)-log(p_{t0})``。"
+msgstr ""
+"``simple``：自首個有效正價 ``t0`` 起 "
+"``p_t/p_{t0}-1``；``log``：``log(p_t)-log(p_{t0})``。"
+
+#: of qteasy.history.HistoryPanel.cum_return:11
+msgid "与 :meth:`where` 相同广播规则；为 ``False`` 的位置在计算前视为缺失 （``NaN``）。"
+msgstr "與 :meth:`where` 相同廣播規則；爲 ``False`` 的位置在計算前視爲缺失 （``NaN``）。"
+
+#: of qteasy.history.HistoryPanel.cum_return:14
+msgid "``shares`` / ``hdates`` 与原面板一致，仅含累计收益列。"
+msgstr "``shares`` / ``hdates`` 與原面板一致，僅含累計收益列。"
+
+#: of qteasy.history.HistoryPanel.cum_return:17
+msgid "非法 ``method``、列无法解析、``mask`` 无法广播、或输出列名与现有 ``htypes`` 冲突时抛出 （英文）。"
+msgstr "非法 ``method``、列無法解析、``mask`` 無法廣播、或輸出列名與現有 ``htypes`` 衝突時拋出 （英文）。"
+
+#: of qteasy.history.HistoryPanel.normalize:1
+msgid "将指定列按基准时点缩放到相对 1.0 （研究向），返回新面板。"
+msgstr "將指定列按基準時點縮放到相對 1.0 （研究向），返回新面板。"
+
+#: of qteasy.history.HistoryPanel.normalize:3
+msgid ""
+"默认以 ``base_index`` 处有效价格为分母；该时点被 ``mask`` 排除、为 ``NaN`` 或为 0 时， 该 (share, 列) "
+"整条时间序列输出均为 ``NaN``。输出列名为 ``norm_<用户传入的列名>``。"
+msgstr ""
+"默認以 ``base_index`` 處有效價格爲分母；該時點被 ``mask`` 排除、爲 ``NaN`` 或爲 0 時， 該 (share, 列) "
+"整條時間序列輸出均爲 ``NaN``。輸出列名爲 ``norm_<用戶傳入的列名>``。"
+
+#: of qteasy.history.HistoryPanel.normalize:6
+msgid "参与计算的列；``None`` 时仅 ``close`` （解析后）。"
+msgstr "參與計算的列；``None`` 時僅 ``close`` （解析後）。"
+
+#: of qteasy.history.HistoryPanel.normalize:8
+msgid "时间轴上的基准下标 （从 0 起）；越界时抛出 ``ValueError`` （英文）。"
+msgstr "時間軸上的基準下標 （從 0 起）；越界時拋出 ``ValueError`` （英文）。"
+
+#: of qteasy.history.HistoryPanel.normalize:10
+#: qteasy.history.HistoryPanel.portfolio:21
+msgid "与 :meth:`where` 相同广播规则。"
+msgstr "與 :meth:`where` 相同廣播規則。"
+
+#: of qteasy.history.HistoryPanel.normalize:13
+msgid "与原面板相同的 ``shares`` / ``hdates``，仅含归一化列。"
+msgstr "與原面板相同的 ``shares`` / ``hdates``，僅含歸一化列。"
+
+#: of qteasy.history.HistoryPanel.normalize:16
+msgid "列无法解析、``mask`` 无法广播、``base_index`` 越界、或输出列名冲突时抛出 （英文）。"
+msgstr "列無法解析、``mask`` 無法廣播、``base_index`` 越界、或輸出列名衝突時拋出 （英文）。"
+
+#: of qteasy.history.HistoryPanel.portfolio:1
+msgid "沿 share 维将多标的聚合成组合序列 （研究向），返回新面板。"
+msgstr "沿 share 維將多標的聚合成組合序列 （研究向），返回新面板。"
+
+#: of qteasy.history.HistoryPanel.portfolio:3
+msgid ""
+"默认 ``benchmark_output='none'``；若设置 ``benchmark``，可用 ``tag_along`` 附加基准行， 或用 "
+"``excess_only`` 仅保留 excess 前缀列（组合减基准，列名带 excess 前缀）。"
+msgstr ""
+"默認 ``benchmark_output='none'``；若設置 ``benchmark``，可用 ``tag_along`` 附加基準行， 或用 "
+"``excess_only`` 僅保留 excess 前綴列（組合減基準，列名帶 excess 前綴）。"
+
+#: of qteasy.history.HistoryPanel.portfolio:6
+msgid ""
+"``groups`` 为 ``None`` 时，全面板聚成一行，名称为 ``new_share_name``。 ``groups`` 非空时，键为输出 "
+"share 标签 （按插入序排列），值为组内原始 share 列表； 组间 share 不得重叠。``allow_ungrouped='error'``"
+" 时，每个面板 share 必须恰好属于一组。"
+msgstr ""
+"``groups`` 爲 ``None`` 時，全面板聚成一行，名稱爲 ``new_share_name``。 ``groups`` 非空時，鍵爲輸出 "
+"share 標籤 （按插入序排列），值爲組內原始 share 列表； 組間 share 不得重疊。``allow_ungrouped='error'``"
+" 時，每個面板 share 必須恰好屬於一組。"
+
+#: of qteasy.history.HistoryPanel.portfolio:10
+msgid ""
+"当 ``groups`` 为 ``None`` 且指定了 ``benchmark`` 时，基准 share 不参与组合聚合 "
+"（避免把指数与个股权重混在一起）， 仅用于 ``tag_along`` 或 ``excess_only``；若剔除后无可用 share "
+"（例如面板仅含基准）则抛出 ``ValueError``。"
+msgstr ""
+"當 ``groups`` 爲 ``None`` 且指定了 ``benchmark`` 時，基準 share 不參與組合聚合 "
+"（避免把指數與個股權重混在一起）， 僅用於 ``tag_along`` 或 ``excess_only``；若剔除後無可用 share "
+"（例如面板僅含基準）則拋出 ``ValueError``。"
+
+#: of qteasy.history.HistoryPanel.portfolio:13
+msgid "``mask`` 广播规则与 :meth:`where` 一致；无效格点不参与聚合。"
+msgstr "``mask`` 廣播規則與 :meth:`where` 一致；無效格點不參與聚合。"
+
+#: of qteasy.history.HistoryPanel.portfolio:15
+msgid "参与聚合的列名；经 :meth:`_resolve_price_htype` 解析。"
+msgstr "參與聚合的列名；經 :meth:`_resolve_price_htype` 解析。"
+
+#: of qteasy.history.HistoryPanel.portfolio:17
+msgid "等权平均或与 ``weights`` 联用的加权平均。"
+msgstr "等權平均或與 ``weights`` 聯用的加權平均。"
+
+#: of qteasy.history.HistoryPanel.portfolio:19
+msgid ""
+"形状 ``(M,)`` 或 ``(M, L)``，与 ``self.shares`` 顺序对齐；仅 ``mode='weighted'`` 时使用。"
+msgstr ""
+"形狀 ``(M,)`` 或 ``(M, L)``，與 ``self.shares`` 順序對齊；僅 ``mode='weighted'`` 時使用。"
+
+#: of qteasy.history.HistoryPanel.portfolio:23
+msgid "输出组名 → 组内 share 标签列表。"
+msgstr "輸出組名 → 組內 share 標籤列表。"
+
+#: of qteasy.history.HistoryPanel.portfolio:25
+msgid "基准 share，须在 ``self.shares`` 中。"
+msgstr "基準 share，須在 ``self.shares`` 中。"
+
+#: of qteasy.history.HistoryPanel.portfolio:27
+msgid "基准输出形态；无 ``benchmark`` 时仅允许 ``'none'``。"
+msgstr "基準輸出形態；無 ``benchmark`` 時僅允許 ``'none'``。"
+
+#: of qteasy.history.HistoryPanel.portfolio:29
+msgid "无 ``groups`` 时合成行的 share 名。"
+msgstr "無 ``groups`` 時合成行的 share 名。"
+
+#: of qteasy.history.HistoryPanel.portfolio:31
+msgid "加权时，在参与聚合的成员上对权重做归一后再加权求和 （与 ``sum(w*x)/sum(w)`` 数值一致）。"
+msgstr "加權時，在參與聚合的成員上對權重做歸一後再加權求和 （與 ``sum(w*x)/sum(w)`` 數值一致）。"
+
+#: of qteasy.history.HistoryPanel.portfolio:33
+msgid "``groups`` 非空时，是否要求覆盖全部 share。"
+msgstr "``groups`` 非空時，是否要求覆蓋全部 share。"
+
+#: of qteasy.history.HistoryPanel.portfolio:36
+msgid "新对象；``hdates`` 与时间长度与原面板一致。"
+msgstr "新對象；``hdates`` 與時間長度與原面板一致。"
+
+#: of qteasy.history.HistoryPanel.portfolio:39
+msgid "参数非法、share 不在面板、组重叠、mask 无法广播等 （英文）。"
+msgstr "參數非法、share 不在面板、組重疊、mask 無法廣播等 （英文）。"
+
+#: of qteasy.history.HistoryPanel.volatility:1
+msgid "基于收益率序列计算滚动波动率 （标准差）。"
+msgstr "基於收益率序列計算滾動波動率 （標準差）。"
+
+#: of qteasy.history.HistoryPanel.volatility:3
+msgid "滚动窗口长度 （bar 数）。"
+msgstr "滾動窗口長度 （bar 數）。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:6
+#: qteasy.history.HistoryPanel.volatility:5
+msgid "用于计算收益率的价格类型。"
+msgstr "用於計算收益率的價格類型。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:8
+#: qteasy.history.HistoryPanel.volatility:7
+msgid "收益率计算方式，与 returns() 一致。"
+msgstr "收益率計算方式，與 returns() 一致。"
+
+#: of qteasy.history.HistoryPanel.volatility:9
+msgid "是否年化 （乘以 sqrt(periods_per_year)）。"
+msgstr "是否年化 （乘以 sqrt(periods_per_year)）。"
+
+#: of qteasy.history.HistoryPanel.volatility:11
+msgid "年化时每年 bar 数；未指定且 annualize=True 时尝试从时间间隔推断，无法推断则报错。"
+msgstr "年化時每年 bar 數；未指定且 annualize=True 時嘗試從時間間隔推斷，無法推斷則報錯。"
+
+#: of qteasy.history.HistoryPanel.volatility:13
+msgid "返回形式同 returns()。"
+msgstr "返回形式同 returns()。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:1
+msgid "计算各股票相对于给定基准收益率序列的 alpha / beta 等指标。"
+msgstr "計算各股票相對於給定基準收益率序列的 alpha / beta 等指標。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:3
+msgid ""
+"基准价格时间序列，index 应与 HistoryPanel.hdates 对齐或至少有交集。 DataFrame 时只使用第一列作为基准价格。"
+msgstr ""
+"基準價格時間序列，index 應與 HistoryPanel.hdates 對齊或至少有交集。 DataFrame 時只使用第一列作爲基準價格。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:10
+msgid "收益率频率字符串，用于 alpha 年化时推断每年 bar 数，如 'D'、'W'、'M'。"
+msgstr "收益率頻率字符串，用於 alpha 年化時推斷每年 bar 數，如 'D'、'W'、'M'。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:12
+msgid "是否对 alpha 进行年化。"
+msgstr "是否對 alpha 進行年化。"
+
+#: of qteasy.history.HistoryPanel.alpha_beta:15
+msgid "index 为 shares，列为 ['alpha', 'beta', 'r2', 'n_obs']。"
+msgstr "index 爲 shares，列爲 ['alpha', 'beta', 'r2', 'n_obs']。"
+
+#: ../../source/api/HistoryPanel.rst:295
+msgid "K 线与技术指标"
+msgstr "K 線與技術指標"
+
+#: ../../source/api/HistoryPanel.rst:298
+msgid "第一入口：research_preset"
+msgstr "第一入口：research_preset"
+
+#: ../../source/api/HistoryPanel.rst:300
+msgid ""
+"``research_preset`` 用于快速拼出「可直接 plot 的常用列集合」 （例如 OHLCV + MACD + "
+"MA），避免在绘图阶段隐式计算指标。缺少输入列时会抛出英文 ``ValueError`` 并给出缺列提示。"
+msgstr ""
+"``research_preset`` 用於快速拼出「可直接 plot 的常用列集合」 （例如 OHLCV + MACD + "
+"MA），避免在繪圖階段隱式計算指標。缺少輸入列時會拋出英文 ``ValueError`` 並給出缺列提示。"
+
+#: of qteasy.history.HistoryPanel.research_preset:1
+msgid "按预设快速生成研究常用列集合，并返回结果面板。"
+msgstr "按預設快速生成研究常用列集合，並返回結果面板。"
+
+#: of qteasy.history.HistoryPanel.research_preset:3
+msgid ""
+"该方法旨在作为 ``HistoryPanel`` 的“第一入口”：在不引入回测语义的前提下， 快速拼出 OHLCV + 常用技术指标列 （如 "
+"MACD、均线）以便直接绘图或继续做研究。"
+msgstr ""
+"該方法旨在作爲 ``HistoryPanel`` 的“第一入口”：在不引入回測語義的前提下， 快速拼出 OHLCV + 常用技術指標列 （如 "
+"MACD、均線）以便直接繪圖或繼續做研究。"
+
+#: of qteasy.history.HistoryPanel.research_preset:6
+msgid ""
+"预设名称。目前支持：  - ``'ohlcv_macd_ma'``：要求面板至少包含 ``open/high/low/close/vol``，并生成"
+"   ``macd_12_26_9``、``macd_signal_12_26_9``、``macd_hist_12_26_9`` 与 "
+"``sma_20``。"
+msgstr ""
+"預設名稱。目前支持：  - ``'ohlcv_macd_ma'``：要求面板至少包含 ``open/high/low/close/vol``，並生成"
+"   ``macd_12_26_9``、``macd_signal_12_26_9``、``macd_hist_12_26_9`` 與 "
+"``sma_20``。"
+
+#: of qteasy.history.HistoryPanel.research_preset:6
+msgid "预设名称。目前支持："
+msgstr "預設名稱。目前支持："
+
+#: of qteasy.history.HistoryPanel.research_preset:8
+msgid ""
+"``'ohlcv_macd_ma'``：要求面板至少包含 ``open/high/low/close/vol``，并生成 "
+"``macd_12_26_9``、``macd_signal_12_26_9``、``macd_hist_12_26_9`` 与 ``sma_20``。"
+msgstr ""
+"``'ohlcv_macd_ma'``：要求面板至少包含 ``open/high/low/close/vol``，並生成 "
+"``macd_12_26_9``、``macd_signal_12_26_9``、``macd_hist_12_26_9`` 與 ``sma_20``。"
+
+#: of qteasy.history.HistoryPanel.research_preset:11
+msgid "为 True 时在原面板上原地追加预设列并返回原面板；为 False 时返回新增列后的新面板。"
+msgstr "爲 True 時在原面板上原地追加預設列並返回原面板；爲 False 時返回新增列後的新面板。"
+
+#: of qteasy.history.HistoryPanel.research_preset:14
+msgid "追加预设列后的 ``HistoryPanel``。当 ``inplace=True`` 时返回原对象。"
+msgstr "追加預設列後的 ``HistoryPanel``。當 ``inplace=True`` 時返回原對象。"
+
+#: of qteasy.history.HistoryPanel.research_preset:17
+msgid "当预设名称非法，或缺少预设所需的输入列时抛出 （错误信息为英文）。"
+msgstr "當預設名稱非法，或缺少預設所需的輸入列時拋出 （錯誤資訊爲英文）。"
+
+#: ../../docstring of qteasy.HistoryPanel.kline:1
+msgid "K 线技术指标访问器，提供 sma、ema、bbands、macd、kdj 等方法。"
+msgstr "K 線技術指標訪問器，提供 sma、ema、bbands、macd、kdj 等方法。"
+
+#: of qteasy.history.HistoryPanel.apply_ta:1
+msgid "调用 qteasy.tafuncs 中的技术指标函数，并在多股票上广播计算。"
+msgstr "調用 qteasy.tafuncs 中的技術指標函數，並在多股票上廣播計算。"
+
+#: of qteasy.history.HistoryPanel.apply_ta:3
+msgid "qteasy.tafuncs 中的函数名称，如 'sma'、'ema' 等。"
+msgstr "qteasy.tafuncs 中的函數名稱，如 'sma'、'ema' 等。"
+
+#: of qteasy.history.HistoryPanel.apply_ta:5
+msgid "作为输入的一维时间序列的数据类型。"
+msgstr "作爲輸入的一維時間序列的數據類型。"
+
+#: of qteasy.history.HistoryPanel.apply_ta:7
+msgid "需要计算的股票列表，默认使用全部 shares。"
+msgstr "需要計算的股票列表，默認使用全部 shares。"
+
+#: of qteasy.history.HistoryPanel.apply_ta:9
+msgid ""
+"True 时返回新的 HistoryPanel，在 htypes 末尾追加输出列； False 时返回 MultiIndex 列的 DataFrame "
+"（时间×[share, output_name]）。"
+msgstr ""
+"True 時返回新的 HistoryPanel，在 htypes 末尾追加輸出列； False 時返回 MultiIndex 列的 DataFrame "
+"（時間×[share, output_name]）。"
+
+#: of qteasy.history.HistoryPanel.candle_pattern:1
+msgid "基于 ta-lib 形态函数计算蜡烛形态信号。"
+msgstr "基於 ta-lib 形態函數計算蠟燭形態信號。"
+
+#: of qteasy.history.HistoryPanel.candle_pattern:3
+msgid "形态函数名称，如 'cdlhammer'。"
+msgstr "形態函數名稱，如 'cdlhammer'。"
+
+#: of qteasy.history.HistoryPanel.candle_pattern:5
+msgid "OHLC 对应的 htypes 名称。"
+msgstr "OHLC 對應的 htypes 名稱。"
+
+#: of qteasy.history.HistoryPanel.candle_pattern:7
+msgid "False 返回 DataFrame （时间×股票），True 返回单一 htype 的 HistoryPanel。"
+msgstr "False 返回 DataFrame （時間×股票），True 返回單一 htype 的 HistoryPanel。"
+
+#: ../../source/api/HistoryPanel.rst:312
+msgid "导出到 pandas （推荐名）"
+msgstr "導出到 pandas （推薦名）"
+
+#: ../../source/api/HistoryPanel.rst:314
+msgid "与 pandas 生态衔接时，**新代码请优先使用下列推荐名**；兼容别名仍可用，行为不变："
+msgstr "與 pandas 生態銜接時，**新程式碼請優先使用下列推薦名**；相容別名仍可用，行爲不變："
+
+#: ../../source/api/HistoryPanel.rst:317
+msgid "推荐名"
+msgstr "推薦名"
+
+#: ../../source/api/HistoryPanel.rst:317
+msgid "兼容别名"
+msgstr "相容別名"
+
+#: ../../source/api/HistoryPanel.rst:317
+msgid "典型用途"
+msgstr "典型用途"
+
+#: ../../source/api/HistoryPanel.rst:319
+msgid "``to_df_dict(by=...)``"
+msgstr "``to_df_dict(by=...)``"
+
+#: ../../source/api/HistoryPanel.rst:319
+msgid "``unstack(by=...)``"
+msgstr "``unstack(by=...)``"
+
+#: ../../source/api/HistoryPanel.rst:319
+msgid "按 share / htype 切成多张宽表"
+msgstr "按 share / htype 切成多張寬表"
+
+#: ../../source/api/HistoryPanel.rst:321
+msgid "``to_multi_index_dataframe(...)``"
+msgstr "``to_multi_index_dataframe(...)``"
+
+#: ../../source/api/HistoryPanel.rst:321
+msgid "``flatten`` / ``flatten_to_dataframe``"
+msgstr "``flatten`` / ``flatten_to_dataframe``"
+
+#: ../../source/api/HistoryPanel.rst:321
+msgid "展平为 MultiIndex ``DataFrame``"
+msgstr "展平爲 MultiIndex ``DataFrame``"
+
+#: ../../source/api/HistoryPanel.rst:323
+msgid "``to_share_frame(share)``"
+msgstr "``to_share_frame(share)``"
+
+#: ../../source/api/HistoryPanel.rst:323
+msgid "（无）"
+msgstr "（無）"
+
+#: ../../source/api/HistoryPanel.rst:323
+msgid "单标的 → 时间为索引的宽表"
+msgstr "單標的 → 時間爲索引的寬表"
+
+#: of qteasy.history.HistoryPanel.to_df_dict:1
+msgid "将 HistoryPanel 转为字典：键为 share 或 htype，值为对应的 ``pandas.DataFrame``。"
+msgstr "將 HistoryPanel 轉爲字典：鍵爲 share 或 htype，值爲對應的 ``pandas.DataFrame``。"
+
+#: of qteasy.history.HistoryPanel.to_df_dict:3
+msgid ""
+"取 ``'share'`` / ``'shares'`` 时按标的维切分，字典键为股票代码，值为对应 ``DataFrame``；取 "
+"``'htype'`` / ``'htypes'`` 时按数据类型维切分，字典键为 历史数据类型名，值为对应 ``DataFrame``。"
+msgstr ""
+"取 ``'share'`` / ``'shares'`` 時按標的維切分，字典鍵爲股票代碼，值爲對應 ``DataFrame``；取 "
+"``'htype'`` / ``'htypes'`` 時按數據類型維切分，字典鍵爲 歷史數據類型名，值爲對應 ``DataFrame``。"
+
+#: of qteasy.history.HistoryPanel.to_df_dict:8
+msgid "**df_dict**"
+msgstr "**df_dict**"
+
+#: of qteasy.history.HistoryPanel.to_multi_index_dataframe:1
+msgid "将 HistoryPanel 展平为 MultiIndex ``DataFrame``（推荐导出名）。"
+msgstr "將 HistoryPanel 展平爲 MultiIndex ``DataFrame``（推薦導出名）。"
+
+#: of qteasy.history.HistoryPanel.to_multi_index_dataframe:3
+msgid "实现委托 ``flatten_to_dataframe``；兼容别名还有 ``flatten``。"
+msgstr "實現委託 ``flatten_to_dataframe``；相容別名還有 ``flatten``。"
+
+#: of qteasy.history.HistoryPanel.to_multi_index_dataframe:5
+msgid ""
+"平铺 HistoryPanel 的每一层时，沿行方向还是列方向平铺， 'col'或'column'表示沿列方向平铺，'row'表示沿行方向平铺"
+msgstr ""
+"平鋪 HistoryPanel 的每一層時，沿行方向還是列方向平鋪， 'col'或'column'表示沿列方向平鋪，'row'表示沿行方向平鋪"
+
+#: of qteasy.history.HistoryPanel.to_share_frame:1
+msgid "将单一股票在 HistoryPanel 中的所有数据类型切片为一个 DataFrame。"
+msgstr "將單一股票在 HistoryPanel 中的所有數據類型切片爲一個 DataFrame。"
+
+#: of qteasy.history.HistoryPanel.to_share_frame:3
+msgid ""
+"该方法是 ``slice_to_dataframe(share=...)`` 的语法糖，返回的 DataFrame 以时间为索引、以全部 "
+"``htypes`` 为列，适合做单股票全指标分析。"
+msgstr ""
+"該方法是 ``slice_to_dataframe(share=...)`` 的語法糖，返回的 DataFrame 以時間爲索引、以全部 "
+"``htypes`` 爲列，適合做單股票全指標分析。"
+
+#: of qteasy.history.HistoryPanel.to_share_frame:6
+msgid "股票代码或层序号，语义与 ``slice_to_dataframe(share=...)`` 中的 ``share`` 参数一致。"
+msgstr "股票代碼或層序號，語義與 ``slice_to_dataframe(share=...)`` 中的 ``share`` 參數一致。"
+
+#: of qteasy.history.HistoryPanel.to_share_frame:10
+msgid "行索引为 ``hdates``，列为 ``htypes``，包含该股票在所有时间点上的全部 历史数据。"
+msgstr "行索引爲 ``hdates``，列爲 ``htypes``，包含該股票在所有時間點上的全部 歷史數據。"
+
+#: ../../source/api/HistoryPanel.rst:334
+msgid "qteasy级别的历史数据处理函数"
+msgstr "qteasy級別的歷史數據處理函數"
+
+#: ../../source/api/HistoryPanel.rst:336
+msgid "``qteasy`` 还提供了若干独立于 ``HistoryPanel`` 类的函数，支持更灵活的历史数据处理与分析："
+msgstr "``qteasy`` 還提供了若干獨立於 ``HistoryPanel`` 類的函數，支持更靈活的歷史資料處理與分析："
+
+#: of qteasy.core.get_history_data:1
+msgid "根据给定的标的、数据类型与频率，从本地数据源获取历史数据并组装为策略可直接使用的结构。"
+msgstr "根據給定的標的、數據類型與頻率，從本地數據源獲取歷史數據並組裝爲策略可直接使用的結構。"
+
+#: of qteasy.core.get_history_data:3
+msgid ""
+"本入口只接受 ``kind=history``（时间 × 标的）的数据类型。宏观/基准请用 "
+"``get_reference_data``，证券属性截面请用 ``get_static_data``；错形状会以英文错误 指向正确入口。可以通过 "
+"``htype_names`` 或 ``data_types`` 指定需要的数据种类，并结合 ``shares`` / "
+"``symbols``、时间区间与 ``freq`` 控制取数范围；根据 ``as_data_frame`` 与 ``group_by`` "
+"的设置，函数返回 HistoryPanel 或按标的/数据类型分组的 DataFrame 字典。 关于数据类型推断、频率转换和 "
+"trade_time_only 等高级用法，详见文档「历史数据获取 get_history_data」相关章节。"
+msgstr ""
+"本入口只接受 ``kind=history``（時間 × 標的）的資料類型。宏觀/基準請用 "
+"``get_reference_data``，證券屬性截面請用 ``get_static_data``；錯形狀會以英文錯誤 指向正確入口。可以通過 "
+"``htype_names`` 或 ``data_types`` 指定需要的資料種類，並結合 ``shares`` / "
+"``symbols``、時間區間與 ``freq`` 控制取數範圍；根據 ``as_data_frame`` 與 ``group_by`` "
+"的設置，函數返回 HistoryPanel 或按標的/資料類型分組的 DataFrame 字典。 關於資料類型推斷、頻率轉換和 "
+"trade_time_only 等高級用法，詳見文件「歷史資料獲取 get_history_data」相關章節。"
+
+#: of qteasy.core.get_history_data:11
+msgid ""
+"需要获取的历史数据名称集合；可为逗号分隔字符串（如 ``'open, high, low, close'``） 或列表（如 ``['open', "
+"'high', 'low', 'close']``）。若为空，系统会结合 ``freq`` / ``asset_type`` 等参数推断可用的 "
+"htypes。"
+msgstr ""
+"需要獲取的歷史數據名稱集合；可爲逗號分隔字符串（如 ``'open, high, low, close'``） 或列表（如 ``['open', "
+"'high', 'low', 'close']``）。若爲空，系統會結合 ``freq`` / ``asset_type`` 等參數推斷可用的 "
+"htypes。"
+
+#: of qteasy.core.get_history_data:15
+msgid ""
+"历史数据类型对象列表；语义与 ``htype_names`` 类似，优先使用 ``htype_names`` / ``data_types`` 新接口。"
+msgstr ""
+"歷史數據類型對象列表；語義與 ``htype_names`` 類似，優先使用 ``htype_names`` / ``data_types`` 新接口。"
+
+#: of qteasy.core.get_history_data:18
+msgid ""
+"需要获取的历史数据类型集合，必须是合法的数据类型对象。 "
+"如果给出了本参数，htype_names会被忽略，否则根据htype_names参数创建可能的htypes"
+msgstr ""
+"需要獲取的歷史數據類型集合，必須是合法的數據類型對象。 "
+"如果給出了本參數，htype_names會被忽略，否則根據htype_names參數創建可能的htypes"
+
+#: of qteasy.core.get_history_data:21
+msgid "需要获取历史数据的数据源"
+msgstr "需要獲取歷史數據的數據源"
+
+#: of qteasy.core.get_history_data:23
+msgid ""
+"证券代码集合；可为逗号分隔字符串（如 ``'000001.SZ, 000002.SZ'``）或列表 （如 ``['000001.SZ', "
+"'000002.SZ']``）。"
+msgstr ""
+"證券代碼集合；可爲逗號分隔字符串（如 ``'000001.SZ, 000002.SZ'``）或列表 （如 ``['000001.SZ', "
+"'000002.SZ']``）。"
+
+#: of qteasy.core.get_history_data:26
+msgid ""
+"证券代码集合；可为逗号分隔字符串（如 ``'000001, 000002'``）或列表 （如 ``['000001', '000002']``）。"
+msgstr ""
+"證券代碼集合；可爲逗號分隔字符串（如 ``'000001, 000002'``）或列表 （如 ``['000001', '000002']``）。"
+
+#: of qteasy.core.get_history_data:29
+msgid "YYYYMMDD HH:MM:SS 格式的日期/时间，获取的历史数据的开始日期/时间(如果可用)"
+msgstr "YYYYMMDD HH:MM:SS 格式的日期/時間，獲取的歷史數據的開始日期/時間(如果可用)"
+
+#: of qteasy.core.get_history_data:31
+msgid "YYYYMMDD HH:MM:SS 格式的日期/时间，获取的历史数据的结束日期/时间(如果可用)"
+msgstr "YYYYMMDD HH:MM:SS 格式的日期/時間，獲取的歷史數據的結束日期/時間(如果可用)"
+
+#: of qteasy.core.get_history_data:33
+msgid ""
+"获取的历史数据的行数，如果指定了start和end，则忽略此参数，且获取的数据的时间范围为[start, end] "
+"如果未指定start和end，则获取数据表中最近的rows条数据，使用row来获取数据时，速度比使用日期慢得多"
+msgstr ""
+"獲取的歷史數據的行數，如果指定了start和end，則忽略此參數，且獲取的數據的時間範圍爲[start, end] "
+"如果未指定start和end，則獲取數據表中最近的rows條數據，使用row來獲取數據時，速度比使用日期慢得多"
+
+#: of qteasy.core.get_history_data:36
+msgid ""
+"频率；支持 ``1min``/``5min``/``15min``/``30min`` 等分钟周期，以及 ``H``/``D``/``W``/``M``"
+" 等小时/日/周/月周期（如 K 线）。"
+msgstr ""
+"頻率；支持 ``1min``/``5min``/``15min``/``30min`` 等分鐘週期，以及 ``H``/``D``/``W``/``M``"
+" 等小時/日/周/月週期（如 K 線）。"
+
+#: of qteasy.core.get_history_data:39
+msgid ""
+"资产类型过滤；可用逗号分隔字符串（如 ``'E, IDX'``）或列表（如 ``['E', 'IDX']``）。 常见取值包括 "
+"``any``、``E``、``IDX``、``FT``、``FD`` 等。"
+msgstr ""
+"資產類型過濾；可用逗號分隔字符串（如 ``'E, IDX'``）或列表（如 ``['E', 'IDX']``）。 常見取值包括 "
+"``any``、``E``、``IDX``、``FT``、``FD`` 等。"
+
+#: of qteasy.core.get_history_data:42
+msgid ""
+"已弃用的复权选项（``none``/``n``、``back``/``b``、``forward``/``fw``/``f``）。 新代码请在 "
+"htype 中显式使用复权列名（如 ``close|b``）。"
+msgstr ""
+"已棄用的復權選項（``none``/``n``、``back``/``b``、``forward``/``fw``/``f``）。 新代碼請在 "
+"htype 中顯式使用復權列名（如 ``close|b``）。"
+
+#: of qteasy.core.get_history_data:45
+msgid ""
+"``True``（默认）时返回按 ``group_by`` 分组的 ``DataFrame`` 字典； ``False`` 时返回 "
+"``HistoryPanel``。"
+msgstr ""
+"``True``（預設）時返回按 ``group_by`` 分組的 ``DataFrame`` 字典； ``False`` 時返回 "
+"``HistoryPanel``。"
+
+#: of qteasy.core.get_history_data:48
+msgid ""
+"返回 DataFrame 字典时的分组键；常用 ``'shares'``/``'share'``/``'s'`` 或 "
+"``'htypes'``/``'htype'``/``'h'``。"
+msgstr ""
+"返回 DataFrame 字典時的分組鍵；常用 ``'shares'``/``'share'``/``'s'`` 或 "
+"``'htypes'``/``'htype'``/``'h'``。"
+
+#: of qteasy.core.get_history_data:51
+msgid ""
+"透传给底层取数/频率转换的附加参数（如 ``drop_nan``、``resample_method`` 等）。 详细可选值与语义见文档「历史数据获取 "
+"get_history_data」及 ``infer_data_types`` 说明。"
+msgstr ""
+"透傳給底層取數/頻率轉換的附加參數（如 ``drop_nan``、``resample_method`` 等）。 詳細可選值與語義見文檔「歷史數據獲取 "
+"get_history_data」及 ``infer_data_types`` 說明。"
+
+#: of qteasy.core.get_history_data:54
+msgid ""
+"* *HistoryPanel* -- 当 ``as_data_frame`` 为 False 时，返回包含所有请求数据的 HistoryPanel "
+"对象。 * *dict of pandas.DataFrame* -- 当 ``as_data_frame`` 为 True 时，返回按 "
+"``group_by`` 分组的 DataFrame 字典。"
+msgstr ""
+"* *HistoryPanel* -- 當 ``as_data_frame`` 爲 False 時，返回包含所有請求數據的 HistoryPanel "
+"對象。 * *dict of pandas.DataFrame* -- 當 ``as_data_frame`` 爲 True 時，返回按 "
+"``group_by`` 分組的 DataFrame 字典。"
+
+#: of qteasy.core.get_history_data:54
+msgid ""
+"*HistoryPanel* -- 当 ``as_data_frame`` 为 False 时，返回包含所有请求数据的 HistoryPanel 对象。"
+msgstr ""
+"*HistoryPanel* -- 當 ``as_data_frame`` 爲 False 時，返回包含所有請求數據的 HistoryPanel 對象。"
+
+#: of qteasy.core.get_history_data:55
+msgid ""
+"*dict of pandas.DataFrame* -- 当 ``as_data_frame`` 为 True 时，返回按 ``group_by`` "
+"分组的 DataFrame 字典。"
+msgstr ""
+"*dict of pandas.DataFrame* -- 當 ``as_data_frame`` 爲 True 時，返回按 ``group_by`` "
+"分組的 DataFrame 字典。"
+
+#: of qteasy.history.stack_dataframes:1
+msgid "将多个 ``DataFrame`` 组合为一个 ``HistoryPanel``。"
+msgstr "將多個 ``DataFrame`` 組合爲一個 ``HistoryPanel``。"
+
+#: of qteasy.history.stack_dataframes:3
+msgid ""
+"待堆叠的数据表；``list`` 时通常需配合 ``shares``/``htypes`` 显式给出轴标签， ``dict`` "
+"时可用键作为默认标签来源。"
+msgstr ""
+"待堆疊的數據表；``list`` 時通常需配合 ``shares``/``htypes`` 顯式給出軸標籤， ``dict`` "
+"時可用鍵作爲默認標籤來源。"
+
+#: of qteasy.history.stack_dataframes:6
+msgid ""
+"``'shares'`` 表示每个 ``DataFrame`` 对应一个标的（列为 htype）；``'htypes'`` 表示 每个 "
+"``DataFrame`` 对应一种数据类型（列为 share）。"
+msgstr ""
+"``'shares'`` 表示每個 ``DataFrame`` 對應一個標的（列爲 htype）；``'htypes'`` 表示 每個 "
+"``DataFrame`` 對應一種數據類型（列爲 share）。"
+
+#: of qteasy.history.stack_dataframes:9
+msgid "输出面板在 ``dataframe_as='shares'`` 时的层标签；可为逗号分隔字符串或列表。"
+msgstr "輸出面板在 ``dataframe_as='shares'`` 時的層標籤；可爲逗號分隔字符串或列表。"
+
+#: of qteasy.history.stack_dataframes:11
+msgid "输出面板在 ``dataframe_as='htypes'`` 时的列标签；可为逗号分隔字符串或列表。"
+msgstr "輸出面板在 ``dataframe_as='htypes'`` 時的列標籤；可爲逗號分隔字符串或列表。"
+
+#: of qteasy.history.stack_dataframes:13
+msgid "对齐缺失位置时使用的填充值；默认 ``NaN``。"
+msgstr "對齊缺失位置時使用的填充值；默認 ``NaN``。"
+
+#: of qteasy.history.stack_dataframes:16
+msgid "一个由多个单index的数据框组成的HistoryPanel对象"
+msgstr "一個由多個單index的數據框組成的HistoryPanel對象"
+
+#: ../../source/api/HistoryPanel.rst:344
+msgid "研究与正式回测的边界 （扩展阅读）"
+msgstr "研究與正式回測的邊界 （擴展閱讀）"
+
+#: ../../source/api/HistoryPanel.rst:346
+msgid ""
+"``HistoryPanel`` 上的 ``cum_return``、``portfolio``、``plot`` 等面向**探索与粗验**；正式回测 "
+"（交割、费用、信号类型、防未来函数的数据窗口等）仍由 ``Strategy`` / ``Operator`` / Backtester 负责。截面 IC"
+" / 分位组合等模块级 API 见 :doc:`qteasy.research <research>` （**非** "
+"Backtester）。推荐读者在阅读本 API 页的同时，结合："
+msgstr ""
+"``HistoryPanel`` 上的 ``cum_return``、``portfolio``、``plot`` 等面向**探索與粗驗**；正式回測 "
+"（交割、費用、信號類型、防未來函數的資料窗口等）仍由 ``Strategy`` / ``Operator`` / Backtester 負責。截面 IC"
+" / 分位組合等模組級 API 見 :doc:`qteasy.research <research>` （**非** "
+"Backtester）。推薦讀者在閱讀本 API 頁的同時，結合："
+
+#: ../../source/api/HistoryPanel.rst:348
+msgid ""
+"教程 :doc:`使用 HistoryPanel 操作和分析历史数据 <../tutorials/2.5-historypanel-data-"
+"analysis>` 中的 **§9** （研究 → ``FactorSorter`` / ``Operator``）、**§10** "
+"（多源数据拼板）、**§11** （导出 pandas / statsmodels），以及 ``qteasy.research`` cookbook；"
+msgstr ""
+"教程 :doc:`使用 HistoryPanel 操作和分析歷史資料 <../tutorials/2.5-historypanel-data-"
+"analysis>` 中的 **§9** （研究 → ``FactorSorter`` / ``Operator``）、**§10** "
+"（多源資料拼板）、**§11** （導出 pandas / statsmodels），以及 ``qteasy.research`` cookbook；"
+
+#: ../../source/api/HistoryPanel.rst:349
+msgid "可运行示例 ``examples/historypanel_research_factor_workflow.py``；"
+msgstr "可運行示例 ``examples/historypanel_research_factor_workflow.py``；"
+
+#: ../../source/api/HistoryPanel.rst:350
+msgid ""
+"设计说明 :doc:`HistoryPanel 与可选 FactorResearch 层 <../design/10-historypanel-"
+"factor-research-layer>` （模块级函数边界）。"
+msgstr ""
+"設計說明 :doc:`HistoryPanel 與可選 FactorResearch 層 <../design/10-historypanel-"
+"factor-research-layer>` （模組級函數邊界）。"
+
+#~ msgid "**out**"
+#~ msgstr "**out**"
+
+#~ msgid "等同于HistoryPanel.flatten_to_dataframe()"
+#~ msgstr "等同於HistoryPanel.flatten_to_dataframe()"
+
+#~ msgid ""
+#~ "HistoryPanel的多层数据会被\"平铺\"到DataFrame的列，变成一个MultiIndex，或者多层数据 "
+#~ "会被平铺到DataFrame的行，同样变成一个MultiIndex，平铺到行还是列取决于along参数"
+#~ msgstr ""
+#~ "HistoryPanel的多層數據會被\"平鋪\"到DataFrame的列，變成一個MultiIndex，或者多層數據 "
+#~ "會被平鋪到DataFrame的行，同樣變成一個MultiIndex，平鋪到行還是列取決於along參數"
+
+#~ msgid "获取HistoryPanel的一个片段，start_index和end_index都是int数，表示日期序号，返回"
+#~ msgstr "獲取HistoryPanel的一個片段，start_index和end_index都是int數，表示日期序號，返回"
+
+#~ msgid "获取HistoryPanel的一个日期片段，start_date和end_date都是日期型数据，返回"
+#~ msgstr "獲取HistoryPanel的一個日期片段，start_date和end_date都是日期型數據，返回"
+
+#~ msgid "获取HistoryPanel的一个股票或数据种类片段，shares和htypes可以为列表或逗号分隔字符"
+#~ msgstr "獲取HistoryPanel的一個股票或數據種類片段，shares和htypes可以爲列表或逗號分隔字符"
+
+#~ msgid "串，表示需要获取的股票或数据的种类。"
+#~ msgstr "串，表示需要獲取的股票或數據的種類。"
+
+#~ msgid "等同于方法self.to_df_dict(), 是方法self.to_df_dict()的别称"
+#~ msgstr "等同於方法self.to_df_dict(), 是方法self.to_df_dict()的別稱"
+
+#~ msgid "指定按照share或者htype来unstack, 默认为share"
+#~ msgstr "指定按照share或者htype來unstack, 默認爲share"
+
+#~ msgid "unstack后的结果，是一个字典，key为share或htype，value为对应的DataFrame"
+#~ msgstr "unstack後的結果，是一個字典，key爲share或htype，value爲對應的DataFrame"
+
+#~ msgid "以下方法在 HistoryPanel 的三维数据上提供类似 pandas 的统计功能："
+#~ msgstr "以下方法在 HistoryPanel 的三維數據上提供類似 pandas 的統計功能："
+
+#~ msgid "``True`` 时返回 ``HistoryPanel``；``False`` 时返回 ``DataFrame`` 字典。"
+#~ msgstr "``True`` 時返回 ``HistoryPanel``；``False`` 時返回 ``DataFrame`` 字典。"

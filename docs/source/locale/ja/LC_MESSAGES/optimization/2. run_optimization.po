@@ -1,0 +1,231 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/2. run_optimization.md:1
+msgid "如何运行策略优化"
+msgstr "戦略の最適化を実行する方法"
+
+#: ../../source/optimization/2. run_optimization.md:3
+msgid "入口与常用 kwargs"
+msgstr "エントリーポイントと一般的なクワーグ"
+
+#: ../../source/optimization/2. run_optimization.md:5
+msgid ""
+"使用 **qt.run(op, mode=2, ...)** 运行策略优化。常用参数包括 "
+"**opti_method**、**opti_sample_count**、**opti_output_count** 等。"
+msgstr ""
+"**``qt.run(op, mode=2, ...)``**. Common arguments include "
+"**``opti_method``**, **``opti_sample_count``**, **``opti_output_count``** "
+"などを使用して戦略の最適化を実行します。"
+
+#: ../../source/optimization/2. run_optimization.md:7
+msgid "优化算法完整列表（罗列并简短解释）"
+msgstr "最適化アルゴリズムの完全なリスト (簡単な説明付き)"
+
+#: ../../source/optimization/2. run_optimization.md:9
+msgid "以下为 **opti_method** 常见可选值及适用场景，与 qteasy 2.0 API 一致为准。"
+msgstr ""
+"以下は、一般的な **``opti_method``** 値と典型的な使用例です。信頼できる情報源として qteasy 2.0 API "
+"を参照してください。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "算法名"
+msgstr "アルゴリズム"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "含义"
+msgstr "意味"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "适用场景"
+msgstr "典型的な使用例"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "grid"
+msgstr "grid"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "网格搜索"
+msgstr "グリッド検索"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数少、离散空间，穷举或粗网格。"
+msgstr "パラメータはほとんどなく、離散空間。網羅的または粗いグリッド検索。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "montecarlo"
+msgstr "montecarlo"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "蒙特卡洛随机采样"
+msgstr "モンテカルロランダムサンプリング"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数较多时随机抽样评估。"
+msgstr "パラメータが多い場合はランダムサンプリング。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "GA"
+msgstr "GA"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "遗传算法"
+msgstr "遺伝的アルゴリズム"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "中高维、连续/离散混合。"
+msgstr "中～高次元。連続/離散混合空間。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "SA"
+msgstr "SA"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "模拟退火"
+msgstr "模擬焼鈍"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "中维、易陷入局部最优时。"
+msgstr "中程度の寸法。局所最適化が懸念される場合に役立ちます。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "PSO"
+msgstr "PSO"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "粒子群优化"
+msgstr "粒子群の最適化"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "连续空间、多峰。"
+msgstr "複数の頂点を持つ連続した空間。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "bayesian"
+msgstr "bayesian"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "贝叶斯优化"
+msgstr "ベイズ最適化"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "样本昂贵、需少步数寻优。"
+msgstr "高価な評価。いくつかのステップで良い結果が必要です。"
+
+#: ../../source/optimization/2. run_optimization.md:20
+msgid "优化运行参数完整列表（罗列并简短解释）"
+msgstr "最適化実行パラメータの完全なリスト (簡単な説明付き)"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数名"
+msgstr "パラメータ"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "类型/可选值"
+msgstr "タイプ/値"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_method"
+msgstr "opti_method"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "str"
+msgstr "str"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "优化算法：grid、montecarlo、GA、SA、PSO、bayesian 等。"
+msgstr ""
+"最適化アルゴリズム: ``grid``, ``montecarlo``, ``GA``, ``SA``, ``PSO``, ``bayesian`` "
+"など。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_sample_count"
+msgstr "opti_sample_count"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "int"
+msgstr "int"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "采样/迭代次数（如蒙特卡洛样本数、遗传代数等）。"
+msgstr "サンプル/反復の数 (例: モンテカルロ サンプルまたは GA 生成)。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_output_count"
+msgstr "opti_output_count"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "保留的最优结果数量（Top-K）。"
+msgstr "保持する最良の結果の数 (Top-K)。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "目标函数相关"
+msgstr "目的関数"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "—"
+msgstr "—"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "如优化目标为夏普、回撤等，以配置或 API 为准。"
+msgstr "例: シャープレシオまたはドローダウン。構成または API ドキュメントを参照してください。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "约束相关"
+msgstr "制約"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "若有约束（如最大回撤上限），以配置为准。"
+msgstr "制約が適用される場合 (最大ドローダウン制限など)、構成を参照してください。"
+
+#: ../../source/optimization/2. run_optimization.md:30
+msgid "回测区间、asset_pool 等与 mode=1 相同的参数在 mode=2 时同样生效。"
+msgstr ""
+"バックテストの日付範囲、``asset_pool``, and other arguments shared with ``mode=1`` also "
+"apply in ``mode=2``。"
+
+#: ../../source/optimization/2. run_optimization.md:32
+msgid "参数空间"
+msgstr "パラメータ空間"
+
+#: ../../source/optimization/2. run_optimization.md:34
+msgid ""
+"策略的 **Parameter** 及 **par_range** 定义优化时的搜索空间；框架按 opti_method 在该空间内采样或搜索。"
+msgstr ""
+"戦略は **``Parameter``** objects and **``par_range``** define the search space;"
+" the framework samples or searches within it according to ``opti_method``。"
+
+#: ../../source/optimization/2. run_optimization.md:36
+msgid "最小可运行示例"
+msgstr "最小限の実行可能な例"
+
+#: ../../source/optimization/2. run_optimization.md:47
+msgid "配置要点"
+msgstr "構成のハイライト"
+
+#: ../../source/optimization/2. run_optimization.md:49
+msgid "**回测区间、资产池**：与 mode=1 一致，决定每次参数评估的回测环境。"
+msgstr "**バックテスト範囲と資産プール**: ``mode=1`` と同じ。これらは、各パラメーター評価のバックテスト環境を定義します。"
+
+#: ../../source/optimization/2. run_optimization.md:50
+msgid "**目标函数**：决定“更优”的定义（如夏普最大化、回撤最小化），影响排序与最终选取。"
+msgstr ""
+"**目的関数**: 「より良い」とは何を意味するのか (シャープを最大化する、ドローダウンを最小化するなど) "
+"を定義し、ランキングと最終的な選択に影響を与えます。"

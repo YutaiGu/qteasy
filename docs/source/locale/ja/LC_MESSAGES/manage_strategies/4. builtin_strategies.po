@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:1
+msgid "内置策略的查找与使用"
+msgstr "組み込み戦略の検索と使用"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:3
+msgid "qteasy 提供大量内置交易策略，可通过 ID 查找、获取文档并在 Operator 中直接使用。"
+msgstr "qteasy は、多くの組み込み取引戦略を提供します。 ID で検索し、ドキュメントを読み、``Operator`` で直接使用します。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:5
+msgid "查找与获取内置策略"
+msgstr "組み込み戦略の検索と取得"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:7
+msgid "**qt.built_in_list()**：返回所有内置策略 ID 的列表（或传入模糊字符串进行筛选）。"
+msgstr ""
+"**``qt.built_in_list()``**: すべての組み込み戦略 ID を返します (またはファジー文字列でフィルターします)。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:8
+msgid "**qt.built_ins(stg_id)**：按 ID 返回策略类或实例的映射；不传参数则返回全部。"
+msgstr ""
+"**``qt.built_ins(stg_id)``**: Return a mapping of strategy classes or "
+"instances by ID; omit ``stg_id`` すべてに。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:9
+msgid "**qt.built_in_doc(stg_id)**：返回该策略的文档字符串（说明、参数等）。"
+msgstr "**``qt.built_in_doc(stg_id)``**: ストラテジのドキュメント文字列 (説明、パラメータなど) を返します。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:10
+msgid "**qt.get_strategy_by_id(stg_id)**：根据 ID 获取可用的策略实例，用于 ``add_strategy``。"
+msgstr "**「⟦コード0⟧⟦コード1⟧⟦コード2⟧」。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:29
+msgid "在 Operator 中使用内置策略"
+msgstr "Operator の組み込み戦略を使用する"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:31
+msgid "可传入策略 **ID 字符串**（如 `'dma'`、`'macd'`）或 **策略类/实例**。"
+msgstr ""
+"ストラテジ **ID 文字列** (例: ``'dma'``, ``'macd'``) または **ストラテジ クラス/インスタンス** を渡します。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:32
+msgid ""
+"使用 **set_parameter('stg_id', pars=...)** 设置可调参数；可同时指定 "
+"``run_freq``、``run_timing`` 以归组。"
+msgstr ""
+"グループ化には **``set_parameter('stg_id', pars=...)``** for tunable parameters; "
+"optionally set ``run_freq`` and ``run_timing`` を使用します。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:34
+msgid "所有内置策略清单（罗列并简短说明）"
+msgstr "完全な組み込み戦略リスト (簡単な説明付き)"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:36
+msgid ""
+"以下为 qteasy 内置策略 ID 列表；每个策略的详细说明、参数名称与含义、信号类型请调用 **qt.built_in_doc('id')** "
+"查看。"
+msgstr ""
+"以下は、qteasy に組み込まれている戦略 ID "
+"のリストです。パラメーターの名前と意味、信号の種類の詳細については、**``qt.built_in_doc('id')``** を呼び出してください。"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "策略 ID"
+msgstr "戦略ID"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "类别/说明"
+msgstr "カテゴリー/説明"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "crossline"
+msgstr "crossline"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "均线交叉类"
+msgstr "移動平均クロスオーバー"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "macd, macdext"
+msgstr "macd, macdext"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "MACD 相关"
+msgstr "MACD関連"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "dma, trix"
+msgstr "dma, trix"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "双/多均线类"
+msgstr "二重/複数の移動平均"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "cdl, bband, s-bband, sarext"
+msgstr "cdl, bband, s-bband, sarext"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "K 线、布林、SAR 等"
+msgstr "ローソク足、ボリンジャー、SARなど"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "ssma, sdema, sema, sht, skama, smama, st3, stema, strima, swma"
+msgstr "ssma, sdema, sema, sht, skama, smama, st3, stema, strima, swma"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "平滑类（SCR 前缀）"
+msgstr "スムージング (SCR プレフィックス)"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "dsma, ddema, dema, dkama, dmama, dt3, dtema, dtrima, dwma"
+msgstr "dsma, ddema, dema, dkama, dmama, dt3, dtema, dtrima, dwma"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "平滑类（DCR 前缀）"
+msgstr "スムージング (DCR プレフィックス)"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid ""
+"slsma, sldema, slema, slht, slkama, slmama, slt3, sltema, sltrima, slwma"
+msgstr ""
+"slsma, sldema, slema, slht, slkama, slmama, slt3, sltema, sltrima, slwma"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "平滑类（SLP 前缀）"
+msgstr "スムージング (SLP プレフィックス)"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid ""
+"adx, apo, aroon, aroonosc, cci, cmo, mfi, di, dm, mom, ppo, rsi, stoch, "
+"stochf, stochrsi, ultosc, willr"
+msgstr ""
+"adx, apo, aroon, aroonosc, cci, cmo, mfi, di, dm, mom, ppo, rsi, stoch, "
+"stochf, stochrsi, ultosc, willr"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "技术指标类"
+msgstr "テクニカル指標"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "ad, adosc, obv"
+msgstr "ad, adosc, obv"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "量能类"
+msgstr "ボリュームベース"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "signal_none, sellrate, buyrate"
+msgstr "signal_none, sellrate, buyrate"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "信号控制/比例类"
+msgstr "信号制御/比率"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "long, short, zero"
+msgstr "long, short, zero"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "择时固定仓位"
+msgstr "固定タイミング位置"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "all, select_none, random"
+msgstr "all, select_none, random"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "选股类（全选/不选/随机）"
+msgstr "銘柄選択（全/なし/ランダム）"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "finance, ndaylast, ndayavg, ndayrate, ndaychg, ndayvol"
+msgstr "finance, ndaylast, ndayavg, ndayrate, ndaychg, ndayvol"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md
+msgid "选股因子类"
+msgstr "選択要素"
+
+#: ../../source/manage_strategies/4. builtin_strategies.md:54
+msgid ""
+"完整 ID 以 **qt.built_in_list()** 返回为准；参数与用法以 **qt.built_in_doc('id')** 为准。"
+msgstr ""
+"権限のある ID リストは **``qt.built_in_list()``**; parameters and usage are in "
+"**``qt.built_in_doc('id')``** です。"

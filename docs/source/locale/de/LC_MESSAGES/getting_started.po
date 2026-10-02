@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-23 22:00+0800\n"
 "Last-Translator: Jackie PENG\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,8 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
-"X-Generator: Poedit 3.9\n"
-"X-Source-Language: zh_CN\n"
 
 #: ../../source/getting_started.md:1
 msgid "QTEASY 快速上手指南"
@@ -31,12 +29,13 @@ msgstr "Installation und Import"
 #: ../../source/getting_started.md:5
 msgid ""
 "使用 `pip` 安装（要求 `Python >= 3.9, <3.13`）：部分功能（如全部内置策略、数据库存储等）需要可选依赖，详见 "
-"[FAQ](https://qteasy.readthedocs.io/de/latest/faq.html) 与安装说明。"
+"[FAQ](https://qteasy.readthedocs.io/zh-cn/latest/faq.html) 与安装说明。"
 msgstr ""
 "Installation mit `pip` (erfordert `Python >= 3.9, <3.13`): Einige Funktionen"
 " (z. B. alle integrierten Strategien, Datenbankspeicherung usw.) benötigen "
-"optionale Abhängigkeiten; siehe [FAQ](https://qteasy.readthedocs.io/zh-"
-"cn/latest/faq.html) und die Installationsanleitung."
+"optionale Abhängigkeiten; siehe "
+"[FAQ](https://qteasy.readthedocs.io/de/latest/faq.html) und die "
+"Installationsanleitung."
 
 #: ../../source/getting_started.md:10
 msgid "启动后即可导入 `qteasy` 并查看版本号："
@@ -57,8 +56,8 @@ msgstr ""
 "Version, die vor dem Upgrade eingesehen werden können."
 
 #: ../../source/getting_started.md:27
-msgid "一分钟跑通"
-msgstr "In einer Minute durchstarten"
+msgid "一分钟跑通 `qteasy`"
+msgstr "In einer Minute durchlaufen `qteasy`"
 
 #: ../../source/getting_started.md:29
 msgid ""
@@ -438,13 +437,31 @@ msgstr ""
 #, python-format
 msgid ""
 "**下载数据** → [教程：获取数据](tutorials/2.0-get-"
-"data.md)、[下载并管理金融历史数据](manage_data/1.%20overview.md)"
+"data.md)、[下载并管理金融历史数据](manage_data/1.%20overview.md) 2b. "
+"**玩数据与简单因子（可选，建议策略回测前完成）** → [获取数据 / 最小数据集](tutorials/2.0-get-data.md) → "
+"[HistoryPanel 基础操作](tutorials/2.4-historypanel-basics.md) → "
+"[玩数据与因子分析](tutorials/2.5-historypanel-data-analysis.md) "
+"→（进阶）[纵向择时](tutorials/2.6-historypanel-advanced-vertical-timeaxis.md) / "
+"[横截面选股](tutorials/2.7-historypanel-advanced-horizontal-multifactor.md) / "
+"[事件型因子](tutorials/2.8-historypanel-advanced-event-kline-pattern.md)；可运行 "
+"`examples/data_playground_e2e.py`"
 msgstr ""
-"**Daten herunterladen** → [Tutorial: Daten abrufen](tutorials/2.0-get-"
-"data.md)、[Finanzhistorische Daten herunterladen und "
-"verwalten](manage_data/1.%20overview.md)"
+"**Daten herunterladen** → [Tutorials: Daten abrufen](tutorials/2.0-get-"
+"data.md), [Finanzverlaufsdaten herunterladen und "
+"verwalten](manage_data/1.%20overview.md) 2b. **Spielen Sie mit Daten und "
+"einfachen Faktoren (optional, es wird empfohlen, dies vor dem Strategie-"
+"Backtesting abzuschließen)** → [Daten "
+"abrufen/Mindestdatensatz](tutorials/2.0-get-data.md) → [HistoryPanel "
+"Grundoperationen](tutorials/2.4-historypanel-basics.md) → [Spielen mit Daten"
+" und Faktoranalyse](tutorials/2.5-historypanel-data-analysis.md) "
+"→(Erweitert)[Vertikales Timing](tutorials/2.6-historypanel-advanced-"
+"vertical-timeaxis.md) / [Querschnittliche "
+"Aktienauswahl](tutorials/2.7-historypanel-advanced-horizontal-"
+"multifactor.md) / [Ereignistypfaktor](tutorials/2.8-historypanel-advanced-"
+"event-kline-pattern.md); kann ausgeführt werden "
+"`examples/data_playground_e2e.py`"
 
-#: ../../source/getting_started.md:319
+#: ../../source/getting_started.md:320
 #, python-format
 msgid ""
 "**定义策略并回测** → [教程：第一个策略](tutorials/3-start-first-"
@@ -459,7 +476,7 @@ msgstr ""
 "strategy.md)、[So führen Sie einen Backtest "
 "aus](back_testing/2.%20run_backtest.md)"
 
-#: ../../source/getting_started.md:320
+#: ../../source/getting_started.md:321
 #, python-format
 msgid ""
 "**参数优化** → "
@@ -469,7 +486,7 @@ msgstr ""
 "Handelsstrategien](tutorials/Tutorial%2006%20-%20交易策略的优化.md)、[Handelsstrategien"
 " optimieren](optimization/1.%20overview.md)"
 
-#: ../../source/getting_started.md:321
+#: ../../source/getting_started.md:322
 #, python-format
 msgid ""
 "**模拟/实盘运行** → "
@@ -480,7 +497,7 @@ msgstr ""
 "Handelsstrategien](tutorials/Tutorial%2007%20-%20交易策略的部署及运行.md)、[Überblick "
 "über Simulation und Live-Betrieb](references/1-simulation-overview.md)"
 
-#: ../../source/getting_started.md:323
+#: ../../source/getting_started.md:324
 msgid ""
 "上述教程已覆盖从配置到回测、优化与模拟/实盘的完整链路；遇到问题时可在 [FAQ](faq.md) "
 "中查找「如何跑通」「为何慢」「防未来函数」等常见说明。"
@@ -491,29 +508,44 @@ msgstr ""
 " bekomme ich es zum Laufen“, „Warum ist es langsam“ oder „Look-ahead-Bias "
 "vermeiden“ suchen."
 
-#: ../../source/getting_started.md:327
+#: ../../source/getting_started.md:328
 msgid "接下来"
 msgstr "Als Nächstes"
 
-#: ../../source/getting_started.md:329
+#: ../../source/getting_started.md:330
 msgid "[教程：获取数据](tutorials/2.0-get-data.md) — 配置数据源与下载更多数据"
 msgstr ""
 "[Tutorial: Daten abrufen](tutorials/2.0-get-data.md) — Datenquellen "
 "konfigurieren und weitere Daten herunterladen"
 
-#: ../../source/getting_started.md:330
+#: ../../source/getting_started.md:331
+msgid ""
+"[教程：HistoryPanel 基础操作](tutorials/2.4-historypanel-basics.md) — 结构、切片、扩列与对齐"
+msgstr ""
+"[Tutorial:HistoryPanelBasic-Operationen](tutorials/2.4-historypanel-"
+"basics.md) – Struktur, Slicing, Spaltenerweiterung und Ausrichtung"
+
+#: ../../source/getting_started.md:332
+msgid ""
+"[教程：HistoryPanel 玩数据](tutorials/2.5-historypanel-data-analysis.md) — "
+"因子研究最小闭环"
+msgstr ""
+"[Tutorial: HistoryPanel Spielen mit Daten](tutorials/2.5-historypanel-data-"
+"analysis.md) – Minimaler geschlossener Kreislauf der Faktorstudie"
+
+#: ../../source/getting_started.md:333
 msgid "[教程：第一个策略](tutorials/3-start-first-strategy.md) — 使用内置策略与回测"
 msgstr ""
 "[Tutorial: Erste Strategie](tutorials/3-start-first-strategy.md) — "
 "Integrierte Strategien verwenden und Backtests durchführen"
 
-#: ../../source/getting_started.md:331
+#: ../../source/getting_started.md:334
 msgid "[回测与评价](references/3-back-test-strategy.md) — 回测参数与结果解读"
 msgstr ""
 "[Backtesting und Auswertung](references/3-back-test-strategy.md) — Backtest-"
 "Parameter und Interpretation der Ergebnisse"
 
-#: ../../source/getting_started.md:332
+#: ../../source/getting_started.md:335
 msgid "[API 参考](api/use_qteasy.rst) — 完整接口说明"
 msgstr ""
 "[API-Referenz](api/use_qteasy.rst) — Vollständige Schnittstellenbeschreibung"
@@ -1009,3 +1041,14 @@ msgstr ""
 #~ "Konfigurationsparametern von `qteasy`, siehe "
 #~ "[`QTEASY`-Dokumentation](https://qteasy.readthedocs.io) für weitere "
 #~ "Informationen zu Live-Läufen."
+
+#~ msgid "一分钟跑通"
+#~ msgstr "In einer Minute durchstarten"
+
+#~ msgid ""
+#~ "**下载数据** → [教程：获取数据](tutorials/2.0-get-"
+#~ "data.md)、[下载并管理金融历史数据](manage_data/1.%20overview.md)"
+#~ msgstr ""
+#~ "**Daten herunterladen** → [Tutorial: Daten abrufen](tutorials/2.0-get-"
+#~ "data.md)、[Finanzhistorische Daten herunterladen und "
+#~ "verwalten](manage_data/1.%20overview.md)"

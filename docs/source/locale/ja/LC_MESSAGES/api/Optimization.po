@@ -1,0 +1,205 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/Optimization.rst:2
+msgid "Optimizer 策略优化器"
+msgstr "オプティマイザー戦略オプティマイザー"
+
+#: ../../source/api/Optimization.rst:4
+msgid "Optimizer 是一个策略优化器，可以通过遗传算法、粒子群算法等方法来优化策略参数。"
+msgstr "オプティマイザーは、遺伝的アルゴリズムや粒子群最適化などの手法を使用して戦略パラメーターを最適化できる戦略オプティマイザーです。"
+
+#: of qteasy.optimization.Optimizer:1
+msgid "最优参数搜索器对象"
+msgstr "最適パラメータ検索オブジェクト"
+
+#: ../../source/api/Optimization.rst:9
+msgid "策略参数优化方法"
+msgstr "戦略パラメータ最適化手法"
+
+#: ../../source/api/Optimization.rst:12
+msgid "网格搜索"
+msgstr "グリッド検索"
+
+#: of qteasy.optimization.Optimizer._search_grid:1
+msgid "网格搜索：在参数空间上按固定步长取样并批量评估。"
+msgstr "グリッド検索: 固定ステップ サイズでパラメーター空間をサンプリングし、バッチで評価します。"
+
+#: ../../source/api/Optimization.rst
+msgid "参数"
+msgstr "パラメータ"
+
+#: of qteasy.optimization.Optimizer._search_grid:3
+#: qteasy.optimization.Optimizer._search_montecarlo:3
+msgid "待搜索的参数空间。"
+msgstr "検索するパラメータ空間。"
+
+#: ../../source/api/Optimization.rst
+msgid "返回"
+msgstr "戻る"
+
+#: of qteasy.optimization.Optimizer._search_grid:6
+#: qteasy.optimization.Optimizer._search_montecarlo:6
+#: qteasy.optimization.Optimizer._search_sa:9
+msgid "最优结果写入 ``self.result_pool``。"
+msgstr "最適な結果を``self.result_pool``に書き込みます。"
+
+#: ../../source/api/Optimization.rst
+msgid "返回类型"
+msgstr "戻り値の型"
+
+#: ../../source/api/Optimization.rst:17
+msgid "蒙特卡洛搜索"
+msgstr "モンテカルロ検索"
+
+#: of qteasy.optimization.Optimizer._search_montecarlo:1
+msgid "蒙特卡洛随机搜索：在 ``space`` 内均匀随机取样并批量评估。"
+msgstr "モンテカルロランダム検索: ``space`` 内でランダムに均一にサンプリングし、バッチで評価します。"
+
+#: ../../source/api/Optimization.rst:22
+msgid "模拟退火搜索"
+msgstr "模擬焼なまし検索"
+
+#: of qteasy.optimization.Optimizer._search_sa:1
+msgid "递进步长式随机搜索：多轮蒙特卡洛 + 子空间收缩。"
+msgstr "漸進的なステップサイズのランダム検索: 複数回のモンテカルロ + 部分空間縮小。"
+
+#: of qteasy.optimization.Optimizer._search_sa:3
+msgid ""
+"每轮在若干子空间内随机采样，择优后用 ``reduce_ratio`` 等配置收缩邻域并进入下一轮， 直至达到 ``min_volume`` 或 "
+"``max_rounds`` 等停止条件。"
+msgstr ""
+"各ラウンドで、いくつかの部分空間内でランダムにサンプリングします。最適なものを選択した後、``reduce_ratio`` and proceed to"
+" the next round, until stopping conditions such as ``min_volume`` or "
+"``max_rounds`` のような設定を使用して近傍を縮小します。"
+
+#: of qteasy.optimization.Optimizer._search_sa:6
+msgid "初始参数空间。"
+msgstr "初期パラメータ空間。"
+
+#: ../../source/api/Optimization.rst:27
+msgid "遗传算法搜索"
+msgstr "遺伝的アルゴリズム検索"
+
+#: of qteasy.optimization.Optimizer._search_ga:1
+msgid "最优参数搜索算法4: 遗传算法 遗传算法适用于在超大的参数空间内搜索全局最优或近似全局最优解，而它的计算量又处于可接受的范围内"
+msgstr ""
+"最適なハイパーパラメータ検索アルゴリズム 4: "
+"遺伝的アルゴリズム。遺伝的アルゴリズムは、計算コストを許容範囲内に保ちながら、非常に大きなパラメータ空間で全体最適値または近似全体最適値を検索するのに適しています。"
+
+#: of qteasy.optimization.Optimizer._search_ga:4
+msgid ""
+"遗传算法借鉴了生物的遗传迭代过程，首先在参数空间中随机选取一定数量的参数点，将这批参数点称为 "
+"“种群”。随后在这一种群的基础上进行迭代计算。在每一次迭代（称为一次繁殖）前，根据种群中每个个体 "
+"的评价函数值，确定每个个体生存或死亡的几率，规律是若个体的评价函数值越接近最优值，则其生存的几率 "
+"越大，繁殖后代的几率也越大，反之则越小。确定生死及繁殖的几率后，根据生死几率选择一定数量的个体 "
+"让其死亡，而从剩下的（幸存）的个体中根据繁殖几率挑选几率最高的个体进行杂交并繁殖下一代个体， "
+"同时在繁殖的过程中引入随机的基因变异生成新的个体。最终使种群的数量恢复到初始值。这样就完成 "
+"一次种群的迭代。重复上面过程数千乃至数万代直到种群中出现希望得到的最优或近似最优解为止"
+msgstr ""
+"遺伝的アルゴリズムは、生物の反復的な遺伝プロセスを利用します。まず、一定数のパラメータ "
+"ポイントがパラメータ空間内でランダムに選択されます。このパラメータ点のセットは「母集団」と呼ばれます。次に、この母集団に基づいて反復計算が実行されます。各反復"
+" (再現と呼ばれる) "
+"の前に、各個体が生存するか死亡する確率が、その評価関数の値に従って決定されます。法則は、個体の評価関数値が最適値に近ければ近いほど、生存確率が高く、子孫を残す確率が高くなります。それ以外の場合、これらの確率は低くなります。生存/死亡および繁殖の確率を決定した後、生存/死亡の確率に従って一定数の個体が死亡するように選択されます。残った（生き残った）個体の中から、最も高い繁殖確率を持つ個体が交雑のために選択され、次世代の個体が繁殖します。同時に、生殖中にランダムな遺伝子変異が導入され、新しい個体が生成されます。最終的に、個体群サイズは初期値に戻ります。このようにして、1"
+" "
+"回の人口反復が完了します。上記のプロセスは、望ましい最適解または最適に近い解が集団内に現れるまで、何千世代、さらには何万世代にもわたって繰り返されます。"
+
+#: of qteasy.optimization.Optimizer._search_bayesian:8
+#: qteasy.optimization.Optimizer._search_ga:12
+#: qteasy.optimization.Optimizer._search_pso:9
+msgid "参数空间对象"
+msgstr "パラメータ空間オブジェクト"
+
+#: ../../source/api/Optimization.rst:32
+msgid "梯度下降搜索"
+msgstr "勾配降下探索"
+
+#: of qteasy.optimization.Optimizer._search_gradient:1
+msgid "最优参数搜索算法5：梯度下降法（多点同时梯度搜索）"
+msgstr "最適パラメータ探索アルゴリズム5：勾配降下法（多点同時勾配探索）"
+
+#: of qteasy.optimization.Optimizer._search_gradient:3
+msgid ""
+"在参数空间中寻找优化结果变优最快的方向，始终保持向最优方向前进（采用自适应步长）一直到结果不再改变或达到 "
+"最大步数为止。在参数空间中随机选择N个起点开始搜索，输出结果为最后一步的N个结果。"
+msgstr ""
+"パラメーター空間で、最適化結果が最も速く改善する方向を見つけ、結果が変化しなくなるか最大ステップ数に達するまで、常に最適な方向に向かって (適応ステップ"
+" サイズを使用して) 移動します。パラメータ空間内で N 個の開始点をランダムに選択して検索を開始します。出力は、最終ステップからの N 個の結果です。"
+
+#: of qteasy.optimization.Optimizer._search_gradient:6
+msgid ""
+"邻域通过 space.neighbors(point, axis_index, ...) 生成，支持 "
+"int/float/enum/int_array/float_array。 仅对 float "
+"维做自适应步长（放大/缩小）；无改进时缩小步长，步长过小或连续无改进达阈值则终止该轨迹。"
+msgstr ""
+"近傍は、space.neighbors(point, axis_index, ...) "
+"によって生成され、int/float/enum/int_array/float_array をサポートします。適応ステップ サイズ (増加/減少) "
+"は浮動小数点次元にのみ適用されます。改善がない場合は、ステップ サイズが縮小され、ステップ "
+"サイズが小さくなりすぎるか、連続して改善されない回数がしきい値に達すると、軌道は終了します。"
+
+#: of qteasy.optimization.Optimizer._search_gradient:9
+msgid "参数空间"
+msgstr "パラメータ空間"
+
+#: ../../source/api/Optimization.rst:37
+msgid "粒子群算法搜索"
+msgstr "粒子群最適化探索"
+
+#: of qteasy.optimization.Optimizer._search_pso:1
+msgid "最优参数搜索算法6: Particle Swarm Optimization 粒子群优化算法"
+msgstr "最適なハイパーパラメータ探索アルゴリズム 6: Particle Swarm Optimization (PSO)"
+
+#: of qteasy.optimization.Optimizer._search_pso:3
+msgid ""
+"在参数空间中随机选择N个起点作为粒子群的初始位置，每个粒子根据自身的历史最优位置和全局的历史最优位置 "
+"来调整自己的速度和位置，逐步向最优解靠近。经过多次迭代后，粒子群会收敛到全局最优解或近似最优解。"
+msgstr ""
+"パラメータ空間内の N "
+"個の開始点を粒子群の初期位置としてランダムに選択します。各粒子は、自身の歴史的最良位置と全体的な歴史的最良位置に基づいて速度と位置を調整し、徐々に最適値に近づきます。複数の反復の後、群は全体最適値または近似最適値に収束します。"
+
+#: of qteasy.optimization.Optimizer._search_pso:6
+msgid ""
+"数值表示使用 space.point_to_vector / space.vector_to_point，在编码向量空间内做速度与位置更新， "
+"再映射回合法参数点。惯性权重 w=0.7，个体系数 c1=1.5，社会系数 c2=1.5。"
+msgstr ""
+"数値表現では、space.point_to_vector / space.vector_to_point "
+"を使用します。エンコードされたベクトル空間で速度と位置を更新し、有効なパラメーター ポイントにマッピングし直します。慣性重み w=0.7、認知係数 "
+"c1=1.5、社会係数 c2=1.5。"
+
+#: ../../source/api/Optimization.rst:42
+msgid "贝叶斯优化搜索"
+msgstr "ベイジアン最適化検索"
+
+#: of qteasy.optimization.Optimizer._search_bayesian:1
+msgid "最优参数搜索算法6: 贝叶斯优化算法"
+msgstr "最適なハイパーパラメータ探索アルゴリズム 6: ベイズ最適化"
+
+#: of qteasy.optimization.Optimizer._search_bayesian:3
+msgid ""
+"贝叶斯优化是一种基于贝叶斯统计理论的全局优化方法，适用于高维、非凸、黑箱函数的优化问题。 "
+"它通过构建目标函数的概率模型（通常是高斯过程）来指导参数搜索过程，从而在有限的评估次数内找到最优解。 流程：初始随机采样 -> 用 (X, y) 拟合 "
+"surrogate（RBF 核高斯过程）-> 迭代：在候选点上计算 UCB 采集函数， 选取采集值最大的点评估 -> 更新 (X, y) 与 "
+"result_pool，直至达到 max_iterations。"
+msgstr ""
+"ベイジアン最適化は、ベイズ統計理論に基づいた大域的な最適化手法であり、高次元の非凸ブラックボックス関数の最適化に適しています。これは、目的関数の確率モデル"
+" (通常はガウス過程) を構築することによってパラメーター検索をガイドし、それによって限られた数の評価内で最適なものを見つけます。ワークフロー: "
+"初期ランダム サンプリング -> (X, y) でサロゲートを適合 (RBF カーネルを使用したガウス プロセス) -> 反復: 候補点で UCB "
+"取得関数を計算し、評価のために最大の取得値を持つ点を選択 -> max_iterations に達するまで、(X, y) と result_pool "
+"を更新します。"

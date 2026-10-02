@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/3. optimization_algorithms.md:1
+msgid "优化算法的区别与使用情境"
+msgstr "最適化アルゴリズム: 違いと使用例"
+
+#: ../../source/optimization/3. optimization_algorithms.md:3
+msgid "为何需要了解不同算法"
+msgstr "さまざまなアルゴリズムについて学ぶ理由"
+
+#: ../../source/optimization/3. optimization_algorithms.md:5
+msgid ""
+"参数空间与计算成本差异大：网格搜索在小空间上可靠但组合爆炸；启发式或贝叶斯在有限评估次数下权衡精度与速度；不同算法对连续/离散/混合参数的支持也不同。"
+msgstr ""
+"パラメータ空間と計算コストは​​大きく異なります。グリッド検索は狭い空間では信頼性がありますが、組み合わせによって爆発的に増加します。ヒューリスティックまたはベイジアン手法は、限られた評価予算の下で精度と速度を引き換えにします。アルゴリズムは、連続パラメータ、離散パラメータ、または混合パラメータのサポートにおいても異なります。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:7
+msgid "各优化算法对比（罗列并说明区别）"
+msgstr "最適化アルゴリズムの比較 (相違点も含めてリスト)"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "算法"
+msgstr "アルゴリズム"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "原理简述"
+msgstr "簡単な原則"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "优点与局限"
+msgstr "長所と制限"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "适用参数规模"
+msgstr "代表的なパラメータスケール"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续/离散/混合"
+msgstr "連続/離散/混合"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "典型计算成本"
+msgstr "一般的なコンピューティングコスト"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "grid"
+msgstr "grid"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "在网格点上穷举或遍历"
+msgstr "グリッド点の徹底的な検索または走査"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "实现简单、结果可复现；维数高时不可行"
+msgstr "シンプルで再現可能。高次元では非現実的"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "小（2～3 维）"
+msgstr "小 (2 ～ 3 次元)"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "离散为主"
+msgstr "ほとんどがディスクリート"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "随点数线性增长"
+msgstr "グリッド サイズに応じて直線的に増加します"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "montecarlo"
+msgstr "montecarlo"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "随机采样参数组合"
+msgstr "パラメータの組み合わせのランダムサンプリング"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "实现简单、易并行；需较多样本才稳定"
+msgstr "シンプルで並列化が簡単。安定性を得るには多くのサンプルが必要です"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "中、大"
+msgstr "中～大"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "均可"
+msgstr "すべてサポートされています"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由 sample_count 决定"
+msgstr "``sample_count`` によって決定されます"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "GA"
+msgstr "GA"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "遗传、交叉、变异"
+msgstr "選択、交叉、突然変異"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "适合非凸、多峰；调参敏感"
+msgstr "非凸のマルチモーダル問題に適しています。ハイパーパラメータに敏感"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由代数与种群规模决定"
+msgstr "世代と人口規模によって決まる"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "SA"
+msgstr "SA"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "模拟退火、概率接受劣解"
+msgstr "模擬アニーリング。確率的により悪い解決策を受け入れる"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "可跳出局部最优；收敛较慢"
+msgstr "局所最適化を回避できる。収束が遅い"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "中"
+msgstr "中くらい"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由迭代次数决定"
+msgstr "反復回数によって決定される"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "PSO"
+msgstr "PSO"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "粒子群位置与速度更新"
+msgstr "粒子群の位置と速度の更新"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续空间表现好；离散需编码"
+msgstr "連続した空間に強い。個別のパラメータにはエンコードが必要です"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "连续为主"
+msgstr "ほとんど継続的"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由粒子数与迭代决定"
+msgstr "粒子数と反復によって決定される"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "bayesian"
+msgstr "bayesian"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "代理模型+采集函数"
+msgstr "サロゲートモデル+取得関数"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "样本少时效率高；高维成本高"
+msgstr "少ないサンプルで効率的。高次元ではコストがかかる"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "小、中"
+msgstr "小規模から中規模"
+
+#: ../../source/optimization/3. optimization_algorithms.md
+msgid "由迭代与模型拟合决定"
+msgstr "反復とモデルフィッティングによって決定される"
+
+#: ../../source/optimization/3. optimization_algorithms.md:18
+msgid "使用情境与选择建议"
+msgstr "使用例と選択のアドバイス"
+
+#: ../../source/optimization/3. optimization_algorithms.md:20
+msgid "**参数少、离散**：优先 grid 或小规模 montecarlo。"
+msgstr "**離散パラメータはほとんどありません**: ``grid`` or small-scale ``montecarlo`` を推奨します。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:21
+msgid "**参数多、需少步数**：考虑 bayesian 或 GA/PSO。"
+msgstr "**パラメータが多く、評価手順が少ない**: ``bayesian`` or ``GA``/``PSO`` を検討してください。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:22
+msgid "**连续空间、多峰**：PSO、GA 或 SA。"
+msgstr "**連続的なマルチモーダル空間**: ``PSO``, ``GA``, or ``SA``。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:23
+msgid ""
+"**opti_sample_count、参数个数**：样本或迭代不足时，启发式可能早停；可适当增大 opti_sample_count 或降低参数维度。"
+msgstr ""
+"**``opti_sample_count`` and parameter count**: With too few samples or "
+"iterations, heuristics may stop early; increase ``opti_sample_count`` "
+"または必要に応じてパラメーターの次元を減らします。"
+
+#: ../../source/optimization/3. optimization_algorithms.md:25
+msgid "简要对比表"
+msgstr "早見表"
+
+#: ../../source/optimization/3. optimization_algorithms.md:27
+msgid ""
+"见上表；实施时以当前 qteasy 支持的 opti_method 及文档为准，注意各算法的典型参数（如 GA "
+"的种群大小、变异率等）在配置中的名称与默认值。"
+msgstr ""
+"上の表を参照してください。実際には、現在の qteasy リリースとそのドキュメントでサポートされている ``opti_method`` "
+"値に従ってください。各アルゴリズムの一般的な設定 (GA の母集団サイズや突然変異率など) とその構成名とデフォルトに注意してください。"

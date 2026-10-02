@@ -3,26 +3,125 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 01:06+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: es <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: ../../source/back_testing/overview.md:1
+#: ../../source/back_testing/1. overview.md:1
 msgid "交易策略的回测"
-msgstr ""
+msgstr "Estrategias comerciales de backtesting"
 
-#: ../../source/back_testing/overview.md:3
-msgid "未完待续"
+#: ../../source/back_testing/1. overview.md:3
+msgid ""
+"回测在 qteasy 中通过 **qt.run(op, mode=1, ...)** "
+"触发，用于在历史数据上模拟策略运行，得到资金曲线、交易记录与绩效指标，为评价与优化策略提供依据。"
 msgstr ""
+"En qteasy, las pruebas retrospectivas se activan a través de **``qt.run(op, "
+"mode=1, ...)``**, simulando ejecuciones de estrategias con datos históricos "
+"para producir curvas de acciones, registros comerciales y métricas de "
+"rendimiento para su evaluación y optimización."
+
+#: ../../source/back_testing/1. overview.md:5
+msgid "总体介绍"
+msgstr "Descripción general"
+
+#: ../../source/back_testing/1. overview.md:7
+msgid "**入口**：`qt.run(operator, mode=1, ...)`，其中 `mode=1` 表示回测模式。"
+msgstr ""
+"**Punto de entrada**: ``qt.run(operator, mode=1, ...)`` where ``mode=1`` "
+"selecciona el modo de prueba retrospectiva."
+
+#: ../../source/back_testing/1. overview.md:8
+msgid "**回测能提供**：资金曲线（净值、累计收益）、逐笔交易记录、绩效指标（如夏普、回撤、胜率等）。"
+msgstr ""
+"**Resultados del backtest**: curva de acciones (NAV, rendimiento acumulado),"
+" registro por operación, métricas de rendimiento (Sharpe, reducción, tasa de"
+" ganancias, etc.)."
+
+#: ../../source/back_testing/1. overview.md:10
+msgid "回测流程概览"
+msgstr "Descripción general del flujo de trabajo de prueba retrospectiva"
+
+#: ../../source/back_testing/1. overview.md:12
+msgid ""
+"**配置**：资产池（asset_pool）、回测区间（invest_start、invest_end）、初始/分批资金（invest_cash_amounts"
+" 等）。"
+msgstr ""
+"**Configurar**: grupo de activos (``asset_pool``), date range "
+"(``invest_start``, ``invest_end``), initial/staged cash "
+"(``invest_cash_amounts``, etc.)."
+
+#: ../../source/back_testing/1. overview.md:13
+msgid "**准备数据**：确保 DataSource 中有所需历史数据。"
+msgstr ""
+"**Preparar datos**: asegúrese de que el historial requerido esté disponible "
+"en ``DataSource``."
+
+#: ../../source/back_testing/1. overview.md:14
+msgid "**按时间步运行 Operator**：在每个 run_timing 时刻调用策略生成信号。"
+msgstr ""
+"**Ejecute Operator paso a paso**: llame a estrategias en cada ``run_timing``"
+" para generar señales."
+
+#: ../../source/back_testing/1. overview.md:15
+msgid "**模拟成交**：按信号与成本、交易单位等规则生成买卖与持仓。"
+msgstr ""
+"**Simular llenados**: aplique señales con costos, tamaños de lote y reglas "
+"relacionadas para actualizar posiciones."
+
+#: ../../source/back_testing/1. overview.md:16
+msgid "**输出结果与可选报告**：返回结果对象（如 Backtester）、可选 trade_log、visual 图表等。"
+msgstr ""
+"**Salida**: objeto de resultado (por ejemplo, ``Backtester``), optional "
+"``trade_log``, gráficos visuales, etc."
+
+#: ../../source/back_testing/1. overview.md:18
+msgid "本目录各章导航"
+msgstr "Capítulos en esta sección"
+
+#: ../../source/back_testing/1. overview.md:20
+msgid "**2. 如何运行回测** — 入口、配置方式、回测运行参数完整列表、最小示例。"
+msgstr ""
+"**2. Cómo ejecutar una prueba retrospectiva**: punto de entrada, "
+"configuración, lista completa de parámetros, ejemplo mínimo."
+
+#: ../../source/back_testing/1. overview.md:21
+msgid "**3. 回测结果的结构** — 返回值、结果字段完整列表、资金曲线与绩效指标。"
+msgstr ""
+"**3. Estructura de resultados del backtest**: valor de retorno, referencia "
+"de campo, curva de capital y métricas."
+
+#: ../../source/back_testing/1. overview.md:22
+msgid "**4. 交易过程记录** — 开启 trade_log、日志内容、查看与保存。"
+msgstr ""
+"**4. Registro del proceso comercial**: habilitación de ``trade_log``, "
+"contenido, visualización y guardado."
+
+#: ../../source/back_testing/1. overview.md:23
+msgid "**5. 回测结果评价与分析** — 绩效指标列表、可视化、结果导出与分析思路。"
+msgstr ""
+"**5. Evaluación de resultados de backtest**: lista de métricas, "
+"visualización, exportación y análisis."
+
+#: ../../source/back_testing/1. overview.md:25
+msgid ""
+"更多策略与混合器用法见《回测并评价交易策略》references（如 references/3-back-test-"
+"strategy.md、4-build-in-strategy-blender.md）。"
+msgstr ""
+"Para obtener más información sobre estrategias y mezcladores, consulte las "
+"referencias (por ejemplo, ``references/3-back-test-strategy.md``, ``4-build-"
+"in-strategy-blender.md``)."
+
+#~ msgid "未完待续"
+#~ msgstr ""

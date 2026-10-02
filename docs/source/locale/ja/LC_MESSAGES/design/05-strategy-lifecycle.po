@@ -1,0 +1,227 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/05-strategy-lifecycle.md:1
+msgid "Strategy 如何运行：时机、数据与参数"
+msgstr "ストラテジーの実行方法: タイミング、データ、パラメーター"
+
+#: ../../source/design/05-strategy-lifecycle.md:3
+msgid "1. 策略运行时机"
+msgstr "1. 戦略実行のタイミング"
+
+#: ../../source/design/05-strategy-lifecycle.md:5
+msgid ""
+"策略的**运行时机**（何时、以何频率运行）不由策略类内部保存，而由其所处的 **Group** 决定。Group 的 "
+"**run_freq**、**run_timing** 在将策略加入 Operator 时指定（如 `add_strategy(stg, "
+"run_freq='d', run_timing='close')`）。因此，同一策略实例放入不同 run_freq/run_timing 的 "
+"Group，就会在不同时刻被调用。"
+msgstr ""
+"ストラテジーの **実行タイミング** (いつ、どのくらいの頻度で実行されるか) は、ストラテジー クラス内に保存されませんが、それが属する "
+"**グループ** によって決定されます。グループの **run_freq** および **run_timing** は、戦略を Operator (例:"
+" `add_strategy(stg, run_freq='d', run_timing='close')`) "
+"に追加するときに指定されます。したがって、同じストラテジ インスタンスを異なる run_freq/run_timing "
+"を持つグループに配置すると、異なる時間に呼び出されます。"
+
+#: ../../source/design/05-strategy-lifecycle.md:7
+msgid "2. 单步运行流程（细化）"
+msgstr "2. シングルステップ実行の流れ（詳細）"
+
+#: ../../source/design/05-strategy-lifecycle.md:9
+msgid "对**当前时间步**（step_index）："
+msgstr "**現在のタイム ステップ** (step_index):"
+
+#: ../../source/design/05-strategy-lifecycle.md:11
+msgid "**查 group_timing_table**：取该步对应行，得到本步要运行的 Group 列表（取值为 1 的列）。"
+msgstr ""
+"**group_timing_table を確認します**: このステップに対応する行を取得して、このステップで実行するグ​​ループのリストを取得します"
+" (値 1 の列)。"
+
+#: ../../source/design/05-strategy-lifecycle.md:12
+msgid "**对每个运行中的 Group**："
+msgstr "**実行中のグループごと**:"
+
+#: ../../source/design/05-strategy-lifecycle.md:13
+msgid ""
+"对该 Group 内**每个 Strategy**：根据其 data_types、window_length "
+"与当前步，从已准备的数据中切出本步的**数据窗口**，并调用 **update_running_data_window** 注入到该策略实例（按 "
+"dtype_id 写入）。"
+msgstr ""
+"このグループ内の**各ストラテジー**について: "
+"data_types、window_length、および現在のステップに基づいて、準備されたデータからこのステップの**データ "
+"ウィンドウ**を切り出し、**update_running_data_window** を呼び出してそのストラテジー インスタンス (dtype_id "
+"によって記述される) に注入します。"
+
+#: ../../source/design/05-strategy-lifecycle.md:14
+msgid ""
+"依次调用该 Group 内每个策略的 **generate()**（内部会调用无参的 **realize()**），收集各策略返回的信号，组成列表。"
+msgstr ""
+"このグループ内の各戦略に対して **generate()** を順番に呼び出し (引数なしの **realize()** "
+"が内部的に呼び出されます)、各戦略によって返されたシグナルを収集し、リストを形成します。"
+
+#: ../../source/design/05-strategy-lifecycle.md:15
+msgid "用该 Group 的 **blender** 将列表中的信号混合成该组的一个合并信号。"
+msgstr "このグループの **ブレンダー** を使用して、リスト内の信号をグループの 1 つのマージされた信号にブレンドします。"
+
+#: ../../source/design/05-strategy-lifecycle.md:16
+msgid "**若本步有多个 Group 运行**：再按 **group_merge_type** 将各组合并信号合并为一个（或分别输出，依实现而定）。"
+msgstr ""
+"**このステップで複数のグループが実行される場合**: **group_merge_type** に従って各グループからの信号を 1 つにマージします "
+"(または、実装に応じて個別に出力します)。"
+
+#: ../../source/design/05-strategy-lifecycle.md:17
+msgid "该步的最终信号交给上层：回测时交给 Backtester 解析为买卖并更新持仓，实盘时交给 Trader/Broker 生成订单。"
+msgstr ""
+"ステップの最終シグナルを上位層に渡します。バックテストでは、それを Backtester "
+"に渡して、買い/売りを解析し、ポジションを更新します。ライブ取引では、それをTrader/ブローカーに渡して注文を生成します。"
+
+#: ../../source/design/05-strategy-lifecycle.md:19
+msgid "3. Strategy 内部：realize() 与 get_pars / get_data"
+msgstr "3. 内部戦略: Realize() と get_pars / get_data"
+
+#: ../../source/design/05-strategy-lifecycle.md:21
+msgid ""
+"**realize()**：无参数。策略逻辑只在此方法内实现；不通过参数接收数据或时间，而是通过 **get_pars(name, ...)** "
+"取可调参数、**get_data(dtype_id)** 取本步已注入的数据窗口。"
+msgstr ""
+"**realize()**: "
+"引数は取りません。戦略ロジックはこのメソッド内でのみ実装されます。パラメータを介してデータや時刻を受け取りません。代わりに、**get_pars(name,"
+" ...)** を使用して調整可能なパラメーターを取得し、**get_data(dtype_id)** を使用して現在のステップに挿入されたデータ "
+"ウィンドウを取得します。"
+
+#: ../../source/design/05-strategy-lifecycle.md:22
+msgid ""
+"**返回值**：标量或一维数组，依策略基类而定（RuleIterator 常为标量，FactorSorter 为因子数组，GeneralStg "
+"为每资产一个信号）。同一段 realize() 在回测与实盘中复用，保证行为一致。"
+msgstr ""
+"**戻り値**: ストラテジー基本クラスに応じて、スカラーまたは 1D 配列 (RuleIterator "
+"はスカラーであることが多く、FactorSorter は因子配列を返し、GeneralStg はアセットごとに 1 "
+"つの信号を返します)。同じrealize()コードがバックテストとライブ取引の両方で再利用され、一貫した動作が保証されます。"
+
+#: ../../source/design/05-strategy-lifecycle.md:24
+msgid "4. 可调参数（Parameter）"
+msgstr "4. 調整可能なパラメーター (パラメーター)"
+
+#: ../../source/design/05-strategy-lifecycle.md:26
+msgid ""
+"**定义**：在策略类的 **__init__** 中通过 **pars**（Parameter 列表或字典）定义可调参数的名称、类型、取值范围等。"
+msgstr ""
+"**定義**: ストラテジー クラスの **__init__** で、**pars** (パラメーター リストまたは辞書) "
+"を使用して、調整可能なパラメーターの名前、タイプ、値の範囲などを定義します。"
+
+#: ../../source/design/05-strategy-lifecycle.md:27
+msgid ""
+"**运行前设置**：通过 **set_parameter**（如 `op.set_parameter(stg_id, "
+"pars=(...))`）在运行前写入当前要用的参数值。"
+msgstr ""
+"**実行前のセットアップ**: **set_parameter** (例: `op.set_parameter(stg_id, "
+"pars=(...))`) を使用して、実行前に使用するパラメーター値を書き込みます。"
+
+#: ../../source/design/05-strategy-lifecycle.md:28
+msgid ""
+"**优化**：Optimizer 在参数空间（由 Parameter 的 par_range 等确定）上采样或搜索，每组参数 set 到 "
+"Operator 后执行一次回测，根据目标函数（如夏普比）汇总结果，从而找到较优参数组合。"
+msgstr ""
+"**最適化**: オプティマイザーは、パラメーター空間 (par_range などのパラメーター設定によって決定) "
+"をサンプリングまたは検索します。各パラメータ セットについて、パラメータを Operator に設定し、1 つのバックテストを実行し、目的関数 "
+"(シャープ比など) に従って結果を集計し、より良いパラメータの組み合わせを見つけます。"
+
+#: ../../source/design/05-strategy-lifecycle.md:30
+msgid "5. 三种策略基类的输入/输出差异"
+msgstr "5. 3 つの戦略基本クラス間の入出力の違い"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "基类"
+msgstr "基本クラス"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "输入（get_data 等）"
+msgstr "入力 (get_data など)"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "输出（realize 返回值）"
+msgstr "出力（realizeの戻り値）"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "典型用途"
+msgstr "典型的な使用例"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "**RuleIterator**"
+msgstr "**RuleIterator**"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "单资产或多资产数据窗口，按 dtype_id 取"
+msgstr "dtype_id によって取得される単一アセットまたはマルチアセット データ ウィンドウ"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "标量（如 1/-1/0），同一规则迭代作用于所有资产"
+msgstr "スカラー (例: 1/-1/0);同じルールの繰り返しがすべてのアセットに適用されます"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "择时、单规则多标的"
+msgstr "複数の機器を使用した単一ルールのタイミング"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "**FactorSorter**"
+msgstr "**FactorSorter**"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "多资产截面（如每只股票的因子值）"
+msgstr "マルチアセットのクロスセクション (各銘柄のファクター値など)"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "一维因子数组，引擎按排序与筛选规则选股"
+msgstr "1D 因子配列。エンジンはランキングとフィルタリングルールに従って銘柄を選択します"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "因子选股"
+msgstr "ファクターベースの銘柄選択"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "**GeneralStg**"
+msgstr "**GeneralStg**"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "多资产、多 dtype 的窗口"
+msgstr "マルチアセット、マルチ dtype ウィンドウ"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "一维信号数组（每资产一个目标仓位或比例）"
+msgstr "1D 信号配列 (アセットごとに 1 つのターゲット位置または重み)"
+
+#: ../../source/design/05-strategy-lifecycle.md
+msgid "通用多资产信号"
+msgstr "汎用マルチアセット信号"
+
+#: ../../source/design/05-strategy-lifecycle.md:38
+msgid "6. 小结"
+msgstr "6. まとめ"
+
+#: ../../source/design/05-strategy-lifecycle.md:40
+msgid ""
+"同一套“按步 → 准备数据 → 注入 → realize() → 混合”的流程，同时服务回测与实盘：策略不关心当前是回测还是实盘，只依赖 "
+"get_pars/get_data 与所属 Group 的时机；运行层负责在不同模式下提供对应数据并处理输出信号。更多实现细节见《使用教程》与 API "
+"参考。"
+msgstr ""
+"同じ「ステップ → データの準備 → 注入 → Realize() → "
+"ミックス」ワークフローは、バックテストとライブ取引の両方に役立ちます。戦略は、現在バックテスト中であるかライブ取引中であるかを気にしません。 "
+"get_pars/get_data "
+"とそのグループのタイミングのみに依存します。ランタイム層は、対応するデータをさまざまなモードで提供し、出力信号を処理する責任があります。実装の詳細については、「ユーザーガイド」および"
+" API リファレンスを参照してください。"

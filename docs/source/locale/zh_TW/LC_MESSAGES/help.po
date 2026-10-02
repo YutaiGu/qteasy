@@ -1,0 +1,89 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/help.md:1
+msgid "需要帮助？"
+msgstr "需要幫助？"
+
+#: ../../source/help.md:3
+msgid "如果您在使用`qteasy`的过程中有任何问题或需要任何帮助，请随时联系我们，我们会尽力帮助您。"
+msgstr "如果您在使用`qteasy`的過程中有任何問題或需要任何幫助，請隨時聯繫我們，我們會盡力幫助您。"
+
+#: ../../source/help.md:5
+msgid "报告bug或者功能请求"
+msgstr "報告bug或者功能請求"
+
+#: ../../source/help.md:7
+msgid ""
+"目前`qteays`正处于密集开发测试阶段，软件中不免存在一些漏洞和bug，如果大家使用中出现问题，欢迎[Issue-"
+"报告bug](https://github.com/shepherdpp/qteasy/issues/new?assignees=&labels=&projects=&template=bug-"
+"report---"
+"bug报告.md&title=)或者[提交新功能需求](https://github.com/shepherdpp/qteasy/issues/new?assignees=&labels=&projects=&template=feature-"
+"request---新功能需求.md&title=)给我，"
+msgstr ""
+"目前`qteays`正處於密集開發測試階段，軟件中不免存在一些漏洞和bug，如果大家使用中出現問題，歡迎[Issue-"
+"報告bug](https://github.com/shepherdpp/qteasy/issues/new?assignees=&labels=&projects=&template=bug-"
+"report---"
+"bug報告.md&title=)或者[提交新功能需求](https://github.com/shepherdpp/qteasy/issues/new?assignees=&labels=&projects=&template=feature-"
+"request---新功能需求.md&title=)給我，"
+
+#: ../../source/help.md:9
+msgid ""
+"在提交功能请求以前，请先访问我们的 [开发路线图](https://qteasy.readthedocs.io/zh-"
+"cn/latest/roadmap.html) 查阅你的功能请求是否已经在开发中。"
+msgstr ""
+"在提交功能請求以前，請先訪問我們的 [開發路線圖](https://qteasy.readthedocs.io/zh-"
+"tw/latest/roadmap.html) 查閱你的功能請求是否已經在開發中。"
+
+#: ../../source/help.md:11
+msgid "使用`qteasy`中遇到问题"
+msgstr "使用`qteasy`中遇到問題"
+
+#: ../../source/help.md:13
+msgid ""
+"如果你在使用`qteasy`中遇到问题，可以进入`qteasy`的[讨论区](https://github.com/shepherdpp/qteasy/discussions)提交问题参与讨论。"
+msgstr ""
+"如果你在使用`qteasy`中遇到問題，可以進入`qteasy`的[討論區](https://github.com/shepherdpp/qteasy/discussions)提交問題參與討論。"
+
+#: ../../source/help.md:15
+msgid "贡献代码"
+msgstr "貢獻代碼"
+
+#: ../../source/help.md:17
+msgid ""
+"如果你对`qteasy`感兴趣，欢迎参与`qteasy`的开发，欢迎提交Pull Request，在参与之前，请先阅读CONTRIBUTING文档。"
+msgstr ""
+"如果你對`qteasy`感興趣，歡迎參與`qteasy`的開發，歡迎提交Pull Request，在參與之前，請先閱讀CONTRIBUTING文檔。"
+
+#: ../../source/help.md:19
+msgid "联系我们"
+msgstr "聯繫我們"
+
+#: ../../source/help.md:21
+msgid "Email: jackie_pengzhao@163.com / jackie.pengzhao@gmail.com"
+msgstr "Email: jackie_pengzhao@163.com / jackie.pengzhao@gmail.com"
+
+#: ../../source/help.md:22
+msgid "WeChat: shepherdpp"
+msgstr "WeChat: shepherdpp"
+
+#: ../../source/help.md:23
+msgid "QQ: 32502972"
+msgstr "QQ: 32502972"

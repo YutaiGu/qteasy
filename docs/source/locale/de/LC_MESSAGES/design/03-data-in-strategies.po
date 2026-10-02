@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-04-14 21:02+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-23 23:30+0800\n"
 "Last-Translator: Jackie PENG\n"
 "Language-Team: de <LL@li.org>\n"
@@ -53,12 +53,18 @@ msgstr ""
 
 #: ../../source/design/03-data-in-strategies.md:11
 msgid ""
-"**data_types**：一个或多个 **DataType** 对象（或列表/字典）。每个 DataType 对应一种“可引用的信息”，并对应唯一的"
-" **dtype_id**（如 `close_E_d`）。"
+"**data_types**：字符串信息 ID（推荐）、`DataType` 对象，或二者的列表。可为完整 id（如 "
+"`close_E_d`）或无歧义宽名（如 `close`）；歧义时须写完整 id 或显式 `asset_type`。**仅**允许 History 与 "
+"Reference；**Static（如 `industry`）不得**写入 `data_types`，应在准备资产池时用 "
+"`get_static_data` 过滤。"
 msgstr ""
-"**data_types**: Ein oder mehrere **DataType**-Objekte (oder eine Liste/ein "
-"Diktat). Jeder DataType entspricht einer Art „referenzierbarer Information“ "
-"und wird einer eindeutigen **dtype_id** zugeordnet (z. B. „close_E_d“)."
+"**data_types**: String-Informations-ID (empfohlen), `DataType`-Objekt oder "
+"eine Liste von beidem. Es kann eine vollständige ID (z. B. `close_E_d`) oder"
+" ein eindeutiger breiter Name (z. B. `close`) sein; Bei Mehrdeutigkeit muss "
+"die vollständige ID oder der explizite `asset_type` geschrieben werden. "
+"**Nur** Verlauf und Referenz sind erlaubt; **Statisch (z. B. `industry`) "
+"kann nicht** in `data_types` geschrieben werden und sollte bei der "
+"Vorbereitung des Asset-Pools mit `get_static_data` gefiltert werden."
 
 #: ../../source/design/03-data-in-strategies.md:12
 msgid ""
@@ -77,7 +83,7 @@ msgstr ""
 " die Aktienauswahl). Kann separat per dtype eingestellt werden."
 
 #: ../../source/design/03-data-in-strategies.md:15
-msgid "声明后，引擎会知道该策略需要哪些 dtype_id、多长窗口，从而在运行前准备相应的数据窗口并在每一步更新注入。"
+msgid "声明后，引擎会知道该策略需要哪些完整 dtype_id、多长窗口，从而在运行前准备相应的数据窗口并在每一步更新注入。"
 msgstr ""
 "Nach der Deklaration weiß die Engine, welche dtype_id die Strategie benötigt"
 " und welche Fensterlänge, sodass sie die entsprechenden Datenfenster vor der"
@@ -219,52 +225,69 @@ msgstr ""
 "dynamisches Backtesting](09-process-data-and-dynamic-backtest.md)."
 
 #: ../../source/design/03-data-in-strategies.md:44
-msgid "6. 参考数据（若有）"
-msgstr "6. Referenzdaten (falls vorhanden)"
+msgid "6. Reference 与 Static"
+msgstr "6. Referenz und Statik"
 
 #: ../../source/design/03-data-in-strategies.md:46
 msgid ""
-"除策略声明的 data_types 外，qteasy "
-"支持“参考数据”（如某只指数的收盘价，用于计算市场收益等）。参考数据与主数据的区别在于：通常与资产池无一一对应关系，在策略中也可通过相应的 "
-"dtype_id 或专用接口获取。具体配置与引用方式见当前版本文档与 API。"
+"**Reference（仅时间）**：原生宏观/利率/资金（如 `cn_gdp`），以及把单标的 History 抽成基准的造法（如 "
+"`close-000300.SH`）。研究入口为 `get_reference_data`；也可进入策略 `data_types`，在 "
+"`realize()` 里用 `get_data` 取时间序列（2D），**不是** HistoryPanel 的「第三维标的」。"
 msgstr ""
-"Neben den von der Strategie deklarierten Datentypen unterstützt qteasy "
-"„Referenzdaten“ (z. B. den Schlusskurs eines Index, der zur Berechnung von "
-"Marktrenditen usw. verwendet wird). Der Unterschied zwischen Referenzdaten "
-"und Primärdaten besteht darin, dass sie normalerweise keine Eins-zu-eins-"
-"Entsprechung mit dem Asset-Pool haben und auch in einer Strategie über die "
-"entsprechende dtype_id oder eine dedizierte Schnittstelle abgerufen werden "
-"können. Informationen zu spezifischen Konfigurations- und "
-"Referenzierungsmethoden finden Sie in der Dokumentation und API für die "
-"aktuelle Version."
+"**Referenz (nur Zeit)**: natives Makro/Zinssatz/Fonds (z. B. `cn_gdp`) und "
+"die Methode zum Extrahieren der Historie eines einzelnen Ziels als Benchmark"
+" (z. B. `close-000300.SH`). Der Forschungseingang ist `get_reference_data`; "
+"Sie können auch die Strategie `data_types` eingeben und `get_data` in "
+"`realize()` verwenden, um die Zeitreihe (2D) zu erhalten, die nicht das "
+"„dritte dimensionale Ziel“ von HistoryPanel ist."
 
-#: ../../source/design/03-data-in-strategies.md:48
+#: ../../source/design/03-data-in-strategies.md:47
+msgid ""
+"**Static（仅标的）**：行业、上市日等截面属性。研究/选股票池用 `get_static_data`；**本阶段不进** "
+"`data_types` / `get_data`（避免把字符串塞进时间窗）。将来若需要，应走股票池过滤、研究 `group_by`，或数值化 "
+"context，而不是本任务范围。"
+msgstr ""
+"**Statisch (nur Betreff)**: Querschnittsattribute wie Branche und "
+"Listungsdatum. Verwenden Sie `get_static_data` für den "
+"Recherche-/Aktienauswahlpool; **Zu diesem Zeitpunkt noch nicht eingeben** "
+"`data_types` / `get_data` (vermeiden Sie das Einfügen von Zeichenfolgen in "
+"das Zeitfenster). Falls in Zukunft erforderlich, sollten anstelle des "
+"Umfangs dieser Aufgabe Aktienpoolfilterung, Recherche zu `group_by` oder "
+"numerischer Kontext verwendet werden."
+
+#: ../../source/design/03-data-in-strategies.md:49
+msgid "过程数据 `proc.*` 见上一节，与 DataType 目录无关。"
+msgstr ""
+"Prozessdaten `proc.*` Siehe vorheriger Abschnitt, unabhängig vom Verzeichnis"
+" DataType."
+
+#: ../../source/design/03-data-in-strategies.md:51
 msgid "7. 小结"
 msgstr "7. Zusammenfassung"
 
-#: ../../source/design/03-data-in-strategies.md:50
+#: ../../source/design/03-data-in-strategies.md:53
 msgid "“声明 → 引擎注入 → get_data 引用”保证了："
 msgstr "„Declare → engine injects → get_data references“ stellt sicher, dass:"
 
-#: ../../source/design/03-data-in-strategies.md:52
+#: ../../source/design/03-data-in-strategies.md:55
 msgid "回测与实盘使用同一套数据视图与访问方式；"
 msgstr ""
 "Backtesting und Live-Handel nutzen die gleiche Datenansicht und das gleiche "
 "Zugriffsmuster;"
 
-#: ../../source/design/03-data-in-strategies.md:53
+#: ../../source/design/03-data-in-strategies.md:56
 msgid "策略无法越权访问未声明或未来的数据，从机制上避免未来函数；"
 msgstr ""
 "Die Strategie kann nicht auf nicht deklarierte oder zukünftige Daten "
 "zugreifen, wodurch eine Voreingenommenheit auf Mechanismusebene verhindert "
 "wird."
 
-#: ../../source/design/03-data-in-strategies.md:54
+#: ../../source/design/03-data-in-strategies.md:57
 msgid "接口统一、易于维护与扩展。"
 msgstr ""
 "Eine einheitliche Schnittstelle, die einfach zu warten und zu erweitern ist."
 
-#: ../../source/design/03-data-in-strategies.md:56
+#: ../../source/design/03-data-in-strategies.md:59
 msgid ""
 "“声明 → 引擎注入 → get_data "
 "引用”同样适用于过程数据，只是过程数据不需声明、由运行层按步注入，且仅在使用时触发动态回测路径。更多用法见《使用教程》与《API 参考》。"
@@ -274,3 +297,29 @@ msgstr ""
 "müssen, schrittweise von der Laufzeitschicht injiziert werden und erst bei "
 "Verwendung den dynamischen Backtesting-Pfad auslösen. Weitere Informationen "
 "zur Verwendung finden Sie im „Benutzerhandbuch“ und in der „API-Referenz“."
+
+#~ msgid ""
+#~ "**data_types**：一个或多个 **DataType** 对象（或列表/字典）。每个 DataType 对应一种“可引用的信息”，并对应唯一的"
+#~ " **dtype_id**（如 `close_E_d`）。"
+#~ msgstr ""
+#~ "**data_types**: Ein oder mehrere **DataType**-Objekte (oder eine Liste/ein "
+#~ "Diktat). Jeder DataType entspricht einer Art „referenzierbarer Information“ "
+#~ "und wird einer eindeutigen **dtype_id** zugeordnet (z. B. „close_E_d“)."
+
+#~ msgid "6. 参考数据（若有）"
+#~ msgstr "6. Referenzdaten (falls vorhanden)"
+
+#~ msgid ""
+#~ "除策略声明的 data_types 外，qteasy "
+#~ "支持“参考数据”（如某只指数的收盘价，用于计算市场收益等）。参考数据与主数据的区别在于：通常与资产池无一一对应关系，在策略中也可通过相应的 "
+#~ "dtype_id 或专用接口获取。具体配置与引用方式见当前版本文档与 API。"
+#~ msgstr ""
+#~ "Neben den von der Strategie deklarierten Datentypen unterstützt qteasy "
+#~ "„Referenzdaten“ (z. B. den Schlusskurs eines Index, der zur Berechnung von "
+#~ "Marktrenditen usw. verwendet wird). Der Unterschied zwischen Referenzdaten "
+#~ "und Primärdaten besteht darin, dass sie normalerweise keine Eins-zu-eins-"
+#~ "Entsprechung mit dem Asset-Pool haben und auch in einer Strategie über die "
+#~ "entsprechende dtype_id oder eine dedizierte Schnittstelle abgerufen werden "
+#~ "können. Informationen zu spezifischen Konfigurations- und "
+#~ "Referenzierungsmethoden finden Sie in der Dokumentation und API für die "
+#~ "aktuelle Version."

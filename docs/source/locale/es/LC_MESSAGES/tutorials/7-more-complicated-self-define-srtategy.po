@@ -3,154 +3,222 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:1
 msgid "使用交易策略类，创建更复杂的自定义策略"
-msgstr ""
+msgstr "Construye una estrategia más complicada"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:3
-msgid "`qteasy`是一个完全本地化部署和运行的量化交易分析工具包，[Github地址在这里](https://github.com/shepherdpp/qteasy)，并且可以[通过pip安装](https://blog.csdn.net/Shepherdppz/article/details/136075222?spm=1001.2014.3001.5501)："
+msgid ""
+"`qteasy`是一个完全本地化部署和运行的量化交易分析工具包，[Github地址在这里](https://github.com/shepherdpp/qteasy)，并且可以[通过pip安装](https://blog.csdn.net/Shepherdppz/article/details/136075222?spm=1001.2014.3001.5501)："
 msgstr ""
+"`qteasy` es una implementación y operación completamente localizada de un "
+"conjunto de herramientas de análisis comercial cuantitativo, [la dirección "
+"de Github está aquí](https://github.com/shepherdpp/qteasy), y se puede "
+"instalar [a través de pip](1-get-started.md):"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:9
 msgid "`qteasy`具备以下功能："
-msgstr ""
+msgstr "`qteasy` tiene las siguientes funciones:"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:12
 msgid "金融数据的获取、清洗、存储以及处理、可视化、使用"
 msgstr ""
+"Adquisición, limpieza, almacenamiento, procesamiento, visualización y uso de"
+" datos financieros."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:13
 msgid "量化交易策略的创建，并提供大量内置基本交易策略"
 msgstr ""
+"Cree estrategias comerciales cuantitativas y proporcione una gran cantidad "
+"de estrategias comerciales básicas integradas."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:14
 msgid "向量化的高速交易策略回测及交易结果评价"
 msgstr ""
+"Backtesting de estrategias comerciales vectorizadas de alta velocidad y "
+"evaluación de resultados comerciales"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:15
 msgid "交易策略参数的优化以及评价"
-msgstr ""
+msgstr "Optimización y evaluación de parámetros de estrategia comercial."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:16
 msgid "交易策略的部署、实盘运行"
-msgstr ""
+msgstr "Implementación y operación en vivo de estrategias comerciales."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:18
 msgid "通过本系列教程，您将会通过一系列的实际示例，充分了解`qteasy`的主要功能以及使用方法。"
 msgstr ""
+"En estos tutoriales, aprenderá las funciones principales y el uso de "
+"`qteasy` a través de una serie de ejemplos prácticos."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:20
 msgid "开始前的准备工作"
-msgstr ""
+msgstr "Antes de empezar"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:22
 msgid "在开始本节教程前，请先确保您已经掌握了下面的内容："
 msgstr ""
+"Asegúrese de dominar el siguiente contenido antes de comenzar este tutorial:"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:24
 msgid "**安装、配置`qteasy`** —— [QTEASY教程1](1-get-started.md)"
-msgstr ""
+msgstr "**Instalar y configurar `qteasy`** —— [QTEASY教程1](1-get-started.md)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:25
 msgid "**设置了一个本地数据源**，并已经将足够的历史数据下载到本地——[QTEASY教程2](2.0-get-data.md)"
 msgstr ""
+"**Configure una fuente de datos local** y haya descargado suficientes datos "
+"históricos al local ——[QTEASY教程2](2.0-get-data.md)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:26
 msgid "**学会创建交易员对象，使用内置交易策略**，——[QTEASY教程3](3-start-first-strategy.md)"
 msgstr ""
+"**Aprenda a crear un objeto comercial, use estrategias comerciales "
+"integradas** ——[QTEASY教程3](3-start-first-strategy.md)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:27
 msgid "**学会使用混合器，将多个简单策略混合成较为复杂的交易策略**——[QTEASY教程4](4-build-in-strategies.md)"
 msgstr ""
+"**Aprenda a usar el mezclador para combinar múltiples estrategias simples en"
+" estrategias comerciales más complejas** ——[QTEASY教程4](4-build-in-"
+"strategies.md)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:28
 msgid ""
 "**了解如何自定义交易策略**——[QTEASY教程5](5-first-self-defined-"
 "strategy.md)[QTEASY教程6](6-more-self-defined-strategies.md)"
 msgstr ""
+"**Comprenda cómo personalizar las estrategias comerciales** "
+"——[QTEASY教程5](5-first-self-defined-strategy.md)[QTEASY教程6](6-more-self-"
+"defined-strategies.md)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:30
 msgid ""
 "在[QTEASY文档](https://qteasy.readthedocs.io/zh-"
 "cn/latest/)中，还能找到更多关于使用内置交易策略、创建自定义策略等等相关内容。对`qteasy`的基本使用方法还不熟悉的同学，可以移步那里查看更多详细说明。"
 msgstr ""
+"En la [QTEASY documentación](https://qteasy.readthedocs.io/es/latest/), "
+"también puede encontrar más contenido sobre el uso de estrategias "
+"comerciales integradas, la creación de estrategias personalizadas, etc. Si "
+"aún no estás familiarizado con el uso básico de `qteasy`, puedes ir allí "
+"para ver explicaciones más detalladas."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:32
 msgid "`qteasy`的内核被设计为一个兼顾高速执行以及足够的灵活性的框架，理论上您可以实现您所设想的任何类型的交易策略。"
 msgstr ""
+"El núcleo de `qteasy` está diseñado como un marco que equilibra la ejecución"
+" de alta velocidad y la flexibilidad suficiente. En teoría, puedes "
+"implementar cualquier tipo de estrategia comercial que puedas imaginar."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:34
-msgid "同时，`qteasy`的回测框架也做了相当多的特殊设计，可以完全避免您无意中在交易策略中导入\"未来函数\"，确保您的交易策略在回测时完全基于过去的数据，同时也使用了很多预处理技术以及JIT技术对内核关键函数进行了编译，以实现不亚于C语言的运行速度。"
+msgid ""
+"同时，`qteasy`的回测框架也做了相当多的特殊设计，可以完全避免您无意中在交易策略中导入\"未来函数\"，确保您的交易策略在回测时完全基于过去的数据，同时也使用了很多预处理技术以及JIT技术对内核关键函数进行了编译，以实现不亚于C语言的运行速度。"
 msgstr ""
+"Mientras tanto, el marco de backtesting de `qteasy` también ha sido "
+"especialmente diseñado para evitar por completo que usted importe "
+"\"funciones futuras\" sin darse cuenta en su estrategia comercial, "
+"asegurando que su estrategia comercial se base completamente en datos "
+"pasados ​​durante el backtesting. Al mismo tiempo, se han utilizado muchas "
+"técnicas de preprocesamiento y tecnologías JIT para compilar las funciones "
+"clave del kernel para lograr una velocidad de ejecución no menor que la de "
+"C."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:36
-msgid "不过，为了实现理论上无限可能的交易策略，仅仅使用内置交易策略以及策略混合就不一定够用了，一些特定的交易策略，或者一些特别复杂的交易策略是无法通过内置策略混合而成的，这就需要我们使用`qteasy`提供的`Strategy`基类，基于一定的规则创建一个自定义交易策略了。"
+msgid ""
+"不过，为了实现理论上无限可能的交易策略，仅仅使用内置交易策略以及策略混合就不一定够用了，一些特定的交易策略，或者一些特别复杂的交易策略是无法通过内置策略混合而成的，这就需要我们使用`qteasy`提供的`Strategy`基类，基于一定的规则创建一个自定义交易策略了。"
 msgstr ""
+"Sin embargo, para lograr estrategias comerciales teóricamente infinitas "
+"posibles, puede que no sea suficiente utilizar únicamente estrategias "
+"comerciales integradas y una combinación de estrategias. Algunas estrategias"
+" comerciales específicas, o algunas estrategias comerciales particularmente "
+"complejas, no se pueden crear combinando estrategias integradas. Esto "
+"requiere que utilicemos la clase base `Strategy` proporcionada por `qteasy` "
+"para crear una estrategia comercial personalizada basada en ciertas reglas."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:37
 msgid "本节的目标"
-msgstr ""
+msgstr "Objetivo de este tutorial"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:39
 msgid "在本节中，我们将介绍`qteasy`的交易策略基类，通过一个具体的例子详细讲解如何基于这几个基类，创建一个只属于您自己的交易策略。为了说明"
 msgstr ""
+"En este tutorial, presentaremos la clase base de estrategia comercial de "
+"`qteasy` y explicaremos en detalle cómo crear su propia estrategia comercial"
+" basada en estas clases base a través de un ejemplo específico. para "
+"ilustrar"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:41
 msgid "继承Strategy类，创建一个复杂的多因子选股策略"
 msgstr ""
+"Cree una estrategia compleja de selección de acciones multifactorial "
+"heredando la clase Estrategia"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:44
 msgid "在这个例子中，我们使用"
-msgstr ""
+msgstr "En este ejemplo, utilizamos"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:148
 msgid "策略和回测参数配置，并开始回测"
-msgstr ""
+msgstr "Configuración de parámetros y backtesting."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:149
 msgid "定义好上面的策略之后，就可以开始进行回测了，我们需要在`qteasy`中创建一个交易员对象，操作前面创建的策略："
 msgstr ""
+"Cuando se define la estrategia anterior, podemos comenzar a realizar pruebas"
+" retrospectivas. Necesitamos crear un objeto comercial en `qteasy` y operar "
+"la estrategia creada anteriormente:"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:172
 msgid "运行结果如下："
-msgstr ""
+msgstr "Los resultados son los siguientes:"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:239
 msgid "![png](img/output_4_4.png)"
-msgstr ""
+msgstr "![png](img/output_4_4.png)"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:239
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:241
 msgid "本节回顾"
-msgstr ""
+msgstr "Resumen"
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:243
-msgid "在本节中，我们通过一个具体的例子，详细讲解了如何基于`qteasy`的交易策略基类，创建一个只属于您自己的交易策略。通过这个例子，您可以看到，`qteasy`的交易策略基类提供了足够的灵活性，可以实现您所设想的任何类型的交易策略。"
+msgid ""
+"在本节中，我们通过一个具体的例子，详细讲解了如何基于`qteasy`的交易策略基类，创建一个只属于您自己的交易策略。通过这个例子，您可以看到，`qteasy`的交易策略基类提供了足够的灵活性，可以实现您所设想的任何类型的交易策略。"
 msgstr ""
+"En este tutorial, explicamos en detalle cómo crear su propia estrategia "
+"comercial basada en la clase base de estrategia comercial de `qteasy` a "
+"través de un ejemplo específico. A través de este ejemplo, puede ver que la "
+"clase base de estrategia comercial de `qteasy` proporciona suficiente "
+"flexibilidad para implementar cualquier tipo de estrategia comercial que "
+"pueda imaginar."
 
 #: ../../source/tutorials/7-more-complicated-self-define-srtategy.md:245
 msgid "从下一个教程开始，我们将会介绍`qteasy`交易策略优化方法，通过多种优化算法，找到最优的交易策略参数，以及评价交易策略的性能。"
 msgstr ""
+"A partir del siguiente tutorial, presentaremos el método de optimización de "
+"la estrategia comercial de `qteasy`, encontraremos los parámetros óptimos de"
+" la estrategia comercial a través de varios algoritmos de optimización y "
+"evaluaremos el rendimiento de la estrategia comercial."
 
-#~ msgid "在[QTEASY文档](https://qteasy.readthedocs.io/zh/latest/)中，还能找到更多关于使用内置交易策略、创建自定义策略等等相关内容。对`qteasy`的基本使用方法还不熟悉的同学，可以移步那里查看更多详细说明。"
+#~ msgid ""
+#~ "在[QTEASY文档](https://qteasy.readthedocs.io/zh/latest/)中，还能找到更多关于使用内置交易策略、创建自定义策略等等相关内容。对`qteasy`的基本使用方法还不熟悉的同学，可以移步那里查看更多详细说明。"
 #~ msgstr ""
-

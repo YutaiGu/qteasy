@@ -3,217 +3,246 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/optimization/2. run_optimization.md:1
 msgid "如何运行策略优化"
-msgstr ""
+msgstr "Cómo ejecutar la optimización de la estrategia"
 
 #: ../../source/optimization/2. run_optimization.md:3
 msgid "入口与常用 kwargs"
-msgstr ""
+msgstr "Punto de entrada y kwargs comunes"
 
 #: ../../source/optimization/2. run_optimization.md:5
 msgid ""
 "使用 **qt.run(op, mode=2, ...)** 运行策略优化。常用参数包括 "
 "**opti_method**、**opti_sample_count**、**opti_output_count** 等。"
 msgstr ""
+"Ejecute la optimización de la estrategia con **``qt.run(op, mode=2, "
+"...)``**. Common arguments include **``opti_method``**, "
+"**``opti_sample_count``**, **``opti_output_count``** y otros."
 
 #: ../../source/optimization/2. run_optimization.md:7
 msgid "优化算法完整列表（罗列并简短解释）"
 msgstr ""
+"Lista completa de algoritmos de optimización (con breves explicaciones)"
 
 #: ../../source/optimization/2. run_optimization.md:9
 msgid "以下为 **opti_method** 常见可选值及适用场景，与 qteasy 2.0 API 一致为准。"
 msgstr ""
+"Los siguientes son valores **``opti_method``** comunes y casos de uso "
+"típicos; Consulte la API qteasy 2.0 como fuente de verdad."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "算法名"
-msgstr ""
+msgstr "Algoritmo"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "含义"
-msgstr ""
+msgstr "Significado"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "适用场景"
-msgstr ""
+msgstr "Caso de uso típico"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "grid"
-msgstr ""
+msgstr "grid"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "网格搜索"
-msgstr ""
+msgstr "Búsqueda de cuadrícula"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "参数少、离散空间，穷举或粗网格。"
 msgstr ""
+"Pocos parámetros, espacio discreto; Búsqueda de cuadrícula exhaustiva o "
+"aproximada."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "montecarlo"
-msgstr ""
+msgstr "montecarlo"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "蒙特卡洛随机采样"
-msgstr ""
+msgstr "Muestreo aleatorio de Montecarlo"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "参数较多时随机抽样评估。"
-msgstr ""
+msgstr "Muestreo aleatorio cuando hay muchos parámetros."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "GA"
-msgstr ""
+msgstr "GA"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "遗传算法"
-msgstr ""
+msgstr "Algoritmo genético"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "中高维、连续/离散混合。"
-msgstr ""
+msgstr "Dimensiones medias a altas; espacios mixtos continuos/discretos."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "SA"
-msgstr ""
+msgstr "SA"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "模拟退火"
-msgstr ""
+msgstr "Recocido simulado"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "中维、易陷入局部最优时。"
 msgstr ""
+"Dimensiones medianas; útil cuando los óptimos locales son una preocupación."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "PSO"
-msgstr ""
+msgstr "PSO"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "粒子群优化"
-msgstr ""
+msgstr "Optimización del enjambre de partículas"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "连续空间、多峰。"
-msgstr ""
+msgstr "Espacio continuo con múltiples picos."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "bayesian"
-msgstr ""
+msgstr "bayesian"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "贝叶斯优化"
-msgstr ""
+msgstr "optimización bayesiana"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "样本昂贵、需少步数寻优。"
 msgstr ""
+"Evaluaciones costosas; Necesita buenos resultados en unos pocos pasos."
 
 #: ../../source/optimization/2. run_optimization.md:20
 msgid "优化运行参数完整列表（罗列并简短解释）"
 msgstr ""
+"Lista completa de parámetros de ejecución de optimización (con breves "
+"explicaciones)"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "参数名"
-msgstr ""
+msgstr "Nombre del parámetro"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "类型/可选值"
-msgstr ""
+msgstr "Tipo / Valores"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "opti_method"
-msgstr ""
+msgstr "opti_method"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "str"
-msgstr ""
+msgstr "str"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "优化算法：grid、montecarlo、GA、SA、PSO、bayesian 等。"
 msgstr ""
+"Algoritmo de optimización: ``grid``, ``montecarlo``, ``GA``, ``SA``, "
+"``PSO``, ``bayesian``, etc."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "opti_sample_count"
-msgstr ""
+msgstr "opti_sample_count"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "int"
-msgstr ""
+msgstr "int"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "采样/迭代次数（如蒙特卡洛样本数、遗传代数等）。"
 msgstr ""
+"Número de muestras/iteraciones (por ejemplo, muestras de Monte Carlo o "
+"generaciones GA)."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "opti_output_count"
-msgstr ""
+msgstr "opti_output_count"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "保留的最优结果数量（Top-K）。"
-msgstr ""
+msgstr "Número de mejores resultados a conservar (Top-K)."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "目标函数相关"
-msgstr ""
+msgstr "Función objetivo"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "—"
-msgstr ""
+msgstr "—"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "如优化目标为夏普、回撤等，以配置或 API 为准。"
 msgstr ""
+"Por ejemplo, ratio de Sharpe o reducción; consulte los documentos de "
+"configuración o API."
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "约束相关"
-msgstr ""
+msgstr "Restricciones"
 
 #: ../../source/optimization/2. run_optimization.md
 msgid "若有约束（如最大回撤上限），以配置为准。"
 msgstr ""
+"Si se aplican restricciones (por ejemplo, límite máximo de reducción), "
+"consulte la configuración."
 
 #: ../../source/optimization/2. run_optimization.md:30
 msgid "回测区间、asset_pool 等与 mode=1 相同的参数在 mode=2 时同样生效。"
 msgstr ""
+"Rango de fechas de prueba retrospectiva, ``asset_pool``, and other arguments"
+" shared with ``mode=1`` also apply in ``mode=2``."
 
 #: ../../source/optimization/2. run_optimization.md:32
 msgid "参数空间"
-msgstr ""
+msgstr "Espacio de parámetros"
 
 #: ../../source/optimization/2. run_optimization.md:34
-msgid "策略的 **Parameter** 及 **par_range** 定义优化时的搜索空间；框架按 opti_method 在该空间内采样或搜索。"
+msgid ""
+"策略的 **Parameter** 及 **par_range** 定义优化时的搜索空间；框架按 opti_method 在该空间内采样或搜索。"
 msgstr ""
+"La estrategia es **``Parameter``** objects and **``par_range``** define the "
+"search space; the framework samples or searches within it according to "
+"``opti_method``."
 
 #: ../../source/optimization/2. run_optimization.md:36
 msgid "最小可运行示例"
-msgstr ""
+msgstr "Ejemplo mínimo ejecutable"
 
 #: ../../source/optimization/2. run_optimization.md:47
 msgid "配置要点"
-msgstr ""
+msgstr "Aspectos destacados de la configuración"
 
 #: ../../source/optimization/2. run_optimization.md:49
 msgid "**回测区间、资产池**：与 mode=1 一致，决定每次参数评估的回测环境。"
 msgstr ""
+"**Rango de prueba retrospectiva y grupo de activos**: Igual que ``mode=1``; "
+"Definen el entorno de backtest para la evaluación de cada parámetro."
 
 #: ../../source/optimization/2. run_optimization.md:50
 msgid "**目标函数**：决定“更优”的定义（如夏普最大化、回撤最小化），影响排序与最终选取。"
 msgstr ""
-
+"**Función objetiva**: Define lo que significa \"mejor\" (por ejemplo, "
+"maximizar Sharpe o minimizar la reducción) y afecta la clasificación y la "
+"selección final."

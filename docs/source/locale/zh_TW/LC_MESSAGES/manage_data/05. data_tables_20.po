@@ -1,0 +1,1578 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/manage_data/05. data_tables_20.md:1
+msgid "`DataTables`——基本信息表"
+msgstr "`DataTables`——基本資訊表"
+
+#: ../../source/manage_data/05. data_tables_20.md:3
+msgid ""
+"下面列出`qteasy`中所有的内置预定义数据表，包括交易日历表、股票基本信息表、指数基本信息表、基金基本信息表、期货基本信息表、期权基本信息表、同花顺指数基本信息表、申万行业分类表等。"
+msgstr ""
+"下面列出`qteasy`中所有的內置預定義數據表，包括交易日曆表、股票基本資訊表、指數基本資訊表、基金基本資訊表、期貨基本資訊表、期權基本資訊表、同花順指數基本資訊表、申萬行業分類表等。"
+
+#: ../../source/manage_data/05. data_tables_20.md:5
+msgid "交易日历："
+msgstr "交易日曆："
+
+#: ../../source/manage_data/05. data_tables_20.md:8
+msgid "中国交易日历: `trade_calendar`"
+msgstr "中國交易日曆: `trade_calendar`"
+
+#: ../../source/manage_data/05. data_tables_20.md:9 data_tables_20.md:31
+#: data_tables_20.md:42
+msgid "数据表用途: `cal`, 资产类型: `none`, 数据频率: `none`"
+msgstr "數據表用途: `cal`, 資產類型: `none`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:11
+msgid "中国交易日历包括上海、深圳股票交易所的交易日历，也包括各大期货商品交易所的交易日历"
+msgstr "中國交易日曆包括上海、深圳股票交易所的交易日曆，也包括各大期貨商品交易所的交易日曆"
+
+#: ../../source/manage_data/05. data_tables_20.md:13
+msgid "交易所代码对照如下："
+msgstr "交易所代碼對照如下："
+
+#: ../../source/manage_data/05. data_tables_20.md:15
+msgid "**SSE** 上交所——上海证券交易所"
+msgstr "**SSE** 上交所——上海證券交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:16
+msgid "**SZSE** 深交所——深圳股票交易所"
+msgstr "**SZSE** 深交所——深圳股票交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:17
+msgid "**CFFEX** 中金所——中国金融期货交易所"
+msgstr "**CFFEX** 中金所——中國金融期貨交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:18
+msgid "**SHFE** 上期所——上海期货交易所"
+msgstr "**SHFE** 上期所——上海期貨交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:19
+msgid "**CZCE** 郑商所——郑州商品交易所"
+msgstr "**CZCE** 鄭商所——鄭州商品交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:20
+msgid "**DCE** 大商所——大连商品交易所"
+msgstr "**DCE** 大商所——大連商品交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md:21
+msgid "**INE** 上能源——上海国际能源交易中心"
+msgstr "**INE** 上能源——上海國際能源交易中心"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "columns"
+msgstr "columns"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "dtypes"
+msgstr "dtypes"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "remarks"
+msgstr "remarks"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "is_prime_key"
+msgstr "is_prime_key"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "0"
+msgstr "0"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "cal_date"
+msgstr "cal_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "date"
+msgstr "date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "日期（格式YYYYMMDD）"
+msgstr "日期（格式YYYYMMDD）"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "Y"
+msgstr "Y"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "1"
+msgstr "1"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "exchange"
+msgstr "exchange"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(9)"
+msgstr "varchar(9)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易所"
+msgstr "交易所"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "2"
+msgstr "2"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "is_open"
+msgstr "is_open"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "tinyint"
+msgstr "tinyint"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "是否交易"
+msgstr "是否交易"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "N"
+msgstr "N"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "3"
+msgstr "3"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "pretrade_date"
+msgstr "pretrade_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上一交易日"
+msgstr "上一交易日"
+
+#: ../../source/manage_data/05. data_tables_20.md:30
+msgid "美股交易日历: `us_trade_calendar`"
+msgstr "美股交易日曆: `us_trade_calendar`"
+
+#: ../../source/manage_data/05. data_tables_20.md:33
+msgid "美股交易日历保存了美股的交易日历表"
+msgstr "美股交易日曆保存了美股的交易日曆表"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "日期"
+msgstr "日期"
+
+#: ../../source/manage_data/05. data_tables_20.md:41
+msgid "港股交易日历: `hk_trade_calendar`"
+msgstr "港股交易日曆: `hk_trade_calendar`"
+
+#: ../../source/manage_data/05. data_tables_20.md:44
+msgid "港股交易日历表保存了香港股票交易所的交易日历"
+msgstr "港股交易日曆表保存了香港股票交易所的交易日曆"
+
+#: ../../source/manage_data/05. data_tables_20.md:52
+msgid "股票基本信息表："
+msgstr "股票基本資訊表："
+
+#: ../../source/manage_data/05. data_tables_20.md:54
+msgid "基本信息表包括了股票、指数、基金、期货、期权等各种金融产品的基本信息。"
+msgstr "基本資訊表包括了股票、指數、基金、期貨、期權等各種金融產品的基本資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md:56
+msgid "股票基本信息: `stock_basic`"
+msgstr "股票基本資訊: `stock_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:57 data_tables_20.md:94
+msgid "数据表用途: basics, 资产类型: E, 数据频率: none"
+msgstr "數據表用途: basics, 資產類型: E, 數據頻率: none"
+
+#: ../../source/manage_data/05. data_tables_20.md:59
+msgid "股票基本信息表包含了所有上市股票的基本信息，包括股票代码、股票名称、上市日期、退市日期、所属行业、地域等信息。"
+msgstr "股票基本資訊表包含了所有上市股票的基本資訊，包括股票代碼、股票名稱、上市日期、退市日期、所屬行業、地域等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "ts_code"
+msgstr "ts_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "证券代码"
+msgstr "證券代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "symbol"
+msgstr "symbol"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(6)"
+msgstr "varchar(6)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "股票代码"
+msgstr "股票代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "name"
+msgstr "name"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(20)"
+msgstr "varchar(20)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "股票名称"
+msgstr "股票名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "area"
+msgstr "area"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(10)"
+msgstr "varchar(10)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "地域"
+msgstr "地域"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "4"
+msgstr "4"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "industry"
+msgstr "industry"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "所属行业"
+msgstr "所屬行業"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "5"
+msgstr "5"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "fullname"
+msgstr "fullname"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(50)"
+msgstr "varchar(50)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "股票全称"
+msgstr "股票全稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "6"
+msgstr "6"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "enname"
+msgstr "enname"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(120)"
+msgstr "varchar(120)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "英文全称"
+msgstr "英文全稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "7"
+msgstr "7"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "cnspell"
+msgstr "cnspell"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(40)"
+msgstr "varchar(40)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "拼音缩写"
+msgstr "拼音縮寫"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "8"
+msgstr "8"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "market"
+msgstr "market"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "市场类型"
+msgstr "市場類型"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "9"
+msgstr "9"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易所代码"
+msgstr "交易所代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "10"
+msgstr "10"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "curr_type"
+msgstr "curr_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易货币"
+msgstr "交易貨幣"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "11"
+msgstr "11"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "list_status"
+msgstr "list_status"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(4)"
+msgstr "varchar(4)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上市状态"
+msgstr "上市狀態"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "12"
+msgstr "12"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "list_date"
+msgstr "list_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上市日期"
+msgstr "上市日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "13"
+msgstr "13"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "delist_date"
+msgstr "delist_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "退市日期"
+msgstr "退市日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "14"
+msgstr "14"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "is_hs"
+msgstr "is_hs"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(2)"
+msgstr "varchar(2)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "是否沪深港通"
+msgstr "是否滬深港通"
+
+#: ../../source/manage_data/05. data_tables_20.md:79
+msgid "股票名称变更: `stock_names`"
+msgstr "股票名稱變更: `stock_names`"
+
+#: ../../source/manage_data/05. data_tables_20.md:80
+msgid "数据表用途: `events`, 资产类型: `E`, 数据频率: `none`"
+msgstr "數據表用途: `events`, 資產類型: `E`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:82
+msgid "股票名称变更表包含了所有股票名称变更的信息，包括股票代码、开始日期、证券名称、结束日期、公告日期、变更原因等信息。"
+msgstr "股票名稱變更表包含了所有股票名稱變更的資訊，包括股票代碼、開始日期、證券名稱、結束日期、公告日期、變更原因等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "start_date"
+msgstr "start_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "开始日期"
+msgstr "開始日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(8)"
+msgstr "varchar(8)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "证券名称"
+msgstr "證券名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "end_date"
+msgstr "end_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "结束日期"
+msgstr "結束日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "ann_date"
+msgstr "ann_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "公告日期"
+msgstr "公告日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "change_reason"
+msgstr "change_reason"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "text"
+msgstr "text"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "变更原因"
+msgstr "變更原因"
+
+#: ../../source/manage_data/05. data_tables_20.md:93
+msgid "上市公司基本信息: `stock_company`"
+msgstr "上市公司基本資訊: `stock_company`"
+
+#: ../../source/manage_data/05. data_tables_20.md:96
+msgid ""
+"上市公司基本信息表包含了所有上市公司的基本信息，包括公司代码、公司名称、法人代表、总经理、董秘、注册资本、注册日期、所在省份、所在城市、公司介绍、公司主页、电子邮件、办公室地址、员工人数、主要业务及产品、经营范围等信息。"
+msgstr ""
+"上市公司基本資訊表包含了所有上市公司的基本資訊，包括公司代碼、公司名稱、法人代表、總經理、董祕、註冊資本、註冊日期、所在省份、所在城市、公司介紹、公司主頁、電子郵件、辦公室地址、員工人數、主要業務及產品、經營範圍等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "chairman"
+msgstr "chairman"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(48)"
+msgstr "varchar(48)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "法人代表"
+msgstr "法人代表"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "manager"
+msgstr "manager"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "总经理"
+msgstr "總經理"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "secretary"
+msgstr "secretary"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "董秘"
+msgstr "董祕"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "reg_capital"
+msgstr "reg_capital"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "float"
+msgstr "float"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "注册资本"
+msgstr "註冊資本"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "setup_date"
+msgstr "setup_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "注册日期"
+msgstr "註冊日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "province"
+msgstr "province"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "所在省份"
+msgstr "所在省份"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "city"
+msgstr "city"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "所在城市"
+msgstr "所在城市"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "introduction"
+msgstr "introduction"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "公司介绍"
+msgstr "公司介紹"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "website"
+msgstr "website"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(75)"
+msgstr "varchar(75)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "公司主页"
+msgstr "公司主頁"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "email"
+msgstr "email"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "电子邮件"
+msgstr "電子郵件"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "office"
+msgstr "office"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "办公室地址"
+msgstr "辦公室地址"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "employees"
+msgstr "employees"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "int"
+msgstr "int"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "员工人数"
+msgstr "員工人數"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "main_business"
+msgstr "main_business"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "主要业务及产品"
+msgstr "主要業務及產品"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "15"
+msgstr "15"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "business_scope"
+msgstr "business_scope"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "经营范围"
+msgstr "經營範圍"
+
+#: ../../source/manage_data/05. data_tables_20.md:117
+msgid "上市公司管理层: `stk_managers`"
+msgstr "上市公司管理層: `stk_managers`"
+
+#: ../../source/manage_data/05. data_tables_20.md:118
+msgid "数据表用途: `events`, 资产类型: `E`, 数据频率: `d`"
+msgstr "數據表用途: `events`, 資產類型: `E`, 數據頻率: `d`"
+
+#: ../../source/manage_data/05. data_tables_20.md:120
+msgid "上市公司管理层表包含了上市公司的高管信息，包括公司管理层姓名、性别、学历、简历以及任职期限等"
+msgstr "上市公司管理層表包含了上市公司的高管資訊，包括公司管理層姓名、性別、學歷、簡歷以及任職期限等"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "TS股票代码"
+msgstr "TS股票代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "姓名"
+msgstr "姓名"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "gender"
+msgstr "gender"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "性别"
+msgstr "性別"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "lev"
+msgstr "lev"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "岗位类别"
+msgstr "崗位類別"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "title"
+msgstr "title"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "岗位"
+msgstr "崗位"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "edu"
+msgstr "edu"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(30)"
+msgstr "varchar(30)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "学历"
+msgstr "學歷"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "national"
+msgstr "national"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "国籍"
+msgstr "國籍"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "birthday"
+msgstr "birthday"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "出生年月"
+msgstr "出生年月"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "begin_date"
+msgstr "begin_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上任日期"
+msgstr "上任日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "离任日期"
+msgstr "離任日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "resume"
+msgstr "resume"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "个人简历"
+msgstr "個人簡歷"
+
+#: ../../source/manage_data/05. data_tables_20.md:137
+msgid "IPO新股列表: `new_share`"
+msgstr "IPO新股列表: `new_share`"
+
+#: ../../source/manage_data/05. data_tables_20.md:138
+msgid "数据表用途: `basics`, 资产类型: `E`, 数据频率: `d`"
+msgstr "數據表用途: `basics`, 資產類型: `E`, 數據頻率: `d`"
+
+#: ../../source/manage_data/05. data_tables_20.md:140
+msgid ""
+"IPO新股列表包含了所有新股的基本信息，包括股票代码、申购代码、名称、上网发行日期、上市日期、发行总量、上网发行总量、发行价格、市盈率、个人申购上限、募集资金、中签率等信息。"
+msgstr ""
+"IPO新股列表包含了所有新股的基本資訊，包括股票代碼、申購代碼、名稱、上網發行日期、上市日期、發行總量、上網發行總量、發行價格、市盈率、個人申購上限、募集資金、中籤率等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "sub_code"
+msgstr "sub_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "申购代码"
+msgstr "申購代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "名称"
+msgstr "名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "ipo_date"
+msgstr "ipo_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上网发行日期"
+msgstr "上網發行日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "issue_date"
+msgstr "issue_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "amount"
+msgstr "amount"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发行总量（万股）"
+msgstr "發行總量（萬股）"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "market_amount"
+msgstr "market_amount"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上网发行总量（万股）"
+msgstr "上網發行總量（萬股）"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "price"
+msgstr "price"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发行价格"
+msgstr "發行價格"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "pe"
+msgstr "pe"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "市盈率"
+msgstr "市盈率"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "limit_amount"
+msgstr "limit_amount"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "个人申购上限（万股）"
+msgstr "個人申購上限（萬股）"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "funds"
+msgstr "funds"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "募集资金（亿元）"
+msgstr "募集資金（億元）"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "ballot"
+msgstr "ballot"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "中签率"
+msgstr "中籤率"
+
+#: ../../source/manage_data/05. data_tables_20.md:157
+msgid "指数基本信息表"
+msgstr "指數基本資訊表"
+
+#: ../../source/manage_data/05. data_tables_20.md:159
+msgid "指数基本信息: `index_basic`"
+msgstr "指數基本資訊: `index_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:160 data_tables_20.md:195
+msgid "数据表用途: `basics`, 资产类型: `IDX`, 数据频率: `none`"
+msgstr "數據表用途: `basics`, 資產類型: `IDX`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:162
+msgid "指数基本信息表包含了所有指数的基本信息，包括指数代码、指数名称、发布日期、退市日期等信息。"
+msgstr "指數基本資訊表包含了所有指數的基本資訊，包括指數代碼、指數名稱、發佈日期、退市日期等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(24)"
+msgstr "varchar(24)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(80)"
+msgstr "varchar(80)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "简称"
+msgstr "簡稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "指数全称"
+msgstr "指數全稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "市场"
+msgstr "市場"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "publisher"
+msgstr "publisher"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发布方"
+msgstr "發佈方"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "index_type"
+msgstr "index_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "指数风格"
+msgstr "指數風格"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "category"
+msgstr "category"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "指数类别"
+msgstr "指數類別"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "base_date"
+msgstr "base_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "基期"
+msgstr "基期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "base_point"
+msgstr "base_point"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "基点"
+msgstr "基點"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发布日期"
+msgstr "發佈日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "weight_rule"
+msgstr "weight_rule"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "加权方式"
+msgstr "加權方式"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "desc"
+msgstr "desc"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "描述"
+msgstr "描述"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "exp_date"
+msgstr "exp_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "终止日期"
+msgstr "終止日期"
+
+#: ../../source/manage_data/05. data_tables_20.md:180
+msgid "同花顺指数基本信息: `ths_index_basic`"
+msgstr "同花順指數基本資訊: `ths_index_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:181
+msgid "数据表用途: `basics`, 资产类型: `THS`, 数据频率: `none`"
+msgstr "數據表用途: `basics`, 資產類型: `THS`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:183
+msgid "同花顺指数基本信息表包含了所有同花顺指数的基本信息，包括指数代码、名称、成分个数、交易所、上市日期、N概念指数S特色指数等信息。"
+msgstr "同花順指數基本資訊表包含了所有同花順指數的基本資訊，包括指數代碼、名稱、成分個數、交易所、上市日期、N概念指數S特色指數等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(14)"
+msgstr "varchar(14)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "代码"
+msgstr "代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "count"
+msgstr "count"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "成分个数"
+msgstr "成分個數"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "type"
+msgstr "type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "N概念指数S特色指数"
+msgstr "N概念指數S特色指數"
+
+#: ../../source/manage_data/05. data_tables_20.md:194
+msgid "申万行业分类: `sw_industry_basic`"
+msgstr "申萬行業分類: `sw_industry_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:197
+msgid ""
+"申万行业分类指数表包含了所有申万行业分类指数的基本信息，包括指数代码、行业名称、父级代码、行业级别、行业代码、是否发布了指数、行业分类（SW申万）等信息。"
+msgstr ""
+"申萬行業分類指數表包含了所有申萬行業分類指數的基本資訊，包括指數代碼、行業名稱、父級代碼、行業級別、行業代碼、是否發佈了指數、行業分類（SW申萬）等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "index_code"
+msgstr "index_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "指数代码"
+msgstr "指數代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "industry_name"
+msgstr "industry_name"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "行业名称"
+msgstr "行業名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "parent_code"
+msgstr "parent_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "父级代码"
+msgstr "父級代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "level"
+msgstr "level"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "industry_code"
+msgstr "industry_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "行业代码"
+msgstr "行業代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "is_pub"
+msgstr "is_pub"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "是否发布了指数"
+msgstr "是否發佈了指數"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "src"
+msgstr "src"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "行业分类（SW申万）"
+msgstr "行業分類（SW申萬）"
+
+#: ../../source/manage_data/05. data_tables_20.md:209
+msgid "基金基本信息表"
+msgstr "基金基本資訊表"
+
+#: ../../source/manage_data/05. data_tables_20.md:211
+msgid "基金基本信息: `fund_basic`"
+msgstr "基金基本資訊: `fund_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:212
+msgid "数据表用途: `basics`, 资产类型: `FD`, 数据频率: `none`"
+msgstr "數據表用途: `basics`, 資產類型: `FD`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:214
+msgid ""
+"基金基本信息表包含了所有基金的基本信息，包括基金代码、基金名称、管理人、托管人、投资类型、成立日期、到期日期、上市时间、发行日期、退市日期、发行份额、管理费、托管费、存续期、面值、起点金额、预期收益率、业绩比较基准、存续状态、投资风格、基金类型、受托人、日常申购起始日、日常赎回起始日、场内场外等信息。"
+msgstr ""
+"基金基本資訊表包含了所有基金的基本資訊，包括基金代碼、基金名稱、管理人、託管人、投資類型、成立日期、到期日期、上市時間、發行日期、退市日期、發行份額、管理費、託管費、存續期、面值、起點金額、預期收益率、業績比較基準、存續狀態、投資風格、基金類型、受託人、日常申購起始日、日常贖回起始日、場內場外等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "management"
+msgstr "management"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "管理人"
+msgstr "管理人"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "custodian"
+msgstr "custodian"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "托管人"
+msgstr "託管人"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "fund_type"
+msgstr "fund_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "投资类型"
+msgstr "投資類型"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "found_date"
+msgstr "found_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "成立日期"
+msgstr "成立日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "due_date"
+msgstr "due_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "到期日期"
+msgstr "到期日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "上市时间"
+msgstr "上市時間"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发行日期"
+msgstr "發行日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "issue_amount"
+msgstr "issue_amount"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "发行份额(亿)"
+msgstr "發行份額(億)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "m_fee"
+msgstr "m_fee"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "管理费"
+msgstr "管理費"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "c_fee"
+msgstr "c_fee"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "托管费"
+msgstr "託管費"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "duration_year"
+msgstr "duration_year"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "存续期"
+msgstr "存續期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "p_value"
+msgstr "p_value"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "面值"
+msgstr "面值"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "min_amount"
+msgstr "min_amount"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "起点金额(万元)"
+msgstr "起點金額(萬元)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "16"
+msgstr "16"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "exp_return"
+msgstr "exp_return"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "预期收益率"
+msgstr "預期收益率"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "17"
+msgstr "17"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "benchmark"
+msgstr "benchmark"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "业绩比较基准"
+msgstr "業績比較基準"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "18"
+msgstr "18"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "status"
+msgstr "status"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "存续状态D摘牌 I发行 L已上市"
+msgstr "存續狀態D摘牌 I發行 L已上市"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "19"
+msgstr "19"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "invest_type"
+msgstr "invest_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "投资风格"
+msgstr "投資風格"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "20"
+msgstr "20"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "基金类型"
+msgstr "基金類型"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "21"
+msgstr "21"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "trustee"
+msgstr "trustee"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "受托人"
+msgstr "受託人"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "22"
+msgstr "22"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "purc_startdate"
+msgstr "purc_startdate"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "日常申购起始日"
+msgstr "日常申購起始日"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "23"
+msgstr "23"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "redm_startdate"
+msgstr "redm_startdate"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "日常赎回起始日"
+msgstr "日常贖回起始日"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "24"
+msgstr "24"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "E场内O场外"
+msgstr "E場內O場外"
+
+#: ../../source/manage_data/05. data_tables_20.md:244
+msgid "基金经理: `fund_manager`"
+msgstr "基金經理: `fund_manager`"
+
+#: ../../source/manage_data/05. data_tables_20.md:245
+msgid "数据表用途: `events`, 资产类型: `FD`, 数据频率: `none`"
+msgstr "數據表用途: `events`, 資產類型: `FD`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:247
+msgid "基金经理表包含基金经理的详细信息，包括姓名、性别、出生年月和简历等信息"
+msgstr "基金經理表包含基金經理的詳細資訊，包括姓名、性別、出生年月和簡歷等資訊"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "基金经理姓名"
+msgstr "基金經理姓名"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "birth_year"
+msgstr "birth_year"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(12)"
+msgstr "varchar(12)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "出生年份"
+msgstr "出生年份"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "nationality"
+msgstr "nationality"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "任职日期"
+msgstr "任職日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "简历"
+msgstr "簡歷"
+
+#: ../../source/manage_data/05. data_tables_20.md:262
+msgid "基金份额: `fund_share`"
+msgstr "基金份額: `fund_share`"
+
+#: ../../source/manage_data/05. data_tables_20.md:263
+msgid "数据表用途: `data`, 资产类型: `FD`, 数据频率: `none`"
+msgstr "數據表用途: `data`, 資產類型: `FD`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:265
+msgid "基金份额表包含"
+msgstr "基金份額表包含"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "trade_date"
+msgstr "trade_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "变动日期，格式YYYYMMDD"
+msgstr "變動日期，格式YYYYMMDD"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "fd_share"
+msgstr "fd_share"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "基金份额(万)"
+msgstr "基金份額(萬)"
+
+#: ../../source/manage_data/05. data_tables_20.md:273
+msgid "期货和期权基本信息"
+msgstr "期貨和期權基本資訊"
+
+#: ../../source/manage_data/05. data_tables_20.md:275
+msgid "期货基本信息: `future_basic`"
+msgstr "期貨基本資訊: `future_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:276
+msgid "数据表用途: `basics`, 资产类型: `FT`, 数据频率: `none`"
+msgstr "數據表用途: `basics`, 資產類型: `FT`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:278
+msgid ""
+"期货基本信息表包含了所有期货的基本信息，包括合约代码、交易标识、交易市场、中文简称、合约产品代码、合约乘数、交易计量单位、交易单位(每手)、报价单位、最小报价单位说明、交割方式说明、上市日期、最后交易日期、交割月份、最后交割日、交易时间说明等信息。"
+msgstr ""
+"期貨基本資訊表包含了所有期貨的基本資訊，包括合約代碼、交易標識、交易市場、中文簡稱、合約產品代碼、合約乘數、交易計量單位、交易單位(每手)、報價單位、最小報價單位說明、交割方式說明、上市日期、最後交易日期、交割月份、最後交割日、交易時間說明等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易标识"
+msgstr "交易標識"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易市场"
+msgstr "交易市場"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "中文简称"
+msgstr "中文簡稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "fut_code"
+msgstr "fut_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "合约产品代码"
+msgstr "合約產品代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "multiplier"
+msgstr "multiplier"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "合约乘数"
+msgstr "合約乘數"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "trade_unit"
+msgstr "trade_unit"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易计量单位"
+msgstr "交易計量單位"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "per_unit"
+msgstr "per_unit"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易单位(每手)"
+msgstr "交易單位(每手)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "quote_unit"
+msgstr "quote_unit"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "报价单位"
+msgstr "報價單位"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "quote_unit_desc"
+msgstr "quote_unit_desc"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最小报价单位说明"
+msgstr "最小報價單位說明"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "d_mode_desc"
+msgstr "d_mode_desc"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交割方式说明"
+msgstr "交割方式說明"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最后交易日期"
+msgstr "最後交易日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "d_month"
+msgstr "d_month"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交割月份"
+msgstr "交割月份"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "last_ddate"
+msgstr "last_ddate"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最后交割日"
+msgstr "最後交割日"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "trade_time_desc"
+msgstr "trade_time_desc"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易时间说明"
+msgstr "交易時間說明"
+
+#: ../../source/manage_data/05. data_tables_20.md:299
+msgid "期权基本信息: `opt_basic`"
+msgstr "期權基本資訊: `opt_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:300
+msgid "数据表用途: `basics`, 资产类型: `OPT`, 数据频率: `none`"
+msgstr "數據表用途: `basics`, 資產類型: `OPT`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:302
+msgid ""
+"期权基本信息表包含了所有期权的基本信息，包括证券代码、交易市场、合约名称、合约单位、标准合约代码、合约类型、期权类型、行权方式、行权价格、结算月、到期日、挂牌基准价、开始交易日期、最后交易日期、最后行权日期、最后交割日期、报价单位、最小价格波幅等信息。"
+msgstr ""
+"期權基本資訊表包含了所有期權的基本資訊，包括證券代碼、交易市場、合約名稱、合約單位、標準合約代碼、合約類型、期權類型、行權方式、行權價格、結算月、到期日、掛牌基準價、開始交易日期、最後交易日期、最後行權日期、最後交割日期、報價單位、最小价格波幅等資訊。"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "合约名称"
+msgstr "合約名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "合约单位"
+msgstr "合約單位"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "opt_code"
+msgstr "opt_code"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "标准合约代码"
+msgstr "標準合約代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "opt_type"
+msgstr "opt_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "合约类型"
+msgstr "合約類型"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "call_put"
+msgstr "call_put"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "期权类型"
+msgstr "期權類型"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "exercise_type"
+msgstr "exercise_type"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "行权方式"
+msgstr "行權方式"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "exercise_price"
+msgstr "exercise_price"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "行权价格"
+msgstr "行權價格"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "s_month"
+msgstr "s_month"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "结算月"
+msgstr "結算月"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "maturity_date"
+msgstr "maturity_date"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "到期日"
+msgstr "到期日"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "list_price"
+msgstr "list_price"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "挂牌基准价"
+msgstr "掛牌基準價"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "开始交易日期"
+msgstr "開始交易日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "last_edate"
+msgstr "last_edate"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最后行权日期"
+msgstr "最後行權日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最后交割日期"
+msgstr "最後交割日期"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "min_price_chg"
+msgstr "min_price_chg"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "最小价格波幅"
+msgstr "最小价格波幅"
+
+#: ../../source/manage_data/05. data_tables_20.md:325
+msgid "美股和港股基本信息"
+msgstr "美股和港股基本資訊"
+
+#: ../../source/manage_data/05. data_tables_20.md:327
+msgid "美股基本信息: `us_stock_basic`"
+msgstr "美股基本資訊: `us_stock_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:328
+msgid "数据表用途: `not_implemented`, 资产类型: `US`, 数据频率: `none`"
+msgstr "數據表用途: `not_implemented`, 資產類型: `US`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:330
+msgid "美股基本信息包括美国股票的基本信息如名称、上市日期等"
+msgstr "美股基本資訊包括美國股票的基本資訊如名稱、上市日期等"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "美股代码"
+msgstr "美股代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "中文名称"
+msgstr "中文名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "英文名称"
+msgstr "英文名稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "classify"
+msgstr "classify"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "分类:ADR/GDR/EQT"
+msgstr "分類:ADR/GDR/EQT"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "datetime"
+msgstr "datetime"
+
+#: ../../source/manage_data/05. data_tables_20.md:341
+msgid "港股基本信息: `hk_stock_basic`"
+msgstr "港股基本資訊: `hk_stock_basic`"
+
+#: ../../source/manage_data/05. data_tables_20.md:342
+msgid "数据表用途: `not_implemented`, 资产类型: `HK`, 数据频率: `none`"
+msgstr "數據表用途: `not_implemented`, 資產類型: `HK`, 數據頻率: `none`"
+
+#: ../../source/manage_data/05. data_tables_20.md:344
+msgid "港股基本信息包括港交所股票的代码、名称、公司名称等基本信息"
+msgstr "港股基本資訊包括港交所股票的代碼、名稱、公司名稱等基本資訊"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "股票简称"
+msgstr "股票簡稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "公司全称"
+msgstr "公司全稱"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "cn_spell"
+msgstr "cn_spell"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "拼音"
+msgstr "拼音"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "市场类别"
+msgstr "市場類別"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "交易单位"
+msgstr "交易單位"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "isin"
+msgstr "isin"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "varchar(16)"
+msgstr "varchar(16)"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "ISIN代码"
+msgstr "ISIN代碼"
+
+#: ../../source/manage_data/05. data_tables_20.md
+msgid "货币代码"
+msgstr "貨幣代碼"

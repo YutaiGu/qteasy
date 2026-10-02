@@ -3,565 +3,709 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:1
 msgid "产物清单与排错"
-msgstr ""
+msgstr "Lista de productos y solución de problemas"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:3
 msgid "本章是模拟实盘的「急救手册」：日志在哪、先查哪个文件、常见故障按什么顺序排查。"
 msgstr ""
+"Este capítulo es un \"manual de primeros auxilios\" para simular operaciones"
+" reales: dónde está el registro, qué archivo verificar primero y el orden en"
+" el que solucionar problemas comunes."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:5
 msgid "亲爱的用户，live 运行会在磁盘上留下几类固定「产物」。把它们当成四个专用文件夹，出问题时按图索骥，比在海量输出里盲找高效得多。"
 msgstr ""
+"Estimado usuario, Live dejará varios tipos de \"salidas\" fijas en su disco."
+" Trátelos como cuatro carpetas dedicadas y, cuando surjan problemas, siga "
+"estas carpetas para encontrar el resultado correcto; Esto es mucho más "
+"eficiente que buscar ciegamente entre cantidades masivas de resultados."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:7
 msgid "0. 适用场景"
-msgstr ""
+msgstr "0. Escenarios aplicables"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:9
 msgid "您已在 live 模式运行，遇到提交失败、拒单、状态异常、在途单对不齐"
 msgstr ""
+"Ya está ejecutando en modo en vivo y está experimentando problemas como "
+"fallas en el envío, rechazo de pedidos, estados anormales o inconsistencias "
+"en los pedidos en tránsito."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:10
 msgid "您希望按**固定顺序**定位问题，减少反复重启"
 msgstr ""
+"Desea localizar el problema en un **orden fijo** para reducir los reinicios "
+"repetidos."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:11
 msgid "您需要核对日志路径、轮换策略与 `broker_order_id` 是否回写"
 msgstr ""
+"Debe verificar la ruta del registro, la estrategia de rotación y si se "
+"reescribe `broker_order_id`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:13
 msgid "1. 核心概念：四键产物"
-msgstr ""
+msgstr "1. Concepto central: productos de cuatro bonos"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:15
 msgid ""
 "qteasy 为每个 live 账户提供 **四个固定键名** 的路径（文件可以尚不存在，路径仍然有效）。在 live "
 "子系统的可观测性设计中，这四类产物分别对应「系统怎么跑、成交明细、异常恢复、风控审计」——排错时请先判断问题属于哪一类，再打开对应文件，而不是在一个日志里全文搜索。"
 msgstr ""
+"Qteasy proporciona a cada cuenta Live **cuatro nombres de claves fijas** "
+"para la ruta (la ruta sigue siendo válida incluso si el archivo no existe). "
+"En el diseño de observabilidad del subsistema Live, estos cuatro tipos de "
+"artefactos corresponden a \"cómo se ejecuta el sistema, detalles de la "
+"transacción, recuperación de anomalías y auditoría de control de riesgos\", "
+"respectivamente. Al solucionar problemas, primero determine a qué categoría "
+"pertenece el problema y luego abra el archivo correspondiente, en lugar de "
+"buscar en todo el registro."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:17
 msgid ""
 "**各列含义**：**键名**为 `list_live_trade_artifacts` / CLI `artifacts` 返回的 dict "
 "键；**是什么**为文件类型；**什么时候该打开它**为典型触发场景。"
 msgstr ""
+"**El significado de cada columna:** **Nombre de clave:** La clave dict "
+"devuelta por `list_live_trade_artifacts` / CLI `artifacts`; **Qué es:** El "
+"tipo de archivo; **Cuándo abrirlo:** El escenario desencadenante típico."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:19
 msgid ""
 "**如何使用**：按 :doc:`3-risk-and-order-lifecycle` 判断拒单类型 → 风控查 `risk_log`，成交查 "
 "`trade_log`；启动/门禁/trace 查 `sys_log`。"
 msgstr ""
+"**Cómo utilizar:** Presione :doc:`3-risk-and-order-lifecycle` para "
+"determinar el tipo de rechazo de orden → marque `risk_log` para control de "
+"riesgos, marque `trade_log` para transacciones; marque `sys_log` para "
+"inicio/control de acceso/rastreo."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "键名"
-msgstr ""
+msgstr "Nombre clave"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "是什么"
-msgstr ""
+msgstr "¿Qué es?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "什么时候该打开它"
-msgstr ""
+msgstr "¿Cuándo se debe encender?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "`sys_log`"
-msgstr ""
+msgstr "`sys_log`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "系统运行日志"
-msgstr ""
+msgstr "Registro de operación del sistema"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "任务调度、启动门禁、trace、一般报错"
 msgstr ""
+"Programación de tareas, activación de control de acceso, seguimiento, "
+"informes de errores generales"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "`trade_log`"
-msgstr ""
+msgstr "`trade_log`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "交易明细 CSV"
-msgstr ""
+msgstr "Detalles de la transacción CSV"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "成交、费用、持仓变化明细"
-msgstr ""
+msgstr "Detalles de transacciones, tarifas y cambios de posiciones."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "`break_point`"
-msgstr ""
+msgstr "`break_point`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "断点恢复文件（键名是 `break_point`）"
 msgstr ""
+"Reanudar archivo desde el punto de interrupción (el nombre de la clave es "
+"`break_point`)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "异常退出后想恢复 Trader 状态"
-msgstr ""
+msgstr "¿Cómo restaurar el estado Trader después de una salida anormal?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "`risk_log`"
-msgstr ""
+msgstr "`risk_log`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "风控拒单审计（`*.risk.log`）"
-msgstr ""
+msgstr "Auditoría de rechazo de órdenes de control de riesgos (*.risk.log)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "**怀疑风控拒单**时优先"
-msgstr ""
+msgstr "**Priorizar cuando **se sospeche de rechazo del control de riesgo**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:28
 msgid "**示例（API 与 CLI）**："
-msgstr ""
+msgstr "**Ejemplos (API y CLI)**:"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:38
 msgid "在 Trader Shell 也可输入 `artifacts`（别名 `ls-artifacts`）获得相同四键路径。"
 msgstr ""
+"También puede obtener la misma ruta de cuatro teclas escribiendo `artifacts`"
+" (alias `ls-artifacts`) en el Trader Shell."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:40
 msgid "**路径规则（简要）**："
-msgstr ""
+msgstr "**Reglas de ruta (breves)**:"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:42
 msgid "相对路径相对于 qteasy 根目录；绝对路径与 `~/...` 家目录均支持"
 msgstr ""
+"Se admiten rutas relativas relativas al directorio raíz de Qteasy; También "
+"se admiten rutas absolutas relativas al directorio de inicio `~/...`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:43
 msgid ""
 "`sys_log_file_path` / `trade_log_file_path` 可在运行中用 `qt.configure(...)` "
 "修改并立即生效"
 msgstr ""
+"Las rutas `sys_log_file_path` y `trade_log_file_path` se pueden modificar en"
+" tiempo de ejecución usando `qt.configure(...)` y entrarán en vigor de "
+"inmediato."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:45
 msgid "2. 日志轮换"
-msgstr ""
+msgstr "2. Rotación de registros"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:47
 msgid ""
-"长期 live 会积累 CSV 与 risk 日志。qteasy 按 **`trade_log_keep_days`**（默认 3 "
-"天）清理过期文件。"
+"长期 live 会积累 CSV 与 risk 日志。qteasy 按 **`trade_log_keep_days`**（默认 3 天）清理过期文件。"
 msgstr ""
+"El registro en vivo a largo plazo acumula registros CSV y de riesgo. Qteasy "
+"limpia los archivos caducados en **`trade_log_keep_days`** (3 días "
+"predeterminados)."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:49
 msgid "**API**：`qt.rotate_trade_logs(days=None)`"
-msgstr ""
+msgstr "**API**: `qt.rotate_trade_logs(days=None)`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:50
 msgid "**CLI**：`rotatelogs`（别名 `rotate-logs`），可选 `--days N`"
-msgstr ""
+msgstr "**CLI: `rotatelogs` (alias `rotate-logs`), opcional `--days N`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:52
 msgid "清理范围（在当前交易日志目录下）："
 msgstr ""
+"Alcance de la limpieza (dentro del directorio de registro de transacciones "
+"actual):"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:54
 msgid "`trade_log_*.csv` / `trade_summary_*.csv` / `value_curve_*.csv`"
-msgstr ""
+msgstr "`trade_log_*.csv` / `trade_summary_*.csv` / `value_curve_*.csv`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:55
 msgid "`*.risk.log`"
-msgstr ""
+msgstr "`*.risk.log`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:57
 msgid "每次新 Python 进程导入 qteasy 时会**自动轮换一次**；您也可在运维时手动执行上述命令。"
 msgstr ""
+"Cada vez que un nuevo proceso de Python importa qteasy, **girará "
+"automáticamente una vez**; También puede ejecutar manualmente el comando "
+"anterior durante la operación y el mantenimiento."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:59
 msgid "3. 建议排错顺序（决策树）"
-msgstr ""
+msgstr "3. Orden sugerido de resolución de errores (árbol de decisión)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:61
 msgid "请按顺序自问，避免跳步："
 msgstr ""
+"Por favor, hágase las siguientes preguntas en orden, evitando saltarse "
+"pasos:"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:63
 msgid "**Step 1 — 界面上有没有英文拒因？**"
 msgstr ""
+"**Paso 1: ¿Se muestra algún motivo de rechazo en inglés en la interfaz?**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:64
 msgid "有，且像 `Order rejected by risk rule [...]` → 走 **风控路径**（Step 3）"
 msgstr ""
+"Sí, y sigue la **ruta de control de riesgos** (Paso 3), similar a `Order "
+"rejected by risk rule [...]`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:65
 msgid "有 `Order submission failed` 等 → 走 **提交/连接路径**（Step 4）"
 msgstr ""
+"Si encuentra errores como `Order submission failed`, continúe con la **ruta "
+"de envío/conexión** (Paso 4)."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:66
 msgid "没有明显报错但行为不对 → Step 6"
 msgstr ""
+"No hay mensaje de error obvio pero sí comportamiento incorrecto → Paso 6"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:68
 msgid "**Step 2 — 打开 `artifacts`，确认四个路径可写、文件是否在增长**"
 msgstr ""
+"**Paso 2: abre `artifacts` y confirma que se pueden escribir en las cuatro "
+"rutas y que el archivo está creciendo.**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:70
 msgid "**Step 3 — 风控拒单**"
-msgstr ""
+msgstr "**Paso 3: Rechazo del control de riesgos**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:71
 msgid "查 `risk_log` 中 `<RISK REJECTED>` 与 `rule_id`"
-msgstr ""
+msgstr "Marque `risk_log`<RIESGO RECHAZADO> ` and `rule_id`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:72
 msgid "**不应**出现新的订单表行（与柜台拒单不同）"
 msgstr ""
+"**No debería aparecer ninguna línea de pedido nueva (a diferencia de los "
+"rechazos contrarios)**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:74
 msgid "**Step 4 — 柜台受理 / 连接**"
-msgstr ""
+msgstr "**Paso 4 — Servicio de mostrador / Conexión**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:75
 msgid "`broker status`：`is_connected` 是否为真（simulator 上表示适配层可受理）"
 msgstr ""
+"El `broker status`: `is_connected` indica si es verdadero (en el simulador, "
+"esto significa que la capa del adaptador puede manejar la solicitud)."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:76
 msgid "订单表：是否有 `rejected` 且 broker 号为空（柜台拒单）"
 msgstr ""
+"Tabla de pedidos: ¿Contiene pedidos con entradas `rejected` y un número de "
+"corredor vacío (pedido rechazado en el mostrador)?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:78
 msgid "**Step 5 — 在途单不一致**"
-msgstr ""
+msgstr "**Paso 5: Documentos de tránsito inconsistentes**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:79
 msgid "DEBUG 模式下：`run --task diagnose_pending_orders`"
-msgstr ""
+msgstr "En modo DEPURACIÓN: `run --task diagnose_pending_orders`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:80
 msgid "或 Shell：`reconcile` 看 JSON"
-msgstr ""
+msgstr "O use Shell: `reconcile` para ver el JSON."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:82
 msgid "**Step 6 — 配置是否如我所想**"
-msgstr ""
+msgstr "**Paso 6: ¿La configuración es la que esperaba?**"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:83
 msgid "`liveconfig --detail` 核对快照"
-msgstr ""
+msgstr "`liveconfig --detail` comprueba la instantánea."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:85
 msgid "**Step 7 — 对照 trade_log 与订单状态序列**，以日志**最终状态**为准"
 msgstr ""
+"**Paso 7: compare trade_log con la secuencia de estado del pedido y utilice "
+"el **estado final** en el registro como estándar."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:87
 msgid "4. 高频故障剧本"
-msgstr ""
+msgstr "4. Script de falla de alta frecuencia"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:89
 msgid "每节统一：**现象 → 先查什么 → 常见原因 → 下一步**。"
 msgstr ""
+"Cada sección sigue la misma secuencia: **Fenómeno → Qué comprobar primero → "
+"Causas comunes → Siguiente paso**."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:91
 msgid "A. 订单被风控拒绝"
-msgstr ""
+msgstr "A. Orden rechazada por control de riesgos."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:93
 msgid "**现象**：CLI 英文拒因；提交结果为空 `{}`"
 msgstr ""
+"**Problema:** Rechazo de CLI debido a un error en inglés; el resultado del "
+"envío está vacío `{}`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:94
 msgid "**先查**：`risk_log` 含 `<RISK REJECTED>`；订单表**无**新行"
 msgstr ""
+"**Primera verificación:** `risk_log` que contiene `<RIESGO RECHAZADO> Tabla "
+"de pedidos **no** nueva línea"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:95
 msgid "**常见原因**：超单笔上限、不在白名单、非交易时段等"
 msgstr ""
+"**Razones comunes**: Exceder el límite de transacción única, no estar en la "
+"lista blanca, fuera del horario comercial, etc."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:96
 msgid "**下一步**：调整规则或订单参数，同场景复测；详见 :doc:`3-risk-and-order-lifecycle`"
 msgstr ""
+"**Próximos pasos:** Ajuste las reglas o los parámetros del pedido y vuelva a"
+" realizar la prueba en el mismo escenario; consulte :doc:`3-risk-and-order-"
+"lifecycle` para obtener más detalles."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:98
 msgid "B. 提交失败（非风控）"
-msgstr ""
+msgstr "B. Envío fallido (no debido al control de riesgos)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:100
 msgid "**现象**：无有效提交记录，或本地校验报错"
 msgstr ""
+"**Problema:** No hay registro de envío válido o error de verificación local."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:101
 msgid "**先查**：`broker status`、现金/持仓是否够、`sys_log` 错误栈"
 msgstr ""
+"**Primera verificación:** estado del corredor, adecuación del "
+"efectivo/posición y pila de errores sys_log."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:102
 msgid "**常见原因**：未 connect、字段不合法、资源不足"
 msgstr ""
+"**Causas comunes:** No conectado, campo no válido, recursos insuficientes"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:103
 msgid "**下一步**：修复连接或字段后重试"
 msgstr ""
+"**Siguiente paso:** Vuelva a intentarlo después de reparar la conexión o el "
+"campo."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:105
 msgid "C. 柜台受理拒单"
-msgstr ""
+msgstr "C. Contragestión de pedidos rechazados"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:107
 msgid "**现象**：订单表有行，`status=rejected`，`broker_order_id` 为空"
 msgstr ""
+"**Impacto:** La tabla de pedidos tiene filas donde `status=rejected` y "
+"`broker_order_id` están vacías."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:108
 msgid "**先查**：trace、受理返回的 `reason`"
 msgstr ""
+"**Primera verificación:** rastreo y el `reason` devuelto por el departamento"
+" de procesamiento."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:109
 msgid "**常见原因**：模拟券商规则不接受该委托（与风控无关）"
 msgstr ""
+"**Razón común**: Las reglas de la casa de bolsa simulada no aceptan esta "
+"orden (sin relación con el control de riesgos)."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:110
 msgid "**下一步**：对照 :doc:`6-trader-snapshot-gate` 拒单表，勿与风控混淆"
 msgstr ""
+"**Siguiente paso:** Consulte la lista de rechazos en el documento "
+":doc:`6-trader-snapshot-gate` y no la confunda con control de riesgos."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:112
 msgid "D. 长期 partial-filled"
-msgstr ""
+msgstr "D. Cumplimiento parcial a largo plazo"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:114
 msgid "**现象**：订单一直是部分成交"
 msgstr ""
+"**Fenómeno:** Los pedidos se cumplen sistemáticamente sólo parcialmente."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:115
 msgid "**先查**：累计成交量 vs 委托数量"
 msgstr ""
+"**Primera comprobación:** Volumen de operaciones acumulado frente al número "
+"de órdenes."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:116
 msgid "**常见原因**：回报尚未凑满；或行情导致分批成交慢"
 msgstr ""
+"**Razones comunes**: Las devoluciones requeridas aún no se han realizado en "
+"su totalidad; o las condiciones del mercado están provocando transacciones "
+"lentas en lotes."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:117
 msgid "**下一步**：结合成交回报判断是否应变为 `filled`"
 msgstr ""
+"**Siguiente paso:** Determine si los comentarios de la transacción deben "
+"usarse para actualizar el estado a `filled`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:119
 msgid "E. 收盘后状态不确定"
-msgstr ""
+msgstr "E. El estado poscomercialización es incierto."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:121
 msgid "**现象**：收盘后不知在途单如何处理"
 msgstr ""
+"**Problema:** No está claro cómo manejar las órdenes pendientes después del "
+"cierre del mercado."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:122
 msgid "**先查**：`post_close` 相关 trace、`reconcile` JSON"
 msgstr ""
+"**Primera comprobación:** `post_close` rastros relacionados, `reconcile` "
+"JSON."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:123
 msgid "**下一步**：核对撤单与最终状态"
 msgstr ""
+"**Siguiente paso:** Verificar la orden de cancelación y el estado final."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:125
 msgid "F. broker_order_id / 在途单异常"
-msgstr ""
+msgstr "F. broker_order_id / Excepción de orden en tránsito"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:127
 msgid ""
-"当本地订单状态、券商委托号或在途单列表「对不上」时，现象多样但都可归入下表几类。本表位于 live **5-C 可观测**范畴，与 :doc:`6"
-"-trader-snapshot-gate` 诊断字段一致；simulator 上远端列常为空，属正常。"
+"当本地订单状态、券商委托号或在途单列表「对不上」时，现象多样但都可归入下表几类。本表位于 live **5-C 可观测**范畴，与 "
+":doc:`6-trader-snapshot-gate` 诊断字段一致；simulator 上远端列常为空，属正常。"
 msgstr ""
+"Cuando el estado de la orden local, el número de orden de corretaje o la "
+"lista de órdenes en tránsito no coinciden, los fenómenos son variados, pero "
+"todos pueden clasificarse en las siguientes tablas. Esta tabla está en la "
+"categoría viva **5-C observable**, consistente con los campos de diagnóstico"
+" de :doc:`6-trader-snapshot-gate`; Las columnas remotas del simulador suelen"
+" estar vacías, lo cual es normal."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:129
 msgid "**各列含义**：**现象**为您观察到的矛盾；**先查**为第一证据来源；**下一步**为建议动作（只读诊断为主，不自动改单）。"
 msgstr ""
+"**El significado de cada columna:** **Fenómeno** es la contradicción que "
+"observas; **Primera verificación** es la fuente principal de evidencia; "
+"**Siguiente paso** es una acción sugerida (principalmente un diagnóstico de "
+"solo lectura, no modificado automáticamente)."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:131
 msgid ""
 "**如何使用**：匹配「现象」行 → 执行「先查」→ 若仍不明，DEBUG 下 `run --task "
 "diagnose_pending_orders`。"
 msgstr ""
+"**Cómo utilizar:** Haga coincidir la línea \"fenómeno\" → Ejecute "
+"\"Verificar primero\" → Si aún no está claro, ejecute `--task "
+"diagnose_pending_orders` en DEBUG."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "现象"
-msgstr ""
+msgstr "Fenómeno"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "先查"
-msgstr ""
+msgstr "comprobar primero"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "下一步"
-msgstr ""
+msgstr "Siguiente paso"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "风控拒单"
-msgstr ""
+msgstr "El control de riesgos rechaza pedidos"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "`risk_log`，无新订单行"
-msgstr ""
+msgstr "`risk_log` no contiene líneas de pedido nuevas."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "调规则"
-msgstr ""
+msgstr "Reglas de ajuste"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "柜台拒单"
-msgstr ""
+msgstr "Contra rechazo"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "订单 `rejected`，broker 空"
-msgstr ""
+msgstr "Orden rechazada, corredor vacío."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "trace / reason"
-msgstr ""
+msgstr "trace / reason"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "已 submitted 但无 broker id"
-msgstr ""
+msgstr "Enviado pero sin ID de corredor"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "受理 ACK 与回写"
-msgstr ""
+msgstr "ACK de aceptación y reescritura"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid ":doc:`4-broker-adapter-and-integration`"
-msgstr ""
+msgstr ":doc:`4-broker-adapter-and-integration`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "本地与远端在途不一致"
-msgstr ""
+msgstr "Inconsistencia entre tránsito local y remoto"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "DEBUG：`run --task diagnose_pending_orders`"
-msgstr ""
+msgstr "DEBUG: `run --task diagnose_pending_orders`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md
 msgid "只读诊断；simulator 远端常为空"
 msgstr ""
+"Diagnósticos de sólo lectura; El extremo remoto del simulador suele estar "
+"vacío."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:140
 msgid "CLI 辅助：`reconcile`、`gate`。"
-msgstr ""
+msgstr "Ayudantes de CLI: `reconcile`, `gate`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:142
 msgid "G. 界面与日志不一致"
-msgstr ""
+msgstr "G. Inconsistencia entre la interfaz y los registros"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:144
 msgid "**现象**：CLI 提示与事后查日志感觉矛盾"
 msgstr ""
+"**Problema:** Las indicaciones de la CLI y las comprobaciones de registros "
+"posteriores parecen contradictorias."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:145
 msgid "**先查**：按**时间顺序**对齐同一订单 ID 的全链路记录"
 msgstr ""
+"**Primera verificación:** Alinee todos los registros del mismo ID de pedido "
+"en **secuencia de tiempo**."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:146
 msgid "**下一步**：以日志**最终状态**为准复盘"
 msgstr ""
+"**Siguiente paso:** Realice un análisis post mortem basado en el **estado "
+"final** del registro."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:148
 msgid "5. 运维建议"
-msgstr ""
+msgstr "5. Recomendaciones de Operación y Mantenimiento"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:150
 msgid "定期看交易日志目录占用；必要时 `rotatelogs --days N`"
 msgstr ""
+"Verifique periódicamente el uso del directorio del registro de "
+"transacciones; si es necesario, utilice `rotatelogs --days N`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:151
 msgid "关键运行日保存 `liveconfig --detail` 输出截图或文本"
 msgstr ""
+"Guarde el resultado de `liveconfig --detail` en los días de ejecución "
+"críticos como una captura de pantalla o texto."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:152
 msgid "长跑或发版前对照 :doc:`7-manual-smoke-live-grid-roadmap`"
 msgstr ""
+"Carrera de larga distancia o referencia previa al lanzamiento: "
+"doc:`7-manual-smoke-live-grid-roadmap`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:154
 msgid "6. 快速检查清单"
-msgstr ""
+msgstr "6. Lista de verificación rápida"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:156
 msgid "账户正确"
-msgstr ""
+msgstr "Cuenta correcta"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:157
 msgid "配置生效（`liveconfig`）"
-msgstr ""
+msgstr "La configuración entra en vigor (`liveconfig`)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:158
 msgid "风控是否拒绝（`risk_log`）"
-msgstr ""
+msgstr "¿El sistema de control de riesgos rechaza la solicitud (`risk_log`)?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:159
 msgid "券商是否可受理（`broker status`）"
-msgstr ""
+msgstr "¿Puede la firma de corretaje manejar esto (estatus de corredor)?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:160
 msgid "受理成功是否回写 `broker_order_id`"
 msgstr ""
+"¿Se debe volver a escribir `broker_order_id` tras un procesamiento exitoso?"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:161
 msgid "四键路径可读（`artifacts`）"
-msgstr ""
+msgstr "Las rutas de cuatro claves son legibles (`artifacts`)"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:163
 msgid "7. 常用英文提示与中文含义"
-msgstr ""
+msgstr "7. Consejos comunes en inglés y sus significados en chino"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:169
 msgid "**含义**：本地风控规则 **MAX_ORDER_QTY** 拒绝——数量超限。查 `risk_log`，不是券商拒单。"
 msgstr ""
+"**Significado:** Regla de control de riesgos local **MAX_ORDER_QTY** "
+"rechazada: la cantidad superó el límite. Marque ⟦CÓDIGO0⟧; No fue una firma "
+"de corretaje la que rechazó la orden."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:175
 msgid "**含义**：同上，结构化风控日志行，便于搜索。"
 msgstr ""
+"**Significado**: Igual que arriba, líneas de registro de control de riesgos "
+"estructuradas, lo que facilita su búsqueda."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:181
 msgid "**含义**：提交链路失败（非风控通过后的柜台拒单），查连接与 `sys_log`。"
 msgstr ""
+"**Significado**: El proceso de envío falló (no es un contrarechazo después "
+"de la aprobación del control de riesgos). Verifique la conexión y `sys_log`."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:187
 msgid "**含义**：`sync` 命令尚未实现真实远端同步，属预期提示，不是运行故障。"
 msgstr ""
+"**Significado**: El comando `sync` aún no ha logrado la sincronización "
+"remota real. Este es un mensaje esperado y no un error de tiempo de "
+"ejecución."
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:189
 msgid "8. 相关跳转"
-msgstr ""
+msgstr "8. Redirecciones relacionadas"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:191
 msgid "启动与配置：:doc:`2-configuration-and-run`"
-msgstr ""
+msgstr "Inicio y Configuración: :doc:`2-configuration-and-run`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:192
 msgid "生命周期：:doc:`3-risk-and-order-lifecycle`"
-msgstr ""
+msgstr "Ciclo de vida: :doc:`3-risk-and-order-lifecycle`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:193
 msgid "快照/门禁/拒单：:doc:`6-trader-snapshot-gate`"
 msgstr ""
+"Instantánea/Control de acceso/Rechazo de pedido: :doc:`6-trader-snapshot-"
+"gate`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:194
 msgid "手工冒烟：:doc:`7-manual-smoke-live-grid-roadmap`"
-msgstr ""
+msgstr "Humo manual: :doc:`7-manual-smoke-live-grid-roadmap`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:195
 msgid "CLI 对照：:doc:`8-cli-trader-capability-matrix`"
-msgstr ""
+msgstr "Referencia CLI: :doc:`8-cli-trader-capability-matrix`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:196
 msgid "Broker：:doc:`4-broker-adapter-and-integration`"
-msgstr ""
+msgstr "Broker: :doc:`4-broker-adapter-and-integration`"
 
 #: ../../source/live_trading/5-artifacts-and-troubleshooting.md:197
 msgid ""
 "实操教程：[tutorials/8-live-trade-risk-and-broker-"
 "walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"
 msgstr ""
+"Tutorial práctico: [tutorials/8-live-trade-risk-and-broker-"
+"walkthrough.md](../tutorials/8-live-trade-risk-and-broker-walkthrough.md)"
 
 #~ msgid "本页提供 live 运行时最常用的排错路径与运维建议。"
 #~ msgstr ""
@@ -730,4 +874,3 @@ msgstr ""
 
 #~ msgid "实操教程：`tutorials/8-live-trade-risk-and-broker-walkthrough.md`"
 #~ msgstr ""
-

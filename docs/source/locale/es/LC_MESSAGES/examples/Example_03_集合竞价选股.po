@@ -3,91 +3,128 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:1
 msgid "集合竞价选股策略"
-msgstr ""
+msgstr "Estrategia de oferta colectiva"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:3
 msgid ""
-"参考来源：`docs/_joinquant_migration_source/Example_03_集合竞价选股.ipynb` 第一个 "
-"Markdown cell。"
+"参考来源：`docs/_joinquant_migration_source/Example_03_集合竞价选股.ipynb` 第一个 Markdown"
+" cell。"
 msgstr ""
+"Fuente de referencia: "
+"`docs/_joinquant_migration_source/Example_03_集集竞价选股.ipynb` La primera celda "
+"de Markdown."
 
 #: ../../source/examples/Example_03_集合竞价选股.md:5
-msgid "本策略通过获取SHSE.000300沪深300的成份股数据并统计其30天内开盘价大于前收盘价的天数,并在该天数大于阈值10的时候加入股票池,随后对不在股票池的股票平仓并等权配置股票池的标的,每次交易间隔1个月."
+msgid ""
+"本策略通过获取SHSE.000300沪深300的成份股数据并统计其30天内开盘价大于前收盘价的天数,并在该天数大于阈值10的时候加入股票池,随后对不在股票池的股票平仓并等权配置股票池的标的,每次交易间隔1个月."
 msgstr ""
+"Esta estrategia obtiene los datos de las acciones constituyentes de "
+"SHSE.000300 Shanghai y Shenzhen 300 y cuenta el número de días en los que el"
+" precio de apertura es mayor que el precio de cierre anterior dentro de los "
+"30 días. Cuando este número supera el umbral de 10, se agrega al grupo de "
+"acciones. Luego, cierre las posiciones de las acciones que no están en el "
+"grupo de acciones y asigne equitativamente las acciones en el grupo de "
+"acciones. El intervalo de negociación es de un mes."
 
 #: ../../source/examples/Example_03_集合竞价选股.md:7
 msgid "回测数据为:SHSE.000300沪深300指数成份股 回测时间为:2016-04-05 到 2021-02-01"
 msgstr ""
+"Datos de prueba retrospectiva: SHSE.000300 Acciones que componen el índice "
+"300 de Shanghai y Shenzhen Tiempo de prueba retrospectiva: 2016-04-05 a "
+"2021-02-01"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:31
 msgid "第一种自定义策略设置方法，使用持仓数据和选股数据直接生成比例交易信号`PS`信号："
 msgstr ""
+"El primer método para establecer estrategias personalizadas es generar "
+"directamente señales comerciales proporcionales `PS` utilizando datos de "
+"posición y datos de selección de acciones:"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:32
 msgid ""
 "使用`GeneralStrategy`策略类，计算选股因子后，去掉所有小于零的因子，排序后提取排名前三十的股票 按以下逻辑生成交易信号： "
 "1，检查当前持仓，如果持仓的股票未被选中，则全数卖出 2，检查当前持仓，如果新选中的股票没有持仓，则等权买入新增选中的股票"
 msgstr ""
+"Utilice la clase de estrategia `GeneralStrategy` para calcular los factores "
+"de selección de acciones, eliminar todos los factores menores que cero, "
+"ordenar y extraer las treinta acciones principales. Genere señales "
+"comerciales de acuerdo con la siguiente lógica: 1. Verifique la posición "
+"actual. Si las acciones en la posición no están seleccionadas, véndalas "
+"todas. 2. Verifique la posición actual. Si las acciones recién seleccionadas"
+" no están en la posición, compre igualmente las acciones recién "
+"seleccionadas."
 
 #: ../../source/examples/Example_03_集合竞价选股.md:37
 msgid "设置交易信号类型为`PS`，生成交易信号 由于生成交易信号需要用到持仓数据，因此不能使用批量生成模式，只能使用`stepwise`模式"
 msgstr ""
+"Establezca el tipo de señal comercial en `PS` y genere la señal comercial. "
+"Dado que la generación de señales comerciales requiere el uso de datos de "
+"posición, no se puede utilizar el modo de generación por lotes y solo se "
+"puede utilizar el modo `stepwise`."
 
 #: ../../source/examples/Example_03_集合竞价选股.md:88
 msgid "创建一个`Operator`对象，并回测交易策略"
-msgstr ""
+msgstr "Cree un objeto `Operator` y pruebe la estrategia comercial"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:110
 msgid "运行结果如下："
-msgstr ""
+msgstr "Los resultados son los siguientes:"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:178
 msgid "![png](img/output_4_1_2.png)"
-msgstr ""
+msgstr "![png](img/output_4_1_2.png)"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:178
 #: ../../source/examples/Example_03_集合竞价选股.md:313
 msgid "png"
-msgstr ""
+msgstr "png"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:181
 msgid "第二种自定义策略设置方法，使用PT交易信号设置持仓目标："
 msgstr ""
+"El segundo método para establecer estrategias personalizadas implica el uso "
+"de señales comerciales PT para establecer objetivos de posición:"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:183
-msgid "在完成选股因子的计算之后，直接设置每个股票的持仓目标，这样就不需要使用知道持仓数据，直接输出持仓目标信号 ，在回测过程中根据实际持仓量生成交易信号。"
+msgid ""
+"在完成选股因子的计算之后，直接设置每个股票的持仓目标，这样就不需要使用知道持仓数据，直接输出持仓目标信号 ，在回测过程中根据实际持仓量生成交易信号。"
 msgstr ""
+"Después de completar el cálculo de los factores de selección de acciones, "
+"establezca directamente el objetivo de posición para cada acción. De esta "
+"manera, no es necesario conocer los datos de posición y la señal de posición"
+" objetivo se puede emitir directamente. Durante el proceso de backtest, se "
+"generan señales comerciales en función de la posición real."
 
 #: ../../source/examples/Example_03_集合竞价选股.md:226
 msgid "创建一个Operator对象，开始回测交易策略"
 msgstr ""
+"Cree un objeto Operator y comience a realizar pruebas retrospectivas de la "
+"estrategia comercial"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:246
 msgid "交易回测结果如下："
-msgstr ""
+msgstr "Los resultados del backtest comercial son los siguientes:"
 
 #: ../../source/examples/Example_03_集合竞价选股.md:313
 msgid "![png](img/output_6_1.png)"
-msgstr ""
+msgstr "![png](img/output_6_1.png)"
 
 #~ msgid "第二种自定义策略设置方，使用PT交易信号设置持仓目标："
 #~ msgstr ""
-

@@ -1,0 +1,653 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/faq.md:1
+msgid "FAQ"
+msgstr "FAQ"
+
+#: ../../source/faq.md:3
+msgid "如何搭建不同python版本的安装环境"
+msgstr "さまざまな Python バージョンのインストール環境をセットアップする方法"
+
+#: ../../source/faq.md:5
+msgid ""
+"在`qteasy` "
+"Tutorial中，我们介绍了使用`venv`创建虚拟环境安装`qteasy`的方法。但是，有时候用户可能需要在不同的`python`版本下安装`qteasy`，例如在`python`3.9、`python`3.10、`python`3.11、`python`3.12等等版本下安装`qteasy`。这里我们介绍一种方法，可以在不同的`python`版本下安装`qteasy`。"
+msgstr ""
+"`qteasy`チュートリアルでは、`venv`で作成した仮想環境を使用して`qteasy`をインストールする方法を紹介しました。ただし、場合によっては、Python"
+" 3.9、Python 3.10、Python 3.11、Python 3.12 などの異なる Python バージョンに `qteasy` "
+"をインストールする必要がある場合があります。ここでは、異なる Python バージョンに `qteasy` をインストールする方法を紹介します。"
+
+#: ../../source/faq.md:7
+msgid "使用Anaconda创建不同python版本的环境："
+msgstr "Anaconda を使用して、さまざまな Python バージョンで環境を作成します。"
+
+#: ../../source/faq.md:9
+msgid ""
+"Anaconda是一个科学计算的Python发行版，它包含了conda、Python等180多个科学包及其依赖项。因此，我们可以使用Anaconda创建不同python版本的环境，然后在不同的环境下安装qteasy。"
+msgstr ""
+"Anaconda は、conda、Python、180 を超える科学パッケージとその依存関係を含む科学コンピューティング用の Python "
+"ディストリビューションです。したがって、Anaconda を使用してさまざまな Python バージョンの環境を作成し、それらの環境内に qteasy "
+"をインストールできます。"
+
+#: ../../source/faq.md:11
+msgid ""
+"Anaconda可以在其官网下载，下载地址为：[Anaconda](https://www.anaconda.com/products/distribution)。针对不同操作系统，下载对应的版本，然后安装。"
+msgstr ""
+"Anaconda は公式 Web サイト "
+"[Anaconda](https://www.anaconda.com/products/distribution) "
+"からダウンロードできます。オペレーティング システムに対応するバージョンをダウンロードしてインストールします。"
+
+#: ../../source/faq.md:13
+msgid "安装Anaconda后，我们可以使用conda命令创建不同的python版本的环境，并在其中安装python包。例如："
+msgstr ""
+"Anaconda をインストールした後、`conda` コマンドを使用して、さまざまな Python バージョンの環境を作成し、その中に Python "
+"パッケージをインストールできます。例えば："
+
+#: ../../source/faq.md:20
+msgid "在conda环境中，使用pip安装的软件包也能被正确地识别和管理。"
+msgstr "conda 環境では、pip を使用してインストールされたパッケージも正しく識別および管理できます。"
+
+#: ../../source/faq.md:22
+msgid "下面有一些常用的conda命令："
+msgstr "よく使用される conda コマンドをいくつか示します。"
+
+#: ../../source/faq.md:34
+msgid "使用国内的pip镜像源"
+msgstr "国産ピップミラーソースを使用"
+
+#: ../../source/faq.md:36
+msgid ""
+"在国内，由于网络环境的原因，有时候使用pip安装python包会很慢，甚至失败。这时候，我们可以使用国内的pip镜像源，例如清华大学的pip镜像源。"
+msgstr ""
+"中国では、ネットワーク状況により、pip を使用した Python "
+"パッケージのインストールが遅くなったり、失敗したりすることがあります。このような場合、清華大学のピップミラーソースなど、国産のピップミラーソースを使用できます。"
+
+#: ../../source/faq.md:38
+msgid "在使用pip安装python包时，可以使用`-i`参数指定pip镜像源，例如："
+msgstr ""
+"pip を使用して Python パッケージをインストールする場合、`-i` パラメータを使用して pip ミラー "
+"ソースを指定できます。たとえば、次のようになります。"
+
+#: ../../source/faq.md:45
+msgid "如何升级qteasy到最新版本"
+msgstr "QtEasy を最新バージョンにアップグレードするにはどうすればよいですか?"
+
+#: ../../source/faq.md:47
+msgid ""
+"在使用qteasy时，我们可能需要升级到最新版本。升级前建议查阅 [发布历史](RELEASE_HISTORY.md) 了解各版本的用户可见变更。升级 "
+"qteasy 到最新版本的方法如下："
+msgstr ""
+"Qteasy "
+"を使用する場合、最新バージョンにアップグレードする必要がある場合があります。アップグレードする前に、[リリース履歴](RELEASE_HISTORY.md)"
+" を確認して、各バージョンのユーザーに見える変更点を理解することをお勧めします。 Qteasy "
+"を最新バージョンにアップグレードする方法は次のとおりです。"
+
+#: ../../source/faq.md:52
+msgid "或者使用下面的命令："
+msgstr "あるいは、次のコマンドを使用します。"
+
+#: ../../source/faq.md:57
+msgid "如果要使用国内的清华镜像源，可以使用下面的命令："
+msgstr "中国国内で清華大学のミラー ソースを使用するには、次のコマンドを使用できます。"
+
+#: ../../source/faq.md:65
+msgid "如何安装TA-Lib"
+msgstr "TA-Libのインストール方法"
+
+#: ../../source/faq.md:67
+msgid ""
+"完整的TA-Lib包无法通过pip安装，因为通过`pip install ta-lib`安装的只是TA-Lib包的一个`python wrapper`,"
+" 用户必须首先安装C语言的TA-Lib才能在python中使用它。"
+msgstr ""
+"`pip install ta-lib` は TA-Lib パッケージの Python ラッパーのみをインストールするため、完全な TA-Lib "
+"パッケージを pip 経由でインストールすることはできません。ユーザーは、Python で使用する前に、TA-Lib の C "
+"言語バージョンをインストールする必要があります。"
+
+#: ../../source/faq.md:69
+msgid "有些用户可以用下面的方法安装C语言的TA-Lib包： `conda install -c conda-forge libta-lib`"
+msgstr ""
+"一部のユーザーは、次の方法を使用して C 言語 TA-Lib パッケージをインストールできます: `conda install -c conda-"
+"forge libta-lib`"
+
+#: ../../source/faq.md:72
+msgid "在不同的系统下安装C语言的TA-Lib包的方法："
+msgstr "C 言語 TA-Lib パッケージをさまざまなオペレーティング システムにインストールする方法:"
+
+#: ../../source/faq.md:74
+msgid "Windows"
+msgstr "Windows"
+
+#: ../../source/faq.md:76
+msgid ""
+"下载 [ta-lib-0.4.0-msvc.zip](http://prdownloads.sourceforge.net/ta-lib/ta-"
+"lib-0.4.0-msvc.zip) 并解压至 `C:\\ta-lib`."
+msgstr ""
+"[ta-lib-0.4.0-msvc.zip](http://prdownloads.sourceforge.net/ta-lib/ta-"
+"lib-0.4.0-msvc.zip)をダウンロードし、`C:\\ta-lib`に解凍します。"
+
+#: ../../source/faq.md:77
+msgid "下载并安装 `Visual Studio Community` (2015 或更新版本)， 选择 `[Visual C++]` 功能"
+msgstr ""
+"`Visual Studio Community` (2015 以降) をダウンロードしてインストールし、`[Visual C++]` "
+"機能を選択します。"
+
+#: ../../source/faq.md:78
+msgid "Windows 开始菜单, 启动 `[VS2015 x64 Native Tools Command Prompt]`"
+msgstr ""
+"Windows のスタート メニューを開き、`[VS2015 x64 Native Tools Command Prompt]` を起動します"
+
+#: ../../source/faq.md:79
+msgid "移动至 `C:\\ta-lib\\c\\make\\cdr\\win32\\msvc`"
+msgstr "`C:\\ta-lib\\c\\make\\cdr\\win32\\msvc` に移動します"
+
+#: ../../source/faq.md:80
+msgid "`nmake`"
+msgstr "`nmake`"
+
+#: ../../source/faq.md:82
+msgid "Mac OS"
+msgstr "Mac OS"
+
+#: ../../source/faq.md:84
+msgid "首先安装homebrew，然后通过homebrew安装C语言TA-LIB包："
+msgstr "まず、Homebrew をインストールし、次に Homebrew を通じて C 言語 TA-LIB パッケージをインストールします。"
+
+#: ../../source/faq.md:91
+msgid "如果使用Apple Silicon芯片，可以使用："
+msgstr "Apple Silicon チップを使用している場合は、次のことができます。"
+
+#: ../../source/faq.md:98
+msgid "Linux"
+msgstr "Linux"
+
+#: ../../source/faq.md:100
+msgid ""
+"下载 [ta-lib-0.4.0-src.tar.gz](http://prdownloads.sourceforge.net/ta-lib/ta-"
+"lib-0.4.0-src.tar.gz) ，然后:"
+msgstr ""
+"[ta-lib-0.4.0-src.tar.gz](http://prdownloads.sourceforge.net/ta-lib/ta-"
+"lib-0.4.0-src.tar.gz) をダウンロードして、次のようにします。"
+
+#: ../../source/faq.md:109
+msgid "C语言TA-LIB包安装完成后，即可以通过pip安装python的TA-Lib包："
+msgstr "C 言語 TA-LIB パッケージをインストールした後、pip 経由で Python TA-Lib パッケージをインストールできます。"
+
+#: ../../source/faq.md:114
+msgid "如果需要在arm64架构的Mac上安装TA-Lib，可以使用下面的命令："
+msgstr "arm64 ベースの Mac に TA-Lib をインストールするには、次のコマンドを使用できます。"
+
+#: ../../source/faq.md:120
+msgid ""
+"如果您使用Arm64架构的电脑，但是安装ta-"
+"lib后出现导入错误`ImportError:`，可能是因为环境的问题，请参考[这篇文章](https://blog.csdn.net/Shepherdppz/article/details/138253619)解决您的问题。"
+msgstr ""
+"Arm64 アーキテクチャのコンピュータを使用していて、ta-lib のインストール後にインポート エラー `ImportError:` "
+"が発生した場合は、環境の問題が原因である可能性があります。問題を解決するには、この記事 "
+"(https://blog.csdn.net/Shepherdppz/article/details/138253619) を参照してください。"
+
+#: ../../source/faq.md:124
+msgid "在较高版本python环境中安装qteasy"
+msgstr "Python 環境の上位バージョンに Qteasy をインストールする"
+
+#: ../../source/faq.md:126
+msgid ""
+"解决方案是升级到最新的`qteasy`版本。较新版本的`qteasy`已经在`python`3.7 ~ "
+"3.12环境中进行了测试，可以在这些环境中正常运行。"
+msgstr ""
+"解決策は、`qteasy` の最新バージョンにアップグレードすることです。 `qteasy` の新しいバージョンは Python 3.7 ～ 3.12 "
+"環境でテストされており、これらの環境で正しく機能します。"
+
+#: ../../source/faq.md:132
+msgid ""
+"较早版本的`qteasy`没有在高版本的`python`环境中进行充分测试，因此存在一些兼容性问题。这样的问题主要存在于v1.1.4及以前的`qteasy`分发版中。"
+msgstr ""
+"`qteasy` の以前のバージョンは、新しいバージョンの `python` "
+"で適切にテストされていないため、互換性の問題が発生しました。これらの問題は主に、バージョン 1.1.4 以前の`qteasy` "
+"ディストリビューションに存在します。"
+
+#: ../../source/faq.md:134
+msgid ""
+"同时，较早版本的`qteasy`在也使用了一些在高版本的`pandas`、`numpy`中即将被弃用的API，这也可能导致对高版本`pandas`、`numpy`的兼容性问题，在v1.1.7及以后版本的`qteasy`中，已经对这些问题进行了修复。"
+msgstr ""
+"一方、以前のバージョンの `qteasy` は、`pandas` および `numpy` の上位バージョンで廃止される予定の API "
+"を使用していました。これにより、`pandas` および `numpy` "
+"の上位バージョンとの互換性の問題が発生した可能性があります。これらの問題は、v1.1.7 以降の `qteasy` のバージョンで修正されています。"
+
+#: ../../source/faq.md:138
+msgid "在qteasy.cfg中添加配置信息后，提示数据库连接失败"
+msgstr "qteasy.cfg に構成情報を追加すると、データベース接続エラーのメッセージが表示されます。"
+
+#: ../../source/faq.md:140
+msgid "有用户反馈，在`qteasy.cfg`文件中配置好数据库连接信息后，仍然提示数据库连接失败。并得到下面类似的错误信息："
+msgstr ""
+"一部のユーザーは、`qteasy.cfg` ファイルでデータベース接続情報を構成した後でも、データベース接続エラー "
+"メッセージが表示され、次のようなエラーが表示されると報告しています。"
+
+#: ../../source/faq.md:147
+msgid "如果您第一次遇到这样的问题，可能应该首先检查您的`qteasy.cfg`文件。主要检查下面两方面："
+msgstr "この問題が初めて発生する場合は、まず `qteasy.cfg` ファイルを確認する必要があります。主に次の 2 つの点を確認します。"
+
+#: ../../source/faq.md:149
+msgid ""
+"配置的key是否错误，`qteasy`稳定版本使用的数据库连接信息配置key是`local_db_host` / `local_db_port` ..."
+" 等等，而不是`database_host`，以前在官方文档中曾经存在一些错误，这些错误已经在最新的文档中修正了。"
+msgstr ""
+"設定したキーが間違っていませんか? `qteasy` の安定版では、`database_host` の代わりに、`local_db_host` / "
+"`local_db_port` "
+"などのデータベース接続情報構成キーが使用されます。以前の公式ドキュメントにはいくつかの誤りがありましたが、最新のドキュメントではこれらの誤りが修正されています。"
+
+#: ../../source/faq.md:150
+msgid ""
+"在文件中给出配置信息的时候，请不要加其他字符，如`\"`, "
+"`<`和`>`等等，否则，这些字符也会被认为是`token`或者数据库名的一部份。从而导致连接数据库失败。"
+msgstr ""
+"ファイルに構成情報を指定する場合は、`\"`、`<`、`>` などの他の文字を追加しないでください。追加しないと、これらの文字が `token` "
+"またはデータベース名の一部として解釈され、データベース接続が失敗します。"
+
+#: ../../source/faq.md:152
+msgid "`qteasy`在解析配置文件的时候，会根据配置的类型，自动转换为正确的格式，例如，数据库端口`3306`应该是`int`变量，直接使用："
+msgstr ""
+"設定ファイルを解析する際、`qteasy` は設定タイプに基づいて正しい形式に自動的に変換します。たとえば、データベース ポート `3306` "
+"は、直接使用できる `int` 変数である必要があります。"
+
+#: ../../source/faq.md:158
+msgid "即可。`qteasy`会将字符串`3306`转换为`int`型`3306`。·"
+msgstr "それでおしまい。 `qteasy` は、文字列 `3306` を `int` 型 `3306` に変換します。"
+
+#: ../../source/faq.md:160
+msgid "下面这个配置文件的例子是正确的："
+msgstr "次の構成ファイルの例は正しいです。"
+
+#: ../../source/faq.md:175
+msgid "从数据库中读取数据时，提示建议安装`sqlalchemy`"
+msgstr "データベースからデータを読み取るときに、`sqlalchemy` のインストールを提案するプロンプトが表示されます。"
+
+#: ../../source/faq.md:177
+msgid "有时候，在使用数据库作为数据源，并从数据库中读取数据时，您可能会看到以下提示信息："
+msgstr "データベースをデータ ソースとして使用し、データベースからデータを読み取るときに、次のメッセージが表示されることがあります。"
+
+#: ../../source/faq.md:182
+msgid "以上提示信息建议用户使用`sqlalchemy`."
+msgstr "上記のメッセージは、ユーザーが `sqlalchemy` を使用することを示唆しています。"
+
+#: ../../source/faq.md:184
+msgid ""
+"总的来说，这是一条`UserWarning`。其实并没有错误发生，数据读取是成功的。出现这条警告信息的原因跟您安装的`pandas`的版本有关。您不需要安装`sqlalchemy`，`qteasy`已经移除了对`sqlalchemy`的依赖."
+" 为了确认为何会出现这条警告，请检查一下您的`pandas`版本."
+msgstr ""
+"要約すると、これは UserWarning "
+"です。実際にはエラーは発生しませんでした。データの読み取りは成功しました。この警告メッセージが表示される理由は、インストールされている `pandas`"
+" のバージョンに関連しています。 `sqlalchemy` をインストールする必要はありません。 `qteasy` は、`sqlalchemy` "
+"への依存関係を削除しました。この警告が表示される理由を確認するには、`pandas` のバージョンを確認してください。"
+
+#: ../../source/faq.md:192
+msgid ""
+"如果您使用的`pandas`版本为1.1以上，有可能会出现这条`UserWarning`，但一般来说应该不会影响使用： "
+"这是因为`qteasy`使用`pymysql`作为数据库连接API，但`pandas`从1.1版本以后，逐步开始将`pymysql`的支持去掉了，尽管经过测试，在`pandas`的1.5版本下`qteasy`仍然能够正确读取数据，但是会收到警告信息。"
+msgstr ""
+"pandas バージョン 1.1 以降を使用している場合、この UserWarning "
+"が発生する可能性がありますが、通常は使用に影響を与えることはありません。これは、qteasy がデータベース接続 API として pymysql "
+"を使用しているためですが、pandas はバージョン 1.1 以降、pymysql のサポートを段階的に削除しています。テストの結果、qteasy は "
+"pandas バージョン 1.5 でもデータを正しく読み取ることができますが、警告メッセージが表示されます。"
+
+#: ../../source/faq.md:195
+msgid ""
+"以上问题已经进入了我的修改清单，在接下来的小升级中，会去掉对`pandas`的sql "
+"API依赖，直接使用`pymysql`读取数据库，这样就不会出现这条警告信息了。如果您不希望看到这条警告信息，也可以降级`pandas`的版本到`1.1.0`。`qteasy`在开发初期一致固定使用较低版本的`pandas`，绝大部分的稳定性测试基于`pandas`的1.1版本，如果使用1.1版本的`pandas`就不会出现这个提示信息，其他所有功能也都正常。"
+msgstr ""
+"上記の問題は私の修正リストに載っています。今後のマイナー アップグレードでは、`pandas` SQL API "
+"への依存関係が削除され、`pymysql` "
+"がデータベースの読み取りに直接使用されます。これにより、この警告メッセージが表示されなくなります。この警告メッセージを表示したくない場合は、`pandas`"
+" バージョンを `1.1.0` にダウングレードすることもできます。 `qteasy` は、開発初期に一貫して `pandas` "
+"の下位バージョンを使用しており、ほとんどの安定性テストは `pandas` バージョン 1.1 に基づいています。 `pandas` バージョン 1.1"
+" を使用している場合、この警告メッセージは表示されず、他のすべての機能は正常に動作します。"
+
+#: ../../source/faq.md:199
+msgid "从tushare下载数据时提示下载频率过高而失败"
+msgstr "ダウンロード頻度が高すぎることを示すエラー メッセージが表示され、tushare からのデータのダウンロードが失敗しました。"
+
+#: ../../source/faq.md:201
+msgid "某些tushare数据存在每分钟读取频率限制，如果积分不够，下载频率是会被限制的，从而导致某些数据下载不完整，例如下面的情况："
+msgstr ""
+"一部の tushare データには、1 "
+"分あたりの読み取り頻度制限があります。十分なポイントがない場合、ダウンロード頻度が制限され、次のような一部のデータのダウンロードが不完全になる可能性があります。"
+
+#: ../../source/faq.md:203
+msgid "运行脚本："
+msgstr "スクリプトを実行します。"
+
+#: ../../source/faq.md:209
+msgid "出现下列报错："
+msgstr "次のエラー メッセージが表示されました。"
+
+#: ../../source/faq.md:224
+msgid "为此，qteasy设计了专门的重试机制来规避或缓解这个问题。"
+msgstr "この問題に対処するために、qteasy は、この問題を回避または軽減するための専用の再試行メカニズムを設計しました。"
+
+#: ../../source/faq.md:226
+msgid ""
+"您可以尝试修改qteasy的下面几个配置，调整下载数据时的重试次数和延时设置，这几个配置参数是专门为了应对tushare的读取频率限制设置的："
+msgstr ""
+"qteasy で次の設定を変更して、データのダウンロード時の再試行回数と遅延設定を調整してみることができます。これらの構成パラメータは、tushare "
+"の読み取り頻度制限に対処するために特別に設定されています。"
+
+#: ../../source/faq.md:228
+msgid ""
+"QT_CONFIG.hist_dnld_retry_cnt - 下载数据时失败重试的次数，默认为7次 "
+"QT_CONFIG.hist_dnld_retry_wait - 第一次下载失败时的等待时长，单位为秒，默认为1秒 "
+"QT_CONFIG.hist_dnld_backoff - 等待后仍然失败时等待时间的倍增乘数，默认为2倍"
+msgstr ""
+"QT_CONFIG.hist_dnld_retry_cnt - データのダウンロード時の再試行回数、デフォルトは 7 です。 "
+"QT_CONFIG.hist_dnld_retry_wait - 最初のダウンロード失敗後の待機時間 (秒単位)、デフォルトは 1 秒です。 "
+"QT_CONFIG.hist_dnld_backoff - 待機後にダウンロードが再び失敗した場合の待機時間の乗数、デフォルトは 2 です。"
+
+#: ../../source/faq.md:232
+msgid ""
+"qteasy在调用所有的tushare函数时，会自动retry，每两次retry之间会逐渐延长间隔。比如，第一次下载不成功时，会暂停一秒重试，如果重试仍然有问题，会等待2秒重试，下一次等待4秒、再等待8秒。。。依此类推，一直到重试次数用光，这时才会raise。"
+msgstr ""
+"qteasy が tushare "
+"関数を呼び出すと、自動的に再試行され、各再試行の間隔が徐々に長くなります。たとえば、最初のダウンロードが失敗した場合、1 "
+"秒間停止して再試行します。それでも再試行が失敗する場合は、すべての再試行が終了するまで 2 秒、次に 4 秒、次に 8 "
+"秒というように待機し、その時点で処理が開始されます。"
+
+#: ../../source/faq.md:234
+msgid ""
+"正常来讲，重试7次后的延时会倍增到32秒，加上前面延时的长度，已经超过1分钟了，正常是不会触发频率错误的，但如果网速过快，或者同时启用的线程太多，可能会有上面的问题。"
+msgstr ""
+"通常、7 回の再試行後の遅延は 2 倍の 32 "
+"秒になります。先ほどの遅延を加えると1分を超えてしまいます。通常、これによって周波数エラーが発生することはありません。ただし、ネットワーク速度が速すぎる場合、または同時に実行されているスレッドが多すぎる場合、上記の問題が発生する可能性があります。"
+
+#: ../../source/faq.md:236
+msgid "这时可以尝试将重试次数改成10次或更多（这样会显著延长下载时间），或者增加等待初始时长："
+msgstr ""
+"この時点で、再試行回数を 10 回以上に増やすか (これによりダウンロード時間が大幅に長くなります)、または最初の待機時間を増やすことができます。"
+
+#: ../../source/faq.md:245
+msgid "从`tushare`分批下载数据"
+msgstr "`tushare`からデータを一括ダウンロード"
+
+#: ../../source/faq.md:247
+msgid ""
+"某些时候我们需要分批下载数据，在每批次之间暂停一定时间，例如tushare的某些数据表设置了频率限制，限定每分钟最多下载的次数，如果超过这个次数，会导致下载失败。"
+" 这时，我们可以通过下面两个配置参数来实现这样的分批下载和停顿："
+msgstr ""
+"場合によっては、データをバッチでダウンロードし、各バッチの間に一定期間一時停止する必要があることがあります。たとえば、tushare の一部のデータ "
+"テーブルには頻度制限があり、1 分あたりの最大ダウンロード数が制限されています。この制限を超えると、ダウンロードが失敗する原因になります。この場合、次の"
+" 2 つの構成パラメータを使用して、このようなバッチ ダウンロードと一時停止を実現できます。"
+
+#: ../../source/faq.md:250
+msgid "**`QT_CONFIG.hist_dnld_delay`**: 默认值为0，如果设置为一个大于0的整数，表示分批下载时每批的下载数量"
+msgstr ""
+"**`QT_CONFIG.hist_dnld_delay`:** デフォルト値は 0 "
+"です。正の整数に設定すると、バッチでダウンロードする場合の各バッチのダウンロード数を表します。"
+
+#: ../../source/faq.md:251
+msgid ""
+"**`QT_CONFIG.hist_dnld_delay_evy`**': 默认值为0，如果设置为一个大于0的整数，表示两个下载批次之间等待的秒数 "
+"以下配置可以使得每下载600组数据就等待一分钟："
+msgstr ""
+"**`QT_CONFIG.hist_dnld_delay_evy`:** デフォルト値は 0 です。正の整数に設定すると、2 つのダウンロード "
+"バッチ間で待機する秒数を表します。次の設定では、600 セットのデータをダウンロードした後に 1 分間待機します。"
+
+#: ../../source/faq.md:258
+msgid ""
+"按照上述方法设置后，每次下载数据时，即使使用并行下载的方式，`qteasy`也不会将所有任务同时提交给进程池，而是分批提交，等待一段时间后，再次提交下一批。"
+msgstr ""
+"上記のように設定すると、並列ダウンロードを使用している場合でも、`qteasy` はすべてのタスクを同時にプロセス "
+"プールに投入しません。代わりに、バッチで送信し、一定期間待機してから次のバッチを送信します。"
+
+#: ../../source/faq.md:260
+msgid "上述功能是在`qteasy`的`v1.1.11`版本中新增的，如果您的`qteasy`版本较低，请升级至最新版本。"
+msgstr ""
+"上記の機能は、qteasy のバージョン v1.1.11 で追加されました。 qteasy "
+"のバージョンが低い場合は、最新バージョンにアップグレードしてください。"
+
+#: ../../source/faq.md:264
+msgid "如何跑通从数据到回测/优化的最小流程？"
+msgstr "データからバックテスト/最適化までの最小限のワークフローを機能させるにはどうすればよいですか?"
+
+#: ../../source/faq.md:266
+msgid ""
+"建议按《快速上手指南》中的「一分钟跑通」完成：配置 tushare Token → 下载数据 → 使用内置策略做一次回测。完整链路（配置数据源 → "
+"下载数据 → 定义策略并回测 → 参数优化 → 模拟/实盘运行）及对应教程跳转见 [快速上手指南 - 端到端路线图 / "
+"教程](getting_started.md#端到端路线图--教程)。按该路线图中的顺序阅读各教程即可从零走通全流程。"
+msgstr ""
+"「クイック スタート ガイド」に記載されているように、tushare トークンの構成 → データのダウンロード → "
+"組み込み戦略を使用したバックテストの実行というプロセスを 1 分で完了することをお勧めします。完全なワークフロー (データ ソースの構成 → "
+"データのダウンロード → 戦略とバックテストの定義 → パラメーターの最適化 → シミュレーション/ライブ実行) "
+"および対応するチュートリアルについては、[クイック スタート ガイド - エンドツーエンド ロードマップ / "
+"チュートリアル](getting_started.md#エンドツーエンド ロードマップ - "
+"チュートリアル)を参照してください。このロードマップのチュートリアルの順序に従うと、プロセス全体を最初から完了できます。"
+
+#: ../../source/faq.md:270
+msgid "如何查有哪些 DataType（信息 ID）？"
+msgstr "どのDataType(メッセージID)があるかを確認するにはどうすればよいですか?"
+
+#: ../../source/faq.md:272
+msgid ""
+"`DataType` 是「可从本地表提取并直接使用」的一类信息，由 `name` + `freq` + `asset_type` "
+"唯一确定；用户日常写字符串 ID。推荐："
+msgstr ""
+"`DataType` は「ローカルテーブルから抽出して直接使用できる」情報の一種であり、`name` + `freq` + `asset_type` "
+"によって一意に決定されます。ユーザーは毎日文字列 ID を書き込みます。推薦する："
+
+#: ../../source/faq.md:274
+msgid "用 `qt.find_history_data('pe')` / 中文关键词 / 通配符检索，看结果里的 `kind` 与推荐入口；"
+msgstr ""
+"`qt.find_history_data('pe')`/中国語キーワード/ワイルドカード検索を使用して、`kind` "
+"と結果内の推奨エントリを確認します。"
+
+#: ../../source/faq.md:275
+#, python-format
+msgid "阅读概念与精选表：[DataType 概念章](manage_data/02.%20datatypes.md)；"
+msgstr "概念と選択したテーブルの読み取り: [DataType 概念の章](manage_data/02.%20datatypes.md);"
+
+#: ../../source/faq.md:276
+msgid "浏览完整内置清单：[references/datatypes](references/datatypes/index.md)。"
+msgstr ""
+"完全な組み込みリストを参照してください: [references/datatypes](references/datatypes/index.md)。"
+
+#: ../../source/faq.md:278
+msgid ""
+"**按形状取数**：History 用 `get_history_data` / `get_kline`；宏观与基准用 "
+"`get_reference_data`；行业/上市日等用 `get_static_data`。不要假定检索到的每一条都能 "
+"`get_history_data`；清单里 `usable_in=none` 的类型今天没有一等入口。"
+msgstr ""
+"**形状に基づく番号**: 履歴では `get_history_data` / `get_kline` が使用されます。マクロとベンチマークは "
+"`get_reference_data` を使用します。業界/上場日などは`get_static_data`を使用します。取得されたすべてのアイテムが "
+"`get_history_data` である可能性があるとは考えないでください。リスト内のタイプ `usable_in=none` "
+"には、現在、ファーストクラスのエントリーがありません。"
+
+#: ../../source/faq.md:280
+msgid "如何取 GDP / 北向资金 / 行业这类数据？"
+msgstr "GDP/ノースバウンドファンド/産業などのデータを取得するにはどうすればよいですか?"
+
+#: ../../source/faq.md:282
+msgid ""
+"**GDP、北向资金、SHIBOR 等**（仅时间维）：`qt.get_reference_data('cn_gdp', start=..., "
+"end=...)`（无需 `shares`）。把某指数收盘价当基准可用造法 `close-000300.SH`（或完整 id "
+"`close-000300.SH_IDX_d`），同样走 `get_reference_data`。"
+msgstr ""
+"**GDP、ノースバウンドファンド、SHIBORなど** (時間ディメンションのみ): `qt.get_reference_data('cn_gdp',"
+" start=..., end=...)` (`shares`は必要ありません)。インデックスの終値をベンチマークとして使用するには、構築メソッド "
+"`close-000300.SH` (または完全 ID `close-000300.SH_IDX_d`) を使用できます。同じメソッドは "
+"`get_reference_data` です。"
+
+#: ../../source/faq.md:283
+msgid ""
+"**行业、上市日、证券名称等**（仅标的维）：`qt.get_static_data('industry', shares='000001.SZ, "
+"000002.SZ')`（或完整 id）。不要用 `get_history_data`「顺便」取，也不要在策略 `data_types` 里声明 "
+"Static。"
+msgstr ""
+"**業界、上場日、証券名など** (対象ディメンションのみ): `qt.get_static_data('industry', "
+"shares='000001.SZ, 000002.SZ')` (または完全な ID)。 「ちなみに」取得するために "
+"`get_history_data` を使用しないでください。また、ポリシー `data_types` で Static を宣言しないでください。"
+
+#: ../../source/faq.md:287
+msgid "只想做数据分析、暂不写策略怎么走？"
+msgstr "データ分析だけをしたいので、当面は戦略を書かない場合はどうすればよいでしょうか?"
+
+#: ../../source/faq.md:289
+msgid "按 **数据体验支路** 即可，无需进入 Operator 回测："
+msgstr "**Data Experience Branch** を押すだけで、Operator バックテストを入力する必要はありません。"
+
+#: ../../source/faq.md:291
+msgid ""
+"[获取并管理金融数据](tutorials/2.0-get-data.md) — 配置 Token、下载 "
+"[最小数据集清单](tutorials/2.0-get-data.md#最小数据集清单供-25-使用)"
+msgstr ""
+"[財務データの取得と管理](tutorials/2.0-get-data.md) — トークンの構成、ダウンロード [最小データ セット "
+"リスト](tutorials/2.0-get-data.md#-25 使用の最小データ セット リスト)"
+
+#: ../../source/faq.md:292
+msgid ""
+"[HistoryPanel 数据面板基础操作](tutorials/2.4-historypanel-basics.md) — 结构、切片、扩列、对齐与"
+" DataFrame 互转"
+msgstr ""
+"[HistoryPanel データパネルの基本操作](tutorials/2.4-historypanel-basics.md) — "
+"構造、スライス、列展開、位置合わせ、DataFrame 変換"
+
+#: ../../source/faq.md:293
+msgid ""
+"[玩数据与因子分析](tutorials/2.5-historypanel-data-analysis.md) — 取数、出图、简单因子与 "
+"benchmark 粗对比"
+msgstr ""
+"[データと因子分析で遊ぶ](tutorials/2.5-historypanel-data-analysis.md) — "
+"数値の取得、プロット、単純な因子とベンチマークの大まかな比較"
+
+#: ../../source/faq.md:294
+msgid "运行 `python examples/data_playground_e2e.py` 验证本地数据与 API"
+msgstr "`python examples/data_playground_e2e.py` を実行してローカル データと API を確認します"
+
+#: ../../source/faq.md:296
+msgid ""
+"进阶可选：[纵向择时](tutorials/2.6-historypanel-advanced-vertical-"
+"timeaxis.md)、[横截面选股](tutorials/2.7-historypanel-advanced-horizontal-"
+"multifactor.md)、[事件型形态](tutorials/2.8-historypanel-advanced-event-kline-"
+"pattern.md)。"
+msgstr ""
+"詳細オプション: [垂直タイミング](tutorials/2.6-historypanel-advanced-vertical-"
+"timeaxis.md)、[断面銘柄選択](tutorials/2.7-historypanel-advanced-horizo​​ntal-"
+"multifactor.md)、[イベント パターン](tutorials/2.8-historypanel-advanced-event-kline-"
+"pattern.md)。"
+
+#: ../../source/faq.md:298
+msgid ""
+"注意：`HistoryPanel.portfolio` / `cum_return` "
+"等为**研究向**工具，不含交易成本与交割语义；若要严肃评价策略，仍须回到 [第一个策略](tutorials/3-start-first-"
+"strategy.md) 或 [研究到回测迁移路径](tutorials/2.5-historypanel-data-"
+"analysis.md#从-historypanel-研究到-strategy--operator迁移路径)。"
+msgstr ""
+"注: `HistoryPanel.portfolio` / `cum_return` は **研究指向** ツールであり、トランザクション "
+"コストや配信セマンティクスは含まれません。戦略を真剣に評価したい場合は、[最初の戦略](tutorials/3-start-first-"
+"strategy.md) または [リサーチからバックテストへの移行パス](tutorials/2.5-historypanel-data-"
+"analysis.md#From-historypanel-research to-strategy--operator 移行パス) "
+"に戻る必要があります。"
+
+#: ../../source/faq.md:302
+msgid "回测/优化为什么慢？"
+msgstr "バックテスト/最適化が遅いのはなぜですか?"
+
+#: ../../source/faq.md:304
+msgid "可能原因包括："
+msgstr "考えられる理由は次のとおりです。"
+
+#: ../../source/faq.md:306
+msgid "**数据量与窗口长度**：回测区间越长、资产池越大、策略的 `window_length` 越大，单次回测需要准备与计算的数据越多。"
+msgstr ""
+"**データ量とウィンドウの長さ:** バックテスト間隔が長くなるほど、資産プールが大きくなり、戦略の `window_length` "
+"が大きくなるほど、1 回のバックテストでより多くのデータを準備して計算する必要があります。"
+
+#: ../../source/faq.md:307
+msgid ""
+"**参数组数**：优化模式（mode=2）下，参数组合越多，需要执行的单次回测次数越多；已通过多进程并行缓解，但仍与机器核心数及任务规模相关。"
+msgstr ""
+"**パラメータ グループの数**: 最適化モード (mode=2) では、パラメータの組み合わせが増えるほど、1 "
+"つのバックテストを実行する必要がある回数も増えます。これはマルチプロセスの並列処理によって軽減されていますが、依然としてマシン "
+"コアの数とタスクの規模に関連しています。"
+
+#: ../../source/faq.md:308
+msgid ""
+"**首次 Numba 编译**：核心回测函数（如 `backtest_step`、`backtest_batch_steps`）使用 Numba "
+"JIT，首次运行或参数类型变化时会触发编译，产生一次性延迟；后续同类型回测会复用缓存，速度会明显提升。"
+msgstr ""
+"**初期 Numba コンパイル**: コア バックテスト関数 (`backtest_step` や `backtest_batch_steps` "
+"など) は Numba JIT を使用します。コンパイルは最初の実行時、またはパラメーターの型が変更されたときにトリガーされるため、1 "
+"回だけ遅延が発生します。同じタイプの後続のバックテストではキャッシュが再利用されるため、速度が大幅に向上します。"
+
+#: ../../source/faq.md:309
+msgid "**数据准备**：若 DataSource 中数据未提前准备好，回测前会触发数据拉取与窗口装配，也会增加首次运行时间。"
+msgstr ""
+"**データの準備**: DataSource "
+"内のデータが事前に準備されていない場合、バックテストの前にデータの取得とウィンドウのアセンブリがトリガーされ、初回の実行時間も長くなります。"
+
+#: ../../source/faq.md:311
+msgid ""
+"若需进一步了解回测引擎与性能设计，可参阅 "
+"[回测引擎与性能](back_testing/6.%20backtest_engine_and_performance.md) 与《架构与设计》中的 "
+"[回测引擎与性能（设计视角）](design/07-backtest-engine-and-performance.md)。"
+msgstr ""
+"バックテスト エンジンとパフォーマンス設計の詳細については、「アーキテクチャと設計」の [バックテスト "
+"エンジンとパフォーマンス](back_testing/6.%20backtest_engine_and_performance.md) および "
+"[バックテスト エンジンとパフォーマンス (設計の観点)](design/07-backtest-engine-and-performance.md) "
+"を参照してください。"
+
+#: ../../source/faq.md:315
+msgid "如何理解「防未来函数」？"
+msgstr "「将来性のある機能」をどう理解するか？"
+
+#: ../../source/faq.md:317
+msgid ""
+"qteasy 从机制上避免策略在回测中“看到”未来数据：每个时间步运行时，引擎仅向策略注入**该步当时可见**的历史数据窗口，策略在 "
+"`realize()` 中通过 `get_data(dtype_id)` 取到的只是该窗口内的数据；在此窗口上计算指标（如 "
+"EMA）与实盘“当时仅能看到的历史”一致，因此不会无意中使用未来数据。详细设计理由（为何不做全时间轴向量化、数据窗口如何按步注入等）见《架构与设计》中的"
+" [设计初衷与独特优势](design/08-design-rationale-and-advantages.md)。"
+msgstr ""
+"Qteasy は、そのメカニズムによって、バックテスト中に将来のデータを「見る」ことをストラテジーが回避します。各タイム ステップで、エンジンは "
+"**そのタイム ステップで表示される**履歴データのウィンドウのみをストラテジーに挿入します。この戦略では、`realize()` の "
+"`get_data(dtype_id)` を使用して、そのウィンドウ内のデータのみを取得します。このウィンドウで計算された指標 (EMA など) "
+"は、ライブ取引で「その時点でのみ表示される」履歴データと一致しているため、将来のデータの意図しない使用が回避されます。詳細な設計理論的根拠 "
+"(なぜフルタイム軸量子化を実行しないのか、データ ウィンドウを段階的に挿入する方法など) については、「アーキテクチャと設計」の "
+"[設計意図と独自の利点](design/08-design-rationale-and-advantages.md) を参照してください。"
+
+#: ../../source/faq.md:321
+msgid "use_latest_data_cycle 是什么，如何设置？"
+msgstr "`use_latest_data_cycle` とは何ですか?またどのように設定されますか?"
+
+#: ../../source/faq.md:323
+msgid ""
+"**use_latest_data_cycle**（常简写为 ulc）控制策略所用数据窗口是否包含**当根 K 线**（当前时刻的最新数据）：设为 "
+"`True` 时，窗口可含当前 bar（如收盘价），对应“交易时是否允许用当时最新价”；设为 `False` "
+"时，窗口严格为“过去已收盘”的数据。该选择在长期回测中会对收益产生显著影响，qteasy 将其作为可配置项在策略声明与运行配置中暴露。含义与影响见 "
+"[设计初衷与独特优势 - use_latest_data_cycle](design/08-design-rationale-and-"
+"advantages.md)；具体设置方式见策略类的 `data_types` / `window_length` 声明及 "
+"[策略如何声明与使用数据](design/03-data-in-strategies.md)，以及当前版本文档与 API 中的配置说明。"
+msgstr ""
+"**use_latest_data_cycle** (ulc と略されることが多い) は、ストラテジーで使用されるデータ ウィンドウに **現在のルート"
+" ローソク足** (現時点での最新データ) を含めるかどうかを制御します。 `True` "
+"に設定すると、ウィンドウには「取引中にその時点の最新価格が許可されるかどうか」に対応する現在のバー (終値など) を含めることができます。 "
+"`False` "
+"に設定すると、ウィンドウには「過去の終値」のデータが厳密に含まれます。この選択は長期的なバックテストのリターンに大きな影響を与えるため、qteasy "
+"は戦略宣言とランタイム設定で設定可能な項目としてそれを公開します。その意味と影響については、[設計意図と独自の利点 - "
+"use_latest_data_cycle](design/08-design-rationale-and-advantages.md) "
+"を参照してください。特定の設定については、ストラテジー クラスの `data_types` / `window_length` 宣言と "
+"[ストラテジーによるデータの宣言と使用方法](design/03-data-in-strategies.md)、および現在のバージョンのドキュメントと "
+"API の構成手順を参照してください。"

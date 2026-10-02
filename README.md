@@ -30,6 +30,7 @@
 - [为什么用 qteasy？——量化人关心的几点](#为什么用-qteasy量化人关心的几点)
 - [qteasy 能做什么](#qteasy能做什么)
 - [安装](#安装)
+- [可选：qteasy-ai（AI 编排外壳）](#可选qteasy-aiai-编排外壳)
 - [文档](#文档)
 - [10分钟了解 qteasy 的功能](#10分钟了解-qteasy-的功能)
   - [初始配置——本地数据源](#配置本地数据源)
@@ -51,8 +52,8 @@
 - 作者: **Jackie PENG**
 - email: *jackie_pengzhao@163.com*
 - Created: 2019, July, 16
-- Latest Version: `2.5.1` — [发布历史](https://qteasy.readthedocs.io/zh-cn/latest/RELEASE_HISTORY.html)
-- Document: [https://qteasy.readthedocs.io/zh-cn/latest/](https://qteasy.readthedocs.io/zh-cn/latest/)
+- Latest Version: `2.6.4` — [发布历史](https://qteasy.readthedocs.io/zh-cn/latest/RELEASE_HISTORY.html)
+- Document: [简体中文](https://qteasy.readthedocs.io/zh-cn/latest/) · [English](https://qteasy.readthedocs.io/en/latest/) · [Deutsch](https://qteasy.readthedocs.io/de/latest/) · [Français](https://qteasy.readthedocs.io/fr/latest/) · [Español](https://qteasy.readthedocs.io/es/latest/) · [繁體中文](https://qteasy.readthedocs.io/zh-tw/latest/) · [日本語](https://qteasy.readthedocs.io/ja/latest/)
 - License: BSD 3-Clause License
 
 `qteasy`是为量化交易人员开发的一套量化交易工具包，特点如下：
@@ -127,9 +128,24 @@
 $ pip install qteasy
 ```
 
+## 可选：qteasy-ai（AI 编排外壳）
+
+自 **2026-08** 起，自然语言 **Ask / Plan / Run** 编排层已剥离为独立开源项目 **[qteasy-ai](https://github.com/shepherdpp/qteasy-ai)**（PyPI：`qteasy-ai`）。**qteasy 2.6.0 主线不包含 AI 模块**；需要 CLI、Notebook magic 或 skills 编排时，请额外安装：
+
+```bash
+pip install qteasy>=2.6.0
+pip install qteasy-ai
+```
+
+- **依赖关系**：`qteasy-ai` → `qteasy`（只读调用 `get_kline`、`built_in_list` 等 API，不修改内核）
+- **配置**：优先环境变量 `QTEASY_AI_HOME`、`QTEASY_AI_MODEL`、`QTEASY_AI_API_KEY` 等（详见 qteasy-ai 仓库文档）
+- **设计文档与 quickstart**：见 [qteasy-ai/docs](https://github.com/shepherdpp/qteasy-ai/tree/main/docs)
+
 ## 文档
 
 关于`QTEASY`系统的更多详细解释和使用方法，请参阅[QTEASY文档](https://qteasy.readthedocs.io/zh-cn/latest/)；各版本用户可见变更见 [发布历史](https://qteasy.readthedocs.io/zh-cn/latest/RELEASE_HISTORY.html)。
+
+GitHub 上的导航门户、社区 Cookbook 与排障速查见 [Wiki](https://github.com/shepherdpp/qteasy/wiki)（教程与 API 仍以 Read the Docs 为准）。
 
 
 ### python 版本

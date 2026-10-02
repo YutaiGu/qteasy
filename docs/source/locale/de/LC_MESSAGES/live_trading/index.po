@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-05-20 20:30+0800\n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
 "PO-Revision-Date: 2026-05-23 22:00+0800\n"
 "Last-Translator: Jackie PENG\n"
 "Language-Team: de <LL@li.org>\n"
@@ -17,7 +17,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
-"X-Generator: Poedit 3.9\n"
 
 #: ../../source/live_trading/index.rst:2
 msgid "模拟实盘交易（Live Trading）"
@@ -102,10 +101,13 @@ msgstr ""
 " 8."
 
 #: ../../source/live_trading/index.rst:24
-msgid "**准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。"
+msgid ""
+"**准备对接真实柜台（如 QMT）**：阅读 :doc:`4a-xtquant-broker-adapter-contract-v1`（英文契约 "
+"v1），再读 :doc:`4-broker-adapter-and-integration`。"
 msgstr ""
-"**Vorbereitung der Verbindung zu einem realen Broker (z. B. QMT):** Lesen "
-"Sie die Hinweise zur Broker-Anpassung in Kapitel 4."
+"**Bereiten Sie die Verbindung mit echten Zählern (z. B. QMT) vor**: Lesen "
+"Sie :doc:`4a-xtquant-broker-adapter-contract-v1` (englischer Vertrag v1) und"
+" dann :doc:`4-broker-adapter-and-integration`."
 
 #: ../../source/live_trading/index.rst:27
 msgid "建议阅读顺序"
@@ -142,16 +144,29 @@ msgstr ""
 "(Fortgeschritten)"
 
 #: ../../source/live_trading/index.rst:36
+msgid ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT 契约 "
+"v1（英文，协作必读）"
+msgstr ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` – XtQuant/MiniQMT Contract v1 "
+"(Englisch, Pflichtlektüre für die Zusammenarbeit)"
+
+#: ../../source/live_trading/index.rst:37
 msgid ":doc:`6-trader-snapshot-gate` — 策略快照与启动门禁"
 msgstr ":doc:`6-trader-snapshot-gate` — Richtlinien-Snapshots und Startgates"
 
-#: ../../source/live_trading/index.rst:37
+#: ../../source/live_trading/index.rst:38
 msgid ":doc:`7-manual-smoke-live-grid-roadmap` — 手工冒烟清单"
 msgstr ""
 ":doc:`7-manual-smoke-live-grid-roadmap` — Checkliste für manuelles "
 "Rauchmanagement"
 
-#: ../../source/live_trading/index.rst:38
+#: ../../source/live_trading/index.rst:39
 msgid ":doc:`8-cli-trader-capability-matrix` — CLI 能力对照表"
 msgstr ""
 ":doc:`8-cli-trader-capability-matrix` — Vergleichstabelle der CLI-Funktionen"
+
+#~ msgid "**准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。"
+#~ msgstr ""
+#~ "**Vorbereitung der Verbindung zu einem realen Broker (z. B. QMT):** Lesen "
+#~ "Sie die Hinweise zur Broker-Anpassung in Kapitel 4."

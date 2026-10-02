@@ -1,0 +1,95 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/1. overview.md:1
+msgid "交易策略优化总览"
+msgstr "取引戦略の最適化の概要"
+
+#: ../../source/optimization/1. overview.md:3
+msgid "优化旨在在参数空间中寻找使目标函数更优（如夏普最大化）的参数组合；本质是多次回测加目标函数比较。"
+msgstr ""
+"最適化では、目的関数を改善する組み合わせ (シャープ比の最大化など) "
+"をパラメータ空間で検索します。本質的には、バックテストと目的関数の比較を繰り返すことです。"
+
+#: ../../source/optimization/1. overview.md:5
+msgid "总体介绍"
+msgstr "概要"
+
+#: ../../source/optimization/1. overview.md:7
+msgid "**目的**：在策略可调参数范围内，通过搜索或优化算法找到表现更好的参数（如均线周期、阈值等）。"
+msgstr ""
+"**目的**: 戦略の調整可能なパラメーター範囲内で、検索アルゴリズムまたは最適化アルゴリズムを使用して、よりパフォーマンスの高いパラメーター "
+"(移動平均期間やしきい値など) を見つけます。"
+
+#: ../../source/optimization/1. overview.md:8
+msgid "**与回测的关系**：优化 = 多次回测（每次一组参数）+ 按目标函数（如夏普、回撤）比较并排序，选出最优或 Top-K 组。"
+msgstr ""
+"**バックテストとの関係**: 最適化 = 多数のバックテスト (それぞれ 1 つのパラメーター セット) + 目的関数 (シャープ "
+"レシオやドローダウンなど) によって比較およびランク付けし、最良または上位 K のセットを選択します。"
+
+#: ../../source/optimization/1. overview.md:10
+msgid "优化流程概览"
+msgstr "最適化ワークフローの概要"
+
+#: ../../source/optimization/1. overview.md:12
+msgid "**设定参数空间与目标**：策略的 Parameter 与 par_range 定义搜索空间；目标函数由配置指定（如夏普最大化）。"
+msgstr ""
+"**パラメータ空間と目的の設定**: 戦略の ``Parameter`` objects and ``par_range`` "
+"は検索空間を定義します。目的関数は構成で設定されます (シャープ比を最大化するなど)。"
+
+#: ../../source/optimization/1. overview.md:13
+msgid "**选择优化算法**：opti_method 可选 grid、montecarlo、GA、SA、PSO、bayesian 等。"
+msgstr ""
+"**最適化アルゴリズムを選択してください**: "
+"`⟦コード0⟧⟦コード1⟧⟦コード2⟧⟦コード3⟧⟦コード4⟧⟦コード5⟧⟦コード6⟧⟦コード7⟧⟦コード8⟧⟦コード9⟧⟦コード10⟧⟦コード11⟧⟦コード12⟧`、そしてその他。"
+
+#: ../../source/optimization/1. overview.md:14
+msgid "**qt.run(mode=2)**：运行策略优化。"
+msgstr "**``qt.run(mode=2)``**: 戦略の最適化を実行します。"
+
+#: ../../source/optimization/1. overview.md:15
+msgid "**获取结果与最优参数**：从返回对象中读取最优参数组合及 Top-K 结果。"
+msgstr "**結果と最適なパラメータの読み取り**: 返されたオブジェクトから最適なパラメータの組み合わせと上位 K 個の結果を抽出します。"
+
+#: ../../source/optimization/1. overview.md:17
+msgid "本目录各章导航"
+msgstr "このセクションの章ガイド"
+
+#: ../../source/optimization/1. overview.md:19
+msgid "**2. 如何运行策略优化** — 入口、优化算法与运行参数列表、参数空间、最小示例。"
+msgstr "**2.戦略最適化の実行方法** — エントリ ポイント、最適化アルゴリズムと実行パラメータ リスト、パラメータ空間、および最小限の例。"
+
+#: ../../source/optimization/1. overview.md:20
+msgid "**3. 优化算法的区别与使用情境** — 各算法对比与选择建议。"
+msgstr "**3.最適化アルゴリズム: 違いと使用例** — アルゴリズムの比較と選択に関するアドバイス。"
+
+#: ../../source/optimization/1. overview.md:21
+msgid "**4. 优化结果的结构与读取** — 返回值、结果字段、读取最优与 Top-K。"
+msgstr "**4.最適化結果の構造とアクセス** — 戻り値、結果フィールド、および最良および上位 K の結果の読み取り。"
+
+#: ../../source/optimization/1. overview.md:22
+msgid "**5. 优化结果的分析与使用** — 结果分析、目标函数与约束、将最优参数写回策略、注意事项。"
+msgstr "**5.最適化結果の分析と使用** — 結果の分析、目的と制約、戦略への最適なパラメーターの適用、および注意事項。"
+
+#: ../../source/optimization/1. overview.md:24
+msgid "更多算法细节见《优化交易策略》references（如 references/5-optimize-strategy.md）。"
+msgstr ""
+"アルゴリズムの詳細については、最適化リファレンス (例: ``references/5-optimize-strategy.md``) "
+"を参照してください。"

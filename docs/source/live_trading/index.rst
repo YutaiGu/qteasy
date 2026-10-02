@@ -21,7 +21,7 @@
 
 - **初学者**：按下方「建议阅读顺序」读 1 → 2 → 3 → 5 即可跑通并会排错。
 - **已跑通 live**：可查阅第 6、8 章做快照/门禁与 CLI 运维。
-- **准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。
+- **准备对接真实柜台（如 QMT）**：阅读 :doc:`4a-xtquant-broker-adapter-contract-v1`（英文契约 v1），再读 :doc:`4-broker-adapter-and-integration`。
 
 建议阅读顺序
 ------------
@@ -33,9 +33,10 @@
 3. :doc:`3-risk-and-order-lifecycle` — 风控与订单状态
 4. :doc:`5-artifacts-and-troubleshooting` — 产物与排错（建议先于 Broker 集成阅读）
 5. :doc:`4-broker-adapter-and-integration` — 券商适配（进阶）
-6. :doc:`6-trader-snapshot-gate` — 策略快照与启动门禁
-7. :doc:`7-manual-smoke-live-grid-roadmap` — 手工冒烟清单
-8. :doc:`8-cli-trader-capability-matrix` — CLI 能力对照表
+6. :doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT 契约 v1（英文，协作必读）
+7. :doc:`6-trader-snapshot-gate` — 策略快照与启动门禁
+8. :doc:`7-manual-smoke-live-grid-roadmap` — 手工冒烟清单
+9. :doc:`8-cli-trader-capability-matrix` — CLI 能力对照表
 
 .. toctree::
    :maxdepth: 1
@@ -45,6 +46,7 @@
    3-risk-and-order-lifecycle
    5-artifacts-and-troubleshooting
    4-broker-adapter-and-integration
+   4a-xtquant-broker-adapter-contract-v1
    6-trader-snapshot-gate
    7-manual-smoke-live-grid-roadmap
    8-cli-trader-capability-matrix

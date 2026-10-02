@@ -1,0 +1,239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:1
+msgid "回测引擎与性能（设计视角）"
+msgstr "エンジンとパフォーマンスのバックテスト (設計の観点)"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:3
+msgid ""
+"本章从**架构与实现**角度说明 qteasy 回测引擎的向量化与 Numba 使用方式，以及与 VectorBT "
+"等框架的差异，供需要深入理解或做技术选型的读者参考。使用层面的说明见《回测并评价交易策略》中的 [6. "
+"回测引擎与性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+msgstr ""
+"この章では、より深い理解が必要な読者や技術的な選択を行っている読者向けに、**アーキテクチャと実装**の観点から、qteasy のバックテスト "
+"エンジンがベクトル化と Numba をどのように使用するか、VectorBT "
+"などのフレームワークとどのように異なるかについて説明します。使用レベルの説明については、「6. 使用レベルの説明」を参照してください。バックテスト "
+"エンジンとパフォーマンス](../back_testing/6.%20backtest_engine_and_performance.md)「バックテストと取引戦略の評価」。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:5
+msgid "1. 回测引擎在整体中的位置"
+msgstr "1. システム全体におけるバックテストエンジンの役割"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:7
+msgid ""
+"回测模式（mode=1）的流程在 [回测、实盘与优化](06-backtest-live-optimization.md) 中已概括：准备历史数据 → "
+"构建 Backtester → 按 group_timing_table 逐步运行 Operator 生成信号 → 解析信号并模拟成交 → "
+"评价与输出。其中，“解析信号并模拟成交”由 **backtest** 模块中的 Numba 函数完成，实现“时间维顺序、标的维向量化”。"
+msgstr ""
+"バックテスト モード (mode=1) のワークフローは、[バックテスト、ライブ トレーディング、および最適化](06-backtest-live-"
+"optimization.md) にまとめられています。履歴データの準備 → Backtester の構築 → group_timing_table "
+"に従って Operator を段階的に実行してシグナルを生成 → シグナルを解析して約定をシミュレート → "
+"評価して出力します。このうち、「信号の解析とフィルのシミュレート」は **backtest** モジュールの Numba "
+"関数によって処理され、「時間次元に沿ったシーケンシャル、インストゥルメント次元に沿ったベクトル化」を実現します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:9
+msgid "2. Numba 使用点与向量化结构"
+msgstr "2. Numba の使用ポイントとベクトル化された構造"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:11
+msgid "2.1 核心函数"
+msgstr "2.1 コア機能"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:13
+msgid "在 `qteasy/backtest.py` 中："
+msgstr "`qteasy/backtest.py`:"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:15
+msgid ""
+"**backtest_step**：`@njit(nogil=True, "
+"cache=True)`。单步内根据信号与当前持仓、现金、交割队列，计算买卖量、费用、持仓更新与交割队列更新；对整批标的做数组运算。"
+msgstr ""
+"**バックテストステップ**: `@njit(nogil=True, "
+"cache=True)`。単一のステップ内で、シグナルと現在のポジション、現金、決済キューに基づいて、売買数量、手数料、ポジションの更新、決済キューの更新を計算します。機器のバッチ全体に対して配列演算を実行します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:16
+msgid "**calculate_trade_results**：`@njit`，用于交易结果与资金变动计算。"
+msgstr "**calculate_trade_results**: `@njit`、取引結果と現金変動の計算に使用されます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:17
+msgid ""
+"**backtest_batch_steps**：`@njit(nogil=True, cache=True)`。在 Numba 内按 "
+"`signal_count`（时间步数）循环，每步调用 `backtest_step`，完成整段回测，实现“时间维顺序、标的维向量化”。"
+msgstr ""
+"**backtest_batch_steps**: `@njit(nogil=True, cache=True)`。 Numba 内で "
+"`signal_count` (タイム ステップ数) ごとにループします。各ステップで `backtest_step` を呼び出してバックテスト "
+"セグメント全体を完了し、「時間次元に沿って順次、機器次元に沿ってベクトル化」を実現します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:18
+msgid ""
+"**backtest_flash_steps**：`@njit(nogil=True, cache=True)`。与 "
+"`backtest_batch_steps` 类似，但不保留中间资金与持仓序列，仅保留最终状态，用于优化阶段多组参数回测时节省内存。"
+msgstr ""
+"**backtest_flash_steps**: `@njit(nogil=True, cache=True)`。 "
+"`backtest_batch_steps` と似ていますが、複数のパラメーター "
+"セットをバックテストする際の最適化フェーズ中にメモリを節約するために、中間のキャッシュとポジション シリーズは保持されず、最終状態のみが保持されます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:20
+msgid ""
+"在 `qteasy/blender.py` 中，信号混合用的部分算子（如 `op_sum`、`op_floor` 等）也使用 `@njit` 加速。"
+msgstr ""
+"`qteasy/blender.py` では、信号ブレンディングに使用される一部の演算子 (`op_sum`、`op_floor` など) "
+"は加速のために `@njit` も使用します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:22
+msgid "2.2 时间维顺序与标的维向量化"
+msgstr "2.2 機器次元に沿った時間次元の順序付けとベクトル化"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:24
+msgid "**时间维必须顺序**：因为存在交割队列、T+1、MOQ 等状态，下一笔交易依赖当前持仓与交割状态，无法在时间轴上完全并行或一次性矩阵化。"
+msgstr ""
+"**時間ディメンションは連続的である必要があります**: 決済キュー、T+1、MOQ "
+"などの状態があるため、次の取引は現在のポジションと決済状態に依存するため、時間軸に沿って完全に並列化したり、一度に行列化したりすることはできません。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:25
+msgid ""
+"**标的维向量化**：在每一个时间步内，对所有标的的 signal、持仓、买卖量、费用等用 NumPy 数组与 Numba 内联运算，避免 Python"
+" 层循环。"
+msgstr ""
+"**商品次元のベクトル化**: 各タイム ステップ内で、すべての商品のシグナル、ポジション、売買数量、手数料などに対して NumPy 配列と Numba"
+" 内のインライン操作を使用し、Python レベルのループを回避します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:27
+msgid "因此，单次回测可以理解为：**一层 Numba 内的时间步循环 + 每步内的向量化计算**。"
+msgstr ""
+"したがって、単一のバックテストは、**1 つの Numba レイヤー内のタイムステップ ループ + 各ステップ内のベクトル化された計算** "
+"として理解できます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:29
+msgid "2.3 优化阶段"
+msgstr "2.3 最適化段階"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:31
+msgid ""
+"在 `qteasy/optimization.py` 中，多组参数通过多进程（如 `ProcessPoolExecutor`）并行执行回测；每组内部使用"
+" `backtest_flash_steps` 等路径，只保留最终资金/持仓，以降低内存占用并提高吞吐。"
+msgstr ""
+"`qteasy/optimization.py` では、複数のパラメーター セットがマルチプロセッシングを介してバックテストを並行して実行します (例:"
+" `ProcessPoolExecutor`)。各セット内では、`backtest_flash_steps` "
+"などのパスを使用し、最終的なキャッシュ/ポジションのみを保持してメモリ使用量を削減し、スループットを向上させます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:33
+msgid "3. 与 VectorBT 的架构差异"
+msgstr "3. VectorBT とのアーキテクチャの違い"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "维度"
+msgstr "寸法"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "qteasy"
+msgstr "qteasy"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "VectorBT"
+msgstr "VectorBT"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "时间维度"
+msgstr "時間の次元"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "顺序步进（for 步），每步内向量化"
+msgstr "順次ステップ (for ループ ステップ)、各ステップ内でベクトル化"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "全时间轴一次性矩阵运算，无显式时间循环"
+msgstr "明示的なタイム ループを使用しない、タイムライン全体にわたるワンショット マトリックス演算"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "标的维度"
+msgstr "資産の次元"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "每步对全部标的做数组运算（1D 数组）"
+msgstr "各ステップで、すべてのアセット (1D 配列) に対して配列操作を実行します。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "标的与时间一起参与广播，多策略/多参数可一并广播"
+msgstr "楽器と時間が一緒に放送に参加します。複数の戦略/複数のパラメータ セットを一度にブロードキャストできます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "核心加速"
+msgstr "コアの加速"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid ""
+"backtest_step、backtest_batch_steps、backtest_flash_steps 等为 "
+"@njit；信号解析、交割队列等也用 Numba"
+msgstr ""
+"`backtest_step`、`backtest_batch_steps`、`backtest_flash_steps` などは `@njit` "
+"です。シグナル解析、決済/配送キューなどにもNumbaが使用されます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "NumPy + Numba，策略表达为纯数组运算"
+msgstr "NumPy + Numba、純粋な配列演算として表現される戦略"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "状态与约束"
+msgstr "状態と制約"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "显式维护现金、持仓、交割队列（T+1 等），状态依赖下一笔，故时间维必须顺序"
+msgstr ""
+"現金、ポジション、決済/配送キュー (T+1 など) "
+"を明示的に維持します。状態は次の取引に依存するため、時間ディメンションは連続的である必要があります。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md
+msgid "多为简化资金曲线，不强调 T+1/交割/MOQ，易做全矩阵"
+msgstr "T+1/決済/MOQ を重視せず、ほとんどが単純化された資本曲線なので、完全なマトリックスを簡単に構築できます。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:42
+msgid ""
+"**结论**：qteasy 并非“缺乏向量化/Numba”，而是在保证**状态正确性**（T+1、交割、MOQ、多策略合并等）的前提下，选择了“时间顺序"
+" + 标的维向量化 + Numba 单步”的折中；与 VectorBT 的“全矩阵广播”各有适用场景（qteasy "
+"偏规则严谨与实盘一致，VectorBT 偏海量参数快速筛选）。"
+msgstr ""
+"**結論**: qteasy には「ベクトル化/Numba が欠けている」わけではありません。むしろ、**状態の正確性** "
+"(T+1、決済、MOQ、複数戦略のマージなど) を保証することを前提として、「時間順 + 手段次元のベクトル化 + ステップごとの "
+"Numba」という妥協案を選択しました。それと VectorBT の「フルマトリックス "
+"ブロードキャスト」には、それぞれ独自の適用可能なシナリオがあります (qteasy は厳格なルールとライブ取引との一貫性を重視する一方、VectorBT"
+" は大規模なパラメーター グリッド上の迅速なスクリーニングを重視します)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:44
+msgid "4. 相关文档"
+msgstr "4. 関連資料"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:46
+msgid "统一入口与模式：[回测、实盘与优化](06-backtest-live-optimization.md)。"
+msgstr ""
+"統合されたエントリ ポイントとモード: [バックテスト、ライブ取引、最適化](06-backtest-live-optimization.md)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:47
+msgid ""
+"使用侧说明：[回测并评价交易策略 - "
+"回测引擎与性能](../back_testing/6.%20backtest_engine_and_performance.md)。"
+msgstr ""
+"ユーザー側の説明: [取引戦略のバックテストと評価 - バックテスト "
+"エンジンとパフォーマンス](../back_testing/6.%20backtest_engine_and_performance.md)。"
+
+#: ../../source/design/07-backtest-engine-and-performance.md:48
+msgid "设计初衷与数据隔离：[设计初衷与独特优势](08-design-rationale-and-advantages.md)。"
+msgstr "設計意図とデータの分離: [設計の根拠と独自の利点](08-design-rationale-and-advantages.md)。"

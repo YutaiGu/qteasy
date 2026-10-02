@@ -1,0 +1,80 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_13_经典网格交易.md:1
+msgid "经典网格交易策略"
+msgstr "グリッドトレーディング戦略"
+
+#: ../../source/examples/Example_13_经典网格交易.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_13_经典网格交易.ipynb` 第一个 Markdown"
+" cell。"
+msgstr ""
+"参照元：`docs/_joinquant_migration_source/Example_13_classic grid trading.ipynb`"
+" 最初のMarkdownセル。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:5
+msgid ""
+"本策略是一个经典的网格交易策略 "
+"策略的运行标的是000651.SZ格力电器，策略第一次运行时，买入1000股并持有，同时设定当前买入价格（四舍五入到0.1元）为基准网格， "
+"并根据网格尺寸计算出卖出网格和买入网格， 接下来每隔5分钟运行一次，当股票价格触及买入网格或卖出网格时，产生交易信号，并刷新网格："
+msgstr ""
+"この戦略は古典的なグリッド取引戦略です。この戦略は、格力電器株 000651.SZ を対象に実施される。この戦略を初めて実行するときは、1000 "
+"株を購入して保持します。同時に、現在の買値（0.1元に四捨五入）がベンチマークグリッドとして設定され、グリッドサイズに応じて売りグリッドと買いグリッドが計算されます。次に、戦略は"
+" 5 分ごとに実行されます。株価が買いグリッドまたは売りグリッドに接触すると、取引シグナルが生成され、グリッドが更新されます。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:9
+msgid "例如："
+msgstr "例えば："
+
+#: ../../source/examples/Example_13_经典网格交易.md:10
+msgid "假设当前基准网格为30元，网格尺寸为0.5元，卖出网格为30.5元，买入网格为29.5元"
+msgstr "現在のベンチマークグリッドが30元、グリッドサイズが0.5元、売りグリッドが30.5元、買いグリッドが29.5元であると仮定します。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:11
+msgid "当价格触及卖出网格30.5元时，产生卖出信号，卖出200股并更新基准网格为30.5元，同时计算出新的卖出网格31元和买入网格30元"
+msgstr ""
+"価格が30.5元の売りグリッドに接触すると、売りシグナルが生成され、200株が売却され、ベンチマークグリッドが30.5元に更新されます。同時に、新しい売りグリッド31元と買いグリッド30元が計算されます。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:13
+msgid "交易回测的标的是：000651.SZ格力电器，"
+msgstr "バックテスト対象: 000651.SZ グリー電器"
+
+#: ../../source/examples/Example_13_经典网格交易.md:15
+msgid "交易回测区间是：2023年1月1日至2023年3月1日"
+msgstr "バックテスト期間：2023年1月1日～2023年3月1日"
+
+#: ../../source/examples/Example_13_经典网格交易.md:17
+msgid "注，由于策略网格参数在每次交易以后都会被刷新，因此该策略只能以stepwise方式进行回测，为了方便生成交易信号，该策略使用了VS信号类型"
+msgstr ""
+"戦略グリッドのパラメータは取引ごとに更新されるため、この戦略は段階的にバックテストすることしかできないことに注意してください。取引シグナルの生成を容易にするために、戦略では"
+" VS シグナル タイプを使用します。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:97
+msgid "回测的结果如下："
+msgstr "バックテストの結果は以下の通りです。"
+
+#: ../../source/examples/Example_13_经典网格交易.md:146
+msgid "![png](img/output_13_1.png)"
+msgstr "![png](img/output_13_1.png)"
+
+#: ../../source/examples/Example_13_经典网格交易.md:146
+msgid "png"
+msgstr "png"

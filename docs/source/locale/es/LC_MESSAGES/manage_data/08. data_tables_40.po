@@ -3,14 +3,13 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-03 20:50+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -22,4997 +21,5056 @@ msgstr ""
 #: ../../source/manage_data/3. data_tables_40.md:1
 msgid "`DataTables`——上市公司基本面数据"
 msgstr ""
+"`DataTables` — Datos fundamentales de las empresas que cotizan en bolsa"
 
 #: ../../source/manage_data/3. data_tables_40.md:3
 msgid "上市公司财务报表数据"
-msgstr ""
+msgstr "Datos de los estados financieros de las empresas que cotizan en bolsa"
 
 #: ../../source/manage_data/3. data_tables_40.md:5
-msgid ""
-"`qteasy`提供了上市公司的财务报表数据，包括利润表、资产负债表、现金流量表等。"
-"数据来源于tushare，数据频率为季度频率。"
+msgid "`qteasy`提供了上市公司的财务报表数据，包括利润表、资产负债表、现金流量表等。数据来源于tushare，数据频率为季度频率。"
 msgstr ""
+"qteasy proporciona estados financieros de empresas que cotizan en bolsa "
+"(ingresos, balance, flujo de efectivo, etc.) obtenidos de Tushare con "
+"frecuencia trimestral."
 
 #: ../../source/manage_data/3. data_tables_40.md:7
 msgid "上市公司利润表: `income`"
-msgstr ""
+msgstr "Declaración de resultados de sociedades cotizadas: `income`"
 
 #: ../../source/manage_data/3. data_tables_40.md:8 data_tables_40.md:110
 #: data_tables_40.md:276 data_tables_40.md:381 data_tables_40.md:556
 #: data_tables_40.md:576
 msgid "数据表用途: `report`, 资产类型: `E`, 数据频率: `q`"
-msgstr ""
+msgstr "Uso de la tabla: `report`, tipo de activo: `E`, frecuencia: `q`"
 
 #: ../../source/manage_data/3. data_tables_40.md:10
 msgid ""
-"利润表是上市公司的财务报表之一，主要包括营业总收入、营业收入、营业总成本、营"
-"业成本、营业税金及附加、销售费用、管理费用、财务费用、资产减值损失、营业利"
-"润、利润总额、所得税费用、净利润等信息。"
+"利润表是上市公司的财务报表之一，主要包括营业总收入、营业收入、营业总成本、营业成本、营业税金及附加、销售费用、管理费用、财务费用、资产减值损失、营业利润、利润总额、所得税费用、净利润等信息。"
 msgstr ""
+"Los campos del estado de resultados incluyen ingresos totales, "
+"ingresos/costos operativos, impuestos, gastos de "
+"venta/administración/financieros, deterioro, beneficio operativo/total, "
+"impuestos, beneficio neto, etc."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "columns"
-msgstr ""
+msgstr "columns"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dtypes"
-msgstr ""
+msgstr "dtypes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "remarks"
-msgstr ""
+msgstr "remarks"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "is_prime_key"
-msgstr ""
+msgstr "is_prime_key"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "0"
-msgstr ""
+msgstr "0"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ts_code"
-msgstr ""
+msgstr "ts_code"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "varchar(9)"
-msgstr ""
+msgstr "varchar(9)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "证券代码"
-msgstr ""
+msgstr "código de seguridad"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "Y"
-msgstr ""
+msgstr "Y"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "end_date"
-msgstr ""
+msgstr "end_date"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "date"
-msgstr ""
+msgstr "date"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "报告期"
-msgstr ""
+msgstr "Período del informe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ann_date"
-msgstr ""
+msgstr "ann_date"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "公告日期"
-msgstr ""
+msgstr "fecha de anuncio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "N"
-msgstr ""
+msgstr "N"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "f_ann_date"
-msgstr ""
+msgstr "f_ann_date"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "实际公告日期"
-msgstr ""
+msgstr "Fecha de anuncio real"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "report_type"
-msgstr ""
+msgstr "report_type"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "varchar(6)"
-msgstr ""
+msgstr "varchar(6)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "报告类型 见底部表"
-msgstr ""
+msgstr "Tipo de informe: consulte la tabla en la parte inferior"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "5"
-msgstr ""
+msgstr "5"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "comp_type"
-msgstr ""
+msgstr "comp_type"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "公司类型(1一般工商业2银行3保险4证券)"
-msgstr ""
+msgstr "Tipo de empresa (1 industria general 2 banco 3 seguros 4 valores)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "6"
-msgstr ""
+msgstr "6"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "end_type"
-msgstr ""
+msgstr "end_type"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "报告期类型"
-msgstr ""
+msgstr "Tipo de período de informe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "7"
-msgstr ""
+msgstr "7"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "basic_eps"
-msgstr ""
+msgstr "basic_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "double"
-msgstr ""
+msgstr "double"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "基本每股收益"
-msgstr ""
+msgstr "EPS básico"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "8"
-msgstr ""
+msgstr "8"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "diluted_eps"
-msgstr ""
+msgstr "diluted_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "稀释每股收益"
-msgstr ""
+msgstr "EPS diluido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "9"
-msgstr ""
+msgstr "9"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_revenue"
-msgstr ""
+msgstr "total_revenue"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总收入"
-msgstr ""
+msgstr "Ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "revenue"
-msgstr ""
+msgstr "revenue"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业收入"
-msgstr ""
+msgstr "Ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "11"
-msgstr ""
+msgstr "11"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "int_income"
-msgstr ""
+msgstr "int_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利息收入"
-msgstr ""
+msgstr "Ingresos por intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "12"
-msgstr ""
+msgstr "12"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prem_earned"
-msgstr ""
+msgstr "prem_earned"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "已赚保费"
-msgstr ""
+msgstr "Primas ganadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "13"
-msgstr ""
+msgstr "13"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "comm_income"
-msgstr ""
+msgstr "comm_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "手续费及佣金收入"
-msgstr ""
+msgstr "Honorarios e ingresos por comisiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "14"
-msgstr ""
+msgstr "14"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_commis_income"
-msgstr ""
+msgstr "n_commis_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "手续费及佣金净收入"
-msgstr ""
+msgstr "Honorarios netos y ingresos por comisiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "15"
-msgstr ""
+msgstr "15"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_oth_income"
-msgstr ""
+msgstr "n_oth_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他经营净收益"
-msgstr ""
+msgstr "Otros ingresos netos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "16"
-msgstr ""
+msgstr "16"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_oth_b_income"
-msgstr ""
+msgstr "n_oth_b_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:其他业务净收益"
-msgstr ""
+msgstr "Más: otros ingresos netos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "17"
-msgstr ""
+msgstr "17"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prem_income"
-msgstr ""
+msgstr "prem_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保险业务收入"
-msgstr ""
+msgstr "Ingresos del negocio de seguros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "18"
-msgstr ""
+msgstr "18"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "out_prem"
-msgstr ""
+msgstr "out_prem"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:分出保费"
-msgstr ""
+msgstr "Menos: primas cedidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "19"
-msgstr ""
+msgstr "19"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "une_prem_reser"
-msgstr ""
+msgstr "une_prem_reser"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取未到期责任准备金"
-msgstr ""
+msgstr "Apropiación de reserva para primas no devengadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "20"
-msgstr ""
+msgstr "20"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reins_income"
-msgstr ""
+msgstr "reins_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:分保费收入"
-msgstr ""
+msgstr "Incluyendo: ingresos por primas cedidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "21"
-msgstr ""
+msgstr "21"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_sec_tb_income"
-msgstr ""
+msgstr "n_sec_tb_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "代理买卖证券业务净收入"
-msgstr ""
+msgstr "Ingresos netos por negociación de valores de agencias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "22"
-msgstr ""
+msgstr "22"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_sec_uw_income"
-msgstr ""
+msgstr "n_sec_uw_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "证券承销业务净收入"
-msgstr ""
+msgstr "Ingresos netos por suscripción de valores"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "23"
-msgstr ""
+msgstr "23"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_asset_mg_income"
-msgstr ""
+msgstr "n_asset_mg_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "受托客户资产管理业务净收入"
-msgstr ""
+msgstr "Ingresos netos de la gestión de activos encomendados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "24"
-msgstr ""
+msgstr "24"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_b_income"
-msgstr ""
+msgstr "oth_b_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他业务收入"
-msgstr ""
+msgstr "Otros ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "25"
-msgstr ""
+msgstr "25"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fv_value_chg_gain"
-msgstr ""
+msgstr "fv_value_chg_gain"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:公允价值变动净收益"
-msgstr ""
+msgstr "Más: ganancia neta por cambios en el valor razonable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "26"
-msgstr ""
+msgstr "26"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_income"
-msgstr ""
+msgstr "invest_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:投资净收益"
-msgstr ""
+msgstr "Añadir: ingresos netos por inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "27"
-msgstr ""
+msgstr "27"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ass_invest_income"
-msgstr ""
+msgstr "ass_invest_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:对联营企业和合营企业的投资收益"
-msgstr ""
+msgstr "Incluye: ingresos por inversiones de asociadas y negocios conjuntos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "28"
-msgstr ""
+msgstr "28"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "forex_gain"
-msgstr ""
+msgstr "forex_gain"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:汇兑净收益"
-msgstr ""
+msgstr "Sumar: ganancia cambiaria neta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "29"
-msgstr ""
+msgstr "29"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_cogs"
-msgstr ""
+msgstr "total_cogs"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总成本"
-msgstr ""
+msgstr "Costos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "30"
-msgstr ""
+msgstr "30"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oper_cost"
-msgstr ""
+msgstr "oper_cost"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:营业成本"
-msgstr ""
+msgstr "Menos: costos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "31"
-msgstr ""
+msgstr "31"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "int_exp"
-msgstr ""
+msgstr "int_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:利息支出"
-msgstr ""
+msgstr "Menos: gastos por intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "32"
-msgstr ""
+msgstr "32"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "comm_exp"
-msgstr ""
+msgstr "comm_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:手续费及佣金支出"
-msgstr ""
+msgstr "Menos: gastos de honorarios y comisiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "33"
-msgstr ""
+msgstr "33"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "biz_tax_surchg"
-msgstr ""
+msgstr "biz_tax_surchg"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:营业税金及附加"
-msgstr ""
+msgstr "Menos: impuestos y recargos comerciales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "34"
-msgstr ""
+msgstr "34"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "sell_exp"
-msgstr ""
+msgstr "sell_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:销售费用"
-msgstr ""
+msgstr "Menos: gastos de venta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "35"
-msgstr ""
+msgstr "35"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "admin_exp"
-msgstr ""
+msgstr "admin_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:管理费用"
-msgstr ""
+msgstr "Menos: gastos administrativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "36"
-msgstr ""
+msgstr "36"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fin_exp"
-msgstr ""
+msgstr "fin_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:财务费用"
-msgstr ""
+msgstr "Menos: gastos financieros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "37"
-msgstr ""
+msgstr "37"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "assets_impair_loss"
-msgstr ""
+msgstr "assets_impair_loss"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:资产减值损失"
-msgstr ""
+msgstr "Menos: pérdidas por deterioro de activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "38"
-msgstr ""
+msgstr "38"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prem_refund"
-msgstr ""
+msgstr "prem_refund"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "退保金"
-msgstr ""
+msgstr "Beneficios de rendición pagados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "39"
-msgstr ""
+msgstr "39"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "compens_payout"
-msgstr ""
+msgstr "compens_payout"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "赔付总支出"
-msgstr ""
+msgstr "Pagos totales de reclamaciones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "40"
-msgstr ""
+msgstr "40"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reser_insur_liab"
-msgstr ""
+msgstr "reser_insur_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取保险责任准备金"
-msgstr ""
+msgstr "Asignación de reserva de seguros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "41"
-msgstr ""
+msgstr "41"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "div_payt"
-msgstr ""
+msgstr "div_payt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保户红利支出"
-msgstr ""
+msgstr "Pagos de dividendos a los asegurados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "42"
-msgstr ""
+msgstr "42"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reins_exp"
-msgstr ""
+msgstr "reins_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "分保费用"
-msgstr ""
+msgstr "Gastos de reaseguro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "43"
-msgstr ""
+msgstr "43"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oper_exp"
-msgstr ""
+msgstr "oper_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业支出"
-msgstr ""
+msgstr "Gastos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "44"
-msgstr ""
+msgstr "44"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "compens_payout_refu"
-msgstr ""
+msgstr "compens_payout_refu"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:摊回赔付支出"
-msgstr ""
+msgstr "Menos: siniestros de reaseguro recuperados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "45"
-msgstr ""
+msgstr "45"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "insur_reser_refu"
-msgstr ""
+msgstr "insur_reser_refu"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:摊回保险责任准备金"
-msgstr ""
+msgstr "Menos: reserva de reaseguro recuperada"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "46"
-msgstr ""
+msgstr "46"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reins_cost_refund"
-msgstr ""
+msgstr "reins_cost_refund"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:摊回分保费用"
-msgstr ""
+msgstr "Menos: gastos de reaseguro recuperados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "47"
-msgstr ""
+msgstr "47"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "other_bus_cost"
-msgstr ""
+msgstr "other_bus_cost"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他业务成本"
-msgstr ""
+msgstr "Otros costos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "48"
-msgstr ""
+msgstr "48"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "operate_profit"
-msgstr ""
+msgstr "operate_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润"
-msgstr ""
+msgstr "Beneficio operativo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "49"
-msgstr ""
+msgstr "49"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "non_oper_income"
-msgstr ""
+msgstr "non_oper_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:营业外收入"
-msgstr ""
+msgstr "Añadir: ingresos no operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "50"
-msgstr ""
+msgstr "50"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "non_oper_exp"
-msgstr ""
+msgstr "non_oper_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:营业外支出"
-msgstr ""
+msgstr "Menos: gastos no operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "51"
-msgstr ""
+msgstr "51"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "nca_disploss"
-msgstr ""
+msgstr "nca_disploss"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:减:非流动资产处置净损失"
-msgstr ""
+msgstr "Incluye: menos: pérdida neta por enajenación de activos no corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "52"
-msgstr ""
+msgstr "52"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_profit"
-msgstr ""
+msgstr "total_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利润总额"
-msgstr ""
+msgstr "beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "53"
-msgstr ""
+msgstr "53"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "income_tax"
-msgstr ""
+msgstr "income_tax"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "所得税费用"
-msgstr ""
+msgstr "Gasto por impuesto a la renta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "54"
-msgstr ""
+msgstr "54"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_income"
-msgstr ""
+msgstr "n_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润(含少数股东损益)"
-msgstr ""
+msgstr "Beneficio neto (incluidos intereses minoritarios)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "55"
-msgstr ""
+msgstr "55"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_income_attr_p"
-msgstr ""
+msgstr "n_income_attr_p"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润(不含少数股东损益)"
-msgstr ""
+msgstr "Beneficio neto (excl. intereses minoritarios)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "56"
-msgstr ""
+msgstr "56"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "minority_gain"
-msgstr ""
+msgstr "minority_gain"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "少数股东损益"
-msgstr ""
+msgstr "Ingresos por intereses minoritarios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "57"
-msgstr ""
+msgstr "57"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_compr_income"
-msgstr ""
+msgstr "oth_compr_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他综合收益"
-msgstr ""
+msgstr "Otro resultado integral"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "58"
-msgstr ""
+msgstr "58"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "t_compr_income"
-msgstr ""
+msgstr "t_compr_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "综合收益总额"
-msgstr ""
+msgstr "Resultado integral total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "59"
-msgstr ""
+msgstr "59"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "compr_inc_attr_p"
-msgstr ""
+msgstr "compr_inc_attr_p"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属于母公司(或股东)的综合收益总额"
-msgstr ""
+msgstr "Utilidad integral total atribuible a la controladora (o accionistas)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "60"
-msgstr ""
+msgstr "60"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "compr_inc_attr_m_s"
-msgstr ""
+msgstr "compr_inc_attr_m_s"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属于少数股东的综合收益总额"
-msgstr ""
+msgstr "Utilidad integral total atribuible a accionistas minoritarios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "61"
-msgstr ""
+msgstr "61"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebit"
-msgstr ""
+msgstr "ebit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "息税前利润"
-msgstr ""
+msgstr "EBIT"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "62"
-msgstr ""
+msgstr "62"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebitda"
-msgstr ""
+msgstr "ebitda"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "息税折旧摊销前利润"
-msgstr ""
+msgstr "EBITDA"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "63"
-msgstr ""
+msgstr "63"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "insurance_exp"
-msgstr ""
+msgstr "insurance_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保险业务支出"
-msgstr ""
+msgstr "Gastos comerciales de seguros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "64"
-msgstr ""
+msgstr "64"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "undist_profit"
-msgstr ""
+msgstr "undist_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "年初未分配利润"
-msgstr ""
+msgstr "Ganancias retenidas al inicio del año"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "65"
-msgstr ""
+msgstr "65"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "distable_profit"
-msgstr ""
+msgstr "distable_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "可分配利润"
-msgstr ""
+msgstr "Beneficio distribuible"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "66"
-msgstr ""
+msgstr "66"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rd_exp"
-msgstr ""
+msgstr "rd_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "研发费用"
-msgstr ""
+msgstr "Gastos de I+D"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "67"
-msgstr ""
+msgstr "67"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fin_exp_int_exp"
-msgstr ""
+msgstr "fin_exp_int_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "财务费用:利息费用"
-msgstr ""
+msgstr "Gastos financieros: gastos por intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "68"
-msgstr ""
+msgstr "68"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fin_exp_int_inc"
-msgstr ""
+msgstr "fin_exp_int_inc"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "财务费用:利息收入"
-msgstr ""
+msgstr "Gastos financieros: ingresos por intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "69"
-msgstr ""
+msgstr "69"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "transfer_surplus_rese"
-msgstr ""
+msgstr "transfer_surplus_rese"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "盈余公积转入"
-msgstr ""
+msgstr "Transferencia de reserva excedente"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "70"
-msgstr ""
+msgstr "70"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "transfer_housing_imprest"
-msgstr ""
+msgstr "transfer_housing_imprest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "住房周转金转入"
-msgstr ""
+msgstr "Transferencia del fondo rotatorio de vivienda"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "71"
-msgstr ""
+msgstr "71"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "transfer_oth"
-msgstr ""
+msgstr "transfer_oth"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他转入"
-msgstr ""
+msgstr "Otras transferencias en"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "72"
-msgstr ""
+msgstr "72"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "adj_lossgain"
-msgstr ""
+msgstr "adj_lossgain"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "调整以前年度损益"
-msgstr ""
+msgstr "Ajuste del año anterior"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "73"
-msgstr ""
+msgstr "73"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "withdra_legal_surplus"
-msgstr ""
+msgstr "withdra_legal_surplus"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取法定盈余公积"
-msgstr ""
+msgstr "Asignación de reserva excedente estatutaria"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "74"
-msgstr ""
+msgstr "74"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "withdra_legal_pubfund"
-msgstr ""
+msgstr "withdra_legal_pubfund"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取法定公益金"
-msgstr ""
+msgstr "Asignación estatutaria del fondo de bienestar público"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "75"
-msgstr ""
+msgstr "75"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "withdra_biz_devfund"
-msgstr ""
+msgstr "withdra_biz_devfund"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取企业发展基金"
-msgstr ""
+msgstr "Asignación de fondos de expansión empresarial"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "76"
-msgstr ""
+msgstr "76"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "withdra_rese_fund"
-msgstr ""
+msgstr "withdra_rese_fund"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取储备基金"
-msgstr ""
+msgstr "Asignación del fondo de reserva"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "77"
-msgstr ""
+msgstr "77"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "withdra_oth_ersu"
-msgstr ""
+msgstr "withdra_oth_ersu"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "提取任意盈余公积金"
-msgstr ""
+msgstr "Asignación discrecional de reservas excedentes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "78"
-msgstr ""
+msgstr "78"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "workers_welfare"
-msgstr ""
+msgstr "workers_welfare"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "职工奖金福利"
-msgstr ""
+msgstr "Bonos y beneficios para empleados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "79"
-msgstr ""
+msgstr "79"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "distr_profit_shrhder"
-msgstr ""
+msgstr "distr_profit_shrhder"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "可供股东分配的利润"
-msgstr ""
+msgstr "Utilidad disponible para distribución a los accionistas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "80"
-msgstr ""
+msgstr "80"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prfshare_payable_dvd"
-msgstr ""
+msgstr "prfshare_payable_dvd"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付优先股股利"
-msgstr ""
+msgstr "Dividendos pagaderos sobre acciones preferentes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "81"
-msgstr ""
+msgstr "81"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "comshare_payable_dvd"
-msgstr ""
+msgstr "comshare_payable_dvd"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付普通股股利"
-msgstr ""
+msgstr "Dividendos de acciones comunes a pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "82"
-msgstr ""
+msgstr "82"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "capit_comstock_div"
-msgstr ""
+msgstr "capit_comstock_div"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "转作股本的普通股股利"
-msgstr ""
+msgstr "Dividendos de acciones ordinarias convertidos en capital social"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "83"
-msgstr ""
+msgstr "83"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_after_nr_lp_correct"
-msgstr ""
+msgstr "net_after_nr_lp_correct"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除非经常性损益后的净利润(更正前)"
 msgstr ""
+"Beneficio neto después de partidas no recurrentes (antes de corrección)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "84"
-msgstr ""
+msgstr "84"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "credit_impa_loss"
-msgstr ""
+msgstr "credit_impa_loss"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "信用减值损失"
-msgstr ""
+msgstr "Pérdida por deterioro del crédito"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "85"
-msgstr ""
+msgstr "85"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_expo_hedging_benefits"
-msgstr ""
+msgstr "net_expo_hedging_benefits"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净敞口套期收益"
-msgstr ""
+msgstr "Ganancia neta de cobertura"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "86"
-msgstr ""
+msgstr "86"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_impair_loss_assets"
-msgstr ""
+msgstr "oth_impair_loss_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他资产减值损失"
-msgstr ""
+msgstr "Otras pérdidas por deterioro de activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "87"
-msgstr ""
+msgstr "87"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_opcost"
-msgstr ""
+msgstr "total_opcost"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总成本(二)"
-msgstr ""
+msgstr "Costos totales de operación (II)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "88"
-msgstr ""
+msgstr "88"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "amodcost_fin_assets"
-msgstr ""
+msgstr "amodcost_fin_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "以摊余成本计量的金融资产终止确认收益"
 msgstr ""
+"Ganancia por baja en cuentas de activos financieros a costo amortizado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "89"
-msgstr ""
+msgstr "89"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_income"
-msgstr ""
+msgstr "oth_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他收益"
-msgstr ""
+msgstr "Otros ingresos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "90"
-msgstr ""
+msgstr "90"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "asset_disp_income"
-msgstr ""
+msgstr "asset_disp_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产处置收益"
-msgstr ""
+msgstr "Ganancia por enajenación de activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "91"
-msgstr ""
+msgstr "91"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "continued_net_profit"
-msgstr ""
+msgstr "continued_net_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "持续经营净利润"
-msgstr ""
+msgstr "Beneficio neto de operaciones continuas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "92"
-msgstr ""
+msgstr "92"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "end_net_profit"
-msgstr ""
+msgstr "end_net_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "终止经营净利润"
-msgstr ""
+msgstr "Beneficio neto de operaciones discontinuadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "93"
-msgstr ""
+msgstr "93"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "update_flag"
-msgstr ""
+msgstr "update_flag"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "varchar(4)"
-msgstr ""
+msgstr "varchar(4)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "更新标识"
-msgstr ""
+msgstr "Actualizar identificador"
 
 #: ../../source/manage_data/3. data_tables_40.md:109
 msgid "上市公司资产负债表: `balance`"
-msgstr ""
+msgstr "Balance de empresa cotizada: `balance`"
 
 #: ../../source/manage_data/3. data_tables_40.md:112
-msgid ""
-"资产负债表是上市公司的财务报表之一，主要包括资产、负债、所有者权益等信息。"
-msgstr ""
+msgid "资产负债表是上市公司的财务报表之一，主要包括资产、负债、所有者权益等信息。"
+msgstr "Balance: activos, pasivos, capital contable."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "varchar(10)"
-msgstr ""
+msgstr "varchar(10)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "报表类型"
-msgstr ""
+msgstr "Tipo de informe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "公司类型"
-msgstr ""
+msgstr "Tipo de empresa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_share"
-msgstr ""
+msgstr "total_share"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期末总股本"
-msgstr ""
+msgstr "Total de acciones en circulación al cierre"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cap_rese"
-msgstr ""
+msgstr "cap_rese"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资本公积金"
-msgstr ""
+msgstr "reserva de capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "undistr_porfit"
-msgstr ""
+msgstr "undistr_porfit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "未分配利润"
-msgstr ""
+msgstr "Ganancias retenidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "surplus_rese"
-msgstr ""
+msgstr "surplus_rese"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "盈余公积金"
-msgstr ""
+msgstr "Reserva excedente"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "special_rese"
-msgstr ""
+msgstr "special_rese"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "专项储备"
-msgstr ""
+msgstr "Reserva especial"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "money_cap"
-msgstr ""
+msgstr "money_cap"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "货币资金"
-msgstr ""
+msgstr "Efectivo y equivalentes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "trad_asset"
-msgstr ""
+msgstr "trad_asset"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "交易性金融资产"
-msgstr ""
+msgstr "Negociar activos financieros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "notes_receiv"
-msgstr ""
+msgstr "notes_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收票据"
-msgstr ""
+msgstr "Notas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "accounts_receiv"
-msgstr ""
+msgstr "accounts_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收账款"
-msgstr ""
+msgstr "Cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_receiv"
-msgstr ""
+msgstr "oth_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他应收款"
-msgstr ""
+msgstr "Otras cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prepayment"
-msgstr ""
+msgstr "prepayment"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预付款项"
-msgstr ""
+msgstr "Prepagos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "div_receiv"
-msgstr ""
+msgstr "div_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收股利"
-msgstr ""
+msgstr "Dividendos por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "int_receiv"
-msgstr ""
+msgstr "int_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收利息"
-msgstr ""
+msgstr "Intereses por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "inventories"
-msgstr ""
+msgstr "inventories"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存货"
-msgstr ""
+msgstr "Inventarios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "amor_exp"
-msgstr ""
+msgstr "amor_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期待摊费用"
-msgstr ""
+msgstr "Gastos prepagos a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "nca_within_1y"
-msgstr ""
+msgstr "nca_within_1y"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "一年内到期的非流动资产"
-msgstr ""
+msgstr "Activos no corrientes con vencimiento en un año"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "sett_rsrv"
-msgstr ""
+msgstr "sett_rsrv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "结算备付金"
-msgstr ""
+msgstr "Reserva de liquidación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "loanto_oth_bank_fi"
-msgstr ""
+msgstr "loanto_oth_bank_fi"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "拆出资金"
-msgstr ""
+msgstr "Fondos de préstamo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "premium_receiv"
-msgstr ""
+msgstr "premium_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收保费"
-msgstr ""
+msgstr "Primas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reinsur_receiv"
-msgstr ""
+msgstr "reinsur_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保账款"
-msgstr ""
+msgstr "Cuentas por cobrar de reaseguro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reinsur_res_receiv"
-msgstr ""
+msgstr "reinsur_res_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保合同准备金"
-msgstr ""
+msgstr "Reservas de contratos de reaseguro por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "pur_resale_fa"
-msgstr ""
+msgstr "pur_resale_fa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "买入返售金融资产"
-msgstr ""
+msgstr "Activos financieros adquiridos bajo acuerdos de reventa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_cur_assets"
-msgstr ""
+msgstr "oth_cur_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他流动资产"
-msgstr ""
+msgstr "Otros activos corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_cur_assets"
-msgstr ""
+msgstr "total_cur_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动资产合计"
-msgstr ""
+msgstr "Activos corrientes totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fa_avail_for_sale"
-msgstr ""
+msgstr "fa_avail_for_sale"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "可供出售金融资产"
-msgstr ""
+msgstr "Activos financieros disponibles para la venta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "htm_invest"
-msgstr ""
+msgstr "htm_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "持有至到期投资"
-msgstr ""
+msgstr "Inversiones mantenidas hasta el vencimiento"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_eqt_invest"
-msgstr ""
+msgstr "lt_eqt_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期股权投资"
-msgstr ""
+msgstr "Inversiones de capital a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_real_estate"
-msgstr ""
+msgstr "invest_real_estate"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资性房地产"
-msgstr ""
+msgstr "Propiedades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "time_deposits"
-msgstr ""
+msgstr "time_deposits"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "定期存款"
-msgstr ""
+msgstr "Depósitos a plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_assets"
-msgstr ""
+msgstr "oth_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他资产"
-msgstr ""
+msgstr "Otros activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_rec"
-msgstr ""
+msgstr "lt_rec"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期应收款"
-msgstr ""
+msgstr "Cuentas por cobrar a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fix_assets"
-msgstr ""
+msgstr "fix_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产"
-msgstr ""
+msgstr "Activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cip"
-msgstr ""
+msgstr "cip"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "在建工程"
-msgstr ""
+msgstr "Construcción en progreso"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "const_materials"
-msgstr ""
+msgstr "const_materials"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "工程物资"
-msgstr ""
+msgstr "Materiales de ingenieria"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fixed_assets_disp"
-msgstr ""
+msgstr "fixed_assets_disp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产清理"
-msgstr ""
+msgstr "Enajenación de activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "produc_bio_assets"
-msgstr ""
+msgstr "produc_bio_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "生产性生物资产"
-msgstr ""
+msgstr "Activos biológicos productivos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oil_and_gas_assets"
-msgstr ""
+msgstr "oil_and_gas_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "油气资产"
-msgstr ""
+msgstr "Activos de petróleo y gas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "intan_assets"
-msgstr ""
+msgstr "intan_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "无形资产"
-msgstr ""
+msgstr "Activos intangibles"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "r_and_d"
-msgstr ""
+msgstr "r_and_d"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "研发支出"
-msgstr ""
+msgstr "Gasto en I+D"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "goodwill"
-msgstr ""
+msgstr "goodwill"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "商誉"
-msgstr ""
+msgstr "Buena voluntad"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_amor_exp"
-msgstr ""
+msgstr "lt_amor_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "defer_tax_assets"
-msgstr ""
+msgstr "defer_tax_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延所得税资产"
-msgstr ""
+msgstr "Activos por impuestos diferidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "decr_in_disbur"
-msgstr ""
+msgstr "decr_in_disbur"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "发放贷款及垫款"
-msgstr ""
+msgstr "Préstamos y anticipos emitidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_nca"
-msgstr ""
+msgstr "oth_nca"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他非流动资产"
-msgstr ""
+msgstr "Otros activos no corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_nca"
-msgstr ""
+msgstr "total_nca"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非流动资产合计"
-msgstr ""
+msgstr "Activos totales no corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cash_reser_cb"
-msgstr ""
+msgstr "cash_reser_cb"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "现金及存放中央银行款项"
-msgstr ""
+msgstr "Efectivo y depósitos en el banco central"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depos_in_oth_bfi"
-msgstr ""
+msgstr "depos_in_oth_bfi"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存放同业和其它金融机构款项"
-msgstr ""
+msgstr "Depósitos con pares y otras instituciones financieras"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prec_metals"
-msgstr ""
+msgstr "prec_metals"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "贵金属"
-msgstr ""
+msgstr "metales preciosos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "deriv_assets"
-msgstr ""
+msgstr "deriv_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "衍生金融资产"
-msgstr ""
+msgstr "Activos financieros derivados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rr_reins_une_prem"
-msgstr ""
+msgstr "rr_reins_une_prem"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保未到期责任准备金"
-msgstr ""
+msgstr "Reservas de primas no consumidas de reaseguro por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rr_reins_outstd_cla"
-msgstr ""
+msgstr "rr_reins_outstd_cla"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保未决赔款准备金"
-msgstr ""
+msgstr "Reservas para siniestros pendientes de reaseguro por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rr_reins_lins_liab"
-msgstr ""
+msgstr "rr_reins_lins_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保寿险责任准备金"
-msgstr ""
+msgstr "Reservas de vida de reaseguro por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rr_reins_lthins_liab"
-msgstr ""
+msgstr "rr_reins_lthins_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收分保长期健康险责任准备金"
-msgstr ""
+msgstr "Reaseguro reservas de salud a largo plazo por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "refund_depos"
-msgstr ""
+msgstr "refund_depos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存出保证金"
-msgstr ""
+msgstr "Margen pagado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ph_pledge_loans"
-msgstr ""
+msgstr "ph_pledge_loans"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保户质押贷款"
-msgstr ""
+msgstr "Préstamos pignorados a asegurados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "refund_cap_depos"
-msgstr ""
+msgstr "refund_cap_depos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存出资本保证金"
-msgstr ""
+msgstr "Margen de capital pagado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "indep_acct_assets"
-msgstr ""
+msgstr "indep_acct_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "独立账户资产"
-msgstr ""
+msgstr "Activos de cuentas separadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "client_depos"
-msgstr ""
+msgstr "client_depos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中：客户资金存款"
-msgstr ""
+msgstr "Incluyendo: depósitos de fondos de clientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "client_prov"
-msgstr ""
+msgstr "client_prov"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中：客户备付金"
-msgstr ""
+msgstr "Incluyendo: fondos de reserva de clientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "transac_seat_fee"
-msgstr ""
+msgstr "transac_seat_fee"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:交易席位费"
-msgstr ""
+msgstr "Incluye: tarifas de asiento comercial"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_as_receiv"
-msgstr ""
+msgstr "invest_as_receiv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收款项类投资"
-msgstr ""
+msgstr "Inversiones tipo cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_assets"
-msgstr ""
+msgstr "total_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产总计"
-msgstr ""
+msgstr "Activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_borr"
-msgstr ""
+msgstr "lt_borr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期借款"
-msgstr ""
+msgstr "Préstamos a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "st_borr"
-msgstr ""
+msgstr "st_borr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "短期借款"
-msgstr ""
+msgstr "Préstamos a corto plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cb_borr"
-msgstr ""
+msgstr "cb_borr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "向中央银行借款"
-msgstr ""
+msgstr "Préstamos del banco central"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depos_ib_deposits"
-msgstr ""
+msgstr "depos_ib_deposits"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "吸收存款及同业存放"
-msgstr ""
+msgstr "Depósitos y colocaciones interbancarias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "loan_oth_bank"
-msgstr ""
+msgstr "loan_oth_bank"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "拆入资金"
-msgstr ""
+msgstr "Préstamos tomados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "trading_fl"
-msgstr ""
+msgstr "trading_fl"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "交易性金融负债"
-msgstr ""
+msgstr "Negociación de pasivos financieros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "notes_payable"
-msgstr ""
+msgstr "notes_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付票据"
-msgstr ""
+msgstr "Documentos por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "acct_payable"
-msgstr ""
+msgstr "acct_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付账款"
-msgstr ""
+msgstr "cuentas por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "adv_receipts"
-msgstr ""
+msgstr "adv_receipts"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预收款项"
-msgstr ""
+msgstr "Anticipos de clientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "sold_for_repur_fa"
-msgstr ""
+msgstr "sold_for_repur_fa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "卖出回购金融资产款"
-msgstr ""
+msgstr "Activos financieros vendidos con pacto de recompra"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "comm_payable"
-msgstr ""
+msgstr "comm_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付手续费及佣金"
-msgstr ""
+msgstr "Honorarios y comisiones a pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "payroll_payable"
-msgstr ""
+msgstr "payroll_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付职工薪酬"
-msgstr ""
+msgstr "Beneficios a los empleados pagaderos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "taxes_payable"
-msgstr ""
+msgstr "taxes_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应交税费"
-msgstr ""
+msgstr "Impuestos a pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "int_payable"
-msgstr ""
+msgstr "int_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付利息"
-msgstr ""
+msgstr "Intereses a pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "div_payable"
-msgstr ""
+msgstr "div_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付股利"
-msgstr ""
+msgstr "Dividendos a pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_payable"
-msgstr ""
+msgstr "oth_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他应付款"
-msgstr ""
+msgstr "Otras cuentas por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "acc_exp"
-msgstr ""
+msgstr "acc_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预提费用"
-msgstr ""
+msgstr "Gastos acumulados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "deferred_inc"
-msgstr ""
+msgstr "deferred_inc"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延收益"
-msgstr ""
+msgstr "Ingresos diferidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "st_bonds_payable"
-msgstr ""
+msgstr "st_bonds_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付短期债券"
-msgstr ""
+msgstr "Bonos a corto plazo por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "payable_to_reinsurer"
-msgstr ""
+msgstr "payable_to_reinsurer"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付分保账款"
-msgstr ""
+msgstr "Cuentas por pagar de reaseguro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "rsrv_insur_cont"
-msgstr ""
+msgstr "rsrv_insur_cont"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保险合同准备金"
-msgstr ""
+msgstr "Reservas de contrato de seguro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "acting_trading_sec"
-msgstr ""
+msgstr "acting_trading_sec"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "代理买卖证券款"
-msgstr ""
+msgstr "Cuentas por pagar por negociación de valores de agencia"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "acting_uw_sec"
-msgstr ""
+msgstr "acting_uw_sec"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "代理承销证券款"
-msgstr ""
+msgstr "Agencia de suscripción de valores por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "non_cur_liab_due_1y"
-msgstr ""
+msgstr "non_cur_liab_due_1y"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "一年内到期的非流动负债"
-msgstr ""
+msgstr "Pasivos no corrientes con vencimiento dentro de un año"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_cur_liab"
-msgstr ""
+msgstr "oth_cur_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他流动负债"
-msgstr ""
+msgstr "Otros pasivos corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "94"
-msgstr ""
+msgstr "94"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_cur_liab"
-msgstr ""
+msgstr "total_cur_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动负债合计"
-msgstr ""
+msgstr "Pasivos corrientes totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "95"
-msgstr ""
+msgstr "95"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "bond_payable"
-msgstr ""
+msgstr "bond_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付债券"
-msgstr ""
+msgstr "Bonos por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "96"
-msgstr ""
+msgstr "96"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_payable"
-msgstr ""
+msgstr "lt_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期应付款"
-msgstr ""
+msgstr "Cuentas por pagar a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "97"
-msgstr ""
+msgstr "97"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "specific_payables"
-msgstr ""
+msgstr "specific_payables"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "专项应付款"
-msgstr ""
+msgstr "Cuentas por pagar especiales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "98"
-msgstr ""
+msgstr "98"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "estimated_liab"
-msgstr ""
+msgstr "estimated_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预计负债"
-msgstr ""
+msgstr "Provisiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "99"
-msgstr ""
+msgstr "99"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "defer_tax_liab"
-msgstr ""
+msgstr "defer_tax_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延所得税负债"
-msgstr ""
+msgstr "Pasivos por impuestos diferidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "100"
-msgstr ""
+msgstr "100"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "defer_inc_non_cur_liab"
-msgstr ""
+msgstr "defer_inc_non_cur_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延收益-非流动负债"
-msgstr ""
+msgstr "Ingresos diferidos – pasivos no corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "101"
-msgstr ""
+msgstr "101"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_ncl"
-msgstr ""
+msgstr "oth_ncl"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他非流动负债"
-msgstr ""
+msgstr "Otros pasivos no corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "102"
-msgstr ""
+msgstr "102"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_ncl"
-msgstr ""
+msgstr "total_ncl"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非流动负债合计"
-msgstr ""
+msgstr "Pasivos no corrientes totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "103"
-msgstr ""
+msgstr "103"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depos_oth_bfi"
-msgstr ""
+msgstr "depos_oth_bfi"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同业和其它金融机构存放款项"
-msgstr ""
+msgstr "Depósitos de pares y otras instituciones financieras"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "104"
-msgstr ""
+msgstr "104"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "deriv_liab"
-msgstr ""
+msgstr "deriv_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "衍生金融负债"
-msgstr ""
+msgstr "Pasivos financieros derivados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "105"
-msgstr ""
+msgstr "105"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depos"
-msgstr ""
+msgstr "depos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "吸收存款"
-msgstr ""
+msgstr "Depósitos absorbidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "106"
-msgstr ""
+msgstr "106"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "agency_bus_liab"
-msgstr ""
+msgstr "agency_bus_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "代理业务负债"
-msgstr ""
+msgstr "Responsabilidades comerciales de la agencia"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "107"
-msgstr ""
+msgstr "107"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_liab"
-msgstr ""
+msgstr "oth_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他负债"
-msgstr ""
+msgstr "Otros pasivos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "108"
-msgstr ""
+msgstr "108"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prem_receiv_adva"
-msgstr ""
+msgstr "prem_receiv_adva"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预收保费"
-msgstr ""
+msgstr "Primas recibidas por adelantado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "109"
-msgstr ""
+msgstr "109"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depos_received"
-msgstr ""
+msgstr "depos_received"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存入保证金"
-msgstr ""
+msgstr "Margen depositado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "110"
-msgstr ""
+msgstr "110"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ph_invest"
-msgstr ""
+msgstr "ph_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保户储金及投资款"
-msgstr ""
+msgstr "Depósitos de asegurados y cuentas por pagar de inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "111"
-msgstr ""
+msgstr "111"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reser_une_prem"
-msgstr ""
+msgstr "reser_une_prem"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "未到期责任准备金"
-msgstr ""
+msgstr "Reservas de primas no devengadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "112"
-msgstr ""
+msgstr "112"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reser_outstd_claims"
-msgstr ""
+msgstr "reser_outstd_claims"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "未决赔款准备金"
-msgstr ""
+msgstr "Reservas de siniestros pendientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "113"
-msgstr ""
+msgstr "113"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reser_lins_liab"
-msgstr ""
+msgstr "reser_lins_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "寿险责任准备金"
-msgstr ""
+msgstr "Reservas de seguros de vida"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "114"
-msgstr ""
+msgstr "114"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "reser_lthins_liab"
-msgstr ""
+msgstr "reser_lthins_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期健康险责任准备金"
-msgstr ""
+msgstr "Reservas de seguro médico a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "115"
-msgstr ""
+msgstr "115"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "indept_acc_liab"
-msgstr ""
+msgstr "indept_acc_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "独立账户负债"
-msgstr ""
+msgstr "Pasivos de cuentas separadas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "116"
-msgstr ""
+msgstr "116"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "pledge_borr"
-msgstr ""
+msgstr "pledge_borr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:质押借款"
-msgstr ""
+msgstr "Incluyendo: préstamos pignorados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "117"
-msgstr ""
+msgstr "117"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "indem_payable"
-msgstr ""
+msgstr "indem_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付赔付款"
-msgstr ""
+msgstr "Reclamar cuentas por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "118"
-msgstr ""
+msgstr "118"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "policy_div_payable"
-msgstr ""
+msgstr "policy_div_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付保单红利"
-msgstr ""
+msgstr "Dividendos a pagar a los asegurados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "119"
-msgstr ""
+msgstr "119"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_liab"
-msgstr ""
+msgstr "total_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "负债合计"
-msgstr ""
+msgstr "Pasivos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "120"
-msgstr ""
+msgstr "120"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "treasury_share"
-msgstr ""
+msgstr "treasury_share"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:库存股"
-msgstr ""
+msgstr "Menos: acciones propias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "121"
-msgstr ""
+msgstr "121"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ordin_risk_reser"
-msgstr ""
+msgstr "ordin_risk_reser"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "一般风险准备"
-msgstr ""
+msgstr "Reserva general de riesgos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "122"
-msgstr ""
+msgstr "122"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "forex_differ"
-msgstr ""
+msgstr "forex_differ"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "外币报表折算差额"
-msgstr ""
+msgstr "Diferencia de conversión de moneda extranjera"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "123"
-msgstr ""
+msgstr "123"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_loss_unconf"
-msgstr ""
+msgstr "invest_loss_unconf"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "未确认的投资损失"
-msgstr ""
+msgstr "Pérdidas de inversiones no reconocidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "124"
-msgstr ""
+msgstr "124"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "minority_int"
-msgstr ""
+msgstr "minority_int"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "少数股东权益"
-msgstr ""
+msgstr "Patrimonio de intereses minoritarios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "125"
-msgstr ""
+msgstr "125"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_hldr_eqy_exc_min_int"
-msgstr ""
+msgstr "total_hldr_eqy_exc_min_int"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "股东权益合计(不含少数股东权益)"
-msgstr ""
+msgstr "Patrimonio neto total (excluidos intereses minoritarios)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "126"
-msgstr ""
+msgstr "126"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_hldr_eqy_inc_min_int"
-msgstr ""
+msgstr "total_hldr_eqy_inc_min_int"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "股东权益合计(含少数股东权益)"
-msgstr ""
+msgstr "Capital contable total (incluidos intereses minoritarios)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "127"
-msgstr ""
+msgstr "127"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_liab_hldr_eqy"
-msgstr ""
+msgstr "total_liab_hldr_eqy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "负债及股东权益总计"
-msgstr ""
+msgstr "Pasivos totales y capital contable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "128"
-msgstr ""
+msgstr "128"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_payroll_payable"
-msgstr ""
+msgstr "lt_payroll_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期应付职工薪酬"
-msgstr ""
+msgstr "Beneficios a largo plazo para empleados pagaderos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "129"
-msgstr ""
+msgstr "129"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_comp_income"
-msgstr ""
+msgstr "oth_comp_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "130"
-msgstr ""
+msgstr "130"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_eqt_tools"
-msgstr ""
+msgstr "oth_eqt_tools"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他权益工具"
-msgstr ""
+msgstr "Otros instrumentos de patrimonio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "131"
-msgstr ""
+msgstr "131"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_eqt_tools_p_shr"
-msgstr ""
+msgstr "oth_eqt_tools_p_shr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他权益工具(优先股)"
-msgstr ""
+msgstr "Otros instrumentos de capital (acciones preferentes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "132"
-msgstr ""
+msgstr "132"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lending_funds"
-msgstr ""
+msgstr "lending_funds"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "融出资金"
-msgstr ""
+msgstr "Saldo de préstamos de valores (margen)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "133"
-msgstr ""
+msgstr "133"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "acc_receivable"
-msgstr ""
+msgstr "acc_receivable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收款项"
-msgstr ""
+msgstr "Cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "134"
-msgstr ""
+msgstr "134"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "st_fin_payable"
-msgstr ""
+msgstr "st_fin_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付短期融资款"
-msgstr ""
+msgstr "Cuentas por pagar de financiación a corto plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "135"
-msgstr ""
+msgstr "135"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "payables"
-msgstr ""
+msgstr "payables"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付款项"
-msgstr ""
+msgstr "Cuentas por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "136"
-msgstr ""
+msgstr "136"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "hfs_assets"
-msgstr ""
+msgstr "hfs_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "持有待售的资产"
-msgstr ""
+msgstr "Activos mantenidos para la venta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "137"
-msgstr ""
+msgstr "137"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "hfs_sales"
-msgstr ""
+msgstr "hfs_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "持有待售的负债"
-msgstr ""
+msgstr "Pasivos mantenidos para la venta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "138"
-msgstr ""
+msgstr "138"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cost_fin_assets"
-msgstr ""
+msgstr "cost_fin_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "以摊余成本计量的金融资产"
-msgstr ""
+msgstr "Activos financieros a costo amortizado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "139"
-msgstr ""
+msgstr "139"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fair_value_fin_assets"
-msgstr ""
+msgstr "fair_value_fin_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "以公允价值计量且其变动计入其他综合收益的金融资产"
-msgstr ""
+msgstr "Activos financieros en FVOCI"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "140"
-msgstr ""
+msgstr "140"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cip_total"
-msgstr ""
+msgstr "cip_total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "在建工程(合计)(元)"
-msgstr ""
+msgstr "Construcción en curso (total) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "141"
-msgstr ""
+msgstr "141"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_pay_total"
-msgstr ""
+msgstr "oth_pay_total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他应付款(合计)(元)"
-msgstr ""
+msgstr "Otras cuentas por pagar (total) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "142"
-msgstr ""
+msgstr "142"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "long_pay_total"
-msgstr ""
+msgstr "long_pay_total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期应付款(合计)(元)"
-msgstr ""
+msgstr "Cuentas por pagar a largo plazo (total) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "143"
-msgstr ""
+msgstr "143"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "debt_invest"
-msgstr ""
+msgstr "debt_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "债权投资(元)"
-msgstr ""
+msgstr "Inversiones de deuda (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "144"
-msgstr ""
+msgstr "144"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_debt_invest"
-msgstr ""
+msgstr "oth_debt_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他债权投资(元)"
-msgstr ""
+msgstr "Otras inversiones de deuda (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "145"
-msgstr ""
+msgstr "145"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_eq_invest"
-msgstr ""
+msgstr "oth_eq_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他权益工具投资(元)"
-msgstr ""
+msgstr "Otras inversiones en instrumentos de capital (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "146"
-msgstr ""
+msgstr "146"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_illiq_fin_assets"
-msgstr ""
+msgstr "oth_illiq_fin_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他非流动金融资产(元)"
-msgstr ""
+msgstr "Otros activos financieros no corrientes (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "147"
-msgstr ""
+msgstr "147"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_eq_ppbond"
-msgstr ""
+msgstr "oth_eq_ppbond"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他权益工具:永续债(元)"
-msgstr ""
+msgstr "Otros instrumentos de capital: bonos perpetuos (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "148"
-msgstr ""
+msgstr "148"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "receiv_financing"
-msgstr ""
+msgstr "receiv_financing"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收款项融资"
-msgstr ""
+msgstr "Financiamiento de cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "149"
-msgstr ""
+msgstr "149"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "use_right_assets"
-msgstr ""
+msgstr "use_right_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "使用权资产"
-msgstr ""
+msgstr "Activos por derecho de uso"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "150"
-msgstr ""
+msgstr "150"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lease_liab"
-msgstr ""
+msgstr "lease_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "租赁负债"
-msgstr ""
+msgstr "Pasivos por arrendamiento"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "151"
-msgstr ""
+msgstr "151"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "contract_assets"
-msgstr ""
+msgstr "contract_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "合同资产"
-msgstr ""
+msgstr "Activos del contrato"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "152"
-msgstr ""
+msgstr "152"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "contract_liab"
-msgstr ""
+msgstr "contract_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "合同负债"
-msgstr ""
+msgstr "Responsabilidades contractuales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "153"
-msgstr ""
+msgstr "153"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "accounts_receiv_bill"
-msgstr ""
+msgstr "accounts_receiv_bill"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收票据及应收账款"
-msgstr ""
+msgstr "Documentos y cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "154"
-msgstr ""
+msgstr "154"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "accounts_pay"
-msgstr ""
+msgstr "accounts_pay"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应付票据及应付账款"
-msgstr ""
+msgstr "Documentos y cuentas por pagar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "155"
-msgstr ""
+msgstr "155"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_rcv_total"
-msgstr ""
+msgstr "oth_rcv_total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他应收款(合计)(元)"
-msgstr ""
+msgstr "Otras cuentas por cobrar (total) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "156"
-msgstr ""
+msgstr "156"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fix_assets_total"
-msgstr ""
+msgstr "fix_assets_total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产(合计)(元)"
-msgstr ""
+msgstr "Activos fijos (total) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "157"
-msgstr ""
+msgstr "157"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "varchar(2)"
-msgstr ""
+msgstr "varchar(2)"
 
 #: ../../source/manage_data/3. data_tables_40.md:275
 msgid "上市公司现金流量表: `cashflow`"
-msgstr ""
+msgstr "Estado de flujo de caja de sociedades cotizadas: `cashflow`"
 
 #: ../../source/manage_data/3. data_tables_40.md:278
-msgid ""
-"现金流量表是上市公司的财务报表之一，主要包括经营活动、投资活动、筹资活动等现"
-"金流量信息。"
+msgid "现金流量表是上市公司的财务报表之一，主要包括经营活动、投资活动、筹资活动等现金流量信息。"
 msgstr ""
+"Estado de flujo de efectivo: flujos de efectivo operativos, de inversión y "
+"financieros."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_profit"
-msgstr ""
+msgstr "net_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润"
-msgstr ""
+msgstr "Beneficio neto"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "finan_exp"
-msgstr ""
+msgstr "finan_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "财务费用"
-msgstr ""
+msgstr "Gastos financieros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_fr_sale_sg"
-msgstr ""
+msgstr "c_fr_sale_sg"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售商品、提供劳务收到的现金"
-msgstr ""
+msgstr "Efectivo recibido por ventas de bienes y servicios."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "recp_tax_rends"
-msgstr ""
+msgstr "recp_tax_rends"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到的税费返还"
-msgstr ""
+msgstr "Devoluciones de impuestos recibidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_depos_incr_fi"
-msgstr ""
+msgstr "n_depos_incr_fi"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "客户存款和同业存放款项净增加额"
 msgstr ""
+"Incremento neto de los depósitos de clientes y colocaciones interbancarias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_loans_cb"
-msgstr ""
+msgstr "n_incr_loans_cb"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "向中央银行借款净增加额"
-msgstr ""
+msgstr "Aumento neto de los préstamos del banco central"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_inc_borr_oth_fi"
-msgstr ""
+msgstr "n_inc_borr_oth_fi"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "向其他金融机构拆入资金净增加额"
-msgstr ""
+msgstr "Aumento neto de la deuda con otras entidades financieras"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prem_fr_orig_contr"
-msgstr ""
+msgstr "prem_fr_orig_contr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到原保险合同保费取得的现金"
-msgstr ""
+msgstr "Efectivo recibido de las primas de seguros originales."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_insured_dep"
-msgstr ""
+msgstr "n_incr_insured_dep"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保户储金净增加额"
-msgstr ""
+msgstr "Aumento neto de los depósitos de los asegurados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_reinsur_prem"
-msgstr ""
+msgstr "n_reinsur_prem"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到再保业务现金净额"
-msgstr ""
+msgstr "Efectivo neto recibido de reaseguro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_disp_tfa"
-msgstr ""
+msgstr "n_incr_disp_tfa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "处置交易性金融资产净增加额"
-msgstr ""
+msgstr "Incremento neto de activos financieros para negociación enajenados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ifc_cash_incr"
-msgstr ""
+msgstr "ifc_cash_incr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收取利息和手续费净增加额"
-msgstr ""
+msgstr "Aumento neto de los ingresos por intereses y comisiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_disp_faas"
-msgstr ""
+msgstr "n_incr_disp_faas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "处置可供出售金融资产净增加额"
 msgstr ""
+"Incremento neto de activos financieros disponibles para la venta enajenados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_loans_oth_bank"
-msgstr ""
+msgstr "n_incr_loans_oth_bank"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "拆入资金净增加额"
-msgstr ""
+msgstr "Incremento neto de los empréstitos tomados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_cap_incr_repur"
-msgstr ""
+msgstr "n_cap_incr_repur"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "回购业务资金净增加额"
-msgstr ""
+msgstr "Incremento neto de los fondos de negocios de recompra"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_fr_oth_operate_a"
-msgstr ""
+msgstr "c_fr_oth_operate_a"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到其他与经营活动有关的现金"
-msgstr ""
+msgstr "Efectivo recibido de otras actividades operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_inf_fr_operate_a"
-msgstr ""
+msgstr "c_inf_fr_operate_a"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动现金流入小计"
-msgstr ""
+msgstr "Entradas totales de efectivo de actividades operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_paid_goods_s"
-msgstr ""
+msgstr "c_paid_goods_s"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "购买商品、接受劳务支付的现金"
-msgstr ""
+msgstr "Efectivo pagado por bienes y servicios."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_paid_to_for_empl"
-msgstr ""
+msgstr "c_paid_to_for_empl"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付给职工以及为职工支付的现金"
-msgstr ""
+msgstr "Efectivo pagado a y en nombre de los empleados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_paid_for_taxes"
-msgstr ""
+msgstr "c_paid_for_taxes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付的各项税费"
-msgstr ""
+msgstr "Impuestos pagados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_clt_loan_adv"
-msgstr ""
+msgstr "n_incr_clt_loan_adv"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "客户贷款及垫款净增加额"
-msgstr ""
+msgstr "Incremento neto de préstamos y anticipos a clientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_dep_cbob"
-msgstr ""
+msgstr "n_incr_dep_cbob"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存放央行和同业款项净增加额"
-msgstr ""
+msgstr "Aumento neto de los depósitos en el banco central y pares"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_pay_claims_orig_inco"
-msgstr ""
+msgstr "c_pay_claims_orig_inco"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付原保险合同赔付款项的现金"
-msgstr ""
+msgstr "Efectivo pagado por reclamos de seguro originales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "pay_handling_chrg"
-msgstr ""
+msgstr "pay_handling_chrg"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付手续费的现金"
-msgstr ""
+msgstr "Pago en efectivo por honorarios y comisiones."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "pay_comm_insur_plcy"
-msgstr ""
+msgstr "pay_comm_insur_plcy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付保单红利的现金"
-msgstr ""
+msgstr "Efectivo pagado por dividendos de asegurados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_cash_pay_oper_act"
-msgstr ""
+msgstr "oth_cash_pay_oper_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付其他与经营活动有关的现金"
-msgstr ""
+msgstr "Efectivo pagado por otras actividades operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "st_cash_out_act"
-msgstr ""
+msgstr "st_cash_out_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动现金流出小计"
-msgstr ""
+msgstr "Salidas totales de efectivo de actividades operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_cashflow_act"
-msgstr ""
+msgstr "n_cashflow_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_recp_ral_inv_act"
-msgstr ""
+msgstr "oth_recp_ral_inv_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到其他与投资活动有关的现金"
-msgstr ""
+msgstr "Efectivo recibido de otras actividades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_disp_withdrwl_invest"
-msgstr ""
+msgstr "c_disp_withdrwl_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收回投资收到的现金"
-msgstr ""
+msgstr "Efectivo recibido por recuperación de inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_recp_return_invest"
-msgstr ""
+msgstr "c_recp_return_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "取得投资收益收到的现金"
-msgstr ""
+msgstr "Efectivo recibido de ingresos por inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_recp_disp_fiolta"
-msgstr ""
+msgstr "n_recp_disp_fiolta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "处置固定资产、无形资产和其他长期资产收回的现金净额"
 msgstr ""
+"Efectivo neto por enajenación de activos fijos/intangibles y otros activos a"
+" largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_recp_disp_sobu"
-msgstr ""
+msgstr "n_recp_disp_sobu"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "处置子公司及其他营业单位收到的现金净额"
 msgstr ""
+"Efectivo neto recibido por enajenación de subsidiarias y otras unidades"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "stot_inflows_inv_act"
-msgstr ""
+msgstr "stot_inflows_inv_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资活动现金流入小计"
-msgstr ""
+msgstr "Entradas totales de efectivo procedentes de actividades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_pay_acq_const_fiolta"
-msgstr ""
+msgstr "c_pay_acq_const_fiolta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "购建固定资产、无形资产和其他长期资产支付的现金"
 msgstr ""
+"Efectivo pagado por activos fijos/intangibles y otros activos a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_paid_invest"
-msgstr ""
+msgstr "c_paid_invest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资支付的现金"
-msgstr ""
+msgstr "Efectivo pagado por inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_disp_subs_oth_biz"
-msgstr ""
+msgstr "n_disp_subs_oth_biz"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "取得子公司及其他营业单位支付的现金净额"
 msgstr ""
+"Efectivo neto pagado para adquirir subsidiarias y otras unidades de negocios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_pay_ral_inv_act"
-msgstr ""
+msgstr "oth_pay_ral_inv_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付其他与投资活动有关的现金"
-msgstr ""
+msgstr "Efectivo pagado por otras actividades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_pledge_loan"
-msgstr ""
+msgstr "n_incr_pledge_loan"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "质押贷款净增加额"
-msgstr ""
+msgstr "Incremento neto de préstamos pignorados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "stot_out_inv_act"
-msgstr ""
+msgstr "stot_out_inv_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资活动现金流出小计"
-msgstr ""
+msgstr "Salidas totales de efectivo de actividades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_cashflow_inv_act"
-msgstr ""
+msgstr "n_cashflow_inv_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资活动产生的现金流量净额"
-msgstr ""
+msgstr "Efectivo neto de actividades de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_recp_borrow"
-msgstr ""
+msgstr "c_recp_borrow"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "取得借款收到的现金"
-msgstr ""
+msgstr "Efectivo recibido de préstamos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "proc_issue_bonds"
-msgstr ""
+msgstr "proc_issue_bonds"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "发行债券收到的现金"
-msgstr ""
+msgstr "Efectivo recibido por la emisión de bonos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_cash_recp_ral_fnc_act"
-msgstr ""
+msgstr "oth_cash_recp_ral_fnc_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "收到其他与筹资活动有关的现金"
-msgstr ""
+msgstr "Efectivo recibido de otras actividades de financiación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "stot_cash_in_fnc_act"
-msgstr ""
+msgstr "stot_cash_in_fnc_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "筹资活动现金流入小计"
-msgstr ""
+msgstr "Entradas totales de efectivo por actividades de financiación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "free_cashflow"
-msgstr ""
+msgstr "free_cashflow"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "企业自由现金流量"
-msgstr ""
+msgstr "Flujo de caja libre empresarial"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_prepay_amt_borr"
-msgstr ""
+msgstr "c_prepay_amt_borr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "偿还债务支付的现金"
-msgstr ""
+msgstr "Efectivo pagado para el pago de la deuda"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_pay_dist_dpcp_int_exp"
-msgstr ""
+msgstr "c_pay_dist_dpcp_int_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "分配股利、利润或偿付利息支付的现金"
-msgstr ""
+msgstr "Efectivo pagado por dividendos, ganancias o intereses."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "incl_dvd_profit_paid_sc_ms"
-msgstr ""
+msgstr "incl_dvd_profit_paid_sc_ms"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:子公司支付给少数股东的股利、利润"
 msgstr ""
+"Incluyendo: dividendos pagados a accionistas minoritarios por subsidiarias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_cashpay_ral_fnc_act"
-msgstr ""
+msgstr "oth_cashpay_ral_fnc_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "支付其他与筹资活动有关的现金"
-msgstr ""
+msgstr "Efectivo pagado por otras actividades de financiamiento"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "stot_cashout_fnc_act"
-msgstr ""
+msgstr "stot_cashout_fnc_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "筹资活动现金流出小计"
-msgstr ""
+msgstr "Salidas totales de efectivo por actividades de financiación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_cash_flows_fnc_act"
-msgstr ""
+msgstr "n_cash_flows_fnc_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "筹资活动产生的现金流量净额"
-msgstr ""
+msgstr "Efectivo neto de actividades de financiación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eff_fx_flu_cash"
-msgstr ""
+msgstr "eff_fx_flu_cash"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "汇率变动对现金的影响"
-msgstr ""
+msgstr "Efecto de las variaciones del tipo de cambio sobre el efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_incr_cash_cash_equ"
-msgstr ""
+msgstr "n_incr_cash_cash_equ"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "现金及现金等价物净增加额"
-msgstr ""
+msgstr "Incremento neto en efectivo y equivalentes de efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_cash_equ_beg_period"
-msgstr ""
+msgstr "c_cash_equ_beg_period"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期初现金及现金等价物余额"
-msgstr ""
+msgstr "Saldo inicial de efectivo y equivalentes de efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_cash_equ_end_period"
-msgstr ""
+msgstr "c_cash_equ_end_period"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期末现金及现金等价物余额"
-msgstr ""
+msgstr "Saldo final de efectivo y equivalentes de efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "c_recp_cap_contrib"
-msgstr ""
+msgstr "c_recp_cap_contrib"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "吸收投资收到的现金"
-msgstr ""
+msgstr "Efectivo recibido de inversiones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "incl_cash_rec_saims"
-msgstr ""
+msgstr "incl_cash_rec_saims"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其中:子公司吸收少数股东投资收到的现金"
 msgstr ""
+"Incluyendo: efectivo recibido de accionistas minoritarios que invierten en "
+"subsidiarias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "uncon_invest_loss"
-msgstr ""
+msgstr "uncon_invest_loss"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "未确认投资损失"
-msgstr ""
+msgstr "Pérdida de inversión no reconocida"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "prov_depr_assets"
-msgstr ""
+msgstr "prov_depr_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:资产减值准备"
-msgstr ""
+msgstr "Añadir: provisión por deterioro de activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "depr_fa_coga_dpba"
-msgstr ""
+msgstr "depr_fa_coga_dpba"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产折旧、油气资产折耗、生产性生物资产折旧"
 msgstr ""
+"Depreciación de activos fijos, agotamiento de petróleo/gas, activos "
+"biológicos productivos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "amort_intang_assets"
-msgstr ""
+msgstr "amort_intang_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "无形资产摊销"
-msgstr ""
+msgstr "Amortización de activos intangibles"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "lt_amort_deferred_exp"
-msgstr ""
+msgstr "lt_amort_deferred_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期待摊费用摊销"
-msgstr ""
+msgstr "Amortización de gastos prepagos a largo plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "decr_deferred_exp"
-msgstr ""
+msgstr "decr_deferred_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "待摊费用减少"
-msgstr ""
+msgstr "Disminución de los gastos prepagos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "incr_acc_exp"
-msgstr ""
+msgstr "incr_acc_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预提费用增加"
-msgstr ""
+msgstr "Aumento de gastos acumulados"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "loss_disp_fiolta"
-msgstr ""
+msgstr "loss_disp_fiolta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "处置固定、无形资产和其他长期资产的损失"
 msgstr ""
+"Pérdida por enajenación de activos fijos/intangibles y otros activos a largo"
+" plazo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "loss_scr_fa"
-msgstr ""
+msgstr "loss_scr_fa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产报废损失"
-msgstr ""
+msgstr "Pérdida por retiro de activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "loss_fv_chg"
-msgstr ""
+msgstr "loss_fv_chg"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "公允价值变动损失"
-msgstr ""
+msgstr "Pérdida por cambios en el valor razonable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_loss"
-msgstr ""
+msgstr "invest_loss"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投资损失"
-msgstr ""
+msgstr "Pérdida de inversión"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "decr_def_inc_tax_assets"
-msgstr ""
+msgstr "decr_def_inc_tax_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延所得税资产减少"
-msgstr ""
+msgstr "Disminución de los activos por impuestos diferidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "incr_def_inc_tax_liab"
-msgstr ""
+msgstr "incr_def_inc_tax_liab"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "递延所得税负债增加"
-msgstr ""
+msgstr "Incremento de pasivos por impuestos diferidos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "decr_inventories"
-msgstr ""
+msgstr "decr_inventories"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存货的减少"
-msgstr ""
+msgstr "Disminución de inventarios"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "decr_oper_payable"
-msgstr ""
+msgstr "decr_oper_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营性应收项目的减少"
-msgstr ""
+msgstr "Disminución de las cuentas por cobrar operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "incr_oper_payable"
-msgstr ""
+msgstr "incr_oper_payable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营性应付项目的增加"
-msgstr ""
+msgstr "Aumento de las cuentas por pagar operativas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "others"
-msgstr ""
+msgstr "others"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "其他"
-msgstr ""
+msgstr "Otro"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "im_net_cashflow_oper_act"
-msgstr ""
+msgstr "im_net_cashflow_oper_act"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额(间接法)"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas (método indirecto)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "conv_debt_into_cap"
-msgstr ""
+msgstr "conv_debt_into_cap"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "债务转为资本"
-msgstr ""
+msgstr "Deuda convertida en capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "conv_copbonds_due_within_1y"
-msgstr ""
+msgstr "conv_copbonds_due_within_1y"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "一年内到期的可转换公司债券"
-msgstr ""
+msgstr "Bonos corporativos convertibles con vencimiento en un año"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fa_fnc_leases"
-msgstr ""
+msgstr "fa_fnc_leases"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "融资租入固定资产"
-msgstr ""
+msgstr "Arrendamiento financiero de activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "im_n_incr_cash_equ"
-msgstr ""
+msgstr "im_n_incr_cash_equ"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "现金及现金等价物净增加额(间接法)"
 msgstr ""
+"Incremento neto en efectivo y equivalentes de efectivo (método indirecto)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_dism_capital_add"
-msgstr ""
+msgstr "net_dism_capital_add"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "拆出资金净增加额"
-msgstr ""
+msgstr "Aumento neto de los fondos de préstamo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_cash_rece_sec"
-msgstr ""
+msgstr "net_cash_rece_sec"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "代理买卖证券收到的现金净额(元)"
 msgstr ""
+"Efectivo neto recibido de la negociación de valores de agencias (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "use_right_asset_dep"
-msgstr ""
+msgstr "use_right_asset_dep"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "使用权资产折旧"
-msgstr ""
+msgstr "Depreciación de activos por derecho de uso"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "oth_loss_asset"
-msgstr ""
+msgstr "oth_loss_asset"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "end_bal_cash"
-msgstr ""
+msgstr "end_bal_cash"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "现金的期末余额"
-msgstr ""
+msgstr "Saldo de caja al cierre"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "beg_bal_cash"
-msgstr ""
+msgstr "beg_bal_cash"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:现金的期初余额"
-msgstr ""
+msgstr "Menos: saldo de efectivo inicial"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "end_bal_cash_equ"
-msgstr ""
+msgstr "end_bal_cash_equ"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加:现金等价物的期末余额"
-msgstr ""
+msgstr "Agregar: saldo final de equivalentes de efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "beg_bal_cash_equ"
-msgstr ""
+msgstr "beg_bal_cash_equ"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "减:现金等价物的期初余额"
-msgstr ""
+msgstr "Menos: saldo inicial de equivalentes de efectivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "更新标志(1最新)"
-msgstr ""
+msgstr "Bandera de actualización (1 = más reciente)"
 
 #: ../../source/manage_data/3. data_tables_40.md:380
 msgid "上市公司财务指标: `financial`"
-msgstr ""
+msgstr "Indicadores financieros de empresas cotizadas: `financial`"
 
 #: ../../source/manage_data/3. data_tables_40.md:383
-msgid ""
-"财务指标表是上市公司的财务报表之一，主要包括每股指标、盈利能力指标、成长能力"
-"指标、偿债能力指标、现金流量指标等。"
+msgid "财务指标表是上市公司的财务报表之一，主要包括每股指标、盈利能力指标、成长能力指标、偿债能力指标、现金流量指标等。"
 msgstr ""
+"Indicadores financieros: por acción, rentabilidad, crecimiento, solvencia, "
+"métricas de flujo de caja."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eps"
-msgstr ""
+msgstr "eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dt_eps"
-msgstr ""
+msgstr "dt_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_revenue_ps"
-msgstr ""
+msgstr "total_revenue_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股营业总收入"
-msgstr ""
+msgstr "Ingresos operativos totales por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "revenue_ps"
-msgstr ""
+msgstr "revenue_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股营业收入"
-msgstr ""
+msgstr "Ingresos operativos por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "capital_rese_ps"
-msgstr ""
+msgstr "capital_rese_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股资本公积"
-msgstr ""
+msgstr "Reserva de capital por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "surplus_rese_ps"
-msgstr ""
+msgstr "surplus_rese_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股盈余公积"
-msgstr ""
+msgstr "Reserva excedente por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "undist_profit_ps"
-msgstr ""
+msgstr "undist_profit_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股未分配利润"
-msgstr ""
+msgstr "Ganancias retenidas por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "extra_item"
-msgstr ""
+msgstr "extra_item"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非经常性损益"
-msgstr ""
+msgstr "Ganancias y pérdidas no recurrentes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "profit_dedt"
-msgstr ""
+msgstr "profit_dedt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除非经常性损益后的净利润(扣非净利润)"
 msgstr ""
+"Beneficio neto después de deducir elementos no recurrentes (beneficio neto "
+"no GAAP)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "gross_margin"
-msgstr ""
+msgstr "gross_margin"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "毛利"
-msgstr ""
+msgstr "Beneficio bruto"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "current_ratio"
-msgstr ""
+msgstr "current_ratio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动比率"
-msgstr ""
+msgstr "Relación actual"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "quick_ratio"
-msgstr ""
+msgstr "quick_ratio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "速动比率"
-msgstr ""
+msgstr "relación rápida"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cash_ratio"
-msgstr ""
+msgstr "cash_ratio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "保守速动比率"
-msgstr ""
+msgstr "Ratio rápido conservador"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invturn_days"
-msgstr ""
+msgstr "invturn_days"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存货周转天数"
-msgstr ""
+msgstr "Días de rotación de inventario"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "arturn_days"
-msgstr ""
+msgstr "arturn_days"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收账款周转天数"
-msgstr ""
+msgstr "Días de rotación de cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "inv_turn"
-msgstr ""
+msgstr "inv_turn"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "存货周转率"
-msgstr ""
+msgstr "rotación de inventario"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ar_turn"
-msgstr ""
+msgstr "ar_turn"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "应收账款周转率"
-msgstr ""
+msgstr "Rotación de cuentas por cobrar"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ca_turn"
-msgstr ""
+msgstr "ca_turn"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动资产周转率"
-msgstr ""
+msgstr "Rotación de activos corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fa_turn"
-msgstr ""
+msgstr "fa_turn"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产周转率"
-msgstr ""
+msgstr "Rotación de activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "assets_turn"
-msgstr ""
+msgstr "assets_turn"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产周转率"
-msgstr ""
+msgstr "Rotación total de activos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_income"
-msgstr ""
+msgstr "op_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动净收益"
-msgstr ""
+msgstr "Utilidad neta operativa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "valuechange_income"
-msgstr ""
+msgstr "valuechange_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "价值变动净收益"
-msgstr ""
+msgstr "Ganancia neta por cambios en el valor razonable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "interst_income"
-msgstr ""
+msgstr "interst_income"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利息费用"
-msgstr ""
+msgstr "Gasto por intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "daa"
-msgstr ""
+msgstr "daa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "折旧与摊销"
-msgstr ""
+msgstr "Depreciación y amortización"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fcff"
-msgstr ""
+msgstr "fcff"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fcfe"
-msgstr ""
+msgstr "fcfe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "股权自由现金流量"
-msgstr ""
+msgstr "Flujo de caja libre de acciones"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "current_exint"
-msgstr ""
+msgstr "current_exint"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "无息流动负债"
-msgstr ""
+msgstr "Pasivos corrientes que no devengan intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "noncurrent_exint"
-msgstr ""
+msgstr "noncurrent_exint"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "无息非流动负债"
-msgstr ""
+msgstr "Pasivos no corrientes que no devengan intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "interestdebt"
-msgstr ""
+msgstr "interestdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "带息债务"
-msgstr ""
+msgstr "Deuda que devenga intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "netdebt"
-msgstr ""
+msgstr "netdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净债务"
-msgstr ""
+msgstr "Deuda neta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tangible_asset"
-msgstr ""
+msgstr "tangible_asset"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "有形资产"
-msgstr ""
+msgstr "Activos tangibles"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "working_capital"
-msgstr ""
+msgstr "working_capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营运资金"
-msgstr ""
+msgstr "Capital de explotación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "networking_capital"
-msgstr ""
+msgstr "networking_capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营运流动资本"
-msgstr ""
+msgstr "Capital de explotación"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "invest_capital"
-msgstr ""
+msgstr "invest_capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "全部投入资本"
-msgstr ""
+msgstr "Capital total invertido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "retained_earnings"
-msgstr ""
+msgstr "retained_earnings"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "留存收益"
-msgstr ""
+msgstr "Ganancias retenidas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "diluted2_eps"
-msgstr ""
+msgstr "diluted2_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期末摊薄每股收益"
-msgstr ""
+msgstr "Cierre de EPS diluido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "bps"
-msgstr ""
+msgstr "bps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股净资产"
-msgstr ""
+msgstr "Activos netos por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocfps"
-msgstr ""
+msgstr "ocfps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股经营活动产生的现金流量净额"
-msgstr ""
+msgstr "Flujo de caja operativo por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "retainedps"
-msgstr ""
+msgstr "retainedps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股留存收益"
-msgstr ""
+msgstr "Ganancias retenidas por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cfps"
-msgstr ""
+msgstr "cfps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股现金流量净额"
-msgstr ""
+msgstr "Flujo de caja neto por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebit_ps"
-msgstr ""
+msgstr "ebit_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股息税前利润"
-msgstr ""
+msgstr "EBIT por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fcff_ps"
-msgstr ""
+msgstr "fcff_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股企业自由现金流量"
-msgstr ""
+msgstr "Flujo de caja libre por acción (empresa)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fcfe_ps"
-msgstr ""
+msgstr "fcfe_ps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股股东自由现金流量"
-msgstr ""
+msgstr "Flujo de caja libre por acción (patrimonio)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "netprofit_margin"
-msgstr ""
+msgstr "netprofit_margin"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售净利率"
-msgstr ""
+msgstr "Margen de beneficio neto"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "grossprofit_margin"
-msgstr ""
+msgstr "grossprofit_margin"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售毛利率"
-msgstr ""
+msgstr "Margen de beneficio bruto"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cogs_of_sales"
-msgstr ""
+msgstr "cogs_of_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售成本率"
-msgstr ""
+msgstr "Relación costo de ventas"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "expense_of_sales"
-msgstr ""
+msgstr "expense_of_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售期间费用率"
-msgstr ""
+msgstr "ratio de gastos de venta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "profit_to_gr"
-msgstr ""
+msgstr "profit_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润/营业总收入"
-msgstr ""
+msgstr "Beneficio neto / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "saleexp_to_gr"
-msgstr ""
+msgstr "saleexp_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售费用/营业总收入"
-msgstr ""
+msgstr "Gastos de venta / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "adminexp_of_gr"
-msgstr ""
+msgstr "adminexp_of_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "管理费用/营业总收入"
-msgstr ""
+msgstr "Gastos administrativos / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "finaexp_of_gr"
-msgstr ""
+msgstr "finaexp_of_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "财务费用/营业总收入"
-msgstr ""
+msgstr "Gastos financieros / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "impai_ttm"
-msgstr ""
+msgstr "impai_ttm"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产减值损失/营业总收入"
-msgstr ""
+msgstr "Pérdida por deterioro de activos / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "gc_of_gr"
-msgstr ""
+msgstr "gc_of_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总成本/营业总收入"
-msgstr ""
+msgstr "Costos operativos totales / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_of_gr"
-msgstr ""
+msgstr "op_of_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润/营业总收入"
-msgstr ""
+msgstr "Beneficio operativo / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebit_of_gr"
-msgstr ""
+msgstr "ebit_of_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "息税前利润/营业总收入"
-msgstr ""
+msgstr "EBIT / ingresos operativos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe"
-msgstr ""
+msgstr "roe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产收益率"
-msgstr ""
+msgstr "Rentabilidad sobre el capital (ROE)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe_waa"
-msgstr ""
+msgstr "roe_waa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "加权平均净资产收益率"
-msgstr ""
+msgstr "ROE medio ponderado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe_dt"
-msgstr ""
+msgstr "roe_dt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产收益率(扣除非经常损益)"
-msgstr ""
+msgstr "ROE (excl. partidas no recurrentes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roa"
-msgstr ""
+msgstr "roa"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产报酬率"
-msgstr ""
+msgstr "Rendimiento sobre activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "npta"
-msgstr ""
+msgstr "npta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产净利润"
-msgstr ""
+msgstr "Beneficio neto sobre activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roic"
-msgstr ""
+msgstr "roic"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "投入资本回报率"
-msgstr ""
+msgstr "Retorno del capital invertido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe_yearly"
-msgstr ""
+msgstr "roe_yearly"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "年化净资产收益率"
-msgstr ""
+msgstr "ROE anualizado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roa2_yearly"
-msgstr ""
+msgstr "roa2_yearly"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "年化总资产报酬率"
-msgstr ""
+msgstr "Rentabilidad anualizada sobre activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe_avg"
-msgstr ""
+msgstr "roe_avg"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "平均净资产收益率(增发条件)"
-msgstr ""
+msgstr "ROE promedio (condición SEO)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "opincome_of_ebt"
-msgstr ""
+msgstr "opincome_of_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动净收益/利润总额"
-msgstr ""
+msgstr "Ingreso neto operativo / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "investincome_of_ebt"
-msgstr ""
+msgstr "investincome_of_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "价值变动净收益/利润总额"
-msgstr ""
+msgstr "Ganancia neta por cambios en el valor razonable / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "n_op_profit_of_ebt"
-msgstr ""
+msgstr "n_op_profit_of_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业外收支净额/利润总额"
-msgstr ""
+msgstr "Ingresos no operativos netos / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tax_to_ebt"
-msgstr ""
+msgstr "tax_to_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "所得税/利润总额"
-msgstr ""
+msgstr "Impuesto sobre la renta / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dtprofit_to_profit"
-msgstr ""
+msgstr "dtprofit_to_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除非经常损益后的净利润/净利润"
-msgstr ""
+msgstr "Beneficio neto después de partidas no recurrentes / beneficio neto"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "salescash_to_or"
-msgstr ""
+msgstr "salescash_to_or"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售商品提供劳务收到的现金/营业收入"
-msgstr ""
+msgstr "Efectivo de ventas / ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_or"
-msgstr ""
+msgstr "ocf_to_or"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/营业收入"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_opincome"
-msgstr ""
+msgstr "ocf_to_opincome"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/经营活动净收益"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas/ingreso neto operativo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "capitalized_to_da"
-msgstr ""
+msgstr "capitalized_to_da"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资本支出/折旧和摊销"
-msgstr ""
+msgstr "Gastos de capital / depreciación y amortización"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "debt_to_assets"
-msgstr ""
+msgstr "debt_to_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产负债率"
-msgstr ""
+msgstr "Relación activo-pasivo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "assets_to_eqt"
-msgstr ""
+msgstr "assets_to_eqt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "权益乘数"
-msgstr ""
+msgstr "Multiplicador de equidad"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dp_assets_to_eqt"
-msgstr ""
+msgstr "dp_assets_to_eqt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "权益乘数(杜邦分析)"
-msgstr ""
+msgstr "Multiplicador de capital (DuPont)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ca_to_assets"
-msgstr ""
+msgstr "ca_to_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动资产/总资产"
-msgstr ""
+msgstr "Activos corrientes / activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "nca_to_assets"
-msgstr ""
+msgstr "nca_to_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非流动资产/总资产"
-msgstr ""
+msgstr "Activos no corrientes / activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tbassets_to_totalassets"
-msgstr ""
+msgstr "tbassets_to_totalassets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "有形资产/总资产"
-msgstr ""
+msgstr "Activos tangibles/activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "int_to_talcap"
-msgstr ""
+msgstr "int_to_talcap"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "带息债务/全部投入资本"
-msgstr ""
+msgstr "Deuda que devenga intereses / capital total invertido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eqt_to_talcapital"
-msgstr ""
+msgstr "eqt_to_talcapital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属于母公司的股东权益/全部投入资本"
-msgstr ""
+msgstr "Fondos propios de la matriz / capital total invertido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "currentdebt_to_debt"
-msgstr ""
+msgstr "currentdebt_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "流动负债/负债合计"
-msgstr ""
+msgstr "Pasivos corrientes / pasivos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "longdeb_to_debt"
-msgstr ""
+msgstr "longdeb_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非流动负债/负债合计"
-msgstr ""
+msgstr "Pasivos no corrientes / pasivos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_shortdebt"
-msgstr ""
+msgstr "ocf_to_shortdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/流动负债"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / pasivos corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "debt_to_eqt"
-msgstr ""
+msgstr "debt_to_eqt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "产权比率"
-msgstr ""
+msgstr "Relación de capital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eqt_to_debt"
-msgstr ""
+msgstr "eqt_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属于母公司的股东权益/负债合计"
-msgstr ""
+msgstr "Patrimonio neto de la matriz / pasivo total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eqt_to_interestdebt"
-msgstr ""
+msgstr "eqt_to_interestdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属于母公司的股东权益/带息债务"
-msgstr ""
+msgstr "Capital contable de la matriz / deuda que devenga intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tangibleasset_to_debt"
-msgstr ""
+msgstr "tangibleasset_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "有形资产/负债合计"
-msgstr ""
+msgstr "Activos tangibles / pasivos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tangasset_to_intdebt"
-msgstr ""
+msgstr "tangasset_to_intdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "有形资产/带息债务"
-msgstr ""
+msgstr "Activos tangibles / deuda que devenga intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tangibleasset_to_netdebt"
-msgstr ""
+msgstr "tangibleasset_to_netdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "有形资产/净债务"
-msgstr ""
+msgstr "Activos tangibles / deuda neta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_debt"
-msgstr ""
+msgstr "ocf_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/负债合计"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / pasivos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_interestdebt"
-msgstr ""
+msgstr "ocf_to_interestdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/带息债务"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / deuda que devenga intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_netdebt"
-msgstr ""
+msgstr "ocf_to_netdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额/净债务"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / deuda neta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebit_to_interest"
-msgstr ""
+msgstr "ebit_to_interest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "已获利息倍数(EBIT/利息费用)"
-msgstr ""
+msgstr "Ratio de cobertura de intereses (EBIT/gasto por intereses)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "longdebt_to_workingcapital"
-msgstr ""
+msgstr "longdebt_to_workingcapital"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "长期债务与营运资金比率"
-msgstr ""
+msgstr "Relación deuda a largo plazo/capital de trabajo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebitda_to_debt"
-msgstr ""
+msgstr "ebitda_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "息税折旧摊销前利润/负债合计"
-msgstr ""
+msgstr "EBITDA / pasivo total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "turn_days"
-msgstr ""
+msgstr "turn_days"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业周期"
-msgstr ""
+msgstr "Ciclo de funcionamiento"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roa_yearly"
-msgstr ""
+msgstr "roa_yearly"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "年化总资产净利率"
-msgstr ""
+msgstr "Margen de beneficio neto anualizado sobre activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roa_dp"
-msgstr ""
+msgstr "roa_dp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产净利率(杜邦分析)"
-msgstr ""
+msgstr "Margen de beneficio neto sobre activos totales (DuPont)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "fixed_assets"
-msgstr ""
+msgstr "fixed_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产合计"
-msgstr ""
+msgstr "Activos fijos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "profit_prefin_exp"
-msgstr ""
+msgstr "profit_prefin_exp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除财务费用前营业利润"
-msgstr ""
+msgstr "Beneficio operativo antes de gastos financieros"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "non_op_profit"
-msgstr ""
+msgstr "non_op_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非营业利润"
-msgstr ""
+msgstr "Beneficio no operativo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_to_ebt"
-msgstr ""
+msgstr "op_to_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润／利润总额"
-msgstr ""
+msgstr "Beneficio operativo / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "nop_to_ebt"
-msgstr ""
+msgstr "nop_to_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "非营业利润／利润总额"
-msgstr ""
+msgstr "Beneficio no operativo / beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_to_profit"
-msgstr ""
+msgstr "ocf_to_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额／营业利润"
-msgstr ""
+msgstr "Efectivo neto de actividades operativas / beneficio operativo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cash_to_liqdebt"
-msgstr ""
+msgstr "cash_to_liqdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "货币资金／流动负债"
-msgstr ""
+msgstr "Efectivo y equivalentes / pasivos corrientes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cash_to_liqdebt_withinterest"
-msgstr ""
+msgstr "cash_to_liqdebt_withinterest"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "货币资金／带息流动负债"
-msgstr ""
+msgstr "Efectivo y equivalentes/pasivos corrientes que devengan intereses"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_to_liqdebt"
-msgstr ""
+msgstr "op_to_liqdebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润／流动负债"
-msgstr ""
+msgstr "Beneficio operativo / pasivo corriente"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_to_debt"
-msgstr ""
+msgstr "op_to_debt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润／负债合计"
-msgstr ""
+msgstr "Beneficio operativo / pasivo total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roic_yearly"
-msgstr ""
+msgstr "roic_yearly"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "年化投入资本回报率"
-msgstr ""
+msgstr "Retorno anualizado del capital invertido"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "total_fa_trun"
-msgstr ""
+msgstr "total_fa_trun"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "固定资产合计周转率"
-msgstr ""
+msgstr "Rotación total de activos fijos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "profit_to_op"
-msgstr ""
+msgstr "profit_to_op"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利润总额／营业收入"
-msgstr ""
+msgstr "Beneficio total / ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_opincome"
-msgstr ""
+msgstr "q_opincome"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动单季度净收益"
-msgstr ""
+msgstr "Utilidad neta operativa de un solo trimestre"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_investincome"
-msgstr ""
+msgstr "q_investincome"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "价值变动单季度净收益"
-msgstr ""
+msgstr "Ganancia neta de un solo trimestre por cambios en el valor razonable"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_dtprofit"
-msgstr ""
+msgstr "q_dtprofit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除非经常损益后的单季度净利润"
-msgstr ""
+msgstr "Beneficio neto del trimestre después de partidas no recurrentes"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_eps"
-msgstr ""
+msgstr "q_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股收益(单季度)"
-msgstr ""
+msgstr "EPS (un solo trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_netprofit_margin"
-msgstr ""
+msgstr "q_netprofit_margin"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售净利率(单季度)"
-msgstr ""
+msgstr "Margen de beneficio neto (un solo trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_gsprofit_margin"
-msgstr ""
+msgstr "q_gsprofit_margin"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售毛利率(单季度)"
-msgstr ""
+msgstr "Margen de beneficio bruto (un solo trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_exp_to_sales"
-msgstr ""
+msgstr "q_exp_to_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售期间费用率(单季度)"
-msgstr ""
+msgstr "Ratio de gastos de venta (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_profit_to_gr"
-msgstr ""
+msgstr "q_profit_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润／营业总收入(单季度)"
-msgstr ""
+msgstr "Beneficio neto / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_saleexp_to_gr"
-msgstr ""
+msgstr "q_saleexp_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售费用／营业总收入(单季度)"
-msgstr ""
+msgstr "Gastos de venta / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_adminexp_to_gr"
-msgstr ""
+msgstr "q_adminexp_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "管理费用／营业总收入(单季度)"
 msgstr ""
+"Gastos administrativos / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_finaexp_to_gr"
-msgstr ""
+msgstr "q_finaexp_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "财务费用／营业总收入(单季度)"
-msgstr ""
+msgstr "Gastos financieros / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_impair_to_gr_ttm"
-msgstr ""
+msgstr "q_impair_to_gr_ttm"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产减值损失／营业总收入(单季度)"
 msgstr ""
+"Pérdida por deterioro de activos / ingresos operativos totales (trimestre "
+"único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_gc_to_gr"
-msgstr ""
+msgstr "q_gc_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总成本／营业总收入(单季度)"
 msgstr ""
+"Costos operativos totales / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_op_to_gr"
-msgstr ""
+msgstr "q_op_to_gr"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润／营业总收入(单季度)"
-msgstr ""
+msgstr "Beneficio operativo / ingresos operativos totales (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_roe"
-msgstr ""
+msgstr "q_roe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产收益率(单季度)"
-msgstr ""
+msgstr "ROE (un solo trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_dt_roe"
-msgstr ""
+msgstr "q_dt_roe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产单季度收益率(扣除非经常损益)"
-msgstr ""
+msgstr "ROE de un solo trimestre (excl. elementos no recurrentes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_npta"
-msgstr ""
+msgstr "q_npta"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产净利润(单季度)"
-msgstr ""
+msgstr "Beneficio neto sobre activos totales (un solo trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_opincome_to_ebt"
-msgstr ""
+msgstr "q_opincome_to_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动净收益／利润总额(单季度)"
-msgstr ""
+msgstr "Ingreso neto operativo / beneficio total (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_investincome_to_ebt"
-msgstr ""
+msgstr "q_investincome_to_ebt"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "价值变动净收益／利润总额(单季度)"
 msgstr ""
+"Ganancia neta por cambios en el valor razonable / beneficio total (un solo "
+"trimestre)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_dtprofit_to_profit"
-msgstr ""
+msgstr "q_dtprofit_to_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "扣除非经常损益后的净利润／净利润(单季度)"
 msgstr ""
+"Beneficio neto después de elementos no recurrentes / beneficio neto "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_salescash_to_or"
-msgstr ""
+msgstr "q_salescash_to_or"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "销售商品提供劳务收到的现金／营业收入(单季度)"
-msgstr ""
+msgstr "Efectivo de ventas/ingresos operativos (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_ocf_to_sales"
-msgstr ""
+msgstr "q_ocf_to_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额／营业收入(单季度)"
 msgstr ""
+"Efectivo neto de actividades operativas/ingresos operativos (trimestre "
+"único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_ocf_to_or"
-msgstr ""
+msgstr "q_ocf_to_or"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额／经营活动净收益(单季度)"
 msgstr ""
+"Efectivo neto de actividades operativas/ingreso neto operativo (trimestre "
+"único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "basic_eps_yoy"
-msgstr ""
+msgstr "basic_eps_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "基本每股收益同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual del EPS básico (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dt_eps_yoy"
-msgstr ""
+msgstr "dt_eps_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "稀释每股收益同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual del BPA diluido (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "cfps_yoy"
-msgstr ""
+msgstr "cfps_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股经营活动产生的现金流量净额同比增长率(%)"
-msgstr ""
+msgstr "Flujo de caja operativo por acción Tasa de crecimiento interanual (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_yoy"
-msgstr ""
+msgstr "op_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual del beneficio operativo (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ebt_yoy"
-msgstr ""
+msgstr "ebt_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利润总额同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual del beneficio total (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "netprofit_yoy"
-msgstr ""
+msgstr "netprofit_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属母公司股东的净利润同比增长率(%)"
-msgstr ""
+msgstr "Crecimiento interanual del beneficio neto atribuible a la matriz (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "dt_netprofit_yoy"
-msgstr ""
+msgstr "dt_netprofit_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属母公司股东的净利润-扣除非经常损益同比增长率(%)"
 msgstr ""
+"Crecimiento interanual del beneficio neto de la matriz excl. partidas no "
+"recurrentes (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "ocf_yoy"
-msgstr ""
+msgstr "ocf_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "经营活动产生的现金流量净额同比增长率(%)"
 msgstr ""
+"Efectivo neto de actividades operativas Tasa de crecimiento interanual (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "roe_yoy"
-msgstr ""
+msgstr "roe_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产收益率(摊薄)同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual del ROE diluido (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "bps_yoy"
-msgstr ""
+msgstr "bps_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股净资产相对年初增长率(%)"
-msgstr ""
+msgstr "Crecimiento de activos netos por acción frente al inicio del año (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "assets_yoy"
-msgstr ""
+msgstr "assets_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "资产总计相对年初增长率(%)"
-msgstr ""
+msgstr "Crecimiento de activos totales versus inicio de año (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eqt_yoy"
-msgstr ""
+msgstr "eqt_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属母公司的股东权益相对年初增长率(%)"
 msgstr ""
+"Crecimiento del capital contable de las matrices vs. inicio de año (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tr_yoy"
-msgstr ""
+msgstr "tr_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总收入同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual de los ingresos operativos totales (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "or_yoy"
-msgstr ""
+msgstr "or_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业收入同比增长率(%)"
-msgstr ""
+msgstr "Tasa de crecimiento interanual de los ingresos operativos (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_gr_yoy"
-msgstr ""
+msgstr "q_gr_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总收入同比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento interanual de los ingresos operativos totales (%) "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_gr_qoq"
-msgstr ""
+msgstr "q_gr_qoq"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业总收入环比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento intertrimestral de los ingresos operativos totales (%) "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_sales_yoy"
-msgstr ""
+msgstr "q_sales_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业收入同比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento interanual de los ingresos operativos (%) (trimestre "
+"único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_sales_qoq"
-msgstr ""
+msgstr "q_sales_qoq"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业收入环比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento intertrimestral de los ingresos operativos (%) "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "158"
-msgstr ""
+msgstr "158"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_op_yoy"
-msgstr ""
+msgstr "q_op_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润同比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento interanual del beneficio operativo (%) (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "159"
-msgstr ""
+msgstr "159"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_op_qoq"
-msgstr ""
+msgstr "q_op_qoq"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润环比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento intertrimestral del beneficio operativo (%) (trimestre "
+"único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "160"
-msgstr ""
+msgstr "160"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_profit_yoy"
-msgstr ""
+msgstr "q_profit_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润同比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento interanual del beneficio neto (%) (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "161"
-msgstr ""
+msgstr "161"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_profit_qoq"
-msgstr ""
+msgstr "q_profit_qoq"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润环比增长率(%)(单季度)"
 msgstr ""
+"Tasa de crecimiento intertrimestral del beneficio neto (%) (trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "162"
-msgstr ""
+msgstr "162"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_netprofit_yoy"
-msgstr ""
+msgstr "q_netprofit_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属母公司股东的净利润同比增长率(%)(单季度)"
 msgstr ""
+"Crecimiento interanual del beneficio neto atribuible a la matriz (%) "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "163"
-msgstr ""
+msgstr "163"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "q_netprofit_qoq"
-msgstr ""
+msgstr "q_netprofit_qoq"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "归属母公司股东的净利润环比增长率(%)(单季度)"
 msgstr ""
+"Crecimiento intertrimestral del beneficio neto atribuible a la matriz (%) "
+"(trimestre único)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "164"
-msgstr ""
+msgstr "164"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "equity_yoy"
-msgstr ""
+msgstr "equity_yoy"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产同比增长率"
-msgstr ""
+msgstr "Tasa de crecimiento interanual de activos netos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "165"
-msgstr ""
+msgstr "165"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "166"
-msgstr ""
+msgstr "166"
 
 #: ../../source/manage_data/3. data_tables_40.md:555
 msgid "上市公司财报预测: `forecast`"
 msgstr ""
+"Previsión de beneficios de las empresas que cotizan en bolsa: `forecast`"
 
 #: ../../source/manage_data/3. data_tables_40.md:558
-msgid ""
-"财报预测表是上市公司的财务报表之一，主要包括业绩预告、业绩快报、业绩预测等。"
+msgid "财报预测表是上市公司的财务报表之一，主要包括业绩预告、业绩快报、业绩预测等。"
 msgstr ""
+"Informes de previsión de beneficios: orientación, express, previsiones."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "type"
-msgstr ""
+msgstr "type"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "业绩预告类型"
-msgstr ""
+msgstr "Tipo de guía de ganancias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "p_change_min"
-msgstr ""
+msgstr "p_change_min"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "float"
-msgstr ""
+msgstr "float"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预告净利润变动幅度下限(%)"
-msgstr ""
+msgstr "Límite inferior del cambio de beneficio neto previsto (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "p_change_max"
-msgstr ""
+msgstr "p_change_max"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预告净利润变动幅度上限(%)"
-msgstr ""
+msgstr "Límite superior del cambio en el beneficio neto previsto (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_profit_min"
-msgstr ""
+msgstr "net_profit_min"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预告净利润下限(万元)"
-msgstr ""
+msgstr "Límite inferior del beneficio neto previsto (10.000 yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "net_profit_max"
-msgstr ""
+msgstr "net_profit_max"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "预告净利润上限(万元)"
-msgstr ""
+msgstr "Límite superior del beneficio neto previsto (10.000 yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "last_parent_net"
-msgstr ""
+msgstr "last_parent_net"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "上年同期归属母公司净利润"
 msgstr ""
+"Beneficio neto atribuible a la matriz en el mismo período del año pasado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "first_ann_date"
-msgstr ""
+msgstr "first_ann_date"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "首次公告日"
-msgstr ""
+msgstr "fecha del primer anuncio"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "summary"
-msgstr ""
+msgstr "summary"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "text"
-msgstr ""
+msgstr "text"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "业绩预告摘要"
-msgstr ""
+msgstr "Resumen de orientación de ganancias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "change_reason"
-msgstr ""
+msgstr "change_reason"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "业绩变动原因"
-msgstr ""
+msgstr "Razón del cambio de ganancias"
 
 #: ../../source/manage_data/3. data_tables_40.md:575
 msgid "上市公司财报快报: `express`"
-msgstr ""
+msgstr "Expreso de resultados de empresas que cotizan en bolsa: `express`"
 
 #: ../../source/manage_data/3. data_tables_40.md:578
-msgid ""
-"财报快报表是上市公司的财务报表之一，主要包括业绩快报、业绩预告、业绩预测等。"
-msgstr ""
+msgid "财报快报表是上市公司的财务报表之一，主要包括业绩快报、业绩预告、业绩预测等。"
+msgstr "Informes express de ganancias: express, orientación, previsiones."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业收入(元)"
-msgstr ""
+msgstr "Ingresos operativos (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "营业利润(元)"
-msgstr ""
+msgstr "Beneficio operativo (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "利润总额(元)"
-msgstr ""
+msgstr "Beneficio total (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净利润(元)"
-msgstr ""
+msgstr "Beneficio neto (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "总资产(元)"
-msgstr ""
+msgstr "Activos totales (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "股东权益合计(不含少数股东权益)(元)"
-msgstr ""
+msgstr "Capital contable total (excluidos intereses minoritarios) (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "每股收益(摊薄)(元)"
-msgstr ""
+msgstr "EPS diluido (yuanes)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "diluted_roe"
-msgstr ""
+msgstr "diluted_roe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "净资产收益率(摊薄)(%)"
-msgstr ""
+msgstr "ROE diluido (%)"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_net_profit"
-msgstr ""
+msgstr "yoy_net_profit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期修正后净利润"
-msgstr ""
+msgstr "Beneficio neto actualizado en el mismo período del año pasado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_sales"
-msgstr ""
+msgstr "yoy_sales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增长率:营业收入"
-msgstr ""
+msgstr "Tasa de crecimiento interanual: ingresos operativos"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_op"
-msgstr ""
+msgstr "yoy_op"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增长率:营业利润"
-msgstr ""
+msgstr "Tasa de crecimiento interanual: beneficio operativo"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_tp"
-msgstr ""
+msgstr "yoy_tp"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增长率:利润总额"
-msgstr ""
+msgstr "Tasa de crecimiento interanual: beneficio total"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_dedu_np"
-msgstr ""
+msgstr "yoy_dedu_np"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增长率:归属母公司股东的净利润"
-msgstr ""
+msgstr "Tasa de crecimiento interanual: beneficio neto atribuible a la matriz"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_eps"
-msgstr ""
+msgstr "yoy_eps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增长率:基本每股收益"
-msgstr ""
+msgstr "Tasa de crecimiento interanual: EPS básico"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_roe"
-msgstr ""
+msgstr "yoy_roe"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "同比增减:加权平均净资产收益率"
-msgstr ""
+msgstr "Cambio interanual: ROE promedio ponderado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "growth_assets"
-msgstr ""
+msgstr "growth_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "比年初增长率:总资产"
-msgstr ""
+msgstr "Crecimiento versus inicio de año: activos totales"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "yoy_equity"
-msgstr ""
+msgstr "yoy_equity"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "比年初增长率:归属母公司的股东权益"
-msgstr ""
+msgstr "Crecimiento versus inicio de año: capital contable de las matrices"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "growth_bps"
-msgstr ""
+msgstr "growth_bps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "比年初增长率:归属于母公司股东的每股净资产"
 msgstr ""
+"Crecimiento frente al inicio del año: activos netos por acción atribuibles a"
+" la matriz"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "or_last_year"
-msgstr ""
+msgstr "or_last_year"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期营业收入"
-msgstr ""
+msgstr "Ingresos operativos en el mismo período del año pasado."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "op_last_year"
-msgstr ""
+msgstr "op_last_year"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期营业利润"
-msgstr ""
+msgstr "Beneficio operativo en el mismo período del año pasado."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "tp_last_year"
-msgstr ""
+msgstr "tp_last_year"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期利润总额"
-msgstr ""
+msgstr "Beneficio total en el mismo período del año pasado."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "np_last_year"
-msgstr ""
+msgstr "np_last_year"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期净利润"
-msgstr ""
+msgstr "Beneficio neto en el mismo período del año pasado."
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "eps_last_year"
-msgstr ""
+msgstr "eps_last_year"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "去年同期每股收益"
-msgstr ""
+msgstr "EPS en el mismo período del año pasado"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "open_net_assets"
-msgstr ""
+msgstr "open_net_assets"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期初净资产"
-msgstr ""
+msgstr "Activos netos de apertura"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "open_bps"
-msgstr ""
+msgstr "open_bps"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "期初每股净资产"
-msgstr ""
+msgstr "Activos netos iniciales por acción"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "perf_summary"
-msgstr ""
+msgstr "perf_summary"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "业绩简要说明"
-msgstr ""
+msgstr "Breve descripción de ganancias"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "is_audit"
-msgstr ""
+msgstr "is_audit"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "是否审计： 1是 0否"
-msgstr ""
+msgstr "Auditado: 1 sí 0 no"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "remark"
-msgstr ""
+msgstr "remark"
 
 #: ../../source/manage_data/3. data_tables_40.md
 msgid "备注"
-msgstr ""
+msgstr "Nota"

@@ -1787,8 +1787,11 @@ class Trader(object):
         positions = get_account_positions(self.account_id, data_source=self._datasource)
         order_details = orders.join(positions, on='pos_id', rsuffix='_p')
         order_details.drop(columns=['pos_id', 'account_id', 'qty_p', 'available_qty'], inplace=True)
+        order_details['order_id'] = order_details.index.astype(int)
+        if 'broker_order_id' not in order_details.columns:
+            order_details['broker_order_id'] = None
         order_details = order_details.reindex(
-                columns=['symbol', 'position', 'direction', 'order_type',
+                columns=['order_id', 'broker_order_id', 'symbol', 'position', 'direction', 'order_type',
                          'qty', 'price',
                          'submitted_time', 'status']
         )
@@ -1797,7 +1800,7 @@ class Trader(object):
         results = read_trade_results_by_order_id(orders.index.to_list(), data_source=self._datasource)
         order_result_details = order_details.join(results.set_index('order_id'), lsuffix='_quoted', rsuffix='_filled')
         order_result_details = order_result_details.reindex(
-                columns=['symbol', 'position', 'direction', 'order_type',
+                columns=['order_id', 'broker_order_id', 'symbol', 'position', 'direction', 'order_type',
                          'qty', 'price_quoted', 'submitted_time', 'status',
                          'price_filled', 'filled_qty', 'canceled_qty', 'transaction_fee', 'execution_time',
                          'delivery_status'],
@@ -2228,38 +2231,38 @@ class Trader(object):
             return pd.DataFrame()
 
     def read_sys_log(self, row_count: int = None, include_debug: bool = True) -> list:
-        """ 从系统log文件中读取文本信息，保存在一个列表中，如果指定row_count = N，则读取倒数N行
+        """从系统 log 文件读取逻辑日志条目列表。
+
+        先将物理行合并为逻辑条目（多行 ``send_message`` 续行与首行同属一条），
+        再按 ``include_debug`` 过滤，最后按 ``row_count`` 取尾部若干条逻辑记录。
 
         Parameters
         ----------
         row_count: int, optional
-            如果给出row_count，则只读取倒数row_count行文本，如果为None，读取所有文本
+            若给出且大于 0，返回合并与过滤后的倒数 ``row_count`` 条逻辑记录；
+            若为 None 或小于等于 0，返回全部逻辑记录（不过滤条数上限）。
         include_debug: bool, optional, default True
-            为 False 时过滤 DEBUG 级别及带 ``<DEBUG>`` 前缀的日志行
+            为 False 时过滤 DEBUG 级别及带 ``<DEBUG>`` 前缀的日志条目。
 
         Returns
         -------
-        sys_logs: list of str
-            逐行读取的系统log文本
+        list of str
+            逻辑日志条目，每条可含换行符。
         """
 
         log_file_path = sys_log_file_path_name(self.account_id, self.datasource)
         if not os.path.exists(log_file_path):
             return []
         with open(log_file_path, 'r') as f:
-            # read last row_count lines from f
-            lines = f.readlines()
+            physical_lines = f.readlines()
 
-            if row_count is None:
-                row_count = len(lines)
-
-            if row_count > 0:
-                lines = lines[-row_count:]
-
-        lines = group_sys_log_physical_lines(lines)
+        lines = group_sys_log_physical_lines(physical_lines)
 
         if not include_debug:
             lines = [line for line in lines if not _is_debug_sys_log_line(line)]
+
+        if row_count is not None and row_count > 0:
+            lines = lines[-row_count:]
 
         return lines
 

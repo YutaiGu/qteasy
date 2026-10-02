@@ -3,165 +3,207 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/qteasy_2_migration_guide.md:1
 msgid "QTEASY 2.0 版本迁移指引"
-msgstr ""
+msgstr "QTEASY Guía de migración 2.0"
 
 #: ../../source/qteasy_2_migration_guide.md:3
 msgid "本指引提供了 QTEASY 2.0 中的更改和改进的概述，以及如何将现有代码库迁移到新版本的说明。"
 msgstr ""
+"Esta guía resume los cambios y mejoras en QTEASY 2.0 y cómo migrar el código"
+" existente."
 
 #: ../../source/qteasy_2_migration_guide.md:5
 msgid "QTEASY 2.0 中的主要改进"
-msgstr ""
+msgstr "Mejoras importantes en QTEASY 2.0"
 
 #: ../../source/qteasy_2_migration_guide.md:7
 msgid ""
 "引入了新的 `Parameter` 类来表示策略参数，`Operator` 现在可以使用 `Parameter` "
 "实例来指定它需要的参数，并且用户可以以更灵活的方式设置参数，包括为不同的符号设置不同的参数值。"
 msgstr ""
+"Nuevas instancias ``Parameter`` class for strategy parameters; ``Operator`` "
+"accepts ``Parameter`` y admite valores de parámetros flexibles por símbolo."
 
 #: ../../source/qteasy_2_migration_guide.md:8
 msgid ""
 "引入了新的 `Group` 类来表示策略组，`Operator` "
 "现在将策略分成不同的组，每个组可以有自己的运行频率、运行时间和混合器，因此策略可以以更灵活和强大的方式运行。"
 msgstr ""
+"Nueva clase ``Group`` para grupos de estrategia; Cada grupo puede tener su "
+"propia frecuencia de ejecución, tiempo y mezclador para una ejecución más "
+"flexible."
 
 #: ../../source/qteasy_2_migration_guide.md:9
 msgid ""
 "改进了操作员Operator类的运行时间表 running "
 "schedule，现在所有策略都以更细粒度的级别运行，允许更灵活的运行时间和更准确的回测结果，并且运行计划是每个策略组确定的，允许不同组的策略以不同的频率和时间运行。"
 msgstr ""
+"Programa de ejecución ``Operator`` mejorado: sincronización más detallada "
+"por grupo para pruebas retrospectivas más precisas; Los grupos pueden "
+"funcionar en diferentes frecuencias y tiempos."
 
 #: ../../source/qteasy_2_migration_guide.md:10
 msgid "改进了策略利用历史数据的方式，现在策略能够在同一运行中利用不同频率和窗口长度的数据，并且数据以更高效的方式提取和分配给策略。"
 msgstr ""
+"Las estrategias pueden utilizar múltiples frecuencias y longitudes de "
+"ventana en una sola ejecución; los datos se obtienen y asignan de manera más"
+" eficiente."
 
 #: ../../source/qteasy_2_migration_guide.md:11
 msgid "改进了策略回测和优化的效率，现在回测和优化过程更高效，更好地利用系统资源，尤其是在使用多处理时性能显著提高。"
 msgstr ""
+"Las pruebas retrospectivas y la optimización son más rápidas y utilizan "
+"mejor los recursos del sistema, especialmente con el multiprocesamiento."
 
 #: ../../source/qteasy_2_migration_guide.md:12
 msgid ""
 "引入了 `Operator` 中的跟踪模式（Tracing "
 "mode），允许用户通过在策略实现中定义跟踪点来更详细地跟踪每个策略组的回测结果，跟踪结果将保存在交易日志中。"
 msgstr ""
+"Modo de seguimiento ``Operator``: define puntos de seguimiento en "
+"estrategias; La salida del seguimiento se guarda en los registros "
+"comerciales."
 
 #: ../../source/qteasy_2_migration_guide.md:13
-msgid "简化了交易策略实现方法realization的定义，现在用户可以通过更简单的API以更直观的方式获取历史数据和参数，并且可以使用用户定义的名称。"
+msgid ""
+"简化了交易策略实现方法realization的定义，现在用户可以通过更简单的API以更直观的方式获取历史数据和参数，并且可以使用用户定义的名称。"
 msgstr ""
+"API ``realize()`` más simple para datos históricos y parámetros con nombres "
+"definidos por el usuario."
 
 #: ../../source/qteasy_2_migration_guide.md:14
-msgid "引入了更多的交易策略优化算法，使得用户可以针对不同的交易策略参数空间选择更适合的优化算法，同时提高了策略优化对系统资源的利用率，提高了优化速度。"
+msgid ""
+"引入了更多的交易策略优化算法，使得用户可以针对不同的交易策略参数空间选择更适合的优化算法，同时提高了策略优化对系统资源的利用率，提高了优化速度。"
 msgstr ""
+"Más algoritmos de optimización para diferentes espacios de parámetros y una "
+"optimización más rápida."
 
 #: ../../source/qteasy_2_migration_guide.md:15
 msgid "改进了交易策略回测 / 优化结果的评价分析流程，引入了更多的评价指标，提高了评价结果的直观性。"
 msgstr ""
+"Métricas de evaluación más completas y análisis más claros para resultados "
+"de backtest/optimización."
 
 #: ../../source/qteasy_2_migration_guide.md:17
 msgid "已移除或变更的配置参数 / Removed or changed configuration parameters"
-msgstr ""
+msgstr "Parámetros de configuración eliminados o modificados"
 
 #: ../../source/qteasy_2_migration_guide.md:19
 msgid ""
 "以下配置键在 2.0 中已从内置配置中移除。若在 2.0 中仍通过 `qt.configure(..., "
 "only_built_in_keys=True)` 传入下列任一键，将触发 `KeyError`。"
 msgstr ""
+"Las siguientes claves se eliminaron de la configuración integrada en 2.0. "
+"Pasando cualquiera de ellos con ``qt.configure(..., "
+"only_built_in_keys=True)`` raises ``KeyError``."
 
 #: ../../source/qteasy_2_migration_guide.md:21
 msgid "删除的配置键"
-msgstr ""
+msgstr "Claves de configuración eliminadas"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "配置键"
-msgstr ""
+msgstr "Clave de configuración"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "说明与替代方式"
-msgstr ""
+msgstr "Notas y alternativas"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "**maximize_cash_usage**"
-msgstr ""
+msgstr "**maximize_cash_usage**"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "已移除。回测时是否最大化利用同一批次交易获得的现金，已内聚到交易执行流程，不再通过配置暴露。无替代键，删除该键即可。"
 msgstr ""
+"Remoto. La maximización de la reutilización del efectivo del mismo lote se "
+"gestiona dentro de la ejecución comercial; no hay llave de repuesto: "
+"retírela."
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "**benchmark_asset_type**"
-msgstr ""
+msgstr "**benchmark_asset_type**"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "已移除。基准资产类型现由 `benchmark_asset` 的代码与数据源自动推断。仅需设置 `benchmark_asset`。"
 msgstr ""
+"Remoto. El tipo de activo de referencia se infiere únicamente de "
+"``benchmark_asset`` and the data source; set ``benchmark_asset``."
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "**benchmark_dtype**"
-msgstr ""
+msgstr "**benchmark_dtype**"
 
 #: ../../source/qteasy_2_migration_guide.md
 msgid "已移除。基准价格类型由运行时间表与数据源自动推断。仅需设置 `benchmark_asset`。"
 msgstr ""
+"Remoto. El tipo de precio de referencia se infiere del cronograma y la "
+"fuente de datos; establezca ``benchmark_asset`` únicamente."
 
 #: ../../source/qteasy_2_migration_guide.md:29
 msgid "变更的配置键"
-msgstr ""
+msgstr "Claves de configuración modificadas"
 
 #: ../../source/qteasy_2_migration_guide.md:31
 msgid "本次仅做删除，无重命名或合并类变更。"
-msgstr ""
+msgstr "Esta versión solo elimina claves; sin cambios de nombre ni fusiones."
 
 #: ../../source/qteasy_2_migration_guide.md:33
 msgid "升级操作建议"
-msgstr ""
+msgstr "Lista de verificación de actualización"
 
 #: ../../source/qteasy_2_migration_guide.md:35
 msgid "在 `qteasy.cfg` 或自有配置中搜索并删除上述三个键。"
 msgstr ""
+"Busque ``qteasy.cfg`` o su configuración y elimine las tres claves "
+"anteriores."
 
 #: ../../source/qteasy_2_migration_guide.md:36
 msgid ""
 "在代码中删除对 `qt.configure(..., "
 "maximize_cash_usage=...)`、`benchmark_asset_type`、`benchmark_dtype` 的传入。"
 msgstr ""
+"Elimine ``qt.configure(..., maximize_cash_usage=...)``, "
+"``benchmark_asset_type``, and ``benchmark_dtype`` del código."
 
 #: ../../source/qteasy_2_migration_guide.md:37
 msgid "确认回测/优化仅依赖 `benchmark_asset` 即可得到正确基准。"
 msgstr ""
+"Confirme el trabajo de backtests/optimización solo con ``benchmark_asset``."
 
 #: ../../source/qteasy_2_migration_guide.md:39
 msgid "破坏性变更提示"
-msgstr ""
+msgstr "Cambios importantes"
 
 #: ../../source/qteasy_2_migration_guide.md:41
 msgid ""
 "在 2.0 中，若仍通过 `qt.configure(..., only_built_in_keys=True)` 传入上述任一已删除键，将触发 "
 "`KeyError`。使用 `only_built_in_keys=False` 时，这些键可被写入配置对象但不会参与任何运行逻辑。"
 msgstr ""
+"En 2.0, ``qt.configure(..., only_built_in_keys=True)`` with any removed key "
+"raises ``KeyError``. With ``only_built_in_keys=False``, las claves se pueden"
+" almacenar pero se ignoran en tiempo de ejecución."
 
 #: ../../source/qteasy_2_migration_guide.md:45
 msgid "Migration Steps / 版本迁移步骤"
-msgstr ""
+msgstr "Pasos de migración"
 
 #: ../../source/qteasy_2_migration_guide.md:47
 msgid "针对自定义交易策略"
-msgstr ""
-
+msgstr "Estrategias comerciales personalizadas"

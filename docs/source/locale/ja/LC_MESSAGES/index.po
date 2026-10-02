@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language: ja\n"
+"Language-Team: ja <LL@li.org>\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/index.rst:89
+msgid "``qteasy`` 快速入门"
+msgstr "QTEASY クイックスタート"
+
+#: ../../source/index.rst:97
+msgid "``qteasy`` 使用教程"
+msgstr "チュートリアル"
+
+#: ../../source/index.rst:106
+msgid "``qteasy`` 架构与设计"
+msgstr "``qteasy`` アーキテクチャとデザイン"
+
+#: ../../source/index.rst:115
+msgid "下载并管理金融历史数据"
+msgstr "データの管理"
+
+#: ../../source/index.rst:124
+msgid "创建并操作交易策略"
+msgstr "取引戦略の作成と管理"
+
+#: ../../source/index.rst:133
+msgid "交易策略的回测并评价"
+msgstr "バックテストと取引戦略の評価"
+
+#: ../../source/index.rst:142
+msgid "优化交易策略"
+msgstr "最適化"
+
+#: ../../source/index.rst:151
+msgid "模拟实盘交易模块"
+msgstr "シミュレートされたライブ取引モジュール"
+
+#: ../../source/index.rst:160
+msgid "模拟实盘运行交易策略"
+msgstr "ライブシミュレーション"
+
+#: ../../source/index.rst:171
+msgid "QTEASY交易策略示例"
+msgstr "QTEASY 取引戦略の例"
+
+#: ../../source/index.rst:180
+msgid "API参考"
+msgstr "API リファレンス"
+
+#: ../../source/index.rst:200
+msgid "LICENSE"
+msgstr "LICENSE"
+
+#: ../../source/index.rst:206
+msgid "关于 ``qteasy``"
+msgstr "``QTEASY``について"
+
+#: ../../source/index.rst:218
+msgid "常见问题"
+msgstr "よくある質問"
+
+#: ../../source/index.rst:7
+msgid "欢迎使用 ``QTEASY`` 文档!"
+msgstr "``QTEASY`` ドキュメントへようこそ!"
+
+#: ../../source/index.rst:15
+msgid ""
+"`qteasy`已经升级到2.0版本，使得交易策略能更加灵活有效地使用历史数据、同时简化了交易策略的定义过程、提高了效率。 由于 "
+"``QTEASY`` 仍处于测试中，软件中不免存在一些漏洞和bug，如果大家使用中出现问题，欢迎 `报告Issue`_ 或者提交 `新功能需求`_"
+" 给我，也可以进入 `讨论区`_ 参与讨论。欢迎各位贡献代码！"
+msgstr ""
+"`qteasy` はバージョン 2.0 "
+"にアップグレードされ、取引戦略で過去のデータをより柔軟かつ効果的に使用できるようになり、取引戦略の定義プロセスが簡素化され、効率が向上しました。 "
+"``QTEASY`` is still in testing, the software inevitably contains some "
+"vulnerabilities and bugs. If you encounter any issues during use, you are"
+" welcome to `問題を報告`_ or submit a `新機能リクエスト`_ to me. You can also enter "
+"the `ディスカッションフォーラム`_ を使用してディスカッションに参加してください。貢献は大歓迎です!"
+
+#: ../../source/index.rst:22
+msgid "作者: **Jackie PENG**"
+msgstr "著者: **ジャッキー・ペン**"
+
+#: ../../source/index.rst:23
+msgid "email: *jackie_pengzhao@163.com*"
+msgstr "Email: *jackie_pengzhao@163.com*"
+
+#: ../../source/index.rst:24
+msgid "创建日期: 2019, July, 16"
+msgstr "作成日：2019年7月16日"
+
+#: ../../source/index.rst:25
+msgid "最新版本: `2.6.4` — :doc:`发布历史 <RELEASE_HISTORY>`"
+msgstr "最新バージョン: `2.5.1` — :doc:`Release History <RELEASE_HISTORY>`"
+
+#: ../../source/index.rst:26
+msgid "License: BSD 3-Clause"
+msgstr "License: BSD 3-Clause"
+
+#: ../../source/index.rst:29
+msgid "简介"
+msgstr "簡単な紹介"
+
+#: ../../source/index.rst:31
+msgid "``QTEASY`` 是为量化交易人员开发的一套量化交易策略开发工具包，其特点如下："
+msgstr "``QTEASY`` は、クオンツ トレーダー向けに構築されたクオンツ トレーディング戦略開発ツールキットであり、次の機能を備えています。"
+
+#: ../../source/index.rst:33
+msgid "**全流程覆盖** 从金融数据获取、存储，到交易策略的开发、回测、优化、实盘运行，一站式完成"
+msgstr "**エンドツーエンドのカバレッジ** 財務データの取得と保存から戦略開発、バックテスト、最適化、ライブ取引まで、すべてを 1 か所で"
+
+#: ../../source/index.rst:34
+msgid "**完全本地化** 数据、回测与实盘运行均在本地完成，不依赖云端服务，配置清晰、结果可复现"
+msgstr "**完全にローカル** データ、バックテスト、ライブ取引はすべてクラウド サービスに依存せず、ローカルで実行されます。構成が明確で結果が再現可能"
+
+#: ../../source/index.rst:35
+msgid ""
+"**回测可信、实盘一致** "
+"策略逻辑在回测与实盘中同一套运行，数据按「当时能看到的」历史严格注入，从机制上避免未来函数与数据泄露，减少「回测漂亮、实盘走样」的落差"
+msgstr ""
+"**信頼性の高いバックテスト、一貫したライブ取引** "
+"バックテストとライブ取引の両方で同じ戦略ロジックが実行され、その時点で実際に表示されていたものに厳密に基づいて履歴データが挿入されます。つまり、先読みバイアスやデータ漏洩を機械的に回避し、「優れたバックテスト」と「歪んだライブ結果」との間のギャップを削減します。"
+
+#: ../../source/index.rst:36
+msgid "**灵活易用** 多策略可像搭积木一样组合并自定义信号合并方式；内置超过70种策略开箱即用，涵盖常见技术指标、均线、突破、反转等"
+msgstr ""
+"**柔軟で使いやすい** "
+"カスタマイズ可能な信号結合方法を使用して、複数の戦略を構成要素のように組み合わせることができます。一般的なテクニカル指標、移動平均、ブレイクアウト、リバーサルなどをカバーする、すぐに使える"
+" 70 以上の戦略が組み込まれています"
+
+#: ../../source/index.rst:38
+msgid ""
+"**高性能回测与防未来函数**：回测核心采用向量化 + "
+"Numba，时间维顺序、标的维单步向量化，多进程并行优化；每步仅向策略注入当时可见的数据窗口，从机制上防未来函数。详见《架构与设计》中的 "
+":doc:`回测引擎与性能 <design/07-backtest-engine-and-"
+"performance>`、:doc:`设计初衷与独特优势 <design/08-design-rationale-and-"
+"advantages>`，以及《回测并评价交易策略》目录下的「回测引擎与性能」章节。"
+msgstr ""
+"**高性能バックテストと先読みバイアスの防止**: バックテスト コアはベクトル化 + Numba "
+"を使用し、時間次元に沿った逐次処理と機器次元に沿ったシングルステップ "
+"ベクトル化を行い、マルチプロセッシング並列処理で最適化されています。各ステップでは、その時点で表示されているデータ "
+"ウィンドウのみが戦略に挿入され、メカニズム レベルで先読みバイアスが防止されます。 "
+"「アーキテクチャとデザイン」の:doc:`Backtesting Engine and Performance <design/07"
+"-backtest-engine-and-performance>`、:doc:`Design Rationale and Unique "
+"Advantages <design/08-design-rationale-and-"
+"advantages>`、および「取引戦略のバックテストと評価」の「バックテスト エンジンとパフォーマンス」の章を参照してください。"
+
+#: ../../source/index.rst:42
+msgid "``QTEASY`` 能做什么?"
+msgstr "``QTEASY`` は何のために設計されていますか?"
+
+#: ../../source/index.rst:45
+msgid "获取并管理金融历史数据"
+msgstr "財務履歴データの取得と管理"
+
+#: ../../source/index.rst:47
+msgid "方便地从多渠道获取大量金融历史数据，进行数据清洗后以统一格式进行本地存储"
+msgstr "複数のソースから大量の過去の財務データを簡単に取得し、データをクリーンアップして、統一された形式でローカルに保存します。"
+
+#: ../../source/index.rst:48
+msgid "通过`DataType`对象结构化管理金融数据中的可用信息，即便是复权价格、指数成份等复杂信息，也只需要一行代码即可获取"
+msgstr ""
+"`DataType` "
+"オブジェクトを使用して、財務データ内の利用可能な情報を構造化された方法で管理します。調整後の価格や指数構成銘柄などの複雑な情報でも、たった 1 "
+"行のコードで取得できます。"
+
+#: ../../source/index.rst:49
+msgid "基于`DataType`对象的金融数据可视化、统计分析以及分析结果可视化"
+msgstr "`DataType`オブジェクトに基づく財務データの可視化、統計分析、分析結果の可視化"
+
+#: ../../source/index.rst:50
+msgid "数据本地存储、按需取用，为回测与实盘提供一致的数据基础，便于复现"
+msgstr "データをローカルに保存し、オンデマンドで取得することで、バックテストやライブ取引に一貫したデータ基盤を提供し、結果の再現を容易にします。"
+
+#: ../../source/index.rst:58
+msgid "以简单、安全的方式创建交易策略"
+msgstr "シンプルかつ安全な方法で取引戦略を作成する"
+
+#: ../../source/index.rst:60
+msgid "通过`BaseStrategy`类，交易策略定义方法直观、逻辑清晰"
+msgstr "`BaseStrategy` クラスを使用すると、取引戦略を定義する方法が直感的で、ロジックが明確になります。"
+
+#: ../../source/index.rst:61
+msgid "内置超过70种策略开箱即用，独特的策略混合和组机制，复杂策略可以通过简单策略拼装而来，过程如同搭积木"
+msgstr ""
+"すぐに使用できる 70 "
+"を超える組み込み戦略に加え、独自の戦略混合およびグループ化メカニズムにより、ブロックで構築するなど、単純な戦略から複雑な戦略を組み立てることができます。"
+
+#: ../../source/index.rst:62
+msgid "交易策略的数据输入和使用方法完全封装且安全，完全避免无意中导致未来函数、数据泄露等问题，保证策略运行结果的真实性和可靠性"
+msgstr "取引戦略のデータ入力と使用方法は完全にカプセル化され安全であり、将来の機能の不用意な導入やデータ漏洩などの問題を完全に回避し、戦略結果の信頼性と信頼性を保証します。"
+
+#: ../../source/index.rst:63
+msgid "同一套策略逻辑既用于回测也用于实盘，减少「回测漂亮、实盘走样」的落差"
+msgstr "バックテストとライブ取引の両方に同じ戦略ロジックが使用され、「優れたバックテスト結果」と「圧倒的なライブパフォーマンス」の間のギャップが減少します。"
+
+#: ../../source/index.rst:71
+msgid "交易策略的回测评价、优化和模拟自动化交易"
+msgstr "取引戦略のバックテスト評価、最適化、自動取引のシミュレーション"
+
+#: ../../source/index.rst:73
+msgid "通过`Operator`交易员类管理策略运行，按照真实市场交易节奏回测策略，对交易结果进行多维度全方位评价，生成交易报告和结果图表"
+msgstr ""
+"`Operator` トレーダー "
+"クラスを通じて戦略の実行を管理し、実際の市場取引リズムに従って戦略をバックテストし、複数の側面にわたって包括的に取引結果を評価し、取引レポートと結果チャートを生成します。"
+
+#: ../../source/index.rst:74
+msgid "提供多种优化算法，包括模拟退火、遗传算法、贝叶斯优化等在大参数空间中优化策略性能"
+msgstr ""
+"シミュレーテッド "
+"アニーリング、遺伝的アルゴリズム、ベイジアン最適化などを含む複数の最適化アルゴリズムを提供し、大きなパラメーター空間で戦略のパフォーマンスを最適化します。"
+
+#: ../../source/index.rst:75
+msgid "获取实时市场数据，运行策略模拟自动化交易，跟踪记录交易日志、股票持仓、账户资金变化等信息"
+msgstr "リアルタイムの市場データを取得し、自動取引の戦略シミュレーションを実行し、取引ログ、株式ポジション、口座残高の変化などの情報を追跡および記録します。"
+
+#: ../../source/index.rst:76
+msgid "回测、优化与实盘使用同一套运行机制，写一次策略即可全模式运行，配置清晰，便于复现与排查"
+msgstr "バックテスト、最適化、ライブ取引では同じ実行メカニズムが使用されます。つまり、戦略を一度作成すれば、再現とトラブルシューティングが容易な明確な構成で、すべてのモードで実行されます。"
+
+#: ../../source/index.rst:77
+msgid "未来将通过QMT接口接入券商提供的实盘交易接口，实现自动化交易"
+msgstr "将来的には、「`qteasy`」はQMTなどのブローカーが提供する取引APIに接続することで、自動ライブ取引を実現できるようになります。"
+

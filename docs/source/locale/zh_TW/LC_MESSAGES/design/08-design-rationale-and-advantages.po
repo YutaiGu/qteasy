@@ -1,0 +1,203 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:1
+msgid "设计初衷与独特优势"
+msgstr "設計初衷與獨特優勢"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:3
+msgid ""
+"本章集中说明 qteasy 的**设计初衷**与**独特优势**：为何以高速向量化回测为目标却摒弃“全时间轴向量化”，如何通过“向量化 + "
+"数据隔离”兼顾速度与防未来函数，以及 **use_latest_data_cycle** 等可配置项对长期回测的影响。与 "
+"[总体架构与设计思路](00-overview.md)、[策略中的数据](03-data-in-strategies.md) 形成呼应。"
+msgstr ""
+"本章集中說明 qteasy 的**設計初衷**與**獨特優勢**：爲何以高速向量化回測爲目標卻摒棄“全時間軸向量化”，如何通過“向量化 + "
+"數據隔離”兼顧速度與防未來函數，以及 **use_latest_data_cycle** 等可配置項對長期回測的影響。與 "
+"[總體架構與設計思路](00-overview.md)、[策略中的數據](03-data-in-strategies.md) 形成呼應。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:5
+msgid "1. 为何不做全时间轴向量化"
+msgstr "1. 爲何不做全時間軸向量化"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:7
+msgid "1.1 未来函数风险"
+msgstr "1.1 未來函數風險"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:9
+msgid ""
+"若在整个时间轴上一次性计算指标（例如全历史 EMA），得到的历史序列与“按当时可见的历史窗口逐段计算”的结果**不一致**：全轴 EMA "
+"会用到后续价格，实盘无法复现，导致回测与实盘偏离。因此，qteasy "
+"不在时间维上做“整段一次性”的指标计算，而是**按步**只给策略当前步可见的数据窗口。"
+msgstr ""
+"若在整個時間軸上一次性計算指標（例如全歷史 EMA），得到的歷史序列與“按當時可見的歷史窗口逐段計算”的結果**不一致**：全軸 EMA "
+"會用到後續價格，實盤無法復現，導致回測與實盤偏離。因此，qteasy "
+"不在時間維上做“整段一次性”的指標計算，而是**按步**只給策略當前步可見的數據窗口。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:11
+msgid "1.2 状态与规则无法表达"
+msgstr "1.2 狀態與規則無法表達"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:13
+msgid "若在时间维上完全向量化，则难以正确实现："
+msgstr "若在時間維上完全向量化，則難以正確實現："
+
+#: ../../source/design/08-design-rationale-and-advantages.md:15
+msgid "**T+1 交割**、**交易费用**、**最小交易单位（MOQ）** 等约束；"
+msgstr "**T+1 交割**、**交易費用**、**最小交易單位（MOQ）** 等約束；"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:16
+msgid "**是否允许使用“交易当时”的最新数据**（当根 K 线）的建模选择。"
+msgstr "**是否允許使用“交易當時”的最新數據**（當根 K 線）的建模選擇。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:18
+msgid ""
+"这些细节在长期回测中会产生成倍的收益差异（例如十年回测中，“是否使用当根 K 线数据”的微小差异会显著改变累计收益）。qteasy "
+"将“是否用当根数据”显式做成 **use_latest_data_cycle** 配置项，而非隐式假设。"
+msgstr ""
+"這些細節在長期回測中會產生成倍的收益差異（例如十年回測中，“是否使用當根 K 線數據”的微小差異會顯著改變累計收益）。qteasy "
+"將“是否用當根數據”顯式做成 **use_latest_data_cycle** 配置項，而非隱式假設。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:20
+msgid "2. 事件驱动的替代与取舍"
+msgstr "2. 事件驅動的替代與取捨"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:22
+msgid ""
+"常见做法是采用**事件驱动**：每个交易事件逐标的取数、逐笔计算指标，从而彻底避免未来函数并贴近实盘，但**速度较慢**。qteasy "
+"的取舍是：保留“按时间步、按当时可见数据”的正确性，但在**单步内**用向量化 + Numba 加速，在保证正确性的前提下兼顾速度。"
+msgstr ""
+"常見做法是採用**事件驅動**：每個交易事件逐標的取數、逐筆計算指標，從而徹底避免未來函數並貼近實盤，但**速度較慢**。qteasy "
+"的取捨是：保留“按時間步、按當時可見數據”的正確性，但在**單步內**用向量化 + Numba 加速，在保證正確性的前提下兼顧速度。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:24
+msgid "3. qteasy 的做法：向量化 + 数据隔离"
+msgstr "3. qteasy 的做法：向量化 + 數據隔離"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:26
+msgid "3.1 回测主体向量化"
+msgstr "3.1 回測主體向量化"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:28
+msgid ""
+"回测循环与交易计算（买卖量、费用、持仓、交割）已用 **NumPy + Numba** 实现：时间维顺序步进，标的维在单步内向量化。参见 "
+"[回测引擎与性能（设计视角）](07-backtest-engine-and-performance.md)。"
+msgstr ""
+"回測循環與交易計算（買賣量、費用、持倉、交割）已用 **NumPy + Numba** 實現：時間維順序步進，標的維在單步內向量化。參見 "
+"[回測引擎與性能（設計視角）](07-backtest-engine-and-performance.md)。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:30
+msgid "3.2 数据提前打包装配与按步注入"
+msgstr "3.2 數據提前打包裝配與按步注入"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:32
+msgid ""
+"**准备阶段**：回测前通过 `check_and_prepare_backtest_data`、`prepare_data_buffer` 等从 "
+"DataSource 拉取并缓存所需全量历史；再通过 `create_data_windows` 用 `rolling_window` "
+"生成**按运行节奏对齐的数据窗口流**（每个 step 对应一个固定长度的历史窗口）。"
+msgstr ""
+"**準備階段**：回測前通過 `check_and_prepare_backtest_data`、`prepare_data_buffer` 等從 "
+"DataSource 拉取並緩存所需全量歷史；再通過 `create_data_windows` 用 `rolling_window` "
+"生成**按運行節奏對齊的數據窗口流**（每個 step 對應一個固定長度的歷史窗口）。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:33
+msgid ""
+"**每步运行前**：引擎调用 **update_running_data_window**，把**当前 step 对应的数据窗口**写入策略属性；策略在"
+" `realize()` 内通过 **get_data(dtype_id)** 取到的仅是**该步可见的窗口**，在此窗口上计算 EMA "
+"等指标，与实盘“当时仅能看到的历史”一致，从机制上避免未来函数。"
+msgstr ""
+"**每步運行前**：引擎調用 **update_running_data_window**，把**當前 step 對應的數據窗口**寫入策略屬性；策略在"
+" `realize()` 內通過 **get_data(dtype_id)** 取到的僅是**該步可見的窗口**，在此窗口上計算 EMA "
+"等指標，與實盤“當時僅能看到的歷史”一致，從機制上避免未來函數。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:35
+msgid ""
+"数据流是“声明 → 引擎按步注入 → get_data 引用”，策略代码不包含“读表”或“拉取”逻辑。详见 [策略如何声明与使用数据](03-data-"
+"in-strategies.md)。"
+msgstr ""
+"數據流是“聲明 → 引擎按步注入 → get_data 引用”，策略代碼不包含“讀表”或“拉取”邏輯。詳見 [策略如何聲明與使用數據](03-data-"
+"in-strategies.md)。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:37
+msgid "3.3 use_latest_data_cycle（ulc）的含义与影响"
+msgstr "3.3 use_latest_data_cycle（ulc）的含義與影響"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:39
+msgid "**use_latest_data_cycle** 控制数据窗口是否包含**当根 K 线**："
+msgstr "**use_latest_data_cycle** 控制數據窗口是否包含**當根 K 線**："
+
+#: ../../source/design/08-design-rationale-and-advantages.md:41
+msgid "**True**：窗口可含当前 bar（如收盘价），对应“交易时是否允许用当时最新价”的建模。"
+msgstr "**True**：窗口可含當前 bar（如收盤價），對應“交易時是否允許用當時最新價”的建模。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:42
+msgid "**False**：窗口严格小于当前时刻，仅用“过去已收盘”的数据。"
+msgstr "**False**：窗口嚴格小於當前時刻，僅用“過去已收盤”的數據。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:44
+msgid "该开关对长期回测结果影响显著，qteasy 将其作为可配置项在策略声明与运行配置中暴露，文档与 API 中应明确写出并指向配置说明。"
+msgstr "該開關對長期回測結果影響顯著，qteasy 將其作爲可配置項在策略聲明與運行配置中暴露，文檔與 API 中應明確寫出並指向配置說明。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:46
+msgid "4. 独特优势小结"
+msgstr "4. 獨特優勢小結"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:48
+msgid "**高速 + 防未来函数**：在保证“每步仅用当时可见数据”的前提下，实现向量化 + Numba 的快速回测，兼顾速度与回测可信度。"
+msgstr "**高速 + 防未來函數**：在保證“每步僅用當時可見數據”的前提下，實現向量化 + Numba 的快速回測，兼顧速度與回測可信度。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:49
+msgid "**精细交易建模**：T+1、费用、交割、MOQ 以及“是否用当根数据”等均可建模，长期回测对这类细节敏感，qteasy 支持显式配置。"
+msgstr "**精細交易建模**：T+1、費用、交割、MOQ 以及“是否用當根數據”等均可建模，長期回測對這類細節敏感，qteasy 支持顯式配置。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:50
+msgid ""
+"**简洁接口**：用户只需在 `realize()` 中 `get_data()` "
+"取数并计算信号，数据窗口与时间对齐由框架负责，降低误用未来数据的可能。"
+msgstr ""
+"**簡潔接口**：用戶只需在 `realize()` 中 `get_data()` "
+"取數並計算信號，數據窗口與時間對齊由框架負責，降低誤用未來數據的可能。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:52
+msgid "5. 代码依据摘要"
+msgstr "5. 代碼依據摘要"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:54
+msgid ""
+"数据准备与窗口：`history.py` 中 `check_and_prepare_backtest_data`；`qt_operator.py` 中 "
+"`prepare_data_buffer`、`create_data_windows`（对 `buffered_data.values` 做 "
+"`rolling_window` 并与运行 schedule 对齐）；`ulc` 决定窗口是否含当根。"
+msgstr ""
+"數據準備與窗口：`history.py` 中 `check_and_prepare_backtest_data`；`qt_operator.py` 中 "
+"`prepare_data_buffer`、`create_data_windows`（對 `buffered_data.values` 做 "
+"`rolling_window` 並與運行 schedule 對齊）；`ulc` 決定窗口是否含當根。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:55
+msgid ""
+"按步注入：`qt_operator.py` 中 `run_strategy(step_index)` 每步对策略调用 "
+"`update_running_data_window(..., window_index=step_index)`；`strategy.py` 中 "
+"`update_running_data_window` 将对应数据窗口赋给策略属性，`get_data()` 读取的即为该步窗口。"
+msgstr ""
+"按步注入：`qt_operator.py` 中 `run_strategy(step_index)` 每步對策略調用 "
+"`update_running_data_window(..., window_index=step_index)`；`strategy.py` 中 "
+"`update_running_data_window` 將對應數據窗口賦給策略屬性，`get_data()` 讀取的即爲該步窗口。"
+
+#: ../../source/design/08-design-rationale-and-advantages.md:57
+msgid "更多实现细节见《架构与设计》各章与 API 参考。"
+msgstr "更多實現細節見《架構與設計》各章與 API 參考。"

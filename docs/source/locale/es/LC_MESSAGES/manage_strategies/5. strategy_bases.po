@@ -3,82 +3,97 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:1
 msgid "三种策略基类：RuleIterator、FactorSorter、GeneralStg"
 msgstr ""
+"Tres clases base de estrategia: RuleIterator, FactorSorter, GeneralStg"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:3
 msgid ""
 "qteasy 中自定义策略通常继承自三种基类之一，按使用场景选择：**RuleIterator** "
 "适用于择时或单规则迭代；**FactorSorter** 适用于因子选股；**GeneralStg** 适用于通用多资产或多规则信号。"
 msgstr ""
+"Las estrategias personalizadas en qteasy generalmente heredan una de las "
+"tres clases base: **``RuleIterator``** for timing or single-rule iteration; "
+"**``FactorSorter``** for factor-based stock selection; **``GeneralStg``** "
+"para señales generales de múltiples activos o múltiples reglas."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:5
 msgid "何时用哪种基类"
-msgstr ""
+msgstr "Qué clase base usar"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:7
-msgid "**RuleIterator**：单标的或单规则、逐周期迭代（如均线择时、MACD 择时）。输入多为单标的或多标的的行情序列，输出为仓位或单一信号。"
+msgid ""
+"**RuleIterator**：单标的或单规则、逐周期迭代（如均线择时、MACD 择时）。输入多为单标的或多标的的行情序列，输出为仓位或单一信号。"
 msgstr ""
+"**``RuleIterator``**: Iteración de un solo instrumento o de una sola regla "
+"por período (por ejemplo, sincronización MA o MACD). Los insumos suelen ser "
+"series de precios; La salida es una señal de posición o escalar."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:8
 msgid ""
 "**FactorSorter**：多标的按某一因子排序，选取前 N 或后 N 名（选股）。需设置 "
 "**max_sel_count**、**sort_ascending** 等。"
-msgstr ""
+msgstr "**`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`**, etc."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:9
 msgid ""
-"**GeneralStg**：更通用的多资产、多规则或自定义输入输出形状的策略，当 RuleIterator/FactorSorter "
-"无法满足时使用。"
+"**GeneralStg**：更通用的多资产、多规则或自定义输入输出形状的策略，当 RuleIterator/FactorSorter 无法满足时使用。"
 msgstr ""
+"**``GeneralStg``**: More flexible multi-asset, multi-rule, or custom I/O "
+"shapes when ``RuleIterator``/``FactorSorter`` no son suficientes."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:11
 msgid "RuleIterator"
-msgstr ""
+msgstr "RuleIterator"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:13
 msgid ""
 "**输入/输出**：通常通过 ``get_data(dtype_id)`` 获取 OHLCV 等，在 ``realize()`` "
 "中计算并返回一维信号（如目标仓位 0～1）。"
 msgstr ""
+"**Entrada/salida**: normalmente recupera OHLCV a través de "
+"``get_data(dtype_id)`` and return a 1-D signal in ``realize()`` (por "
+"ejemplo, posición de destino 0–1)."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:14
 msgid "**典型用法**：均线金叉死叉、MACD 柱状图符号等。"
-msgstr ""
+msgstr "**Uso típico**: cruces MA, signo de histograma MACD, etc."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:15
 msgid "简短示例（逻辑示意）："
-msgstr ""
+msgstr "Breve ejemplo (bosquejo lógico):"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:29
 msgid "多标的参数（必读）"
-msgstr ""
+msgstr "Parámetros de múltiples instrumentos (lectura requerida)"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:31
 msgid ""
-"**需要每股不同参数时**：必须在 ``set_shares`` / ``Operator.set_shares`` 之后，用 **字典** 调用"
-" ``update_par_values({代码: (参数元组), ...})``（或通过 "
-"``Operator.set_parameter(..., par_values={...})`` 等效传入）。字典的键须与当前标的列表中的字符串"
-" **完全一致**。框架据此建立按标的顺序排列的 per-share 参数；之后在 ``realize()`` 里用 ``get_pars()``"
-" / ``update_par_values()`` 即可，由框架在 ``generate()`` 循环内对齐当前股票。"
+"**需要每股不同参数时**：必须在 ``set_shares`` / ``Operator.set_shares`` 之后，用 **字典** 调用 "
+"``update_par_values({代码: (参数元组), ...})``（或通过 ``Operator.set_parameter(..., "
+"par_values={...})`` 等效传入）。字典的键须与当前标的列表中的字符串 **完全一致**。框架据此建立按标的顺序排列的 per-"
+"share 参数；之后在 ``realize()`` 里用 ``get_pars()`` / ``update_par_values()`` "
+"即可，由框架在 ``generate()`` 循环内对齐当前股票。"
 msgstr ""
+"**Parámetros por acción**: Después "
+"`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧⟦CÓDIGO5⟧⟦CÓDIGO6⟧⟦CÓDIGO7 "
+"⟧⟦CÓDIGO8⟧⟦CÓDIGO9⟧⟦CÓDIGO10⟧⟦CÓDIGO11⟧⟦CÓDIGO12⟧⟦CÓDIGO13⟧⟦CÓDIGO14⟧`."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:32
 msgid ""
@@ -86,6 +101,12 @@ msgid ""
 "``_pars``）。若本意是「每只股票独立一套参数」却未传字典，易产生静默语义偏差；**刻意让所有股票共用一套初值并一起演化** "
 "时，用元组是合理选择。"
 msgstr ""
+"**Inicio de tupla/posicional**: con múltiples recursos compartidos, el "
+"tiempo de ejecución utiliza **un conjunto de parámetros compartido** (único "
+"``_pars``). Si pretendía parámetros por acción pero omitió un dict, la "
+"semántica puede divergir silenciosamente; las tuplas están bien cuando "
+"**todos los recursos compartidos deben compartir valores iniciales y "
+"evolucionar juntos**."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:33
 msgid ""
@@ -95,30 +116,43 @@ msgid ""
 "``update_par_values`` 独立演进。实现上 **没有** ``others``、``rest`` "
 "等其它魔法键名，请勿使用未文档化的键。"
 msgstr ""
+"**`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧⟦CÓDIGO5⟧⟦COD "
+"E6⟧⟦CÓDIGO7⟧⟦CÓDIGO8⟧⟦CÓDIGO9⟧⟦CÓDIGO10⟧⟦CÓDIGO11⟧⟦CÓDIGO12⟧` Llave mágica: "
+"no utilice llaves no documentadas."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:35
 msgid "FactorSorter"
-msgstr ""
+msgstr "FactorSorter"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:37
 msgid ""
 "**输入/输出**：获取因子数据（如收益率、波动率），在 ``realize()`` 中返回每个标的的因子值；基类按 "
 "**sort_ascending** 排序后取前 **max_sel_count** 个形成选股列表。"
 msgstr ""
+"**Entrada/salida**: obtenga datos de factores (rendimiento, volatilidad, "
+"etc.), valores de factor de retorno por acción en ``realize()``; the base "
+"class sorts by **``sort_ascending``** and picks top **``max_sel_count``** "
+"acciones."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:38
 msgid "**属性**：max_sel_count（选股数量）、sort_ascending（True 升序取最小，False 降序取最大）等。"
 msgstr ""
+"**Atributos**: ``max_sel_count`` (selection count), ``sort_ascending`` "
+"(Verdadero = el más pequeño primero, Falso = el más grande primero), etc."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:40
 msgid "GeneralStg"
-msgstr ""
+msgstr "GeneralStg"
 
 #: ../../source/manage_strategies/5. strategy_bases.md:42
 msgid "**输入/输出**：更灵活，可自定义所需 DataType 与返回数组形状，适用于多资产权重、多规则组合等。"
 msgstr ""
+"**Entrada/salida**: Entradas flexibles personalizadas ``DataType`` y formas "
+"de matriz de salida; ponderaciones de múltiples activos, combinaciones de "
+"múltiples reglas, etc."
 
 #: ../../source/manage_strategies/5. strategy_bases.md:43
 msgid "**适用场景**：不限于单标的择时或简单因子选股时的自定义逻辑。"
 msgstr ""
-
+"**Usar cuando**: Lógica personalizada más allá de la simple selección de "
+"tiempo o factor."

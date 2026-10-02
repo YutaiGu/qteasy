@@ -1,0 +1,72 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:1
+msgid "大小盘轮动投资策略（教学等价版）"
+msgstr "大型株・小型株ローテーション投資戦略（教育版相当）"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_15_大小盘轮动投资策略.ipynb`。   说明：该 "
+"notebook 的首个 Markdown cell 为空，本文按策略名称与后续代码意图给出教学实现。"
+msgstr ""
+"参照元：`docs/_joinquant_migration_source/Example_15_Small-Cap Rotation "
+"Investment Strategy.ipynb`。注: このノートブックの最初の Markdown "
+"セルは空です。この記事では、ストラテジー名と後続のコードの意図に従って教育の実装を提供します。"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:6
+msgid "策略思路"
+msgstr "戦略とアイデア"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:8
+msgid "选取大盘/中小盘代理指数；"
+msgstr "大型株/小型株のプロキシ インデックスを選択します。"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:9
+msgid "比较近 N 日相对强弱；"
+msgstr "過去 N 日間の相対的な強度を比較します。"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:10
+msgid "将组合权重集中到强势标的，实现大小盘轮动。"
+msgstr "ポートフォリオのウェイトを強い株式に集中させることで、大型株と小型株の間のローテーションを達成できます。"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:12
+msgid "qteasy 实现"
+msgstr "QtEasyの実装"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:14
+msgid "策略类：`Example15LargeSmallRotation`；"
+msgstr "戦略クラス: `Example 15 Large Small Rotation`;"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:15
+msgid "信号类型：`PT`；"
+msgstr "信号タイプ: `PT`;"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:16
+msgid "默认指数池：`000300.SH`、`000905.SH`、`000852.SH`。"
+msgstr "デフォルトのインデックス プール: `000300.SH`、`000905.SH`、`000852.SH`。"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:41
+msgid "可执行脚本"
+msgstr "実行可能スクリプト"
+
+#: ../../source/examples/Example_15_大小盘轮动投资.md:43
+msgid "`examples/strategy_example_15.py`"
+msgstr "`examples/strategy_example_15.py`"

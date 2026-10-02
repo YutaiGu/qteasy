@@ -3,94 +3,138 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/api/Operators.rst:2
 msgid "Operator 交易员类"
-msgstr ""
+msgstr "clase Operator"
 
 #: ../../source/api/Operators.rst:4
 msgid "Operator(交易员)类，用于生成Operator对象，qteasy的核心对象。"
 msgstr ""
+"La clase Operator, utilizada para crear objetos Operator, el objeto "
+"principal de qteasy."
 
 #: ../../source/api/Operators.rst:6
 msgid ""
 "Operator是一个策略容器，它包含一系列交易策略，保存每一个交易策略所需的历史数据，并且可以调用所有交易策略，生成交易信号， "
 "同时根据保存的规则把所有交易策略生成的信号混合起来，形成一组最终的交易信号。就像一个交易员在实际交易中的行为一样。"
 msgstr ""
+"Operator es un contenedor de estrategias. Contiene una serie de estrategias "
+"comerciales, almacena los datos históricos requeridos por cada estrategia "
+"comercial y puede invocar todas las estrategias comerciales para generar "
+"señales comerciales. Al mismo tiempo, mezcla las señales generadas por todas"
+" las estrategias comerciales de acuerdo con las reglas guardadas para formar"
+" un conjunto final de señales comerciales, tal como el comportamiento de un "
+"comerciante en el comercio real."
 
 #: ../../source/api/Operators.rst:9
 msgid ""
 "创建一个Operator对象时，需要给出一组交易策略，并设定好交易员的交易模式和信号模式，交易模式和信号模式都是Operator对象最重要 "
 "的属性，他们共同决定了交易员的行为模式:"
 msgstr ""
+"Para crear un objeto Operator, debe proporcionar un conjunto de estrategias "
+"comerciales y establecer los modos de negociación y señalización del "
+"comerciante, que son los atributos más importantes del objeto Operator y "
+"juntos determinan el patrón de comportamiento del comerciante:."
 
 #: of qteasy.qt_operator.Operator:1
 msgid "qteasy 中的核心「交易员」对象，用于承载策略组并在统一时间表上生成交易信号。"
 msgstr ""
+"El objeto \"comerciante\" principal en qteasy, se utiliza para mantener un "
+"grupo de estrategias y generar señales comerciales en un cronograma "
+"unificado."
 
 #: of qteasy.qt_operator.Operator:3
 msgid ""
 "Operator 负责管理一个或多个策略组，准备并缓存运行所需的历史数据，按照运行频率 "
-"与时机调用各策略生成信号，并按组内/组间合并规则将信号合成为最终的交易指令， 可用于回测、优化和实盘运行。关于 Operator 与 "
-"Strategy / Group 的关系、run_freq / run_timing 单一来源等架构细节，详见文档「Operator / "
-"Strategy / Group 架构」章节。"
+"与时机调用各策略生成信号，并按组内/组间合并规则将信号合成为最终的交易指令， 可用于回测、优化和实盘运行。关于 Operator 与 Strategy "
+"/ Group 的关系、run_freq / run_timing 单一来源等架构细节，详见文档「Operator / Strategy / Group"
+" 架构」章节。"
 msgstr ""
+"Operator es responsable de administrar uno o más grupos de estrategias, "
+"preparar y almacenar en caché los datos históricos necesarios para la "
+"ejecución, llamar a cada estrategia para generar señales de acuerdo con la "
+"frecuencia y el momento de ejecución, y fusionar señales en instrucciones "
+"comerciales finales de acuerdo con las reglas de fusión "
+"intragrupo/intergrupo. Se puede utilizar para realizar pruebas "
+"retrospectivas, optimización y operaciones en vivo. Para obtener detalles "
+"arquitectónicos como la relación entre Operator y Estrategia/Grupo y la "
+"única fuente de verdad para run_freq/run_timing, consulte la sección "
+"“Operator/Estrategia/Arquitectura de grupo” de la documentación."
 
 #: of qteasy.qt_operator.Operator.add_strategies:1
 msgid "添加多个Strategy交易策略到Operator对象中"
 msgstr ""
+"Agregue múltiples estrategias comerciales de estrategia al objeto Operator."
 
 #: of qteasy.qt_operator.Operator.add_strategies:3
 msgid ""
 "使用这个方法，不能在添加交易策策略的同时修改交易策略的基本属性 输入参数strategies可以为一个列表或者一个逗号分隔字符串 "
 "列表中的元素可以为代表内置策略类型的字符串，或者为一个具体的策略对象 字符串和策略对象可以混合给出"
 msgstr ""
+"Con este método, no es posible modificar las propiedades básicas de una "
+"estrategia comercial mientras se agrega una estrategia comercial. Las "
+"estrategias de los parámetros de entrada pueden ser una lista o una cadena "
+"separada por comas. Los elementos de la lista pueden ser cadenas que "
+"representen los tipos de estrategias integradas o un objeto de estrategia "
+"específico. Las cadenas y los objetos de estrategia se pueden proporcionar "
+"como una combinación."
 
-#: ../../source/api/Operators.rst of qteasy.qt_operator.Operator.add_strategies
+#: ../../source/api/Operators.rst of
+#: qteasy.qt_operator.Operator.add_strategies
 #: qteasy.qt_operator.Operator.add_strategy
 #: qteasy.qt_operator.Operator.get_group
 #: qteasy.qt_operator.Operator.get_group_by_id
 #: qteasy.qt_operator.Operator.set_blender
 #: qteasy.qt_operator.Operator.set_opt_par_values
 msgid "参数"
-msgstr ""
+msgstr "Parámetros"
 
 #: of qteasy.qt_operator.Operator.add_strategies:8
 msgid "交易策略的名称或者交易策略对象"
 msgstr ""
+"El nombre de la estrategia comercial o del objeto de la estrategia "
+"comercial."
 
 #: of qteasy.qt_operator.Operator.add_strategies:10
 #: qteasy.qt_operator.Operator.add_strategy:7
 msgid "run_freq为策略的运行频率，可以为None，表示不指定运行频率"
 msgstr ""
+"run_freq es la frecuencia de ejecución de la estrategia; puede ser Ninguno, "
+"lo que significa que no se especifica ninguna frecuencia de ejecución."
 
 #: of qteasy.qt_operator.Operator.add_strategies:12
 #: qteasy.qt_operator.Operator.add_strategy:9
 msgid "run_timing为策略的运行时机，可以为None，表示不指定运行时机"
 msgstr ""
+"run_timing es el tiempo de ejecución de la estrategia; puede ser Ninguno, lo"
+" que significa que no se especifica ningún tiempo de ejecución."
 
 #: of qteasy.qt_operator.Operator.add_strategies:14
 msgid ""
 "添加的交易策略所共享的属性，如 run_timing、run_freq、window_length、 "
 "use_latest_data_cycle、freq、asset_type、data_type_ids 等（会传入 add_strategy）"
 msgstr ""
+"Propiedades compartidas por las estrategias comerciales agregadas, como "
+"run_timing, run_freq, window_length, use_latest_data_cycle, freq, "
+"active_type, data_type_ids, etc. (pasadas a add_strategy)."
 
-#: ../../source/api/Operators.rst of qteasy.qt_operator.Operator.add_strategies
+#: ../../source/api/Operators.rst of
+#: qteasy.qt_operator.Operator.add_strategies
 #: qteasy.qt_operator.Operator.add_strategy
 #: qteasy.qt_operator.Operator.get_group
 #: qteasy.qt_operator.Operator.get_group_by_id
@@ -98,7 +142,7 @@ msgstr ""
 #: qteasy.qt_operator.Operator.set_blender
 #: qteasy.qt_operator.Operator.set_opt_par_values
 msgid "返回类型"
-msgstr ""
+msgstr "Tipo de devolución"
 
 #: of qteasy.qt_operator.Operator.add_strategies:21
 #: qteasy.qt_operator.Operator.add_strategy:32
@@ -109,274 +153,396 @@ msgstr ""
 #: qteasy.qt_operator.Operator.reset:9
 #: qteasy.qt_operator.Operator.set_blender:18
 msgid "示例"
-msgstr ""
+msgstr "Ejemplo"
 
 #: of qteasy.qt_operator.Operator.add_strategy:1
 msgid "添加一个strategy交易策略到operator对象中"
-msgstr ""
+msgstr "Agregue una estrategia al objeto operador."
 
 #: of qteasy.qt_operator.Operator.add_strategy:3
 msgid "如果调用本方法添加一个交易策略到Operator中，可以在添加的时候同时修改或指定交易策略的基本属性"
 msgstr ""
+"Si llama a este método para agregar una estrategia comercial a Operator, "
+"puede modificar o especificar las propiedades básicas de la estrategia "
+"comercial al mismo tiempo que la agrega."
 
 #: of qteasy.qt_operator.Operator.add_strategy:5
 msgid "需要添加的交易策略，也可以是内置交易策略的策略id或策略名称"
 msgstr ""
+"La estrategia comercial que se agregará, que también puede ser la "
+"identificación de la estrategia o el nombre de la estrategia comercial "
+"incorporada."
 
 #: of qteasy.qt_operator.Operator.add_strategy:11
 msgid ""
 "任意合法的策略属性，可以在添加策略时直接给该策略属性赋值， 必须明确指定需要修改的属性名称，包含 - pars: dict or tuple, "
-"策略可调参数 - opt_tag: int, 策略优化标签 - stg_type: int, 策略类型 - par_count: int, "
-"策略参数个数 - par_types: list, 策略参数类型 - par_ranges: list, 策略参数范围 - data_freq: "
-"str, 策略数据频率 - window_length: int, 策略窗口长度 - run_freq: str, 策略采样频率 - "
-"data_types: list, 策略数据类型 - data_type_id: str, 策略数据类型 ID（用于 "
-"update_data_types） - freq: str or list or dict, 数据类型的频率（修改会替换对应 DataType）"
-" - asset_type: str or list or dict, 数据类型的资产类型（修改会替换对应 DataType） - group: "
-"str, 策略运行时机 - use_latest_data_cycle: bool, 策略是否使用最新数据周期"
+"策略可调参数 - opt_tag: int, 策略优化标签 - stg_type: int, 策略类型 - par_count: int, 策略参数个数"
+" - par_types: list, 策略参数类型 - par_ranges: list, 策略参数范围 - data_freq: str, "
+"策略数据频率 - window_length: int, 策略窗口长度 - run_freq: str, 策略采样频率 - data_types: "
+"list, 策略数据类型 - data_type_id: str, 策略数据类型 ID（用于 update_data_types） - freq: "
+"str or list or dict, 数据类型的频率（修改会替换对应 DataType） - asset_type: str or list or "
+"dict, 数据类型的资产类型（修改会替换对应 DataType） - group: str, 策略运行时机 - "
+"use_latest_data_cycle: bool, 策略是否使用最新数据周期"
 msgstr ""
+"Cualquier atributo de estrategia válido se puede asignar directamente al "
+"agregar la estrategia. Debe especificar explícitamente el nombre del "
+"atributo a modificar, incluido - pars: dict o tuple, parámetros ajustables "
+"de la estrategia - opt_tag: int, etiqueta de optimización de la estrategia -"
+" stg_type: int, tipo de estrategia - par_count: int, número de parámetros de"
+" la estrategia - par_types: lista, tipos de parámetros de la estrategia - "
+"par_ranges: lista, rangos de parámetros de la estrategia - data_freq: str, "
+"frecuencia de los datos de la estrategia - window_length: int, longitud de "
+"la ventana de la estrategia - run_freq: str, muestreo de la estrategia "
+"frecuencia - data_types: lista, tipos de datos de estrategia - data_type_id:"
+" str, ID de tipo de datos de estrategia (usado para update_data_types) - "
+"freq: str o list o dict, frecuencia del tipo de datos (modificarlo "
+"reemplazará el DataType correspondiente) - active_type: str o list o dict, "
+"tipo de activo del tipo de datos (modificarlo reemplazará el DataType "
+"correspondiente) - grupo: str, tiempo de ejecución de estrategia - "
+"use_latest_data_cycle: bool, si la estrategia utiliza el último ciclo de "
+"datos"
 
 #: of qteasy.Operator.all_dynamic_dtypes:1
 msgid "返回 operator 内“旧式”动态数据类型集合；已废弃，始终返回空。"
 msgstr ""
+"Devuelve la colección de tipos de datos dinámicos \"heredados\" en el "
+"operador; obsoleto, siempre devuelve vacío."
 
 #: of qteasy.Operator.all_dynamic_dtypes:3
-msgid "过程数据现统一通过 get_data('proc.xxx') 访问，不再通过 DataType 声明。 保留本属性仅为兼容调用方，返回空字典。"
+msgid ""
+"过程数据现统一通过 get_data('proc.xxx') 访问，不再通过 DataType 声明。 保留本属性仅为兼容调用方，返回空字典。"
 msgstr ""
+"Ahora se accede a los datos del proceso de manera uniforme a través de "
+"get_data('proc.xxx') y ya no se declaran a través de DataType. Este atributo"
+" se mantiene solo por compatibilidad con la persona que llama y devuelve un "
+"dictado vacío."
 
 #: of qteasy.Operator.all_strategy_data_types:1
 msgid "返回operator对象所有策略自对象的回测价格类型和交易清单历史数据类型的集合"
 msgstr ""
+"Devuelve el conjunto de tipos de precios de prueba retrospectiva y tipos de "
+"datos del historial de listas comerciales para todas las estrategias del "
+"objeto operador del objeto."
 
 #: of qteasy.qt_operator.Operator.check_dynamic_data:1
 msgid "检查operator对象是否包含动态数据类型（即依赖交易结果的历史数据）以生成交易信号。"
 msgstr ""
+"Compruebe si el objeto operador contiene tipos de datos dinámicos (es decir,"
+" datos históricos que dependen de los resultados comerciales) para generar "
+"señales comerciales."
 
 #: of qteasy.qt_operator.Operator.check_dynamic_data:3
 msgid "若任意策略在 realize() 中使用了 get_data('proc.xxx')，则视为依赖动态过程数据，需走动态回测分支。"
 msgstr ""
+"Si alguna estrategia usa get_data('proc.xxx') en realizar(), se considera "
+"que depende de los datos del proceso dinámico y debe usar la rama de "
+"backtesting dinámico."
 
 #: of qteasy.qt_operator.Operator.clear_strategies:1
 msgid "清空Operator对象中的所有交易策略"
-msgstr ""
+msgstr "Vacíe el objeto Operator de todas las estrategias comerciales."
 
 #: of qteasy.qt_operator.Operator.create_data_windows:1
 msgid ""
-"Create data windows for each strategy and its data types. Also create "
-"data window indices for each strategy and its data types. data window "
-"indices are created according to group schedules."
+"Create data windows for each strategy and its data types. Also create data "
+"window indices for each strategy and its data types. data window indices are"
+" created according to group schedules."
 msgstr ""
+"Create data windows for each strategy and its data types. Also create data "
+"window indices for each strategy and its data types. Data window indices are"
+" created according to group schedules."
 
 #: of qteasy.qt_operator.Operator.disable_tracing:1
 msgid "禁用Operator对象中所有strategy的跟踪功能"
 msgstr ""
+"Deshabilite el seguimiento para todas las estrategias en el objeto Operator."
 
 #: of qteasy.qt_operator.Operator.disable_tracing:3
 msgid "禁用跟踪功能后，Operator对象在运行过程中不会记录调试信息，从而提高运行效率"
 msgstr ""
+"Después de deshabilitar el seguimiento, el objeto Operator no registrará "
+"información de depuración durante la ejecución, lo que mejorará la "
+"eficiencia del tiempo de ejecución."
 
 #: of qteasy.Operator.empty:1
 msgid "检查operator是否包含任何策略"
-msgstr ""
+msgstr "Compruebe si el operador contiene alguna política."
 
 #: of qteasy.qt_operator.Operator.enable_tracing:1
 msgid "启用Operator对象中所有strategy的跟踪功能"
 msgstr ""
+"Habilite el seguimiento para todas las estrategias en el objeto Operator"
 
 #: of qteasy.qt_operator.Operator.enable_tracing:3
 msgid "启用跟踪功能后，Operator对象在运行过程中会记录更多的调试信息，便于后续分析和调试"
 msgstr ""
+"Después de habilitar el seguimiento, el objeto Operator registrará más "
+"información de depuración durante la ejecución, lo que facilitará el "
+"análisis y la depuración posteriores."
 
 #: of qteasy.qt_operator.Operator.get_blender:1
 msgid "返回operator对象中的多空蒙板混合器, 如果不指定group_name的话，输出完整的blender字典"
 msgstr ""
+"Devuelve el mezclador de máscara larga/corta en el objeto operador. Si no se"
+" especifica nombre_grupo, genere el diccionario completo de Blender."
 
 #: of qteasy.qt_operator.Operator.get_blender:3
 msgid "一个可用的group_name"
-msgstr ""
+msgstr "Un nombre_grupo disponible"
 
 #: ../../source/api/Operators.rst
 msgid "返回"
-msgstr ""
+msgstr "Atrás"
 
 #: of qteasy.qt_operator.Operator.get_blender:6
 msgid ""
 "**blender** -- 如果group_name为None，则返回一个字典，其中包含所有的run_timing的blender "
 "如果group_name不为None，则返回一个列表，其中包含该run_timing的blender"
 msgstr ""
+"**blender**: si group_name es Ninguno, devuelve un diccionario que contiene "
+"los mezcladores para todos los valores de run_timing. Si group_name no es "
+"Ninguno, devuelve una lista que contiene los mezcladores para ese "
+"run_timing."
 
 #: of qteasy.qt_operator.Operator.get_group:1
 msgid "根据group_idx获取一个Group对象，等同于get_group_by_id方法"
 msgstr ""
+"Obtenga un objeto de grupo por group_idx, equivalente al método "
+"get_group_by_id."
 
 #: of qteasy.qt_operator.Operator.get_group:3
 msgid "策略组的序号"
-msgstr ""
+msgstr "El número de índice del grupo de estrategia."
 
 #: of qteasy.qt_operator.Operator.get_group_by_id:1
 msgid "根据group_id获取一个Group对象"
-msgstr ""
+msgstr "Obtener un objeto de grupo por group_id"
 
 #: of qteasy.qt_operator.Operator.get_group_by_id:3
 msgid "策略组的名称ID或序号"
-msgstr ""
+msgstr "El ID del nombre o el número de índice del grupo de estrategias."
 
 #: of qteasy.qt_operator.Operator.get_group_by_id:9
 #: qteasy.qt_operator.Operator.get_stg:9 qteasy.qt_operator.Operator.reset:4
 #: qteasy.qt_operator.Operator.set_opt_par_values:12
 msgid "备注"
-msgstr ""
+msgstr "Nota"
 
 #: of qteasy.qt_operator.Operator.get_group_by_id:10
-msgid "1，当group_id为int时，返回的是序号为group_id的策略组 2，当group_id为str时，返回的是ID为group_id的组"
+msgid ""
+"1，当group_id为int时，返回的是序号为group_id的策略组 2，当group_id为str时，返回的是ID为group_id的组"
 msgstr ""
+"1. Cuando group_id es un int, devuelve el grupo de estrategias cuyo índice "
+"es group_id. 2. Cuando group_id es una cadena, devuelve el grupo cuyo ID es "
+"group_id."
 
 #: of qteasy.qt_operator.Operator.get_max_window_length_by_dtype_id:1
 msgid "计算并返回operator对象某个datatype最长的窗口长度。"
 msgstr ""
+"Calcule y devuelva la longitud máxima de la ventana para un determinado tipo"
+" de datos del objeto operador."
 
 #: of qteasy.qt_operator.Operator.get_max_window_length_by_dtype_id:3
 msgid "需要查询的历史数据类型的dtype_id"
-msgstr ""
+msgstr "El dtype_id del tipo de datos históricos a consultar."
 
 #: of qteasy.qt_operator.Operator.get_share_idx:1
 msgid "给定一个share（字符串）返回它对应的index"
-msgstr ""
+msgstr "Dada una acción (una cadena) devuelve su índice correspondiente"
 
 #: of qteasy.qt_operator.Operator.get_share_idx:3
 msgid "share为一个字符串，表示股票代码"
-msgstr ""
+msgstr "share es una cadena que representa el código de acciones."
 
 #: of qteasy.qt_operator.Operator.get_share_idx:6
 msgid "返回一个整数，表示share对应的index"
-msgstr ""
+msgstr "Devuelve un número entero que representa el índice de la acción."
 
 #: of qteasy.qt_operator.Operator.get_signal_count:1
 msgid "获取当前运行时间表中所有策略组生成的交易信号数量"
 msgstr ""
+"Obtenga la cantidad de señales comerciales generadas por todos los grupos de"
+" estrategias en el programa de ejecución actual."
 
 #: of qteasy.qt_operator.Operator.get_signal_count:3
 msgid "如果给出steps，则只计算这些步骤对应的交易信号数量 如果为None，则计算所有步骤的交易信号数量"
 msgstr ""
+"Si se proporcionan pasos, solo calcule la cantidad de señales comerciales "
+"para esos pasos. Si no hay ninguno, calcule la cantidad de señales "
+"comerciales para todos los pasos."
 
 #: of qteasy.qt_operator.Operator.get_signal_count:7
 msgid "**int**"
-msgstr ""
+msgstr "**int**"
 
 #: of qteasy.qt_operator.Operator.get_stg:1
 #: qteasy.qt_operator.Operator.get_strategy_by_id:1
 msgid "获取一个strategy对象, Operator[item]的另一种用法"
-msgstr ""
+msgstr "Obtener un objeto de estrategia, otro uso de Operator[item]."
 
 #: of qteasy.qt_operator.Operator.get_stg:3
 #: qteasy.qt_operator.Operator.get_strategy_by_id:3
 msgid "策略的名称或序号"
-msgstr ""
+msgstr "Nombre o número de serie de la estrategia."
 
 #: of qteasy.qt_operator.Operator.get_stg:10
 msgid ""
 "1，当stg_id为int时，返回的是第stg_id个策略 2，当stg_id为str时，返回的是名称为stg_id的策略 "
 "3，当stg_id不符合要求时，返回最后一个策略"
 msgstr ""
+"1, cuando stg_id es int, se devuelve la primera estrategia stg_id 2, cuando "
+"stg_id es str, se devuelve la estrategia con nombre stg_id 3, cuando stg_id "
+"no coincide, se devuelve la última estrategia"
 
 #: of qteasy.qt_operator.Operator.get_stg:26
 msgid ":obj:`get_strategy_by_id`"
-msgstr ""
+msgstr ":obj:`get_strategy_by_id`"
 
 #: of qteasy.qt_operator.Operator.get_strategies_by_group:1
 msgid "返回operator对象中的strategy对象, timing为一个可选参数， 如果给出timing时，返回使用该timing的交易策略"
 msgstr ""
+"Devuelve el objeto de estrategia en el objeto operador, con el tiempo como "
+"parámetro opcional y, si se proporciona el tiempo, devuelve la estrategia "
+"comercial que utiliza ese tiempo."
 
 #: of qteasy.qt_operator.Operator.get_strategies_by_group:4
 msgid "一个可用的timing, by default None"
-msgstr ""
+msgstr "Un horario disponible, por defecto Ninguno"
 
 #: of qteasy.qt_operator.Operator.get_strategy_by_id:8
 msgid ":obj:`get_stg`"
-msgstr ""
+msgstr ":obj:`get_stg`"
 
 #: of qteasy.qt_operator.Operator.get_strategy_count_by_group:1
 msgid "返回策略组group_id中的所有策略数量"
 msgstr ""
+"Devuelve el número total de estrategias en el grupo de estrategias group_id"
 
 #: of qteasy.qt_operator.Operator.get_strategy_id_by_group:1
 msgid "返回策略组group_id中的所有策略ID"
 msgstr ""
+"Devuelve todos los ID de estrategia en el grupo de estrategia group_id"
 
 #: of qteasy.qt_operator.Operator.get_strategy_id_pairs:1
 msgid "返回一个generator，包含op中所有strategy和id对："
 msgstr ""
+"Devuelve un generador que contiene todos los pares de estrategias e ID en la"
+" operación:"
 
 #: of qteasy.qt_operator.Operator.get_strategy_names_by_group:1
 msgid "返回策略组group_id中的所有策略名称"
 msgstr ""
+"Devuelve todos los nombres de estrategias en el grupo de estrategias "
+"group_id"
 
 #: of qteasy.Operator.group_ids:1 qteasy.Operator.group_names:1
 msgid "返回operator对象所有策略子对象的运行时间类型"
 msgstr ""
+"Devuelve el tipo de tiempo de ejecución de todos los hijos de estrategia del"
+" objeto operador."
 
 #: of qteasy.Operator.group_merge_type:1
 msgid "返回operator对象的策略组合并方式"
-msgstr ""
+msgstr "Devuelve el método de combinación de estrategias del objeto operador."
 
 #: of qteasy.Operator.groups:1 qteasy.Operator.strategy_groups:1
 msgid "返回operator的所有策略组，返回以策略组的名称为索引的字典"
 msgstr ""
+"Devuelve todos los grupos de estrategias del operador, como un diccionario "
+"indexado por nombre del grupo de estrategias."
 
 #: of qteasy.Operator.groups_by_index:1
 msgid "返回operator的所有策略组，返回以策略组的序号为索引的字典"
 msgstr ""
+"Devuelve todos los grupos de estrategias del operador, como un diccionario "
+"indexado por índice de grupo de estrategias."
 
 #: of qteasy.qt_operator.Operator.info:1
 msgid "打印Operator对象的信息，包括策略组、组内策略，策略混合方式等等信息"
 msgstr ""
+"Imprima información sobre el objeto Operator, incluidos los grupos de "
+"estrategias, las estrategias dentro de cada grupo, el método de combinación "
+"de estrategias, etc."
 
 #: of qteasy.qt_operator.Operator.info:3
 msgid "如果策略包含更多的信息，还会打印出策略的一些具体信息"
 msgstr ""
+"Si la estrategia contiene más información, también se imprimirán algunos "
+"detalles específicos de la estrategia."
 
 #: of qteasy.qt_operator.Operator.info:5
 msgid "是否打印出策略的详细信息, 如果为True, 则会打印出策略的详细信息"
 msgstr ""
+"Si se debe imprimir información detallada sobre las estrategias. Si es "
+"Verdadero, se imprimirá información detallada sobre las estrategias."
 
 #: of qteasy.qt_operator.Operator.is_ready:1
 msgid "检查 Operator 是否已具备生成交易信号所需的最小条件。"
 msgstr ""
+"Compruebe si Operator cumple con los requisitos mínimos necesarios para "
+"generar señales comerciales."
 
 #: of qteasy.qt_operator.Operator.is_ready:3
 msgid "典型就绪条件包括：已挂载策略、各策略组已配置 blender、历史数据类型与运行时间表 等关键字段已就绪（更细的合法性校验在后续流程完成）。"
 msgstr ""
+"Las condiciones típicas de preparación incluyen: se han montado las "
+"estrategias, cada grupo de estrategias ha configurado un mezclador y los "
+"campos clave, como los tipos de datos históricos y el cronograma de "
+"ejecución, están listos (en los pasos siguientes se completan verificaciones"
+" de validez más detalladas)."
 
 #: of qteasy.qt_operator.Operator.is_ready:6
 msgid "如果Operator对象不满足准备好的条件，是否打印出具体原因, 默认不打印"
 msgstr ""
+"Si el objeto Operator no cumple con las condiciones de preparación, si se "
+"debe imprimir el motivo específico; no se imprime de forma predeterminada."
 
 #: of qteasy.qt_operator.Operator.is_ready:8
 msgid "如果Operator对象不满足准备好的条件，是否抛出异常, 默认不抛出"
 msgstr ""
+"Si el objeto Operator no cumple con las condiciones de preparación, si se "
+"debe lanzar una excepción; no se lanza ninguna excepción de forma "
+"predeterminada."
 
 #: of qteasy.Operator.max_window_length:1
 msgid "计算并返回operator对象所有子策略中最长的窗口长度。在准备回测或优化历史数据时，以此确保有足够的历史数据供策略形成"
 msgstr ""
+"Calcule y devuelva la longitud de ventana más larga entre todas las "
+"subestrategias del objeto operador. Al preparar datos históricos para "
+"pruebas retrospectivas u optimización, utilícelos para asegurarse de que "
+"haya suficientes datos históricos para que se formen las estrategias."
 
 #: of qteasy.Operator.op_data_freq:1
-msgid "返回operator对象所有策略子对象所需数据的采样频率 如果所有strategy的data_freq相同时，给出这个值，否则给出一个排序的列表"
+msgid ""
+"返回operator对象所有策略子对象所需数据的采样频率 如果所有strategy的data_freq相同时，给出这个值，否则给出一个排序的列表"
 msgstr ""
+"Devuelve la frecuencia de muestreo de los datos requeridos por todos los "
+"subobjetos de estrategia del objeto operador. Proporciona este valor si "
+"data_freq es el mismo para todas las estrategias; de lo contrario, "
+"proporciona una lista ordenada."
 
 #: of qteasy.Operator.op_data_type_count:1
 msgid "返回operator对象生成交易清单所需的历史数据类型数量"
 msgstr ""
+"Devuelve el número de tipos de datos históricos requeridos por el objeto "
+"operador para generar una lista de transacciones"
 
 #: of qteasy.Operator.op_data_type_ids:1
 msgid "返回operator对象所有策略子对象所需历史数据类型的ID"
 msgstr ""
+"Devuelve los ID de los tipos de datos históricos requeridos por todos los "
+"subobjetos de estrategia del objeto operador."
 
 #: of qteasy.Operator.op_data_types:1
 msgid "返回operator对象所有策略子对象所需历史数据类型对象"
 msgstr ""
+"Devuelve los objetos de tipo de datos históricos requeridos por todos los "
+"subobjetos de estrategia del objeto operador."
 
 #: of qteasy.Operator.op_signal_index:1
 msgid "返回operator对象生成交易信号的index"
 msgstr ""
+"Devuelve el índice en el que el objeto operador genera señales comerciales."
 
 #: of qteasy.Operator.op_signal_types:1
 msgid ""
@@ -384,413 +550,641 @@ msgid ""
 "而不同的策略组有自己的信号类型（PT/ST/VT)，因此每一行交易信号都有可能有不同的交易 "
 "信号类型，本属性返回一个list，其中包含了op_signal_list中每一行的signal_list"
 msgstr ""
+"Los tipos de señal de la lista comercial generada. Debido a que las señales "
+"comerciales generadas pueden ser producidas por diferentes grupos de "
+"estrategias, y diferentes grupos de estrategias tienen sus propios tipos de "
+"señales (PT/ST/VT), cada fila de señales comerciales puede tener un tipo de "
+"señal comercial diferente. Esta propiedad devuelve una lista que contiene la"
+" lista de señales de cada fila en op_signal_list."
 
 #: of qteasy.Operator.op_type:1
 msgid "返回operator对象的运行类型"
-msgstr ""
+msgstr "Devuelve el tipo de ejecución del objeto operador."
 
 #: of qteasy.Operator.opt_space_par:1
 msgid "返回参与优化的子策略参数空间信息，用于构造 ``Space``。"
 msgstr ""
+"Devuelve la información del espacio de parámetros de las subestrategias que "
+"participan en la optimización, utilizada para construir ``Space``."
 
 #: of qteasy.Operator.opt_space_par:3
 msgid ""
 "遍历各子策略的 ``opt_tag``，汇总其 ``par_range`` / ``par_types`` 等字段，输出 ``(ranges, "
 "types)`` 二元组，可直接作为 ``Space`` 构造输入。"
 msgstr ""
+"Itere sobre el ``opt_tag``, aggregate fields such as ``par_range`` / "
+"``par_types``, and output the ``(ranges, types)`` tuple, which can be used "
+"directly as input to construct ``Space`` de cada subestrategia."
 
 #: of qteasy.Operator.opt_space_par:6
 msgid "``ranges`` 与 ``types`` 两个列表，分别对应各参与优化维度的取值范围与类型标记。"
 msgstr ""
+"Dos listas, ``ranges`` and ``types``, correspondientes a los rangos de "
+"valores y marcadores de tipo de cada dimensión de optimización involucrada, "
+"respectivamente."
 
 #: of qteasy.Operator.opt_tags:1
 msgid "返回所有策略的优化类型标签 该属性返回值是一个列表，按顺序列出所有交易策略的优化类型标签"
 msgstr ""
+"Devuelve las etiquetas de tipo optimizadas de todas las estrategias. El "
+"valor de retorno de este atributo es una lista de las etiquetas de tipo "
+"optimizadas de todas las estrategias comerciales en orden."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:1
 msgid "准备数据缓冲区，加载所有策略需要的数据"
 msgstr ""
+"Prepare el búfer de datos y cargue todos los datos requeridos por todas las "
+"estrategias."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:3
 msgid ""
 "数据缓冲区是一个字典，键为数据类型，值为对应的数据DataFrame，输入参数包括数据包的开始和结束日期， "
 "根据这两个日期从数据包中的每一个DataFrame中切片出相应的时间段，保存到数据缓冲区中。"
 msgstr ""
+"El búfer de datos es un diccionario cuyas claves son tipos de datos y cuyos "
+"valores son los DataFrames de datos correspondientes. Los parámetros de "
+"entrada incluyen las fechas de inicio y finalización del paquete de datos. "
+"Según estas dos fechas, el rango de tiempo correspondiente se divide de cada"
+" DataFrame en el paquete de datos y se guarda en el búfer de datos."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:6
 msgid "保存数据缓冲时，还要检查并确保数据有足够的前置量以创建数据滑窗"
 msgstr ""
+"Al guardar el búfer de datos, también verifique y asegúrese de que los datos"
+" tengan suficiente retrospectiva para crear la ventana deslizante."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:8
 msgid "数据的开始日期，默认为None，表示从数据包的起始日期开始"
 msgstr ""
+"La fecha de inicio de los datos. El valor predeterminado es Ninguno, lo que "
+"significa que comienza desde la fecha inicial del paquete de datos."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:10
 msgid "数据的结束日期，默认为None，表示到数据包的结束日期为止"
 msgstr ""
+"La fecha de finalización de los datos. El valor predeterminado es Ninguno, "
+"es decir, hasta la fecha de finalización del paquete de datos."
 
 #: of qteasy.qt_operator.Operator.prepare_data_buffer:12
 msgid ""
 "一个字典，包含所有需要的数据，键为数据类型，值为对应的数据DataFrame 例如：{'price': price_df, 'volume': "
 "volume_df, ...} 其中每个DataFrame的索引为时间戳，列为不同的标的代码"
 msgstr ""
+"Un diccionario que contiene todos los datos requeridos, con claves como "
+"tipos de datos y valores como los DataFrames de datos correspondientes. Por "
+"ejemplo: {'precio': precio_df, 'volumen': volumen_df, ...}. El índice de "
+"cada DataFrame son marcas de tiempo y las columnas son códigos de "
+"instrumentos diferentes."
 
 #: of qteasy.qt_operator.Operator.prepare_dynamic_data_buffer:1
 msgid "预留接口：过程数据已统一通过 proc.* 注入，本方法不再执行逻辑。"
 msgstr ""
+"Interfaz reservada: los datos del proceso se han inyectado uniformemente a "
+"través de proc.*; este método ya no realiza ninguna lógica."
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:1
 msgid "Running Schedule也就是策略运行时间表，包含每个策略的运行时间和频率等信息"
 msgstr ""
+"El cronograma de ejecución es el cronograma de ejecución de la estrategia y "
+"contiene información como el tiempo de ejecución y la frecuencia de cada "
+"estrategia."
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:3
 msgid ""
 "在运行策略之前，必须先准备好运行时间表，这个时间表根据交易员中每个策略组的运行时机参数确定。 "
 "运行时间表包括N行，每一行代表一个时间点，列数为策略组的数量，每个单元格表示该策略组在该时间 点是否运行，0表示不运行，1表示运行。"
 msgstr ""
+"Antes de ejecutar la estrategia, primero debe preparar el cronograma de "
+"ejecución. Este cronograma está determinado por los parámetros de tiempo de "
+"ejecución de cada grupo de estrategias en el operador. El programa de "
+"ejecución incluye N filas, donde cada fila representa un momento "
+"determinado. El número de columnas es igual al número de grupos de "
+"estrategias y cada celda indica si ese grupo de estrategias se ejecuta en "
+"ese momento: 0 significa no ejecutar, 1 significa ejecutar."
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:7
 msgid ""
 "在这个方法中，将设置以下两个属性的值： - `group_schedules`: 一个字典，键为策略组名称，值为该组的运行时间表 - "
 "`group_timing_table`: 一个DataFrame，包含所有策略组的运行时间表"
 msgstr ""
+"En este método, se establecerán los valores de los dos atributos siguientes:"
+" - `group_schedules`: un diccionario cuyas claves son nombres de grupos de "
+"estrategias y cuyos valores son el programa de ejecución para ese grupo - "
+"`group_timing_table`: un DataFrame que contiene los programas de ejecución "
+"de todos los grupos de estrategias"
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:11
 msgid "开始日期，默认为None，表示从数据源的起始日期开始"
 msgstr ""
+"Fecha de inicio. El valor predeterminado es Ninguno, lo que significa que "
+"comienza desde la fecha inicial de la fuente de datos."
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:13
 msgid "结束日期，默认为None，表示到数据源的结束日期为止"
 msgstr ""
+"Fecha de finalización; el valor predeterminado es Ninguno, lo que significa "
+"hasta la fecha de finalización de la fuente de datos"
 
 #: of qteasy.qt_operator.Operator.prepare_running_schedule:15
 msgid ""
 "其他参数，包括生成交易时间序列过程中所需的参数，如交易开始时间、结束时间等等。 "
 "详见qteasy.trading_util.trade_time_index()函数的参数说明"
 msgstr ""
+"Otros parámetros, incluidos los necesarios durante el proceso de generación "
+"de la serie temporal de operaciones, como la hora de inicio y finalización "
+"de las operaciones, etc. Consulte la descripción de los parámetros de la "
+"función qteasy.trading_util.trade_time_index() para obtener más detalles."
 
 #: of qteasy.Operator.ready:1
 msgid "属性，operator.is_ready()的另一种写法"
-msgstr ""
+msgstr "Propiedad, una forma alternativa de escribir operator.is_ready()"
 
 #: of qteasy.qt_operator.Operator.remove_strategy:1
 msgid "从Operator对象中移除一个交易策略, 删除时可以给出策略的id或者策略在Operator中的位置"
 msgstr ""
+"Elimina una estrategia comercial del objeto Operator, ya sea proporcionando "
+"la identificación de la estrategia o la posición de la estrategia en "
+"Operator."
 
 #: of qteasy.qt_operator.Operator.reset:1
 msgid "重置Operator对象的运行状态，使其可以重新开始生成交易信号"
 msgstr ""
+"Restablezca el estado de ejecución del objeto Operator para que pueda "
+"comenzar a generar señales comerciales nuevamente."
 
 #: of qteasy.qt_operator.Operator.reset:5
 msgid ""
 "该方法会重置Operator对象的所有运行数据，包括历史数据缓存、数据窗口视图、数据窗口索引、交易信号等。 "
 "重置后，Operator对象可以重新开始生成交易信号。"
 msgstr ""
+"Este método restablece todos los datos de tiempo de ejecución del objeto "
+"Operator, incluidos cachés de datos históricos, vistas de ventanas de datos,"
+" índices de ventanas de datos, señales comerciales, etc. Después del "
+"reinicio, el objeto Operator puede comenzar a generar señales comerciales "
+"nuevamente."
 
 #: of qteasy.qt_operator.Operator.run:1
 msgid "根据配置参数运行operator，支持实盘和回测两种模式"
 msgstr ""
+"Ejecute el operador de acuerdo con los parámetros de configuración, "
+"admitiendo tanto el modo de comercio en vivo como el de prueba "
+"retrospectiva."
 
 #: of qteasy.qt_operator.Operator.run:3
 msgid "运行配置参数字典"
-msgstr ""
+msgstr "Ejecutar diccionario de parámetros de configuración"
 
 #: of qteasy.qt_operator.Operator.run:5
 #: qteasy.qt_operator.Operator.run_backtest:5
 msgid "数据源对象，默认为None，表示使用全局默认数据源"
 msgstr ""
+"Objeto de fuente de datos. El valor predeterminado es Ninguno, lo que "
+"significa que se utiliza la fuente de datos predeterminada global."
 
 #: of qteasy.qt_operator.Operator.run:7
 #: qteasy.qt_operator.Operator.run_backtest:7
 msgid "日志记录器对象，默认为None，表示不使用日志记录器"
 msgstr ""
+"Objeto registrador. El valor predeterminado es Ninguno, lo que significa que"
+" no se utiliza ningún registrador."
 
 #: of qteasy.qt_operator.Operator.run:10
-msgid "**backtest_result** -- 如果运行模式为回测，则返回回测结果对象，包含回测的各种结果数据 如果运行模式为实盘，则不返回任何结果"
+msgid ""
+"**backtest_result** -- 如果运行模式为回测，则返回回测结果对象，包含回测的各种结果数据 如果运行模式为实盘，则不返回任何结果"
 msgstr ""
+"**backtest_result**: si el modo de ejecución es una prueba retrospectiva, "
+"devuelve el objeto de resultado de la prueba retrospectiva que contiene "
+"varios datos de resultados de la prueba retrospectiva. Si el modo de "
+"ejecución es comercio en vivo, no se devuelve ningún resultado."
 
 #: of qteasy.qt_operator.Operator.run_backtest:1
 msgid "在回测模式下运行operator, 使用历史数据进行交易策略的回测并生成回测结果"
 msgstr ""
+"Ejecute el operador en modo de prueba retrospectiva, utilizando datos "
+"históricos para probar la estrategia comercial y generar resultados de "
+"prueba retrospectiva."
 
 #: of qteasy.qt_operator.Operator.run_backtest:3
 msgid "回测配置参数字典"
-msgstr ""
+msgstr "Diccionario de parámetros de configuración de backtest."
 
 #: of qteasy.qt_operator.Operator.run_backtest:10
 msgid "**backtest_result** -- 回测结果对象，包含回测的各种结果数据"
 msgstr ""
+"**backtest_result**: objeto de resultado de la prueba retrospectiva, que "
+"contiene varios datos de resultados de la prueba retrospectiva."
 
 #: of qteasy.qt_operator.Operator.run_live_trade:1
 msgid "在实盘模式下运行operator"
-msgstr ""
+msgstr "Ejecute el operador en modo comercial en vivo."
 
 #: of qteasy.qt_operator.Operator.run_optimization:1
 msgid "在优化模式下运行operator"
-msgstr ""
+msgstr "Ejecute el operador en modo de optimización."
 
 #: of qteasy.qt_operator.Operator.run_prediction:1
 msgid "在与测模式下运行operator"
-msgstr ""
+msgstr "Ejecute el operador en modo de comercio en papel."
 
 #: of qteasy.qt_operator.Operator.run_strategies:1
 msgid "运行 Operator，返回运行结果；语义接近 ``qt.run(self, ...)`` 传入的关键字参数形式。"
 msgstr ""
+"Ejecute Operator y devuelva el resultado de la ejecución; la semántica está "
+"cerca de la forma de argumento de palabra clave pasada a ``qt.run(self, "
+"...)``."
 
 #: of qteasy.qt_operator.Operator.run_strategies:3
 msgid "一个可迭代对象，包含需要运行的步骤索引"
-msgstr ""
+msgstr "Un objeto iterable que contiene los índices de los pasos a ejecutar."
 
 #: of qteasy.qt_operator.Operator.run_strategies
 msgid "生成器"
-msgstr ""
+msgstr "Generador"
 
 #: of qteasy.qt_operator.Operator.run_strategies:6
 msgid ""
-"**generator** (*(signal_type, step_index, signal)*) -- "
-"返回一个生成器，包含每个步骤的交易信号 signal_type: str, 策略组的信号类型 step_index: int, 当前步骤的索引 "
-"signal: np.ndarray, 交易信号，一组数字，在不同信号类型模式下表示不同的含义"
+"**generator** (*(signal_type, step_index, signal)*) -- 返回一个生成器，包含每个步骤的交易信号 "
+"signal_type: str, 策略组的信号类型 step_index: int, 当前步骤的索引 signal: np.ndarray, "
+"交易信号，一组数字，在不同信号类型模式下表示不同的含义"
 msgstr ""
+"**generador** (*(signal_type, step_index, signal)*) -- Devuelve un generador"
+" que contiene la señal comercial para cada paso. signal_type: str, el tipo "
+"de señal del grupo de estrategias step_index: int, el índice de la señal del"
+" paso actual: np.ndarray, la señal comercial, una matriz de números cuyo "
+"significado difiere según diferentes modos de signal_type."
 
 #: of qteasy.qt_operator.Operator.run_strategy:1
 msgid "运行当前步骤的所有策略组，生成交易信号"
 msgstr ""
+"Ejecute todos los grupos de estrategias para el paso actual y genere señales"
+" comerciales."
 
 #: of qteasy.qt_operator.Operator.run_strategy:3
 msgid "本函数是一个生成器函数，返回每个策略组在当前步骤的交易信号。"
 msgstr ""
+"Esta función es una función generadora que devuelve las señales comerciales "
+"de cada grupo de estrategias en el paso actual."
 
 #: of qteasy.qt_operator.Operator.run_strategy:5
 msgid "当前步骤的索引，表示在运行时间表中的位置"
 msgstr ""
+"El índice del paso actual, que indica su posición en la programación de "
+"ejecución."
 
 #: of qteasy.qt_operator.Operator.run_strategy:8
 msgid ""
 "**generator** -- 返回一个生成器，包含每个策略组在当前步骤的交易信号 signal_type: str, 策略组的信号类型 "
 "step_index: int, 当前步骤的索引 signal: np.ndarray, 交易信号，一组数字，在不同信号类型模式下表示不同的含义"
 msgstr ""
+"**generador**: devuelve un generador que contiene la señal comercial de cada"
+" grupo de estrategias en el paso actual. signal_type: str, el tipo de señal "
+"del grupo de estrategias step_index: int, el índice de la señal del paso "
+"actual: np.ndarray, la señal comercial, una matriz de números cuyo "
+"significado difiere según diferentes modos de signal_type."
 
 #: of qteasy.qt_operator.Operator.set_blender:1
 msgid "统一的blender混合器属性设置入口"
-msgstr ""
+msgstr "Entrada unificada para configurar las propiedades de Blender"
 
 #: of qteasy.qt_operator.Operator.set_blender:3
 msgid "一个合法的交易信号混合表达式当group为None时，可以接受list为参数， 同时为所有的group设置混合表达式"
 msgstr ""
+"Una expresión combinada válida para señales comerciales, cuando el grupo es "
+"Ninguno, puede aceptar una lista como argumento y establecer la expresión "
+"combinada para todos los grupos a la vez."
 
 #: of qteasy.qt_operator.Operator.set_blender:6
 msgid ""
 "指定策略组 id 时仅更新该组；为 ``None`` 时更新全部策略组。后者在 ``blender`` 为 "
 "字符串时表示所有组使用同一表达式；为列表时按组顺序逐项设置，长度不足则复用 最后一项。"
 msgstr ""
+"Cuando se especifica una identificación de grupo de estrategias, solo se "
+"actualiza ese grupo; cuando ``None``, all strategy groups are updated. In "
+"the latter case, if ``blender`` es una cadena, significa que todos los "
+"grupos usan la misma expresión; si es una lista, configure los elementos uno"
+" por uno en orden de grupo y, si la longitud es insuficiente, reutilice el "
+"último elemento."
 
 #: ../../source/api/Operators.rst of qteasy.qt_operator.Operator.set_blender
 msgid "抛出"
-msgstr ""
+msgstr "Tirar"
 
 #: of qteasy.qt_operator.Operator.set_blender:13
 msgid "如果给出的price_type不是正确的类型"
-msgstr ""
+msgstr "Si el tipo_precio dado no es el correcto"
 
 #: of qteasy.qt_operator.Operator.set_blender:15
 msgid "如果给出的price_type不存在，则给出warning并返回"
 msgstr ""
+"Si el tipo de precio dado no existe, entonces dé una advertencia y devuelva "
+"el"
 
 #: of qteasy.qt_operator.Operator.set_group_parameters:1
 msgid ""
 "设置或修改一个策略组的参数 :param group: 策略组的ID :type group: str :param run_timing: "
-"策略组的运行时机，修改运行时机时，修改策略组中所有交易策略的运行时机 :type run_timing: str, optional :param"
-" run_freq: 策略组的运行频率，修改运行频率时，修改策略组 :type run_freq: str, optional :param "
-"signal_type: 策略组的交易信号类型，默认为'PT'，即百分比持仓目标 :type signal_type: str, optional"
-" :param blender_str: 策略组的交易信号混合表达式，可以是一个字符串或一个字符串列表 :type blender_str: "
-"str, optional :param kwargs: 其他参数，可以是任意合法的策略组参数，如group_name, run_timing, "
+"策略组的运行时机，修改运行时机时，修改策略组中所有交易策略的运行时机 :type run_timing: str, optional :param "
+"run_freq: 策略组的运行频率，修改运行频率时，修改策略组 :type run_freq: str, optional :param "
+"signal_type: 策略组的交易信号类型，默认为'PT'，即百分比持仓目标 :type signal_type: str, optional "
+":param blender_str: 策略组的交易信号混合表达式，可以是一个字符串或一个字符串列表 :type blender_str: str, "
+"optional :param kwargs: 其他参数，可以是任意合法的策略组参数，如group_name, run_timing, "
 "run_freq等 :type kwargs: dict, optional"
 msgstr ""
+"Establecer o modificar los parámetros de un grupo de estrategias :param "
+"group: el ID del grupo de estrategias :type group: str :param run_timing: el"
+" tiempo de ejecución del grupo de estrategias; al modificar el tiempo de "
+"ejecución, modifique también el tiempo de ejecución de todas las estrategias"
+" comerciales en el grupo: escriba run_timing: str, opcional: param run_freq:"
+" la frecuencia de ejecución del grupo de estrategias; al modificar la "
+"frecuencia de ejecución, modifique el grupo de estrategias: escriba "
+"run_freq: str, opcional: param signal_type: el tipo de señal comercial del "
+"grupo de estrategias; el valor predeterminado es 'PT', es decir, porcentaje "
+"de posición objetivo :type signal_type: str, opcional :param blender_str: la"
+" expresión de combinación de señales comerciales del grupo de estrategias; "
+"puede ser una cadena o una lista de cadenas :type blender_str: str, opcional"
+" :param kwargs: otros parámetros; puede ser cualquier parámetro de grupo de "
+"estrategia válido, como nombre_grupo, tiempo de ejecución, frecuencia de "
+"ejecución, etc. :tipo kwargs: dict, opcional"
 
 #: of qteasy.qt_operator.Operator.set_group_parameters:17
 msgid "如果group不是字符串或整数类型"
-msgstr ""
+msgstr "Si el grupo no es de tipo cadena o entero."
 
 #: of qteasy.qt_operator.Operator.set_group_parameters:18
 msgid "如果group不存在或无法找到"
-msgstr ""
+msgstr "Si el grupo no existe o no se puede encontrar."
 
 #: of qteasy.qt_operator.Operator.set_opt_par_values:1
 msgid "优化器侧入口：将一条参数向量按各子策略 ``opt_tag`` 切片写回。"
 msgstr ""
+"Punto de entrada del lado del optimizador: divida un vector de parámetros "
+"por cada subestrategia ``opt_tag`` y vuelva a escribirlo."
 
 #: of qteasy.qt_operator.Operator.set_opt_par_values:3
 msgid ""
 "与 ``set_parameter`` 不同，本方法面向「一条向量对应多个策略子块」的优化流程； 调用方需保证 ``par_values`` 与 "
 "``opt_space_par`` 展平顺序一致。"
 msgstr ""
+"A diferencia de ``set_parameter``, this method targets an optimization "
+"workflow where “one vector corresponds to multiple strategy sub-blocks”; the"
+" caller must ensure that ``par_values`` is consistent with the flattening "
+"order of ``opt_space_par``."
 
 #: of qteasy.qt_operator.Operator.set_opt_par_values:6
 msgid "优化器当前候选点对应的参数元组。"
 msgstr ""
+"La tupla de parámetros correspondiente al punto candidato actual del "
+"optimizador."
 
 #: of qteasy.qt_operator.Operator.set_opt_par_values:13
 msgid "内部调用 ``Strategy.update_par_values``，不在此处做参数合法性校验。"
 msgstr ""
+"Llama internamente a ``Strategy.update_par_values``; aquí no se realizan "
+"comprobaciones de validez de parámetros."
 
 #: of qteasy.qt_operator.Operator.set_parameter:1
 msgid "统一的策略参数设置入口，stg_id标识接受参数的具体成员策略，将函数参数中给定的策略参数赋值给相应的策略"
 msgstr ""
+"Entrada unificada para configurar parámetros de política, stg_id identifica "
+"la política de miembro específica que acepta el parámetro, asigna el "
+"parámetro de política proporcionado en el parámetro de función a la política"
+" correspondiente"
 
 #: of qteasy.qt_operator.Operator.set_parameter:3
 msgid "策略的名称（ID），根据ID定位需要修改参数的策略"
 msgstr ""
+"El nombre (ID) de la política para ubicar la política que requiere "
+"modificación de parámetros según el ID."
 
 #: of qteasy.qt_operator.Operator.set_parameter:5
 msgid ""
 "可调策略参数，格式为tuple 在创建一个策略的时候，可以设置部分策略参数为\"可调参数\"，这些参数的取值范围可以在策略优化 "
 "过程中进行调整，通过调整这些参数的组合，可以找到最优的策略参数组合，从而找到最优的策略"
 msgstr ""
+"Parámetros de política ajustables, en formato de tupla Al crear una "
+"política, puede establecer algunos de los parámetros de la política como "
+"\"parámetros ajustables\", el rango de valores de estos parámetros se puede "
+"ajustar en el proceso de optimización de la política. Al ajustar la "
+"combinación de estos parámetros, puede encontrar la combinación óptima de "
+"parámetros de política para encontrar la política óptima."
 
 #: of qteasy.qt_operator.Operator.set_parameter:9
 msgid ""
-"优化类型： 0: 不参加优化，在策略优化过程中不调整该策略的可调参数 1: "
-"参加优化，在策略优化过程中根据优化算法主动调整策略参数以寻找最佳参数组合 2: "
-"以枚举类型参加优化，在策略优化过程中仅从给定的参数组合种选取最优的参数组合"
+"优化类型： 0: 不参加优化，在策略优化过程中不调整该策略的可调参数 1: 参加优化，在策略优化过程中根据优化算法主动调整策略参数以寻找最佳参数组合 "
+"2: 以枚举类型参加优化，在策略优化过程中仅从给定的参数组合种选取最优的参数组合"
 msgstr ""
+"Tipo de optimización: 0: no participa en la optimización, no ajusta los "
+"parámetros ajustables de la estrategia durante el proceso de optimización de"
+" la estrategia 1: participa en la optimización, ajusta activamente los "
+"parámetros de la estrategia de acuerdo con el algoritmo de optimización "
+"durante el proceso de optimización de la estrategia para encontrar la mejor "
+"combinación de parámetros 2: participa en la optimización como un tipo de "
+"enumeración, solo selecciona la combinación óptima de parámetros de la "
+"combinación dada de parámetros durante el proceso de optimización de la "
+"estrategia"
 
 #: of qteasy.qt_operator.Operator.set_parameter:14
 msgid "策略计算所需历史数据的数据类型，如果给出，则更新这个数据类型的参数"
 msgstr ""
+"El tipo de datos históricos necesarios para el cálculo de la estrategia; si "
+"se proporciona, actualice los parámetros para este tipo de datos."
 
 #: of qteasy.qt_operator.Operator.set_parameter:16
 msgid "策略计算所需历史数据的数据类型的ID，给出该ID表明更新这个数据类型的参数"
 msgstr ""
+"El ID del tipo de datos históricos necesarios para el cálculo de la "
+"estrategia; proporcionar este ID indica que se están actualizando los "
+"parámetros para este tipo de datos."
 
 #: of qteasy.qt_operator.Operator.set_parameter:18
 msgid "窗口长度：策略计算的前视窗口长度"
 msgstr ""
+"Longitud de la ventana: la longitud de la ventana de la vista frontal "
+"calculada por la política"
 
 #: of qteasy.qt_operator.Operator.set_parameter:20
 msgid "是否使用最新的数据周期"
-msgstr ""
+msgstr "Si se debe utilizar el último período de datos."
 
 #: of qteasy.qt_operator.Operator.set_parameter:22
 msgid "数据类型的频率，若给出则用新 DataType 替换对应项（dtype_id 会随之变化）"
 msgstr ""
+"La frecuencia del tipo de datos; si se proporciona, reemplace el elemento "
+"correspondiente con el nuevo DataType (dtype_id cambiará en consecuencia)."
 
 #: of qteasy.qt_operator.Operator.set_parameter:24
 msgid "数据类型的资产类型，若给出则用新 DataType 替换对应项（dtype_id 会随之变化）"
 msgstr ""
+"El tipo de activo del tipo de datos; si se proporciona, reemplace el "
+"elemento correspondiente con el nuevo DataType (dtype_id cambiará en "
+"consecuencia)."
 
 #: of qteasy.qt_operator.Operator.set_parameter:26
 msgid "策略参数的具体取值"
-msgstr ""
+msgstr "Los valores específicos de los parámetros de la estrategia."
 
 #: of qteasy.qt_operator.Operator.set_parameter:28
 msgid "策略参数的取值范围"
-msgstr ""
+msgstr "El rango de valores de los parámetros de la estrategia."
 
 #: of qteasy.qt_operator.Operator.set_parameter:30
 msgid "如果给出该参数，则修改策略的运行频率，修改运行频率会导致将策略从策略组中移除，并重新分配到一个新的策略组中"
 msgstr ""
+"Si se proporciona este parámetro, modifique la frecuencia de ejecución de la"
+" estrategia. Cambiar la frecuencia de ejecución hará que la estrategia se "
+"elimine de su grupo de estrategias y se reasigne a un nuevo grupo de "
+"estrategias."
 
 #: of qteasy.qt_operator.Operator.set_parameter:32
 msgid "如果给出该参数，则修改策略的运行时机，修改运行时机会导致将策略从策略组中移除，并重新分配到一个新的策略组中"
 msgstr ""
+"Si se proporciona este parámetro, modifique el tiempo de ejecución de la "
+"estrategia. Cambiar el tiempo de ejecución hará que la estrategia se elimine"
+" de su grupo de estrategias y se reasigne a un nuevo grupo de estrategias."
 
 #: of qteasy.qt_operator.Operator.set_parameter:34
 msgid "其他参数"
-msgstr ""
+msgstr "Otros parámetros"
 
 #: of qteasy.qt_operator.Operator.set_shares:1
 msgid "设置operator对象的交易标的列表"
 msgstr ""
+"Establezca la lista de instrumentos comerciales para el objeto operador."
 
 #: of qteasy.qt_operator.Operator.set_shares:3
 msgid "一个字符串列表，表示交易标的代码列表"
 msgstr ""
+"Una lista de cadenas que representan la lista de símbolos de instrumentos "
+"comerciales."
 
 #: of qteasy.Operator.strategies:1
 msgid "以列表的形式返回operator对象的所有Strategy对象"
 msgstr ""
+"Devuelve todos los objetos de estrategia del objeto operador como una lista."
 
 #: of qteasy.Operator.strategy_count:1
 msgid "返回operator对象中的所有Strategy对象的数量"
 msgstr ""
+"Devuelve el número de todos los objetos de estrategia en el objeto operador."
 
 #: of qteasy.Operator.strategy_group_count:1
 msgid "计算operator对象中所有交易策略组的数量"
 msgstr ""
+"Calcule el número de todos los grupos de estrategias comerciales en el "
+"objeto del operador"
 
 #: of qteasy.Operator.strategy_ids:1
 msgid "返回operator对象中所有交易策略对象的ID"
 msgstr ""
+"Devuelve los ID de todos los objetos de estrategia comercial en el objeto "
+"operador."
 
 #: of qteasy.qt_operator.Operator.view_blender:1
 msgid "返回operator对象中的多空蒙板混合器的可读版本, 即返回blender的原始字符串的更加可读的"
 msgstr ""
+"Devuelve una versión legible por humanos del mezclador de máscara multihueca"
+" en el objeto operador, es decir, una versión más legible por humanos de la "
+"cadena del mezclador original."
 
 #: of qteasy.qt_operator.Operator.view_blender:2
 msgid "版本，将s0等策略代码替换为策略ID，并进行适当格式化。 如果不给出group参数，则返回所有策略组的blender可读版本"
 msgstr ""
+"Versión que reemplaza códigos de estrategia como s0 con ID de estrategia y "
+"formatos adecuados. Si no se proporciona el parámetro de grupo, devuelva la "
+"versión legible por Blender para todos los grupos de estrategias."
 
 #: of qteasy.qt_operator.Operator.view_blender:5
 msgid "一个可用的group的ID或index"
-msgstr ""
+msgstr "Un ID o índice de grupo disponible"
 
 #: ../../source/api/Operators.rst:16
 msgid "Group 策略组类"
-msgstr ""
+msgstr "Clase grupal de estrategia grupal"
 
 #: of qteasy.group.Group:1
 msgid "策略组，包含多个策略成员，定义了成员策略的信号类型、混合方式、运行频率和时机等属性。"
 msgstr ""
+"Un grupo de estrategias que contiene múltiples miembros de estrategias, que "
+"definen propiedades como el tipo de señal de las estrategias de miembros, el"
+" método de combinación, la frecuencia de ejecución y el tiempo."
 
 #: of qteasy.group.Group.add_strategy:1
 msgid "添加一个策略到组中，策略将成为该组的成员。"
 msgstr ""
+"Añade una estrategia al grupo; la estrategia se convertirá en miembro del "
+"grupo."
 
 #: of qteasy.group.Group.add_strategy:3
 msgid ""
 "新增的策略必须是 BaseStrategy 的实例，并且不能已经是该组的成员，否则将引发 ValueError。 新增策略的 group_id "
 "将被设置为该组的 group_id，以便在策略中访问所属组的信息。"
 msgstr ""
+"La estrategia agregada debe ser una instancia de BaseStrategy y no debe ser "
+"miembro de este grupo; de lo contrario, se generará un ValueError. El "
+"group_id de la estrategia agregada se establecerá en el group_id de este "
+"grupo para que la estrategia pueda acceder a información sobre su grupo "
+"asociado."
 
 #: of qteasy.group.Group.add_strategy:6
 msgid "需要添加到组中的策略实例，必须是 BaseStrategy 的子类实例。"
 msgstr ""
+"La instancia de estrategia para agregar al grupo; debe ser una instancia de "
+"una subclase de BaseStrategy."
 
 #: of qteasy.group.Group.add_strategy:11
 msgid "当 strategy 已经是该组的成员时，抛出 ValueError，提示策略已存在于组中。"
 msgstr ""
+"Si la estrategia ya es miembro del grupo, genera ValueError indicando que la"
+" estrategia ya existe en el grupo."
 
 #: of qteasy.group.Group.add_strategy:12 qteasy.group.Group.remove_strategy:12
 msgid "当 strategy 不是 BaseStrategy 的实例时，抛出 TypeError，提示策略类型错误。"
 msgstr ""
+"Si la estrategia no es una instancia de BaseStrategy, genera TypeError "
+"indicando un tipo de estrategia no válido."
 
 #: of qteasy.group.Group.blend:1
 msgid "使用当前 blender 将同组策略信号混合为一组信号。"
 msgstr ""
+"Utilice el mezclador actual para combinar señales de estrategias del mismo "
+"grupo en un único conjunto de señales."
 
 #: of qteasy.group.Group.clear_strategies:1
 msgid "清空组中的所有策略，所有成员策略将不再是该组的成员。"
 msgstr ""
+"Borrar todas las estrategias del grupo; Todas las estrategias de miembros ya"
+" no serán miembros de este grupo."
 
 #: of qteasy.group.Group.group_id:1
 msgid "Group 的 ID，与 name 相同，用于 Strategy.group_id 兼容"
 msgstr ""
+"El ID del grupo, igual que el nombre, por compatibilidad con "
+"Strategy.group_id."
 
 #: of qteasy.group.Group.remove_strategy:1
 msgid "从组中移除一个策略，策略将不再是该组的成员。"
 msgstr ""
+"Eliminar una estrategia del grupo; la estrategia ya no será miembro del "
+"grupo."
 
 #: of qteasy.group.Group.remove_strategy:3
-msgid "被移除的策略必须是该组的成员，否则将引发 ValueError。 被移除策略的 group_id 将被设置为 None，以表示不再属于任何组。"
+msgid ""
+"被移除的策略必须是该组的成员，否则将引发 ValueError。 被移除策略的 group_id 将被设置为 None，以表示不再属于任何组。"
 msgstr ""
+"La estrategia eliminada debe ser miembro de este grupo; de lo contrario, se "
+"generará un ValueError. El group_id de la estrategia eliminada se "
+"establecerá en Ninguno para indicar que ya no pertenece a ningún grupo."
 
 #: of qteasy.group.Group.remove_strategy:6
 msgid "需要从组中移除的策略实例，必须是该组的成员。"
 msgstr ""
+"La instancia de estrategia para eliminar del grupo; debe ser miembro del "
+"grupo."
 
 #: of qteasy.group.Group.remove_strategy:11
 msgid "当 strategy 不是该组的成员时，抛出 ValueError，提示策略不在组中。"
 msgstr ""
+"Si la estrategia no es miembro del grupo, genera ValueError indicando que la"
+" estrategia no está en el grupo."
 
 #~ msgid "参数"
 #~ msgstr ""
@@ -899,28 +1293,22 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "任意合法的策略属性，可以在添加策略时直接给该策略属性赋值， 必须明确指定需要修改的属性名称，包含 - "
-#~ "pars: dict or tuple, 策略可调参数 - "
-#~ "opt_tag: int, 策略优化标签 - stg_type: int,"
-#~ " 策略类型 - par_count: int, 策略参数个数 - "
-#~ "par_types: list, 策略参数类型 - par_ranges: "
-#~ "list, 策略参数范围 - data_freq: str, 策略数据频率"
-#~ " - window_length: int, 策略窗口长度 - "
-#~ "run_freq: str, 策略采样频率 - data_types: "
-#~ "list, 策略数据类型 - strategy_run_timing: str, "
-#~ "策略运行时机 - use_latest_data_cycle: bool, "
-#~ "策略是否使用最新数据周期"
+#~ "任意合法的策略属性，可以在添加策略时直接给该策略属性赋值， 必须明确指定需要修改的属性名称，包含 - pars: dict or tuple, "
+#~ "策略可调参数 - opt_tag: int, 策略优化标签 - stg_type: int, 策略类型 - par_count: int, 策略参数个数"
+#~ " - par_types: list, 策略参数类型 - par_ranges: list, 策略参数范围 - data_freq: str, "
+#~ "策略数据频率 - window_length: int, 策略窗口长度 - run_freq: str, 策略采样频率 - data_types: "
+#~ "list, 策略数据类型 - strategy_run_timing: str, 策略运行时机 - use_latest_data_cycle: "
+#~ "bool, 策略是否使用最新数据周期"
 #~ msgstr ""
 
 #~ msgid "在create_signal之前准备好相关历史数据，检查历史数据是否符合所有策略的要求："
 #~ msgstr ""
 
 #~ msgid ""
-#~ "检查hist_data历史数据的类型正确； 检查cash_plan投资计划的类型正确； "
-#~ "检查hist_data是否为空（要求不为空）； 在hist_data中找到cash_plan投资计划中投资时间点的具体位置"
-#~ " 检查cash_plan投资计划中的每个投资时间点均有价格数据，也就是说，投资时间点都在交易日内 "
-#~ "检查cash_plan投资计划中第一次投资时间点前有足够的数据量，用于滚动回测 "
-#~ "检查cash_plan投资计划中最后一次投资时间点在历史数据的范围内 "
+#~ "检查hist_data历史数据的类型正确； 检查cash_plan投资计划的类型正确； 检查hist_data是否为空（要求不为空）； "
+#~ "在hist_data中找到cash_plan投资计划中投资时间点的具体位置 "
+#~ "检查cash_plan投资计划中的每个投资时间点均有价格数据，也就是说，投资时间点都在交易日内 "
+#~ "检查cash_plan投资计划中第一次投资时间点前有足够的数据量，用于滚动回测 检查cash_plan投资计划中最后一次投资时间点在历史数据的范围内 "
 #~ "从hist_data中根据各个量化策略的参数选取正确的历史数据切片放入各个策略数据仓库中 "
 #~ "检查op_signal混合器的设置，根据op的属性设置正确的混合器，如果没有设置混合器，则生成一个"
 #~ msgstr ""
@@ -981,8 +1369,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "参考数据，默认None。一个HistoryPanel对象，这些数据被operator对象中的策略用于生成交易信号，但是与history_data"
-#~ " 不同，参考数据与个股无关，可以被所有个股同时使用，例如大盘指数、宏观经济数据等都可以作为参考数据，某一个个股 "
+#~ "参考数据，默认None。一个HistoryPanel对象，这些数据被operator对象中的策略用于生成交易信号，但是与history_data "
+#~ "不同，参考数据与个股无关，可以被所有个股同时使用，例如大盘指数、宏观经济数据等都可以作为参考数据，某一个个股 "
 #~ "的历史数据也可以被用作参考数据，参考数据可以被所有个股共享。reference_data包含所有策略所需的参考数据。"
 #~ msgstr ""
 
@@ -990,8 +1378,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "是否为实盘模式，如果为True，则不需要根据stg_timing设置op_sample_idx，而是直接根据live_running_stgs提供"
-#~ " 的策略序号来设置op_sample_idx，如果为False，则根据stg_timing设置op_sample_idx"
+#~ "是否为实盘模式，如果为True，则不需要根据stg_timing设置op_sample_idx，而是直接根据live_running_stgs提供 "
+#~ "的策略序号来设置op_sample_idx，如果为False，则根据stg_timing设置op_sample_idx"
 #~ msgstr ""
 
 #~ msgid "live_running_stgs: list, optional"
@@ -1059,8 +1447,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "从operator中各个strategy的全部历史数据滑窗中，找出第singal_idx组数据滑窗，仅生成一组用于特定 "
-#~ "回测price_type价格类型的交易信号 例如，假设 sample_idx = 7,"
-#~ " price_type_idx = 0 "
+#~ "回测price_type价格类型的交易信号 例如，假设 sample_idx = 7, price_type_idx = 0 "
 #~ "则提取出第7组数据滑窗，提取price_type序号为0的交易策略，并使用这些策略生成一组交易信号"
 #~ msgstr ""
 
@@ -1080,21 +1467,18 @@ msgstr ""
 
 #~ msgid ""
 #~ "生成一张完整的交易信号清单，此时，sample_idx必须是一个1D的int型向量，这个向量中的每 "
-#~ "一个元素代表的滑窗会被提取出来生成相应的信号，其余的滑窗忽略，相应的信号设置为np.nan 例如，假设 "
-#~ "sample_idx = np.array([0, 3, 7])T "
-#~ "生成一张完整的交易信号清单，清单中第0，3，7等三组信号为使用相应的数据滑窗生成，其余的信号 全部为np.nan："
+#~ "一个元素代表的滑窗会被提取出来生成相应的信号，其余的滑窗忽略，相应的信号设置为np.nan 例如，假设 sample_idx = "
+#~ "np.array([0, 3, 7])T 生成一张完整的交易信号清单，清单中第0，3，7等三组信号为使用相应的数据滑窗生成，其余的信号 "
+#~ "全部为np.nan："
 #~ msgstr ""
 
 #~ msgid "array[[  0,   0,   0,   0,   0],"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "[nan, nan, nan, nan, nan], [nan, "
-#~ "nan, nan, nan, nan], [  0,   0,"
-#~ "   1,   0,   0], [nan, nan, nan, "
-#~ "nan, nan], [nan, nan, nan, nan, "
-#~ "nan], [nan, nan, nan, nan, nan], ["
-#~ "  1,   0,   0,   0,   1]]"
+#~ "[nan, nan, nan, nan, nan], [nan, nan, nan, nan, nan], [  0,   0,   1,   0,"
+#~ "   0], [nan, nan, nan, nan, nan], [nan, nan, nan, nan, nan], [nan, nan, nan,"
+#~ " nan, nan], [  1,   0,   0,   0,   1]]"
 #~ msgstr ""
 
 #~ msgid "当sample_idx为None时，使用self._op_sample_idx的值为采样清单 此时生成的是一个3D数组"
@@ -1104,16 +1488,14 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "输出一个ndarray，包含所有交易价格类型的各个个股的交易信号清单，一个3D矩阵 levels = "
-#~ "shares columns = price_types rows = "
-#~ "hdates"
+#~ "输出一个ndarray，包含所有交易价格类型的各个个股的交易信号清单，一个3D矩阵 levels = shares columns = "
+#~ "price_types rows = hdates"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "可选参数，交易过程数据，包括最近一次成交的数据以及最近一次交易信号，如果在回测过程中实时 "
 #~ "产生交易信号，则可以将上述数据传入Operator，从而新一轮交易信号可以与上一次交易结果相关。 "
-#~ "如果给出trade_date信号，trade_date中需要包含所有股票的交易信息，每列表示不同的交易价 "
-#~ "格种类，其结构与生成的交易信号一致"
+#~ "如果给出trade_date信号，trade_date中需要包含所有股票的交易信息，每列表示不同的交易价 格种类，其结构与生成的交易信号一致"
 #~ msgstr ""
 
 #~ msgid "交易信号序号。 如果参数为int型，则只计算该序号滑窗数据的交易信号 如果参数为array，则计算完整的交易信号清单"
@@ -1131,8 +1513,8 @@ msgstr ""
 #~ "* **signal_value** (*np.ndarray*) * "
 #~ "*使用对象的策略在历史数据期间的一个子集上产生的所有合法交易信号，该信号可以输出到回测* * "
 #~ "*模块进行回测和评价分析，也可以输出到实盘操作模块触发交易操作* * "
-#~ "*当sample_idx不是None时，必须给出一个int，此时price_type_idx也必须给出* * "
-#~ "*此时输出为一个1D数组* * *当sample_idx为None时，会生成一张完整的*"
+#~ "*当sample_idx不是None时，必须给出一个int，此时price_type_idx也必须给出* * *此时输出为一个1D数组* * "
+#~ "*当sample_idx为None时，会生成一张完整的*"
 #~ msgstr ""
 
 #~ msgid "**signal_value** (*np.ndarray*)"
@@ -1160,8 +1542,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "**blender** -- "
-#~ "如果price_type为None，则返回一个字典，其中包含所有的run_timing的blender "
+#~ "**blender** -- 如果price_type为None，则返回一个字典，其中包含所有的run_timing的blender "
 #~ "如果price_type不为None，则返回一个列表，其中包含该run_timing的blender"
 #~ msgstr ""
 
@@ -1169,8 +1550,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "优先级字符串 例如，当优先级为\"OHLC\"时，而price_types为['close', 'open']时"
-#~ " 价格执行顺序为[1, 0], 表示先取第1列，再取第0列进行回测"
+#~ "优先级字符串 例如，当优先级为\"OHLC\"时，而price_types为['close', 'open']时 价格执行顺序为[1, 0], "
+#~ "表示先取第1列，再取第0列进行回测"
 #~ msgstr ""
 
 #~ msgid "**sequence** -- 返回一个list，包含每一个交易策略在回测时的执行先后顺序"
@@ -1180,8 +1561,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "优先级字符串 例如，当优先级为\"OHLC\"时，而price_types为['close', 'open']时"
-#~ " 价格执行顺序为['open', 'close'], 表示先处理open价格，再处理'close'价格"
+#~ "优先级字符串 例如，当优先级为\"OHLC\"时，而price_types为['close', 'open']时 价格执行顺序为['open', "
+#~ "'close'], 表示先处理open价格，再处理'close'价格"
 #~ msgstr ""
 
 #~ msgid "返回Operator对象所有交易信号采样点序列的并集"
@@ -1200,8 +1581,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "price_type是一个可选参数 "
-#~ "如果给出price_type时，返回使用该price_type的所有策略的历史数据的rolling window"
+#~ "price_type是一个可选参数 如果给出price_type时，返回使用该price_type的所有策略的历史数据的rolling window"
 #~ msgstr ""
 
 #~ msgid "True时返回rolling_window数据，否则直接返回历史数据"
@@ -1274,19 +1654,19 @@ msgstr ""
 #~ "如果给出price_type时，返回使用该price_type的交易策略名称"
 #~ msgstr ""
 
-#~ msgid "返回operator对象中所有交易策略对象的ID, timing为一个可选参数， 如果给出timing时，返回使用该timing的交易策略名称"
+#~ msgid ""
+#~ "返回operator对象中所有交易策略对象的ID, timing为一个可选参数， 如果给出timing时，返回使用该timing的交易策略名称"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "返回operator对象中所有交易策略对象的名称, price_type为一个可选参数， 注意，strategy"
-#~ " name并没有实际的作用，未来将被去掉 在操作operator对象时，引用某个策略实际使用的是策略的id，而不是name"
-#~ " 如果给出price_type时，返回使用该price_type的交易策略名称"
+#~ "返回operator对象中所有交易策略对象的名称, price_type为一个可选参数， 注意，strategy name并没有实际的作用，未来将被去掉"
+#~ " 在操作operator对象时，引用某个策略实际使用的是策略的id，而不是name "
+#~ "如果给出price_type时，返回使用该price_type的交易策略名称"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "返回operator对象中所有交易策略对象的名称, timing为一个可选参数， 注意，strategy "
-#~ "name并没有实际的作用，未来将被去掉 在操作operator对象时，引用某个策略实际使用的是策略的id，而不是name "
-#~ "如果给出timing时，返回使用该timing的交易策略名称"
+#~ "返回operator对象中所有交易策略对象的名称, timing为一个可选参数， 注意，strategy name并没有实际的作用，未来将被去掉 "
+#~ "在操作operator对象时，引用某个策略实际使用的是策略的id，而不是name 如果给出timing时，返回使用该timing的交易策略名称"
 #~ msgstr ""
 
 #~ msgid "打印出当前交易操作对象的信息，包括选股、择时策略的类型，策略混合方法、风险控制策略类型等等信息"
@@ -1294,8 +1674,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "如果策略包含更多的信息，还会打印出策略的一些具体信息，如选股策略的信息等 "
-#~ "在这里调用了私有属性对象的私有属性，不应该直接调用，应该通过私有属性的公有方法打印相关信息 "
-#~ "首先打印Operation木块本身的信息"
+#~ "在这里调用了私有属性对象的私有属性，不应该直接调用，应该通过私有属性的公有方法打印相关信息 首先打印Operation木块本身的信息"
 #~ msgstr ""
 
 #~ msgid "是否打印出策略的详细信息, 如果为True, 则会打印出策略的详细信息，包括选股策略的信息等"
@@ -1308,8 +1687,7 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "如果True，当operator对象未准备好时，raise ValueError "
-#~ "如果False，当operator对象未准备好时，返回False"
+#~ "如果True，当operator对象未准备好时，raise ValueError 如果False，当operator对象未准备好时，返回False"
 #~ msgstr ""
 
 #~ msgid "如果operator对象准备好了，返回True"
@@ -1326,8 +1704,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "返回一个Dict，包含每个策略所需要的history_data，每个ndarray中包含了 "
-#~ "可以用于生成交易信号的历史数据，且这些历史数据的类型与op_data_type_list "
-#~ "中规定的数据类型相同，历史数据跨度满足信号生成的需求"
+#~ "可以用于生成交易信号的历史数据，且这些历史数据的类型与op_data_type_list 中规定的数据类型相同，历史数据跨度满足信号生成的需求"
 #~ msgstr ""
 
 #~ msgid "生成的交易清单，包含了所有交易信号，以及交易信号对应的交易价格"
@@ -1373,34 +1750,28 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "改属性的返回值是一个元组，包含ranges, "
-#~ "types两个列表，这两个列表正好可以直接用作Space对象的创建参数，用于创建一个合适的 Space对象"
+#~ "改属性的返回值是一个元组，包含ranges, types两个列表，这两个列表正好可以直接用作Space对象的创建参数，用于创建一个合适的 Space对象"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "一个完整的投资策略由三类多个不同的子策略组成。每个子策略都有自己特定的参数空间，它们的参数空间信息存储在stg.par_boes以及 "
-#~ "stg.par_types等属性中。通常，我们在优化参数的过程中，希望仅对部分策略的参数空间进行搜索，而其他的策略保持参数不变。为了实现"
-#~ " 这样的控制，我们可以给每一个子策略一个属性opt_tag优化标签，通过设置这个标签的值，可以控制这个子策略是否参与优化： "
-#~ "{0: 'No optimization, "
-#~ "不参与优化，这个子策略在整个优化过程中将始终使用同一组参数',"
+#~ "stg.par_types等属性中。通常，我们在优化参数的过程中，希望仅对部分策略的参数空间进行搜索，而其他的策略保持参数不变。为了实现 "
+#~ "这样的控制，我们可以给每一个子策略一个属性opt_tag优化标签，通过设置这个标签的值，可以控制这个子策略是否参与优化： {0: 'No "
+#~ "optimization, 不参与优化，这个子策略在整个优化过程中将始终使用同一组参数',"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "1: 'Normal optimization, "
-#~ "普通优化，这个子策略在优化过程中使用不同的参数，这些参数都是从它的参数空间中按照规律取出的', 2: "
-#~ "'enumerate optimization, "
-#~ "枚举优化，在优化过程中使用不同的参数，但并非取自其参数空间，而是来自一个预设的枚举对象'}"
+#~ "1: 'Normal optimization, 普通优化，这个子策略在优化过程中使用不同的参数，这些参数都是从它的参数空间中按照规律取出的', 2: "
+#~ "'enumerate optimization, 枚举优化，在优化过程中使用不同的参数，但并非取自其参数空间，而是来自一个预设的枚举对象'}"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "这个函数遍历operator对象中所有子策略，根据其优化类型选择它的参数空间信息，组合成一个多维向量用于创建可以用于生成所有相关 "
-#~ "策略的参数的高维空间"
+#~ "这个函数遍历operator对象中所有子策略，根据其优化类型选择它的参数空间信息，组合成一个多维向量用于创建可以用于生成所有相关 策略的参数的高维空间"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "**ranges, types** -- "
-#~ "两个列表，分别包含了所有参与优化的策略的参数空间的范围和类型信息，这两个列表可以直接用作Space对象的创建参数，用于 "
-#~ "创建一个合适的Space对象"
+#~ "两个列表，分别包含了所有参与优化的策略的参数空间的范围和类型信息，这两个列表可以直接用作Space对象的创建参数，用于 创建一个合适的Space对象"
 #~ msgstr ""
 
 #~ msgid "检查Operator对象是否已经准备好，可以开始生成交易信号"
@@ -1422,16 +1793,16 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "一个字符串，用于指定需要混合的交易信号的价格类型， 如果给出price_type则设置该price_type的策略的混合表达式"
-#~ " 如果price_type为None，则设置所有price_type的策略的混合表达式，此时：     "
+#~ "一个字符串，用于指定需要混合的交易信号的价格类型， 如果给出price_type则设置该price_type的策略的混合表达式 "
+#~ "如果price_type为None，则设置所有price_type的策略的混合表达式，此时：     "
 #~ "如果给出的blender为一个字符串，则设置所有的price_type为相同的表达式     "
 #~ "如果给出的blender为一个列表，则按照列表中各个元素的顺序分别设置每一个price_type的混合表达式，     "
 #~ "如果blender中的元素不足，则重复最后一个混合表达式"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "一个字符串，用于指定需要混合的交易信号的价格类型， 如果给出price_type则设置该price_type的策略的混合表达式"
-#~ " 如果price_type为None，则设置所有price_type的策略的混合表达式，此时："
+#~ "一个字符串，用于指定需要混合的交易信号的价格类型， 如果给出price_type则设置该price_type的策略的混合表达式 "
+#~ "如果price_type为None，则设置所有price_type的策略的混合表达式，此时："
 #~ msgstr ""
 
 #~ msgid ""
@@ -1447,12 +1818,10 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "本函数与set_parameter()不同，在优化过程中非常有用，可以同时将参数设置到几个不同的策略中去，只要这个策略的opt_tag不为零"
-#~ " "
+#~ "本函数与set_parameter()不同，在优化过程中非常有用，可以同时将参数设置到几个不同的策略中去，只要这个策略的opt_tag不为零 "
 #~ "在一个包含多个Strategy的Operator中，可能同时有几个不同的strategy需要寻优。这时，为了寻找最优解，需要建立一个Space，包含需要寻优的"
-#~ " "
-#~ "几个strategy的所有参数空间。通过这个space生成参数空间后，空间中的每一个向量实际上包含了不同的策略的参数，因此需要将他们原样分配到不"
-#~ " 同的策略中。"
+#~ " 几个strategy的所有参数空间。通过这个space生成参数空间后，空间中的每一个向量实际上包含了不同的策略的参数，因此需要将他们原样分配到不 "
+#~ "同的策略中。"
 #~ msgstr ""
 
 #~ msgid "一组参数，可能包含多个策略的参数，在这里被分配到不同的策略中"
@@ -1463,8 +1832,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "一个Operator对象有三个strategy，分别需要2， 3， "
-#~ "3个参数，而其中第一和第三个策略需要参数寻优，这个operator的所有策略参数可以写 "
-#~ "成一个2+3+2维向量，其中下划线的几个是需要寻优的策略的参数："
+#~ "3个参数，而其中第一和第三个策略需要参数寻优，这个operator的所有策略参数可以写 成一个2+3+2维向量，其中下划线的几个是需要寻优的策略的参数："
 #~ msgstr ""
 
 #~ msgid "stg1:   stg2:       stg3: tag=1   tag=0       tag=1"
@@ -1479,15 +1847,16 @@ msgstr ""
 #~ msgid "[v0, v1, v2, v3, v4]"
 #~ msgstr ""
 
-#~ msgid "set_opt_par函数遍历Operator对象中的所有strategy函数，检查它的opt_tag值，只要发现opt_tag不为0，则将相应的参数赋值给strategy："
+#~ msgid ""
+#~ "set_opt_par函数遍历Operator对象中的所有strategy函数，检查它的opt_tag值，只要发现opt_tag不为0，则将相应的参数赋值给strategy："
 #~ msgstr ""
 
 #~ msgid "[v0, v1]            [v2, v3, v4]"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "在另一种情况下，一个策略的参数本身就以一个tuple的形式给出，一系列的合法参数组以enum的形式形成一个完整的参数空间，这时，opt_tag被"
-#~ " 设置为2，此时参数空间中每个向量的一个分量就包含了完整的参数信息，例子如下："
+#~ "在另一种情况下，一个策略的参数本身就以一个tuple的形式给出，一系列的合法参数组以enum的形式形成一个完整的参数空间，这时，opt_tag被 "
+#~ "设置为2，此时参数空间中每个向量的一个分量就包含了完整的参数信息，例子如下："
 #~ msgstr ""
 
 #~ msgid ""
@@ -1505,15 +1874,15 @@ msgstr ""
 #~ msgid "[v0, v1, v2]，其中v2 = (i0, i1, i2)"
 #~ msgstr ""
 
-#~ msgid "set_opt_par函数遍历Operator对象中的所有strategy函数，检查它的opt_tag值，对于opt_tag==2的策略，则分配参数给这个策略"
+#~ msgid ""
+#~ "set_opt_par函数遍历Operator对象中的所有strategy函数，检查它的opt_tag值，对于opt_tag==2的策略，则分配参数给这个策略"
 #~ msgstr ""
 
 #~ msgid "[v0, v1]         v2=[i0, i1, i2]"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "可调参数取值范围列表,一个包含若干tuple的列表,代表参数中一个元素的取值范围，如     [(0, 1),"
-#~ " (0, 100), (0, 100)]"
+#~ "可调参数取值范围列表,一个包含若干tuple的列表,代表参数中一个元素的取值范围，如     [(0, 1), (0, 100), (0, 100)]"
 #~ msgstr ""
 
 #~ msgid "可调参数取值范围列表,一个包含若干tuple的列表,代表参数中一个元素的取值范围，如"
@@ -1523,8 +1892,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "可调参数类型列表，与par_range配合确定策略参数取值范围类型 int - 整数类型 "
-#~ "float - 浮点数类型 enum - 枚举类型或给定列表中的元素"
+#~ "可调参数类型列表，与par_range配合确定策略参数取值范围类型 int - 整数类型 float - 浮点数类型 enum - "
+#~ "枚举类型或给定列表中的元素"
 #~ msgstr ""
 
 #~ msgid "数据频率，策略本身所使用的数据的采样频率"
@@ -1556,4 +1925,3 @@ msgstr ""
 
 #~ msgid "一个可用的run_timing"
 #~ msgstr ""
-

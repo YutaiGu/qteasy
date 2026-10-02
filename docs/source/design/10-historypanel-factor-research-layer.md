@@ -46,6 +46,17 @@
 
 届时应配套 **TDD** 与英文 `ValueError` 契约，与现有 HP 测试风格一致。
 
+### 4.1 路线图衔接（2026-08-11）
+
+顶层任务 **M2.2** 已将上述「独立模块」形态纳入二阶段实施范围（函数 API：`factor_ic` / `quantile_portfolio` / `long_short_return` 等），并与 HP 内核 pandas 级补齐（`shift`/`diff`/`dropna`/`expr` 等）同批规划。
+
+- 执行计划收口：[`knowledge/runlog/plans-closure-historypanel-m22-2026-08.md`](../../../knowledge/runlog/plans-closure-historypanel-m22-2026-08.md)（原 `m2.2_hp二阶段扩展` plan 已自 `.cursor/plans/` 删除）
+- 进度真源：顶层展望 §7.1 **M2.2**
+- **截至 CP-A（Phase 1–3）**：HP 内核已落地 `shift` / `diff` / `pct_change`、`bfill` / `dropna`、填充类 `inplace=`、以及 `expr`；用户文档见教程 2.4/2.5 与 [HistoryPanel API](../api/HistoryPanel.rst)。
+- **截至 CP-B（Phase 4–6）**：HP 内核已落地 `drop` / `rename`、统计对称（`sum` / `median` / `var` / `quantile`）、以及 `slice`/`segment`/`isegment`/`candle` 的英文弃用警告；文档同上。
+- **截至 CP-D / CP-E（Phase 8–11）**：`qteasy.research` 已落地模块级 `factor_ic` / `factor_ic_summary` / `quantile_portfolio` / `long_short_return`；HP 已落地 `corr` / `cov`；导出推荐名与可跟跑示例见 [research API](../api/research.rst)、教程 2.5 cookbook 与 `examples/historypanel_research_factor_workflow.py`。
+- 本节 §3「短期不引入类库级 FactorResearch」结论仍然有效：M2.2 落地的是 **`qteasy.research` 模块级函数**，不是挂在 HistoryPanel 上的重型研究类。
+
 ## 5. 与教程的关系
 
 实操路径以 [教程 2.5：使用 HistoryPanel 操作和分析历史数据](../tutorials/2.5-historypanel-data-analysis.md) 的 §9–§11 为准；本设计文档仅记录 **架构层面的评估结论**，不增加用户必读的 API 面。

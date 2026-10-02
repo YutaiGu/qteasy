@@ -1,0 +1,221 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/optimization/2. run_optimization.md:1
+msgid "如何运行策略优化"
+msgstr "如何運行策略優化"
+
+#: ../../source/optimization/2. run_optimization.md:3
+msgid "入口与常用 kwargs"
+msgstr "入口與常用 kwargs"
+
+#: ../../source/optimization/2. run_optimization.md:5
+msgid ""
+"使用 **qt.run(op, mode=2, ...)** 运行策略优化。常用参数包括 "
+"**opti_method**、**opti_sample_count**、**opti_output_count** 等。"
+msgstr ""
+"使用 **qt.run(op, mode=2, ...)** 運行策略優化。常用參數包括 "
+"**opti_method**、**opti_sample_count**、**opti_output_count** 等。"
+
+#: ../../source/optimization/2. run_optimization.md:7
+msgid "优化算法完整列表（罗列并简短解释）"
+msgstr "優化算法完整列表（羅列並簡短解釋）"
+
+#: ../../source/optimization/2. run_optimization.md:9
+msgid "以下为 **opti_method** 常见可选值及适用场景，与 qteasy 2.0 API 一致为准。"
+msgstr "以下爲 **opti_method** 常見可選值及適用場景，與 qteasy 2.0 API 一致爲準。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "算法名"
+msgstr "算法名"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "含义"
+msgstr "含義"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "适用场景"
+msgstr "適用場景"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "grid"
+msgstr "grid"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "网格搜索"
+msgstr "網格搜索"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数少、离散空间，穷举或粗网格。"
+msgstr "參數少、離散空間，窮舉或粗網格。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "montecarlo"
+msgstr "montecarlo"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "蒙特卡洛随机采样"
+msgstr "蒙特卡洛隨機採樣"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数较多时随机抽样评估。"
+msgstr "參數較多時隨機抽樣評估。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "GA"
+msgstr "GA"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "遗传算法"
+msgstr "遺傳算法"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "中高维、连续/离散混合。"
+msgstr "中高維、連續/離散混合。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "SA"
+msgstr "SA"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "模拟退火"
+msgstr "模擬退火"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "中维、易陷入局部最优时。"
+msgstr "中維、易陷入局部最優時。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "PSO"
+msgstr "PSO"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "粒子群优化"
+msgstr "粒子羣優化"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "连续空间、多峰。"
+msgstr "連續空間、多峯。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "bayesian"
+msgstr "bayesian"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "贝叶斯优化"
+msgstr "貝葉斯優化"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "样本昂贵、需少步数寻优。"
+msgstr "樣本昂貴、需少步數尋優。"
+
+#: ../../source/optimization/2. run_optimization.md:20
+msgid "优化运行参数完整列表（罗列并简短解释）"
+msgstr "優化運行參數完整列表（羅列並簡短解釋）"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "参数名"
+msgstr "參數名"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "类型/可选值"
+msgstr "類型/可選值"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_method"
+msgstr "opti_method"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "str"
+msgstr "str"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "优化算法：grid、montecarlo、GA、SA、PSO、bayesian 等。"
+msgstr "優化算法：grid、montecarlo、GA、SA、PSO、bayesian 等。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_sample_count"
+msgstr "opti_sample_count"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "int"
+msgstr "int"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "采样/迭代次数（如蒙特卡洛样本数、遗传代数等）。"
+msgstr "採樣/迭代次數（如蒙特卡洛樣本數、遺傳代數等）。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "opti_output_count"
+msgstr "opti_output_count"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "保留的最优结果数量（Top-K）。"
+msgstr "保留的最優結果數量（Top-K）。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "目标函数相关"
+msgstr "目標函數相關"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "—"
+msgstr "—"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "如优化目标为夏普、回撤等，以配置或 API 为准。"
+msgstr "如優化目標爲夏普、回撤等，以配置或 API 爲準。"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "约束相关"
+msgstr "約束相關"
+
+#: ../../source/optimization/2. run_optimization.md
+msgid "若有约束（如最大回撤上限），以配置为准。"
+msgstr "若有約束（如最大回撤上限），以配置爲準。"
+
+#: ../../source/optimization/2. run_optimization.md:30
+msgid "回测区间、asset_pool 等与 mode=1 相同的参数在 mode=2 时同样生效。"
+msgstr "回測區間、asset_pool 等與 mode=1 相同的參數在 mode=2 時同樣生效。"
+
+#: ../../source/optimization/2. run_optimization.md:32
+msgid "参数空间"
+msgstr "參數空間"
+
+#: ../../source/optimization/2. run_optimization.md:34
+msgid ""
+"策略的 **Parameter** 及 **par_range** 定义优化时的搜索空间；框架按 opti_method 在该空间内采样或搜索。"
+msgstr ""
+"策略的 **Parameter** 及 **par_range** 定義優化時的搜索空間；框架按 opti_method 在該空間內採樣或搜索。"
+
+#: ../../source/optimization/2. run_optimization.md:36
+msgid "最小可运行示例"
+msgstr "最小可運行示例"
+
+#: ../../source/optimization/2. run_optimization.md:47
+msgid "配置要点"
+msgstr "配置要點"
+
+#: ../../source/optimization/2. run_optimization.md:49
+msgid "**回测区间、资产池**：与 mode=1 一致，决定每次参数评估的回测环境。"
+msgstr "**回測區間、資產池**：與 mode=1 一致，決定每次參數評估的回測環境。"
+
+#: ../../source/optimization/2. run_optimization.md:50
+msgid "**目标函数**：决定“更优”的定义（如夏普最大化、回撤最小化），影响排序与最终选取。"
+msgstr "**目標函數**：決定“更優”的定義（如夏普最大化、回撤最小化），影響排序與最終選取。"

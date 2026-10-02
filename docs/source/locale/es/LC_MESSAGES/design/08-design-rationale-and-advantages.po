@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
@@ -11,17 +10,17 @@ msgstr ""
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:1
 msgid "设计初衷与独特优势"
-msgstr ""
+msgstr "Intención de diseño y ventajas únicas"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:3
 msgid ""
@@ -29,14 +28,22 @@ msgid ""
 "数据隔离”兼顾速度与防未来函数，以及 **use_latest_data_cycle** 等可配置项对长期回测的影响。与 "
 "[总体架构与设计思路](00-overview.md)、[策略中的数据](03-data-in-strategies.md) 形成呼应。"
 msgstr ""
+"Este capítulo se centra en la **intención de diseño** y las **ventajas "
+"únicas** de qteasy: por qué se centra en el backtesting vectorizado de alta "
+"velocidad pero abandona la \"vectorización de línea de tiempo completa\", "
+"cómo equilibra la velocidad y la prevención del sesgo de anticipación a "
+"través de la \"vectorización + aislamiento de datos\" y cómo las opciones "
+"configurables como **use_latest_data_cycle** afectan los backtests de largo "
+"horizonte. Se hace eco de [Enfoque general de arquitectura y diseño] "
+"(00-overview.md) y [Datos en estrategias] (03-data-in-strategies.md)."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:5
 msgid "1. 为何不做全时间轴向量化"
-msgstr ""
+msgstr "1. ¿Por qué no vectorizar toda la línea de tiempo?"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:7
 msgid "1.1 未来函数风险"
-msgstr ""
+msgstr "1.1 Riesgo de función futura"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:9
 msgid ""
@@ -44,134 +51,223 @@ msgid ""
 "会用到后续价格，实盘无法复现，导致回测与实盘偏离。因此，qteasy "
 "不在时间维上做“整段一次性”的指标计算，而是**按步**只给策略当前步可见的数据窗口。"
 msgstr ""
+"Si calcula los indicadores una vez a lo largo de toda la línea de tiempo "
+"(por ejemplo, una EMA de todo el historial), la serie histórica resultante "
+"**no es consistente** con el resultado de \"calcular segmento por segmento "
+"usando solo la ventana histórica visible en ese momento\": una EMA de todos "
+"los ejes utilizará precios futuros, que no se pueden reproducir en "
+"operaciones reales, lo que causa divergencia entre las pruebas "
+"retrospectivas y las operaciones reales. Por lo tanto, qteasy no calcula "
+"indicadores “de una sola vez para todo el segmento” a lo largo de la "
+"dimensión temporal; en cambio, proporciona la estrategia, **paso a paso**, "
+"solo la ventana de datos visible en el paso actual."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:11
 msgid "1.2 状态与规则无法表达"
-msgstr ""
+msgstr "1.2 Los estados y las reglas no se pueden expresar"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:13
 msgid "若在时间维上完全向量化，则难以正确实现："
 msgstr ""
+"Si se vectoriza completamente a lo largo de la dimensión temporal, resulta "
+"difícil implementarlo correctamente:"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:15
 msgid "**T+1 交割**、**交易费用**、**最小交易单位（MOQ）** 等约束；"
 msgstr ""
+"restricciones como **liquidación T+1**, **tarifas comerciales** y **cantidad"
+" mínima de pedido (MOQ)**;"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:16
 msgid "**是否允许使用“交易当时”的最新数据**（当根 K 线）的建模选择。"
 msgstr ""
+"Una elección de modelado de **si se permite el uso de los datos más "
+"recientes \"en el momento de la negociación\"** (la vela/línea K actual)."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:18
 msgid ""
 "这些细节在长期回测中会产生成倍的收益差异（例如十年回测中，“是否使用当根 K 线数据”的微小差异会显著改变累计收益）。qteasy "
 "将“是否用当根数据”显式做成 **use_latest_data_cycle** 配置项，而非隐式假设。"
 msgstr ""
+"Estos detalles pueden producir diferencias multiplicadas en los rendimientos"
+" en las pruebas retrospectivas a largo plazo (por ejemplo, en una prueba "
+"retrospectiva de diez años, la pequeña diferencia de \"si se utilizan los "
+"datos de la línea K de la barra actual\" puede cambiar significativamente "
+"los rendimientos acumulados). qteasy hace que “si se deben usar datos de la "
+"barra actual” sea una opción de configuración explícita "
+"**use_latest_data_cycle** en lugar de una suposición implícita."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:20
 msgid "2. 事件驱动的替代与取舍"
-msgstr ""
+msgstr "2. Alternativas y compensaciones impulsadas por eventos"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:22
 msgid ""
 "常见做法是采用**事件驱动**：每个交易事件逐标的取数、逐笔计算指标，从而彻底避免未来函数并贴近实盘，但**速度较慢**。qteasy "
 "的取舍是：保留“按时间步、按当时可见数据”的正确性，但在**单步内**用向量化 + Numba 加速，在保证正确性的前提下兼顾速度。"
 msgstr ""
+"Un enfoque común está **basado en eventos**: para cada evento comercial, "
+"obtenga datos por instrumento y calcule los indicadores paso a paso, "
+"evitando así por completo el sesgo de anticipación y manteniéndose cerca del"
+" comercio en vivo, pero es **lento**. La compensación de qteasy es: "
+"preservar la corrección, “por paso de tiempo, usando solo datos visibles en "
+"ese momento”, mientras se usa vectorización + aceleración Numba **en un solo"
+" paso**, equilibrando la velocidad y garantizando la corrección."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:24
 msgid "3. qteasy 的做法：向量化 + 数据隔离"
-msgstr ""
+msgstr "3. Enfoque de qteasy: Vectorización + Aislamiento de datos"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:26
 msgid "3.1 回测主体向量化"
-msgstr ""
+msgstr "3.1 Vectorización del núcleo de backtesting"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:28
 msgid ""
 "回测循环与交易计算（买卖量、费用、持仓、交割）已用 **NumPy + Numba** 实现：时间维顺序步进，标的维在单步内向量化。参见 "
 "[回测引擎与性能（设计视角）](07-backtest-engine-and-performance.md)。"
 msgstr ""
+"El ciclo de backtest y los cálculos comerciales (volumen de compra/venta, "
+"tarifas, posiciones, liquidación) se implementaron con **NumPy + Numba**: "
+"avanzando secuencialmente a lo largo de la dimensión temporal y vectorizando"
+" todos los instrumentos dentro de cada paso. Consulte [Backtest del motor y "
+"el rendimiento (perspectiva de diseño)] (07-backtest-engine-and-"
+"rendimiento.md)."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:30
 msgid "3.2 数据提前打包装配与按步注入"
 msgstr ""
+"3.2 Datos de preenvasado y montaje por adelantado, e inyección paso a paso"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:32
 msgid ""
-"**准备阶段**：回测前通过 `check_and_prepare_backtest_data`、`prepare_data_buffer` 等从"
-" DataSource 拉取并缓存所需全量历史；再通过 `create_data_windows` 用 `rolling_window` "
+"**准备阶段**：回测前通过 `check_and_prepare_backtest_data`、`prepare_data_buffer` 等从 "
+"DataSource 拉取并缓存所需全量历史；再通过 `create_data_windows` 用 `rolling_window` "
 "生成**按运行节奏对齐的数据窗口流**（每个 step 对应一个固定长度的历史窗口）。"
 msgstr ""
+"**Etapa de preparación**: antes de realizar pruebas retrospectivas, extraiga"
+" y almacene en caché todos los datos históricos requeridos del DataSource a "
+"través de `check_and_prepare_backtest_data`, `prepare_data_buffer`, etc.; "
+"luego use `create_data_windows` para generar un **flujo de ventana de datos "
+"alineado con la cadencia de ejecución** con `rolling_window` (cada paso "
+"corresponde a una ventana histórica de longitud fija)."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:33
 msgid ""
-"**每步运行前**：引擎调用 **update_running_data_window**，把**当前 step "
-"对应的数据窗口**写入策略属性；策略在 `realize()` 内通过 **get_data(dtype_id)** "
-"取到的仅是**该步可见的窗口**，在此窗口上计算 EMA 等指标，与实盘“当时仅能看到的历史”一致，从机制上避免未来函数。"
+"**每步运行前**：引擎调用 **update_running_data_window**，把**当前 step 对应的数据窗口**写入策略属性；策略在"
+" `realize()` 内通过 **get_data(dtype_id)** 取到的仅是**该步可见的窗口**，在此窗口上计算 EMA "
+"等指标，与实盘“当时仅能看到的历史”一致，从机制上避免未来函数。"
 msgstr ""
+"**Antes de ejecutar cada paso**: el motor llama a "
+"**update_running_data_window** para escribir la **ventana de datos "
+"correspondiente al paso actual** en atributos de estrategia; dentro de "
+"`realize()`, la estrategia solo puede obtener **la ventana visible para ese "
+"paso** a través de **get_data(dtype_id)**, y calcula indicadores como EMA en"
+" esa ventana, consistente con \"solo el historial que era visible en ese "
+"momento\" en el comercio real, evitando así el sesgo de anticipación por "
+"diseño."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:35
 msgid ""
-"数据流是“声明 → 引擎按步注入 → get_data 引用”，策略代码不包含“读表”或“拉取”逻辑。详见 [策略如何声明与使用数据](03"
-"-data-in-strategies.md)。"
+"数据流是“声明 → 引擎按步注入 → get_data 引用”，策略代码不包含“读表”或“拉取”逻辑。详见 [策略如何声明与使用数据](03-data-"
+"in-strategies.md)。"
 msgstr ""
+"El flujo de datos es \"declarar → el motor inyecta paso a paso → "
+"referenciado por get_data\", y el código de estrategia no contiene lógica de"
+" \"lectura de tablas\" o de \"búsqueda/extracción\". Consulte [Cómo las "
+"estrategias declaran y utilizan datos] (03-data-in-strategies.md)."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:37
 msgid "3.3 use_latest_data_cycle（ulc）的含义与影响"
-msgstr ""
+msgstr "3.3 El significado y el impacto de use_latest_data_cycle (ulc)"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:39
 msgid "**use_latest_data_cycle** 控制数据窗口是否包含**当根 K 线**："
 msgstr ""
+"**use_latest_data_cycle** controla si la ventana de datos incluye la **barra"
+" actual (línea K)**:"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:41
 msgid "**True**：窗口可含当前 bar（如收盘价），对应“交易时是否允许用当时最新价”的建模。"
 msgstr ""
+"**Verdadero**: La ventana puede incluir la barra actual (por ejemplo, el "
+"precio de cierre), correspondiente al modelado \"si se permite operar con el"
+" último precio en ese momento\"."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:42
 msgid "**False**：窗口严格小于当前时刻，仅用“过去已收盘”的数据。"
 msgstr ""
+"**Falso**: La ventana es estrictamente anterior al momento actual y utiliza "
+"solo datos que “ya se cerraron” en el pasado."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:44
 msgid "该开关对长期回测结果影响显著，qteasy 将其作为可配置项在策略声明与运行配置中暴露，文档与 API 中应明确写出并指向配置说明。"
 msgstr ""
+"Este cambio tiene un impacto significativo en los resultados del backtest a "
+"largo plazo. qteasy lo expone como una opción configurable en declaraciones "
+"de estrategia y configuraciones de ejecución; la documentación y la API "
+"deben indicarlo claramente y vincular a las notas de configuración."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:46
 msgid "4. 独特优势小结"
-msgstr ""
+msgstr "4. Resumen de ventajas únicas"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:48
 msgid "**高速 + 防未来函数**：在保证“每步仅用当时可见数据”的前提下，实现向量化 + Numba 的快速回测，兼顾速度与回测可信度。"
 msgstr ""
+"**Alta velocidad + prevención de anticipación**: al tiempo que garantiza que"
+" “cada paso utiliza solo datos visibles en ese momento”, logra un "
+"backtesting rápido con vectorización + Numba, equilibrando la velocidad y la"
+" credibilidad del backtest."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:49
 msgid "**精细交易建模**：T+1、费用、交割、MOQ 以及“是否用当根数据”等均可建模，长期回测对这类细节敏感，qteasy 支持显式配置。"
 msgstr ""
+"**Modelado comercial detallado**: se pueden modelar T+1, tarifas, "
+"liquidación, MOQ y “si se utilizan los datos de la barra actual”, etc. Las "
+"pruebas retrospectivas a largo plazo son sensibles a dichos detalles y "
+"qteasy admite una configuración explícita."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:50
 msgid ""
 "**简洁接口**：用户只需在 `realize()` 中 `get_data()` "
 "取数并计算信号，数据窗口与时间对齐由框架负责，降低误用未来数据的可能。"
 msgstr ""
+"**Interfaz concisa**: los usuarios solo necesitan obtener datos a través de "
+"`get_data()` en `realize()` y calcular señales; el marco maneja la ventana "
+"de datos y la alineación temporal, lo que reduce la posibilidad de utilizar "
+"datos futuros por error."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:52
 msgid "5. 代码依据摘要"
-msgstr ""
+msgstr "5. Resumen de la base del código"
 
 #: ../../source/design/08-design-rationale-and-advantages.md:54
 msgid ""
-"数据准备与窗口：`history.py` 中 `check_and_prepare_backtest_data`；`qt_operator.py`"
-" 中 `prepare_data_buffer`、`create_data_windows`（对 `buffered_data.values` 做"
-" `rolling_window` 并与运行 schedule 对齐）；`ulc` 决定窗口是否含当根。"
+"数据准备与窗口：`history.py` 中 `check_and_prepare_backtest_data`；`qt_operator.py` 中 "
+"`prepare_data_buffer`、`create_data_windows`（对 `buffered_data.values` 做 "
+"`rolling_window` 并与运行 schedule 对齐）；`ulc` 决定窗口是否含当根。"
 msgstr ""
+"Preparación de datos y ventanas: `check_and_prepare_backtest_data` en "
+"`history.py`; `prepare_data_buffer` y `create_data_windows` en "
+"`qt_operator.py` (aplicar `rolling_window` a `buffered_data.values` y "
+"alinearlo con el cronograma de ejecución); `ulc` determina si la ventana "
+"incluye la barra actual."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:55
 msgid ""
 "按步注入：`qt_operator.py` 中 `run_strategy(step_index)` 每步对策略调用 "
-"`update_running_data_window(..., window_index=step_index)`；`strategy.py` "
-"中 `update_running_data_window` 将对应数据窗口赋给策略属性，`get_data()` 读取的即为该步窗口。"
+"`update_running_data_window(..., window_index=step_index)`；`strategy.py` 中 "
+"`update_running_data_window` 将对应数据窗口赋给策略属性，`get_data()` 读取的即为该步窗口。"
 msgstr ""
+"Inyección paso a paso: en `qt_operator.py`, `run_strategy(step_index)` llama"
+" a `update_running_data_window(..., window_index=step_index)` a la "
+"estrategia en cada paso; en `strategy.py`, `update_running_data_window` "
+"asigna la ventana de datos correspondiente a los atributos de la estrategia,"
+" y lo que lee `get_data()` es exactamente la ventana de ese paso."
 
 #: ../../source/design/08-design-rationale-and-advantages.md:57
 msgid "更多实现细节见《架构与设计》各章与 API 参考。"
 msgstr ""
-
+"Para obtener más detalles de implementación, consulte los capítulos en "
+"*Arquitectura y Diseño* y la referencia de API."

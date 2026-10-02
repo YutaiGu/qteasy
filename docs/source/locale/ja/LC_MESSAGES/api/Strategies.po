@@ -1,0 +1,242 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/Strategies.rst:2
+msgid "交易策略基类"
+msgstr "トレーディング戦略クラス"
+
+#: ../../source/api/Strategies.rst:4
+msgid "本页提供 Strategy 相关核心类的 API 自动文档入口。 设计思路与使用教程请参考："
+msgstr ""
+"このページは、コア Strategy クラスの autodoc エントリです。設計ノートとチュートリアルについては、以下を参照してください。"
+
+#: ../../source/api/Strategies.rst:7
+msgid "设计文档：``design/10-live-trading-s1.3-architecture.md``"
+msgstr "デザイン: ``design/10-live-trading-s1.3-architecture.md``"
+
+#: ../../source/api/Strategies.rst:8
+msgid "策略管理文档：``manage_strategies/*``"
+msgstr "戦略管理: ``manage_strategies/*``"
+
+#: ../../source/api/Strategies.rst:9
+msgid "实操教程：``tutorials/*``"
+msgstr "実践的なチュートリアル: ``tutorials/*``"
+
+#: ../../source/api/Strategies.rst:12
+msgid "BaseStrategy"
+msgstr "BaseStrategy"
+
+#: of qteasy.strategy.BaseStrategy:1
+msgid "基类：:py:class:`object`"
+msgstr "ベースクラス：:py:クラス:`object`"
+
+#: of qteasy.strategy.BaseStrategy:1
+msgid "量化投资策略的抽象基类，所有具体策略都应从本类继承并实现交易信号生成逻辑。"
+msgstr "定量的戦略の抽象基本クラス。具体的な戦略はそれを継承し、信号生成ロジックを実装します。"
+
+#: of qteasy.strategy.BaseStrategy:3
+msgid ""
+"一个完整的策略通常由三部分组成：可调参数（pars）、所需历史数据的声明 （data_types + window_length "
+"等）以及基于这些数据生成信号的 ``realize()`` 逻辑。 在策略运行过程中，可通过 ``get_pars()`` 和 "
+"``get_data()`` 访问参数与数据，输出 的实数信号再由 Operator 按 PT/PS/VS 信号语义解析为实际交易指令。关于自定义策略 "
+"实现步骤与 PT/PS/VS 的详细说明，见文档「交易策略与 BaseStrategy」相关章节。"
+msgstr ""
+"完全な戦略は通常 3 つの部分で構成されます: 調整可能なパラメーター (``pars``), declared historical data "
+"(``data_types``, ``window_length``, etc.), and ``realize()`` logic that "
+"turns data into signals. During runs, use ``get_pars()`` and ``get_data()``;"
+" Operator は数値シグナルを PT/PS/VS 取引指示として解析します。カスタム戦略と PT/PS/VS の詳細については、「取引戦略と "
+"BaseStrategy」ドキュメントを参照してください。"
+
+#: of qteasy.strategy.BaseStrategy:10
+msgid "示例"
+msgstr "例"
+
+#: of qteasy.strategy.BaseStrategy:11
+msgid "BaseStrategy 为抽象基类，通常通过继承实现自定义策略。下面示例展示其类型信息（稳定输出）："
+msgstr "「`BaseStrategy`」は抽象的です。サブクラス化してカスタム戦略を実装します。以下の例は、安定した型の出力を示しています。"
+
+#: of qteasy.strategy.BaseStrategy.get_pars:1
+msgid ""
+"get the value of parameter by its name or id, alias as operator.par_name "
+"multiple parameters can be got at one time"
+msgstr ""
+"get the value of parameter by its name or id, alias as operator.par_name "
+"multiple parameters can be got at one time"
+
+#: of qteasy.strategy.BaseStrategy.info:1
+msgid "打印所有相关信息和主要属性"
+msgstr "すべての関連情報と主要な属性を出力します。"
+
+#: ../../source/api/Strategies.rst
+msgid "参数"
+msgstr "ポリシーパラメータがありません"
+
+#: of qteasy.strategy.BaseStrategy.info:3
+msgid "是否打印更多的信息"
+msgstr "追加の詳細を印刷するかどうか"
+
+#: of qteasy.strategy.BaseStrategy.info:5
+msgid "是否打印策略的运行状态"
+msgstr "ストラテジーの実行状態を印刷するかどうか"
+
+#: of qteasy.strategy.BaseStrategy.info:7
+msgid "策略的ID，如果为None，则打印策略的名称，否则打印策略的ID"
+msgstr "戦略 ID。なしの場合は、代わりに戦略名を出力します"
+
+#: of qteasy.strategy.BaseStrategy.info:9
+msgid "额外的信息，可以是任何字符串，会被打印在策略主信息之后，参数和数据之前"
+msgstr "メイン情報の後、パラメータとデータの前に印刷される追加のテキスト"
+
+#: ../../source/api/Strategies.rst
+msgid "返回类型"
+msgstr "戻り値の型"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:1
+msgid "快速更新策略的参数值"
+msgstr "戦略パラメーター値を迅速に更新する"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:3
+msgid "策略参数的值，元组中的每个元素是按顺序排列的所有参数值，如果 没有设置参数，则必须传入kwargs参数"
+msgstr ""
+"パラメーター値はパラメーターの順序でタプルとして表示されます。パラメータが設定されていない場合は、代わりに ``kwargs`` を渡します"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:6
+msgid "以字典形式传入具体需要更新的参数值，键为参数名，值为参数值"
+msgstr "名前を値にマッピングする辞書を介して特定のパラメータを更新します"
+
+#: ../../source/api/Strategies.rst:19
+msgid "GeneralStg"
+msgstr "GeneralStg"
+
+#: of qteasy.strategy.FactorSorter:1 qteasy.strategy.GeneralStg:1
+#: qteasy.strategy.RuleIterator:1
+msgid "基类：:py:class:`~qteasy.strategy.BaseStrategy`"
+msgstr "ベースクラス：:py:クラス:`~qteasy.strategy.BaseStrategy`"
+
+#: of qteasy.strategy.GeneralStg:1
+msgid "通用交易策略类，用户需要完整定义策略的所有交易逻辑，并在realize()方法中定义策略的信号输出。"
+msgstr "一般戦略クラス: ``realize()`` で完全な取引ロジックとシグナル出力を定義します。"
+
+#: of qteasy.strategy.GeneralStg:3
+msgid "关于GeneralStg类的更详细说明，请参见qteasy的文档。"
+msgstr "GeneralStg クラスの詳細については、qteasy ドキュメントを参照してください。"
+
+#: ../../source/api/Strategies.rst:25
+msgid "FactorSorter"
+msgstr "FactorSorter"
+
+#: of qteasy.strategy.FactorSorter:1
+msgid "因子排序选股策略，根据用户定义的选股因子筛选排序后确定每个股票的选股权重(请注意，FactorSorter策略"
+msgstr ""
+"FactorSorter "
+"銘柄ピッキング戦略。ユーザー定義の銘柄ピッキング係数のフィルタリングと並べ替えに基づいて、各銘柄ピッキングの重み付けを決定します "
+"(FactorSorter 戦略は、"
+
+#: of qteasy.strategy.FactorSorter:2
+msgid "生成的交易信号在0到1之间，推荐设置signal_type为\"PT\")"
+msgstr "生成される取引シグナルは 0 から 1 の間です。signal_type を \"PT\" に設定することをお勧めします)"
+
+#: of qteasy.strategy.FactorSorter:4
+msgid ""
+"这类策略要求用户从历史数据中提取一个选股因子，并根据选股因子的大小排序后确定投资组合中股票的交易信号 "
+"用户需要在realize()方法中计算选股因子，计算出选股因子后，接下来的排序和选股逻辑都不需要用户自行定义。 "
+"策略会根据预设的条件，从中筛选出符合标准的因子，并将剩下的因子排序，从中选择特定数量的股票，最后根据它 "
+"们的因子值分配权重或信号值。关于Strategy类的更详细说明，请参见qteasy的文档。"
+msgstr ""
+"このタイプの戦略では、ユーザーが履歴データから銘柄選択要因を抽出し、銘柄選択要因のサイズに従って並べ替えた後、ポートフォリオ内の株式の取引シグナルを決定する必要があります。ユーザーは、realize()"
+" "
+"メソッドで銘柄選択要因を計算する必要があり、一度係数が計算されると、次の並べ替えおよび銘柄選択ロジックをユーザーが定義する必要はありません。この戦略は、事前定義された条件に基づいて基準を満たすファクターをフィルターで除外し、残りのファクターを並べ替え、その中から特定の数の銘柄を選択し、最後にファクター値に基づいて重み付けまたはシグナル値を割り当てます。"
+
+#: ../../source/api/Strategies.rst:31
+msgid "RuleIterator"
+msgstr "RuleIterator"
+
+#: of qteasy.strategy.RuleIterator:1
+msgid "规则迭代策略类。这一类策略不考虑每一只股票的区别，将同一套规则同时迭代应用到所有的股票上。"
+msgstr "ルール反復戦略: 共有ごとに区別せずに、すべての共有に同じルールを適用します。"
+
+#: of qteasy.strategy.RuleIterator:3
+msgid ""
+"RuleIterator策略类的特殊功能是可以对同一套交易规则，将不同的参数应用到投资组合中的不同股票上。 "
+"例如，用户可以设计一个均线交叉策略，并将其应用到投资组合中的所有股票上，同时可以为每只股票 "
+"设定不同的均线周期参数。关于Strategy类的更详细说明，请参见qteasy的文档。"
+msgstr ""
+"``RuleIterator`` は、同じルールの株ごとに異なるパラメータを適用できます。たとえば、株ごとに異なる MA 期間などです。 "
+"Strategy クラスの詳細については、qteasy のドキュメントを参照してください。"
+
+#: of qteasy.strategy.RuleIterator:7
+msgid ""
+"**多标的且每股参数不同**：须通过 ``update_par_values({股票代码: (p1, p2, ...), ...})`` 传入与 "
+"``share_names`` 一致的股票代码键；若仅用位置元组初始化，多标的时全体共享一套运行时参数（见 用户文档《三种策略基类》中 "
+"RuleIterator 一节）。字典中可用键名 ``default`` 为未单独列出的标的 提供同一套默认初值；不支持 ``others`` "
+"等其它保留键名。"
+msgstr ""
+"**共有ごとのパラメータ**: ``update_par_values({code: (p1, p2, ...), ...})`` with keys "
+"matching ``share_names``; a positional tuple shares one runtime parameter "
+"set across shares (see RuleIterator in “Three Strategy Base Classes”). Use "
+"``default`` for shares not listed explicitly; ``others`` のパスはサポートされていません。"
+
+#: ../../source/api/Strategies.rst:37
+msgid "交易策略参数对象"
+msgstr "ポリシーパラメータがありません"
+
+#: ../../source/api/Strategies.rst:39
+msgid "Parameter 用于定义策略可调参数的类型、范围与取值方式。"
+msgstr "``Parameter`` は、調整可能な戦略パラメータのタイプ、範囲、および値のセマンティクスを定義します。"
+
+#: of qteasy.parameter.Parameter:1
+msgid "可调参数对象，可以是离散型、连续型、枚举型或者数组型参数，在交易策略中对策略的运行结果产生影响。"
+msgstr "戦略の結果に影響を与える調整可能なパラメーター オブジェクト (離散、連続、列挙、または配列)。"
+
+#: of qteasy.parameter.Parameter.get_value:1
+msgid "获取参数的当前值"
+msgstr "現在のパラメータ値を取得します"
+
+#: of qteasy.parameter.Parameter.set_value:1
+msgid "设置参数的当前值"
+msgstr "現在のパラメータ値を設定します"
+
+#: of qteasy.parameter.Parameter.set_value:3
+msgid "需要设置的参数值，若参数为枚举型，则value可以是枚举值中的一个；若参数为离散型或连续型，则value可以是一个整数或浮点数"
+msgstr "設定する値。列挙型の場合は 1 つの列挙型値。離散型/連続型の場合、int または float"
+
+#: ../../source/api/Strategies.rst
+msgid "抛出"
+msgstr "レイズ"
+
+#: of qteasy.parameter.Parameter.set_value:6
+msgid "当value不在数轴的可用值中时，抛出ValueError异常"
+msgstr "``ValueError`` if ``value`` は許可された軸上にありません"
+
+#: of qteasy.parameter.Parameter.update_par_range:1
+msgid "更新参数的范围"
+msgstr "パラメータ境界を更新する"
+
+#: of qteasy.parameter.Parameter.update_par_range:3
+msgid ""
+"数轴的上下界或枚举值，当数轴类型为conti或discr时，bounds_or_enum为一个长度为2的列表或元组，分别代表数轴的上下界； "
+"当数轴类型为enum时，bounds_or_enum为一个列表或元组，其中的元素为该数轴上所有可用的值"
+msgstr ""
+"``conti``/``discr``, a length-2 list/tuple of lower/upper bounds; for "
+"``enum`` の場合、許可される値のリスト/タプル"
+
+#: of qteasy.parameter.Parameter.update_par_range:7
+msgid "当输入的数轴类型不在可选值中时，抛出ValueError异常"
+msgstr "軸タイプがサポートされていない場合は ``ValueError``"

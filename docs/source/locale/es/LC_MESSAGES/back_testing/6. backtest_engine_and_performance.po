@@ -3,25 +3,24 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:1
 msgid "回测引擎与性能"
-msgstr ""
+msgstr "Backtesting del motor y el rendimiento"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:3
 msgid ""
@@ -29,173 +28,251 @@ msgid ""
 "的回测引擎如何工作，以及**性能与向量化**的实现方式，便于用户理解回测速度与正确性的来源。更底层的架构说明见《架构与设计》中的 "
 "[回测引擎与性能（设计视角）](../design/07-backtest-engine-and-performance.md)。"
 msgstr ""
+"Este capítulo explica cómo funciona el motor de backtesting de qteasy desde "
+"la perspectiva de **uso y resultados**, y cómo se implementan **rendimiento "
+"y vectorización**, lo que ayuda a los usuarios a comprender de dónde "
+"provienen la velocidad y la corrección del backtest. Para obtener una "
+"explicación arquitectónica de nivel inferior, consulte [Backtesting Engine "
+"and Performance (Design Perspective)](../design/07-backtest-engine-and-"
+"performance.md) en “Arquitectura y diseño”."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:5
 msgid "1. 回测引擎概览"
-msgstr ""
+msgstr "1. Descripción general del motor de pruebas retrospectivas"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:7
 #, python-format
 msgid ""
-"回测入口与流程已在 [回测概览](1.%20overview.md) 与 [如何运行回测](2.%20run_backtest.md) "
-"中说明：通过 `qt.run(op, mode=1, ...)` 进入回测模式，内部按 **group_timing_table** "
+"回测入口与流程已在 [回测概览](1.%20overview.md) 与 [如何运行回测](2.%20run_backtest.md) 中说明：通过 "
+"`qt.run(op, mode=1, ...)` 进入回测模式，内部按 **group_timing_table** "
 "的每个时间步运行策略、解析信号并模拟成交。"
 msgstr ""
+"El punto de entrada y el flujo de trabajo de la prueba retrospectiva se "
+"describen en [Descripción general de la prueba retrospectiva] "
+"(1.%20overview.md) y [Cómo ejecutar una prueba retrospectiva] "
+"(2.%20run_backtest.md): ingrese al modo de prueba retrospectiva a través de "
+"`qt.run(op, mode=1, ...)` e internamente, en cada paso de tiempo en "
+"**group_timing_table**, ejecute la estrategia, analice señales y simule "
+"ejecuciones."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:9
 msgid "与“逐 bar 事件驱动”或“全时间轴一次性矩阵运算”不同，qteasy 采用 **时间维顺序步进、单步内标的维向量化** 的方式："
 msgstr ""
+"A diferencia de las “operaciones matriciales de un solo disparo basadas en "
+"eventos barra por barra en toda la línea de tiempo”, qteasy utiliza **pasos "
+"secuenciales de dimensión de tiempo con vectorización de dimensión de "
+"instrumento dentro de cada paso**:"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:11
 msgid "**时间维**：按真实交易节奏顺序执行每个时间步，以正确维护现金、持仓、交割队列（如 T+1）等状态。"
 msgstr ""
+"**Dimensión de tiempo**: Ejecute cada paso de tiempo en orden de cadencia "
+"comercial real para mantener correctamente estados como efectivo, posiciones"
+" y la cola de liquidación (por ejemplo, T+1)."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:12
 msgid ""
 "**标的维**：在每个时间步内，对资产池中所有标的的买卖量、费用、持仓更新等做 **向量化计算**（NumPy 数组 + Numba "
 "加速），单步效率高。"
 msgstr ""
+"**Dimensión del instrumento**: dentro de cada paso de tiempo, realice "
+"**cálculos vectorizados** (matrices NumPy + aceleración Numba) para todos "
+"los instrumentos en el grupo de activos (volumenes de compra/venta, tarifas,"
+" actualizaciones de posiciones, etc.) logrando una alta eficiencia por paso."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:14
 msgid "这样既保证了与实盘一致的状态与规则，又避免了纯事件驱动下的逐笔循环带来的性能损失。"
 msgstr ""
+"Esto garantiza estados y reglas consistentes con el comercio real y evita la"
+" pérdida de rendimiento causada por los bucles por tick bajo un enfoque "
+"puramente basado en eventos."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:16
 msgid "2. 性能与向量化"
-msgstr ""
+msgstr "2. Rendimiento y vectorización"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:18
 msgid "2.1 核心计算加速"
-msgstr ""
+msgstr "2.1 Aceleración de la computación central"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:20
 msgid "回测与交易结果计算中的以下核心函数均使用 **Numba JIT**（`@njit(nogil=True, cache=True)`）加速："
 msgstr ""
+"Las siguientes funciones principales en backtesting y cálculo de resultados "
+"comerciales se aceleran con **Numba JIT** (`@njit(nogil=True, cache=True)`):"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:22
 msgid "**backtest_step**：单步内对整批标的计算买卖量、费用、持仓与交割更新。"
 msgstr ""
+"**backtest_step**: en un solo paso, calcule volúmenes de compra/venta, "
+"tarifas, posiciones y actualizaciones de liquidación para todo el lote de "
+"instrumentos."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:23
 msgid "**calculate_trade_results**：交易结果与资金变动计算。"
 msgstr ""
+"**calculate_trade_results**: Resultados comerciales y cálculo del flujo de "
+"caja."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:24
 msgid "**backtest_batch_steps**：在 Numba 内按时间步循环调用 `backtest_step`，完成整段回测。"
 msgstr ""
+"**backtest_batch_steps**: recorra los pasos de tiempo dentro de Numba y "
+"llame a `backtest_step` para completar todo el segmento de backtest."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:25
 msgid "**backtest_flash_steps**：优化模式下使用，仅保留最终资金与持仓以节省内存，同样在 Numba 内完成批量步进。"
 msgstr ""
+"**backtest_flash_steps**: Se usa solo en modo de optimización; conserva solo"
+" el efectivo y las posiciones finales para ahorrar memoria y, además, "
+"completa el paso por lotes dentro de Numba."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:27
 msgid ""
 "信号混合（如多策略合并）在 `blender` 模块中部分算子也使用 `@njit` 加速。因此，回测主体是 **向量化 + Numba** "
 "实现的，而非纯 Python 循环。"
 msgstr ""
+"La mezcla de señales (por ejemplo, fusionar múltiples estrategias) también "
+"utiliza la aceleración `@njit` para algunos operadores en el módulo "
+"`blender`. Por lo tanto, el motor principal de backtesting se implementa con"
+" **vectorización + Numba**, en lugar de bucles puros de Python."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:29
 msgid "2.2 时间维顺序与标的维向量化"
 msgstr ""
+"2.2 Ordenamiento y vectorización de la dimensión temporal a lo largo de la "
+"dimensión del instrumento"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "维度"
-msgstr ""
+msgstr "Dimensión"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "做法说明"
-msgstr ""
+msgstr "Descripción general del enfoque"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "时间维"
-msgstr ""
+msgstr "Dimensión del tiempo"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "顺序步进，以正确维护 T+1、交割周期、MOQ 等状态，与实盘一致。"
 msgstr ""
+"Avance secuencialmente para mantener correctamente estados como T+1, ciclos "
+"de liquidación, MOQ, etc., de forma coherente con el comercio real."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "标的维"
-msgstr ""
+msgstr "Dimensión del instrumento"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "单步内对所有标的做数组运算（如 `op_signal`、`own_amounts` 等为 1D 数组），实现向量化。"
 msgstr ""
+"Realice operaciones de matriz para todos los instrumentos en un solo paso "
+"(por ejemplo, `op_signal`, `own_amounts`, etc. son matrices 1D) para lograr "
+"la vectorización."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "优化模式"
-msgstr ""
+msgstr "Modo de optimización"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "多组参数通过多进程并行回测；每组内部使用 `backtest_flash_steps` 等高效路径，减少内存与计算。"
 msgstr ""
+"Se realizan pruebas retrospectivas de múltiples conjuntos de parámetros en "
+"paralelo mediante multiprocesamiento; dentro de cada conjunto, se utilizan "
+"rutas eficientes como `backtest_flash_steps` para reducir la memoria y el "
+"cálculo."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:37
 msgid "首次运行或参数变化时，Numba 会编译相关函数，可能带来一次性的启动延迟；后续同类型回测会复用缓存，速度更快。"
 msgstr ""
+"En la primera ejecución o cuando cambian los parámetros, Numba compila las "
+"funciones relevantes, lo que puede introducir un retraso de inicio único; "
+"Las pruebas posteriores del mismo tipo reutilizarán el caché y se ejecutarán"
+" más rápido."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:39
 msgid "2.3 与 VectorBT 的简要对比"
-msgstr ""
+msgstr "2.3 Breve comparación con VectorBT"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "对比项"
-msgstr ""
+msgstr "Artículo de comparación"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "qteasy"
-msgstr ""
+msgstr "qteasy"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "VectorBT"
-msgstr ""
+msgstr "VectorBT"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "顺序步进，每步内向量化"
-msgstr ""
+msgstr "Paso adelante secuencialmente, vectorizado dentro de cada paso."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "全时间轴一次性矩阵运算，无显式时间循环"
 msgstr ""
+"Operaciones matriciales de una sola vez en toda la línea de tiempo, sin "
+"ningún bucle de tiempo explícito"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "状态与约束"
-msgstr ""
+msgstr "Estados y restricciones"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "显式维护 T+1、交割、MOQ 等，贴近实盘"
 msgstr ""
+"Mantiene explícitamente T+1, liquidación, MOQ, etc., coincidiendo "
+"estrechamente con el comercio real."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "多为简化资金曲线，不强调交割/MOQ"
 msgstr ""
+"Curvas de acciones en su mayoría simplificadas; no enfatiza la "
+"liquidación/MOQ"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "适用场景"
-msgstr ""
+msgstr "Escenarios aplicables"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "需要正确模拟 A 股规则、多策略合并、精细成本与交割时"
 msgstr ""
+"Cuando necesite simular con precisión reglas de acciones A, fusionar "
+"múltiples estrategias y modelar costos y liquidaciones detalladas"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md
 msgid "海量参数组合快速筛选、研究向回测"
 msgstr ""
+"Detección rápida de combinaciones masivas de parámetros; backtesting "
+"orientado a la investigación"
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:47
 msgid ""
 "qteasy 在保证**状态正确性与规则可配置**的前提下，通过时间维顺序 + 标的维向量化 + Numba "
 "单步，兼顾速度；多组参数优化则通过多进程并行弥补“单次不能全矩阵广播”的差异。"
 msgstr ""
+"Con la premisa de garantizar **corrección del estado y reglas "
+"configurables**, qteasy equilibra la velocidad mediante secuenciación del "
+"eje de tiempo + vectorización del eje del instrumento + ejecución de un solo"
+" paso de Numba; Mientras tanto, la optimización multiparámetro compensa la "
+"diferencia de “no poder transmitir la matriz completa en una sola ejecución”"
+" mediante el paralelismo de multiprocesamiento."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:49
 msgid "3. 本目录与相关文档"
-msgstr ""
+msgstr "3. Este directorio y documentos relacionados."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:51
 #, python-format
 msgid "回测入口与配置：[1. 回测概览](1.%20overview.md)、[2. 如何运行回测](2.%20run_backtest.md)。"
 msgstr ""
+"Puntos de entrada y configuración de backtest: [1. Descripción general del "
+"backtesting](1.%20overview.md), [2. Cómo ejecutar una prueba retrospectiva] "
+"(2.%20run_backtest.md)."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:52
 #, python-format
@@ -203,6 +280,9 @@ msgid ""
 "回测结果与评价：[3. 回测结果的结构](3.%20result_structure.md)、[5. "
 "回测结果评价与分析](5.%20evaluate_and_analyze.md)。"
 msgstr ""
+"Resultados y evaluación del backtest: [3. Estructura de los resultados del "
+"backtest](3.%20result_structure.md), [5. Evaluación y análisis de resultados"
+" del backtest](5.%20evaluate_and_analyze.md)."
 
 #: ../../source/back_testing/6. backtest_engine_and_performance.md:53
 msgid ""
@@ -210,4 +290,7 @@ msgid ""
 "performance.md)、[设计：设计初衷与独特优势](../design/08-design-rationale-and-"
 "advantages.md)。"
 msgstr ""
-
+"Detalles de arquitectura e implementación: [Diseño: Backtest del motor y "
+"rendimiento](../design/07-backtest-engine-and-performance.md), [Diseño: "
+"Fundamentos del diseño y ventajas únicas](../design/08-design-rationale-and-"
+"advantages.md)."

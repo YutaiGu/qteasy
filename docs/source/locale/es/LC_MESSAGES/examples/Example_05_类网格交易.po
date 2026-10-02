@@ -3,68 +3,88 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-05-20 20:30+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/examples/Example_05_类网格交易.md:1
 msgid "类网格交易策略"
-msgstr ""
+msgstr "Estrategia comercial pseudo-grid"
 
 #: ../../source/examples/Example_05_类网格交易.md:3
 msgid ""
-"参考来源：`docs/_joinquant_migration_source/Example_05_类网格交易.ipynb` 第一个 "
-"Markdown cell。"
+"参考来源：`docs/_joinquant_migration_source/Example_05_类网格交易.ipynb` 第一个 Markdown "
+"cell。"
 msgstr ""
+"Fuente de referencia: `docs/_joinquant_migration_source/Example_05_Class "
+"Grid Trading.ipynb` Primera celda de Markdown."
 
 #: ../../source/examples/Example_05_类网格交易.md:5
 msgid "本策略首先计算过去300个价格数据的均值和标准差 (天数是一个可调参数)"
 msgstr ""
+"Esta estrategia primero calcula la media y la desviación estándar de los "
+"últimos 300 puntos de datos de precios (el número de días es un parámetro "
+"ajustable)."
 
 #: ../../source/examples/Example_05_类网格交易.md:6
 msgid "并根据均值加减1和2个标准差得到网格的区间分界线,（加减标准差的倍数是可调参数)"
 msgstr ""
+"Los límites del intervalo de la cuadrícula se obtienen sumando o restando 1 "
+"y 2 desviaciones estándar de la media (el multiplicador para sumar o restar "
+"desviaciones estándar es un parámetro ajustable)."
 
 #: ../../source/examples/Example_05_类网格交易.md:7
 msgid "并分别配以0.3和0.5的仓位权重 (仓位权重是可调参数）"
 msgstr ""
+"Se les asignan pesos de posición de 0,3 y 0,5 respectivamente (los pesos de "
+"posición son parámetros ajustables)."
 
 #: ../../source/examples/Example_05_类网格交易.md:8
 msgid ""
 "然后根据价格所在的区间来配置仓位(+/-40为上下界,无实际意义): "
-"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40](具体价格等于均值+数字倍标准差) [-0.5, -0.3, 0.0, "
-"0.3, 0.5] (资金比例,此处负号表示开空仓，回测时设置为允许持有空头仓位)"
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40](具体价格等于均值+数字倍标准差) [-0.5, -0.3, 0.0, 0.3,"
+" 0.5] (资金比例,此处负号表示开空仓，回测时设置为允许持有空头仓位)"
 msgstr ""
+"Luego, configure el tamaño de la posición según el rango de precios (+/-40 "
+"es el límite superior e inferior, lo cual no tiene significado práctico): "
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40] (el precio específico es igual a la "
+"media más un múltiplo de la desviación estándar) [-0.5, -0.3, 0.0, 0.3, 0.5]"
+" (ratio de capital; el signo negativo aquí indica abrir una posición corta y"
+" está configurado para permitir mantener posiciones cortas durante el "
+"backtesting)."
 
 #: ../../source/examples/Example_05_类网格交易.md:12
 msgid "回测数据为:HS300指数的1min数据 回测时间为:2022-03-01 09:30:00到2022-07-31 15:00:00"
 msgstr ""
+"Los datos del backtesting constan de puntos de datos de 1 minuto para el "
+"índice HS300. El periodo de backtesting es desde las 09:30:00 horas del 1 de"
+" marzo de 2022 hasta las 15:00:00 horas del 31 de julio de 2022."
 
 #: ../../source/examples/Example_05_类网格交易.md:20
 msgid "定义交易策略"
-msgstr ""
+msgstr "Definir la estrategia comercial"
 
 #: ../../source/examples/Example_05_类网格交易.md:65
 msgid "设定交易员对象，并且设置交易配置，实施交易回测"
 msgstr ""
+"Defina el objeto comercial, configure los ajustes comerciales y realice "
+"pruebas retrospectivas comerciales."
 
 #: ../../source/examples/Example_05_类网格交易.md:133
 msgid "![png](img/output_3_1.png)"
-msgstr ""
+msgstr "![png](img/output_3_1.png)"
 
 #: ../../source/examples/Example_05_类网格交易.md:133
 msgid "png"
-msgstr ""
-
+msgstr "png"

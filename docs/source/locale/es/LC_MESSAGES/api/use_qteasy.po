@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
@@ -11,25 +10,28 @@ msgstr ""
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/api/use_qteasy.rst:2
 msgid "启动QTEASY"
-msgstr ""
+msgstr "Iniciar QTEASY"
 
 #: ../../source/api/use_qteasy.rst:4
 msgid "启动qteasy的配置信息:"
-msgstr ""
+msgstr "Administrar `qteasy` configuraciones de inicio"
 
 #: of qteasy.core.run:1
 msgid "根据当前配置运行给定的 Operator，并进入回测、优化或实盘等不同工作模式。"
 msgstr ""
+"Ejecute el Operator proporcionado de acuerdo con la configuración actual e "
+"ingrese a diferentes modos de trabajo, como backtesting, optimización o "
+"comercio en vivo."
 
 #: of qteasy.core.run:3
 msgid ""
@@ -37,88 +39,126 @@ msgid ""
 "``qt.configure(mode=...)`` 暂时覆盖），选择实盘模式、回测模式、优化模式等， 自动准备所需数据源与日志对象并调用 "
 "``Operator.run()`` 执行完整流程。各模式 的详细行为与输出结构见文档「运行 qteasy 与工作模式」相关章节。"
 msgstr ""
+"Esta función es el punto de entrada unificado de qteasy: basado en la "
+"configuración global ``QT_CONFIG['mode']`` (which can be temporarily "
+"overridden via ``qt.configure(mode=...)``), it selects live trading mode, "
+"backtest mode, optimization mode, etc., automatically prepares the required "
+"data sources and log objects, and calls ``Operator.run()`` para ejecutar el "
+"flujo de trabajo completo. Para conocer el comportamiento detallado y la "
+"estructura de salida de cada modo, consulte las secciones relevantes en la "
+"documentación \"Ejecución de qteasy y modos de trabajo\"."
 
 #: of qteasy.core.info qteasy.core.run
 msgid "参数"
-msgstr ""
+msgstr "Parámetros"
 
 #: of qteasy.core.run:8
 msgid "已配置好策略与运行参数的 Operator 对象。"
 msgstr ""
+"Un objeto Operator con estrategias y parámetros de tiempo de ejecución ya "
+"configurados."
 
 #: of qteasy.core.run:10
 msgid ""
 "本次运行临时覆盖的配置项，键名需为合法的 qteasy 配置键，例如 "
 "``mode``、``asset_pool``、``invest_start``、``invest_end`` 等。"
 msgstr ""
+"Elementos de configuración anulados temporalmente para esta ejecución; los "
+"nombres de las claves deben ser claves de configuración qteasy válidas, como"
+" ``mode``, ``asset_pool``, ``invest_start``, ``invest_end``, etc."
 
 #: of qteasy.core.info qteasy.core.run
 msgid "返回"
-msgstr ""
+msgstr "Devoluciones"
 
 #: of qteasy.core.run:13
 msgid ""
-"当 ``mode == 1``（回测模式）时通常返回包含回测结果的字典； 当 ``mode == "
-"2``（优化模式）时通常返回包含多组参数结果的列表； 实盘模式与其他模式的具体返回结构详见 Operator.run() 与相关文档说明。"
+"当 ``mode == 1``（回测模式）时通常返回包含回测结果的字典； 当 ``mode == 2``（优化模式）时通常返回包含多组参数结果的列表； "
+"实盘模式与其他模式的具体返回结构详见 Operator.run() 与相关文档说明。"
 msgstr ""
+"Cuando ``mode == 1`` (backtest mode), it usually returns a dict containing "
+"backtest results; when ``mode == 2`` (modo de optimización), generalmente "
+"devuelve una lista que contiene resultados para múltiples conjuntos de "
+"parámetros; Para conocer la estructura de retorno exacta en el modo de "
+"negociación real y otros modos, consulte Operator.run() y la documentación "
+"relacionada."
 
 #: of qteasy.core.info qteasy.core.run
 msgid "返回类型"
-msgstr ""
+msgstr "Tipo de devolución"
 
 #: of qteasy.core.info:11 qteasy.core.run:19
 msgid "示例"
-msgstr ""
+msgstr "Ejemplo"
 
 #: of qteasy.core.run:20
 msgid "``run`` 通常会触及数据源、日志路径与运行模式等外部状态。下面示例展示最小的“可见且稳定”的调用准备："
 msgstr ""
+"``run`` normalmente toca estados externos, como fuentes de datos, rutas de "
+"registro y modos de ejecución. El siguiente ejemplo muestra la configuración"
+" mínima de llamada \"visible y estable\":"
 
 #: of qteasy.core.run:27
 msgid "若你已正确配置数据源与资产池，可进一步执行（输出结构随模式而不同）：::"
 msgstr ""
+"Si ha configurado correctamente la fuente de datos y el grupo de activos, "
+"puede ejecutar más (la estructura de salida varía según el modo):::"
 
 #: of qteasy.core.info:1
 msgid "qteasy 模块的帮助信息入口函数（预留）。"
 msgstr ""
+"Función de entrada para la información de ayuda del módulo qteasy "
+"(reservada)."
 
 #: of qteasy.core.info:3
 msgid "预留参数（当前版本未使用）。"
-msgstr ""
+msgstr "Parámetro reservado (no utilizado en la versión actual)."
 
 #: of qteasy.core.info:5
 msgid "当前版本未实现，调用将抛出 ``NotImplementedError``。"
 msgstr ""
+"No implementado en la versión actual; llamarlo generará "
+"``NotImplementedError``."
 
 #: of qteasy.core.info
 msgid "抛出"
-msgstr ""
+msgstr "aumentos"
 
 #: of qteasy.core.info:8
 msgid "当前版本未实现。"
-msgstr ""
+msgstr "No implementado en la versión actual."
 
 #: of qteasy.core.info:12
 msgid "本函数为预留入口，建议使用 Sphinx 文档或 `help(qteasy)` 获取帮助信息："
 msgstr ""
+"Esta función es un punto de entrada reservado. Se recomienda utilizar la "
+"documentación de Sphinx o `help(qteasy)` para obtener información de ayuda:"
 
 #: ../../source/api/use_qteasy.rst:12
 msgid "运行模式与常量速查"
-msgstr ""
+msgstr "Referencia rápida de modos de ejecución y constantes"
 
 #: ../../source/api/use_qteasy.rst:14
 msgid ""
 "qteasy 使用一组全局常量表示运行模式（实盘/回测/优化/预测）。你可以在调用 ``qt.run`` 前后通过 "
 "``qt.configure(mode=...)`` 或在 ``qt.run(op, mode=...)`` 中临时覆盖。"
 msgstr ""
+"qteasy utiliza un conjunto de constantes globales para representar los modos"
+" de ejecución (comercio en vivo/prueba "
+"retrospectiva/optimización/previsión). Puede anularlos temporalmente antes o"
+" después de llamar a ``qt.run`` via ``qt.configure(mode=...)``, or within "
+"``qt.run(op, mode=...)``."
 
 #: ../../source/api/use_qteasy.rst:17
 msgid "示例（常量值为稳定输出）：:"
-msgstr ""
+msgstr "Ejemplo (los valores constantes producen una salida estable)::"
 
 #: ../../source/api/use_qteasy.rst:23
 msgid "日志与根目录路径常量（值受配置影响，尤其是日志路径支持运行时热更新）：:"
 msgstr ""
+"Constantes de ruta de registro y directorio raíz (los valores se ven "
+"afectados por la configuración y, en particular, la ruta de registro admite "
+"actualizaciones en caliente en tiempo de ejecución):"
 
 #~ msgid "参数"
 #~ msgstr ""
@@ -146,8 +186,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "`Qteasy`的实盘运行有一个“账户”的概念，就跟您在股票交易市场开户一样，一个账户可以有自己的持有资金，股票持仓，单独 "
-#~ "计算盈亏。运行过程中您可以随时终止程序，这时所有的交易记录都会保存下来，下次重新启动时，只要引用上一次运行使用的 "
-#~ "账户ID（account "
+#~ "计算盈亏。运行过程中您可以随时终止程序，这时所有的交易记录都会保存下来，下次重新启动时，只要引用上一次运行使用的 账户ID（account "
 #~ "ID）就可以从上次中断的地方继续运行了，因此启动时需要指定账户，如果不想继续上次的账户，可以新开一个账户运行。"
 #~ msgstr ""
 
@@ -156,19 +195,19 @@ msgstr ""
 
 #~ msgid ""
 #~ "根据Config规定的回测区间，使用History模块联机读取或从本地读取覆盖整个回测区间的历史数据 "
-#~ "生成投资资金模型，模拟在回测区间内使用投资资金模型进行模拟交易的结果 输出对结果的评价（使用多维度的评价方法） "
-#~ "输出回测日志· 投资资金模型不能为空，策略参数不能为空"
+#~ "生成投资资金模型，模拟在回测区间内使用投资资金模型进行模拟交易的结果 输出对结果的评价（使用多维度的评价方法） 输出回测日志· "
+#~ "投资资金模型不能为空，策略参数不能为空"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "根据执行器历史数据hist_op，应用operator执行器对象中定义的投资策略生成一张投资产品头寸及仓位建议表。 "
 #~ "这张表的每一行内的数据代表在这个历史时点上，投资策略建议对每一个投资产品应该持有的仓位。每一个历史时点的数据都是根据这个历史时点的 "
-#~ "相对历史数据计算出来的。这张投资仓位建议表的历史区间受Config上下文对象的\"loop_period_start, "
-#~ "loop_period_end, loop_period_freq\" 等参数确定。 "
+#~ "相对历史数据计算出来的。这张投资仓位建议表的历史区间受Config上下文对象的\"loop_period_start, loop_period_end,"
+#~ " loop_period_freq\" 等参数确定。 "
 #~ "同时，这张投资仓位建议表是由operator执行器对象在hist_op策略生成历史数据上生成的。hist_op历史数据包含所有用于生成策略运行结果的信息"
 #~ " 包括足够的数据密度、足够的前置历史区间以及足够的历史数据类型（如不同价格种类、不同财报指标种类等） "
-#~ "operator执行器对象接受输入的hist_op数据后，在数据集合上反复循环运行，从历史数据中逐一提取出一个个历史片段，根据这个片段生成一个投资组合"
-#~ " 建议，然后把所有生成的投资组合建议组合起来形成完整的投资组合建议表。"
+#~ "operator执行器对象接受输入的hist_op数据后，在数据集合上反复循环运行，从历史数据中逐一提取出一个个历史片段，根据这个片段生成一个投资组合 "
+#~ "建议，然后把所有生成的投资组合建议组合起来形成完整的投资组合建议表。"
 #~ msgstr ""
 
 #~ msgid ""
@@ -177,12 +216,9 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "历史交易信号表生成后，系统在相应的历史区间中创建hist_loop回测历史数据表，回测历史数据表包含对回测操作来说必要的历史数据如股价等，然后"
-#~ " "
-#~ "在hist_loop的历史数据区间上对每一个投资交易信号进行模拟交易，并且逐个生成每个交易品种的实际成交量、成交价格、交易费用（通过Rate类估算）"
-#~ " "
-#~ "以及交易前后的持有资产数量和持有现金数量的变化，以及总资产的变化。形成一张交易结果清单。交易模拟过程中的现金投入过程通过CashPlan对象来"
-#~ " 模拟。"
+#~ "历史交易信号表生成后，系统在相应的历史区间中创建hist_loop回测历史数据表，回测历史数据表包含对回测操作来说必要的历史数据如股价等，然后 "
+#~ "在hist_loop的历史数据区间上对每一个投资交易信号进行模拟交易，并且逐个生成每个交易品种的实际成交量、成交价格、交易费用（通过Rate类估算） "
+#~ "以及交易前后的持有资产数量和持有现金数量的变化，以及总资产的变化。形成一张交易结果清单。交易模拟过程中的现金投入过程通过CashPlan对象来 模拟。"
 #~ msgstr ""
 
 #~ msgid ""
@@ -191,27 +227,23 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "1，total_investment                      总投资 "
-#~ "2，total_final_value                     投资期末总资产 "
-#~ "3，loop_length                           投资模拟区间长度 "
-#~ "4，total_earning                         总盈亏 "
+#~ "1，total_investment                      总投资 2，total_final_value"
+#~ "                     投资期末总资产 3，loop_length                           "
+#~ "投资模拟区间长度 4，total_earning                         总盈亏 "
 #~ "5，total_transaction_cost                总交易成本 6，total_open"
-#~ "                            总开仓次数 7，total_close"
-#~ "                           总平仓次数 8，total_return_rate"
-#~ "                     总收益率 9，annual_return_rate"
-#~ "                    总年化收益率 10，reference_return"
-#~ "                     基准产品总收益 11，reference_return_rate"
-#~ "                基准产品总收益率 12，reference_annual_return_rate"
-#~ "         基准产品年化收益率 13，max_retreat"
-#~ "                          投资期最大回测率 14，Karma_rate"
-#~ "                           卡玛比率 15，Sharp_rate"
-#~ "                           夏普率 16，win_rate"
+#~ "                            总开仓次数 7，total_close                           "
+#~ "总平仓次数 8，total_return_rate                     总收益率 9，annual_return_rate"
+#~ "                    总年化收益率 10，reference_return                     基准产品总收益 "
+#~ "11，reference_return_rate                基准产品总收益率 "
+#~ "12，reference_annual_return_rate         基准产品年化收益率 13，max_retreat"
+#~ "                          投资期最大回测率 14，Karma_rate                           "
+#~ "卡玛比率 15，Sharp_rate                           夏普率 16，win_rate"
 #~ "                             胜率"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "上述所有评价结果和历史区间数据能够以可视化的方式输出到图表中。同时回测的结果数据和回测区间的每一次模拟交易记录也可以被记录到log对象中"
-#~ " 保存在磁盘上供未来调用"
+#~ "上述所有评价结果和历史区间数据能够以可视化的方式输出到图表中。同时回测的结果数据和回测区间的每一次模拟交易记录也可以被记录到log对象中 "
+#~ "保存在磁盘上供未来调用"
 #~ msgstr ""
 
 #~ msgid ""
@@ -221,23 +253,23 @@ msgstr ""
 
 #~ msgid ""
 #~ "策略优化模式： 根据Config规定的优化区间和回测区间，使用History模块联机读取或本地读取覆盖整个区间的历史数据 "
-#~ "生成待优化策略的参数空间，并生成投资资金模型 使用指定的优化方法在优化区间内查找投资资金模型的全局最优或局部最优参数组合集合"
-#~ " 使用在优化区间内搜索到的全局最优策略参数在回测区间上进行多次回测并再次记录结果 "
-#~ "输出最优参数集合在优化区间和回测区间上的评价结果 输出优化及回测日志 投资资金模型不能为空，策略参数可以为空"
+#~ "生成待优化策略的参数空间，并生成投资资金模型 使用指定的优化方法在优化区间内查找投资资金模型的全局最优或局部最优参数组合集合 "
+#~ "使用在优化区间内搜索到的全局最优策略参数在回测区间上进行多次回测并再次记录结果 输出最优参数集合在优化区间和回测区间上的评价结果 输出优化及回测日志 "
+#~ "投资资金模型不能为空，策略参数可以为空"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "优化模式的目的是寻找能让策略的运行效果最佳的参数或参数组合。 "
-#~ "寻找能使策略的运行效果最佳的参数组合并不是一件容易的事，因为我们通常认为运行效果最佳的策略是能在\"未来\"实现最大收益的策略。但是，鉴于"
-#~ " 实际上要去预测未来是不可能的，因此我们能采取的优化方法几乎都是以历史数据——也就是过去的经验——为基础的，并且期望通过过去的历史经验"
-#~ " 达到某种程度上\"预测未来\"的效果。"
+#~ "寻找能使策略的运行效果最佳的参数组合并不是一件容易的事，因为我们通常认为运行效果最佳的策略是能在\"未来\"实现最大收益的策略。但是，鉴于 "
+#~ "实际上要去预测未来是不可能的，因此我们能采取的优化方法几乎都是以历史数据——也就是过去的经验——为基础的，并且期望通过过去的历史经验 "
+#~ "达到某种程度上\"预测未来\"的效果。"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "策略优化模式或策略优化器的工作方法就基于这个思想，如果某个或某组参数使得某个策略的在过去足够长或者足够有代表性的历史区间内表现良好， "
-#~ "那么很有可能它也能在有限的未来不大会表现太差。因此策略优化模式的着眼点完全在于历史数据——所有的操作都是通过解读历史数据，或者策略在历史数据"
-#~ " 上的表现来评判一个策略的优劣的，至于如何找到对策略的未来表现有更大联系的历史数据或表现形式，则是策略设计者的责任。策略优化器仅仅"
-#~ " 确保找出的参数组合在过去有很好的表现，而对于未来无能为力。"
+#~ "那么很有可能它也能在有限的未来不大会表现太差。因此策略优化模式的着眼点完全在于历史数据——所有的操作都是通过解读历史数据，或者策略在历史数据 "
+#~ "上的表现来评判一个策略的优劣的，至于如何找到对策略的未来表现有更大联系的历史数据或表现形式，则是策略设计者的责任。策略优化器仅仅 "
+#~ "确保找出的参数组合在过去有很好的表现，而对于未来无能为力。"
 #~ msgstr ""
 
 #~ msgid ""
@@ -283,13 +315,12 @@ msgstr ""
 
 #~ msgid ""
 #~ "递进步长法的基本思想是对参数空间进行多轮递进式的搜索，每一轮搜索方法与蒙特卡洛法相同但是每一轮搜索后都将搜索 "
-#~ "范围缩小到更希望产生全局最优的子空间中，并在这个较小的子空间中继续使用蒙特卡洛法进行搜索，直到该子空间太小、 "
-#~ "或搜索轮数大于设定值为止。"
+#~ "范围缩小到更希望产生全局最优的子空间中，并在这个较小的子空间中继续使用蒙特卡洛法进行搜索，直到该子空间太小、 或搜索轮数大于设定值为止。"
 #~ msgstr ""
 
 #~ msgid ""
-#~ "使用这种技术，在一个250*250*250的空间中，能够把搜索量从15,000,000降低到10,000左右,缩减到原来的1/1500，"
-#~ " 却不太会影响最终搜索的效果。"
+#~ "使用这种技术，在一个250*250*250的空间中，能够把搜索量从15,000,000降低到10,000左右,缩减到原来的1/1500， "
+#~ "却不太会影响最终搜索的效果。"
 #~ msgstr ""
 
 #~ msgid "关于递进步长法的参数和输出，参见self._search_sa()函数的docstring"
@@ -330,9 +361,9 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "1，ANN_based_methods                     基于人工神经网络的有监督方法（尚未实现） "
-#~ "2，SVM                                   支持向量机类方法（尚未实现） "
-#~ "3，KNN                                   基于KNN的方法（尚未实现）"
+#~ "1，ANN_based_methods                     基于人工神经网络的有监督方法（尚未实现） 2，SVM"
+#~ "                                   支持向量机类方法（尚未实现） 3，KNN"
+#~ "                                   基于KNN的方法（尚未实现）"
 #~ msgstr ""
 
 #~ msgid ""
@@ -343,20 +374,19 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "优化器的优化过程首先开始于一个明确定义的参数\"空间\"。参数空间在系统中定义为一个Space对象。如果把策略的参数用向量表示，空间就是所有可能"
-#~ " 的参数组合形成的向量空间。对于无监督类方法来说，参数空间容纳的向量就是交易信号本身或参数本身。而对于有监督算法，参数空间是将历史数据"
-#~ " "
-#~ "映射到先验数据的一个特定映射函数的参数空间，例如，在ANN方法中，参数空间就是神经网络所有神经元连接权值的可能取值空间。优化器的工作本质"
-#~ " 就是在这个参数空间中寻找全局最优解或局部最优解。因此理论上所有的数值优化方法都可以用于优化器。"
+#~ "优化器的优化过程首先开始于一个明确定义的参数\"空间\"。参数空间在系统中定义为一个Space对象。如果把策略的参数用向量表示，空间就是所有可能 "
+#~ "的参数组合形成的向量空间。对于无监督类方法来说，参数空间容纳的向量就是交易信号本身或参数本身。而对于有监督算法，参数空间是将历史数据 "
+#~ "映射到先验数据的一个特定映射函数的参数空间，例如，在ANN方法中，参数空间就是神经网络所有神经元连接权值的可能取值空间。优化器的工作本质 "
+#~ "就是在这个参数空间中寻找全局最优解或局部最优解。因此理论上所有的数值优化方法都可以用于优化器。"
 #~ msgstr ""
 
 #~ msgid ""
 #~ "优化器的另一个重要方面是目标函数。根据目标函数，我们可以对优化参数空间中的每一个点计算出一个目标函数值，并根据这个函数值的大小来评判 "
 #~ "参数的优劣。因此，目标函数的输出应该是一个实数。对于无监督方法，目标函数与参数策略的回测结果息息相关，最直接的目标函数就是投资终值， "
 #~ "当初始投资额相同的时候，我们可以简单地认为终值越高，则参数的表现越好。但目标函数可不仅仅是终值一项，年化收益率或收益率、夏普率等等 "
-#~ "常见的评价指标都可以用来做目标函数，甚至目标函数可以用复合指标，如综合考虑收益率、交易成本、最大回撤等指标的一个复合指标，只要目标函数"
-#~ " 的输出是一个实数，就能被用作目标函数。而对于有监督方法，目标函数表征的是从历史数据到先验信息的映射能力，通常用实际输出与先验信息之间"
-#~ " 的差值的函数来表示。在机器学习和数值优化领域，有多种函数可选，例如MSE函数，CrossEntropy等等。"
+#~ "常见的评价指标都可以用来做目标函数，甚至目标函数可以用复合指标，如综合考虑收益率、交易成本、最大回撤等指标的一个复合指标，只要目标函数 "
+#~ "的输出是一个实数，就能被用作目标函数。而对于有监督方法，目标函数表征的是从历史数据到先验信息的映射能力，通常用实际输出与先验信息之间 "
+#~ "的差值的函数来表示。在机器学习和数值优化领域，有多种函数可选，例如MSE函数，CrossEntropy等等。"
 #~ msgstr ""
 
 #~ msgid "Config.mode == 3 or mode == 3:"
@@ -364,8 +394,7 @@ msgstr ""
 
 #~ msgid ""
 #~ "进入评价模式（技术冻结后暂停开发此功能） "
-#~ "评价模式的思想是使用随机生成的模拟历史数据对策略进行评价。由于可以使用大量随机历史数据序列进行评价，因此可以得到策略的统计学 "
-#~ "表现"
+#~ "评价模式的思想是使用随机生成的模拟历史数据对策略进行评价。由于可以使用大量随机历史数据序列进行评价，因此可以得到策略的统计学 表现"
 #~ msgstr ""
 
 #~ msgid "Parameters"
@@ -381,9 +410,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "* *1, 在live_trade模式或模式0下，进入实盘交易Shell* * **2,"
-#~ " 在back_test模式或模式1下, 返回** (*loop_result*) * "
-#~ "**3, 在optimization模式或模式2下** (*返回一个list，包含所有优化后的策略参数*)"
+#~ "* *1, 在live_trade模式或模式0下，进入实盘交易Shell* * **2, 在back_test模式或模式1下, 返回** "
+#~ "(*loop_result*) * **3, 在optimization模式或模式2下** (*返回一个list，包含所有优化后的策略参数*)"
 #~ msgstr ""
 
 #~ msgid "*1, 在live_trade模式或模式0下，进入实盘交易Shell*"
@@ -397,4 +425,3 @@ msgstr ""
 
 #~ msgid "qteasy 模块的帮助信息入口函数"
 #~ msgstr ""
-

@@ -24,19 +24,21 @@ from threading import Thread
 import numpy as np
 import pandas as pd
 
-from typing import List, Optional
+from typing import Any, Dict, List, Optional
 from cmd import Cmd
 from rich.console import Console
 from rich.text import Text
 
 from qteasy.trader import (
     TraderMessage,
+    TaskSpec,
     coerce_trader_message,
     drain_trader_message_queue,
     group_sys_log_physical_lines,
     _is_debug_sys_log_line,
 )
 from qteasy.trading_util import get_symbol_names, cancel_order
+from qteasy.data_channels import list_builtin_channels
 
 from qteasy.utilfuncs import (
     adjust_string_length,
@@ -62,10 +64,12 @@ CLI_COMMAND_ALIASES = {
     'startup-gate': 'gate',
     'snapshot-reconcile': 'reconcile',
     'rotate-logs': 'rotatelogs',
+    'rotatelog': 'rotatelogs',
     'pull-state': 'sync',
 }
 
 BROKER_SUBCOMMANDS = ('status', 'connect', 'disconnect')
+SUPPORTED_DATA_CHANNELS = list_builtin_channels()
 
 
 def _terminal_width(fallback: int = 80) -> int:
@@ -128,6 +132,103 @@ def _filter_sys_log_lines(lines: List[str], include_debug: bool = True) -> List[
     if include_debug:
         return grouped
     return [line for line in grouped if not _is_debug_sys_log_line(line)]
+
+
+def _format_bool_markup(value: bool) -> str:
+    """将布尔值格式化为带 Rich 颜色的字符串（用户可见英文 True/False）。"""
+    if value:
+        return '[bold green]True[/bold green]'
+    return '[bold red]False[/bold red]'
+
+
+def _format_scalar_for_display(value: Any, *, list_preview: int = 5) -> str:
+    """将标量/简单容器格式化为 CLI 可读字符串。"""
+    if value is None:
+        return '--'
+    if isinstance(value, bool):
+        return _format_bool_markup(value)
+    if isinstance(value, float):
+        if np.isnan(value):
+            return '--'
+        return f'{value:,.4f}'.rstrip('0').rstrip('.')
+    if isinstance(value, (list, tuple)):
+        items = list(value)
+        if not items:
+            return '[]'
+        preview = items[:list_preview]
+        text = ', '.join(str(item) for item in preview)
+        if len(items) > list_preview:
+            text += f', ...({len(items)} total)'
+        return text
+    if isinstance(value, dict):
+        if not value:
+            return '{}'
+        parts = [f'{k}={v}' for k, v in list(value.items())[:list_preview]]
+        text = ', '.join(parts)
+        if len(value) > list_preview:
+            text += f', ...({len(value)} keys)'
+        return text
+    return str(value)
+
+
+def _print_key_value_section(title: str, items: Dict[str, Any], *, width: Optional[int] = None) -> None:
+    """以 overview 风格打印键值分段（支持 Rich 颜色 markup）。"""
+    if width is None:
+        width = _terminal_width()
+    semi_width = int(width * 0.75)
+    info_str = f'{{" {title} ":=^{width}}}\n'
+    for key, value in items.items():
+        formatted = _format_scalar_for_display(value)
+        info_str += f'{key:<{semi_width - 20}}{formatted}\n'
+    rich.print(info_str, end='')
+
+
+def _normalize_task_status_filter(status: Optional[str]) -> Optional[str]:
+    """归一化 task 列表命令的状态过滤参数。"""
+    if status is None:
+        return None
+    normalized = str(status).strip().lower()
+    if normalized in ('', 'all', 'a'):
+        return None
+    if normalized in ('queued', 'q', 'in-queue', 'in_queue', 'in queue'):
+        return 'queued'
+    return str(status).strip()
+
+
+def format_trader_tasks_table(tasks: List[TaskSpec], *, rich_form: bool = True) -> str:
+    """将 Trader 任务列表格式化为与 schedule 类似的表格字符串。
+
+    Parameters
+    ----------
+    tasks : list of TaskSpec
+        待展示任务列表。
+    rich_form : bool, optional
+        是否替换方括号以避免 Rich 误解析。
+
+    Returns
+    -------
+    str
+        表格字符串；无任务时返回提示语。
+    """
+    if not tasks:
+        return 'No trader tasks found.'
+
+    rows = []
+    for task_spec in tasks:
+        rows.append({
+            'task_id': task_spec.task_id,
+            'name': task_spec.name,
+            'status': task_spec.status,
+            'retry': f'{task_spec.retry_count}/{task_spec.max_retries}',
+            'args': str(task_spec.args),
+            'canceled': task_spec.canceled,
+        })
+    task_df = pd.DataFrame(rows).set_index('task_id')
+    table_string = task_df.to_string()
+    if rich_form:
+        table_string = table_string.replace('[', '<')
+        table_string = table_string.replace(']', '>')
+    return table_string
 
 
 def _drain_message_queue(trader) -> List[TraderMessage]:
@@ -637,7 +738,7 @@ class TraderShell(Cmd):
         'dashboard':  dict(prog='', description='Exit shell and enter dashboard',
                            usage='dashboard [-h] [--rewind REWIND]',
                            epilog='Exit shell and enter dashboard mode, where trading logs '
-                                  'are displayed in real time, provide an integer to rewind '
+                                  'are displayed in real time; provide an integer to rewind '
                                   'previous rows of logs, default 50 rows'),
         'strategies': dict(prog='', description='Show or change strategy parameters',
                            usage='strategies [STRATEGY [STRATEGY ...]] [-h] [--detail] '
@@ -659,7 +760,7 @@ class TraderShell(Cmd):
         'tasks':      dict(prog='tasks', description='List Trader task queue entries (implemented)',
                            usage='tasks [-h] [--status STATUS] [--name NAME]'),
         'task':       dict(prog='task', description='Show or cancel a Trader queue task (implemented)',
-                           usage='task TASK_ID [-h] [--cancel]'),
+                           usage='task [TASK_ID] [-h] [--list] [--status STATUS] [--cancel]'),
         'gate':       dict(prog='gate', description='Run startup gate manually for smoke/debug (implemented)',
                            usage='gate [-h]'),
         'reconcile':  dict(prog='reconcile',
@@ -667,7 +768,7 @@ class TraderShell(Cmd):
                            usage='reconcile [-h]'),
         'rotatelogs': dict(prog='rotatelogs',
                            description='Rotate trade/risk logs under QT_TRADE_LOG_PATH (implemented)',
-                           usage='rotatelogs [-h] [--days DAYS]'),
+                           usage='rotatelogs [-h] [--days DAYS] [--yes]'),
         'broker':     dict(prog='broker',
                            description='Run broker session subcommands (implemented)',
                            usage=f'broker {{{",".join(BROKER_SUBCOMMANDS)}}} [-h]'),
@@ -741,10 +842,13 @@ class TraderShell(Cmd):
         'tasks':      [('--status', '-s'),
                        ('--name', '-n')],
         'task':       [('task_id',),
+                       ('--list', '-l'),
+                       ('--status', '-s'),
                        ('--cancel', '-c')],
         'gate':       [],
         'reconcile':  [],
-        'rotatelogs': [('--days', '-d')],
+        'rotatelogs': [('--days', '-d'),
+                       ('--yes', '-y')],
         'broker':     [('action',)],
         'sync':       [],
     }
@@ -883,7 +987,7 @@ class TraderShell(Cmd):
         'dashboard':  [{'action':  'store',
                         'type':    int,
                         'default': 50,
-                        'help':    'rewind previous rows of logs, default to 50'}],
+                        'help':    'rewind previous log entries (logical records), default 50'}],
         'strategies': [{'action': 'append',  # TODO: for python version >= 3.8, use action='extend' instead
                         'nargs':  '*',  # nargs='+' will require at least one argument
                         'help':   'strategy to show or change parameters for'},
@@ -910,7 +1014,7 @@ class TraderShell(Cmd):
                         'help':    'days of data to cover'},
                        {'action':  'store',
                         'default': 'eastmoney',
-                        'choices': ['eastmoney', 'tushare', 'akshare'],
+                        'choices': SUPPORTED_DATA_CHANNELS,
                         'help':    'channel to fetch data from'}],
         'run':        [{'action': 'append',  # TODO: for python version >= 3.8, use action='extend' instead
                         'nargs':  '*',
@@ -932,7 +1036,14 @@ class TraderShell(Cmd):
                         'default': '',
                         'help':    'filter by task name (e.g. refill, run_strategy)'}],
         'task':       [{'action':  'store',
+                        'nargs':   '?',
+                        'default': None,
                         'help':    'task id to show or cancel'},
+                       {'action': 'store_true',
+                        'help':   'list trader tasks (default status: queued)'},
+                       {'action':  'store',
+                        'default': 'queued',
+                        'help':    'filter by task status when listing (e.g. queued, all, running)'},
                        {'action': 'store_true',
                         'help':   'cancel Trader queue task (not broker order; use cancel ORDER_ID for orders)'}],
         'gate':       [],
@@ -940,7 +1051,9 @@ class TraderShell(Cmd):
         'rotatelogs': [{'action':  'store',
                         'type':    int,
                         'default': None,
-                        'help':    'keep days override; default from trade_log_keep_days'}],
+                        'help':    'keep days override; default from trade_log_keep_days'},
+                       {'action': 'store_true',
+                        'help':   'confirm rotation without interactive prompt'}],
         'broker':     [{'action':  'store',
                         'choices': list(BROKER_SUBCOMMANDS),
                         'help':    'broker subcommand (Simulator connect is session flag only)'}],
@@ -1010,7 +1123,7 @@ class TraderShell(Cmd):
         self._dashboard_on_status_line = True
 
     def _replay_dashboard_logs(self, rewind: int) -> None:
-        """排空消息队列并按当前 ``debug`` 设置回放系统日志尾部若干行。
+        """排空消息队列并按当前 ``debug`` 设置回放系统日志尾部若干条逻辑记录。
 
         ``send_message`` 会先写入系统日志再放入队列；此处排空队列不做打印，
         仅回放日志尾部，避免与 ``read_sys_log`` 同一内容重复输出。
@@ -1018,7 +1131,7 @@ class TraderShell(Cmd):
         Parameters
         ----------
         rewind : int
-            系统日志回卷行数，与 ``dashboard -r`` 一致。
+            逻辑日志条数上限，与 ``dashboard -r`` 一致（非文件物理行数）。
 
         Returns
         -------
@@ -1271,6 +1384,16 @@ class TraderShell(Cmd):
         """将字典以 JSON 格式打印到 stdout（用户可见英文键值）。"""
         import json
         print(json.dumps(payload, indent=indent, ensure_ascii=False, default=str))
+
+    def _print_trader_tasks_list(self,
+                                 *,
+                                 status: Optional[str] = None,
+                                 name: Optional[str] = None) -> None:
+        """打印 Trader 任务列表表格（与 schedule 风格一致）。"""
+        normalized_status = _normalize_task_status_filter(status)
+        tasks = self.trader.list_tasks(status=normalized_status, name=name or None)
+        print('Trader Tasks:')
+        print(format_trader_tasks_table(tasks))
 
     def check_buy_sell_args(self, args, type) -> bool:
         """ 检查买卖参数是否合法
@@ -2159,8 +2282,9 @@ class TraderShell(Cmd):
                 print(f'Wrong symbol is given: {symbol}, please input full symbol code like "000651" or "000651.SZ"')
                 return False
 
-        # remove rows whose value in column 'filled_qty' is 0, and sort by 'filled_time'
-        history = history[history['filled_qty'] != 0]
+        # remove rows without actual fills; NaN filled_qty must not pass through
+        filled_qty = history['filled_qty'].fillna(0)
+        history = history[(filled_qty > 0) & history['execution_time'].notna()]
         history.sort_values(by='execution_time', inplace=True)
         # change the quantity to negative if it is a sell-out
         history['filled_qty'] = np.where(history['direction'] == 'sell',
@@ -2284,17 +2408,22 @@ class TraderShell(Cmd):
             names = get_symbol_names(datasource=self.trader.datasource, symbols=symbols)
             order_details['name'] = names
             display_df = order_details.copy()
-            for col in ['price_filled', 'filled_qty', 'canceled_qty', 'delivery_status']:
-                display_df[col] = display_df[col].apply(lambda x: '--' if pd.isna(x) else x)
+            for col in ['broker_order_id', 'price_filled', 'filled_qty', 'canceled_qty', 'delivery_status']:
+                display_df[col] = display_df[col].apply(
+                        lambda x: '--' if (pd.isna(x) or x == '' or x is None) else x
+                )
             rich.print(display_df.to_string(
                     index=False,
-                    columns=['execution_time', 'symbol', 'position', 'direction', 'qty', 'price_quoted',
+                    columns=['order_id', 'broker_order_id', 'execution_time', 'symbol', 'position', 'direction',
+                             'qty', 'price_quoted',
                              'submitted_time', 'status', 'price_filled', 'filled_qty', 'canceled_qty',
                              'delivery_status', 'name'],
-                    header=['time', 'symbol', 'pos', 'buy/sell', 'qty', 'price',
+                    header=['id', 'broker_id', 'time', 'symbol', 'pos', 'buy/sell', 'qty', 'price',
                             'submitted', 'status', 'fill_price', 'fill_qty', 'canceled',
                             'delivery', 'name'],
                     formatters={'name':           '{:s}'.format,
+                                'order_id':       '{:d}'.format,
+                                'broker_order_id': lambda x: x if x == '--' else f'{x}',
                                 'qty':            '{:,.2f}'.format,
                                 'price_quoted':   '¥{:,.2f}'.format,
                                 'price_filled':   lambda x: x if x == '--' else f'¥{float(x):,.2f}',
@@ -2452,13 +2581,13 @@ class TraderShell(Cmd):
         optional arguments:
           -h, --help    show this help message and exit
           --rewind REWIND, -r REWIND
-                        number of lines to rewind  (default: 50)
+                        number of logical log entries to rewind (default: 50)
 
         Examples:
         ---------
         to enter dashboard mode:
         (QTEASY) dashboard
-        to enter dashboard mode and rewind 100 lines:
+        to enter dashboard mode and rewind 100 log entries:
         (QTEASY) dashboard -r 100
         """
 
@@ -2466,7 +2595,7 @@ class TraderShell(Cmd):
         if not args:
             return False
         if args.rewind < 0 or args.rewind > 999:
-            print('can not rewind more than 999 lines or less than 0 lines. please check your input.')
+            print('can not rewind more than 999 log entries or less than 0. please check your input.')
             return False
 
         import os
@@ -2781,17 +2910,36 @@ class TraderShell(Cmd):
 
         cfg = build_live_trade_config(self.trader.get_config())
         summary = dict(cfg.to_summary_dict())
+        broker_items = {
+            'Broker Type': summary.pop('broker_type'),
+            'Broker Params': summary.pop('live_trade_broker_params'),
+        }
+        market_items = {
+            'Live Price Channel': summary.pop('live_price_channel'),
+            'Live Price Freq': summary.pop('live_price_freq'),
+            'Asset Type': summary.pop('asset_type'),
+            'Time Zone': summary.pop('time_zone'),
+            'UI Type': summary.pop('live_trade_ui_type'),
+        }
+        account_items = {
+            'Account ID': summary.pop('live_trade_account_id'),
+            'Asset Pool': summary.pop('asset_pool'),
+            'Benchmark Asset': summary.pop('benchmark_asset'),
+        }
+        _print_key_value_section('Live Trade Config - Broker', broker_items)
+        _print_key_value_section('Live Trade Config - Market', market_items)
+        _print_key_value_section('Live Trade Config - Account', account_items)
         if args.detail:
-            summary.update({
-                'live_trade_startup_gate_mode': cfg.live_trade_startup_gate_mode,
-                'live_trade_split_strategy_prepare': cfg.live_trade_split_strategy_prepare,
-                'live_trade_strategy_snapshot_max_age_seconds': cfg.live_trade_strategy_snapshot_max_age_seconds,
-                'live_trade_prepare_lead_seconds': cfg.live_trade_prepare_lead_seconds,
-                'live_trade_data_refill_channel': cfg.live_trade_data_refill_channel,
-                'live_trade_data_refill_batch_size': cfg.live_trade_data_refill_batch_size,
-                'live_trade_data_refill_batch_interval': cfg.live_trade_data_refill_batch_interval,
-            })
-        self._print_json(summary)
+            detail_items = {
+                'Startup Gate Mode': cfg.live_trade_startup_gate_mode,
+                'Split Strategy Prepare': cfg.live_trade_split_strategy_prepare,
+                'Strategy Snapshot Max Age (s)': cfg.live_trade_strategy_snapshot_max_age_seconds,
+                'Prepare Lead Seconds': cfg.live_trade_prepare_lead_seconds,
+                'Data Refill Channel': cfg.live_trade_data_refill_channel,
+                'Data Refill Batch Size': cfg.live_trade_data_refill_batch_size,
+                'Data Refill Batch Interval': cfg.live_trade_data_refill_batch_interval,
+            }
+            _print_key_value_section('Live Trade Config - Extended', detail_items)
         return None
 
     def do_tasks(self, arg):
@@ -2812,25 +2960,21 @@ class TraderShell(Cmd):
 
         status = args.status or None
         name = args.name or None
-        tasks = self.trader.list_tasks(status=status, name=name)
-        print(f'Trader tasks: {len(tasks)}')
-        for task_spec in tasks:
-            print(
-                f'  {task_spec.task_id}  name={task_spec.name}  status={task_spec.status}  '
-                f'retry={task_spec.retry_count}/{task_spec.max_retries}'
-            )
+        self._print_trader_tasks_list(status=status, name=name)
         return None
 
     def do_task(self, arg):
-        """usage: task TASK_ID [-h] [--cancel]
+        """usage: task [TASK_ID] [-h] [--list] [--status STATUS] [--cancel]
 
-        Show or cancel one Trader queue task (implemented). Use cancel ORDER_ID for broker orders.
+        Show, list, or cancel Trader queue tasks (implemented). Use cancel ORDER_ID for broker orders.
 
         positional arguments:
           task_id               task id to show or cancel
 
         optional arguments:
           -h, --help            show this help message and exit
+          --list, -l            list trader tasks (default status filter: queued)
+          --status, -s STATUS   filter by task status when listing (e.g. queued, all, running)
           --cancel, -c          cancel the queue task instead of showing details
         """
 
@@ -2838,9 +2982,20 @@ class TraderShell(Cmd):
         if not args:
             return False
 
+        if args.list and args.cancel:
+            print('Cannot use --list and --cancel together.')
+            return False
+
+        if args.list:
+            if args.task_id:
+                print('Cannot combine --list with a task id; use "task TASK_ID" to show one task.')
+                return False
+            self._print_trader_tasks_list(status=args.status)
+            return None
+
         task_id = args.task_id
         if not task_id:
-            print('Please provide a task id.')
+            print('Please provide a task id, or use --list to show queued tasks.')
             return False
 
         if args.cancel:
@@ -2886,7 +3041,10 @@ class TraderShell(Cmd):
 
         allowed = self.trader.run_startup_gate()
         mode = str(qt.QT_CONFIG.get('live_trade_startup_gate_mode', 'off'))
-        print(f'Startup gate result: allowed={allowed} (mode={mode})')
+        _print_key_value_section('Startup Gate', {
+            'Mode': mode,
+            'Allowed': allowed,
+        })
         return None
 
     def do_reconcile(self, arg):
@@ -2905,7 +3063,30 @@ class TraderShell(Cmd):
             return False
 
         snapshot = self.trader.collect_broker_reconcile_snapshot()
-        self._print_json(snapshot)
+        tolerance = snapshot.get('tolerance')
+        cash_diff = snapshot.get('cash_diff')
+        position_qty_diff = snapshot.get('position_qty_diff')
+        failures = snapshot.get('failures') or []
+        cash_diff_text = _format_scalar_for_display(cash_diff)
+        if cash_diff is not None and tolerance is not None and abs(float(cash_diff)) > float(tolerance):
+            cash_diff_text = f'[bold red]{cash_diff_text}[/bold red]'
+        position_diff_text = _format_scalar_for_display(position_qty_diff)
+        if position_qty_diff is not None and tolerance is not None and abs(float(position_qty_diff)) > float(tolerance):
+            position_diff_text = f'[bold red]{position_diff_text}[/bold red]'
+        _print_key_value_section('Broker Reconcile', {
+            'Overall OK': snapshot.get('is_ok'),
+            'Tolerance': tolerance,
+            'Remote Cash': snapshot.get('remote_cash'),
+            'Local Cash Total': snapshot.get('local_cash_total'),
+            'Cash Diff': cash_diff_text,
+            'Remote Position Qty Total': snapshot.get('remote_position_qty_total'),
+            'Local Position Qty Total': snapshot.get('local_position_qty_total'),
+            'Position Qty Diff': position_diff_text,
+            'Remote Orders Count': snapshot.get('remote_orders_count'),
+            'Remote Positions Count': snapshot.get('remote_positions_count'),
+            'Primary History Table': snapshot.get('primary_history_table'),
+            'Failures': ', '.join(failures) if failures else '(none)',
+        })
         return None
 
     def do_rotatelogs(self, arg):
@@ -2924,6 +3105,7 @@ class TraderShell(Cmd):
             return False
 
         import qteasy as qt
+        from datetime import datetime, timedelta
 
         if args.days is None:
             keep_days = qt.QT_CONFIG.get('trade_log_keep_days', 3)
@@ -2935,8 +3117,35 @@ class TraderShell(Cmd):
             return None
 
         log_path = qt.QT_TRADE_LOG_PATH
-        qt.rotate_trade_logs(days=args.days)
-        print(f'Trade log rotation completed (keep_days={keep_days}, path={log_path})')
+        candidates = qt._collect_expired_trade_log_files(log_path, int(keep_days))
+        cutoff = datetime.now() - timedelta(days=int(keep_days))
+        print(f'Trade log rotation preview (keep_days={keep_days}, path={log_path})')
+        print(f'Cutoff time: {cutoff:%Y-%m-%d %H:%M:%S}')
+        if not candidates:
+            print('No expired trade/risk log files to remove.')
+            return None
+
+        print(f'Will remove {len(candidates)} file(s):')
+        preview_limit = 20
+        for full_path, created_time in candidates[:preview_limit]:
+            print(f'  {full_path}  (created {created_time:%Y-%m-%d %H:%M:%S})')
+        if len(candidates) > preview_limit:
+            print(f'  ... and {len(candidates) - preview_limit} more')
+
+        confirmed = bool(args.yes)
+        if not confirmed:
+            if not _is_tty_stream(sys.stdin):
+                print('Rotation aborted (non-interactive). Use --yes to confirm.')
+                return None
+            answer = input('Continue? [y/N]: ').strip().lower()
+            confirmed = answer in ('y', 'yes')
+
+        if not confirmed:
+            print('Rotation canceled.')
+            return None
+
+        removed = qt._rotate_trade_logs(log_path, int(keep_days))
+        print(f'Trade log rotation completed (removed={len(removed)}, keep_days={keep_days}, path={log_path})')
         return None
 
     def do_broker(self, arg):
@@ -2964,10 +3173,12 @@ class TraderShell(Cmd):
         broker = self.trader.broker
         action = args.action
         if action == 'status':
-            print(
-                f'broker_name={broker.broker_name} status={broker.status} '
-                f'is_connected={broker.is_connected} is_registered={broker.is_registered}'
-            )
+            _print_key_value_section('Broker Status', {
+                'Broker Name': broker.broker_name,
+                'Status': broker.status,
+                'Connected': broker.is_connected,
+                'Registered': broker.is_registered,
+            })
         elif action == 'connect':
             broker.connect()
             print('Broker connected.')

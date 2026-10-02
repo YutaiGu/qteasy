@@ -1,0 +1,141 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:1
+msgid "回测结果评价与分析"
+msgstr "バックテスト結果の評価と分析"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:3
+msgid "绩效指标完整列表（罗列并简短解释）"
+msgstr "パフォーマンス指標の完全なリスト (リストと簡単な説明)"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:5
+msgid "以下为回测结果中常用或 **evaluate** 可用的指标，与 qteasy 2.0 一致为准。"
+msgstr "以下は、バックテスト結果で一般的に使用される指標、または qteasy 2.0 と一致する **評価** で利用可能な指標です。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "指标"
+msgstr "メトリクス"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "含义"
+msgstr "意味"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "总收益 / total_return"
+msgstr "トータルリターン / total_return"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "区间累计收益率。"
+msgstr "期間中の累積収益。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "年化收益 / annual_return"
+msgstr "年率リターン / Annual_return"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "年化后的收益率。"
+msgstr "年換算収益率。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "夏普比率 / sharpe_ratio"
+msgstr "シャープレシオ / Sharpe_ratio"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "风险调整后收益。"
+msgstr "リスク調整後のリターン。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "最大回撤 / max_drawdown"
+msgstr "最大ドローダウン / max_drawdown"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "区间内最大净值回撤。"
+msgstr "期間内の最大純資産ドローダウン。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "胜率 / win_rate"
+msgstr "勝率 / win_rate"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "盈利次数占交易次数比例。"
+msgstr "総トレードのうち勝ったトレードの割合。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "盈亏比"
+msgstr "損益率"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "平均盈利/平均亏损（若有）。"
+msgstr "平均利益/平均損失 (ある場合)。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "其他"
+msgstr "他の"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "如 Calmar、波动率等，以 evaluate 输出为准。"
+msgstr "Calmar、ボラティリティなどは、評価出力を参照します。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:17
+msgid "可视化"
+msgstr "視覚化"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:19
+msgid "**visual=True**：在 **qt.run(..., visual=True)** 时，会生成并展示资金曲线、回撤等图。"
+msgstr ""
+"**visual=True**: **qt.run(..., Visual=True)** "
+"を実行すると、資産曲線やドローダウンなどのチャートが生成および表示されます。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:20
+msgid "也可单独调用绘图接口（若有），传入结果对象得到相同或更多图表。"
+msgstr "プロット インターフェイス (使用可能な場合) を個別に呼び出し、結果オブジェクトを渡して同じまたは複数のグラフを取得することもできます。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:22
+msgid "结果导出"
+msgstr "結果のエクスポート"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:24
+msgid ""
+"将**资金曲线**、**交易列表**导出为 DataFrame 或 CSV：从结果对象中取出对应属性后使用 **to_csv()** 或 "
+"**to_excel()** 等。"
+msgstr ""
+"**株価曲線** と **取引リスト** を DataFrame または CSV "
+"にエクスポートします。結果のオブジェクトから対応する属性を取得し、**to_csv()** や **to_excel()** などを使用します。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:25
+msgid "便于在外部进行进一步分析或报告。"
+msgstr "これにより、外部でのさらなる分析やレポートの作成が容易になります。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:27
+msgid "简要分析思路"
+msgstr "簡単な分析アプローチ"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:29
+msgid "结合 **trade_log** 与**绩效指标**：检查高回撤时段对应的交易、胜率与盈亏比的匹配度。"
+msgstr ""
+"**trade_log** と **パフォーマンス メトリクス**を組み合わせる: "
+"ドローダウン期間に対応する取引と、勝率が損益比とどの程度一致しているかを確認します。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:30
+msgid "可对策略参数、标的池或区间做敏感性分析，或使用《优化交易策略》中的参数优化（mode=2）寻找更优参数。"
+msgstr ""
+"戦略パラメーター、ユニバース、または時間範囲に対して感度分析を実行することも、「取引戦略の最適化」のパラメーター最適化 (mode=2) "
+"を使用して、より良いパラメーターを見つけることもできます。"

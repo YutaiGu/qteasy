@@ -3,29 +3,33 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 1.4\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/api/built_in_strategies.rst:2
 msgid "内置交易策略"
-msgstr ""
+msgstr "Estrategias integradas"
 
 #: ../../source/api/built_in_strategies.rst:4
-msgid "``qteasy`` 提供超过70种内置交易策略，所有的交易策略都可以直接使用，通过修改这些交易策略的参数，可以很容易地实现不同的个性化效果。"
+msgid ""
+"``qteasy`` 提供超过70种内置交易策略，所有的交易策略都可以直接使用，通过修改这些交易策略的参数，可以很容易地实现不同的个性化效果。"
 msgstr ""
+"Hay más de 70 estrategias comerciales integradas en ``qteasy``, todas las "
+"cuales se pueden utilizar directamente. Al modificar los parámetros de estas"
+" estrategias comerciales, se pueden lograr fácilmente diferentes efectos "
+"personalizados."
 
 #: ../../source/api/built_in_strategies.rst:6
 msgid ""
@@ -33,14 +37,22 @@ msgid ""
 "内置交易策略都有一个ID，通过这个唯一的ID 用户可以容易地获取这个交易策略，查看说明文档，或者直接在创建 ``Operator`` "
 "对象时使用这个交易策略。"
 msgstr ""
+"Hay documentación completa para todas las estrategias comerciales integradas"
+" en el objeto ``qteasy``, providing detailed descriptions of trading "
+"strategies, parameter descriptions, and default parameter values. Each "
+"built-in trading strategy in ``qteasy`` has a unique ID, through which users"
+" can easily obtain this trading strategy, view the documentation, or use "
+"this trading strategy directly when creating an ``Operator``."
 
 #: ../../source/api/built_in_strategies.rst:10
 msgid "获取内置交易策略"
-msgstr ""
+msgstr "Acceda a estrategias integradas"
 
 #: ../../source/api/built_in_strategies.rst:12
 msgid "查看所有的内置交易策略，或者根据ID筛选部分交易策略。使用下面的函数："
 msgstr ""
+"Enumere todas las estrategias comerciales integradas o filtre algunas "
+"estrategias comerciales según el ID. Utilice la siguiente función:"
 
 #: ../../source/api/built_in_strategies.rst:14
 msgid ""
@@ -48,20 +60,31 @@ msgid ""
 "``None``，则返回所有的内置交易策略，否则返回指定ID的交易策略。 如果用户输入的 ``stg_id`` 不存在，``qteasy`` "
 "会根据用户输入的 ``stg_id`` 返回id与其最接近的交易策略。"
 msgstr ""
+"La siguiente función acepta el mismo parámetro ``stg_id``, but returns "
+"different types of data. If ``stg_id`` is ``None``, all built-in trading "
+"strategies are returned, otherwise the specified ID trading strategy is "
+"returned. If the ``stg_id`` entered by the user does not exist, ``qteasy`` "
+"will return the trading strategy closest to the id entered by the user based"
+" on the ``stg_id`` ingresado por el usuario."
 
 #: ../../source/api/built_in_strategies.rst:17
 msgid "下面的函数返回一个字典，字典的 ``key`` 是交易策略的ID，``value`` 是交易策略的说明文档。"
 msgstr ""
+"La siguiente función devuelve un diccionario, donde ``key`` of the "
+"dictionary is the ID of the trading strategy and the ``value`` es la "
+"documentación de la estrategia comercial."
 
 #: of qteasy.built_in.built_ins:1
 msgid "获取或筛选内置的交易策略,可以通过stg_id进行模糊匹配，返回的是策略的字典"
 msgstr ""
+"Acceda o filtre estrategias comerciales integradas, que pueden coincidir con"
+" stg_id, y devuelva un diccionario de estrategias"
 
 #: ../../source/api/built_in_strategies.rst of qteasy.built_in.built_in_doc
 #: qteasy.built_in.built_in_list qteasy.built_in.built_ins
 #: qteasy.built_in.get_built_in_strategy
 msgid "参数"
-msgstr ""
+msgstr "Parámetros"
 
 #: of qteasy.built_in.built_in_list:3 qteasy.built_in.built_in_strategies:3
 #: qteasy.built_in.built_ins:3
@@ -69,153 +92,201 @@ msgid ""
 "策略ID或者ID的片段，用于筛选需要的策略, 如果stg_id为None，则返回所有内置策略的字典 "
 "支持模糊匹配，例如'cross'可以匹配到'crossline'"
 msgstr ""
+"ID de estrategia o fragmento de ID, utilizado para filtrar la estrategia "
+"requerida. Si stg_id es Ninguno, se devuelve un diccionario de todas las "
+"estrategias integradas. Se admite la coincidencia aproximada; por ejemplo, "
+"\"cruz\" puede coincidir con \"línea cruzada\""
 
 #: ../../source/api/built_in_strategies.rst of qteasy.built_in.built_in_doc
 #: qteasy.built_in.built_in_list qteasy.built_in.built_ins
 #: qteasy.built_in.get_built_in_strategy
 msgid "返回"
-msgstr ""
+msgstr "Atrás"
 
 #: of qteasy.built_in.built_ins:7
 msgid "**strategies** -- 所有被筛选的内置策略的字典"
 msgstr ""
+"**estrategias**: un diccionario de todas las estrategias integradas "
+"filtradas"
 
 #: ../../source/api/built_in_strategies.rst of qteasy.built_in.built_in_doc
 #: qteasy.built_in.built_in_list qteasy.built_in.built_ins
 #: qteasy.built_in.get_built_in_strategy
 msgid "返回类型"
-msgstr ""
+msgstr "Tipo de devolución"
 
 #: of qteasy.built_in.built_in_doc:12 qteasy.built_in.built_in_list:11
 #: qteasy.built_in.built_in_strategies:11 qteasy.built_in.built_ins:11
 #: qteasy.built_in.get_built_in_strategy:13
 msgid "示例"
-msgstr ""
+msgstr "Ejemplo"
 
 #: ../../source/api/built_in_strategies.rst:21
 msgid "下面的函数返回一个列表，列表的元素是交易策略的ID或者交易策略的名称。"
 msgstr ""
+"La siguiente función devuelve una lista, cuyos elementos son el ID o el "
+"nombre de la estrategia comercial."
 
 #: of qteasy.built_in.built_in_list:1
 msgid "获取内置交易策略ID的列表,可以通过stg_id进行模糊匹配"
 msgstr ""
+"Acceda a una lista de ID de estrategias comerciales integradas, que pueden "
+"coincidir con stg_id"
 
 #: of qteasy.built_in.built_in_list:7
 msgid "**stg_ids** -- 所有符合筛选条件的内置策略的ID列表"
 msgstr ""
+"**stg_ids**: una lista de ID de todas las estrategias integradas que cumplen"
+" con los criterios de filtrado."
 
 #: of qteasy.built_in.built_in_strategies:1
 msgid "获取内置交易策略对象的列表,可以通过stg_id进行模糊匹配"
 msgstr ""
+"Adquiera una lista de objetos de estrategia comercial integrados, que pueden"
+" coincidir con stg_id"
 
 #: of qteasy.built_in.built_in_strategies:7
 msgid "**strategies** -- 所有被筛选的内置策略对象的列表"
 msgstr ""
+"**estrategias**: una lista de todos los objetos de estrategia integrados "
+"filtrados"
 
 #: of qteasy.built_in.built_in_strategies:28
 msgid ":obj:`built_in_list`"
-msgstr ""
+msgstr ":obj:`built_in_list`"
 
 #: ../../source/api/built_in_strategies.rst:27
 msgid ""
-"如果要获取一个内置交易策略对象，需要使用下面的函数，根据用户输入的ID返回内置策略对象， "
-"如果用户输入ID有误，函数会报错并给用户提供一个建议的ID："
+"如果要获取一个内置交易策略对象，需要使用下面的函数，根据用户输入的ID返回内置策略对象， 如果用户输入ID有误，函数会报错并给用户提供一个建议的ID："
 msgstr ""
+"Si desea obtener un objeto de estrategia comercial integrado, debe utilizar "
+"la siguiente función, que devuelve un objeto de estrategia integrado según "
+"la ID ingresada por el usuario. Si el usuario ingresa una identificación "
+"incorrecta, la función informará un error y proporcionará una identificación"
+" sugerida:"
 
 #: of qteasy.built_in.get_built_in_strategy:1
 msgid "使用ID获取交易策略"
-msgstr ""
+msgstr "Acceda a la estrategia comercial por ID"
 
 #: of qteasy.built_in.built_in_doc:3 qteasy.built_in.get_built_in_strategy:3
 msgid "策略ID"
-msgstr ""
+msgstr "ID de estrategia"
 
 #: of qteasy.built_in.get_built_in_strategy:6
 msgid "**stg**"
-msgstr ""
+msgstr "**stg**"
 
 #: of qteasy.built_in.get_built_in_strategy
 msgid "抛出"
-msgstr ""
+msgstr "Tirar"
 
 #: of qteasy.built_in.get_built_in_strategy:9
 msgid "如果id不是字符串类型:"
-msgstr ""
+msgstr "Si la identificación no es una cadena:"
 
 #: of qteasy.built_in.get_built_in_strategy:10
 msgid "如果id不是内置策略ID:"
 msgstr ""
+"Si la identificación no es una identificación de estrategia incorporada:"
 
 #: ../../source/api/built_in_strategies.rst:32
 msgid ""
-"如果要查看内置交易策略的说明文档，需要使用下面的函数，根据用户输入的ID返回内置策略对象， "
-"如果用户输入ID有误，函数会报错并给用户提供一个建议的ID："
+"如果要查看内置交易策略的说明文档，需要使用下面的函数，根据用户输入的ID返回内置策略对象， 如果用户输入ID有误，函数会报错并给用户提供一个建议的ID："
 msgstr ""
+"Si desea ver la documentación de una estrategia comercial incorporada, debe "
+"utilizar la siguiente función, que devuelve un objeto de estrategia "
+"incorporada según la ID ingresada por el usuario. Si el usuario ingresa una "
+"identificación incorrecta, la función informará un error y proporcionará una"
+" identificación sugerida:"
 
 #: of qteasy.built_in.built_in_doc:1
 msgid "获取内置策略的文档，stg_id必须正确给出且存在"
 msgstr ""
+"Acceda a la documentación de una estrategia incorporada, stg_id debe estar "
+"correctamente proporcionado y existir"
 
 #: of qteasy.built_in.built_in_doc:5
 msgid "是否直接打印文档字符串，如果为False，则仅返回文档字符串"
 msgstr ""
+"Ya sea para imprimir la cadena de documentación directamente. Si es falso, "
+"solo devuelve la cadena de documentación."
 
 #: of qteasy.built_in.built_in_doc:8
 msgid "**doc_string** -- 返回策略的文档字符串，特殊字符已经被过滤掉"
 msgstr ""
+"**doc_string** -- Devuelve la cadena de documentación de la estrategia, con "
+"los caracteres especiales filtrados."
 
 #: ../../source/api/built_in_strategies.rst:38
 msgid "所有内置交易策略"
-msgstr ""
+msgstr "Todas las estrategias integradas"
 
 #: ../../source/api/built_in_strategies.rst:40
 msgid "下面是所有的内置交易策略的说明文档，用户可以根据自己的需求选择合适的交易策略。"
 msgstr ""
+"Aquí está la documentación de todas las estrategias comerciales integradas, "
+"los usuarios pueden elegir la estrategia comercial adecuada según sus "
+"necesidades."
 
 #: ../../source/api/built_in_strategies.rst:43
 msgid "不依赖其他技术分析包的交易策略"
 msgstr ""
+"Todas las estrategias que no dependen de otros paquetes de análisis técnico."
 
 #: ../../source/api/built_in_strategies.rst:45
 msgid "以下是一些不依赖其他技术分析包的交易策略，这些交易策略都是基于历史数据的简单计算，不需要其他技术分析包的支持，可以直接调用。"
 msgstr ""
+"Las siguientes estrategias no dependen de otros paquetes de análisis "
+"técnico, se basan en cálculos simples de datos históricos y no requieren "
+"soporte de otros paquetes de análisis técnico; se pueden llamar "
+"directamente."
 
 #: ../../source/api/built_in_strategies.rst:48
 msgid "简单选股策略"
-msgstr ""
+msgstr "Estrategias simples de selección de acciones"
 
 #: ../../source/api/built_in_strategies.rst:50
 msgid "根据历史数据选股"
-msgstr ""
+msgstr "Seleccione acciones basadas en datos históricos"
 
 #: of qteasy.built_in.SelectingAvgIndicator:1
 msgid "以股票过去一段时间内的财务指标的平均值作为选股因子选股"
 msgstr ""
+"Seleccionar acciones en función del valor promedio de los indicadores "
+"financieros de las acciones durante un período de tiempo"
 
 #: of qteasy.built_in.SelectingAvgIndicator:2
 msgid ""
 "基础选股策略。以股票的历史指标的平均值作为选股因子，因子排序参数可以作为策略参数传入 "
 "改变策略数据类型，根据不同的历史数据选股，选股参数可以通过pars传入"
 msgstr ""
+"Estrategia básica de selección de valores. Seleccione acciones en función "
+"del valor promedio de los indicadores históricos de las acciones, los "
+"parámetros de clasificación de factores se pueden pasar como parámetros de "
+"estrategia para cambiar el tipo de datos de la estrategia, seleccione "
+"acciones en función de diferentes datos históricos y los parámetros de "
+"acciones seleccionados se pueden pasar a través de par_values"
 
 #: of qteasy.built_in.AD:5 qteasy.built_in.ADOSC:5 qteasy.built_in.ADX:4
 #: qteasy.built_in.APO:6 qteasy.built_in.AROON:6 qteasy.built_in.ATR:7
 #: qteasy.built_in.BBand:5 qteasy.built_in.BuyRate:5 qteasy.built_in.CDL:3
-#: qteasy.built_in.CMO:6 qteasy.built_in.CROSSLINE:3 qteasy.built_in.DCRSDEMA:4
-#: qteasy.built_in.DCRSEMA:4 qteasy.built_in.DCRSKAMA:4
-#: qteasy.built_in.DCRSMAMA:4 qteasy.built_in.DCRSSMA:4
-#: qteasy.built_in.DCRST3:4 qteasy.built_in.DCRSTEMA:4
-#: qteasy.built_in.DCRSTRIMA:4 qteasy.built_in.DCRSWMA:4 qteasy.built_in.DI:5
-#: qteasy.built_in.DM:6 qteasy.built_in.DMA:3 qteasy.built_in.MACD:3
-#: qteasy.built_in.MACDEXT:5 qteasy.built_in.MFI:4 qteasy.built_in.MOM:4
-#: qteasy.built_in.OBV:6 qteasy.built_in.PPO:5 qteasy.built_in.RSI:5
-#: qteasy.built_in.SAREXT:3 qteasy.built_in.SCRSDEMA:3
-#: qteasy.built_in.SCRSEMA:3 qteasy.built_in.SCRSHT:3
-#: qteasy.built_in.SCRSKAMA:3 qteasy.built_in.SCRSMAMA:3
-#: qteasy.built_in.SCRSSMA:3 qteasy.built_in.SCRST3:3
-#: qteasy.built_in.SCRSTEMA:3 qteasy.built_in.SCRSTRIMA:3
-#: qteasy.built_in.SCRSWMA:3 qteasy.built_in.SLPDEMA:6 qteasy.built_in.SLPEMA:6
-#: qteasy.built_in.SLPHT:6 qteasy.built_in.SLPKAMA:6 qteasy.built_in.SLPMAMA:6
+#: qteasy.built_in.CMO:6 qteasy.built_in.CROSSLINE:3
+#: qteasy.built_in.DCRSDEMA:4 qteasy.built_in.DCRSEMA:4
+#: qteasy.built_in.DCRSKAMA:4 qteasy.built_in.DCRSMAMA:4
+#: qteasy.built_in.DCRSSMA:4 qteasy.built_in.DCRST3:4
+#: qteasy.built_in.DCRSTEMA:4 qteasy.built_in.DCRSTRIMA:4
+#: qteasy.built_in.DCRSWMA:4 qteasy.built_in.DI:5 qteasy.built_in.DM:6
+#: qteasy.built_in.DMA:3 qteasy.built_in.MACD:3 qteasy.built_in.MACDEXT:5
+#: qteasy.built_in.MFI:4 qteasy.built_in.MOM:4 qteasy.built_in.OBV:6
+#: qteasy.built_in.PPO:5 qteasy.built_in.RSI:5 qteasy.built_in.SAREXT:3
+#: qteasy.built_in.SCRSDEMA:3 qteasy.built_in.SCRSEMA:3
+#: qteasy.built_in.SCRSHT:3 qteasy.built_in.SCRSKAMA:3
+#: qteasy.built_in.SCRSMAMA:3 qteasy.built_in.SCRSSMA:3
+#: qteasy.built_in.SCRST3:3 qteasy.built_in.SCRSTEMA:3
+#: qteasy.built_in.SCRSTRIMA:3 qteasy.built_in.SCRSWMA:3
+#: qteasy.built_in.SLPDEMA:6 qteasy.built_in.SLPEMA:6 qteasy.built_in.SLPHT:6
+#: qteasy.built_in.SLPKAMA:6 qteasy.built_in.SLPMAMA:6
 #: qteasy.built_in.SLPSMA:6 qteasy.built_in.SLPT3:6 qteasy.built_in.SLPTEMA:6
 #: qteasy.built_in.SLPTRIMA:6 qteasy.built_in.SLPWMA:7 qteasy.built_in.STOCH:4
 #: qteasy.built_in.STOCHF:4 qteasy.built_in.STOCHRSI:4
@@ -231,10 +302,14 @@ msgstr ""
 #: qteasy.built_in.ULTOSC:4 qteasy.built_in.WILLR:4
 msgid "策略参数:"
 msgstr ""
+"Métricas de evaluación para probar y evaluar los parámetros de la estrategia"
+" optimizada."
 
 #: of qteasy.built_in.SelectingAvgIndicator:5
 msgid "``sort_ascending``: ``enum``, 是否升序排列因子"
 msgstr ""
+"``sort_ascending``: ``enum``, si se debe ordenar el factor en orden "
+"ascendente"
 
 #: of qteasy.built_in.SelectingAvgIndicator:7
 #: qteasy.built_in.SelectingNDayAvg:33 qteasy.built_in.SelectingNDayChange:33
@@ -242,7 +317,7 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:33
 #: qteasy.built_in.SelectingNDayVolatility:32
 msgid "``True``: 优先选择因子最小的股票,"
-msgstr ""
+msgstr "``True``: Priorizar acciones con el factor más pequeño,"
 
 #: of qteasy.built_in.SelectingAvgIndicator:9
 #: qteasy.built_in.SelectingNDayAvg:35 qteasy.built_in.SelectingNDayChange:35
@@ -250,15 +325,19 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:35
 #: qteasy.built_in.SelectingNDayVolatility:34
 msgid "``False``, 优先选择因子最大的股票"
-msgstr ""
+msgstr "``False``, Prioriza las acciones con el factor más grande"
 
 #: of qteasy.built_in.SelectingAvgIndicator:11
 msgid "``weighting``: ``enum``, 股票仓位分配比例权重"
 msgstr ""
+"``weighting``: ``enum``, Ponderación del índice de asignación de posiciones "
+"de acciones"
 
 #: of qteasy.built_in.SelectingAvgIndicator:13
 msgid "``even``       :默认值, 所有被选中的股票都获得同样的权重"
 msgstr ""
+"``even``: Valor predeterminado, todas las acciones seleccionadas obtienen el"
+" mismo peso"
 
 #: of qteasy.built_in.SelectingAvgIndicator:15
 #: qteasy.built_in.SelectingNDayAvg:41 qteasy.built_in.SelectingNDayChange:41
@@ -267,6 +346,8 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayVolatility:40
 msgid "``linear``     :权重根据因子排序线性分配"
 msgstr ""
+"``linear``: El peso se distribuye linealmente según la clasificación de los "
+"factores."
 
 #: of qteasy.built_in.SelectingAvgIndicator:17
 #: qteasy.built_in.SelectingNDayAvg:43 qteasy.built_in.SelectingNDayChange:43
@@ -275,6 +356,8 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayVolatility:42
 msgid "``distance``   :股票的权重与他们的指标与最低之间的差值（距离）成比例"
 msgstr ""
+"``distance``: El peso de la acción es proporcional a la diferencia "
+"(distancia) entre sus indicadores y el mínimo"
 
 #: of qteasy.built_in.SelectingAvgIndicator:19
 #: qteasy.built_in.SelectingNDayAvg:45 qteasy.built_in.SelectingNDayChange:45
@@ -283,10 +366,12 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayVolatility:44
 msgid "``proportion`` :权重与股票的因子分值成正比"
 msgstr ""
+"``proportion``: El peso es proporcional a la puntuación del factor de la "
+"acción."
 
 #: of qteasy.built_in.SelectingAvgIndicator:21
 msgid "``condition``: enum, 股票筛选条件"
-msgstr ""
+msgstr "``condition``: enumeración, condición de selección de valores"
 
 #: of qteasy.built_in.SelectingAvgIndicator:23
 #: qteasy.built_in.SelectingNDayAvg:17 qteasy.built_in.SelectingNDayChange:17
@@ -295,6 +380,7 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayVolatility:16
 msgid "``any``        :默认值，选择所有可用股票"
 msgstr ""
+"``any``: Valor predeterminado, seleccione todas las acciones disponibles"
 
 #: of qteasy.built_in.SelectingAvgIndicator:25
 #: qteasy.built_in.SelectingNDayAvg:19 qteasy.built_in.SelectingNDayChange:19
@@ -302,7 +388,7 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:19
 #: qteasy.built_in.SelectingNDayVolatility:18
 msgid "``greater``    :筛选出因子大于``ubound``的股票"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:27
 #: qteasy.built_in.SelectingNDayAvg:21 qteasy.built_in.SelectingNDayChange:21
@@ -310,7 +396,7 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:21
 #: qteasy.built_in.SelectingNDayVolatility:20
 msgid "``less``       :筛选出因子小于``lbound``的股票"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:29
 #: qteasy.built_in.SelectingNDayAvg:23 qteasy.built_in.SelectingNDayChange:23
@@ -318,7 +404,7 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:23
 #: qteasy.built_in.SelectingNDayVolatility:22
 msgid "``between``    :筛选出因子介于``lbound``与``ubound``之间的股票"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:31
 #: qteasy.built_in.SelectingNDayAvg:25 qteasy.built_in.SelectingNDayChange:25
@@ -326,38 +412,43 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:25
 #: qteasy.built_in.SelectingNDayVolatility:24
 msgid "``not_between``:筛选出因子不在``lbound``与``ubound``之间的股票"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:33
 msgid "``lbound``: ``float``, 股票筛选下限值, 默认值``np.-inf``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:35
 msgid "``ubound``: ``float``, 股票筛选上限值, 默认值``np.inf``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingAvgIndicator:37
-msgid "``max_sel_count``: ``float``, 抽取的股票的数量(p>=1)或比例(p<1), 默认值: 0.5，表示选中50%的股票"
+msgid ""
+"``max_sel_count``: ``float``, 抽取的股票的数量(p>=1)或比例(p<1), 默认值: 0.5，表示选中50%的股票"
 msgstr ""
+"``max_sel_count``: ``float``, el número de acciones extraídas (p>=1) o la "
+"proporción (p<1), valor predeterminado: 0,5, lo que indica que se "
+"seleccionan el 50% de las acciones"
 
 #: of qteasy.built_in.AD:7 qteasy.built_in.ADOSC:9 qteasy.built_in.ADX:6
 #: qteasy.built_in.APO:12 qteasy.built_in.AROON:8 qteasy.built_in.ATR:9
 #: qteasy.built_in.BBand:11 qteasy.built_in.BuyRate:9 qteasy.built_in.CDL:5
-#: qteasy.built_in.CMO:8 qteasy.built_in.CROSSLINE:9 qteasy.built_in.DCRSDEMA:8
-#: qteasy.built_in.DCRSEMA:8 qteasy.built_in.DCRSKAMA:8
-#: qteasy.built_in.DCRSMAMA:12 qteasy.built_in.DCRSSMA:8
-#: qteasy.built_in.DCRST3:12 qteasy.built_in.DCRSTEMA:8
-#: qteasy.built_in.DCRSTRIMA:8 qteasy.built_in.DCRSWMA:8 qteasy.built_in.DI:9
-#: qteasy.built_in.DM:10 qteasy.built_in.DMA:9 qteasy.built_in.MACD:9
-#: qteasy.built_in.MACDEXT:17 qteasy.built_in.MFI:6 qteasy.built_in.MOM:6
-#: qteasy.built_in.OBV:8 qteasy.built_in.PPO:11 qteasy.built_in.RSI:11
-#: qteasy.built_in.SAREXT:7 qteasy.built_in.SCRSDEMA:5
-#: qteasy.built_in.SCRSEMA:5 qteasy.built_in.SCRSHT:5
-#: qteasy.built_in.SCRSKAMA:5 qteasy.built_in.SCRSMAMA:7
-#: qteasy.built_in.SCRSSMA:5 qteasy.built_in.SCRST3:7
-#: qteasy.built_in.SCRSTEMA:5 qteasy.built_in.SCRSTRIMA:5
-#: qteasy.built_in.SCRSWMA:5 qteasy.built_in.SLPDEMA:10
-#: qteasy.built_in.SLPEMA:10 qteasy.built_in.SLPHT:8 qteasy.built_in.SLPKAMA:10
+#: qteasy.built_in.CMO:8 qteasy.built_in.CROSSLINE:9
+#: qteasy.built_in.DCRSDEMA:8 qteasy.built_in.DCRSEMA:8
+#: qteasy.built_in.DCRSKAMA:8 qteasy.built_in.DCRSMAMA:12
+#: qteasy.built_in.DCRSSMA:8 qteasy.built_in.DCRST3:12
+#: qteasy.built_in.DCRSTEMA:8 qteasy.built_in.DCRSTRIMA:8
+#: qteasy.built_in.DCRSWMA:8 qteasy.built_in.DI:9 qteasy.built_in.DM:10
+#: qteasy.built_in.DMA:9 qteasy.built_in.MACD:9 qteasy.built_in.MACDEXT:17
+#: qteasy.built_in.MFI:6 qteasy.built_in.MOM:6 qteasy.built_in.OBV:8
+#: qteasy.built_in.PPO:11 qteasy.built_in.RSI:11 qteasy.built_in.SAREXT:7
+#: qteasy.built_in.SCRSDEMA:5 qteasy.built_in.SCRSEMA:5
+#: qteasy.built_in.SCRSHT:5 qteasy.built_in.SCRSKAMA:5
+#: qteasy.built_in.SCRSMAMA:7 qteasy.built_in.SCRSSMA:5
+#: qteasy.built_in.SCRST3:7 qteasy.built_in.SCRSTEMA:5
+#: qteasy.built_in.SCRSTRIMA:5 qteasy.built_in.SCRSWMA:5
+#: qteasy.built_in.SLPDEMA:10 qteasy.built_in.SLPEMA:10
+#: qteasy.built_in.SLPHT:8 qteasy.built_in.SLPKAMA:10
 #: qteasy.built_in.SLPMAMA:12 qteasy.built_in.SLPSMA:10
 #: qteasy.built_in.SLPT3:12 qteasy.built_in.SLPTEMA:10
 #: qteasy.built_in.SLPTRIMA:10 qteasy.built_in.SLPWMA:11
@@ -373,7 +464,7 @@ msgstr ""
 #: qteasy.built_in.TimingShort:5 qteasy.built_in.TimingZero:5
 #: qteasy.built_in.ULTOSC:14 qteasy.built_in.WILLR:10
 msgid "信号类型:"
-msgstr ""
+msgstr "Tipo de señal"
 
 #: of qteasy.built_in.SelectingAll:6 qteasy.built_in.SelectingAvgIndicator:39
 #: qteasy.built_in.SelectingNDayAvg:7 qteasy.built_in.SelectingNDayChange:7
@@ -384,7 +475,7 @@ msgstr ""
 #: qteasy.built_in.TimingLong:6 qteasy.built_in.TimingShort:6
 #: qteasy.built_in.TimingZero:6
 msgid "PT型: 百分比持仓比例信号"
-msgstr ""
+msgstr "PT Tipo: Señal de relación de posición porcentual"
 
 #: of qteasy.built_in.AD:9 qteasy.built_in.ADOSC:11 qteasy.built_in.ADX:8
 #: qteasy.built_in.APO:14 qteasy.built_in.AROON:10 qteasy.built_in.ATR:11
@@ -420,11 +511,14 @@ msgstr ""
 #: qteasy.built_in.TimingShort:7 qteasy.built_in.TimingZero:7
 #: qteasy.built_in.ULTOSC:16 qteasy.built_in.WILLR:12
 msgid "信号规则:"
-msgstr ""
+msgstr "Normas"
 
 #: of qteasy.built_in.SelectingAvgIndicator:41
 msgid "使用data_types指定一种数据类型，将股票过去的datatypes数据取平均值，将该平均值作为选股因子进行选股"
 msgstr ""
+"Determine un tipo de datos utilizando tipos de datos, tome el promedio de "
+"los datos de tipos de datos anteriores de la acción y use este valor "
+"promedio como factor de selección de acciones para la selección de acciones."
 
 #: of qteasy.built_in.AD:19 qteasy.built_in.ADOSC:19 qteasy.built_in.ADX:16
 #: qteasy.built_in.APO:20 qteasy.built_in.AROON:20 qteasy.built_in.ATR:25
@@ -447,10 +541,11 @@ msgstr ""
 #: qteasy.built_in.SLPKAMA:20 qteasy.built_in.SLPMAMA:22
 #: qteasy.built_in.SLPSMA:20 qteasy.built_in.SLPT3:22
 #: qteasy.built_in.SLPTEMA:20 qteasy.built_in.SLPTRIMA:20
-#: qteasy.built_in.SLPWMA:21 qteasy.built_in.STOCH:24 qteasy.built_in.STOCHF:20
-#: qteasy.built_in.STOCHRSI:22 qteasy.built_in.SelectingAll:9
-#: qteasy.built_in.SelectingAvgIndicator:42 qteasy.built_in.SelectingNDayAvg:46
-#: qteasy.built_in.SelectingNDayChange:46 qteasy.built_in.SelectingNDayLast:45
+#: qteasy.built_in.SLPWMA:21 qteasy.built_in.STOCH:24
+#: qteasy.built_in.STOCHF:20 qteasy.built_in.STOCHRSI:22
+#: qteasy.built_in.SelectingAll:9 qteasy.built_in.SelectingAvgIndicator:42
+#: qteasy.built_in.SelectingNDayAvg:46 qteasy.built_in.SelectingNDayChange:46
+#: qteasy.built_in.SelectingNDayLast:45
 #: qteasy.built_in.SelectingNDayRateChange:46
 #: qteasy.built_in.SelectingNDayVolatility:45 qteasy.built_in.SelectingNone:9
 #: qteasy.built_in.SelectingRandom:12 qteasy.built_in.SellRate:17
@@ -459,15 +554,15 @@ msgstr ""
 #: qteasy.built_in.TimingShort:9 qteasy.built_in.TimingZero:9
 #: qteasy.built_in.ULTOSC:22 qteasy.built_in.WILLR:18
 msgid "策略属性缺省值:"
-msgstr ""
+msgstr "Valores predeterminados de los atributos de la estrategia"
 
 #: of qteasy.built_in.SelectingAvgIndicator:43
 msgid "默认参数: ``(True, 'even', 'greater', 0, 0, 0.25)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(True, 'even', 'greater', 0, 0, 0.25)``"
 
 #: of qteasy.built_in.SelectingAvgIndicator:45
 msgid "数据类型: ``eps`` 每股收益，单数据输入"
-msgstr ""
+msgstr "Tipo de datos: ``eps`` Ganancias por acción, entrada de datos única"
 
 #: of qteasy.built_in.ADX:21 qteasy.built_in.BBand:24
 #: qteasy.built_in.BuyRate:22 qteasy.built_in.CROSSLINE:22
@@ -492,28 +587,28 @@ msgstr ""
 #: qteasy.built_in.TimingLong:14 qteasy.built_in.TimingShort:14
 #: qteasy.built_in.TimingZero:14
 msgid "窗口长度: ``270``"
-msgstr ""
+msgstr "Longitud de la ventana: ``270``"
 
 #: of qteasy.built_in.SelectingAvgIndicator:49
 msgid "参数范围: ``[(True, False)``,"
-msgstr ""
+msgstr "Rango de parámetros: ``[(True, False)``,"
 
 #: of qteasy.built_in.SelectingAvgIndicator:51
 msgid "``('even', 'linear', 'proportion')``,"
-msgstr ""
+msgstr "``('even', 'linear', 'proportion')``,"
 
 #: of qteasy.built_in.SelectingAvgIndicator:53
 msgid "``('any', 'greater', 'less', 'between', 'not_between')``,"
-msgstr ""
+msgstr "``('any', 'greater', 'less', 'between', 'not_between')'', ``,''"
 
 #: of qteasy.built_in.SelectingAvgIndicator:55
 #: qteasy.built_in.SelectingAvgIndicator:57
 msgid "``(-np.inf, np.inf)``,"
-msgstr ""
+msgstr "``(-np.inf, np.inf)``,''"
 
 #: of qteasy.built_in.SelectingAvgIndicator:59
 msgid "``(0, 1.)]``"
-msgstr ""
+msgstr "``(0, 1.)]``"
 
 #: of qteasy.built_in.AD:27 qteasy.built_in.ADOSC:27 qteasy.built_in.ADX:24
 #: qteasy.built_in.APO:28 qteasy.built_in.AROON:28 qteasy.built_in.ATR:33
@@ -526,20 +621,22 @@ msgstr ""
 #: qteasy.built_in.DI:25 qteasy.built_in.DM:28 qteasy.built_in.DMA:26
 #: qteasy.built_in.MACD:24 qteasy.built_in.MACDEXT:33 qteasy.built_in.MFI:22
 #: qteasy.built_in.MOM:24 qteasy.built_in.OBV:32 qteasy.built_in.PPO:29
-#: qteasy.built_in.RSI:29 qteasy.built_in.SAREXT:22 qteasy.built_in.SCRSDEMA:21
-#: qteasy.built_in.SCRSEMA:21 qteasy.built_in.SCRSHT:21
-#: qteasy.built_in.SCRSKAMA:21 qteasy.built_in.SCRSMAMA:23
-#: qteasy.built_in.SCRSSMA:21 qteasy.built_in.SCRST3:23
-#: qteasy.built_in.SCRSTEMA:21 qteasy.built_in.SCRSTRIMA:21
-#: qteasy.built_in.SCRSWMA:21 qteasy.built_in.SLPDEMA:28
-#: qteasy.built_in.SLPEMA:28 qteasy.built_in.SLPHT:26
-#: qteasy.built_in.SLPKAMA:28 qteasy.built_in.SLPMAMA:30
-#: qteasy.built_in.SLPSMA:28 qteasy.built_in.SLPT3:30
-#: qteasy.built_in.SLPTEMA:28 qteasy.built_in.SLPTRIMA:28
-#: qteasy.built_in.SLPWMA:29 qteasy.built_in.STOCH:32 qteasy.built_in.STOCHF:28
+#: qteasy.built_in.RSI:29 qteasy.built_in.SAREXT:22
+#: qteasy.built_in.SCRSDEMA:21 qteasy.built_in.SCRSEMA:21
+#: qteasy.built_in.SCRSHT:21 qteasy.built_in.SCRSKAMA:21
+#: qteasy.built_in.SCRSMAMA:23 qteasy.built_in.SCRSSMA:21
+#: qteasy.built_in.SCRST3:23 qteasy.built_in.SCRSTEMA:21
+#: qteasy.built_in.SCRSTRIMA:21 qteasy.built_in.SCRSWMA:21
+#: qteasy.built_in.SLPDEMA:28 qteasy.built_in.SLPEMA:28
+#: qteasy.built_in.SLPHT:26 qteasy.built_in.SLPKAMA:28
+#: qteasy.built_in.SLPMAMA:30 qteasy.built_in.SLPSMA:28
+#: qteasy.built_in.SLPT3:30 qteasy.built_in.SLPTEMA:28
+#: qteasy.built_in.SLPTRIMA:28 qteasy.built_in.SLPWMA:29
+#: qteasy.built_in.STOCH:32 qteasy.built_in.STOCHF:28
 #: qteasy.built_in.STOCHRSI:30 qteasy.built_in.SelectingAll:17
-#: qteasy.built_in.SelectingAvgIndicator:61 qteasy.built_in.SelectingNDayAvg:54
-#: qteasy.built_in.SelectingNDayChange:54 qteasy.built_in.SelectingNDayLast:54
+#: qteasy.built_in.SelectingAvgIndicator:61
+#: qteasy.built_in.SelectingNDayAvg:54 qteasy.built_in.SelectingNDayChange:54
+#: qteasy.built_in.SelectingNDayLast:54
 #: qteasy.built_in.SelectingNDayRateChange:54
 #: qteasy.built_in.SelectingNDayVolatility:53 qteasy.built_in.SelectingNone:17
 #: qteasy.built_in.SelectingRandom:20 qteasy.built_in.SellRate:25
@@ -548,19 +645,26 @@ msgstr ""
 #: qteasy.built_in.TimingShort:17 qteasy.built_in.TimingZero:17
 #: qteasy.built_in.ULTOSC:30 qteasy.built_in.WILLR:26
 msgid "策略不支持参考数据，不支持交易数据"
-msgstr ""
+msgstr "No se admiten datos de referencia ni datos comerciales"
 
 #: of qteasy.built_in.SelectingNDayLast:1
 msgid "以股票N天前的价格或数据指标作为选股因子选股基础选股策略，以股票的N日前历史数据作为选股因子，因子排序参数以策略属性的形式控制"
 msgstr ""
+"Seleccione acciones según el precio o los indicadores de datos de la acción "
+"hace N días como factor de selección de acciones. Los datos históricos de "
+"las acciones de hace N días se utilizan como factor de selección de acciones"
+" y los parámetros de clasificación de factores se controlan en forma de "
+"atributos de estrategia."
 
 #: of qteasy.built_in.SelectingNDayLast:4
 msgid "``n``: int, 股票历史数据的前置期"
-msgstr ""
+msgstr "``n``: int, el período principal de datos históricos de acciones"
 
 #: of qteasy.built_in.SelectingNDayAvg:9 qteasy.built_in.SelectingNDayLast:8
 msgid "在每个选股周期使用N日前的历史数据作为选股因子进行选股"
 msgstr ""
+"Seleccione acciones utilizando datos históricos de hace N días como factores"
+" de selección de acciones en cada ciclo de selección de acciones"
 
 #: of qteasy.built_in.SelectingNDayAvg:11
 #: qteasy.built_in.SelectingNDayChange:11 qteasy.built_in.SelectingNDayLast:10
@@ -568,61 +672,65 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayVolatility:10
 msgid "通过以下策略属性控制选股方法:"
 msgstr ""
+"Controle el método de selección de acciones a través de los siguientes "
+"atributos de la estrategia:"
 
 #: of qteasy.built_in.SelectingNDayAvg:13
 #: qteasy.built_in.SelectingNDayChange:13 qteasy.built_in.SelectingNDayLast:12
 #: qteasy.built_in.SelectingNDayRateChange:13
 #: qteasy.built_in.SelectingNDayVolatility:12
 msgid ""
-"``max_sel_count``:     ``float``,  选股限额，表示最多选出的股票的数量，默认值: "
-"``0.5``，表示选中50%的股票"
+"``max_sel_count``:     ``float``,  选股限额，表示最多选出的股票的数量，默认值: ``0.5``，表示选中50%的股票"
 msgstr ""
+"``max_sel_count``:     ``float``,  Stock selection limit, indicating the "
+"maximum number of stocks selected, default value: ``0.5``, que indica que se"
+" seleccionan el 50% de las acciones"
 
 #: of qteasy.built_in.SelectingNDayAvg:15
 #: qteasy.built_in.SelectingNDayChange:15 qteasy.built_in.SelectingNDayLast:14
 #: qteasy.built_in.SelectingNDayRateChange:15
 #: qteasy.built_in.SelectingNDayVolatility:14
 msgid "``condition``:         ``str`` ,   确定股票的筛选条件，默认值``any``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingNDayAvg:27
 #: qteasy.built_in.SelectingNDayChange:27 qteasy.built_in.SelectingNDayLast:26
 #: qteasy.built_in.SelectingNDayRateChange:27
 #: qteasy.built_in.SelectingNDayVolatility:26
 msgid "``lbound``:            ``float``,  执行条件筛选时的指标下界, 默认值``np.-inf``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingNDayAvg:29
 #: qteasy.built_in.SelectingNDayChange:29 qteasy.built_in.SelectingNDayLast:28
 #: qteasy.built_in.SelectingNDayRateChange:29
 #: qteasy.built_in.SelectingNDayVolatility:28
 msgid "``ubound``:            ``float``,  执行条件筛选时的指标上界, 默认值``np.inf``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingNDayAvg:31
 #: qteasy.built_in.SelectingNDayChange:31 qteasy.built_in.SelectingNDayLast:30
 #: qteasy.built_in.SelectingNDayRateChange:31
 #: qteasy.built_in.SelectingNDayVolatility:30
 msgid "``sort_ascending``:    ``bool``,   排序方法，默认值: ``False``,"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`,"
 
 #: of qteasy.built_in.SelectingNDayAvg:37
 #: qteasy.built_in.SelectingNDayChange:37 qteasy.built_in.SelectingNDayLast:36
 #: qteasy.built_in.SelectingNDayRateChange:37
 #: qteasy.built_in.SelectingNDayVolatility:36
 msgid "``weighting``:         ``str`` ,   确定如何分配选中股票的权重，默认值: ``even``"
-msgstr ""
+msgstr "`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧`"
 
 #: of qteasy.built_in.SelectingNDayAvg:39
 #: qteasy.built_in.SelectingNDayChange:39 qteasy.built_in.SelectingNDayLast:38
 #: qteasy.built_in.SelectingNDayRateChange:39
 #: qteasy.built_in.SelectingNDayVolatility:38
 msgid "``even``       :所有被选中的股票都获得同样的权重"
-msgstr ""
+msgstr "``even``: Todas las acciones seleccionadas reciben el mismo peso"
 
 #: of qteasy.built_in.SelectingNDayLast:46
 msgid "默认参数: ``(2,)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(2,)``"
 
 #: of qteasy.built_in.APO:23 qteasy.built_in.BBand:22
 #: qteasy.built_in.BuyRate:20 qteasy.built_in.CROSSLINE:20
@@ -651,7 +759,7 @@ msgstr ""
 #: qteasy.built_in.TRIX:18 qteasy.built_in.TimingLong:12
 #: qteasy.built_in.TimingShort:12 qteasy.built_in.TimingZero:12
 msgid "数据类型: ``close`` 收盘价，单数据输入"
-msgstr ""
+msgstr "Tipo de datos: ``close`` Precio de cierre, entrada de datos única"
 
 #: of qteasy.built_in.AD:24 qteasy.built_in.ADOSC:24 qteasy.built_in.ATR:30
 #: qteasy.built_in.CDL:18 qteasy.built_in.MOM:21 qteasy.built_in.OBV:29
@@ -660,20 +768,27 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayLast:50 qteasy.built_in.SelectingRandom:17
 #: qteasy.built_in.ULTOSC:27 qteasy.built_in.WILLR:23
 msgid "窗口长度: ``100``"
-msgstr ""
+msgstr "Longitud de la ventana: ``100``"
 
 #: of qteasy.built_in.AROON:27 qteasy.built_in.CMO:27 qteasy.built_in.MFI:21
 #: qteasy.built_in.SelectingNDayLast:52
 msgid "参数范围: ``[(2, 100)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100)]``"
 
 #: of qteasy.built_in.SelectingNDayAvg:1
-msgid "以股票过去N天的价格或数据指标的平均值作为选股因子选股 基础选股策略: 以股票的前N日历史数据平均值作为选股因子，因子排序参数以策略属性的形式控制"
+msgid ""
+"以股票过去N天的价格或数据指标的平均值作为选股因子选股 基础选股策略: 以股票的前N日历史数据平均值作为选股因子，因子排序参数以策略属性的形式控制"
 msgstr ""
+"Seleccione acciones en función del valor promedio del precio o de los "
+"indicadores de datos de las acciones en los últimos N días como factor de "
+"selección de acciones. El valor promedio de los datos históricos de la "
+"acción en los N días anteriores se utiliza como factor de selección de "
+"acciones, y los parámetros de clasificación de factores se controlan en "
+"forma de atributos de estrategia."
 
 #: of qteasy.built_in.SelectingNDayAvg:5 qteasy.built_in.SelectingNDayChange:5
 msgid "n: int, 股票历史数据的选择期"
-msgstr ""
+msgstr "n: int, período de selección de datos del historial de acciones"
 
 #: of qteasy.built_in.ADX:17 qteasy.built_in.AROON:21 qteasy.built_in.CMO:21
 #: qteasy.built_in.MFI:15 qteasy.built_in.SCRSDEMA:14
@@ -683,80 +798,102 @@ msgstr ""
 #: qteasy.built_in.SelectingNDayRateChange:47
 #: qteasy.built_in.SelectingNDayVolatility:46
 msgid "默认参数: ``(14,)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(14,)``"
 
 #: of qteasy.built_in.SelectingNDayAvg:51
 #: qteasy.built_in.SelectingNDayRateChange:51
 #: qteasy.built_in.SelectingNDayVolatility:50
 msgid "窗口长度: ``150``"
-msgstr ""
+msgstr "Longitud de la ventana: ``150``"
 
 #: of qteasy.built_in.SelectingNDayAvg:53
 #: qteasy.built_in.SelectingNDayRateChange:53
 #: qteasy.built_in.SelectingNDayVolatility:52
 msgid "参数范围: ``[(2, 150)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 150)]``"
 
 #: of qteasy.built_in.SelectingNDayChange:1
 msgid "以股票过去N天的价格或数据指标的变动值作为选股因子选股 基础选股策略: 根据股票以前n天的股价或数据变动幅度作为选股因子进行选股"
 msgstr ""
+"Selección de acciones basada en los cambios de precio o datos de una acción "
+"durante los últimos n días como factor de selección de acciones Estrategia "
+"básica de selección de acciones: Selección de acciones basada en cambios de "
+"precio o datos de una acción durante los últimos n días como factor de "
+"selección de acciones"
 
 #: of qteasy.built_in.SelectingNDayChange:9
 msgid "在每个选股周期使用过去N日内价格的变动值作为选股因子进行选股"
 msgstr ""
+"La selección de acciones se realiza en cada ciclo de selección de acciones "
+"utilizando el valor del cambio de precio en los últimos N días como factor "
+"de selección de acciones."
 
 #: of qteasy.built_in.SelectingNDayChange:47
 msgid "默认参数: (14,)"
-msgstr ""
+msgstr "Parámetros predeterminados: (14,)"
 
 #: of qteasy.built_in.SelectingNDayChange:49
 msgid "数据类型: close 收盘价，单数据输入"
-msgstr ""
+msgstr "Tipo de datos: cerrar Cerrar, entrada de datos única"
 
 #: of qteasy.built_in.SelectingNDayChange:51
 msgid "窗口长度: 150"
-msgstr ""
+msgstr "Longitud de la ventana: 150"
 
 #: of qteasy.built_in.SelectingNDayChange:53
 msgid "参数范围: [(2, 150)]"
-msgstr ""
+msgstr "Rango de parámetros: [(2, 150)]"
 
 #: of qteasy.built_in.SelectingNDayRateChange:1
 msgid "以股票过去N天的价格或数据指标的变动比例作为选股因子选股 基础选股策略: 根据股票以前n天的股价变动比例作为选股因子"
 msgstr ""
+"Selección de acciones basada en el cambio porcentual en el precio de una "
+"acción o indicador de datos durante los últimos n días Estrategia básica de "
+"selección de acciones: Selección de acciones basada en el cambio porcentual "
+"en el precio de una acción durante los últimos n días"
 
 #: of qteasy.built_in.SelectingNDayRateChange:5
 #: qteasy.built_in.SelectingNDayVolatility:4
 msgid "``n``: ``int``, 股票历史数据的选择期"
 msgstr ""
+"``n``: ``int``, período de selección de datos del historial de acciones"
 
 #: of qteasy.built_in.SelectingNDayRateChange:9
 msgid "在每个选股周期使用过去N日内价格变动率作为选股因子进行选股"
 msgstr ""
+"Selección de acciones utilizando la tasa de cambio de precios durante los "
+"últimos N días como factor de selección de acciones en cada ciclo de "
+"selección de acciones"
 
 #: of qteasy.built_in.SelectingNDayVolatility:1
 msgid "根据股票以前N天的股价波动率作为选股因子"
 msgstr ""
+"Factor de selección de acciones basado en la volatilidad del precio de las "
+"acciones durante los N días anteriores"
 
 #: of qteasy.built_in.SelectingNDayVolatility:8
 msgid "在每个选股周期使用过去N日内的价格波动率作为选股因子进行选股"
 msgstr ""
+"Utilice la volatilidad de los precios durante los últimos N días como factor"
+" de selección de acciones en cada ciclo de selección de acciones."
 
 #: of qteasy.built_in.SelectingNDayVolatility:48
 msgid "数据类型: ``high,low,close`` 最高价，最低价，收盘价，多数据输入"
 msgstr ""
+"Tipo de datos: ``high,low,close`` Precio más alto, precio más bajo, precio "
+"de cierre, entrada de datos múltiples"
 
 #: of qteasy.built_in.SignalNone:1
 msgid "空交易信号策略:"
-msgstr ""
+msgstr "Estrategia de señal comercial vacía."
 
 #: of qteasy.built_in.SignalNone:2
 msgid "不生成任何交易信号的策略"
-msgstr ""
+msgstr "Estrategias que no generan señales comerciales."
 
 #: of qteasy.built_in.SignalNone:5
 msgid "none"
-msgstr ""
+msgstr "none"
 
 #: of qteasy.built_in.AD:8 qteasy.built_in.ADOSC:10 qteasy.built_in.ATR:10
 #: qteasy.built_in.BuyRate:10 qteasy.built_in.DMA:10 qteasy.built_in.MFI:7
@@ -765,459 +902,602 @@ msgstr ""
 #: qteasy.built_in.SignalNone:9 qteasy.built_in.ULTOSC:15
 #: qteasy.built_in.WILLR:11
 msgid "PS型: 百分比买卖交易信号"
-msgstr ""
+msgstr "Tipo PS: Señal de compra/venta porcentual"
 
 #: of qteasy.built_in.SignalNone:11
 msgid "VS型: 买卖交易信号"
-msgstr ""
+msgstr "Tipo VS: Señal de Compra/Venta"
 
 #: of qteasy.built_in.SignalNone:13
 msgid "整个信号周期内不产生任何交易信号"
-msgstr ""
+msgstr "No se generan señales comerciales durante todo el ciclo de señales."
 
 #: of qteasy.built_in.AD:20 qteasy.built_in.CDL:14 qteasy.built_in.SCRSHT:14
 #: qteasy.built_in.SelectingAll:10 qteasy.built_in.SelectingNone:10
 #: qteasy.built_in.SignalNone:15 qteasy.built_in.TimingLong:10
 #: qteasy.built_in.TimingShort:10 qteasy.built_in.TimingZero:10
 msgid "默认参数: ``()``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``()``"
 
 #: of qteasy.built_in.AD:26 qteasy.built_in.SCRSHT:20
 #: qteasy.built_in.SelectingAll:16 qteasy.built_in.SelectingNone:16
 #: qteasy.built_in.SignalNone:21 qteasy.built_in.TimingLong:16
 #: qteasy.built_in.TimingShort:16 qteasy.built_in.TimingZero:16
 msgid "参数范围: ``[]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[]``"
 
 #: of qteasy.built_in.SellRate:1
 msgid "变化率卖出信号策略:"
-msgstr ""
+msgstr "Estrategia de señal de venta de tasa de cambio."
 
 #: of qteasy.built_in.SellRate:2
 msgid "当价格的变化率超过阈值时，产生卖出信号。 本策略不产生买入信号。"
 msgstr ""
+"Las señales de venta se generan cuando la tasa de cambio del precio excede "
+"el umbral. Esta estrategia no genera señales de compra."
 
 #: of qteasy.built_in.BuyRate:6 qteasy.built_in.SellRate:6
 msgid "``day``, ``int``, 涨跌幅计算周期"
-msgstr ""
+msgstr "``day`'', ``int`', período para calcular la tasa de subida y bajada"
 
 #: of qteasy.built_in.BuyRate:8 qteasy.built_in.SellRate:8
 msgid "``change``, ``float``，涨跌幅阈值"
-msgstr ""
+msgstr "``change``, ``float``, umbrales arriba/abajo"
 
 #: of qteasy.built_in.SellRate:12
 msgid "在下面情况下产生卖出信号:"
-msgstr ""
+msgstr "Se genera una señal de venta cuando."
 
 #: of qteasy.built_in.SellRate:14
 msgid "1，当``change`` > 0，且``day``日涨幅大于``change``时，产生-1卖出信号"
 msgstr ""
+"1, -1 señal de venta generada cuando ``change`` > 0 and ``day`` daily "
+"increase is greater than ``change``"
 
 #: of qteasy.built_in.SellRate:16
 msgid "2，当``change`` < 0，且``day``日跌幅大于``change``时，产生-1卖出信号"
 msgstr ""
+"2, se genera una señal de venta -1 cuando ``change`` < 0 and the ``day`` "
+"daily decline is greater than the ``change``"
 
 #: of qteasy.built_in.BuyRate:18 qteasy.built_in.SellRate:18
 msgid "默认参数: ``(20, 0.1)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(20, 0.1)``"
 
 #: of qteasy.built_in.BuyRate:24 qteasy.built_in.SellRate:24
 msgid "参数范围: ``[(1, 100), (-0.5, 0.5)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(1, 100), (-0.5, 0.5)]``"
 
 #: of qteasy.built_in.BuyRate:1
 msgid "变化率买入信号策略:"
-msgstr ""
+msgstr "Estrategia de señal de compra de tasa de cambio."
 
 #: of qteasy.built_in.BuyRate:2
 msgid "当价格的变化率超过阈值时，产生买入信号。 本策略不产生卖出信号。"
 msgstr ""
+"Se genera una señal de compra cuando la tasa de cambio del precio excede el "
+"umbral. Esta estrategia no genera señales de venta."
 
 #: of qteasy.built_in.BuyRate:12 qteasy.built_in.DMA:12
 msgid "在下面情况下产生买入信号:"
-msgstr ""
+msgstr "Se genera una señal de compra cuando."
 
 #: of qteasy.built_in.BuyRate:14
 msgid "1，当change > 0，且day日涨幅大于change时，产生1买入信号"
 msgstr ""
+"1, 1 señal de compra se genera cuando el cambio> 0 y el aumento diario es "
+"mayor que el cambio"
 
 #: of qteasy.built_in.BuyRate:16
 msgid "2，当change < 0，且day日跌幅大于change时，产生1买入信号"
 msgstr ""
+"2, 1 señal de compra generada cuando el cambio <0 y la caída diaria del día "
+"es mayor que el cambio"
 
 #: of qteasy.built_in.SelectingAll:1
 msgid "基础选股策略: 保持历史股票池中的所有股票都被选中，投资比例平均分配"
 msgstr ""
+"Estrategia básica de selección de acciones: mantenga seleccionadas todas las"
+" acciones del conjunto histórico de acciones, con una división equitativa de"
+" la inversión."
 
 #: of qteasy.built_in.SelectingAll:4 qteasy.built_in.SelectingNone:4
 #: qteasy.built_in.TimingShort:4 qteasy.built_in.TimingZero:4
 msgid "``none``"
-msgstr ""
+msgstr "``none''"
 
 #: of qteasy.built_in.SelectingAll:8
 msgid "整个信号周期内持仓比例恒定，且所有投资组合的持仓比例相同"
 msgstr ""
+"Las posiciones son constantes durante todo el ciclo de la señal y son las "
+"mismas para todas las carteras."
 
 #: of qteasy.built_in.SelectingNone:1
 msgid "基础选股策略: 保持历史股票池中的所有股票都不被选中，投资仓位为0"
 msgstr ""
+"Estrategia básica de selección de acciones: mantenga todas las acciones del "
+"conjunto histórico sin control e invierta en 0 posiciones."
 
 #: of qteasy.built_in.SelectingNone:8
 msgid "整个信号周期内持仓比例恒定，且所有投资组合的持仓比例都为0"
 msgstr ""
+"Los ratios de posición son constantes durante todo el ciclo de señalización "
+"y todas las carteras tienen un ratio de posición de 0."
 
 #: of qteasy.built_in.SelectingRandom:1
 msgid "基础选股策略: 在每个历史分段中，按照指定的比例（p<1时）随机抽取若干股票，"
 msgstr ""
+"Estrategia básica de selección de acciones: en cada segmento histórico, se "
+"seleccionan aleatoriamente una cantidad de acciones en un porcentaje "
+"específico (en p<1) del número total de acciones."
 
 #: of qteasy.built_in.SelectingRandom:2
 msgid "或随机抽取指定数量（p>=1）的股票进入投资组合，投资比例平均分配"
 msgstr ""
+"O se selecciona aleatoriamente un número específico (p>=1) de acciones en la"
+" cartera y el índice de inversión se distribuye equitativamente."
 
 #: of qteasy.built_in.SelectingRandom:5
 msgid "``p``: ``float``, 抽取的股票的数量(p>=1)或比例(p<1)"
 msgstr ""
+"``p``: ``float``, número de acciones extraídas (p>=1) o proporción (p<1)"
 
 #: of qteasy.built_in.SelectingRandom:9
 msgid "当p>=1时，从所有股票池中随机抽取p支股票，并设定所有被选中股票的持仓比例都为1/p"
 msgstr ""
+"Cuando p>=1, p acciones se seleccionan aleatoriamente del conjunto de todas "
+"las acciones y todas las acciones seleccionadas se configuran para tener una"
+" relación de posición de 1/p"
 
 #: of qteasy.built_in.SelectingRandom:11
 msgid "当0>p>1时，从股票池中以p为比例抽取若干股票，并设定所有股票的持仓比例都相同且和为1"
 msgstr ""
+"Cuando 0>p>1, se extrae una cantidad de acciones del grupo de acciones en "
+"proporción a p, y todas las acciones se configuran para que tengan el mismo "
+"porcentaje de posiciones y la suma es 1"
 
 #: of qteasy.built_in.SelectingRandom:13
 msgid "默认参数: ``(0.5, )``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(0.5, )``"
 
 #: of qteasy.built_in.SelectingRandom:19
 msgid "参数范围: ``[(0, np.inf)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(0, np.inf)]``"
 
 #: ../../source/api/built_in_strategies.rst:77
 msgid "简单择时策略"
-msgstr ""
+msgstr "Estrategia de sincronización simple"
 
 #: of qteasy.built_in.TimingLong:1
 msgid "简单择时策略，整个历史周期上固定保持多头全仓状态"
 msgstr ""
+"Estrategia de sincronización simple con una posición larga y completa fijada"
+" a lo largo del ciclo histórico."
 
 #: of qteasy.built_in.AD:6 qteasy.built_in.TimingLong:4
 msgid "无策略参数"
-msgstr ""
+msgstr "Sin parámetros de política"
 
 #: of qteasy.built_in.TimingLong:8
 msgid "整个信号周期内持仓比例恒定为100%满仓"
 msgstr ""
+"Posición completa constante al 100 % durante todo el ciclo de la señal"
 
 #: of qteasy.built_in.TimingShort:1
 msgid "简单择时策略，整个历史周期上固定保持空头全仓状态"
 msgstr ""
+"Estrategia de timing simple con una posición corta fija a lo largo del ciclo"
+" histórico"
 
 #: of qteasy.built_in.TimingShort:8
 msgid "整个信号周期内持仓比例恒定为-100%空头全仓"
 msgstr ""
+"Relación de posición constante durante todo el ciclo de la señal -100% "
+"posición completa corta"
 
 #: of qteasy.built_in.TimingZero:1
 msgid "简单择时策略，整个历史周期上固定保持空仓状态"
 msgstr ""
+"Estrategia de timing simple con posiciones cortas fijas a lo largo del ciclo"
+" histórico"
 
 #: of qteasy.built_in.TimingZero:8
 msgid "整个信号周期内持仓比例恒定为0%空仓"
 msgstr ""
+"Las posiciones se mantienen a un 0% constante durante todo el ciclo de la "
+"señal."
 
 #: ../../source/api/built_in_strategies.rst:86
 msgid "基于均线指标的择时策略"
-msgstr ""
+msgstr "Estrategia de sincronización basada en indicadores SMA"
 
 #: ../../source/api/built_in_strategies.rst:88
 msgid "下面的选股策略都基于股价均线指标来判定买入卖出"
 msgstr ""
+"Las siguientes estrategias de selección de acciones se basan todas en el "
+"indicador de promedio del precio de las acciones para determinar la compra y"
+" la venta."
 
 #: of qteasy.built_in.DMA:1
 msgid "DMA择时策略"
-msgstr ""
+msgstr "Estrategia de sincronización DMA"
 
 #: of qteasy.built_in.DMA:4
 msgid "``s``, ``int``, 短均线周期"
-msgstr ""
+msgstr "``s``, ``int``, período de promedio corto"
 
 #: of qteasy.built_in.DMA:6
 msgid "``l``, ``int``, 长均线周期"
-msgstr ""
+msgstr "``l``, ``int``, período medio largo"
 
 #: of qteasy.built_in.DMA:8
 msgid "``d``, ``int``, DMA周期"
-msgstr ""
+msgstr "``d``, ``int``, período DMA"
 
 #: of qteasy.built_in.DMA:14
 msgid "1， DMA在AMA上方时，多头区间，即DMA线自下而上穿越AMA线后，输出为1"
 msgstr ""
+"1, DMA por encima de AMA, largo alcance, es decir, la línea DMA cruza la "
+"línea AMA de abajo hacia arriba, la salida es 1"
 
 #: of qteasy.built_in.DMA:16
 msgid "2， DMA在AMA下方时，空头区间，即DMA线自上而下穿越AMA线后，输出为0 3， DMA与股价发生背离时的交叉信号，可信度较高"
 msgstr ""
+"2, DMA por debajo de AMA, rango corto, es decir, la línea DMA de arriba a "
+"abajo a través de la línea AMA, la salida es 0 3, DMA y la divergencia del "
+"precio de las acciones cuando la señal de cruce, la credibilidad de mayor"
 
 #: of qteasy.built_in.DMA:19 qteasy.built_in.MACD:17
 msgid "默认参数: ``(12, 26, 9)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 26, 9)``"
 
 #: of qteasy.built_in.DMA:25
 msgid "参数范围: ``[(10, 250), (10, 250), (8, 250)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(10, 250), (10, 250), (8, 250)]``"
 
 #: of qteasy.built_in.MACD:1
 msgid "MACD择时策略类，运用MACD均线策略，生成目标仓位百分比"
 msgstr ""
+"Clase de estrategia de sincronización MACD, que utiliza la estrategia de "
+"promedio MACD para generar porcentajes de posición objetivo"
 
 #: of qteasy.built_in.MACD:4
 msgid "``s``: ``int``, 短周期指数平滑均线计算日期；"
 msgstr ""
+"``s``: ``int``, fecha de cálculo promedio de suavizado exponencial de "
+"período corto;"
 
 #: of qteasy.built_in.MACD:6
 msgid "``l``: ``int``, 长周期指数平滑均线计算日期；"
 msgstr ""
+"``l``: ``int``, fecha de cálculo de los promedios de suavizado exponencial "
+"de largo período;"
 
 #: of qteasy.built_in.MACD:8
 msgid "``m``: ``int``, MACD中间值DEA的计算周期；"
 msgstr ""
+"``m``: ``int``, el período para el cual se calcula la mediana DEA del MACD;"
 
 #: of qteasy.built_in.CROSSLINE:10 qteasy.built_in.MACD:10
 msgid "PT型: 目标仓位百分比"
-msgstr ""
+msgstr "Tipo PT: Porcentaje de posición objetivo"
 
 #: of qteasy.built_in.MACD:12
 msgid "计算``MACD``值: 1，当``MACD``值大于0时，设置仓位目标为1"
 msgstr ""
+"Calcular que el valor ``MACD`` value: 1, set position target to 1 when "
+"``MACD`` es mayor que 0"
 
 #: of qteasy.built_in.MACD:15
 msgid "2，当``MACD``值小于0时，设置仓位目标为0"
 msgstr ""
+"2. Cuando el valor ``MACD`` es menor que 0, establezca la posición objetivo "
+"en 0"
 
 #: of qteasy.built_in.MACD:23
 msgid "参数范围: ``[(10, 250), (10, 250), (5, 250)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(10, 250), (10, 250), (5, 250)]``"
 
 #: of qteasy.built_in.TRIX:1
 msgid "TRIX择时策略，使用股票价格的三重平滑指数移动平均价格进行多空判断"
 msgstr ""
+"Estrategia de sincronización TRIX que utiliza promedios móviles "
+"exponenciales triplemente suavizados de los precios de las acciones para "
+"hacer juicios a largo y corto plazo."
 
 #: of qteasy.built_in.TRIX:4
 msgid "``s``: int, 均线参数，单位为日，用于计算周期为S的三重平滑指数移动平均线TRIX"
 msgstr ""
+"``s``: int, parámetro SMA en días, utilizado para calcular la media móvil "
+"exponencial triple suavizada con período S TRIX"
 
 #: of qteasy.built_in.TRIX:6
 msgid "``m``: int, 平滑均线参数，用于计算TRIX的M日简单移动平均线"
 msgstr ""
+"``m``: int, parámetro de media suavizado, utilizado para calcular el "
+"promedio móvil simple de M días de TRIX"
 
 #: of qteasy.built_in.TRIX:8
 msgid "PT型: 目标仓位百分比``"
-msgstr ""
+msgstr "Escriba PT: Porcentaje de posición objetivo ``"
 
 #: of qteasy.built_in.TRIX:10
 msgid "计算价格的三重平滑指数移动平均价TRIX，再计算M日TRIX的移动平均:"
 msgstr ""
+"Calcule la media móvil exponencial triplemente suavizada del precio TRIX y "
+"luego calcule la media móvil del TRIX de días M:."
 
 #: of qteasy.built_in.TRIX:12
 msgid "1， ``TRIX``位于``MATRIX``上方时，设置仓位目标为1"
-msgstr ""
+msgstr "1, ``TRIX`` is above ``MATRIX``, establece la posición objetivo en 1"
 
 #: of qteasy.built_in.TRIX:14
 msgid "2， ``TRIX``位于``MATRIX``下方时，设置仓位目标位-1"
 msgstr ""
+"2. Establecer el objetivo de posición -1 cuando ``TRIX`` is below ``MATRIX``"
 
 #: of qteasy.built_in.TRIX:16
 msgid "默认参数: ``(12, 12)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 12)``"
 
 #: of qteasy.built_in.TRIX:22
 msgid "参数范围: ``[(2, 50), (3, 150)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 50), (3, 150)]``"
 
 #: of qteasy.built_in.CROSSLINE:1
 msgid "crossline择时策略类，利用长短均线的交叉确定多空状态"
 msgstr ""
+"Clase de estrategia de sincronización de líneas cruzadas, que utiliza el "
+"cruce de promedios largos y cortos para determinar el estado largo y corto"
 
 #: of qteasy.built_in.CROSSLINE:4
 msgid "``s``: ``int``, 短均线计算日期"
-msgstr ""
+msgstr "``s``: ``int``, fecha de cálculo del promedio corto"
 
 #: of qteasy.built_in.CROSSLINE:6
 msgid "``l``: ``int``, 长均线计算日期"
-msgstr ""
+msgstr "``l``: ``int``, fecha de cálculo de promedios largos"
 
 #: of qteasy.built_in.CROSSLINE:8
 msgid "``m``: ``float``, 均线边界宽度（百分比）"
-msgstr ""
+msgstr "``m``: ``float``, ancho del límite medio (en porcentaje)"
 
 #: of qteasy.built_in.CROSSLINE:12
 msgid "1, 当短均线位于长均线上方，且距离大于l*m%时，设置仓位目标为1"
 msgstr ""
+"1. Cuando la SMA corta está por encima de la SMA larga y la distancia es "
+"mayor que l*m%, establezca la posición objetivo en 1."
 
 #: of qteasy.built_in.CROSSLINE:14
 msgid "2, 当短均线位于长均线下方，且距离大于l*m%时，设置仓位目标为-1"
 msgstr ""
+"2. Cuando la SMA corta está por debajo de la SMA larga y la distancia es "
+"mayor que l*m%, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.CROSSLINE:16
 msgid "3, 当长短均线之间的距离不大于l*m%时，设置仓位目标为0"
 msgstr ""
+"3. Cuando la distancia entre los promedios largo y corto no sea mayor que "
+"l*m%, establezca la posición objetivo en 0"
 
 #: of qteasy.built_in.CROSSLINE:18
 msgid "默认参数: ``(35, 120, 0.02)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(35, 120, 0.02)``"
 
 #: of qteasy.built_in.CROSSLINE:24
 msgid "参数范围: ``[(10, 250), (10, 250), (0, 1)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(10, 250), (10, 250), (0, 1)]``"
 
 #: of qteasy.built_in.CDL:1
 msgid "CDL择时策略，在K线图中找到符合要求的cdldoji模式"
 msgstr ""
+"Estrategia de sincronización CDL, encuentre el patrón cdldoji en el gráfico "
+"K que cumpla con los requisitos"
 
 #: of qteasy.built_in.CDL:4
 msgid "无"
-msgstr ""
+msgstr "Ninguno"
 
 #: of qteasy.built_in.CDL:6
 msgid "PS型: 百分比交易信号"
-msgstr ""
+msgstr "Tipo PS: Señal comercial porcentual"
 
 #: of qteasy.built_in.CDL:8
 msgid "VS型: 交易数量信号"
-msgstr ""
+msgstr "Tipo VS: Señal de volumen"
 
 #: of qteasy.built_in.CDL:10
 msgid "搜索历史数据窗口内出现的cdl doji模式（匹配度0～100之间），加总后/100，计算"
 msgstr ""
+"Busque patrones CDL Doji (puntuación de coincidencia entre 0 y 100) dentro "
+"de la ventana de datos históricos, súmelos y divídalos por 100 para "
+"calcular."
 
 #: of qteasy.built_in.CDL:12
 msgid "等效cdl doji匹配数量，以匹配数量为交易信号。"
 msgstr ""
+"Recuento de coincidencias de CDL Doji equivalente, utilizando el recuento de"
+" coincidencias como señal comercial."
 
 #: of qteasy.built_in.CDL:16
 msgid "数据类型: ``open, high, low, close`` 开盘，最高，最低，收盘价"
 msgstr ""
+"Tipo de datos: ``open, high, low, close`` abierto, alto, bajo, cerrado"
 
 #: of qteasy.built_in.CDL:20
 msgid "参数范围: ``None``"
-msgstr ""
+msgstr "Rango de parámetros: ``None``"
 
 #: of qteasy.built_in.SoftBBand:1
 msgid "布林带线渐进交易策略，根据股价与布林带上轨和布林带下轨之间的关系确定多空，"
 msgstr ""
+"La estrategia comercial progresiva de las Bandas de Bollinger, que determina"
+" las posiciones largas y cortas en función de la relación entre el precio de"
+" las acciones y las Bandas de Bollinger superiores e inferiores."
 
 #: of qteasy.built_in.SoftBBand:3
 msgid "交易信号不是一次性产生的，而是逐步渐进买入和卖出。"
 msgstr ""
+"Las señales comerciales no se generan todas a la vez, sino que se compran y "
+"venden de forma gradual y progresiva."
 
 #: of qteasy.built_in.SoftBBand:6
 msgid "``p``: int, 均线周期，用于计算布林带线的均线周期"
 msgstr ""
+"``p``: int, período SMA, utilizado para calcular el período SMA de una línea"
+" de banda de Bollinger"
 
 #: of qteasy.built_in.SoftBBand:8
 msgid "``u``: float，上轨偏移量，单位为标准差的倍数，如2表示上偏移2倍标准差"
 msgstr ""
+"``u``: flotante, desplazamiento de la pista superior en múltiplos de la "
+"desviación estándar, p. 2 significa desplazamiento superior 2 veces la "
+"desviación estándar"
 
 #: of qteasy.built_in.SoftBBand:10
 msgid "``d``: float，下轨偏移量，单位为标准差的倍数，如2表示下偏移2倍标准差"
 msgstr ""
+"``d``: flotante, desplazamiento de pista inferior en múltiplos de la "
+"desviación estándar, p. 2 significa menor compensación 2 veces la desviación"
+" estándar"
 
 #: of qteasy.built_in.SoftBBand:12
 msgid "``m``: int，移动均线类型，取值范围0~8，表示9种不同的均线类型:"
 msgstr ""
+"``m``: int, tipo de media móvil, rango de valores 0~8, indica 9 tipos "
+"diferentes de medias."
 
 #: of qteasy.built_in.BBand:12 qteasy.built_in.SoftBBand:14
 msgid "PS型: 百分比例交易信号"
-msgstr ""
+msgstr "Tipo PS: Ejemplo de señales comerciales de porcentaje"
 
 #: of qteasy.built_in.SoftBBand:16
 msgid "计算BBAND，检查价格是否超过BBAND的上轨或下轨:"
 msgstr ""
+"Calcula la BBAND ​​y comprueba si el precio supera el carril superior o "
+"inferior de la BBAND:."
 
 #: of qteasy.built_in.SoftBBand:18
 msgid "1，当价格大于上轨后，每天产生10%的比例买入交易信号"
 msgstr ""
+"1. Cuando el precio es mayor que el carril superior, la proporción del 10% "
+"por día para generar señales comerciales de compra."
 
 #: of qteasy.built_in.SoftBBand:20
 msgid "2，当价格低于下轨后，每天产生33%的比例卖出交易信号"
 msgstr ""
+"2, cuando el precio está por debajo del carril inferior, se genera una "
+"proporción del 33% de señales de venta todos los días."
 
 #: of qteasy.built_in.SoftBBand:22
 msgid "默认参数: ``(20, 2, 2, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(20, 2, 2, 0)``"
 
 #: of qteasy.built_in.APO:25 qteasy.built_in.AROON:25 qteasy.built_in.CMO:25
 #: qteasy.built_in.DI:22 qteasy.built_in.DM:25 qteasy.built_in.MACDEXT:30
 #: qteasy.built_in.MFI:19 qteasy.built_in.SoftBBand:26
 msgid "窗口长度: ``200``"
-msgstr ""
+msgstr "Longitud de la ventana: ``200`''"
 
 #: of qteasy.built_in.SoftBBand:28
 msgid "参数范围: ``[(2, 100), (0.5, 5), (0.5, 5), (0, 8)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (0.5, 5), (0.5, 5), (0, 8)]``"
 
 #: of qteasy.built_in.BBand:1
-msgid "布林带线交易策略，根据股价与布林带上轨和布林带下轨之间的关系确定多空， 在价格上穿或下穿布林带线上下轨时产生交易信号。 布林带线的均线类型不可选"
+msgid ""
+"布林带线交易策略，根据股价与布林带上轨和布林带下轨之间的关系确定多空， 在价格上穿或下穿布林带线上下轨时产生交易信号。 布林带线的均线类型不可选"
 msgstr ""
+"Estrategia comercial de Bandas de Bollinger, que determina posiciones largas"
+" y cortas en función de la relación entre el precio de una acción y las "
+"Bandas de Bollinger superiores e inferiores, y genera señales comerciales "
+"cuando el precio cruza por encima o por debajo de las Bandas de Bollinger "
+"superiores e inferiores. Las Bandas de Bollinger no están disponibles como "
+"SMA."
 
 #: of qteasy.built_in.BBand:6
 msgid "``p``: ``int``, 均线周期，用于计算布林带线的均线周期"
 msgstr ""
+"``p``: ``int``, período SMA, utilizado para calcular el período SMA de una "
+"línea de banda de Bollinger"
 
 #: of qteasy.built_in.BBand:8
 msgid "``u``: ``float``，上轨偏移量，单位为标准差的倍数，如2表示上偏移2倍标准差"
 msgstr ""
+"``u``: ``float``, desplazamiento de la vía superior en múltiplos de la "
+"desviación estándar, p. 2 significa desplazamiento superior 2 veces la "
+"desviación estándar"
 
 #: of qteasy.built_in.BBand:10
 msgid "``d``: ``float``，下轨偏移量，单位为标准差的倍数，如2表示下偏移2倍标准差"
 msgstr ""
+"``d``: ``float``, desplazamiento de vía inferior en múltiplos de la "
+"desviación estándar, p. 2 significa menor compensación 2 veces la desviación"
+" estándar"
 
 #: of qteasy.built_in.BBand:14
 msgid "计算``BBAND``，检查价格是否超过``BBAND``的上轨或下轨:"
 msgstr ""
+"Calcule el ``BBAND`` and check whether the price exceeds the upper or lower "
+"rail of the ``BBAND``."
 
 #: of qteasy.built_in.BBand:16
 msgid "1，当价格上穿上轨时，产生全仓买入信号"
 msgstr ""
+"1, cuando el precio sube a través del carril superior, generando una señal "
+"de compra completa"
 
 #: of qteasy.built_in.BBand:18
 msgid "2，当价格下穿下轨时，产生全仓卖出信号``"
 msgstr ""
+"2. Cuando el precio desciende por debajo del carril inferior, se genera una "
+"señal de venta completa ``"
 
 #: of qteasy.built_in.BBand:20
 msgid "默认参数: ``(20, 2, 2)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(20, 2, 2)``"
 
 #: of qteasy.built_in.BBand:26
 msgid "参数范围: ``[(2, 100), (0.5, 5), (0.5, 5)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (0.5, 5), (0.5, 5)]``"
 
 #: ../../source/api/built_in_strategies.rst:106
 msgid "依赖 ``TA-Lib`` 技术分析包的交易策略"
 msgstr ""
+"Estrategias comerciales que se basan en el paquete de análisis técnico ``TA-"
+"Lib``"
 
 #: ../../source/api/built_in_strategies.rst:108
 msgid ""
-"以下是一些依赖 ``TA-Lib`` 技术分析包的交易策略，这些交易策略都是基于 ``TA-Lib`` 技术分析包的计算，需要安装 ``TA-"
-"Lib`` 技术分析包。"
+"以下是一些依赖 ``TA-Lib`` 技术分析包的交易策略，这些交易策略都是基于 ``TA-Lib`` 技术分析包的计算，需要安装 ``TA-Lib``"
+" 技术分析包。"
 msgstr ""
+"A continuación se muestran algunas estrategias comerciales que se basan en "
+"el paquete de análisis técnico ``TA-Lib`` technical analysis package, which "
+"is based on the calculations of the ``TA-Lib`` technical analysis package "
+"and requires the installation of the ``TA-Lib``."
 
 #: ../../source/api/built_in_strategies.rst:112
 msgid "基于单均线穿越的择时策略"
-msgstr ""
+msgstr "Estrategia de cronometraje basada en un cruce de media única"
 
 #: ../../source/api/built_in_strategies.rst:114
 msgid "下面的选股策略都基于股价是否上穿/下穿均线来判定买入卖出"
 msgstr ""
+"Las siguientes estrategias de selección de acciones se basan todas en si el "
+"precio de la acción cruza por encima o por debajo de la SMA para determinar "
+"una decisión de compra-venta."
 
 #: of qteasy.built_in.SCRSSMA:1
 msgid "单均线交叉策略——SMA均线(简单移动平均线): 根据股价与SMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA única - SMA (media móvil simple): las posiciones "
+"se establecen en función de la posición relativa del precio de las acciones "
+"con respecto a la SMA."
 
 #: of qteasy.built_in.SCRSDEMA:4 qteasy.built_in.SCRSEMA:4
 #: qteasy.built_in.SCRSKAMA:4 qteasy.built_in.SCRSSMA:4
 msgid "``rng``: ``int``, 均线的计算周期"
-msgstr ""
+msgstr "``rng``: ``int``, período de cálculo de promedios"
 
 #: of qteasy.built_in.ADX:7 qteasy.built_in.APO:13 qteasy.built_in.AROON:9
 #: qteasy.built_in.CMO:9 qteasy.built_in.DCRSDEMA:9 qteasy.built_in.DCRSEMA:9
@@ -1231,12 +1511,13 @@ msgstr ""
 #: qteasy.built_in.SCRSSMA:6 qteasy.built_in.SCRST3:8
 #: qteasy.built_in.SCRSTEMA:6 qteasy.built_in.SCRSTRIMA:6
 #: qteasy.built_in.SCRSWMA:6 qteasy.built_in.SLPDEMA:11
-#: qteasy.built_in.SLPEMA:11 qteasy.built_in.SLPHT:9 qteasy.built_in.SLPKAMA:11
-#: qteasy.built_in.SLPMAMA:13 qteasy.built_in.SLPSMA:11
-#: qteasy.built_in.SLPT3:13 qteasy.built_in.SLPTEMA:11
-#: qteasy.built_in.SLPTRIMA:11 qteasy.built_in.SLPWMA:12
+#: qteasy.built_in.SLPEMA:11 qteasy.built_in.SLPHT:9
+#: qteasy.built_in.SLPKAMA:11 qteasy.built_in.SLPMAMA:13
+#: qteasy.built_in.SLPSMA:11 qteasy.built_in.SLPT3:13
+#: qteasy.built_in.SLPTEMA:11 qteasy.built_in.SLPTRIMA:11
+#: qteasy.built_in.SLPWMA:12
 msgid "PT型: 仓位百分比目标信号"
-msgstr ""
+msgstr "Tipo PT: Señal objetivo de porcentaje de posición"
 
 #: of qteasy.built_in.SCRSDEMA:8 qteasy.built_in.SCRSEMA:8
 #: qteasy.built_in.SCRSHT:8 qteasy.built_in.SCRSKAMA:8
@@ -1244,7 +1525,7 @@ msgstr ""
 #: qteasy.built_in.SCRST3:10 qteasy.built_in.SCRSTEMA:8
 #: qteasy.built_in.SCRSTRIMA:8 qteasy.built_in.SCRSWMA:8
 msgid "检查当前价格与均线的关系:"
-msgstr ""
+msgstr "Consulta el precio actual en relación a las medias."
 
 #: of qteasy.built_in.SCRSDEMA:10 qteasy.built_in.SCRSEMA:10
 #: qteasy.built_in.SCRSKAMA:10 qteasy.built_in.SCRSMAMA:12
@@ -1253,6 +1534,8 @@ msgstr ""
 #: qteasy.built_in.SCRSWMA:10
 msgid "1，当价格高于均线时，设定持仓比例为1"
 msgstr ""
+"1, cuando el precio está por encima del promedio, establezca el ratio de "
+"posición en 1"
 
 #: of qteasy.built_in.SCRSDEMA:12 qteasy.built_in.SCRSEMA:12
 #: qteasy.built_in.SCRSKAMA:12 qteasy.built_in.SCRSMAMA:14
@@ -1261,134 +1544,176 @@ msgstr ""
 #: qteasy.built_in.SCRSWMA:12
 msgid "2，当价格低于均线时，设定持仓比例为-1"
 msgstr ""
+"2, cuando el precio está por debajo del promedio, establezca el ratio de "
+"posición en -1"
 
 #: of qteasy.built_in.SCRSDEMA:20 qteasy.built_in.SCRSEMA:20
 #: qteasy.built_in.SCRSKAMA:20 qteasy.built_in.SCRSSMA:20
 msgid "参数范围: ``[(3, 250)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 250)]''"
 
 #: of qteasy.built_in.SCRSDEMA:1
 msgid "单均线交叉策略——DEMA均线(双重指数平滑移动平均线): 根据股价与DEMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único: DEMA SMA (media móvil de suavizado "
+"exponencial doble): las posiciones se establecen en función de la posición "
+"relativa del precio de las acciones con respecto al DEMA SMA."
 
 #: of qteasy.built_in.SCRSEMA:1
 msgid "单均线交叉策略——EMA均线(指数平滑移动均线): 根据股价与EMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA única - EMA (media móvil suavizada exponencial): "
+"las posiciones se establecen en función de la posición relativa del precio "
+"de las acciones con respecto a la EMA."
 
 #: of qteasy.built_in.SCRSHT:1
 msgid "单均线交叉策略——HT(希尔伯特变换瞬时趋势线): 根据股价与HT线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único - HT (línea de tendencia instantánea de "
+"transformada de Hilbert): las posiciones se establecen en función de la "
+"posición relativa del precio de las acciones con respecto a la línea HT."
 
 #: of qteasy.built_in.SCRSHT:4
 msgid "不需要参数"
-msgstr ""
+msgstr "No se requieren parámetros"
 
 #: of qteasy.built_in.SCRSHT:10
 msgid "1，当价格高于HT线时，设定持仓比例为1"
 msgstr ""
+"1, cuando el precio está por encima de la línea HT, establezca la relación "
+"de posición en 1"
 
 #: of qteasy.built_in.SCRSHT:12
 msgid "2，当价格低于HT线时，设定持仓比例为-1"
 msgstr ""
+"2, cuando el precio está por debajo de la línea HT, establezca el ratio de "
+"posición en -1"
 
 #: of qteasy.built_in.SCRSKAMA:1
 msgid "单均线交叉策略——KAMA均线(考夫曼自适应移动均线): 根据股价与KAMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único: KAMA SMA (media móvil adaptativa de "
+"Kaufman): las posiciones se establecen en función de la posición relativa "
+"del precio de las acciones con respecto al KAMA SMA."
 
 #: of qteasy.built_in.SCRSMAMA:1
 msgid "单均线交叉策略——MAMA均线(MESA自适应移动平均线): 根据股价与MAMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único: MAMA SMA (media móvil adaptable de MESA): "
+"las posiciones se establecen en función de la posición relativa del precio "
+"de las acciones con respecto al MAMA SMA."
 
 #: of qteasy.built_in.SCRSMAMA:4
 msgid "``f``: ``float`` between 0 and 1, 快速移动极限"
-msgstr ""
+msgstr "``f``: ``float`` entre 0 y 1, límite de movimiento rápido"
 
 #: of qteasy.built_in.MACDEXT:7 qteasy.built_in.SCRSMAMA:5
 #: qteasy.built_in.SCRSMAMA:11 qteasy.built_in.SCRSMAMA:13
 #: qteasy.built_in.SCRSMAMA:17 qteasy.built_in.SCRSMAMA:19
 #: qteasy.built_in.SCRSMAMA:21
 msgid "``"
-msgstr ""
+msgstr "``"
 
 #: of qteasy.built_in.SCRSMAMA:6
 msgid "``s``: ``float`` between 0 and 1, 慢速移动极限"
-msgstr ""
+msgstr "``s``: ``float`` entre 0 y 1, límite de movimiento lento"
 
 #: of qteasy.built_in.SCRSMAMA:16
 msgid "默认参数: ``(0.5, 0.05)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(0.5, 0.05)``"
 
 #: of qteasy.built_in.SCRSMAMA:22
 msgid "参数范围: ``[(0.01, 0.99), (0.01, 0.99)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(0.01, 0.99), (0.01, 0.99)]``"
 
 #: of qteasy.built_in.SCRST3:1
 msgid "单均线交叉策略——T3均线(三重指数平滑移动平均线): 根据股价与T3均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único - T3 SMA (Promedio móvil de suavizado "
+"exponencial triple): las posiciones se establecen en función de la posición "
+"relativa del precio de las acciones con respecto al T3 SMA."
 
 #: of qteasy.built_in.SCRST3:4 qteasy.built_in.SCRSTEMA:4
 #: qteasy.built_in.SCRSTRIMA:4 qteasy.built_in.SCRSWMA:4
 #: qteasy.built_in.SLPT3:7 qteasy.built_in.SLPTEMA:7
 msgid "``p``: ``int`` 均线计算周期"
-msgstr ""
+msgstr "``p``: ``int`` los promedios calculan los períodos"
 
 #: of qteasy.built_in.SCRST3:6 qteasy.built_in.SLPT3:9
 msgid "``v``: ``float`` v因子，调整因子，取值范围0～1之间"
-msgstr ""
+msgstr "``v``: ``float`` factor v, factor de ajuste, rango de valores 0 a 1"
 
 #: of qteasy.built_in.SCRST3:16
 msgid "默认参数: ``(12, 0.5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 0.5)``"
 
 #: of qteasy.built_in.SCRST3:22
 msgid "参数范围: ``[(2, 20), (0, 1)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 20), (0, 1)]``"
 
 #: of qteasy.built_in.SCRSTEMA:1
 msgid "单均线交叉策略——TEMA均线(三重指数平滑移动平均线): 根据股价与TEMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único - TEMA SMA (Promedio móvil de suavizado "
+"exponencial triple): las posiciones se establecen en función de la posición "
+"relativa del precio de las acciones con respecto al TEMA SMA."
 
 #: of qteasy.built_in.SCRSTEMA:14
 msgid "默认参数: ``(6,)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(6,)``"
 
 #: of qteasy.built_in.SCRSTEMA:20 qteasy.built_in.SLPHT:25
 msgid "参数范围: ``[(2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 20)]''"
 
 #: of qteasy.built_in.SCRSTRIMA:1
 msgid "单均线交叉策略——TRIMA均线(三重指数平滑移动平均线): 根据股价与TRIMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único - TRIMA SMA (Promedio móvil de suavizado "
+"exponencial triple): las posiciones se establecen en función de la posición "
+"relativa del precio de las acciones con respecto al TRIMA SMA."
 
 #: of qteasy.built_in.SCRSTRIMA:20 qteasy.built_in.SCRSWMA:20
 msgid "参数范围: ``[(3, 200)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 200)]''"
 
 #: of qteasy.built_in.SCRSWMA:1
 msgid "单均线交叉策略——WMA均线(加权移动平均线): 根据股价与WMA均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de SMA único - WMA (promedio móvil ponderado): las "
+"posiciones se establecen en función de la posición relativa del precio de "
+"las acciones con respecto al WMA."
 
 #: ../../source/api/built_in_strategies.rst:138
 msgid "基于双均线穿越的择时策略"
-msgstr ""
+msgstr "Estrategia de sincronización basada en el doble cruce de SMA"
 
 #: ../../source/api/built_in_strategies.rst:140
 msgid "下面的选股策略都基于两根（一快一慢）均线是否交叉来判定买入卖出"
 msgstr ""
+"Las siguientes estrategias de selección de acciones se basan en si los dos "
+"promedios (uno rápido y otro lento) se cruzan o no para determinar la compra"
+" y la venta."
 
 #: of qteasy.built_in.DCRSSMA:1
 msgid "双均线交叉策略——SMA均线(简单移动平均线): 基于SMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA - SMA (media móvil simple): basada en las "
+"reglas de cálculo de SMA para generar dos promedios, rápido y lento, de "
+"acuerdo con la posición relativa de los promedios rápido y lento para "
+"establecer la proporción de posiciones."
 
 #: of qteasy.built_in.DCRSDEMA:5 qteasy.built_in.DCRSEMA:5
 #: qteasy.built_in.DCRSKAMA:5 qteasy.built_in.DCRSSMA:5
 msgid "``l``: ``int``, 长周期，慢速均线的计算周期"
 msgstr ""
+"``l``: ``int``, período largo, período calculado para promedios lentos"
 
 #: of qteasy.built_in.DCRSDEMA:7 qteasy.built_in.DCRSEMA:7
 #: qteasy.built_in.DCRSKAMA:7 qteasy.built_in.DCRSSMA:7
 msgid "``s``: ``int``, 短周期，快速均线的计算周期"
 msgstr ""
+"``s``: ``int``, período corto, período calculado para promedios rápidos"
 
 #: of qteasy.built_in.DCRSDEMA:11 qteasy.built_in.DCRSEMA:11
 #: qteasy.built_in.DCRSKAMA:11 qteasy.built_in.DCRSMAMA:15
@@ -1397,6 +1722,7 @@ msgstr ""
 #: qteasy.built_in.DCRSWMA:11
 msgid "用长短两个周期分别计算慢快两根均线:"
 msgstr ""
+"Calcule los promedios lento y rápido utilizando períodos largos y cortos."
 
 #: of qteasy.built_in.DCRSDEMA:13 qteasy.built_in.DCRSEMA:13
 #: qteasy.built_in.DCRSKAMA:13 qteasy.built_in.DCRSMAMA:17
@@ -1405,6 +1731,8 @@ msgstr ""
 #: qteasy.built_in.DCRSWMA:13
 msgid "1，当快均线高于慢均线时，设定持仓比例为1"
 msgstr ""
+"1, cuando los promedios rápidos son más altos que los promedios lentos, "
+"establezca la relación de posición en 1"
 
 #: of qteasy.built_in.DCRSDEMA:15 qteasy.built_in.DCRSEMA:15
 #: qteasy.built_in.DCRSKAMA:15 qteasy.built_in.DCRSMAMA:19
@@ -1413,154 +1741,223 @@ msgstr ""
 #: qteasy.built_in.DCRSWMA:15
 msgid "2，当慢均线高于快均线时，设定持仓比例为-1"
 msgstr ""
+"2, cuando el promedio lento es mayor que el promedio rápido, establezca la "
+"relación de posición en -1"
 
 #: of qteasy.built_in.DCRSDEMA:17 qteasy.built_in.DCRSEMA:17
 #: qteasy.built_in.DCRSSMA:17 qteasy.built_in.DCRSTRIMA:17
 #: qteasy.built_in.DCRSWMA:17
 msgid "默认参数: ``(125, 25)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(125, 25)``"
 
 #: of qteasy.built_in.DCRSDEMA:23 qteasy.built_in.DCRSEMA:23
 #: qteasy.built_in.DCRSSMA:23
 msgid "参数范围: ``[(3, 250), (3, 250)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 250), (3, 250)]``"
 
 #: of qteasy.built_in.DCRSDEMA:1
 msgid "双均线交叉策略——DEMA均线(简单移动平均线): 基于DEMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA - DEMA SMA (media móvil simple): basada en "
+"las reglas de cálculo de DEMA SMA para generar dos SMA, rápida y lenta, de "
+"acuerdo con la posición relativa de las SMA rápidas y lentas para establecer"
+" la proporción de las posiciones."
 
 #: of qteasy.built_in.DCRSEMA:1
 msgid "双均线交叉策略——EMA均线(指数平滑移动平均线): 基于EMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA: EMA SMA (media móvil de suavizado "
+"exponencial): genere dos SMA, rápida y lenta, según las reglas de cálculo de"
+" EMA SMA, y establezca proporciones de posición según las posiciones "
+"relativas de las SMA rápidas y lentas."
 
 #: of qteasy.built_in.DCRSKAMA:1
-msgid "双均线交叉策略——KAMA均线(考夫曼自适应移动平均线): 基于KAMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
+msgid ""
+"双均线交叉策略——KAMA均线(考夫曼自适应移动平均线): 基于KAMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA: KAMA SMA (media móvil adaptativa de "
+"Kaufman): genere dos SMA, rápida y lenta, según las reglas de cálculo de "
+"KAMA SMA y establezca relaciones de posición según las posiciones relativas "
+"de las SMA rápidas y lentas."
 
 #: of qteasy.built_in.DCRSKAMA:16
 msgid "策略属性缺省值: 默认参数: ``(125, 25)``"
 msgstr ""
+"Valor predeterminado del atributo de política: Parámetro predeterminado: "
+"``(125, 25)``"
 
 #: of qteasy.built_in.DCRSKAMA:23
 msgid "参数范围: ``[(3, 250), (3, 250)]`` 策略不支持参考数据，不支持交易数据"
 msgstr ""
+"Rango de parámetros: ``[(3, 250), (3, 250)]`` La estrategia no admite datos "
+"de referencia, no admite datos de transacciones"
 
 #: of qteasy.built_in.DCRSMAMA:1
-msgid "双均线交叉策略——MAMA均线(MESA自适应移动平均线): 基于MAMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
+msgid ""
+"双均线交叉策略——MAMA均线(MESA自适应移动平均线): 基于MAMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA: MAMA SMA (MESA Adaptive Moving Average): "
+"genere dos SMA, rápida y lenta, según las reglas de cálculo de MAMA SMA y "
+"establezca relaciones de posición según las posiciones relativas de las SMA "
+"rápidas y lentas."
 
 #: of qteasy.built_in.DCRSMAMA:5
 msgid "``lf``: ``float``, 长周期快速移动极限，慢速均线的KAMA计算参数"
 msgstr ""
+"``lf``: ``float``, límite de movimiento rápido de largo período, parámetros "
+"de cálculo de KAMA para promedios lentos"
 
 #: of qteasy.built_in.DCRSMAMA:7
 msgid "``ls``: ``float``, 长周期慢速移动极限，慢速均线的KAMA计算参数"
 msgstr ""
+"``ls``: ``float``, límite de movimiento lento de largo período, parámetro de"
+" cálculo KAMA para promedios lentos"
 
 #: of qteasy.built_in.DCRSMAMA:9
 msgid "``sf``: ``float``, 短周期快速移动极限，快速均线的KAMA计算参数"
 msgstr ""
+"``sf``: ``float``, límite de movimiento rápido de período corto, parámetro "
+"de cálculo KAMA para promedios rápidos"
 
 #: of qteasy.built_in.DCRSMAMA:11
 msgid "``ss``: ``float``, 短周期慢速移动极限，快速均线的KAMA计算参数"
 msgstr ""
+"``ss``: ``float``, límites de movimiento lento de período corto, parámetros "
+"de cálculo de KAMA para promedios rápidos"
 
 #: of qteasy.built_in.DCRSMAMA:21
 msgid "默认参数: ``(0.15, 0.05, 0.55, 0.25)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(0.15, 0.05, 0.55, 0.25)``"
 
 #: of qteasy.built_in.DCRSMAMA:27
 msgid "参数范围: ``[(0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, 0.99)]``"
 msgstr ""
+"Rango de parámetros: ``[(0.01, 0.99), (0.01, 0.99), (0.01, 0.99), (0.01, "
+"0.99)]``"
 
 #: of qteasy.built_in.DCRST3:1
 msgid "双均线交叉策略——T3均线(三重指数平滑移动平均线): 基于T3均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA: T3 SMA (promedio móvil de suavizado "
+"exponencial triple): genere SMA rápidas y lentas según las reglas de cálculo"
+" de T3 SMA y establezca relaciones de posición según las posiciones "
+"relativas de las SMA rápidas y lentas."
 
 #: of qteasy.built_in.DCRST3:5 qteasy.built_in.DCRSTEMA:5
 #: qteasy.built_in.DCRSTRIMA:5 qteasy.built_in.DCRSWMA:5
 msgid "``lp``: ``int`` 长周期参数，用于计算慢均线"
 msgstr ""
+"``lp``: ``int`` parámetro de período largo para calcular promedios lentos"
 
 #: of qteasy.built_in.DCRST3:7
 msgid "``lv``: ``float`` 长周期v因子，调整因子，取值范围0～1之间，用于计算慢均线"
 msgstr ""
+"``lv``: ``float`` Factor v de período largo, factor de ajuste, valor entre 0"
+" y 1, utilizado para calcular promedios lentos"
 
 #: of qteasy.built_in.DCRST3:9 qteasy.built_in.DCRSTEMA:7
 #: qteasy.built_in.DCRSTRIMA:7 qteasy.built_in.DCRSWMA:7
 msgid "``sp``: ``int`` 短周期参数，用于计算快均线"
 msgstr ""
+"``sp``: ``int`` Parámetro de período corto para calcular promedios rápidos"
 
 #: of qteasy.built_in.DCRST3:11
 msgid "``sv``: ``float`` 短周期v因子，调整因子，取值范围0～1之间，用于计算快均线"
 msgstr ""
+"``sv``: ``float`` Factor v de período corto, factor de ajuste, valor entre 0"
+" y 1, utilizado para calcular promedios rápidos"
 
 #: of qteasy.built_in.DCRST3:21
 msgid "默认参数: ``(20, 0.5, 5, 0.5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(20, 0.5, 5, 0.5)``"
 
 #: of qteasy.built_in.DCRST3:27
 msgid "参数范围: ``[(2, 20), (0, 1), (2, 20), (0, 1)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 20), (0, 1), (2, 20), (0, 1)]``"
 
 #: of qteasy.built_in.DCRSTEMA:1
-msgid "双均线交叉策略——TEMA均线(三重指数平滑移动平均线): 基于TEMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
+msgid ""
+"双均线交叉策略——TEMA均线(三重指数平滑移动平均线): 基于TEMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Estrategia de cruce de doble SMA: TEMA SMA (Promedio móvil de suavizado "
+"exponencial triple): basada en las reglas de cálculo de TEMA SMA para "
+"generar SMA rápidas y lentas, según la posición relativa de las SMA rápidas "
+"y lentas para establecer la proporción de posiciones."
 
 #: of qteasy.built_in.DCRSTEMA:17
 msgid "默认参数: ``(11, 6)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(11, 6)``"
 
 #: of qteasy.built_in.DCRSTEMA:23 qteasy.built_in.SLPTEMA:27
 msgid "参数范围: ``[(2, 20), (2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 20), (2, 20)]``"
 
 #: of qteasy.built_in.DCRSTRIMA:1
 msgid "双均线交叉策略——TRIMA均线(三重指数平滑移动平均线):"
 msgstr ""
+"Estrategia de cruce de doble SMA: TRIMA SMA (media móvil de suavizado "
+"exponencial triple)."
 
 #: of qteasy.built_in.DCRSTRIMA:2
 msgid "基于TRIMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Genere promedios rápidos y lentos basados ​​en las reglas de cálculo de "
+"promedios TRIMA y establezca relaciones de posición basadas en las "
+"posiciones relativas de los promedios rápidos y lentos."
 
 #: of qteasy.built_in.DCRSTRIMA:23 qteasy.built_in.DCRSWMA:23
 msgid "参数范围: ``[(3, 200), (3, 200)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 200), (3, 200)]``"
 
 #: of qteasy.built_in.DCRSWMA:1
 msgid "双均线交叉策略——WMA均线(加权移动平均线):"
-msgstr ""
+msgstr "Estrategia de cruce de doble SMA: WMA SMA (media móvil ponderada)."
 
 #: of qteasy.built_in.DCRSWMA:2
 msgid "基于WMA均线计算规则生成快慢两根均线，根据快与慢两根均线的相对位置设定持仓比例"
 msgstr ""
+"Genere promedios rápidos y lentos según las reglas de cálculo de WMA y "
+"establezca la relación de posición según las posiciones relativas de los "
+"promedios rápidos y lentos."
 
 #: ../../source/api/built_in_strategies.rst:161
 msgid "基于均线斜率的择时策略"
-msgstr ""
+msgstr "Estrategia de sincronización basada en la pendiente SMA"
 
 #: ../../source/api/built_in_strategies.rst:163
 #: ../../source/api/built_in_strategies.rst:190
 msgid "下面的选股策略都基于均线的斜率来判定买入卖出"
 msgstr ""
+"Todas las siguientes estrategias de selección de acciones se basan en la "
+"pendiente de los promedios para determinar la compra y la venta."
 
 #: of qteasy.built_in.SLPSMA:1
 msgid ""
 "均线斜率交易策略——SMA均线(简单移动平均线): 基于SMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - SMA (Promedio móvil simple): "
+"Genera promedios móviles basados ​​en las reglas de cálculo de SMA y "
+"establece objetivos de posición basados ​​en la pendiente de los promedios "
+"(cuando la pendiente de los promedios es positiva, indica una tendencia "
+"alcista del precio y aumenta el porcentaje de la posición, cuando la "
+"pendiente de los promedios es negativa, indica una tendencia a la baja y "
+"establece el porcentaje de la posición en menos uno o cero)"
 
 #: of qteasy.built_in.SLPDEMA:7 qteasy.built_in.SLPEMA:7
 #: qteasy.built_in.SLPKAMA:7 qteasy.built_in.SLPSMA:7
 msgid "``f``: ``int``, 均线的计算周期"
-msgstr ""
+msgstr "``f``: ``int``, período de cálculo de promedios"
 
 #: of qteasy.built_in.SLPDEMA:9 qteasy.built_in.SLPEMA:9
-#: qteasy.built_in.SLPHT:7 qteasy.built_in.SLPKAMA:9 qteasy.built_in.SLPMAMA:11
-#: qteasy.built_in.SLPSMA:9 qteasy.built_in.SLPT3:11 qteasy.built_in.SLPTEMA:9
+#: qteasy.built_in.SLPHT:7 qteasy.built_in.SLPKAMA:9
+#: qteasy.built_in.SLPMAMA:11 qteasy.built_in.SLPSMA:9
+#: qteasy.built_in.SLPT3:11 qteasy.built_in.SLPTEMA:9
 #: qteasy.built_in.SLPTRIMA:9 qteasy.built_in.SLPWMA:10
 msgid "``N``: ``int``, 估算斜率使用的数据点数量"
 msgstr ""
+"``N``: ``int``, número de puntos de datos utilizados para estimar la "
+"pendiente"
 
 #: of qteasy.built_in.SLPDEMA:13 qteasy.built_in.SLPEMA:13
 #: qteasy.built_in.SLPHT:11 qteasy.built_in.SLPKAMA:13
@@ -1569,6 +1966,8 @@ msgstr ""
 #: qteasy.built_in.SLPTRIMA:13 qteasy.built_in.SLPWMA:14
 msgid "按照规则计算价格的移动均线，并且计算均线的当前斜率``slope``"
 msgstr ""
+"Calcule la media móvil del precio según la regla y calcule la pendiente "
+"actual del promedio ``slope``."
 
 #: of qteasy.built_in.SLPDEMA:15 qteasy.built_in.SLPEMA:15
 #: qteasy.built_in.SLPHT:13 qteasy.built_in.SLPKAMA:15
@@ -1577,6 +1976,8 @@ msgstr ""
 #: qteasy.built_in.SLPTRIMA:15 qteasy.built_in.SLPWMA:16
 msgid "``slope``使用最近的N个移动均线数据点通过线性回归得到:"
 msgstr ""
+"``slope`` se obtiene mediante regresión lineal utilizando los N puntos de "
+"datos de media móvil más recientes:."
 
 #: of qteasy.built_in.SLPDEMA:17 qteasy.built_in.SLPEMA:17
 #: qteasy.built_in.SLPHT:15 qteasy.built_in.SLPMAMA:19
@@ -1585,6 +1986,8 @@ msgstr ""
 #: qteasy.built_in.SLPWMA:18
 msgid "1，当``slope``斜率大于零时，判断趋势向上，设定持仓比例为1"
 msgstr ""
+"1, cuando la pendiente de ``slope`` es mayor que cero, se considera que la "
+"tendencia es ascendente y la relación de posición se establece en 1"
 
 #: of qteasy.built_in.SLPDEMA:19 qteasy.built_in.SLPHT:17
 #: qteasy.built_in.SLPKAMA:19 qteasy.built_in.SLPMAMA:21
@@ -1593,932 +1996,1248 @@ msgstr ""
 #: qteasy.built_in.SLPWMA:20
 msgid "2，当``slope``斜率小于零时，判断趋势向下，设定持仓比例为-1"
 msgstr ""
+"2, cuando la pendiente de ``slope`` es menor que cero, se considera que la "
+"tendencia es descendente y la relación de posición se establece en -1"
 
 #: of qteasy.built_in.SLPDEMA:21 qteasy.built_in.SLPEMA:21
 #: qteasy.built_in.SLPKAMA:21 qteasy.built_in.SLPSMA:21
 #: qteasy.built_in.SLPTRIMA:21
 msgid "默认参数: ``(35, 5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(35, 5)``"
 
 #: of qteasy.built_in.SLPDEMA:27 qteasy.built_in.SLPEMA:27
 #: qteasy.built_in.SLPKAMA:27 qteasy.built_in.SLPSMA:27
 msgid "参数范围: ``[(3, 250), (2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 250), (2, 20)]``"
 
 #: of qteasy.built_in.SLPDEMA:1
 msgid ""
 "均线斜率交易策略——DEMA均线(双重指数平滑移动平均线): 基于DEMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - DEMA SMA (Promedio móvil de "
+"suavizado exponencial doble): genere promedios móviles basados ​​en las "
+"reglas de cálculo de DEMA y establezca objetivos de índice de posición según"
+" la pendiente de los promedios (cuando la pendiente de los promedios es "
+"positiva, significa que la tendencia del precio es hacia arriba, por lo "
+"tanto, aumente el índice de posición, cuando la pendiente de los promedios "
+"es negativa, significa que la tendencia es hacia abajo, por lo tanto, "
+"establezca un índice de posición de menos uno o cero). (Cuando la pendiente "
+"de la SMA es negativa, la tendencia es bajista y la posición se fija en "
+"menos uno o cero)"
 
 #: of qteasy.built_in.SLPEMA:1
 msgid ""
 "均线斜率交易策略——EMA均线(指数平滑移动平均线): 基于EMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - EMA SMA (Promedio móvil de "
+"suavizado exponencial): genere promedios móviles basados en las reglas de "
+"cálculo de EMA y establezca objetivos de posición basados en las pendientes "
+"de los promedios (cuando las pendientes de los promedios son positivas, "
+"indica una tendencia alcista del precio y aumenta el porcentaje de la "
+"posición, cuando las pendientes de los promedios son negativas, indica una "
+"tendencia a la baja y establece el porcentaje de la posición en (cuando la "
+"pendiente de la SMA es positiva, el precio tiene una tendencia alcista, "
+"aumente su posición, cuando la pendiente de la SMA es negativa, el precio "
+"tiene una tendencia a la baja, establezca su posición en menos uno o cero)"
 
 #: of qteasy.built_in.SLPEMA:19
 msgid "2，当``slope``斜率小于零时，判断趋势向下，设定持仓比例为-1``"
 msgstr ""
+"2, cuando la pendiente de ``slope`` is less than zero, the trend is judged "
+"to be downward, and the position ratio is set to -1``."
 
 #: of qteasy.built_in.SLPHT:1
 msgid ""
 "均线斜率交易策略——HT均线(希尔伯特变换——瞬时趋势线线): 基于HT计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - HT SMA (Transformada de Hilbert"
+" - Línea de tendencia instantánea): Genera promedios móviles basados ​​en "
+"las reglas de cálculo HT, establece objetivos de posición basados ​​en la "
+"pendiente de los promedios (cuando la pendiente de los promedios es "
+"positiva, indica una tendencia de precios al alza, aumenta el ratio de "
+"posición). (cuando la pendiente de la SMA es positiva, el precio tiene una "
+"tendencia ascendente y la posición aumenta, cuando la pendiente de la SMA es"
+" negativa, el precio tiene una tendencia a la baja y la posición se "
+"establece en menos uno o cero)."
 
 #: of qteasy.built_in.SLPHT:19
 msgid "默认参数: ``(5,)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(5,)``"
 
 #: of qteasy.built_in.SLPKAMA:1
 msgid ""
 "均线斜率交易策略——KAMA均线(考夫曼自适应移动平均线): 基于KAMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - KAMA SMA (Promedio móvil "
+"adaptativo de Kaufman): genere promedios móviles basados ​​en las reglas de "
+"cálculo de KAMA y establezca objetivos de posición basados ​​en las "
+"pendientes de los promedios (cuando las pendientes de los promedios son "
+"positivas, significa que el precio tiene una tendencia hacia arriba, por lo "
+"tanto, aumente el porcentaje de la posición, cuando las pendientes de los "
+"promedios son negativas, significa que la tendencia va hacia abajo, por lo "
+"tanto, establezca el porcentaje de la posición en menos uno o cero). (Cuando"
+" la pendiente de la SMA es negativa, la tendencia es bajista y la posición "
+"se fija en menos uno o cero)"
 
 #: of qteasy.built_in.SLPKAMA:17
 msgid "1，当``slope``斜率大于零时，判断趋势向上，设定持仓比``例为1"
 msgstr ""
+"1, cuando la pendiente de ``slope`` is greater than zero, the trend is "
+"judged to be upward, and the position ratio is set ``example`` a 1"
 
 #: of qteasy.built_in.SLPMAMA:1
 msgid ""
 "均线斜率交易策略——MAMA均线(MESA自适应移动平均线): 基于MAMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - MAMA SMA (MESA Adaptive Moving "
+"Average): Genere promedios móviles basados ​​en las reglas de cálculo de "
+"MAMA y establezca objetivos de posición basados ​​en las pendientes de los "
+"promedios (cuando las pendientes de los promedios son positivas, lo que "
+"indica una tendencia al alza en el precio, aumente el porcentaje de la "
+"posición, cuando las pendientes son negativas, lo que indica una tendencia a"
+" la baja, establezca el porcentaje de la posición en menos uno o cero). "
+"(Cuando la pendiente de la SMA es negativa, la tendencia es bajista y la "
+"posición se fija en menos uno o cero)."
 
 #: of qteasy.built_in.SLPMAMA:7
 msgid "``f``: ``float``, 高速移动极限值"
-msgstr ""
+msgstr "``f``: ``float``, límite de movimiento a alta velocidad"
 
 #: of qteasy.built_in.SLPMAMA:9
 msgid "``s``: ``float``, 低速移动极限值"
-msgstr ""
+msgstr "``s``: ``float``, límites de movimiento a baja velocidad"
 
 #: of qteasy.built_in.SLPMAMA:23
 msgid "默认参数: ``(0.5, 0.05, 5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(0.5, 0.05, 5)``"
 
 #: of qteasy.built_in.SLPMAMA:29
 msgid "参数范围: ``[(0.01, 0.99), (0.01, 0.99), (2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(0.01, 0.99), (0.01, 0.99), (2, 20)]``"
 
 #: of qteasy.built_in.SLPT3:1
 msgid "均线斜率交易策略——T3均线(三重指数平滑移动平均线):"
 msgstr ""
+"Estrategia de negociación de pendiente SMA: T3 SMA (media móvil de suavizado"
+" exponencial triple)."
 
 #: of qteasy.built_in.SLPT3:2
 msgid ""
 "基于T3计算规则生成移动均线，根据均线的斜率设定持仓比例目标 （当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 "
 "向下，设定持仓比例为负一或零）"
 msgstr ""
+"Genere promedios móviles según las reglas de cálculo T3 y establezca "
+"objetivos de posición según la pendiente de los promedios (cuando la "
+"pendiente de los promedios es positiva, el precio tiene una tendencia al "
+"alza y la posición aumenta, cuando la pendiente de los promedios es "
+"negativa, la tendencia es a la baja y la posición se establece en menos uno "
+"o cero)."
 
 #: of qteasy.built_in.SLPT3:23
 msgid "默认参数: ``(12, 0.25, 5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 0.25, 5)``"
 
 #: of qteasy.built_in.SLPT3:29
 msgid "参数范围: ``[(2, 20), (0, 1), (2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 20), (0, 1), (2, 20)]``"
 
 #: of qteasy.built_in.SLPTEMA:1
 msgid ""
 "均线斜率交易策略——TEMA均线(三重指数平滑移动平均线): 基于TEMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - TEMA SMA (Promedio móvil de "
+"suavizado exponencial triple): genere promedios móviles basados ​​en las "
+"reglas de cálculo de TEMA y establezca objetivos de posición basados ​​en la"
+" pendiente de los promedios (cuando la pendiente de los promedios es "
+"positiva, indica que el precio tiene una tendencia al alza, por lo tanto, "
+"aumente el porcentaje de la posición, cuando la pendiente de los promedios "
+"es negativa, indica que la tendencia es a la baja, por lo tanto, establezca "
+"el porcentaje de la posición en menos uno o cero). (Cuando la pendiente de "
+"la SMA es negativa, la tendencia es bajista y la posición se fija en menos "
+"uno o cero)"
 
 #: of qteasy.built_in.SLPTEMA:21
 msgid "默认参数: ``(6, 5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(6, 5)``"
 
 #: of qteasy.built_in.SLPTRIMA:1
 msgid ""
 "均线斜率交易策略——TRIMA均线(三重指数平滑移动平均线): 基于TRIMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 "
 "（当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 向下，设定持仓比例为负一或零）"
 msgstr ""
+"Estrategia de negociación de pendiente SMA - TRIMA SMA (Promedio móvil de "
+"suavizado exponencial triple): genere promedios móviles basados ​​en las "
+"reglas de cálculo de TRIMA y establezca objetivos de posición basados ​​en "
+"las pendientes de los promedios (cuando las pendientes de los promedios son "
+"positivas, significa que la tendencia del precio es hacia arriba y el índice"
+" de posición aumenta, cuando las pendientes de los promedios son negativas, "
+"significa que la tendencia es hacia abajo y el índice de posición se "
+"establece en menos uno o cero). (Cuando la pendiente de la SMA es negativa, "
+"la tendencia es bajista y la posición se fija en menos uno o cero)."
 
 #: of qteasy.built_in.SLPTRIMA:7
 msgid "``f``: ``int`` 均线计算周期"
-msgstr ""
+msgstr "``f``: ``int`` los promedios calculan los períodos"
 
 #: of qteasy.built_in.SLPTRIMA:27 qteasy.built_in.SLPWMA:28
 msgid "参数范围: ``[(3, 200), (2, 20)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(3, 200), (2, 20)]``"
 
 #: of qteasy.built_in.SLPWMA:1
 msgid "均线斜率交易策略——WMA均线(加权移动平均线):"
 msgstr ""
+"Estrategia comercial de pendiente SMA - WMA SMA (media móvil ponderada)."
 
 #: of qteasy.built_in.SLPWMA:3
 msgid ""
 "基于WMA计算规则生成移动均线，根据均线的斜率设定持仓比例目标 （当均线斜率为正时，表示价格趋势向上，提高持仓比例，当均线斜率为负时，表示趋势 "
 "向下，设定持仓比例为负一或零）"
 msgstr ""
+"Genere promedios móviles según las reglas de cálculo de WMA y establezca "
+"objetivos de posición según la pendiente de los promedios (cuando la "
+"pendiente de los promedios es positiva, el precio tiene una tendencia al "
+"alza y la posición aumenta, cuando la pendiente de los promedios es "
+"negativa, la tendencia es a la baja y la posición se establece en menos uno "
+"o cero)."
 
 #: of qteasy.built_in.SLPWMA:8
 msgid "``f``: ``int``, 均线计算周期"
-msgstr ""
+msgstr "``f``: ``int``, los promedios calculan el período"
 
 #: of qteasy.built_in.SLPWMA:22
 msgid "默认参数: ``(125, 5)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(125, 5)``"
 
 #: of qteasy.built_in.SAREXT:1
 msgid "扩展抛物线SAR策略，当指标大于0时发出买入信号，当指标小于0时发出卖出信号"
 msgstr ""
+"Estrategia SAR parabólica extendida con señales de compra cuando el "
+"indicador es mayor que 0 y señales de venta cuando el indicador es menor que"
+" 0"
 
 #: of qteasy.built_in.SAREXT:4
 msgid "``a``: ``int``, Parabolic SAR参数: 加速度"
-msgstr ""
+msgstr "``a``: ``int``, Parámetro SAR parabólico: Aceleración"
 
 #: of qteasy.built_in.SAREXT:6
 msgid "``m``: ``float``, maximum最大值"
-msgstr ""
+msgstr "``m``: ``float``, valor máximo máximo"
 
 #: of qteasy.built_in.SAREXT:10
 msgid "计算``Parabolic SAR``:"
-msgstr ""
+msgstr "Cálculo de ``Parabolic SAR``."
 
 #: of qteasy.built_in.SAREXT:12
 msgid "1，当``Parabolic SAR``大于0时，输出多头"
-msgstr ""
+msgstr "1, cuando ``Parabolic SAR`` es mayor que 0, la salida es larga"
 
 #: of qteasy.built_in.SAREXT:14
 msgid "2，当``Parabolic SAR``小于0时，输出空头"
-msgstr ""
+msgstr "2, salida corta cuando ``Parabolic SAR`` es menor que 0"
 
 #: of qteasy.built_in.SAREXT:16
 msgid "默认参数: ``(0, 3)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(0, 3)``"
 
 #: of qteasy.built_in.SAREXT:18
 msgid "数据类型: ``high``, ``low``最高价和最低价，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low`` alto y bajo, múltiples entradas de datos"
 
 #: of qteasy.built_in.SAREXT:20
 msgid "窗口长度: ``200`` 参数范围: ``[(-100, 100), (0, 5)]``"
 msgstr ""
+"Longitud de la ventana: ``200`` Parameter range: ``[(-100, 100), (0, 5)]``"
 
 #: ../../source/api/built_in_strategies.rst:188
 msgid "基于动量技术指标的择时策略"
 msgstr ""
+"Estrategias de sincronización basadas en indicadores técnicos de impulso"
 
 #: of qteasy.built_in.ADX:1
 msgid "ADX指标（平均定向运动指数）选股策略: 基于ADX指标判断当前趋势的强度，从而根据趋势强度产生交易信号"
 msgstr ""
+"Estrategia de selección de acciones ADX (índice de movimiento direccional "
+"promedio): determine la fuerza de la tendencia actual en función del "
+"indicador ADX y genere señales comerciales en función de la fuerza de la "
+"tendencia."
 
 #: of qteasy.built_in.ADX:5
 msgid "``p``: ``int``, ADX计算时间周期，取值范围2～35"
-msgstr ""
+msgstr "``p``: ``int``, período de tiempo de cálculo ADX, rango de 2 a 35"
 
 #: of qteasy.built_in.ADX:9
 msgid "按照规则计算``ADX``趋势强度:"
-msgstr ""
+msgstr "Calcule la fuerza de la tendencia ``ADX`` de acuerdo con la regla."
 
 #: of qteasy.built_in.ADX:11
 msgid "1, 当``ADX>25``时，判断趋势向上，设定持仓比例为1"
 msgstr ""
+"1. Cuando ``ADX>25``, se considera que la tendencia es ascendente y la "
+"relación de posición se establece en 1"
 
 #: of qteasy.built_in.ADX:13
 msgid "2, 当``20<ADX<25``之间时，判断为中性趋势，设定持仓比例为0"
 msgstr ""
+"2. Cuando ``between 20<ADX<25``, se considera una tendencia neutral y la "
+"relación de posición se establece en 0."
 
 #: of qteasy.built_in.ADX:15
 msgid "3, 当``ADX>20``时，判断趋势向下，设定持仓比例为-1"
 msgstr ""
+"3. Cuando ``ADX>20``, se considera que la tendencia es descendente y la "
+"relación de posición se establece en -1."
 
-#: of qteasy.built_in.ADX:19 qteasy.built_in.STOCH:27 qteasy.built_in.STOCHF:23
-#: qteasy.built_in.ULTOSC:25 qteasy.built_in.WILLR:21
+#: of qteasy.built_in.ADX:19 qteasy.built_in.STOCH:27
+#: qteasy.built_in.STOCHF:23 qteasy.built_in.ULTOSC:25
+#: qteasy.built_in.WILLR:21
 msgid "数据类型: ``high``, ``low``, ``close`` 最高价，最低价，收盘价，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close`` Precio más alto, precio más "
+"bajo, precio de cierre, múltiples entradas de datos"
 
 #: of qteasy.built_in.ADX:23
 msgid "参数范围: ``[(2, 35)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 35)]''"
 
 #: of qteasy.built_in.APO:1
 msgid "APO指标（绝对价格震荡指标）选股策略:"
 msgstr ""
+"Estrategia de selección de acciones del indicador APO (oscilador de precio "
+"absoluto)."
 
 #: of qteasy.built_in.APO:3
 msgid "APO指标通过两条均线的相对关系生成， 基于APO指标判断当前股价变动的牛熊趋势，从而根据趋势产生交易信号"
 msgstr ""
+"El indicador APO se genera por la relación relativa entre dos promedios, "
+"basado en el indicador APO para determinar la tendencia actual de los "
+"movimientos del precio de las acciones de alcistas y bajistas, a fin de "
+"generar señales comerciales basadas en la tendencia."
 
 #: of qteasy.built_in.APO:7
 msgid "``f``: ``int``, 快速均线周期"
-msgstr ""
+msgstr "``f``: ``int``, período de promediado rápido"
 
 #: of qteasy.built_in.APO:9
 msgid "``s``: ``int``, 慢速均线周期"
-msgstr ""
+msgstr "``s``: ``int``, período medio lento"
 
 #: of qteasy.built_in.APO:11
 msgid "``m``: ``int``, 移动均线类型，取值范围0～8"
-msgstr ""
+msgstr "``m``: ``int``, tipo de media móvil, rango de valores 0-8"
 
 #: of qteasy.built_in.APO:15
 msgid "按照规则计算APO趋势:"
-msgstr ""
+msgstr "Calcule las tendencias de APO según la regla :."
 
 #: of qteasy.built_in.APO:17
 msgid "1, 当``APO``大于0时，判断为牛市趋势，设定持仓比例为1"
 msgstr ""
+"1. Cuando ``APO`` es mayor que 0, se considera una tendencia alcista y el "
+"ratio de posición se establece en 1."
 
 #: of qteasy.built_in.APO:19
 msgid "2, 当``ADX``小于0时，判断为熊市趋势，设定持仓比例为-1"
 msgstr ""
+"2. Cuando ``ADX`` es menor que 0, se considera una tendencia bajista y el "
+"ratio de posición se establece en -1."
 
 #: of qteasy.built_in.APO:21 qteasy.built_in.PPO:22
 msgid "默认参数: ``(12, 26, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 26, 0)``"
 
 #: of qteasy.built_in.APO:27
 msgid "参数范围: ``[(10, 100), (10, 100), (0, 8)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(10, 100), (10, 100), (0, 8)]``"
 
 #: of qteasy.built_in.AROON:1
 msgid "AROON指标选股策略:"
-msgstr ""
+msgstr "Estrategia de selección de acciones del indicador AROON."
 
 #: of qteasy.built_in.AROON:3
 msgid "AROON指标被用于判断当前股价处于趋势区间还是僵持区间，通过计算AROON指标 策略可以根据趋势的强弱程度输出强多/空头和弱多/空头"
 msgstr ""
+"El indicador AROON se utiliza para determinar si el precio actual de las "
+"acciones está en un rango de tendencia o en un rango de estancamiento y, al "
+"calcular la estrategia del indicador AROON, se pueden generar fuertes "
+"largos/cortos y débiles largos/cortos en función de la fuerza de la "
+"tendencia."
 
 #: of qteasy.built_in.AROON:7
 msgid "``p``: ``int``, 趋势判断周期"
-msgstr ""
+msgstr "``p``: ``int``, ciclo determinante de tendencia"
 
 #: of qteasy.built_in.AROON:11
 msgid "按照规则计算``AROON`` ``UP / DOWN``两条趋势线，并生成持仓比例信号:"
 msgstr ""
+"Calcule las dos líneas de tendencia ``AROONUP / DOWN`` de acuerdo con la "
+"regla y genere la señal de relación de posición:."
 
 #: of qteasy.built_in.AROON:13
 msgid "1, 当UP在DOWN的上方时，输出弱多头"
 msgstr ""
+"1. Salida débil durante mucho tiempo cuando ARRIBA está por encima de ABAJO"
 
 #: of qteasy.built_in.AROON:15
 msgid "2, 当UP位于DOWN下方时，输出弱空头"
 msgstr ""
+"2, cuando ARRIBA está por debajo de ABAJO, la salida está débilmente en "
+"cortocircuito"
 
 #: of qteasy.built_in.AROON:17
 msgid "3, 当UP大于70且DOWN小于30时，输出强多头"
 msgstr ""
+"3. Cuando UP es mayor que 70 y DOWN es menor que 30, la salida de posiciones"
+" largas fuertes"
 
 #: of qteasy.built_in.AROON:19
 msgid "4, 当UP小于30且DOWN大于70时，输出强空头"
 msgstr ""
+"4. Cuando ARRIBA es inferior a 30 y ABAJO es superior a 70, la salida es "
+"fuerte y corta."
 
 #: of qteasy.built_in.AROON:23
 msgid "数据类型: ``high``, ``low`` 最高价，最低价，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low`` Precio más alto, precio más bajo, "
+"múltiples entradas de datos"
 
 #: of qteasy.built_in.CMO:1
 msgid "CMO (Chande Momentum Oscillator 钱德动量振荡器) 选股策略:"
-msgstr ""
+msgstr "Estrategia de selección de acciones CMO (Chande Momentum Oscillator)."
 
 #: of qteasy.built_in.CMO:3
 msgid "CMO 是一个在-100到100之间波动的动量指标，它被用来判断当前股价位于 超卖还是超买区间，本策略使用这个指标生成投资仓位目标"
 msgstr ""
+"CMO es un indicador de impulso que fluctúa entre -100 y 100 y se utiliza "
+"para determinar si una acción se encuentra actualmente en un rango de "
+"sobreventa o sobrecompra, y esta estrategia lo utiliza para generar "
+"objetivos de posición de inversión."
 
 #: of qteasy.built_in.CMO:7
 msgid "``p``: ``int``, 动量计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período de cálculo de impulso"
 
 #: of qteasy.built_in.CMO:11
 msgid "按照规则计算``CMO``，并生成持仓比例信号:"
 msgstr ""
+"Calcule ``CMO`` de acuerdo con las reglas y genere señales de relación de "
+"posición:."
 
 #: of qteasy.built_in.CMO:13
 msgid "1, 当``CMO``大于0时，输出弱多头"
-msgstr ""
+msgstr "1, salida larga débil cuando ``CMO`` es mayor que 0"
 
 #: of qteasy.built_in.CMO:15
 msgid "2, 当``CMO``小于0时，输出弱空头"
-msgstr ""
+msgstr "2. Salida corta débil cuando ``CMO`` es menor que 0"
 
 #: of qteasy.built_in.CMO:17
 msgid "3, 当``CMO``大于50时，输出强多头"
-msgstr ""
+msgstr "3. Salida larga y fuerte cuando ``CMO`` es mayor que 50"
 
 #: of qteasy.built_in.CMO:19
 msgid "4, 当``CMO``小于-50时，输出强空头"
-msgstr ""
+msgstr "4. Salida corta fuerte cuando ``CMO`` es menor que -50"
 
 #: of qteasy.built_in.CMO:23
 msgid "数据类型: ``high``, ``low``, ``close`` 最高价，最低，收盘价，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close`` Precio más alto, precio más "
+"bajo, precio de cierre, múltiples entradas de datos"
 
 #: of qteasy.built_in.MACDEXT:1
 msgid "MACDEXT (Extendec MACD 扩展MACD指数) 选股策略:"
-msgstr ""
+msgstr "Estrategia de selección de acciones de MACDEXT (Extendec MACD)."
 
 #: of qteasy.built_in.MACDEXT:3
 msgid "本策略使用MACD指标生成持仓目标，但是与标准的MACD不同，MACDEXT的快、慢、及信号均线的类型均可选"
 msgstr ""
+"Esta estrategia utiliza el indicador MACD para generar objetivos de "
+"posición, pero a diferencia del MACD estándar, el tipo de MACDEXT rápido, "
+"lento y promedios de señal son opcionales."
 
 #: of qteasy.built_in.MACDEXT:6 qteasy.built_in.PPO:6
 msgid "``fp``: ``int``, 快速均线计算周期"
-msgstr ""
+msgstr "``fp``: ``int``, promedios rápidos calculan el período"
 
 #: of qteasy.built_in.MACDEXT:8
 msgid "``ft``: ``int``, 快速均线类型，取值范围0～8"
-msgstr ""
+msgstr "``ft``: ``int``, tipo de promedio rápido, rango de valores 0-8"
 
 #: of qteasy.built_in.MACDEXT:10 qteasy.built_in.PPO:8
 msgid "``sp``: ``int``, 慢速均线计算周期"
-msgstr ""
+msgstr "``sp``: ``int``, período de cálculo de SMA lento"
 
 #: of qteasy.built_in.MACDEXT:12
 msgid "``st``: ``int``, 慢速均线类型，取值范围0～8"
-msgstr ""
+msgstr "``st``: ``int``, tipo SMA lento, rango de valores de 0 a 8"
 
 #: of qteasy.built_in.MACDEXT:14
 msgid "``s``:  ``int``, MACD信号线计算周期"
-msgstr ""
+msgstr "``s``: ``int``, período de cálculo de la línea de señal MACD"
 
 #: of qteasy.built_in.MACDEXT:16
 msgid "``t``:  ``int``, MACD信号线类型，取值范围0～8"
-msgstr ""
+msgstr "``t``: ``int``, tipo de línea de señal MACD, rango de valores 0-8"
 
 #: of qteasy.built_in.MACDEXT:20
 msgid "按照规则计算``MACD``，根据MACD的H线生成持仓比例信号:"
 msgstr ""
+"Calcule ``MACD`` de acuerdo con las reglas y genere señales de relación de "
+"posición basadas en la línea H del MACD:."
 
 #: of qteasy.built_in.MACDEXT:22
 msgid "1, 当``hist>0``时输出多头"
-msgstr ""
+msgstr "1, genera múltiples cuando ``hist>0``"
 
 #: of qteasy.built_in.MACDEXT:24
 msgid "2, 当``hist<0``时输出空头"
-msgstr ""
+msgstr "2, salida nula cuando ``hist<0``"
 
 #: of qteasy.built_in.MACDEXT:26
 msgid "默认参数: ``(12, 0, 26, 0, 9, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 0, 26, 0, 9, 0)``"
 
 #: of qteasy.built_in.MACDEXT:32
 msgid "参数范围: ``[(2, 35), (0, 8), (2, 35), (0, 8), (2, 35), (0, 8)]``"
 msgstr ""
+"Rango de parámetros: ``[(2, 35), (0, 8), (2, 35), (0, 8), (2, 35), (0, 8)]``"
 
 #: of qteasy.built_in.MFI:1
-msgid "MFI (Money Flow Index 货币流向指数) 交易策略: MFI指数用于判断股价属于超买还是超卖状态，本策略使用MFI指标生成交易信号"
+msgid ""
+"MFI (Money Flow Index 货币流向指数) 交易策略: MFI指数用于判断股价属于超买还是超卖状态，本策略使用MFI指标生成交易信号"
 msgstr ""
+"Estrategia comercial MFI (Índice de flujo de dinero): MFI se utiliza para "
+"determinar si una acción está sobrecomprada o sobrevendida; esta estrategia "
+"utiliza el indicador MFI para generar señales comerciales."
 
 #: of qteasy.built_in.MFI:5
 msgid "``p``:  ``int``, MFI信号计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período de cálculo de la señal MFI"
 
 #: of qteasy.built_in.MFI:9
 msgid "按照规则计算``MFI``，根据MFI的值生成比例交易信号:"
 msgstr ""
+"Calcule ``MFI`` de acuerdo con las reglas y genere señales comerciales "
+"proporcionales basadas en el valor de MFI:."
 
 #: of qteasy.built_in.MFI:11
 msgid "1, 当``MFI>20``时，持续不断产生10%买入交易信号"
 msgstr ""
+"1, 10% de señal comercial de compra generada consistentemente cuando ``MFI >"
+" 20``"
 
 #: of qteasy.built_in.MFI:13
 msgid "2, 当``MFI>80``时，持续不断产生30%卖出交易信号，持续卖出持仓股票"
 msgstr ""
+"2. Se generan señales de venta continuas del 30% cuando ``MFI > 80`` y las "
+"posiciones se venden continuamente"
 
 #: of qteasy.built_in.MFI:17
 msgid "数据类型: ``high``, ``low``, ``close``, ``volume`` 最高价，最低，收盘，交易量，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close``, ``volume`` Precio más alto, "
+"precio más bajo, precio de cierre, volumen, múltiples entradas de datos"
 
 #: of qteasy.built_in.DI:1
 msgid "DI (Directory Indicator 方向指标) 交易策略:"
-msgstr ""
+msgstr "Estrategia comercial DI (indicador de directorio)."
 
 #: of qteasy.built_in.DI:3
 msgid "DI 指标包含负方向指标与正方向指标，它们分别表示价格上行和下行的趋势强度，本策略使用±DI指标生成交易信号"
 msgstr ""
+"El indicador DI consta de un indicador negativo y uno positivo, que indican "
+"la fuerza de la tendencia al alza y a la baja del precio, respectivamente, y"
+" esta estrategia utiliza el indicador ±DI para generar señales comerciales."
 
 #: of qteasy.built_in.DI:6
 msgid "``n``:  ``int``, 负DI信号计算周期"
-msgstr ""
+msgstr "``n``: ``int``, Período de cálculo de señal DI negativa"
 
 #: of qteasy.built_in.DI:8
 msgid "``p``:  ``int``, 正DI信号计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período de cálculo de señal DI positiva"
 
 #: of qteasy.built_in.DI:10 qteasy.built_in.DM:11 qteasy.built_in.MOM:7
 #: qteasy.built_in.PPO:12 qteasy.built_in.RSI:12
 msgid "PT型: 百分比持仓目标信号"
-msgstr ""
+msgstr "Tipo PT: Señal objetivo de posición porcentual"
 
 #: of qteasy.built_in.DI:12
 msgid "按照规则计算正负DI，根据DI的值生成持仓目标信号:"
 msgstr ""
+"Calcule DI positivo y negativo de acuerdo con las reglas y genere señales de"
+" posición objetivo basadas en el valor de DI:."
 
 #: of qteasy.built_in.DI:14
 msgid "1, 当``+DI > -DI``时，设置持仓目标为1"
-msgstr ""
+msgstr "1, cuando ``+DI > -DI``, establezca la posición objetivo en 1"
 
 #: of qteasy.built_in.DI:16
 msgid "2, 当``+DI < -DI``时，设置持仓目标为-1"
-msgstr ""
+msgstr "2. Cuando ``+DI < -DI``, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.DI:18 qteasy.built_in.DM:21
 msgid "默认参数: ``(14, 14)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(14, 14)``"
 
 #: of qteasy.built_in.DI:20
 msgid "数据类型: ``high``, ``low``, ``close`` 最高价，最低，收盘，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close`` Entradas de datos múltiples, de"
+" cierre y más altas"
 
 #: of qteasy.built_in.DI:24 qteasy.built_in.DM:27
 msgid "参数范围: ``[(1, 100), (1, 100)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(1, 100), (1, 100)]``"
 
 #: of qteasy.built_in.DM:1
 msgid "DM (Directional Movement 方向运动指标) 交易策略:"
-msgstr ""
+msgstr "Estrategia comercial DM (movimiento direccional)."
 
 #: of qteasy.built_in.DM:3
 msgid ""
-"DM 指标包含负方向运动指标(Negative Directional Movement)与正方向运动指标(Positive "
-"Directional Movement)， 它们分别表示价格上行和下行的趋势，本策略使用±DM指标生成交易信号"
+"DM 指标包含负方向运动指标(Negative Directional Movement)与正方向运动指标(Positive Directional "
+"Movement)， 它们分别表示价格上行和下行的趋势，本策略使用±DM指标生成交易信号"
 msgstr ""
+"El indicador DM consta de un movimiento direccional negativo y un movimiento"
+" direccional positivo, que indican tendencias de precios al alza y a la "
+"baja, respectivamente. Esta estrategia utiliza el indicador ±DM para generar"
+" señales comerciales."
 
 #: of qteasy.built_in.DM:7
 msgid "``n``:  ``int``, 负DM信号计算周期"
-msgstr ""
+msgstr "``n``: ``int``, período de cálculo de señal DM negativa"
 
 #: of qteasy.built_in.DM:9
 msgid "``p``:  ``int``, 正DM信号计算周期"
-msgstr ""
+msgstr "``p``: ``int``, Período de cálculo de señal DM positiva"
 
 #: of qteasy.built_in.DM:13
 msgid "按照规则计算正负DM，根据DM的值生成持仓目标信号:"
 msgstr ""
+"Calcule DM positivo y negativo de acuerdo con la regla y genere señales de "
+"posición objetivo basadas en el valor de DM:."
 
 #: of qteasy.built_in.DM:15
 msgid "1, 当``+DM > -D``M时，设置持仓目标为1"
-msgstr ""
+msgstr "1, cuando ``+DM > -D``M, establezca la posición objetivo en 1"
 
 #: of qteasy.built_in.DM:17
 msgid "2, 当``+DM < -D``M时，设置持仓目标为-1"
-msgstr ""
+msgstr "2, cuando ``+DM < -D``M, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.DM:19 qteasy.built_in.MOM:15 qteasy.built_in.PPO:20
 #: qteasy.built_in.RSI:20
 msgid "3, 其余情况设置持仓目标为0"
-msgstr ""
+msgstr "3. Para el resto de los casos, establezca la posición objetivo en 0"
 
 #: of qteasy.built_in.DM:23
 msgid "数据类型: ``high``, ``low`` 最高价，最低，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low`` Precio más alto, más bajo, múltiples "
+"entradas de datos"
 
 #: of qteasy.built_in.MOM:1
 msgid ""
 "MOM (momentum indicator 动量指标) 交易策略: MOM "
 "指标可以用于识别价格的上行或下行趋势的强度，当前价格高于N日前价格时，MOM为正，反之为负。"
 msgstr ""
+"Estrategia comercial MOM (indicador de impulso): el indicador MOM se puede "
+"utilizar para identificar la fuerza de una tendencia alcista o bajista en el"
+" precio, siendo el MOM positivo cuando el precio actual es más alto que el "
+"precio del día anterior y negativo cuando es más bajo que el precio del día "
+"anterior."
 
 #: of qteasy.built_in.MOM:5
 msgid "``n``:  ``int``, MOM信号计算周期"
-msgstr ""
+msgstr "``n``: ``int``, período de cálculo de la señal MOM"
 
 #: of qteasy.built_in.MOM:9
 msgid "按照规则计算``MOM``，根据``MOM``的值生成持仓目标信号:"
 msgstr ""
+"Calcule ``MOM`` according to the rule and generate position target signals "
+"based on the value of ``MOM``:."
 
 #: of qteasy.built_in.MOM:11
 msgid "1, 当``MOM > 0``时，设置持仓目标为1"
-msgstr ""
+msgstr "1, cuando ``MOM > 0``, establezca la posición objetivo en 1"
 
 #: of qteasy.built_in.MOM:13
 msgid "2, 当``MOM < 0``时，设置持仓目标为-1"
-msgstr ""
+msgstr "2. Cuando ``MOM < 0``, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.MOM:16
 msgid "策略属性缺省值:``"
-msgstr ""
+msgstr "Valor predeterminado del atributo de estrategia:``"
 
 #: of qteasy.built_in.MOM:17
 msgid "默认参数: ``(14, )``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(14, )``"
 
 #: of qteasy.built_in.MOM:23
 msgid "参数范围: ``[(1, 100)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(1, 100)]''"
 
 #: of qteasy.built_in.PPO:1
 msgid ""
 "PPO (Percentage Price Oscillator 百分比价格振荡器) 交易策略: PPO "
 "指标表示快慢两根移动均线之间的百分比差值，用于判断价格的变化趋势。长短均线的计算周期和 均线类型均为策略参数。"
 msgstr ""
+"Estrategia comercial PPO (oscilador de precio porcentual): el indicador PPO "
+"representa la diferencia porcentual entre los promedios móviles rápido y "
+"lento, que se utiliza para determinar la tendencia del precio. El periodo de"
+" cálculo de las medias largas y cortas y el tipo de media son parámetros de "
+"la estrategia."
 
 #: of qteasy.built_in.PPO:10
 msgid "``m``: ``int``, 移动均线类型（取值范围0～8）"
-msgstr ""
+msgstr "``m``: ``int``, tipo de media móvil (rango 0-8)"
 
 #: of qteasy.built_in.PPO:14
 msgid "按照规则计算PPO，根据PPO的值生成持仓目标信号:"
 msgstr ""
+"Calcule el PPO de acuerdo con las reglas y genere señales de posición "
+"objetivo basadas en el valor del PPO:."
 
 #: of qteasy.built_in.PPO:16
 msgid "1, 当PPO > 0时，设置持仓目标为1"
-msgstr ""
+msgstr "1. Cuando PPO > 0, establezca la posición objetivo en 1"
 
 #: of qteasy.built_in.PPO:18
 msgid "2, 当PPO < 0时，设置持仓目标为-1"
-msgstr ""
+msgstr "2. Cuando PPO <0, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.PPO:28
 msgid "参数范围: ``[(2, 100), (20, 200), (0, 8)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (20, 200), (0, 8)]``"
 
 #: of qteasy.built_in.RSI:1
 msgid ""
 "RSI (Relative Strength Index 相对强度指数) 交易策略: RSI "
 "指标度量最近价格变化的幅度，从而判断目前股票属于超卖还是超买状态，并据此判断变化趋势。RSI指标总是在0到100之间 震荡，是一条震荡曲线。"
 msgstr ""
+"Estrategia comercial RSI (índice de fuerza relativa): el RSI mide la "
+"magnitud de los cambios recientes de precios para determinar si una acción "
+"está actualmente sobrevendida o sobrecomprada y para determinar la tendencia"
+" del cambio en consecuencia. El RSI siempre oscila entre 0 y 100 y es una "
+"curva oscilante."
 
 #: of qteasy.built_in.RSI:6
 msgid "``p``: ``int``, RSI计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período calculado del RSI"
 
 #: of qteasy.built_in.RSI:8
 msgid "``ulim``: ``int``, 触发多头仓位的最低限"
-msgstr ""
+msgstr "``ulim``: ``int``, activa el mínimo para posiciones largas"
 
 #: of qteasy.built_in.RSI:10
 msgid "``llim``: ``int``, 触发空头仓位的最高限"
-msgstr ""
+msgstr "``llim``: ``int``, activa un límite para las posiciones cortas"
 
 #: of qteasy.built_in.RSI:14
 msgid "按照规则计算RSI，根据RSI的值与ulim/llim的关系生成持仓目标信号:"
 msgstr ""
+"Calcule el RSI de acuerdo con las reglas y genere señales de posición "
+"objetivo basadas en el valor del RSI en relación con ulim/llim:."
 
 #: of qteasy.built_in.RSI:16
 msgid "1, 当RSI > ulim时，设置持仓目标为1"
-msgstr ""
+msgstr "1, Establezca el objetivo de posición en 1 cuando RSI > ulim"
 
 #: of qteasy.built_in.RSI:18
 msgid "2, 当RSI < llim时，设置持仓目标为-1"
-msgstr ""
+msgstr "2. Cuando RSI <llim, establezca la posición objetivo en -1"
 
 #: of qteasy.built_in.RSI:22
 msgid "默认参数: ``(12, 70, 30)````"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(12, 70, 30)"
 
 #: of qteasy.built_in.RSI:28
 msgid "参数范围: ``[(2, 100), (50, 100), (0, 50)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (50, 100), (0, 50)]``"
 
 #: of qteasy.built_in.STOCH:1
 msgid ""
 "STOCH (Stochastic Indicator 随机指数) 交易策略: STOCH "
 "指标度量价格变化的动量，并且动量的大小判断价格趋势，并生成比例买卖交易信号。"
 msgstr ""
+"Estrategia comercial STOCH (indicador estocástico): el indicador STOCH mide "
+"el impulso de los cambios de precios y el tamaño del impulso determina la "
+"tendencia del precio y genera señales comerciales proporcionales de compra y"
+" venta."
 
 #: of qteasy.built_in.STOCH:5
 msgid "``fk``: ``int``, 快速均线计算周期"
-msgstr ""
+msgstr "``fk``: ``int``, promedios rápidos calculan el período"
 
 #: of qteasy.built_in.STOCH:7
 msgid "``sk``: ``int``, 慢速K均线计算周期"
-msgstr ""
+msgstr "``sk``: ``int``, período de cálculo de k-media lento"
 
 #: of qteasy.built_in.STOCH:9
 msgid "``skm``: ``int``, 慢速K均线类型，取值范围0～8"
-msgstr ""
+msgstr "``skm``: ``int``, tipo k-media lento, rango de valores de 0 a 8"
 
 #: of qteasy.built_in.STOCH:11
 msgid "``sd``: ``int``, 慢速D均线计算周期"
-msgstr ""
+msgstr "``sd``: ``int``, período calculado de d-media lenta"
 
 #: of qteasy.built_in.STOCH:13
 msgid "``sdm``: ``int``, 慢速D均线类型，取值范围0～8"
-msgstr ""
+msgstr "``sdm``: ``int``, tipo D SMA lento, rango de valores de 0 a 8"
 
 #: of qteasy.built_in.STOCH:17 qteasy.built_in.STOCHF:13
 #: qteasy.built_in.STOCHRSI:15
 msgid "按照规则计算k值和d值，根据k值生成比例买卖交易信号:"
 msgstr ""
+"Calcule el valor k y el valor d de acuerdo con las reglas y genere señales "
+"comerciales de compra/venta proporcionales basadas en el valor k:."
 
 #: of qteasy.built_in.STOCH:19 qteasy.built_in.STOCHF:15
 msgid "1, 当k > 80时，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1. Cuando k > 80, se genera una señal de venta gradual para vender el 30% de"
+" las tenencias por ciclo."
 
 #: of qteasy.built_in.STOCH:21 qteasy.built_in.STOCHF:17
 msgid "2, 当k < 20时，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2. Cuando k < 20, se genera una señal de compra gradual para comprar el 10% "
+"de la inversión total por ciclo."
 
 #: of qteasy.built_in.STOCH:23 qteasy.built_in.STOCHF:19
 #: qteasy.built_in.STOCHRSI:21
 msgid "3, 当k和d发生背离的时候，也会产生信号（未来改进）"
-msgstr ""
+msgstr "3. La señal también se genera cuando k y d divergen (mejora futura)"
 
 #: of qteasy.built_in.STOCH:25
 msgid "默认参数: ``(5, 3, 0, 3, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(5, 3, 0, 3, 0)``"
 
 #: of qteasy.built_in.STOCH:31
 msgid "参数范围: ``[(2, 100), (2, 100), (0, 8), (2, 100), (0, 8)]``"
 msgstr ""
+"Rango de parámetros: ``[(2, 100), (2, 100), (0, 8), (2, 100), (0, 8)]``"
 
 #: of qteasy.built_in.STOCHF:1
 msgid ""
 "STOCHF (Stochastic Fast Indicator 快速随机指标) 交易策略: STOCHF "
 "指标度量价格变化的动量，与STOCH策略类似，使用快速随机指标判断价格趋势，并生成比例买卖交易信号。"
 msgstr ""
+"Estrategia comercial STOCHF (indicador estocástico rápido): el indicador "
+"STOCHF mide el impulso de un cambio de precio y, similar a la estrategia "
+"STOCH, utiliza el indicador estocástico rápido para determinar la tendencia "
+"del precio y generar señales comerciales proporcionales de compra y venta."
 
 #: of qteasy.built_in.STOCHF:5 qteasy.built_in.STOCHRSI:7
 msgid "``fk``: ``int``, 快速K均线计算周期"
-msgstr ""
+msgstr "``fk``: ``int``, período de cálculo rápido de K-media"
 
 #: of qteasy.built_in.STOCHF:7 qteasy.built_in.STOCHRSI:9
 msgid "``fd``: ``int``, 快速D均线计算周期"
-msgstr ""
+msgstr "``fd``: ``int``, período calculado rápido de D-media"
 
 #: of qteasy.built_in.STOCHF:9 qteasy.built_in.STOCHRSI:11
 msgid "``fdm``: ``int``, 快速D均线类型，取值范围0～8"
-msgstr ""
+msgstr "``fdm``: ``int``, tipo promedio D rápido, rango de valores de 0 a 8"
 
 #: of qteasy.built_in.STOCHF:21
 msgid "默认参数: ``(5, 3, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(5, 3, 0)``"
 
 #: of qteasy.built_in.STOCHF:27
 msgid "参数范围: ``[(2, 100), (2, 100), (0, 8)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (2, 100), (0, 8)]``"
 
 #: of qteasy.built_in.STOCHRSI:1
 msgid ""
 "STOCHRSI (Stochastic Relative Strength Index 随机相对强弱指标) 交易策略: STOCHRSI "
 "指标度量价格变化的动量，该指标在0～1之间波动，表示相对的价格趋势强弱程度，并生成比例买卖交易信号。"
 msgstr ""
+"Estrategia comercial STOCHRSI (Índice de fuerza relativa estocástica): El "
+"indicador STOCHRSI mide el impulso de los cambios de precios, que fluctúa "
+"entre 0 y 1, lo que indica la fuerza relativa de la tendencia de los precios"
+" y genera señales comerciales proporcionales de compra y venta."
 
 #: of qteasy.built_in.STOCHRSI:5
 msgid "``p``: ``int``, 计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período de cálculo"
 
 #: of qteasy.built_in.STOCHRSI:17
 msgid "1, 当k > 0.8时，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1. Cuando k > 0,8, se genera una señal de venta progresiva para vender el "
+"30% de las tenencias por ciclo."
 
 #: of qteasy.built_in.STOCHRSI:19
 msgid "2, 当k < 0.2时，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2. Cuando k < 0,2, se genera una señal de compra progresiva para comprar el "
+"10% de la inversión total por ciclo."
 
 #: of qteasy.built_in.STOCHRSI:23
 msgid "默认参数: ``(14, 5, 3, 0)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(14, 5, 3, 0)``"
 
 #: of qteasy.built_in.STOCHRSI:29
 msgid "参数范围: ``[(2, 100), (2, 100), (2, 100), (0, 8)]``"
 msgstr ""
+"Rango de parámetros: ``[(2, 100), (2, 100), (2, 100), (2, 100), (0, 8)]``"
 
 #: of qteasy.built_in.ULTOSC:1
 msgid ""
 "ULTOSC (Ultimate Oscillator Indicator 终极振荡器指标) 交易策略: ULTOSC "
 "指标通过三个不同的时间跨度计算价格动量，并根据多种不同动量之间的偏离值生成交易信号。"
 msgstr ""
+"Estrategia comercial ULTOSC (indicador oscilador definitivo): el indicador "
+"ULTOSC calcula el impulso del precio en tres horizontes temporales "
+"diferentes y genera señales comerciales basadas en las desviaciones entre "
+"los diferentes tipos de impulso."
 
 #: of qteasy.built_in.ULTOSC:5
 msgid "``p1``: ``int``, 动量计算周期 1"
-msgstr ""
+msgstr "``p1``: ``int``, período de cálculo de impulso 1"
 
 #: of qteasy.built_in.ULTOSC:7
 msgid "``p2``: ``int``, 动量计算周期 2"
-msgstr ""
+msgstr "``p2``: ``int``, período de cálculo de impulso 2"
 
 #: of qteasy.built_in.ULTOSC:9
 msgid "``p3``: ``int``, 动量计算周期 3"
-msgstr ""
+msgstr "``p3``: ``int``, período de cálculo de impulso 3"
 
 #: of qteasy.built_in.ULTOSC:11 qteasy.built_in.WILLR:7
 msgid "``u``:  ``int``, 卖出信号阈值"
-msgstr ""
+msgstr "``u``: ``int``, umbrales de señal de venta"
 
 #: of qteasy.built_in.ULTOSC:13 qteasy.built_in.WILLR:9
 msgid "``l``:  ``int``, 买入信号阈值"
-msgstr ""
+msgstr "``l``: ``int``, comprar umbrales de señal"
 
 #: of qteasy.built_in.ULTOSC:17
 msgid "计算``ULTOSC``指标，并根据指标的大小生成交易信号:"
 msgstr ""
+"Cálculo del indicador ``ULTOSC`` y generación de señales comerciales en "
+"función del tamaño del indicador."
 
 #: of qteasy.built_in.ULTOSC:19
 msgid "1, 当``ULTOSC`` > u时，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1. Cuando ``ULTOSC`` > u, se genera una señal de venta progresiva para "
+"vender el 30% de las tenencias por ciclo."
 
 #: of qteasy.built_in.ULTOSC:21
 msgid "2, 当``ULTOSC ``< l时，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2. Cuando ``ULTOSC `` < l, se genera una señal de compra progresiva para "
+"comprar el 10 por ciento de la inversión total por ciclo."
 
 #: of qteasy.built_in.ULTOSC:23
 msgid "默认参数: ``(7, 14, 28, 70, 30)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(7, 14, 28, 70, 30)``"
 
 #: of qteasy.built_in.ULTOSC:29
 msgid "参数范围: ``[(1, 100), (1, 100), (1, 100), (70, 99), (1, 30)]``"
 msgstr ""
+"Rango de parámetros: ``[(1, 100), (1, 100), (1, 100), (1, 100), (70, 99), "
+"(1, 30)]``"
 
 #: ../../source/api/built_in_strategies.rst:224
 msgid "基于量价技术指标的择时策略"
 msgstr ""
+"Estrategia de sincronización basada en indicadores técnicos de volumen"
 
 #: of qteasy.built_in.WILLR:1
-msgid "WILLR (William's %R 威廉姆斯百分比) 交易策略: WILLR 指标被用于计算股价当前处于超买还是超卖区间，并用于生成交易信号"
+msgid ""
+"WILLR (William's %R 威廉姆斯百分比) 交易策略: WILLR 指标被用于计算股价当前处于超买还是超卖区间，并用于生成交易信号"
 msgstr ""
+"Estrategia comercial WILLR (William's %R): el indicador WILLR se utiliza "
+"para calcular si una acción se encuentra actualmente en un rango de "
+"sobrecompra o sobreventa y se utiliza para generar señales comerciales."
 
 #: of qteasy.built_in.WILLR:5
 msgid "``p``:  ``int``, 动量计算周期"
-msgstr ""
+msgstr "``p``: ``int``, período de cálculo de impulso"
 
 #: of qteasy.built_in.WILLR:13
 msgid "计算``WILLR``指标，并根据指标的大小生成交易信号:"
 msgstr ""
+"Cálculo del indicador ``WILLR`` y generación de señales comerciales en "
+"función del tamaño del indicador."
 
 #: of qteasy.built_in.WILLR:15
 msgid "1, 当``WILLR > -l``时，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1. Cuando ``WILLR > -l``, se genera una señal de venta progresiva para "
+"vender el 30% de las tenencias por ciclo."
 
 #: of qteasy.built_in.WILLR:17
 msgid "2, 当``WILLR < -u``时，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2, Cuando ``WILLR < -u``, se genera una señal de compra progresiva para "
+"comprar el 10% de la inversión total por ciclo."
 
 #: of qteasy.built_in.WILLR:19
 msgid "默认参数: ``(14, 80, 20)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(14, 80, 20)``"
 
 #: of qteasy.built_in.WILLR:25
 msgid "参数范围: ``[(2, 100), (70, 99), (1, 30)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 100), (70, 99), (1, 30)]``"
 
 #: of qteasy.built_in.AD:1
 msgid ""
 "AD 交易策略: 本策略使用AD线 (Accumulate Distribution Line)来生成交易信号，它基于交易量和交易价格来判断 "
 "一只股票的资金累计流入或者流出的趋势，并通过此种趋势判断市场的上升/下降。"
 msgstr ""
+"Estrategia comercial AD: esta estrategia utiliza la línea AD (línea de "
+"distribución acumulada) para generar señales comerciales que se basan en el "
+"volumen y el precio para determinar la tendencia de las entradas o salidas "
+"acumuladas de dinero dentro o fuera de una acción, y para determinar el "
+"movimiento ascendente o descendente del mercado a través de esta tendencia."
 
 #: of qteasy.built_in.AD:10
 msgid "计算 ``AD`` 指标，根据AD信号的变化情况（上升/持平/下降）生成交易信号:"
 msgstr ""
+"Calcula el indicador ``AD`` y genera señales comerciales basadas en cambios "
+"en la señal AD (arriba/plana/abajo)."
 
 #: of qteasy.built_in.AD:12
 msgid "AD线的变化趋势通过比较今天/昨天两个AD值的大小来确定："
 msgstr ""
+"La tendencia de la línea AD se determina comparando el tamaño de los dos "
+"valores AD para hoy/ayer:"
 
 #: of qteasy.built_in.AD:14
 msgid "1, 当 ``AD(last) > AD(latest)`` 时，下降趋势，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1, Tendencia bajista cuando ``AD(last)'' > AD(latest)``, genera una señal de"
+" venta gradual para vender el 30% de las tenencias por ciclo"
 
 #: of qteasy.built_in.AD:16
 msgid "2, 当 ``AD(last) < AD(latest)`` 时，上升趋势，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2, Cuando ``AD(last) < AD(latest)``, una tendencia alcista, genera una señal"
+" de compra gradual para comprar el 10% del monto total invertido por ciclo."
 
 #: of qteasy.built_in.AD:18
 msgid "3, 当 ``AD(last) = AD(latest)`` 时，持平趋势，不产生任何交易信号"
 msgstr ""
+"3. Cuando ``AD(last) = AD(latest)``, la tendencia es plana y no se generan "
+"señales comerciales"
 
 #: of qteasy.built_in.AD:22 qteasy.built_in.ADOSC:22
 msgid "数据类型: ``high``, ``low``, ``close``, ``volume`` 最高价，最低价，收盘价, 成交量，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close``, ``volume`` Precio más alto, "
+"precio más bajo, precio de cierre, volumen, múltiples entradas de datos"
 
 #: of qteasy.built_in.ADOSC:1
 msgid ""
 "AD Oscillator 交易策略: 本策略使用ADOSC (Accumulate Distribution "
 "振荡器)来生成交易信号，AD振荡器通过计算AD线的MACD 线判断股票价格的多空走向。"
 msgstr ""
+"Estrategia comercial del oscilador AD: esta estrategia utiliza ADOSC "
+"(oscilador de distribución acumulada) para generar señales comerciales. El "
+"oscilador AD determina la dirección del precio de una acción calculando la "
+"línea MACD de la línea AD."
 
 #: of qteasy.built_in.ADOSC:6
 msgid "``f``: int, 快均线周期"
-msgstr ""
+msgstr "``f``: int, período de promedio rápido"
 
 #: of qteasy.built_in.ADOSC:8
 msgid "``s``: int, 慢均线周期"
-msgstr ""
+msgstr "``s``: int, período de promedio lento"
 
 #: of qteasy.built_in.ADOSC:12
 msgid "计算 ``ADOSC`` 指标，并根据指标的大小生成交易信号:"
 msgstr ""
+"Calcula el indicador ``ADOSC`` y genera señales comerciales basadas en el "
+"tamaño del indicador."
 
 #: of qteasy.built_in.ADOSC:14
 msgid "1, 当 ``AD > 0`` 时，产生逐步卖出信号，每周期卖出持有份额的30%"
 msgstr ""
+"1. Cuando ``AD > 0``, se genera una señal de venta progresiva para vender el"
+" 30% de las tenencias por ciclo."
 
 #: of qteasy.built_in.ADOSC:16
 msgid "2, 当 ``AD < 0`` 时，产生逐步买入信号，每周期买入总投资额的10%"
 msgstr ""
+"2. Cuando ``AD < 0``, se genera una señal de compra progresiva para comprar "
+"el 10% del monto total invertido por ciclo."
 
 #: of qteasy.built_in.ADOSC:18
 msgid "3, 当 ``AD = 0`` 时，不产生任何交易信号"
-msgstr ""
+msgstr "3. Cuando ``AD = 0``, no se genera ninguna señal comercial"
 
 #: of qteasy.built_in.ADOSC:20
 msgid "默认参数: ``(3, 10)``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(3, 10)``"
 
 #: of qteasy.built_in.ADOSC:26
 msgid "参数范围: ``[(2, 10), (10, 99)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(2, 10), (10, 99)]``"
 
 #: of qteasy.built_in.OBV:1
 msgid "OBV 交易策略: 本策略使用OBV(On-Board Values)来生成交易信号，它基于交易量和交易价格来确认股票的变化"
 msgstr ""
+"Estrategia comercial OBV: esta estrategia utiliza OBV (valores integrados) "
+"para generar señales comerciales, que se basan en el volumen y el precio de "
+"las operaciones para identificar cambios en las acciones."
 
 #: of qteasy.built_in.OBV:4
 msgid "趋势（通过均线判断趋势），当OBV信号确认价格上升趋势时，产生建仓信号，当OBV信号与价格趋势。"
 msgstr ""
+"Tendencia (determinar la tendencia a través de los promedios), cuando la "
+"señal OBV confirma la tendencia alcista del precio, generando una señal para"
+" abrir una posición, cuando la señal OBV y la tendencia del precio."
 
 #: of qteasy.built_in.OBV:7
 msgid "n: int, OBV和收盘价的移动平均线计算周期"
 msgstr ""
+"n: int, media móvil de OBV y precio de cierre para calcular el período"
 
 #: of qteasy.built_in.OBV:11
 msgid "计算 ``OBV`` 指标，并计算OBV指标的N日（N为可调参数）移动平均线，同时计算收盘价的"
 msgstr ""
+"Calcule el indicador ``OBV`` y calcule el promedio móvil de N días (N es un "
+"parámetro ajustable) del indicador OBV, así como el precio de cierre del"
 
 #: of qteasy.built_in.OBV:13
 msgid "N日移动均线，并根据移动均线昨日/今日的关系判断上升/下降趋势:"
 msgstr ""
+"Promedios móviles de N días y determine la tendencia alcista/abajo en "
+"función de la relación de los promedios móviles ayer/hoy:."
 
 #: of qteasy.built_in.ATR:16 qteasy.built_in.OBV:15
 msgid "当昨日均线高于今日时，判断为下降趋势，当昨日均线低于今日时，判断为上升趋势。"
 msgstr ""
+"Se considera una tendencia bajista cuando el promedio de ayer es mayor que "
+"el de hoy, y una tendencia alcista cuando el promedio de ayer es menor que "
+"el de hoy."
 
 #: of qteasy.built_in.OBV:17
 msgid "策略再根据两条均线的上升/下降趋势的确认/背离产生买入/卖出信号："
 msgstr ""
+"Luego, la estrategia genera señales de compra/venta basadas en la "
+"confirmación/divergencia de la tendencia alcista/bajista de los dos "
+"promedios:"
 
 #: of qteasy.built_in.OBV:19
 msgid "1, 当 收盘价趋势上升，且OBV趋势上升时，上升趋势得到确认，买入100%份额"
 msgstr ""
+"1. Cuando el precio de cierre tiene una tendencia alcista y el OBV tiene una"
+" tendencia alcista, se confirma la tendencia alcista, compre el 100% de las "
+"acciones."
 
 #: of qteasy.built_in.OBV:21
 msgid "2, 当 收盘价趋势上升，但OBV趋势下降时，上升趋势背离，卖出持有股份的50%"
 msgstr ""
+"2. Cuando el precio de cierre tiene una tendencia alcista pero el OBV tiene "
+"una tendencia a la baja, una divergencia de tendencia alcista, venda el 50% "
+"de sus tenencias."
 
 #: of qteasy.built_in.OBV:23
 msgid "3, 当 收盘价趋势下降，且OBV趋势下降时，下降趋势得到确认，卖出全部持有股份。"
 msgstr ""
+"3. Cuando la tendencia del precio de cierre está cayendo y la tendencia OBV "
+"está cayendo, se confirma la tendencia bajista y se vende toda la "
+"participación."
 
 #: of qteasy.built_in.ATR:26 qteasy.built_in.OBV:25
 msgid "默认参数: ``(15, )``"
-msgstr ""
+msgstr "Parámetros predeterminados: ``(15, )``"
 
 #: of qteasy.built_in.OBV:27
 msgid "数据类型: ``close``, ``volume`` 收盘价, 成交量，多数据输入"
 msgstr ""
+"Tipos de datos: ``close``, ``volume`` precio de cierre, volumen, múltiples "
+"entradas"
 
 #: of qteasy.built_in.ATR:32 qteasy.built_in.OBV:31
 msgid "参数范围: ``[(5, 100)]``"
-msgstr ""
+msgstr "Rango de parámetros: ``[(5, 100)]``"
 
 #: ../../source/api/built_in_strategies.rst:236
 msgid "基于波动率技术指标的择时策略"
 msgstr ""
+"Estrategias de sincronización basadas en indicadores técnicos de volatilidad"
 
 #: of qteasy.built_in.ATR:1
 msgid "ATR 交易策略:"
-msgstr ""
+msgstr "Estrategia comercial ATR."
 
 #: of qteasy.built_in.ATR:3
 msgid "ATR交易策略使用ATR指标来生成交易信号，ATR指标度量股票价格的波动性，通过波动性来判断股票的"
 msgstr ""
+"La estrategia comercial ATR utiliza el indicador ATR para generar señales "
+"comerciales. El indicador ATR mide la volatilidad del precio de una acción y"
+" la volatilidad se utiliza para determinar el precio de la acción."
 
 #: of qteasy.built_in.ATR:5
 msgid "风险和波动性，从而生成交易信号。"
-msgstr ""
+msgstr "riesgo y volatilidad para generar señales comerciales."
 
 #: of qteasy.built_in.ATR:8
 msgid "n: int, ATR的计算周期"
-msgstr ""
+msgstr "n: int, el período de cálculo de ATR"
 
 #: of qteasy.built_in.ATR:12
 msgid "计算 ``ATR`` 指标，并计算价格的N日（N为可调参数）移动平均线和ATR指标，并"
 msgstr ""
+"Calcule el indicador ``ATR`` y calcule el promedio móvil de N días (N es un "
+"parámetro ajustable) del precio y el indicador ATR, y"
 
 #: of qteasy.built_in.ATR:14
 msgid "根据ATR以及移动均线昨日/今日的关系判断上升/下降趋势:"
 msgstr ""
+"Determine la tendencia al alza/a la baja basándose en el ATR y la relación "
+"del promedio móvil de ayer/hoy."
 
 #: of qteasy.built_in.ATR:18
 msgid "策略再根据ATR的值来判断上升下降趋势的确认与否："
 msgstr ""
+"La estrategia se basa entonces en el valor del ATR para determinar si la "
+"tendencia alcista y bajista se confirma o no:"
 
 #: of qteasy.built_in.ATR:20
 msgid "1, 当 收盘价趋势上升，且ATR趋势上升时，上升趋势得到确认，买入100%份额"
 msgstr ""
+"1. Cuando el precio de cierre tiene una tendencia alcista y el ATR tiene una"
+" tendencia alcista, se confirma la tendencia alcista y se compra el 100% de "
+"las acciones."
 
 #: of qteasy.built_in.ATR:22
 msgid "2, 当 收盘价趋势下降，且ATR趋势下降时，下降趋势得到确认，卖出全部持有股份"
 msgstr ""
+"2. Cuando el precio de cierre tiene una tendencia a la baja y el ATR tiene "
+"una tendencia a la baja, se confirma la tendencia a la baja y se venden "
+"todas las acciones."
 
 #: of qteasy.built_in.ATR:24
 msgid "3, 当出现其他情况时，不产生任何交易信号"
 msgstr ""
+"3. No se generan señales comerciales cuando ocurren otras condiciones."
 
 #: of qteasy.built_in.ATR:28
 msgid "数据类型: ``high``, ``low``, ``close``, 最高价，最低价，收盘价，多数据输入"
 msgstr ""
+"Tipos de datos: ``high``, ``low``, ``close``, alto, bajo, cercano, múltiples"
+" entradas de datos"
 
 #: of qteasy.built_in.NATR:1 qteasy.built_in.TRANGE:1
 msgid "Not Implemented Yet"
-msgstr ""
+msgstr "Not Implemented Yet"
 
 #~ msgid "qteasy提供超过70种内置交易策略，所有的交易策略都可以直接使用，通过修改这些交易策略的参数，可以很容易地实现不同的个性化效果。"
 #~ msgstr ""
@@ -2529,8 +3248,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "下面的函数接受相同的参数stg_id，但是返回不同类型的数据，如果stg_id为None，则返回所有的内置交易策略，否则返回指定ID的交易策略。"
-#~ " 如果用户输入的stg_id不存在，qteasy会根据用户输入的stg_id返回id与其最接近的交易策略。"
+#~ "下面的函数接受相同的参数stg_id，但是返回不同类型的数据，如果stg_id为None，则返回所有的内置交易策略，否则返回指定ID的交易策略。 "
+#~ "如果用户输入的stg_id不存在，qteasy会根据用户输入的stg_id返回id与其最接近的交易策略。"
 #~ msgstr ""
 
 #~ msgid "下面的函数返回一个字典，字典的key是交易策略的ID，value是交易策略的说明文档。"
@@ -2540,8 +3259,8 @@ msgstr ""
 #~ msgstr ""
 
 #~ msgid ""
-#~ "以下是一些依赖``TA-Lib``技术分析包的交易策略，这些交易策略都是基于``TA-"
-#~ "Lib``技术分析包的计算，需要安装``TA-Lib``技术分析包。"
+#~ "以下是一些依赖``TA-Lib``技术分析包的交易策略，这些交易策略都是基于``TA-Lib``技术分析包的计算，需要安装``TA-"
+#~ "Lib``技术分析包。"
 #~ msgstr ""
 
 #~ msgid "参数"
@@ -2594,4 +3313,3 @@ msgstr ""
 
 #~ msgid "等效cdldoji匹配数量，以匹配数量为交易信号。"
 #~ msgstr ""
-

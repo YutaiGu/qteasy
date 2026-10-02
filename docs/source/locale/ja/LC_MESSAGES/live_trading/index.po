@@ -1,0 +1,142 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/live_trading/index.rst:2
+msgid "模拟实盘交易（Live Trading）"
+msgstr "シミュレートされたライブ取引"
+
+#: ../../source/live_trading/index.rst:4
+msgid "亲爱的用户，欢迎阅读 qteasy 的**模拟实盘**文档。"
+msgstr "ユーザーの皆様、qteasy **シミュレートされたライブ取引** ドキュメントをお読みください。"
+
+#: ../../source/live_trading/index.rst:6
+msgid ""
+"> **模拟实盘是什么？** > 回测是在历史数据上「快进」验证策略；模拟实盘（配置 "
+"``mode=0``）则让策略在**真实时间**里运行——像真的在盯盘一样按日程算信号、下单、记日志，但成交通常由本地**模拟券商**完成，不涉及真实资金。"
+" > 这样您可以在投入真钱之前，先体验「回测之外、实盘之前」的那一段路，并尽量与回测使用**同一套**策略逻辑，减少「回测很好、实盘走样」的落差。"
+msgstr ""
+"**シミュレートされたライブ取引とは何ですか?** "
+"バックテストは、履歴データを使用して戦略を「早送り」し、検証することです。シミュレートされたライブ取引 (`mode=0` で構成) "
+"により、戦略を**リアルタイム**で実行できます。実際に市場を監視しているのと同じように、スケジュールに従ってシグナルを計算し、注文し、ログを記録します。ただし、執行は通常、実際の資金を関与させることなく、地元の**模擬仲介**によって完了されます。これにより、リアルマネーを投資する前に「バックテスト前とライブ取引前」のパスを体験し、**同じセット**"
+" の戦略ロジックをバックテストと使用して、「優れたバックテストと歪んだライブ取引」の間の不一致を減らすことができます。"
+
+#: ../../source/live_trading/index.rst:10
+msgid ""
+"**若您尚未完成回测或第一次使用 qteasy**，建议先阅读 :doc:`../getting_started` 与 "
+":doc:`../tutorials/3-start-first-strategy`，再回到本模块。"
+msgstr ""
+"**バックテストがまだ完了していない場合、または初めて qteasy を使用する場合は、このモジュールに戻る前に "
+":doc:`../getting_started` と :doc:`../tutorials/3-start-first-strategy` "
+"を読むことをお勧めします。"
+
+#: ../../source/live_trading/index.rst:12
+msgid "本模块帮您回答："
+msgstr "このモジュールは、次のことに答えるのに役立ちます。"
+
+#: ../../source/live_trading/index.rst:14
+msgid "如何配置并启动模拟实盘"
+msgstr "ライブ取引シミュレーションを設定して開始する方法"
+
+#: ../../source/live_trading/index.rst:15
+msgid "风控与订单从提交到成交的全过程"
+msgstr "リスク管理と注文の送信から完了までのプロセス全体。"
+
+#: ../../source/live_trading/index.rst:16
+msgid "日志与产物在哪里、出问题先查什么"
+msgstr "ログとアーティファクトはどこにありますか?トラブルが起きたとき、まず何を確認すればよいでしょうか？"
+
+#: ../../source/live_trading/index.rst:17
+msgid "（进阶）如何扩展券商适配、如何做运维冒烟"
+msgstr "(上級) ブローカーの互換性を拡張する方法とメンテナンス スモーク分析を実行する方法。"
+
+#: ../../source/live_trading/index.rst:20
+msgid "读者分层"
+msgstr "読者のセグメンテーション"
+
+#: ../../source/live_trading/index.rst:22
+msgid "**初学者**：按下方「建议阅读顺序」读 1 → 2 → 3 → 5 即可跑通并会排错。"
+msgstr "**初心者向け:** 以下の推奨読書順序に従って、1 → 2 → 3 → 5 と読んで、プログラムを実行してデバッグできるようにします。"
+
+#: ../../source/live_trading/index.rst:23
+msgid "**已跑通 live**：可查阅第 6、8 章做快照/门禁与 CLI 运维。"
+msgstr ""
+"**Live は現在正常に実行されています:** スナップショット/アクセス制御および CLI のメンテナンスについては、第 6 章と第 8 "
+"章を参照してください。"
+
+#: ../../source/live_trading/index.rst:24
+msgid ""
+"**准备对接真实柜台（如 QMT）**：阅读 :doc:`4a-xtquant-broker-adapter-contract-v1`（英文契约 "
+"v1），再读 :doc:`4-broker-adapter-and-integration`。"
+msgstr ""
+"**実際のカウンター (QMT など) に接続する準備をします**: :doc:`4a-xtquant-broker-adapter-"
+"contract-v1` (英語契約 v1) を読み、次に :doc:`4-broker-adapter-and-integration` を読みます。"
+
+#: ../../source/live_trading/index.rst:27
+msgid "建议阅读顺序"
+msgstr "推奨される読む順序"
+
+#: ../../source/live_trading/index.rst:29
+msgid "与下方目录顺序一致："
+msgstr "順序は以下の目次と一致する必要があります。"
+
+#: ../../source/live_trading/index.rst:31
+msgid ":doc:`1-overview` — 总览与术语速查"
+msgstr ":doc:`1-overview` — 用語の概要とクイックリファレンス"
+
+#: ../../source/live_trading/index.rst:32
+msgid ":doc:`2-configuration-and-run` — 配置与启动"
+msgstr ":doc:`2-configuration-and-run` — 設定と起動"
+
+#: ../../source/live_trading/index.rst:33
+msgid ":doc:`3-risk-and-order-lifecycle` — 风控与订单状态"
+msgstr ":doc:`3-risk-and-order-lifecycle` — リスク管理と注文ステータス"
+
+#: ../../source/live_trading/index.rst:34
+msgid ":doc:`5-artifacts-and-troubleshooting` — 产物与排错（建议先于 Broker 集成阅读）"
+msgstr ""
+":doc:`5-artifacts-and-troubleshooting` — アーティファクトとトラブルシューティング (Broker "
+"統合前に読むことをお勧めします)"
+
+#: ../../source/live_trading/index.rst:35
+msgid ":doc:`4-broker-adapter-and-integration` — 券商适配（进阶）"
+msgstr ":doc:`4-broker-adapter-and-integration` — 仲介の適応 (上級)"
+
+#: ../../source/live_trading/index.rst:36
+msgid ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT 契约 "
+"v1（英文，协作必读）"
+msgstr ""
+":doc:`4a-xtquant-broker-adapter-contract-v1` — XtQuant/MiniQMT Contract v1 "
+"(英語、コラボレーションには必読)"
+
+#: ../../source/live_trading/index.rst:37
+msgid ":doc:`6-trader-snapshot-gate` — 策略快照与启动门禁"
+msgstr ":doc:`6-trader-snapshot-gate` — ポリシーのスナップショットと起動ゲート"
+
+#: ../../source/live_trading/index.rst:38
+msgid ":doc:`7-manual-smoke-live-grid-roadmap` — 手工冒烟清单"
+msgstr ":doc:`7-manual-smoke-live-grid-roadmap` — 手動喫煙チェックリスト"
+
+#: ../../source/live_trading/index.rst:39
+msgid ":doc:`8-cli-trader-capability-matrix` — CLI 能力对照表"
+msgstr ":doc:`8-cli-trader-capability-matrix` — CLI 機能比較表"
+
+#~ msgid "**准备对接真实柜台（如 QMT）**：在第 4 章阅读 Broker 适配说明。"
+#~ msgstr "**実際のブローカー (QMT など) とのインターフェースの準備:** 第 4 章のブローカー適応に関する注意事項をお読みください。"

@@ -43,24 +43,43 @@ _SIMULATOR_SUBMIT_REJECT_REASONS: tuple[str, ...] = (
 
 
 def _verify_trade_result(trade_result, order_qty) -> bool:
-    """ 检查result，确认是否符合基本要求:
-    包括trade_result各个组份的类型是否正确、数据是否超过范围
+    """检查 transaction yield 的成交元组是否符合基本要求。
 
-    Parameters:
-    -----------
-    trade_result: tuple: (result_type, qty, filled_price, fee)
-        result_type: str
-        qty: float
-        filled_price: float
-        fee: float
+    支持 4-tuple（内置模拟 broker）与 5-tuple（实盘券商委托号）。分段成交时
+    ``qty`` 为**本笔**成交量，须与入参 ``order_qty``（订单总量）比较。
+
+    Parameters
+    ----------
+    trade_result: tuple
+        ``(result_type, qty, filled_price, fee)`` 或
+        ``(result_type, qty, filled_price, fee, broker_order_id)``。
+        ``broker_order_id`` 为 ``str`` 或 ``None``（XtQuant 等实盘通道）。
     order_qty: float
-        订单的报价数量
+        订单申报总量，非本笔成交量。
 
     Returns
     -------
-    bool: 当result符合基本要求的时候，返回True
+    bool
+        校验通过时返回 ``True``。
     """
-    result_type, qty, filled_price, fee = trade_result
+    if not isinstance(trade_result, tuple):
+        raise TypeError(
+            f'trade_result must be a tuple, got {type(trade_result).__name__}'
+        )
+    if len(trade_result) not in (4, 5):
+        raise ValueError(
+            'trade_result must be a 4-tuple '
+            '(result_type, qty, filled_price, fee) or a 5-tuple with '
+            'broker_order_id as the fifth element, '
+            f'got length {len(trade_result)}'
+        )
+    result_type, qty, filled_price, fee = trade_result[:4]
+    broker_order_id = trade_result[4] if len(trade_result) == 5 else None
+
+    if broker_order_id is not None and not isinstance(broker_order_id, str):
+        raise TypeError(
+            f'broker_order_id should be str or None, but got {type(broker_order_id)}'
+        )
 
     if not isinstance(result_type, str):
         raise TypeError(f'result_type should be str, but got {type(result_type)}')
@@ -332,7 +351,7 @@ class Broker(object):
         self._submitted_order_map[broker_order_id] = order_dict
 
         order_type, symbol, order_qty, order_price, direction, position = self._parse_order(order_dict)
-        for result_type, filled_qty, filled_price, fee in self.transaction(
+        for trade_result in self.transaction(
                 symbol=symbol,
                 order_qty=order_qty,
                 order_price=order_price,
@@ -340,7 +359,13 @@ class Broker(object):
                 position=position,
                 order_type=order_type,
         ):
-            _verify_trade_result((result_type, filled_qty, filled_price, fee), order_qty)
+            _verify_trade_result(trade_result, order_qty)
+            if len(trade_result) == 5:
+                result_type, filled_qty, filled_price, fee, real_broker_order_id = trade_result
+            else:
+                result_type, filled_qty, filled_price, fee = trade_result
+                real_broker_order_id = None
+            result_broker_order_id = real_broker_order_id or broker_order_id
             current_datetime = get_current_timezone_datetime(self.time_zone)
             normalized_qty = round(float(filled_qty), AMOUNT_DECIMAL_PLACES)
             normalized_price = round(float(filled_price), CASH_DECIMAL_PLACES)
@@ -355,7 +380,7 @@ class Broker(object):
                 'canceled_qty':    normalized_qty if result_type == 'canceled' else 0.0,
                 'delivery_amount': 0.0,
                 'delivery_status': 'ND',
-                'broker_order_id': broker_order_id,
+                'broker_order_id': result_broker_order_id,
                 'status':          result_type,
                 'raw_status':      result_type,
             }
@@ -630,34 +655,39 @@ class Broker(object):
         """
 
         validate_trade_order(dict(order), context='Broker._get_result.order')
-        order_type, symbol, qty, price, direction, position = self._parse_order(order)
+        order_type, symbol, order_qty, price, direction, position = self._parse_order(order)
         for trade_result in self.transaction(
                 order_type=order_type,
                 symbol=symbol,
-                order_qty=qty,
+                order_qty=order_qty,
                 order_price=price,
                 direction=direction,
                 position=position
         ):
-            result_type, qty, filled_price, fee = trade_result
-            _verify_trade_result(trade_result, qty)
+            _verify_trade_result(trade_result, order_qty)
+            if len(trade_result) == 5:
+                result_type, filled_qty_this, filled_price, fee, broker_order_id = trade_result
+            else:
+                result_type, filled_qty_this, filled_price, fee = trade_result
+                broker_order_id = None
 
             # 确认数据格式正确后，将数据圆整到合适的精度，并组装为raw_trade_result
             if self.debug:
-                self.send_message(f'method: _get_result(): got transaction result for order(ID) {order["order_id"]}\n'
-                                  f'result_type={result_type}, \nqty={qty}, \n'
-                                  f'filled_price={filled_price}, \nfee={fee}')
-            # 圆整qty、filled_qty和fee
-            qty = round(qty, AMOUNT_DECIMAL_PLACES)
+                self.send_message(
+                    f'method: _get_result(): got transaction result for order(ID) {order["order_id"]}\n'
+                    f'result_type={result_type}, \nfilled_qty_this={filled_qty_this}, \n'
+                    f'filled_price={filled_price}, \nfee={fee}'
+                )
+            filled_qty_this = round(filled_qty_this, AMOUNT_DECIMAL_PLACES)
             filled_price = round(filled_price, CASH_DECIMAL_PLACES)
             transaction_fee = round(fee, CASH_DECIMAL_PLACES)
 
             filled_qty = 0
             canceled_qty = 0
             if result_type in ['filled', 'partial-filled']:
-                filled_qty = qty
+                filled_qty = filled_qty_this
             elif result_type == 'canceled':
-                canceled_qty = qty
+                canceled_qty = filled_qty_this
             else:
                 raise ValueError(f'Unknown result_type: {result_type}, should be one of ["filled", "canceled"]')
 
@@ -672,6 +702,8 @@ class Broker(object):
                 'delivery_amount': 0,
                 'delivery_status': 'ND',
             }
+            if broker_order_id:
+                raw_trade_result['broker_order_id'] = broker_order_id
 
             validate_raw_trade_result(raw_trade_result, context='Broker._get_result.raw_trade_result')
 
@@ -707,18 +739,23 @@ class Broker(object):
 
         Returns / Yields:
         -----------------
-        tuple: (result_type, qty, price, fee)
+        tuple
+            4-tuple ``(result_type, qty, price, fee)`` 或 5-tuple 在末尾附加
+            ``broker_order_id``（``str`` 或 ``None``）。内置模拟 broker 可仅 yield
+            4-tuple；XtQuant 等实盘适配器应 yield 5-tuple 并携带券商真实委托号。
+
             result_type: str 交易结果类型:
                 'filled' - 成交,
-                'partial_filled' - 部分成交,
+                'partial-filled' - 部分成交,
                 'canceled' - 取消
-                'failed' - 失败
             qty: float
-                成交/取消数量，这个数字应该小于等于order_qty，且大于等于0
+                本笔成交/取消数量，须 ``0 < qty <= order_qty``（相对订单总量）
             price: float
-                成交价格, 如果是取消交易，价格为0或任意数字
+                成交价格, 取消时须为 0
             fee: float
-                交易费用，交易费用应该大于等于0
+                交易费用，须 ``>= 0``
+            broker_order_id: str or None, optional
+                券商侧委托号；实盘通道建议在每笔回报中提供
 
         Notes:
         ------

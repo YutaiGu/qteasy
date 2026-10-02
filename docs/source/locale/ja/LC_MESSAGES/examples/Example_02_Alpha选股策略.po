@@ -1,0 +1,138 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:1
+msgid "Alpha选股交易策略"
+msgstr "アルファ銘柄の選択"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_02_Alpha选股策略.ipynb` 第一个 "
+"Markdown cell。"
+msgstr ""
+"参照元：`docs/_joinquant_migration_source/Example_02_Alpha stock selection "
+"strategy.ipynb` 最初のMarkdownセル。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:5
+msgid ""
+"本策略每隔1个月定时触发计算SHSE.000300成份股的过去的EV/EBITDA并选取EV/EBITDA大于0的股票，随后平掉排名EV/EBITDA不在最小的30的股票持仓并等权购买EV/EBITDA最小排名在前30的股票"
+msgstr ""
+"この戦略は、SHSE.000300 構成銘柄の過去の EV/EBITDA を毎月計算し、EV/EBITDA が 0 "
+"より大きい銘柄を選択します。その後、EV/EBITDA の最小 30 位にランクされた株式のポジションを決済し、EV/EBITDA の最小上位 30 "
+"位にランクされた株式を均等に購入します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:7
+msgid "回测数据为:SHSE.000300沪深300指数成份股"
+msgstr "バックテストデータ: SHSE.000300 上海および深セン 300 指数構成銘柄"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:9
+msgid "回测时间为:2016-04-05 到 2021-02-01"
+msgstr "バックテスト期間: 2016-04-05 ～ 2021-02-01"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:12
+msgid "首先导入`qteasy`模块"
+msgstr "まず、`qteasy` モジュールをインポートします。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:17
+msgid "在选股之前，需要检查需要的历史数据"
+msgstr "銘柄選択の前に必要な過去データを確認する必要があります"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:19
+msgid "EV/EBITDA数据并不直接存在于qteasy定义的数据类型中，需要通过几个数据组合计算出来"
+msgstr ""
+"EV/EBITDA データは、qteasy で定義されたデータタイプには直接存在せず、いくつかのデータの組み合わせを通じて計算する必要があります。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:21
+msgid "EV/EBITDA = (Market Capitalization + Total Debt - Total Cash) / EBITDA"
+msgstr ""
+"EV/EBITDA = (Market Capitalization + Total Debt - Total Cash) / EBITDA"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:23
+msgid ""
+"上面几个数据分别代表总市值、总负债、总现金及现金等价物，这些数据需要从qteasy内置的数据类型中分别提取，并使用上面的公式计算后，作为选股因子。排除掉小于0的因子后，将所有选股因子从小到大排列，选出因子排在最前的30支股票，将手中的全部资金平均分配投入到所有选中的股票中持有一个月，直到下一次选股为止。"
+msgstr ""
+"上記のデータ ポイントは、それぞれ時価総額、負債総額、現金総額、現金同等物を表します。これらのデータは、QtEasy "
+"の組み込みデータ型から抽出し、銘柄選択要素として機能するために上記の式を使用して計算する必要があります。値が 0 "
+"未満の要素を除外した後、すべての銘柄選択要素が最小値から最大値の順に並べ替えられます。これらの要素に基づいて上位 30 "
+"銘柄が選択され、利用可能なすべての資金がこれらの選択された銘柄に均等に分配され、次の銘柄選択サイクルまで 1 か月間保有されます。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:36
+#: ../../source/examples/Example_02_Alpha选股策略.md:115
+#: ../../source/examples/Example_02_Alpha选股策略.md:252
+#: ../../source/examples/Example_02_Alpha选股策略.md:378
+msgid "输出如下："
+msgstr "出力は次のとおりです。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:42
+msgid "第一种自定义策略设置方法: 使用持仓数据和选股数据直接生成比例交易信号PS信号："
+msgstr "カスタム戦略を設定する最初の方法: ポジション データと銘柄選択データを使用して、比例取引シグナル (PS シグナル) を直接生成します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:44
+msgid ""
+"使用GeneralStrategy策略类，计算选股因子后，去掉所有小于零的因子，排序后提取排名前三十的股票 按以下逻辑生成交易信号： "
+"1，检查当前持仓，如果持仓的股票不在选中的30个中间，则全数卖出 2，检查当前持仓，如果新选中的股票没有持仓，则等权买入新增选中的股票"
+msgstr ""
+"GeneralStrategy クラスを使用して、銘柄選択要素を計算した後、0 未満の要素をすべて削除し、ソート後に上位 30 "
+"銘柄を抽出します。取引シグナルは次のロジックに従って生成されます。 1. 現在の保有株を確認します。選択した 30 "
+"銘柄に保有株がない場合は、すべて売却します。 2. "
+"現在の保有状況を確認します。新しく選択した株式が保有されていない場合は、新たに選択した株式を同じウェイトで購入します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:49
+msgid "设置交易信号类型为PS，生成交易信号 由于生成交易信号需要用到持仓数据，因此不能使用批量生成模式，只能使用realtime模式"
+msgstr ""
+"取引シグナルのタイプを PS "
+"に設定して、取引シグナルを生成します。取引シグナルの生成にはポジションデータが必要なため、バッチ生成モードは使用できません。リアルタイムモードのみ使用可能です。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:90
+msgid "定义好交易策略之后，就可以开始创建Operator对象并启动回测了："
+msgstr "取引戦略を定義したら、Operator オブジェクトの作成とバックテストを開始できます。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:181
+#: ../../source/examples/Example_02_Alpha选股策略.md:318
+#: ../../source/examples/Example_02_Alpha选股策略.md:448
+msgid "注：本段示意图在部分构建环境中可能存在编码兼容问题，若未显示不影响示例步骤理解。"
+msgstr ""
+"注: "
+"このセクションの図には、一部のビルド環境ではエンコーディングの互換性の問題が発生する可能性があります。表示されていなくても、手順例の理解には影響しません。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:188
+msgid "第二种自定义策略设置方法：设置交易信号类型为PT，生成持仓目标信号，在回测过程中自动生成交易信号"
+msgstr ""
+"カスタム戦略を設定する 2 番目の方法: 取引シグナル タイプを PT に設定し、ターゲット ポジション "
+"シグナルを生成し、バックテスト中に取引シグナルを自動的に生成します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:224
+#: ../../source/examples/Example_02_Alpha选股策略.md:346
+msgid "使用同样的方法创建一个Operator对象并启动回测。"
+msgstr "同じ方法を使用して Operator オブジェクトを作成し、バックテストを開始します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:322
+msgid "第三种自定义策略设置方法：使用FactorSorter策略类"
+msgstr "カスタム戦略を設定するための 3 番目の方法: FactorSorter 戦略クラスを使用します。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:323
+msgid "使用FactorSorter策略类，直接生成交易策略的选股因子，再根据 FactorSorter策略的选股参数实现选股"
+msgstr ""
+"FactorSorter 戦略クラスを使用すると、トレーディング戦略の銘柄選択要素が直接生成され、FactorSorter "
+"戦略の銘柄選択パラメーターに基づいて銘柄選択が実装されます。"
+
+#: ../../source/examples/Example_02_Alpha选股策略.md:326
+msgid "设置交易信号类型为PT，生成持仓目标，自动生成交易信号"
+msgstr "取引シグナルのタイプをPTに設定し、保有ターゲットを生成し、取引シグナルを自動的に生成します。"

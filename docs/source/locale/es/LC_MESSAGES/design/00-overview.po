@@ -3,7 +3,6 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
@@ -11,21 +10,23 @@ msgstr ""
 "POT-Creation-Date: 2026-04-14 21:02+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: es\n"
 "Language-Team: es <LL@li.org>\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
 #: ../../source/design/00-overview.md:1
 msgid "qteasy 总体架构与设计思路"
-msgstr ""
+msgstr "qteasy Enfoque general de arquitectura y diseño"
 
 #: ../../source/design/00-overview.md:3
 msgid "1. 引言：为什么需要从“架构”理解 qteasy"
 msgstr ""
+"1. Introducción: por qué es necesario comprender qteasy desde una "
+"perspectiva de \"arquitectura\""
 
 #: ../../source/design/00-overview.md:5
 msgid ""
@@ -33,116 +34,202 @@ msgid ""
 "文档之外，若能从**系统架构**和**设计思路**理解各模块如何分层、如何协作，可以更准确地使用接口、排查问题，并在扩展自定义策略或数据时少走弯路。本章从整体上概括"
 " qteasy 的架构与三条设计主线，后续各章再分模块展开。"
 msgstr ""
+"qteasy es un conjunto de herramientas comerciales cuantitativas localizadas "
+"y reproducibles. Más allá de la guía del usuario y la documentación de la "
+"API, comprender cómo los módulos se superponen y colaboran desde las "
+"perspectivas de la **arquitectura del sistema** y la **fundamentación del "
+"diseño** le ayuda a utilizar las interfaces con mayor precisión, solucionar "
+"problemas y evitar desvíos al ampliar estrategias o datos personalizados. "
+"Este capítulo proporciona un resumen general de la arquitectura de qteasy y "
+"tres hilos de diseño principales; Los capítulos siguientes amplían cada "
+"módulo."
 
 #: ../../source/design/00-overview.md:7
 msgid "2. 三条设计主线（简述）"
-msgstr ""
+msgstr "2. Tres hilos principales de diseño (breve)"
 
 #: ../../source/design/00-overview.md:9
 msgid "2.1 数据：从“原始表”到“类型化信息”（DataType）"
 msgstr ""
+"2.1 Datos: de “Tablas sin procesar” a “Información mecanografiada” "
+"(DataType)"
 
 #: ../../source/design/00-overview.md:11
 msgid ""
 "原始行情、财务等数据经拉取与清洗后，以统一表结构存入 **DataSource**（文件或数据库）。qteasy "
-"并不让策略直接读写这些表，而是把“可被策略使用的信息”抽象成 **DataType**（由 name、freq、asset_type "
-"等构成，对应唯一的 **dtype_id**）。策略只**声明**自己需要哪些 DataType "
-"以及多长的历史窗口（window_length），运行时由引擎按声明从 DataSource "
+"并不让策略直接读写这些表，而是把“可被策略使用的信息”抽象成 **DataType**（由 name、freq、asset_type 等构成，对应唯一的"
+" **dtype_id**）。策略只**声明**自己需要哪些 DataType 以及多长的历史窗口（window_length），运行时由引擎按声明从 "
+"DataSource "
 "取出数据、整理成**数据窗口**并注入策略。这样做的目的包括：回测与实盘使用同一套数据视图、策略接口统一、从机制上避免“未来函数”（策略只能看到引擎按时间步注入的过去数据）。"
 msgstr ""
+"Después de recuperar y limpiar los datos sin procesar del mercado, "
+"financieros y de otro tipo, se almacenan en **DataSource** (archivos o una "
+"base de datos) utilizando un esquema de tabla unificado. qteasy no permite "
+"que las estrategias lean o escriban estas tablas directamente; en su lugar, "
+"abstrae la “información utilizable por estrategias” en **DataType** "
+"(compuesta por nombre, frecuencia, tipo_activo, etc., correspondiente a un "
+"**dtype_id** único). Una estrategia solo **declara** qué tipos de datos "
+"necesita y cuánto tiempo requiere una ventana histórica (window_length); en "
+"tiempo de ejecución, el motor recupera datos de DataSource según la "
+"declaración, los organiza en una **ventana de datos** y los inyecta en la "
+"estrategia. Los propósitos incluyen: usar la misma vista de datos para "
+"pruebas retrospectivas y operaciones en vivo, unificar la interfaz de la "
+"estrategia y evitar el \"sesgo de anticipación\" a nivel del mecanismo (una "
+"estrategia solo puede ver los datos anteriores inyectados por el motor en "
+"cada paso de tiempo)."
 
 #: ../../source/design/00-overview.md:13
 msgid "2.2 策略：四大要素与统一的 realize()"
-msgstr ""
+msgstr "2.2 Estrategia: cuatro elementos clave y una realización unificada()"
 
 #: ../../source/design/00-overview.md:15
 msgid "一个策略在概念上包含四类要素："
 msgstr ""
+"Conceptualmente, una estrategia contiene cuatro categorías de elementos:"
 
 #: ../../source/design/00-overview.md:17
-msgid "**运行时机**：何时、以何频率运行（如每日收盘）——在 qteasy 2.0 中由策略所属的 **Group** 管理，不在策略类内部写死。"
+msgid ""
+"**运行时机**：何时、以何频率运行（如每日收盘）——在 qteasy 2.0 中由策略所属的 **Group** 管理，不在策略类内部写死。"
 msgstr ""
+"**Tiempo de ejecución**: cuándo y con qué frecuencia ejecutar (por ejemplo, "
+"diariamente al cierre del mercado). En qteasy 2.0, esto lo administra el "
+"**Grupo** de la estrategia, no está codificado dentro de la clase de "
+"estrategia."
 
 #: ../../source/design/00-overview.md:18
 msgid "**所需数据**：需要哪些 DataType、多长窗口（data_types、window_length 等），在策略初始化时声明。"
 msgstr ""
+"**Datos requeridos**: qué tipos de datos se necesitan, cuánto dura la "
+"ventana (tipos de datos, longitud de la ventana, etc.), declarados durante "
+"la inicialización de la estrategia."
 
 #: ../../source/design/00-overview.md:19
 msgid ""
 "**可调参数**：由 **Parameter** 定义，运行前通过 `set_parameter` 等设置，优化时由 Optimizer "
 "在参数空间中搜索。"
 msgstr ""
+"**Parámetros ajustables**: definidos por **Parámetro**, establecidos antes "
+"de ejecutar mediante `set_parameter` y similares; Durante la optimización, "
+"el Optimizador busca en el espacio de parámetros."
 
 #: ../../source/design/00-overview.md:20
 msgid ""
 "**逻辑**：通过无参的 **realize()** 实现；在方法内通过 `get_pars()`、`get_data(dtype_id)` "
 "获取当前步的参数与数据，计算并返回交易信号。"
 msgstr ""
+"**Lógica**: implementada mediante un **realize()** sin parámetros; dentro "
+"del método, use `get_pars()` y `get_data(dtype_id)` para obtener los "
+"parámetros y datos del paso actual, calcular y devolver señales comerciales."
 
 #: ../../source/design/00-overview.md:22
 msgid "同一段 `realize()` 在回测与实盘中复用，保证行为一致。"
 msgstr ""
+"El mismo `realize()` se reutiliza tanto en las pruebas retrospectivas como "
+"en las operaciones reales para garantizar un comportamiento coherente."
 
 #: ../../source/design/00-overview.md:24
 msgid "2.3 运行：Operator 与 Group、按时间步驱动、统一 run(config)"
 msgstr ""
+"2.3 Ejecución: Operator y grupo, impulsado por pasos de tiempo, ejecución "
+"unificada (config)"
 
 #: ../../source/design/00-overview.md:26
 msgid ""
 "**Operator** 既是策略的容器，也是运行的入口：它持有多个 **Group**，每个 Group 是一组具有相同 "
 "**run_freq**、**run_timing**（以及 "
-"signal_type、blender）的策略。**group_timing_table** 是一张“时间步 × "
-"Group”的表，表示每个时间步有哪些 Group 需要运行。单步流程可以概括为：根据当前步查表得到要运行的 Group → 为这些 Group "
-"内的每个策略准备数据窗口并注入 → 调用各策略的 `generate()`（内部调用 `realize()`）→ 用 Group 的 "
-"**blender** 混合同组信号 → 得到该步的合并信号。回测、实盘、优化都基于同一套“按 group_timing_table 逐步运行 "
-"Operator”的机制；差异仅在于数据来源（历史 vs 实时）和结果处理（模拟成交 vs 真实下单 vs 参数搜索）。"
+"signal_type、blender）的策略。**group_timing_table** 是一张“时间步 × Group”的表，表示每个时间步有哪些"
+" Group 需要运行。单步流程可以概括为：根据当前步查表得到要运行的 Group → 为这些 Group 内的每个策略准备数据窗口并注入 → "
+"调用各策略的 `generate()`（内部调用 `realize()`）→ 用 Group 的 **blender** 混合同组信号 → "
+"得到该步的合并信号。回测、实盘、优化都基于同一套“按 group_timing_table 逐步运行 Operator”的机制；差异仅在于数据来源（历史"
+" vs 实时）和结果处理（模拟成交 vs 真实下单 vs 参数搜索）。"
 msgstr ""
+"**Operator** es a la vez el contenedor de estrategias y el punto de entrada "
+"para la ejecución: contiene múltiples **Grupos** y cada grupo es un conjunto"
+" de estrategias con la misma **run_freq** y **run_timing** (así como "
+"signal_type y blender). **group_timing_table** es una tabla de “paso de "
+"tiempo × grupo” que indica qué grupos deben ejecutarse en cada paso de "
+"tiempo. Un flujo de trabajo de un solo paso se puede resumir como: buscar en"
+" la tabla el paso actual para que los Grupos se ejecuten → preparar e "
+"inyectar una ventana de datos para cada estrategia en esos Grupos → llamar "
+"al `generate()` de cada estrategia (que internamente llama a `realize()`) → "
+"combinar señales dentro del Grupo usando la **licuadora** del Grupo → "
+"obtener la señal combinada para ese paso. Las pruebas retrospectivas, el "
+"comercio en vivo y la optimización se basan en el mismo mecanismo de "
+"\"ejecutar el Operator paso a paso según group_timing_table\"; las "
+"diferencias radican únicamente en la fuente de datos (históricos versus en "
+"tiempo real) y el manejo de resultados (rellenos simulados versus pedidos "
+"reales versus búsqueda de parámetros)."
 
 #: ../../source/design/00-overview.md:28
 msgid "2.4 可视化：HistoryPanel 与多后端图表"
-msgstr ""
+msgstr "2.4 Visualización: HistoryPanel y gráficos multibackend"
 
 #: ../../source/design/00-overview.md:30
 msgid "在数据与运行之上，qteasy 提供了**基于 HistoryPanel 的可视化栈**："
 msgstr ""
+"Además de los datos y la ejecución, qteasy proporciona una pila de "
+"visualización basada en **HistoryPanel**:"
 
 #: ../../source/design/00-overview.md:32
 msgid ""
 "HistoryPanel 作为三维数据容器（shares × hdates × htypes），既是 `get_history_data` "
 "的自然返回值，也是可视化的前置数据结构；"
 msgstr ""
+"Como contenedor de datos 3D (compartidos × hdates × htypes), HistoryPanel es"
+" tanto el valor de retorno natural de `get_history_data` como la estructura "
+"de datos de requisito previo para la visualización;"
 
 #: ../../source/design/00-overview.md:34
 msgid ""
 "`HistoryPanel.plot(...)` 是统一的绘图入口，根据 htypes 与 shares 自动选择 合适的图表类型（K "
 "线、成交量、MACD、折线等），并生成**与后端无关的图表规格**；"
 msgstr ""
+"`HistoryPanel.plot(...)` es el punto de entrada del trazado unificado. "
+"Selecciona automáticamente el tipo de gráfico apropiado (velas, volumen, "
+"MACD, gráfico de líneas, etc.) en función de los tipos h y las acciones, y "
+"genera **especificaciones de gráficos independientes del backend**;"
 
 #: ../../source/design/00-overview.md:36
 msgid "静态后端（matplotlib）和交互后端（Plotly）在同一套规格之上渲染图表， 保证静态/交互视图在配色、布局和语义上的一致性；"
 msgstr ""
+"El backend estático (matplotlib) y el backend interactivo (Plotly) "
+"representan gráficos sobre el mismo conjunto de especificaciones, lo que "
+"garantiza la coherencia entre las vistas estáticas/interactivas en cuanto a "
+"combinación de colores, diseño y semántica;"
 
 #: ../../source/design/00-overview.md:38
-msgid "上层的 `qt.candle(...)` 等 API 只是“取数 → 构建 HistoryPanel → 调用 `hp.plot()`” 的包装器。"
+msgid ""
+"上层的 `qt.candle(...)` 等 API 只是“取数 → 构建 HistoryPanel → 调用 `hp.plot()`” 的包装器。"
 msgstr ""
+"Las API de capa superior, como `qt.candle(...)`, son simplemente "
+"contenedores para \"obtener datos → crear un HistoryPanel → llamar a "
+"`hp.plot()`\"."
 
 #: ../../source/design/00-overview.md:41
 msgid "这样，可视化逻辑与数据获取、回测引擎解耦，便于独立演进和测试。"
 msgstr ""
+"De esta manera, la lógica de visualización se desacopla de la recuperación "
+"de datos y del motor de backtesting, lo que facilita la evolución y las "
+"pruebas de forma independiente."
 
 #: ../../source/design/00-overview.md:44
 msgid "3. 总体架构图（三层）"
-msgstr ""
+msgstr "3. Diagrama de arquitectura general (tres capas)"
 
 #: ../../source/design/00-overview.md:46
 msgid "qteasy 从职责上可划分为三层，如下图所示（文字版）："
 msgstr ""
+"Por responsabilidades, qteasy se puede dividir en tres capas, como se "
+"muestra en la siguiente figura (versión de texto):"
 
 #: ../../source/design/00-overview.md:99
 msgid ""
 "**数据层**：DataSource、数据表、DataType、以及面向外部的 get_history_data / "
 "HistoryPanel，为策略与运行层提供“按类型、按窗口”的历史信息。"
 msgstr ""
+"**Capa de datos**: DataSource, tablas de datos, DataType y get_history_data "
+"/ HistoryPanel externo, que proporciona información histórica \"por tipo, "
+"por ventana\" para las capas de estrategia y tiempo de ejecución."
 
 #: ../../source/design/00-overview.md:100
 msgid ""
@@ -150,74 +237,115 @@ msgid ""
 "RuleIterator、FactorSorter、GeneralStg）、Parameter、data_types / "
 "window_length，负责声明需求并实现 realize()。"
 msgstr ""
+"**Capa de estrategia**: BaseStrategy y sus subclases (p. ej., RuleIterator, "
+"FactorSorter, GeneralStg), parámetro, tipos de datos/longitud de ventana, "
+"responsable de declarar los requisitos e implementar realizar()."
 
 #: ../../source/design/00-overview.md:101
 msgid ""
-"**运行层**：Operator、Group、group_timing_table、blender，以及 Backtester / Trader "
-"/ Optimizer，负责按时间驱动策略、汇总信号并执行回测/实盘/优化。"
+"**运行层**：Operator、Group、group_timing_table、blender，以及 Backtester / Trader / "
+"Optimizer，负责按时间驱动策略、汇总信号并执行回测/实盘/优化。"
 msgstr ""
+"**Capa de tiempo de ejecución**: Operator, Grupo, group_timing_table, "
+"blender y Backtester/Trader/Optimizador, responsables de impulsar "
+"estrategias a lo largo del tiempo, agregar señales y ejecutar pruebas "
+"retrospectivas/comercio en vivo/optimización."
 
 #: ../../source/design/00-overview.md:103
 msgid "4. 核心对象关系图"
-msgstr ""
+msgstr "4. Diagrama de relación de objetos centrales"
 
 #: ../../source/design/00-overview.md:128
 msgid "Operator 包含多个 Group，每个 Group 包含多个 Strategy。"
 msgstr ""
+"Un Operator contiene varios grupos y cada grupo contiene varias estrategias."
 
 #: ../../source/design/00-overview.md:129
 msgid "每个 Strategy 声明自己依赖的 DataType（及 window_length），并通过 Parameter 定义可调参数。"
 msgstr ""
+"Cada estrategia declara el DataType (y la longitud de la ventana) del que "
+"depende y define parámetros ajustables a través de Parámetro."
 
 #: ../../source/design/00-overview.md:130
 msgid "运行入口为 `op.run(config, datasource, logger)`，由 config 与 datasource 驱动。"
 msgstr ""
+"El punto de entrada es `op.run(config, datasource, logger)`, controlado por "
+"la configuración y la fuente de datos."
 
 #: ../../source/design/00-overview.md:132
 msgid "5. 数据与信号的大致流向"
-msgstr ""
+msgstr "5. Flujo aproximado de datos y señales."
 
 #: ../../source/design/00-overview.md:134
 msgid "从数据源到策略再到回测/实盘/优化，整体流向可简化为："
 msgstr ""
+"Desde las fuentes de datos hasta las estrategias y las pruebas "
+"retrospectivas/comercio en vivo/optimización, el flujo general se puede "
+"simplificar de la siguiente manera:"
 
 #: ../../source/design/00-overview.md:155
 msgid "用户通过 `qt.run(op, mode=...)` 进入回测（1）、实盘（0）或优化（2）。"
 msgstr ""
+"Los usuarios ingresan a pruebas retrospectivas (1), operaciones en vivo (0) "
+"u optimización (2) a través de `qt.run(op, mode=...)`."
 
 #: ../../source/design/00-overview.md:156
 msgid ""
-"Operator 根据 config 与策略声明向 DataSource 请求数据，再按 group_timing_table "
-"逐步调用策略并混合信号。"
+"Operator 根据 config 与策略声明向 DataSource 请求数据，再按 group_timing_table 逐步调用策略并混合信号。"
 msgstr ""
+"Según las declaraciones de configuración y estrategia, Operator solicita "
+"datos de DataSource, luego llama estrategias paso a paso de acuerdo con "
+"group_timing_table y combina las señales."
 
 #: ../../source/design/00-overview.md:157
 msgid ""
 "回测时，信号序列交给 Backtester 做模拟成交与评价；实盘时交给 Trader/Broker 执行；优化时由 Optimizer "
 "多次回测并汇总。"
 msgstr ""
+"En el backtesting, la secuencia de señales se entrega al Backtester para "
+"rellenos simulados y evaluación; en el comercio real se entrega al "
+"Trader/Broker para su ejecución; En optimización, el Optimizador ejecuta "
+"pruebas retrospectivas varias veces y agrega los resultados."
 
 #: ../../source/design/00-overview.md:159
 msgid "6. 本系列各章与教程、API、示例的阅读顺序建议"
 msgstr ""
+"6. Orden de lectura recomendado para los capítulos de esta serie, los "
+"tutoriales, los documentos API y los ejemplos."
 
 #: ../../source/design/00-overview.md:161
 msgid ""
 "**本系列（架构与设计）**：建议先读本章（00）和 [核心概念速览](01-concepts.md)，再按需阅读 [数据层](02-data-"
-"layer.md)、[策略中的数据](03-data-in-strategies.md)、[Operator 与 Group](04"
-"-operator-and-groups.md)、[Strategy 运行与参数](05-strategy-"
+"layer.md)、[策略中的数据](03-data-in-strategies.md)、[Operator 与 Group](04-operator-"
+"and-groups.md)、[Strategy 运行与参数](05-strategy-"
 "lifecycle.md)、[回测/实盘/优化](06-backtest-live-optimization.md)，以建立整体图景。"
 msgstr ""
+"**Esta serie (arquitectura y diseño)**: Se recomienda leer este capítulo "
+"(00) y [Conceptos básicos de un vistazo](01-concepts.md) primero, luego leer"
+" según sea necesario [Capa de datos](02-data-layer.md), [Datos en "
+"estrategias](03-data-in-strategies.md), [Operator y Grupos](04-operator-and-"
+"groups.md), [Ejecución y parámetros de la estrategia](05-strategy-"
+"lifecycle.md) y [Backtesting/Live Trading/Optimización](06-backtest-live-"
+"optimization.md) para crear una imagen general."
 
 #: ../../source/design/00-overview.md:162
 msgid "**使用教程**：侧重“手把手”操作，适合在了解架构后按需选读，用于完成具体任务（如下载数据、编写策略、运行回测）。"
 msgstr ""
+"**Guía del usuario**: se centra en operaciones “prácticas” paso a paso. Es "
+"adecuado para leer selectivamente según sea necesario después de comprender "
+"la arquitectura, para completar tareas específicas (como descargar datos, "
+"escribir estrategias y ejecutar pruebas retrospectivas)."
 
 #: ../../source/design/00-overview.md:163
 msgid "**下载并管理金融历史数据**、**API 参考**：用于查询数据配置、接口参数与返回值；本系列只讲“结构与机制”，不替代 API 文档。"
 msgstr ""
+"**Descargar y administrar datos financieros históricos**, **Referencia de "
+"API**: se utiliza para buscar configuraciones de datos, parámetros de "
+"interfaz y valores de retorno; Esta serie cubre únicamente \"estructura y "
+"mecanismos\" y no reemplaza la documentación de la API."
 
 #: ../../source/design/00-overview.md:164
 msgid "**示例**：提供完整可运行示例，可与教程、本系列配合使用。"
 msgstr ""
-
+"**Ejemplos**: proporcione ejemplos ejecutables completos que se puedan "
+"utilizar junto con los tutoriales y esta serie."

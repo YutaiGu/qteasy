@@ -1,0 +1,75 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_07_跨品种套利.md:1
+msgid "跨品种套利交易策略（教学等价版）"
+msgstr "跨品種套利交易策略（教學等價版）"
+
+#: ../../source/examples/Example_07_跨品种套利.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_07_跨品种套利.ipynb` 第一个 Markdown "
+"cell。   说明：原 notebook 已标注“信息有问题需要更正”，本示例以 qteasy 可稳定复现的教学实现为准。"
+msgstr ""
+"參考來源：`docs/_joinquant_migration_source/Example_07_跨品種套利.ipynb` 第一個 Markdown "
+"cell。   說明：原 notebook 已標註“資訊有問題需要更正”，本示例以 qteasy 可穩定復現的教學實現爲準。"
+
+#: ../../source/examples/Example_07_跨品种套利.md:6
+msgid "策略思路"
+msgstr "策略思路"
+
+#: ../../source/examples/Example_07_跨品种套利.md:8
+msgid "选取两个高相关交易标的，构造价差 `spread = p1 - p2`；"
+msgstr "選取兩個高相關交易標的，構造價差 `spread = p1 - p2`；"
+
+#: ../../source/examples/Example_07_跨品种套利.md:9
+msgid "在滚动窗口内计算价差均值与标准差，得到 zscore；"
+msgstr "在滾動窗口內計算價差均值與標準差，得到 zscore；"
+
+#: ../../source/examples/Example_07_跨品种套利.md:10
+msgid "当 zscore 高于上阈值时做空价差（卖出第一个、买入第二个），低于下阈值时做多价差；"
+msgstr "當 zscore 高於上閾值時做空價差（賣出第一個、買入第二個），低於下閾值時做多價差；"
+
+#: ../../source/examples/Example_07_跨品种套利.md:11
+msgid "回归到退出阈值附近时平仓。"
+msgstr "迴歸到退出閾值附近時平倉。"
+
+#: ../../source/examples/Example_07_跨品种套利.md:13
+msgid "qteasy 实现说明"
+msgstr "qteasy 實現說明"
+
+#: ../../source/examples/Example_07_跨品种套利.md:15
+msgid "本文使用 `PT` 信号，策略类为 `Example07CrossSymbolSpread`；"
+msgstr "本文使用 `PT` 信號，策略類爲 `Example07CrossSymbolSpread`；"
+
+#: ../../source/examples/Example_07_跨品种套利.md:16
+msgid "为降低数据依赖，示例脚本默认使用日频指数对（教学近似），不是原始分钟期货合约对；"
+msgstr "爲降低數據依賴，示例腳本默認使用日頻指數對（教學近似），不是原始分鐘期貨合約對；"
+
+#: ../../source/examples/Example_07_跨品种套利.md:17
+msgid "若你本地具备期货分钟数据，可将脚本中的 `asset_type/asset_pool/freq` 替换为期货版本。"
+msgstr "若你本地具備期貨分鐘數據，可將腳本中的 `asset_type/asset_pool/freq` 替換爲期貨版本。"
+
+#: ../../source/examples/Example_07_跨品种套利.md:43
+msgid "可执行脚本"
+msgstr "可執行腳本"
+
+#: ../../source/examples/Example_07_跨品种套利.md:45
+msgid "`examples/strategy_example_07.py`"
+msgstr "`examples/strategy_example_07.py`"

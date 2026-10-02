@@ -1,0 +1,204 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/04-operator-and-groups.md:1
+msgid "Operator 与 Group：谁在何时运行"
+msgstr "Operator とグループ: 誰がいつ走るか"
+
+#: ../../source/design/04-operator-and-groups.md:3
+msgid "1. 运行层在整体中的位置"
+msgstr "1. 実行層がアーキテクチャ全体のどこに適合するか"
+
+#: ../../source/design/04-operator-and-groups.md:5
+msgid ""
+"运行层负责**按时间驱动**策略执行、汇总各策略信号，并将结果交给回测/实盘/优化使用。核心是 "
+"**Operator**：它既是策略的容器，也是统一的运行入口（`op.run(config, datasource, "
+"logger)`）。Operator 通过 **Group** 与 **group_timing_table** "
+"决定“每个时间步由哪些策略运行、信号如何混合”，从而实现与回测区间和运行频率一致的可重复执行。"
+msgstr ""
+"ランタイム層は、**時間駆動** 戦略の実行を担当し、各戦略からのシグナルを集約し、結果をバックテスト/ライブ取引/最適化に渡します。コアは "
+"**Operator** です。これは戦略のコンテナであると同時に、実行のための統合されたエントリ ポイント (`op.run(config, "
+"datasource, logger)`) でもあります。 **Group** と **group_timing_table** "
+"を通じて、Operator は「各タイム "
+"ステップでどのストラテジが実行されるか、信号がどのようにブレンドされるか」を決定し、それによってバックテスト期間と実行頻度に応じた再現可能な実行が可能になります。"
+
+#: ../../source/design/04-operator-and-groups.md:7
+msgid "2. Operator 的角色"
+msgstr "2. Operatorの役割"
+
+#: ../../source/design/04-operator-and-groups.md:9
+msgid ""
+"**策略容器**：持有多个 **Group**，每个 Group 内包含若干策略（Strategy）。用户通过 `add_strategy` / "
+"`Operator([...])` 添加策略时，根据 **run_freq**、**run_timing** 将策略归入已有 Group 或新建 "
+"Group。"
+msgstr ""
+"**戦略コンテナ**: 複数の**グループ**を保持します。各グループにはいくつかの戦略 (戦略) "
+"が含まれています。ユーザーが`add_strategy` / `Operator([...])` "
+"を介して戦略を追加すると、戦略は既存のグループに割り当てられるか、**run_freq** と **run_timing** "
+"に基づいて新しいグループが作成されます。"
+
+#: ../../source/design/04-operator-and-groups.md:10
+msgid ""
+"**运行入口**：对外提供 **run(config, datasource, logger)**。config "
+"中包含资产池、回测区间、成本、资金计划等；datasource 提供历史或实时数据；运行逻辑按 **group_timing_table** "
+"逐步执行各组策略并汇总信号。"
+msgstr ""
+"**実行エントリ ポイント**: **run(config, datasource, logger)** "
+"を外部に公開します。構成には、資産ユニバース、バックテスト期間、コスト、資本計画などが含まれます。データソースは履歴データまたはリアルタイム "
+"データを提供します。実行ロジックは、**group_timing_table** に従って各グループを段階的に実行し、信号を集計します。"
+
+#: ../../source/design/04-operator-and-groups.md:11
+msgid ""
+"**持有 group_timing_table**：该表在运行前根据回测区间（或实盘 schedule）与各 Group 的 "
+"run_freq、run_timing 生成，每一行对应一个时间步，每一列对应一个 Group，取值为 1 表示该步该组运行、0 表示不运行。"
+msgstr ""
+"**group_timing_table を維持する**: 実行前に、このテーブルはバックテスト期間 (またはライブ スケジュール) と各グループの "
+"run_freq および run_timing に基づいて生成されます。各行はタイム ステップに対応し、各列はグループに対応します。値 1 "
+"はグループがそのステップで実行されることを意味し、0 はグループが実行されないことを意味します。"
+
+#: ../../source/design/04-operator-and-groups.md:13
+msgid "3. Group 的概念"
+msgstr "3. グループの概念"
+
+#: ../../source/design/04-operator-and-groups.md:15
+msgid ""
+"**定义**：一个 Group 是一组具有相同 **run_freq**、**run_timing** 的策略集合，并拥有统一的 "
+"**signal_type**（PT/PS/VS）和 **blender**（混合规则）。"
+msgstr ""
+"**定義**: グループは、同じ **run_freq** と **run_timing** を共有する戦略の集合であり、統一された "
+"**signal_type** (PT/PS/VS) と **blender** (ブレンド ルール) を持ちます。"
+
+#: ../../source/design/04-operator-and-groups.md:16
+msgid ""
+"**为何按“运行时机”分组**：同一时刻运行的策略共享同一套“当前时间步”的数据与调度；混合时也按“同组信号”用 blender 合并，再按 "
+"group_merge_type 处理多组并存的情况，便于理解和配置。"
+msgstr ""
+"**「実行タイミング」でグループ化する理由**: 同時に実行されるストラテジーは、同じセットの「現在のタイム "
+"ステップ」データとスケジュールを共有します。混合する場合、信号は最初に「同じグループ信号」としてブレンダーでマージされ、次に "
+"group_merge_type を使用して複数のグループが共存する場合を処理するため、理解と設定が容易になります。"
+
+#: ../../source/design/04-operator-and-groups.md:18
+msgid "4. Operator 与 Group 的关系"
+msgstr "4. Operatorとグループの関係"
+
+#: ../../source/design/04-operator-and-groups.md:20
+msgid "Operator 包含多个 Group；每个 Group 包含多个 Strategy。"
+msgstr "Operator には複数のグループが含まれており、各グループには複数の戦略が含まれています。"
+
+#: ../../source/design/04-operator-and-groups.md:21
+msgid ""
+"添加策略时，若已存在相同 run_freq、run_timing 的 Group，则策略加入该 Group；否则新建 Group。因此 Group "
+"的划分完全由“运行时机”决定，策略类自身不保存 run_freq/run_timing，由所属 Group 管理。"
+msgstr ""
+"ストラテジを追加するときに、同じ run_freq と run_timing "
+"を持つグループがすでに存在する場合、ストラテジはそのグループに追加されます。それ以外の場合は、新しいグループが作成されます。したがって、グループの分割は完全に「実行タイミング」によって決まります。ストラテジ"
+" クラス自体は run_freq/run_timing を格納しません。それらはそのグループによって管理されています。"
+
+#: ../../source/design/04-operator-and-groups.md:23
+msgid "5. group_timing_table"
+msgstr "5. group_timing_table"
+
+#: ../../source/design/04-operator-and-groups.md:25
+msgid ""
+"**含义**：二维表，行 = 时间步（与回测区间或实盘 schedule 对齐），列 = Group；单元格为 1 表示该步运行该 Group，0 "
+"表示不运行。"
+msgstr ""
+"**意味**: 2D テーブル: 行 = タイム ステップ (バックテスト期間またはライブ スケジュールに合わせて)、列 = グループ。セル値 1 "
+"はグループがそのステップで実行されることを意味し、0 はグループが実行されないことを意味します。"
+
+#: ../../source/design/04-operator-and-groups.md:26
+msgid ""
+"**与回测区间、run_freq 的关系**：回测时，根据 invest_start、invest_end 与交易日历生成时间轴，再根据各 Group "
+"的 run_freq、run_timing 在该时间轴上标记“哪些步运行哪些 Group”，得到 "
+"group_timing_table。实盘时同理，按实际运行日与 run_freq/run_timing 决定何时触发哪些 Group。"
+msgstr ""
+"**バックテスト期間と run_freq との関係**: "
+"バックテストでは、invest_start、invest_end、取引カレンダーからタイムラインが生成され、各グループの run_freq と "
+"run_timing を使用してそのタイムライン上で「どのステップがどのグループを実行するか」をマークし、group_timing_table "
+"を生成します。ライブ取引も同様です。どのグループがトリガーされるかは、実際の実行日と run_freq/run_timing によって決まります。"
+
+#: ../../source/design/04-operator-and-groups.md:28
+msgid "6. blender"
+msgstr "6. blender"
+
+#: ../../source/design/04-operator-and-groups.md:30
+msgid ""
+"**作用**：同一 Group 内可能有多个策略，每步各策略输出一个信号（标量或数组）。**blender** 将这些信号按一定规则混合成该 Group"
+" 的**一个**合并信号（如加权平均、求和等）。"
+msgstr ""
+"**目的**: 同じグループ内に複数の戦略が存在する場合があります。各ステップで、各戦略は信号 (スカラーまたは配列) を出力します。 "
+"**ブレンダー**は、特定のルール (例: 加重平均、合計など) に従って、これらの信号をグループの **1 つの** マージ信号に混合します。"
+
+#: ../../source/design/04-operator-and-groups.md:31
+msgid ""
+"**配置方式**：可为表达式（如 `0.5*s0+0.5*s1`），或使用默认规则：PT 下常用各策略目标仓位的平均，PS/VS "
+"下常用求和等，具体以文档与 API 为准。"
+msgstr ""
+"**設定**: 式 (例: `0.5*s0+0.5*s1`) にすることも、デフォルトのルールを使用することもできます。PT "
+"では、通常、各戦略のターゲット ポジションの平均が使用されます。 PS/VS では、一般に合計などを使用します。詳細については、ドキュメントと API "
+"を参照してください。"
+
+#: ../../source/design/04-operator-and-groups.md:32
+msgid "**结果**：混合后的信号作为该步、该组的输出，再根据 group_merge_type 与其它组的输出合并（若有多组同时运行）。"
+msgstr ""
+"**結果**: ブレンドされた信号はこのステップとこのグループの出力として使用され、group_merge_type "
+"に従って他のグループの出力とマージされます (複数のグループが同時に実行される場合)。"
+
+#: ../../source/design/04-operator-and-groups.md:34
+msgid "7. group_merge_type"
+msgstr "7. group_merge_type"
+
+#: ../../source/design/04-operator-and-groups.md:36
+msgid "当同一时间步有多个 Group 运行时，**group_merge_type** 决定各组信号如何合并："
+msgstr ""
+"複数のグループが同じタイム ステップで実行される場合、**group_merge_type** "
+"はグループからの信号がどのようにマージされるかを決定します。"
+
+#: ../../source/design/04-operator-and-groups.md:38
+msgid "**None**：各 Group 独立输出，不合并（多组时可能产生多条执行路径，取决于上层如何使用）。"
+msgstr ""
+"**なし**: 各グループは結合せずに独立して出力します "
+"(複数のグループがある場合、上位層での使用方法に応じて、複数の実行パスが生成される可能性があります)。"
+
+#: ../../source/design/04-operator-and-groups.md:39
+msgid "**And**：各组信号相乘等逻辑与合并。"
+msgstr "**And**: グループ間で信号を乗算するなど、論理 AND スタイルのマージ。"
+
+#: ../../source/design/04-operator-and-groups.md:40
+msgid "**Or**：各组信号相加等逻辑或合并。"
+msgstr "**Or**: グループ間で信号を追加するなど、論理 OR スタイルのマージ。"
+
+#: ../../source/design/04-operator-and-groups.md:42
+msgid "具体语义以当前版本文档为准；通常单组使用时无需关心。"
+msgstr "正確なセマンティクスは、現在のバージョンのドキュメントに依存します。通常、単一のグループを使用する場合は気にする必要はありません。"
+
+#: ../../source/design/04-operator-and-groups.md:44
+msgid "8. 小结"
+msgstr "8. まとめ"
+
+#: ../../source/design/04-operator-and-groups.md:46
+msgid ""
+"Operator 通过 Group 与 group_timing_table 实现“按时间步、按组”的统一调度：每一步只运行该步标记为 1 的 "
+"Group，组内策略共享数据注入与 blender，输出合并信号供回测/实盘/优化使用。更多用法见《使用教程》与 API 文档。"
+msgstr ""
+"Group と group_timing_table を通じて、Operator は「タイム "
+"ステップごと、グループごと」の統合スケジューリングを実装します。各ステップでは、そのステップで 1 "
+"とマークされたグループのみを実行します。グループ内の戦略はデータ インジェクションとブレンダーを共有し、バックテスト/ライブ "
+"トレード/最適化のためにマージされたシグナルを出力します。詳しい使用方法については、ユーザー ガイドと API ドキュメントを参照してください。"

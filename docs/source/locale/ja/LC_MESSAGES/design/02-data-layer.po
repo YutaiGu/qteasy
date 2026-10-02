@@ -1,0 +1,284 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/02-data-layer.md:1
+msgid "数据获取、存储与数据类型"
+msgstr "データの取得、保存、およびデータ型"
+
+#: ../../source/design/02-data-layer.md:3
+msgid "1. 数据层在整体中的位置"
+msgstr "1. アーキテクチャ全体におけるデータ層の位置"
+
+#: ../../source/design/02-data-layer.md:5
+msgid ""
+"数据层为策略层与运行层提供“按类型、按窗口”的历史信息。策略不直接访问原始数据表，而是声明自己需要哪些 **DataType** 以及多长的 "
+"**window_length**；运行前，引擎根据这些声明从 **DataSource** "
+"中取出对应数据、整理成数据窗口并注入策略。这样既保证了回测与实盘使用同一套数据视图，也从机制上避免了策略使用“未来数据”。"
+msgstr ""
+"データ層は、戦略層とランタイム層に「タイプ別、ウィンドウ別」の履歴情報を提供します。ストラテジーは生データ "
+"テーブルに直接アクセスしません。代わりに、どの **DataType** が必要か、**window_length** "
+"の長さはどれくらいであるべきかを宣言します。実行前に、エンジンは **DataSource** から対応するデータを取得し、それをデータ "
+"ウィンドウに編成して、戦略に挿入します。これにより、バックテストとライブ取引で同じデータビューが使用されることが保証され、また、戦略が設計上「将来のデータ」を使用することも防止されます。"
+
+#: ../../source/design/02-data-layer.md:7
+msgid "2. 从原始数据到本地存储"
+msgstr "2.生データからローカルストレージへ"
+
+#: ../../source/design/02-data-layer.md:9
+msgid "2.1 数据流"
+msgstr "2.1 データの流れ"
+
+#: ../../source/design/02-data-layer.md:11
+msgid ""
+"外部数据源（如 Tushare、东方财富等）→ 拉取与清洗（格式统一、去重、对齐）→ **DataSource**（文件或数据库）→ "
+"以统一结构写入多张**数据表**。"
+msgstr ""
+"外部データ ソース (例: Tushare、Eastmoney など) → フェッチとクリーニング (形式の統合、重複排除、位置合わせ) → "
+"**DataSource** (ファイルまたはデータベース) → 統一された構造で複数の **データ テーブル**に書き込まれます。"
+
+#: ../../source/design/02-data-layer.md:13
+msgid "2.2 DataSource 的角色"
+msgstr "2.2 DataSourceの役割"
+
+#: ../../source/design/02-data-layer.md:15
+msgid "**统一存储抽象**：无论底层是 CSV/HDF/Feather 文件还是 MySQL 等数据库，对上层而言都是“按表名、按列”读写。"
+msgstr ""
+"**統合ストレージ抽象化**: 基礎となる層が CSV/HDF/Feather ファイルであるか、MySQL "
+"などのデータベースであるかに関係なく、上位層に対しては常に「テーブル名ごと、列ごと」に読み書きされます。"
+
+#: ../../source/design/02-data-layer.md:16
+msgid "**多引擎支持**：可配置为 file（csv/hdf/fth）或 db（mysql 等），满足不同部署需求。"
+msgstr ""
+"**マルチエンジンのサポート**: さまざまな導入ニーズに合わせて、ファイル (csv/hdf/fth) またはデータベース (MySQL など) "
+"として構成できます。"
+
+#: ../../source/design/02-data-layer.md:17
+msgid ""
+"**不主动拉数**：DataSource 只负责读写本地已存在的数据；从网络拉取与更新由用户或定时任务调用数据接口完成，再写入 DataSource。"
+msgstr ""
+"**積極的にデータを取得しません**: DataSource "
+"は、ローカルに既に存在するデータの読み取りと書き込みのみを担当します。ネットワークからの取得と更新は、ユーザーまたはスケジュールされたタスクによってデータ"
+" インターフェイスを呼び出し、DataSource に書き込まれます。"
+
+#: ../../source/design/02-data-layer.md:19
+msgid ""
+"因此，数据层设计把“拉取”和“存储”分开：拉取得到的数据经清洗后写入 DataSource，策略与回测只消费 DataSource 中已有的数据。"
+msgstr ""
+"したがって、データ層の設計では「フェッチ」と「ストレージ」が分離されています。フェッチから取得されたデータはクリーニング後に DataSource "
+"に書き込まれ、戦略とバックテストは DataSource にすでに存在するデータのみを消費します。"
+
+#: ../../source/design/02-data-layer.md:21
+msgid "3. 数据表"
+msgstr "3. データテーブル"
+
+#: ../../source/design/02-data-layer.md:23
+msgid ""
+"**内置表划分**：qteasy "
+"预定义了多张数据表，大致包括行情类（如日线、分钟线）、财务类（利润表、资产负债表等）、宏观与指数等。每张表有固定的表名、主键与列结构。"
+msgstr ""
+"**組み込みのテーブル パーティショニング**: qteasy は、市場データ (日足、分足など)、財務データ "
+"(損益計算書、貸借対照表など)、マクロと指数などを含む複数のデータ "
+"テーブルを事前定義します。各テーブルには、固定のテーブル名、主キー、列スキーマがあります。"
+
+#: ../../source/design/02-data-layer.md:24
+msgid ""
+"**表结构与 DataType 的对应关系**：一种“可被策略引用的信息”往往对应某张表的某列（或若干列经计算得到）。DataType 的 "
+"**name**（及 freq、asset_type）与数据表/列的映射在系统内维护，策略只需通过 DataType 或 **dtype_id** "
+"声明需求，无需关心具体表名或列名。"
+msgstr ""
+"**テーブル スキーマと DataType** 間のマッピング: 「戦略が参照できる情報」は、多くの場合、テーブル内の列 (または計算後の 1 "
+"つ以上の列) に対応します。 DataType の **name** (および頻度、asset_type) からデータ "
+"テーブル/列へのマッピングはシステム内で維持されます。戦略では、特定のテーブル名や列名を気にすることなく、DataType または "
+"**dtype_id** を介して要件を宣言するだけで済みます。"
+
+#: ../../source/design/02-data-layer.md:26
+msgid "4. DataType：从“表里的数据”到“策略可引用的信息”"
+msgstr "4. DataType: 「表内のデータ」から「戦略が参照できる情報」へ"
+
+#: ../../source/design/02-data-layer.md:28
+msgid ""
+"用户日常写**字符串信息 ID**；`DataType(...)` 对象多为专家/内置策略层。内部字段 "
+"`acquisition_type`（直读、复权、事件等）是提取算法，**不是**用户分类。"
+msgstr ""
+"ユーザーは**文字列情報ID**を毎日書き込みます。 `DataType(...)` "
+"オブジェクトは、ほとんどがエキスパート/組み込み戦略レイヤーです。内部フィールド `acquisition_type` "
+"(直接読み取り、復元、イベントなど) は抽出アルゴリズムであり、ユーザーの分類ではありません。"
+
+#: ../../source/design/02-data-layer.md:30
+msgid "4.1 三种消费形状（kind）"
+msgstr "4.1 3つの消費形態（種類）"
+
+#: ../../source/design/02-data-layer.md
+msgid "kind"
+msgstr "kind"
+
+#: ../../source/design/02-data-layer.md
+msgid "形状"
+msgstr "形"
+
+#: ../../source/design/02-data-layer.md
+msgid "例子"
+msgstr "例"
+
+#: ../../source/design/02-data-layer.md
+msgid "公开入口"
+msgstr "公共の入り口"
+
+#: ../../source/design/02-data-layer.md
+msgid "`history`"
+msgstr "`history`"
+
+#: ../../source/design/02-data-layer.md
+msgid "时间 × 标的"
+msgstr "時間×目標"
+
+#: ../../source/design/02-data-layer.md
+msgid "`close`、`pe`、停牌标记"
+msgstr "`close`、`pe`、停止マーク"
+
+#: ../../source/design/02-data-layer.md
+msgid "`get_history_data` / `get_kline`"
+msgstr "`get_history_data` / `get_kline`"
+
+#: ../../source/design/02-data-layer.md
+msgid "`reference`"
+msgstr "`reference`"
+
+#: ../../source/design/02-data-layer.md
+msgid "仅时间"
+msgstr "時間だけ"
+
+#: ../../source/design/02-data-layer.md
+msgid "`cn_gdp`、`north_money`；以及把单标的行情抽成基准的 `close-000300.SH`"
+msgstr "⟦コード0⟧、⟦コード1⟧; `close-000300.SH` は単一のターゲットの価格をベンチマークとして描画します。"
+
+#: ../../source/design/02-data-layer.md
+msgid "`get_reference_data`"
+msgstr "`get_reference_data`"
+
+#: ../../source/design/02-data-layer.md
+msgid "`static`"
+msgstr "`static`"
+
+#: ../../source/design/02-data-layer.md
+msgid "仅标的"
+msgstr "主題のみ"
+
+#: ../../source/design/02-data-layer.md
+msgid "`industry`、`list_date`"
+msgstr "`industry`、`list_date`"
+
+#: ../../source/design/02-data-layer.md
+msgid "`get_static_data`"
+msgstr "`get_static_data`"
+
+#: ../../source/design/02-data-layer.md:38
+msgid ""
+"`close-000300.SH` 是 Reference 的**一种造法**（策略里把某标的当市场基准），不是宏观数据的唯一来源。目录用 "
+"`usable_in` 标明推荐入口；`usable_in=none` 表示已登记但暂无一等用法（例如无法编入数值 HistoryPanel "
+"的文本列）。"
+msgstr ""
+"`close-000300.SH` はリファレンス (特定のターゲットが戦略の市場ベンチマークとして使用される) を作成する方法であり、マクロ "
+"データの唯一のソースではありません。ディレクトリは、推奨エントリを示すために `usable_in` を使用します。 `usable_in=none` "
+"は、登録されているものの、第一級の使用法がないことを示します (たとえば、値 HistoryPanel のテキスト列はプログラムできません)。"
+
+#: ../../source/design/02-data-layer.md:40
+msgid "4.2 name、freq、asset_type 与 dtype_id"
+msgstr "4.1 name、freq、asset_type、および dtype_id"
+
+#: ../../source/design/02-data-layer.md:42
+msgid ""
+"**name**：数据类型名称（如 close、open、total_mv、pe），对应某类可用的信息；可带参数（如 `close|b`）或 "
+"unsymbolizer（如 `close-000300.SH`）。"
+msgstr ""
+"**name**: 特定の種類の利用可能な情報に対応するデータ型名 (close、open、total_mv、pe など)。パラメーター "
+"(`close|b` など) またはアンシンボライザー (`close-000300.SH` など) を取ることができます。"
+
+#: ../../source/design/02-data-layer.md:43
+msgid "**freq**：数据频率（如 d/w/m/q）；Static 常为 `None`（与频率无关）。"
+msgstr "**freq**: データ周波数 (d/w/m/q など)。静的は通常 `None` (周波数とは無関係) です。"
+
+#: ../../source/design/02-data-layer.md:44
+msgid "**asset_type**：适用的资产类型（如 E、IDX、None、Any）。"
+msgstr "**asset_type**: 該当するアセット タイプ (E、IDX、None、Any など)。"
+
+#: ../../source/design/02-data-layer.md:45
+msgid ""
+"**完整 dtype_id**：由上述三者生成，规则为 `{wide_name}_{asset_type}_{freq}`（从右侧拆），例如 "
+"`close_E_d`。策略 `get_data` 查找键为完整 id；研究侧可用宽名，歧义时改完整 id。"
+msgstr ""
+"**完全な dtype_id**: 上記 3 つから生成されたルールは、`close_E_d` などの "
+"`{wide_name}_{asset_type}_{freq}` (右から分割) です。戦略 `get_data` 検索キーは完全な ID "
+"です。研究側ではワイドネームを使用でき、曖昧な場合には完全な ID が変更されます。"
+
+#: ../../source/design/02-data-layer.md:47
+msgid "4.3 内置 DataType 与数据表/列的映射"
+msgstr "4.3 組み込み DataType とデータテーブル/列間のマッピング"
+
+#: ../../source/design/02-data-layer.md:49
+msgid ""
+"系统内置大量 "
+"DataType，分别映射到不同数据表的列或衍生列。具体表名、列名见《下载并管理金融历史数据》与按业务分册的清单；本系列仅强调：**策略与分析通过信息 "
+"ID 引用数据，不直接依赖表结构**，表结构演进时只需调整映射关系。"
+msgstr ""
+"システムには、さまざまなデータ テーブルの列または派生列にマップされる多数の組み込み DataType "
+"があります。具体的なテーブル名と列名については、「財務履歴データのダウンロードと管理」および業務量別のリストを参照してください。このシリーズでは、**戦略と分析は情報"
+" ID "
+"を通じてデータを参照し、テーブル構造に直接依存しない**ことのみを強調します。テーブル構造が進化した場合、調整する必要があるのはマッピング関係のみです。"
+
+#: ../../source/design/02-data-layer.md:51
+msgid "5. 小结：为什么策略只接触 DataType 而不直接读表"
+msgstr "5. まとめ: ストラテジーがテーブルを直接読み取るのではなく、DataType とのみ対話する理由"
+
+#: ../../source/design/02-data-layer.md:53
+msgid "**一致性**：回测与实盘都通过同一套“声明信息 ID + 引擎按窗口注入”的路径取数，避免两套逻辑。"
+msgstr ""
+"**一貫性**: バックテストとライブ取引の両方で、「宣言情報 ID + ウィンドウによるエンジン インジェクション」という同じパスを使用して、2 "
+"つのロジック セットを回避します。"
+
+#: ../../source/design/02-data-layer.md:54
+msgid "**防未来函数**：引擎严格按当前时间步和 window_length 准备过去的数据窗口，策略无法访问未注入的将来数据。"
+msgstr ""
+"**先読みバイアスなし**: エンジンは現在のタイム ステップと window_length に基づいて履歴データ "
+"ウィンドウを厳密に準備するため、ストラテジーは注入されていない将来のデータにアクセスできません。"
+
+#: ../../source/design/02-data-layer.md:55
+msgid ""
+"**接口统一**：策略用 `get_data(dtype_id)` 取 History/Reference 窗口；截面 Static 走 "
+"`get_static_data`，**不**进入 `get_data` 时间窗。"
+msgstr ""
+"**統一インターフェイス**: 戦略は `get_data(dtype_id)` を使用して履歴/参照ウィンドウを取得します。断面静的は "
+"`get_static_data` に進みますが、**は** `get_data` 時間枠に入りません。"
+
+#: ../../source/design/02-data-layer.md:57
+msgid "更多用法见 manage_data「DataType」概念章与 API 参考。"
+msgstr "詳しい使用方法については、manage_data \"DataType\" の概念の章と API リファレンスを参照してください。"
+
+#~ msgid "**freq**：数据频率（如 d/w/m/q），与数据表的时间粒度或重采样方式相关。"
+#~ msgstr "**freq**: データテーブルの時間粒度またはリサンプリング方法に関連するデータ周波数 (例: d/w/m/q)。"
+
+#~ msgid ""
+#~ "**接口统一**：所有策略都用 `get_data(dtype_id)` 取数，dtype_id 与 DataType 一一对应，便于维护与扩展。"
+#~ msgstr ""
+#~ "**統合インターフェイス**: すべての戦略は、`get_data(dtype_id)` を介してデータを取得します。各 dtype_id は "
+#~ "DataType と 1 対 1 に対応するため、メンテナンスと拡張が容易になります。"
+
+#~ msgid "更多数据配置与 API 用法见《下载并管理金融历史数据》与 API 参考。"
+#~ msgstr "データ構成と API の使用方法の詳細については、*財務履歴データのダウンロードと管理* および API リファレンスを参照してください。"

@@ -26,10 +26,22 @@ HistoryPanel 本质上是一个三维 ``numpy.ndarray``，三个轴分别表示�
                                      # 多标的、数据类型与时间区间联合切片
     hp.loc[0:5]                       # 与 hp[:, :, 0:5] 等价，按时间轴截取
 
+兼容 API（已弃用）
+~~~~~~~~~~~~~~~~~~~~
+
+下列方法仍保留兼容行为，但会发出英文 ``DeprecationWarning`` （含 ``use … instead``）。**新代码请使用右侧推荐 API**：
+
+- ``slice(...)`` → :meth:`~qteasy.HistoryPanel.subpanel`
+- ``segment(...)`` → :attr:`~qteasy.HistoryPanel.loc` 或 ``subpanel(hdates=...)``
+- ``isegment(...)`` → ``panel[:, :, start:end]`` 或 ``subpanel(hdates=...)``
+- ``candle(...)`` → :meth:`~qteasy.HistoryPanel.plot` （``candle`` 现委托 ``plot``，不再抛出 ``NotImplementedError``）
+
+``slice`` / ``segment`` / ``isegment`` 仅增加警告，**未**改写原实现（避免语义漂移）。
+
 
 .. autoclass:: qteasy.HistoryPanel
     :members:
-    :exclude-members: describe, mean, std, min, max, where, assign, rank, zscore, align_to, resample, rolling, returns, cum_return, normalize, portfolio, volatility, alpha_beta, research_preset, apply_ta, candle_pattern, loc, kline
+    :exclude-members: describe, mean, std, min, max, sum, median, var, quantile, corr, cov, where, assign, expr, shift, diff, pct_change, fillna, ffill, fillinf, bfill, dropna, drop, rename, rank, zscore, align_to, resample, rolling, returns, cum_return, normalize, portfolio, volatility, alpha_beta, research_preset, apply_ta, candle_pattern, loc, kline, to_df_dict, to_multi_index_dataframe, to_share_frame, flatten, flatten_to_dataframe, unstack
     :special-members: __getitem__, __setitem__, __getattr__, __lt__, __le__, __gt__, __ge__, __eq__, __ne__
 
 
@@ -38,7 +50,9 @@ HistoryPanel 对象提供了常用的金融数据统计与聚合方法，包括�
 基础统计与聚合
 ----------------
 
-以下方法在 HistoryPanel 的三维数据上提供类似 pandas 的统计功能：
+以下方法在 HistoryPanel 的三维数据上提供类似 pandas 的统计功能。``mean`` / ``std`` / ``min`` / ``max`` 以及 ``sum`` / ``median`` / ``var`` / ``quantile`` 均沿 **hdates** （axis=1）聚合，返回 ``DataFrame(index=shares, columns=htypes)``；``by='htype'`` 仅为转置。``var`` 默认 ``ddof=1`` （与 ``std`` 对齐）；``quantile`` 仅接受标量 ``q`` 且 ``0 <= q <= 1``。
+
+注意区分：面板级 :meth:`~qteasy.HistoryPanel.sum` 返回 ``DataFrame``；:class:`~qteasy.history.HistoryPanelRolling` 的 ``sum`` 返回滚动后的 ``HistoryPanel``。
 
 .. automethod:: qteasy.HistoryPanel.describe
 
@@ -49,6 +63,26 @@ HistoryPanel 对象提供了常用的金融数据统计与聚合方法，包括�
 .. automethod:: qteasy.HistoryPanel.min
 
 .. automethod:: qteasy.HistoryPanel.max
+
+.. automethod:: qteasy.HistoryPanel.sum
+
+.. automethod:: qteasy.HistoryPanel.median
+
+.. automethod:: qteasy.HistoryPanel.var
+
+.. automethod:: qteasy.HistoryPanel.quantile
+
+
+相关与协方差 （corr / cov）
+--------------------------------
+
+对指定 ``htype``，将每个 share 的时间序列视为一列，返回 ``shares × shares`` 相关 / 协方差矩阵 （``DataFrame``，index/columns 均为 ``shares``）。空面板返回空表。
+
+与 :mod:`qteasy.research` 中的 ``factor_ic`` （**逐日截面**相关）语义不同：本方法是**跨时间、标的两两**的时序矩阵。
+
+.. automethod:: qteasy.HistoryPanel.corr
+
+.. automethod:: qteasy.HistoryPanel.cov
 
 
 研究与掩码 （where）
@@ -132,6 +166,78 @@ HistoryPanel 对象提供了常用的金融数据统计与聚合方法，包括�
    # L = len(hp.hdates)
    # sub2 = hp.loc[[True]*3 + [False]*(L - 3)]   # 一维 bool 长度须等于 L
 
+列表达式：expr
+-----------------
+
+``expr`` 用受限字符串算术表达式派生新列：仅允许现有 **identifier** 列名与 ``+ - * / ** ()`` 及数字字面量（AST 白名单，无任意 ``eval``）。默认 ``inplace=False`` 返回新面板。含 ``|`` 的复权列名请用 :meth:`~qteasy.HistoryPanel.assign` 或 ``hp['close|b']``。
+
+.. automethod:: qteasy.HistoryPanel.expr
+
+示例::
+
+    hp.expr('hl2', '(high + low) / 2')
+
+时序变换：shift / diff / pct_change
+--------------------------------------
+
+沿时间轴 （``hdates``，axis=1）对指定列做位移、一阶差分或百分比变化；均返回**新** ``HistoryPanel``，``shape`` 与轴标签不变。``periods`` 须为非零整数；``htypes=None`` 表示全部列，指定时未选中列保持原值拷贝。
+
+:meth:`~qteasy.HistoryPanel.pct_change` 与 :meth:`~qteasy.HistoryPanel.returns` 的区别：前者对任意列做通用百分比变化，不绑定价格语义、不调用 ``_resolve_price_htype``；后者面向价格列并解析复权根名。
+
+.. automethod:: qteasy.HistoryPanel.shift
+
+.. automethod:: qteasy.HistoryPanel.diff
+
+.. automethod:: qteasy.HistoryPanel.pct_change
+
+缺失值：fillna / ffill / fillinf / bfill / dropna
+---------------------------------------------------
+
+填充与丢弃缺失时请注意**可变性契约**（与 pandas 默认 copy 习惯不同的部分已用 ``inplace=`` 显式化）：
+
+.. list-table::
+   :header-rows: 1
+   :widths: 35 20 45
+
+   * - API
+     - 默认 ``inplace``
+     - 说明
+   * - ``fillna`` / ``ffill`` / ``fillinf``
+     - ``True``
+     - 历史默认原地；``inplace=False`` 返回拷贝
+   * - ``bfill``
+     - ``False``
+     - 新 API，默认返回新对象
+   * - ``dropna``
+     - （无该参数）
+     - 始终返回新面板；可能缩短某一维
+
+``dropna`` 支持 ``axis='hdates'|'shares'|'htypes'``，以及 ``how`` / ``thresh`` / ``subset`` （``subset`` 仅在 ``axis='hdates'`` 时限制参与判断的 ``htypes``）；若某轴被删空则返回空面板。
+
+.. automethod:: qteasy.HistoryPanel.fillna
+
+.. automethod:: qteasy.HistoryPanel.ffill
+
+.. automethod:: qteasy.HistoryPanel.fillinf
+
+.. automethod:: qteasy.HistoryPanel.bfill
+
+.. automethod:: qteasy.HistoryPanel.dropna
+
+轴标签：drop / rename
+-----------------------
+
+:meth:`~qteasy.HistoryPanel.drop` 与 :meth:`~qteasy.HistoryPanel.rename` 均返回**新** ``HistoryPanel``，不修改原对象，也不改写 ``hdates``。
+
+- ``drop(*, htypes=, shares=, errors='raise'|'ignore')``：至少指定 ``htypes`` 或 ``shares`` 一侧；标签精确匹配（含 ``close|b``）；某轴删空则返回空面板。
+- ``rename(*, htypes=, shares=)``：映射式重命名，未映射标签保持不变；目标冲突或两源同目标时抛出英文 ``ValueError``。
+
+与 :meth:`~qteasy.HistoryPanel.re_label` 的对照：``re_label`` 为**原地**整轴重赋（保留）；``rename`` 为映射式便捷 API（默认新对象）。
+
+.. automethod:: qteasy.HistoryPanel.drop
+
+.. automethod:: qteasy.HistoryPanel.rename
+
 横截面与标准化：rank / zscore
 --------------------------------------------
 
@@ -161,7 +267,7 @@ HistoryPanel 对象提供了常用的金融数据统计与聚合方法，包括�
 滚动窗口
 ----------
 
-使用滚动窗口方法可以在 HistoryPanel 的时间维度上进行滑动计算，支持常见的滚动平均、滚动标准差等操作：
+使用滚动窗口方法可以在 ``HistoryPanel`` 的时间维度上进行滑动计算，支持常见的滚动平均、滚动标准差等操作：
 
 .. automethod:: qteasy.HistoryPanel.rolling
 
@@ -202,10 +308,32 @@ K 线与技术指标
 .. automethod:: qteasy.HistoryPanel.candle_pattern
 
 
+导出到 pandas （推荐名）
+-----------------------------
+
+与 pandas 生态衔接时，**新代码请优先使用下列推荐名**；兼容别名仍可用，行为不变：
+
++----------------------------------+------------------------------------------+----------------------------------+
+| 推荐名                           | 兼容别名                                 | 典型用途                         |
++==================================+==========================================+==================================+
+| ``to_df_dict(by=...)``           | ``unstack(by=...)``                      | 按 share / htype 切成多张宽表    |
++----------------------------------+------------------------------------------+----------------------------------+
+| ``to_multi_index_dataframe(...)``| ``flatten`` / ``flatten_to_dataframe``   | 展平为 MultiIndex ``DataFrame``  |
++----------------------------------+------------------------------------------+----------------------------------+
+| ``to_share_frame(share)``        | （无）                                   | 单标的 → 时间为索引的宽表        |
++----------------------------------+------------------------------------------+----------------------------------+
+
+.. automethod:: qteasy.HistoryPanel.to_df_dict
+
+.. automethod:: qteasy.HistoryPanel.to_multi_index_dataframe
+
+.. automethod:: qteasy.HistoryPanel.to_share_frame
+
+
 qteasy级别的历史数据处理函数
 -----------------------------------------------
 
-qteasy 还提供了若干独立于 HistoryPanel 类的函数，支持更灵活的历史数据处理与分析：
+``qteasy`` 还提供了若干独立于 ``HistoryPanel`` 类的函数，支持更灵活的历史数据处理与分析：
 
 .. autofunction:: qteasy.get_history_data
 
@@ -215,7 +343,8 @@ qteasy 还提供了若干独立于 HistoryPanel 类的函数，支持更灵活�
 研究与正式回测的边界 （扩展阅读）
 ----------------------------------
 
-``HistoryPanel`` 上的 ``cum_return``、``portfolio``、``plot`` 等面向**探索与粗验**；正式回测 （交割、费用、信号类型、防未来函数的数据窗口等）仍由 ``Strategy`` / ``Operator`` / Backtester 负责。推荐读者在阅读本 API 页的同时，结合：
+``HistoryPanel`` 上的 ``cum_return``、``portfolio``、``plot`` 等面向**探索与粗验**；正式回测 （交割、费用、信号类型、防未来函数的数据窗口等）仍由 ``Strategy`` / ``Operator`` / Backtester 负责。截面 IC / 分位组合等模块级 API 见 :doc:`qteasy.research <research>` （**非** Backtester）。推荐读者在阅读本 API 页的同时，结合：
 
-- 教程 :doc:`使用 HistoryPanel 操作和分析历史数据 <../tutorials/2.5-historypanel-data-analysis>` 中的 **§9** （研究 → ``FactorSorter`` / ``Operator``）、**§10** （多源数据拼板）、**§11** （导出 pandas / statsmodels）；
-- 设计说明 :doc:`HistoryPanel 与可选 FactorResearch 层 <../design/10-historypanel-factor-research-layer>` （是否增加独立因子统计模块的评估结论）。
+- 教程 :doc:`使用 HistoryPanel 操作和分析历史数据 <../tutorials/2.5-historypanel-data-analysis>` 中的 **§9** （研究 → ``FactorSorter`` / ``Operator``）、**§10** （多源数据拼板）、**§11** （导出 pandas / statsmodels），以及 ``qteasy.research`` cookbook；
+- 可运行示例 ``examples/historypanel_research_factor_workflow.py``；
+- 设计说明 :doc:`HistoryPanel 与可选 FactorResearch 层 <../design/10-historypanel-factor-research-layer>` （模块级函数边界）。

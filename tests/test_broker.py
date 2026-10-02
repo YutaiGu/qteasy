@@ -137,6 +137,35 @@ class TestBroker(unittest.TestCase):
 
     def test_verify_trade_result(self):
         """ test the function _verify_trade_result """
+        print('\n[TestBroker.test_verify_trade_result] 4/5-tuple 校验')
+        order_qty = 100.0
+        four = ('filled', 50.0, 10.5, 1.0)
+        five = ('partial-filled', 25.0, 10.5, 0.5, '109000001')
+        print(' valid 4-tuple:', four)
+        print(' valid 5-tuple:', five)
+        self.assertTrue(_verify_trade_result(four, order_qty))
+        self.assertTrue(_verify_trade_result(five, order_qty))
+
+        with self.assertRaises(ValueError) as cm:
+            _verify_trade_result(('filled', 50.0, 10.5), order_qty)
+        print(' bad length msg:', cm.exception)
+        self.assertIn('4-tuple', str(cm.exception))
+
+        with self.assertRaises(TypeError):
+            _verify_trade_result(
+                ('filled', 50.0, 10.5, 1.0, 12345),
+                order_qty,
+            )
+
+        with self.assertRaises(ValueError):
+            _verify_trade_result(('filled', 150.0, 10.5, 1.0), order_qty)
+
+        with self.assertRaises(ValueError) as cm_cancel:
+            _verify_trade_result(('canceled', 10.0, 5.0, 0.0), order_qty)
+        print(' canceled non-zero price msg:', cm_cancel.exception)
+        self.assertIn('filled_price', str(cm_cancel.exception))
+
+        self.assertTrue(_verify_trade_result(('canceled', 10.0, 0.0, 0.0), order_qty))
 
     def test_parse_order(self):
         """ test the function parse_order """

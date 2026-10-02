@@ -11,10 +11,11 @@
 
 import operator
 from numbers import Number
+import warnings
 
 import pandas as pd
 import numpy as np
-from typing import Union, Iterable, Any, Optional, Callable, Sequence, List, Tuple, Dict
+from typing import Union, Iterable, Any, Optional, Callable, Sequence, List, Tuple, Dict, Mapping
 
 from qteasy.database import DataSource
 
@@ -24,8 +25,11 @@ from qteasy.utilfuncs import (
     list_or_slice,
     labels_to_dict,
     ffill_3d_data,
+    bfill_3d_data,
     fill_nan_data,
     fill_inf_data,
+    shift_ndarray,
+    eval_htype_arithmetic_expr,
     pandas_freq_alias_version_conversion,
     regulate_date_format,
 )
@@ -338,7 +342,7 @@ class HistoryPanel():
 
     @property
     def hdate_count(self):
-        """获取HistoryPanel的历史数据类型数量"""
+        """获取 HistoryPanel 的历史日期（hdates）数量"""
         return self._r_count
 
     @property
@@ -1083,6 +1087,90 @@ class HistoryPanel():
                     f'Cannot broadcast assign() result for column \"{name}\" to shape (M={M}, L={L}): {e}'
                 )
             target[name] = arr_b
+        return target
+
+    def expr(
+            self,
+            new_htype: str,
+            expression: str,
+            *,
+            inplace: bool = False,
+    ) -> 'HistoryPanel':
+        """用受限列名算术表达式派生新列并写入 ``new_htype``。
+
+        仅允许现有 **identifier** 列名与 ``+ - * / **``、一元正负号、括号及数字字面量。
+        含 ``|`` 等非标识符复权列名请使用 :meth:`assign` 或括号赋值。
+
+        Parameters
+        ----------
+        new_htype : str
+            输出列名，必须为非空 Python 标识符；已存在则覆盖。
+        expression : str
+            算术表达式，如 ``'(high + low) / 2'``。
+        inplace : bool, default False
+            True 时原地写入并返回 ``self``；False 时返回新面板。
+
+        Returns
+        -------
+        HistoryPanel
+            含 ``new_htype`` 列的面板。
+
+        Raises
+        ------
+        ValueError
+            空面板、非法列名/表达式、或不支持的语法时抛出（英文消息）。
+
+        Examples
+        --------
+        >>> hp = HistoryPanel(
+        ...     values=np.array([[[4., 2.], [6., 4.]]]),
+        ...     levels=['s1'], rows=['d1', 'd2'], columns=['high', 'low'],
+        ... )
+        >>> hp.expr('hl2', '(high + low) / 2').values[0, :, 2]
+        array([3., 5.])
+        """
+        if self.is_empty:
+            raise ValueError('Cannot apply expr() to an empty HistoryPanel.')
+        if not isinstance(new_htype, str) or not new_htype or not new_htype.isidentifier():
+            raise ValueError(
+                f'new_htype must be a non-empty Python identifier, got {new_htype!r}; '
+                'use assign() for non-identifier column names'
+            )
+        if not isinstance(expression, str):
+            raise ValueError(
+                f'expression must be a str, got {type(expression).__name__}'
+            )
+
+        columns = {}
+        for name in self.htypes:
+            if name.isidentifier():
+                ci = self.htypes.index(name)
+                columns[name] = np.asarray(self.values[:, :, ci], dtype=float)
+
+        result = eval_htype_arithmetic_expr(expression, columns)
+        arr = np.asarray(result, dtype=float)
+        M, L, _ = self.shape
+        try:
+            if arr.ndim == 0:
+                arr_b = np.full((M, L), float(arr), dtype=float)
+            else:
+                arr_b = np.broadcast_to(arr, (M, L)).copy()
+        except ValueError as e:
+            raise ValueError(
+                f'Cannot broadcast expr() result for column "{new_htype}" '
+                f'to shape (M={M}, L={L}): {e}'
+            ) from e
+
+        if inplace:
+            target = self
+        else:
+            target = HistoryPanel(
+                values=np.array(self.values, copy=True),
+                levels=list(self.shares),
+                rows=list(self.hdates),
+                columns=list(self.htypes),
+            )
+        target[new_htype] = arr_b
         return target
 
     def rank(
@@ -1837,9 +1925,10 @@ class HistoryPanel():
         return NotImplemented
 
     def segment(self, start_date=None, end_date=None):
-        """ 获取HistoryPanel的一个日期片段，start_date和end_date都是日期型数据，返回
-            这两个日期之间的所有数据，返回的类型为一个HistoryPanel，包含所有share和
-            htypes的数据
+        """获取 HistoryPanel 的一个日期片段（已弃用，请用 ``loc`` 或 ``subpanel(hdates=...)``）。
+
+        start_date 和 end_date 都是日期型数据，返回这两个日期之间的所有数据；
+        返回类型为 HistoryPanel，包含所有 share 和 htypes 的数据。
 
         Parameters
         ----------
@@ -1877,6 +1966,11 @@ class HistoryPanel():
         2015-01-09    10    20   30     40      50
         2015-01-10    10    20   30     40      50
         """
+        warnings.warn(
+            "HistoryPanel.segment is deprecated, use loc or subpanel(hdates=...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         hdates = np.array(self.hdates)
         if start_date is None:
             start_date = hdates[0]
@@ -1891,9 +1985,10 @@ class HistoryPanel():
         return HistoryPanel(new_values, levels=self.shares, rows=new_dates, columns=self.htypes)
 
     def isegment(self, start_index=None, end_index=None):
-        """ 获取HistoryPanel的一个片段，start_index和end_index都是int数，表示日期序号，返回
-            这两个序号代表的日期之间的所有数据，返回的类型为一个HistoryPanel，包含所有share和
-            htypes的数据
+        """获取 HistoryPanel 的一个整数下标日期片段（已弃用，请用 ``panel[:, :, start:end]`` 或 ``subpanel(hdates=...)``）。
+
+        start_index 和 end_index 都是 int，表示日期序号，返回这两个序号之间的所有数据；
+        返回类型为 HistoryPanel，包含所有 share 和 htypes 的数据。
 
         Parameters
         ----------
@@ -1930,14 +2025,21 @@ class HistoryPanel():
         2015-01-08    10    20   30     40      50
         2015-01-09    10    20   30     40      50
         """
+        warnings.warn(
+            "HistoryPanel.isegment is deprecated, "
+            "use panel[:, :, start:end] or subpanel(hdates=...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         hdates = np.array(self.hdates)
         new_dates = list(hdates[start_index:end_index])
         new_values = self[:, :, start_index:end_index].values
         return HistoryPanel(new_values, levels=self.shares, rows=new_dates, columns=self.htypes)
 
     def slice(self, shares=None, htypes=None):
-        """ 获取HistoryPanel的一个股票或数据种类片段，shares和htypes可以为列表或逗号分隔字符
-            串，表示需要获取的股票或数据的种类。
+        """获取 HistoryPanel 的股票或数据类型片段（已弃用，请用 ``subpanel(...)``）。
+
+        shares 和 htypes 可以为列表或逗号分隔字符串，表示需要获取的股票或数据类型。
 
         Parameters
         ----------
@@ -1983,6 +2085,11 @@ class HistoryPanel():
         2015-01-13     40    10
         2015-01-14     40    10
         """
+        warnings.warn(
+            "HistoryPanel.slice is deprecated, use subpanel(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         if self.is_empty:
             return self
         if shares is None:
@@ -2239,65 +2346,249 @@ class HistoryPanel():
             if hdates is not None:
                 self.hdates = hdates
 
-    def fillna(self, with_val: Union[int, float]):
-        """ 使用with_value来填充HistoryPanel中的所有nan值
+    def drop(
+            self,
+            *,
+            htypes: Optional[Union[str, Sequence[str]]] = None,
+            shares: Optional[Union[str, Sequence[str]]] = None,
+            errors: str = 'raise',
+    ) -> 'HistoryPanel':
+        """按 htypes 和/或 shares 标签删除列/标的，返回新 HistoryPanel。
+
+        至少指定 htypes 或 shares 一侧；两侧可同时删除。不修改原对象，也不删除 hdates。
+        标签按精确列名/标的名匹配（含 ``close|b`` 等非标识符）；``str`` 可用逗号串。
+        若某一轴删至长度 0，返回空 ``HistoryPanel()``。更多细节见文档 HistoryPanel 章节。
 
         Parameters
         ----------
-        with_val: float or int
-            填充的值
+        htypes : str, Sequence[str], optional
+            待删除的数据类型标签；None 表示不删 htypes。
+        shares : str, Sequence[str], optional
+            待删除的标的标签；None 表示不删 shares。
+        errors : {'raise', 'ignore'}, default 'raise'
+            遇到未知标签时：raise 抛出 ValueError；ignore 跳过。
 
         Returns
         -------
-        out : HistoryPanel, 填充后的HistoryPanel对象
+        HistoryPanel
+            删除后的新面板；空输入或删空某轴时可能为空面板。
+
+        Raises
+        ------
+        ValueError
+            两侧皆未指定、errors 非法，或 errors='raise' 时标签未知。
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> from qteasy import HistoryPanel
+        >>> data = np.arange(12, dtype=float).reshape(2, 2, 3)
+        >>> hp = HistoryPanel(data, levels=['a', 'b'], columns=['x', 'y', 'z'],
+        ...                   rows=['2020-01-01', '2020-01-02'])
+        >>> out = hp.drop(htypes='y')
+        >>> out.htypes
+        ['x', 'z']
         """
-        if not self.is_empty:
+        if self.is_empty:
+            return HistoryPanel()
+        if htypes is None and shares is None:
+            raise ValueError(
+                "At least one of 'htypes' or 'shares' must be specified for drop"
+            )
+        if errors not in ('raise', 'ignore'):
+            raise ValueError("errors must be 'raise' or 'ignore'")
+
+        def _labels_to_drop(
+                labels: Optional[Union[str, Sequence[str]]],
+                axis_labels: List[str],
+                axis_name: str,
+        ) -> List[str]:
+            if labels is None:
+                return []
+            if isinstance(labels, str):
+                requested = str_to_list(labels)
+            else:
+                requested = [str(x) for x in labels]
+            known = set(axis_labels)
+            unknown = [lab for lab in requested if lab not in known]
+            if unknown and errors == 'raise':
+                raise ValueError(
+                    f"Unknown {axis_name} label(s) for drop: {unknown}"
+                )
+            return [lab for lab in requested if lab in known]
+
+        drop_htypes = set(_labels_to_drop(htypes, list(self.htypes), 'htype'))
+        drop_shares = set(_labels_to_drop(shares, list(self.shares), 'share'))
+
+        keep_htype_idx = [
+            i for i, t in enumerate(self.htypes) if t not in drop_htypes
+        ]
+        keep_share_idx = [
+            i for i, s in enumerate(self.shares) if s not in drop_shares
+        ]
+
+        if len(keep_htype_idx) == 0 or len(keep_share_idx) == 0:
+            return HistoryPanel()
+
+        # values 轴序：(shares, hdates, htypes)
+        new_values = self.values[np.ix_(
+            keep_share_idx,
+            list(range(self.row_count)),
+            keep_htype_idx,
+        )].copy()
+        new_shares = [self.shares[i] for i in keep_share_idx]
+        new_htypes = [self.htypes[i] for i in keep_htype_idx]
+        return HistoryPanel(
+            values=new_values,
+            levels=new_shares,
+            columns=new_htypes,
+            rows=list(self.hdates),
+        )
+
+    def rename(
+            self,
+            *,
+            htypes: Optional[Mapping[str, str]] = None,
+            shares: Optional[Mapping[str, str]] = None,
+    ) -> 'HistoryPanel':
+        """按映射重命名 htypes 和/或 shares 标签，返回新 HistoryPanel。
+
+        至少指定一侧映射；未出现在映射中的标签保持不变。不修改原对象，也不改 hdates。
+        与 ``re_label``（原地整轴重赋）并存。目标名与保留轴上其它标签冲突，或两源映射到同一目标时抛出 ValueError。
+
+        Parameters
+        ----------
+        htypes : Mapping[str, str], optional
+            数据类型旧名 → 新名；None 表示不重命名 htypes。
+        shares : Mapping[str, str], optional
+            标的旧名 → 新名；None 表示不重命名 shares。
+
+        Returns
+        -------
+        HistoryPanel
+            重命名后的新面板。
+
+        Raises
+        ------
+        ValueError
+            两侧映射皆未指定，或目标名冲突。
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> from qteasy import HistoryPanel
+        >>> data = np.arange(12, dtype=float).reshape(2, 2, 3)
+        >>> hp = HistoryPanel(data, levels=['a', 'b'], columns=['x', 'y', 'z'],
+        ...                   rows=['2020-01-01', '2020-01-02'])
+        >>> out = hp.rename(htypes={'x': 'open'})
+        >>> out.htypes
+        ['open', 'y', 'z']
+        """
+        if self.is_empty:
+            return HistoryPanel()
+        if htypes is not None and not isinstance(htypes, Mapping):
+            raise TypeError("htypes must be a Mapping[str, str] or None")
+        if shares is not None and not isinstance(shares, Mapping):
+            raise TypeError("shares must be a Mapping[str, str] or None")
+
+        htypes_map = None if htypes is None or len(htypes) == 0 else htypes
+        shares_map = None if shares is None or len(shares) == 0 else shares
+        if htypes_map is None and shares_map is None:
+            raise ValueError(
+                "At least one of 'htypes' or 'shares' must be a non-empty mapping"
+            )
+
+        def _apply_rename(
+                axis_labels: List[str],
+                mapping: Optional[Mapping[str, str]],
+                axis_name: str,
+        ) -> List[str]:
+            if mapping is None:
+                return list(axis_labels)
+            new_labels = [mapping.get(lab, lab) for lab in axis_labels]
+            if len(set(new_labels)) != len(new_labels):
+                raise ValueError(
+                    f"Conflicting {axis_name} rename targets produce duplicate labels: "
+                    f"{new_labels}"
+                )
+            return new_labels
+
+        new_htypes = _apply_rename(list(self.htypes), htypes_map, 'htype')
+        new_shares = _apply_rename(list(self.shares), shares_map, 'share')
+
+        return HistoryPanel(
+            values=self.values.copy(),
+            levels=new_shares,
+            columns=new_htypes,
+            rows=list(self.hdates),
+        )
+
+    def fillna(self, with_val: Union[int, float], *, inplace: bool = True) -> 'HistoryPanel':
+        """使用 ``with_val`` 填充 HistoryPanel 中的所有 NaN 值。
+
+        Parameters
+        ----------
+        with_val : float or int
+            填充值。
+        inplace : bool, default True
+            True 时原地修改并返回 ``self``；False 时返回新面板且不修改原对象。
+
+        Returns
+        -------
+        HistoryPanel
+            填充后的面板。
+        """
+        if self.is_empty:
+            return self if inplace else HistoryPanel()
+        if inplace:
             self._values = fill_nan_data(self._values, with_val)
-        return self
+            return self
+        values = fill_nan_data(np.asarray(self.values, dtype=float).copy(), with_val)
+        return self._new_panel_from_values(values)
 
-    def fillinf(self, with_val: Union[int, float]):
-        """ 使用with_value来填充HistoryPanel中的所有inf值
+    def fillinf(self, with_val: Union[int, float], *, inplace: bool = True) -> 'HistoryPanel':
+        """使用 ``with_val`` 填充 HistoryPanel 中的所有 Inf 值。
 
         Parameters
         ----------
-        with_val: float or int
-            填充的值
+        with_val : float or int
+            填充值。
+        inplace : bool, default True
+            True 时原地修改并返回 ``self``；False 时返回新面板且不修改原对象。
 
         Returns
         -------
-        out : HistoryPanel, 填充后的HistoryPanel对象
+        HistoryPanel
+            填充后的面板。
         """
-        if not self.is_empty:
+        if self.is_empty:
+            return self if inplace else HistoryPanel()
+        if inplace:
             self._values = fill_inf_data(self._values, with_val)
-        return self
+            return self
+        values = fill_inf_data(np.asarray(self.values, dtype=float).copy(), with_val)
+        return self._new_panel_from_values(values)
 
-    def ffill(self, init_val=np.nan):
-        """ 前向填充缺失值，当历史数据中存在缺失值时，使用缺失值以前
-        的最近有效数据填充缺失值
+    def ffill(self, init_val: float = np.nan, *, inplace: bool = True) -> 'HistoryPanel':
+        """前向填充缺失值：用缺失值以前的最近有效数据填充。
 
         Parameters
         ----------
-        init_val: float, 如果Nan值出现在第一行时，没有前序有效数据，则使用这个值来填充，默认为np.nan
+        init_val : float, default np.nan
+            第一行仍为 NaN、无前序有效数据时使用的填充值。
+        inplace : bool, default True
+            True 时原地修改并返回 ``self``；False 时返回新面板且不修改原对象。
 
         Returns
         -------
-        out : HistoryPanel, 填充后的HistoryPanel对象
+        HistoryPanel
+            填充后的面板。
 
         Examples
         --------
         >>> hp = HistoryPanel(np.array([[[1, 2, 3], [4, np.nan, 6]], [[np.nan, 8, 9], [np.nan, np.nan, 12]]]),
         ...                   levels=['000001', '000002'], rows=['2015-01-01', '2015-01-02'],
         ...                   columns=['open', 'high', 'low'])
-        >>> hp
-        share 0, label: 000001
-                    open  high  low
-        2015-01-01   1.0   2.0  3.0
-        2015-01-02   4.0   NaN  6.0
-        share 1, label: 000002
-                    open  high   low
-        2015-01-01   NaN   8.0   9.0
-        2015-01-02   NaN   NaN  12.0
-
         >>> hp.ffill()
         share 0, label: 000001
                     open  high  low
@@ -2307,24 +2598,184 @@ class HistoryPanel():
                     open  high   low
         2015-01-01   NaN   8.0   9.0
         2015-01-02   NaN   8.0  12.0
-
-        >>> hp.ffill(init_val=3)
-        share 0, label: 000001
-                    open  high  low
-        2015-01-01   1.0   2.0  3.0
-        2015-01-02   4.0   2.0  6.0
-        share 1, label: 000002
-                    open  high   low
-        2015-01-01   3.0   8.0   9.0
-        2015-01-02   3.0   8.0  12.0
         """
-
-        if not self.is_empty:
+        if self.is_empty:
+            return self if inplace else HistoryPanel()
+        if inplace:
             val = self.values
             if np.all(~np.isnan(val)):
                 return self
             self._values = ffill_3d_data(val, init_val)
-        return self
+            return self
+        values = np.asarray(self.values, dtype=float).copy()
+        if not np.all(~np.isnan(values)):
+            ffill_3d_data(values, init_val)
+        return self._new_panel_from_values(values)
+
+    def bfill(self, init_val: float = np.nan, *, inplace: bool = False) -> 'HistoryPanel':
+        """沿时间轴后向填充缺失值；末行仍缺时使用 ``init_val``。
+
+        默认 ``inplace=False``（返回新面板），与历史 ``ffill`` 默认原地相对照。
+
+        Parameters
+        ----------
+        init_val : float, default np.nan
+            末行仍为 NaN、无后续有效数据时使用的填充值。
+        inplace : bool, default False
+            True 时原地修改并返回 ``self``；False 时返回新面板。
+
+        Returns
+        -------
+        HistoryPanel
+            填充后的面板。
+
+        Examples
+        --------
+        >>> hp = HistoryPanel(values=np.array([[[np.nan], [2.0], [3.0]]]),
+        ...                   levels=['s1'], rows=['d1', 'd2', 'd3'], columns=['close'])
+        >>> hp.bfill().values[0, :, 0]
+        array([2., 2., 3.])
+        """
+        if self.is_empty:
+            return self if inplace else HistoryPanel()
+        if inplace:
+            val = self.values
+            if np.all(~np.isnan(val)):
+                return self
+            self._values = bfill_3d_data(val, init_val)
+            return self
+        values = np.asarray(self.values, dtype=float).copy()
+        if not np.all(~np.isnan(values)):
+            bfill_3d_data(values, init_val)
+        return self._new_panel_from_values(values)
+
+    def dropna(
+            self,
+            *,
+            axis: str = 'hdates',
+            how: str = 'any',
+            thresh: Optional[int] = None,
+            subset: Optional[Union[str, Sequence[str]]] = None,
+    ) -> 'HistoryPanel':
+        """按轴丢弃含缺失值的切片，返回可能缩短某一维的新面板。
+
+        Parameters
+        ----------
+        axis : {'hdates', 'shares', 'htypes'}, default 'hdates'
+            丢弃所沿的轴。
+        how : {'any', 'all'}, default 'any'
+            ``any``：切片中存在任一 NaN 则丢弃；``all``：切片全为 NaN 才丢弃。
+            若给出 ``thresh`` 则忽略本参数。
+        thresh : int or None, default None
+            切片上非 NaN 个数小于该阈值则丢弃；指定时忽略 ``how``。
+        subset : str or sequence of str or None, default None
+            仅 ``axis='hdates'`` 时可用：限制参与判定的 ``htypes``。
+
+        Returns
+        -------
+        HistoryPanel
+            新面板；若某轴被删空则返回空面板。
+
+        Raises
+        ------
+        ValueError
+            ``axis`` / ``how`` 非法，或在非 ``hdates`` 轴上使用 ``subset``。
+        """
+        if self.is_empty:
+            return HistoryPanel()
+        if axis not in ('hdates', 'shares', 'htypes'):
+            raise ValueError(
+                f'axis must be one of "hdates", "shares", "htypes", got {axis!r}'
+            )
+        if how not in ('any', 'all'):
+            raise ValueError(f'how must be "any" or "all", got {how!r}')
+        if subset is not None and axis != 'hdates':
+            raise ValueError('subset is only supported when axis is "hdates"')
+
+        values = np.asarray(self.values, dtype=float)
+        if axis == 'hdates':
+            if subset is None:
+                data = values
+            else:
+                col_idx = self._resolve_htype_column_indices(subset)
+                data = values[:, :, col_idx]
+            keep_idx = self._dropna_keep_indices(data, axis_pos=1, how=how, thresh=thresh)
+            if not keep_idx:
+                return HistoryPanel()
+            new_values = values[:, keep_idx, :]
+            new_hdates = [self.hdates[i] for i in keep_idx]
+            return HistoryPanel(
+                values=new_values,
+                levels=list(self.shares),
+                rows=new_hdates,
+                columns=list(self.htypes),
+            )
+        if axis == 'shares':
+            keep_idx = self._dropna_keep_indices(values, axis_pos=0, how=how, thresh=thresh)
+            if not keep_idx:
+                return HistoryPanel()
+            new_values = values[keep_idx, :, :]
+            new_shares = [self.shares[i] for i in keep_idx]
+            return HistoryPanel(
+                values=new_values,
+                levels=new_shares,
+                rows=list(self.hdates),
+                columns=list(self.htypes),
+            )
+        # axis == 'htypes'
+        keep_idx = self._dropna_keep_indices(values, axis_pos=2, how=how, thresh=thresh)
+        if not keep_idx:
+            return HistoryPanel()
+        new_values = values[:, :, keep_idx]
+        new_htypes = [self.htypes[i] for i in keep_idx]
+        return HistoryPanel(
+            values=new_values,
+            levels=list(self.shares),
+            rows=list(self.hdates),
+            columns=new_htypes,
+        )
+
+    @staticmethod
+    def _dropna_keep_indices(
+            data: np.ndarray,
+            axis_pos: int,
+            how: str,
+            thresh: Optional[int],
+    ) -> List[int]:
+        """按 ``how``/``thresh`` 计算沿 ``axis_pos`` 应保留的下标列表。
+
+        Parameters
+        ----------
+        data : np.ndarray
+            参与缺失判定的数组（可与原面板同形或为 htypes 子集）。
+        axis_pos : int
+            丢弃轴在 ``data`` 中的位置（0=shares，1=hdates，2=htypes）。
+        how : {'any', 'all'}
+            与 :meth:`dropna` 相同。
+        thresh : int or None
+            与 :meth:`dropna` 相同。
+
+        Returns
+        -------
+        list of int
+            保留的下标。
+        """
+        n = data.shape[axis_pos]
+        keep: List[int] = []
+        for i in range(n):
+            slicer = [slice(None)] * data.ndim
+            slicer[axis_pos] = i
+            slice_ = data[tuple(slicer)]
+            if thresh is not None:
+                if int(np.count_nonzero(~np.isnan(slice_))) >= int(thresh):
+                    keep.append(i)
+            elif how == 'any':
+                if not np.any(np.isnan(slice_)):
+                    keep.append(i)
+            else:
+                if not np.all(np.isnan(slice_)):
+                    keep.append(i)
+        return keep
 
     def join(self,
              other,
@@ -2608,10 +3059,11 @@ class HistoryPanel():
         return res_df
 
     def flatten_to_dataframe(self, along='row'):
-        """ 将一个HistoryPanel"展平"成为一个DataFrame
+        """将一个 HistoryPanel 展平为 MultiIndex DataFrame（兼容别名）。
 
-        HistoryPanel的多层数据会被"平铺"到DataFrame的列，变成一个MultiIndex，或者多层数据
-        会被平铺到DataFrame的行，同样变成一个MultiIndex，平铺到行还是列取决于along参数
+        推荐使用 ``to_multi_index_dataframe``；本方法为兼容别名，行为相同。
+        HistoryPanel 的多层数据会被平铺到 DataFrame 的列或行（取决于 ``along``），
+        形成 MultiIndex。
 
         Parameters
         ----------
@@ -2687,12 +3139,14 @@ class HistoryPanel():
         return self.slice_to_dataframe(share=share)
 
     def to_multi_index_dataframe(self, along=None):
-        """ 等同于HistoryPanel.flatten_to_dataframe()
+        """将 HistoryPanel 展平为 MultiIndex ``DataFrame``（推荐导出名）。
+
+        实现委托 ``flatten_to_dataframe``；兼容别名还有 ``flatten``。
 
         Parameters
         ----------
         along: str, {'col', 'row', 'column'} Default: 'row'
-            平铺HistoryPanel的每一层时，沿行方向还是列方向平铺，
+            平铺 HistoryPanel 的每一层时，沿行方向还是列方向平铺，
             'col'或'column'表示沿列方向平铺，'row'表示沿行方向平铺
 
         Returns
@@ -2732,12 +3186,14 @@ class HistoryPanel():
         return self.flatten_to_dataframe(along=along)
 
     def flatten(self, along=None):
-        """ 等同于HistoryPanel.flatten_to_dataframe()
+        """将 HistoryPanel 展平为 MultiIndex DataFrame（兼容别名）。
+
+        推荐使用 ``to_multi_index_dataframe``；本方法为兼容别名，行为相同。
 
         Parameters
         ----------
         along: str, {'col', 'row', 'column'} Default: 'row'
-            平铺HistoryPanel的每一层时，沿行方向还是列方向平铺，
+            平铺 HistoryPanel 的每一层时，沿行方向还是列方向平铺，
             'col'或'column'表示沿列方向平铺，'row'表示沿行方向平铺
 
         Returns
@@ -2946,6 +3402,331 @@ class HistoryPanel():
             return df_share
         return df_share.T
 
+    def sum(self, by: str = 'share', skipna: bool = True) -> pd.DataFrame:
+        """按标的或数据类型对 HistoryPanel 进行求和统计。
+
+        Parameters
+        ----------
+        by : {'share', 'htype'}, default 'share'
+            统计维度，语义同 ``mean()``：沿 hdates 聚合；``htype`` 时返回转置表。
+        skipna : bool, default True
+            是否在求和时忽略 NaN。
+
+        Returns
+        -------
+        pandas.DataFrame
+            按指定维度聚合后的求和结果表。
+
+        Examples
+        --------
+        >>> data = np.array([[[1., 2.], [3., 4.]],
+        ...                  [[5., 6.], [7., 8.]]])
+        >>> hp = HistoryPanel(values=data,
+        ...                   levels=['000001.SZ', '000002.SZ'],
+        ...                   rows=pd.date_range('2020-01-01', periods=2),
+        ...                   columns=['open', 'close'])
+        >>> hp.sum()
+                    open  close
+        000001.SZ   4.0    6.0
+        000002.SZ  12.0   14.0
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if by not in ('share', 'htype'):
+            raise ValueError(f'parameter "by" must be "share" or "htype", got {by}')
+
+        values = self.values.astype(float)
+        if skipna:
+            agg_share = np.nansum(values, axis=1)
+        else:
+            agg_share = values.sum(axis=1)
+        df_share = pd.DataFrame(agg_share, index=self.shares, columns=self.htypes)
+        if by == 'share':
+            return df_share
+        return df_share.T
+
+    def median(self, by: str = 'share', skipna: bool = True) -> pd.DataFrame:
+        """按标的或数据类型对 HistoryPanel 进行中位数统计。
+
+        Parameters
+        ----------
+        by : {'share', 'htype'}, default 'share'
+            统计维度，语义同 ``mean()``。
+        skipna : bool, default True
+            是否在计算中位数时忽略 NaN。
+
+        Returns
+        -------
+        pandas.DataFrame
+            按指定维度聚合后的中位数结果表。
+
+        Examples
+        --------
+        >>> data = np.array([[[1., 2.], [3., 4.], [5., 6.]],
+        ...                  [[2., 1.], [4., 3.], [6., 5.]]])
+        >>> hp = HistoryPanel(values=data,
+        ...                   levels=['s1', 's2'],
+        ...                   rows=pd.date_range('2020-01-01', periods=3),
+        ...                   columns=['close', 'open'])
+        >>> hp.median()
+             close  open
+        s1     3.0   4.0
+        s2     4.0   3.0
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if by not in ('share', 'htype'):
+            raise ValueError(f'parameter "by" must be "share" or "htype", got {by}')
+
+        values = self.values.astype(float)
+        if skipna:
+            agg_share = np.nanmedian(values, axis=1)
+        else:
+            agg_share = np.median(values, axis=1)
+        df_share = pd.DataFrame(agg_share, index=self.shares, columns=self.htypes)
+        if by == 'share':
+            return df_share
+        return df_share.T
+
+    def var(
+            self,
+            by: str = 'share',
+            skipna: bool = True,
+            ddof: int = 1,
+    ) -> pd.DataFrame:
+        """按标的或数据类型对 HistoryPanel 进行方差统计。
+
+        Parameters
+        ----------
+        by : {'share', 'htype'}, default 'share'
+            统计维度，语义同 ``mean()``。
+        skipna : bool, default True
+            是否在计算方差时忽略 NaN。
+        ddof : int, default 1
+            自由度修正，与 ``std()`` 默认一致。
+
+        Returns
+        -------
+        pandas.DataFrame
+            按指定维度聚合后的方差结果表。
+
+        Examples
+        --------
+        >>> data = np.array([[[1., 2.], [3., 4.], [5., 6.]]])
+        >>> hp = HistoryPanel(values=data,
+        ...                   levels=['s1'],
+        ...                   rows=pd.date_range('2020-01-01', periods=3),
+        ...                   columns=['close', 'open'])
+        >>> hp.var()
+             close  open
+        s1     4.0   4.0
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if by not in ('share', 'htype'):
+            raise ValueError(f'parameter "by" must be "share" or "htype", got {by}')
+
+        values = self.values.astype(float)
+        if skipna:
+            agg_share = np.nanvar(values, axis=1, ddof=ddof)
+        else:
+            agg_share = values.var(axis=1, ddof=ddof)
+        df_share = pd.DataFrame(agg_share, index=self.shares, columns=self.htypes)
+        if by == 'share':
+            return df_share
+        return df_share.T
+
+    def quantile(
+            self,
+            q: float = 0.5,
+            by: str = 'share',
+            skipna: bool = True,
+    ) -> pd.DataFrame:
+        """按标的或数据类型对 HistoryPanel 计算分位数。
+
+        Parameters
+        ----------
+        q : float, default 0.5
+            分位点，须满足 ``0 <= q <= 1``（仅支持标量）。
+        by : {'share', 'htype'}, default 'share'
+            统计维度，语义同 ``mean()``。
+        skipna : bool, default True
+            是否在计算分位数时忽略 NaN。
+
+        Returns
+        -------
+        pandas.DataFrame
+            按指定维度聚合后的分位数结果表。
+
+        Raises
+        ------
+        ValueError
+            ``q`` 越界或 ``by`` 非法。
+
+        Examples
+        --------
+        >>> data = np.array([[[1., 2.], [3., 4.], [5., 6.]]])
+        >>> hp = HistoryPanel(values=data,
+        ...                   levels=['s1'],
+        ...                   rows=pd.date_range('2020-01-01', periods=3),
+        ...                   columns=['close', 'open'])
+        >>> hp.quantile(q=0.5)
+             close  open
+        s1     3.0   4.0
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if not isinstance(q, (int, float, np.floating)) or isinstance(q, bool):
+            raise ValueError(f'parameter "q" must be a float in [0, 1], got {q!r}')
+        q_f = float(q)
+        if not (0.0 <= q_f <= 1.0):
+            raise ValueError(f'parameter "q" must be in [0, 1], got {q_f}')
+        if by not in ('share', 'htype'):
+            raise ValueError(f'parameter "by" must be "share" or "htype", got {by}')
+
+        values = self.values.astype(float)
+        if skipna:
+            agg_share = np.nanquantile(values, q_f, axis=1)
+        else:
+            agg_share = np.quantile(values, q_f, axis=1)
+        df_share = pd.DataFrame(agg_share, index=self.shares, columns=self.htypes)
+        if by == 'share':
+            return df_share
+        return df_share.T
+
+    def _htype_wide_frame(self, htype: str) -> pd.DataFrame:
+        """将指定 htype 转为 index=hdates、columns=shares 的宽表。
+
+        Parameters
+        ----------
+        htype : str
+            数据类型列名，须已在 ``htypes`` 中。
+
+        Returns
+        -------
+        pandas.DataFrame
+            时序宽表，供 ``corr`` / ``cov`` 使用。
+
+        Raises
+        ------
+        ValueError
+            未知 ``htype``。
+        """
+        if htype not in self.htypes:
+            raise ValueError(f'Unknown htype {htype!r}')
+        ci = self.htypes.index(htype)
+        mat = np.asarray(self.values[:, :, ci], dtype=float)
+        return pd.DataFrame(mat.T, index=list(self.hdates), columns=list(self.shares))
+
+    def corr(
+            self,
+            htype: str,
+            *,
+            method: str = 'pearson',
+            min_periods: int = 1,
+    ) -> pd.DataFrame:
+        """对指定 htype，在 share 维上计算时序两两相关系数矩阵。
+
+        将每个标的在该 ``htype`` 上的时间序列视为一列，返回 ``shares × shares`` 相关矩阵。
+        与 ``qteasy.research.factor_ic``（逐日截面相关）语义不同。
+
+        Parameters
+        ----------
+        htype : str
+            参与计算的数据类型列名。
+        method : {'pearson', 'spearman'}, default 'pearson'
+            相关系数方法。
+        min_periods : int, default 1
+            计算每对相关所需的最少有效观测数，透传给 pandas。
+
+        Returns
+        -------
+        pandas.DataFrame
+            index/columns 均为 ``shares``；空面板返回空表。
+
+        Raises
+        ------
+        ValueError
+            未知 ``htype``、非法 ``method`` / ``min_periods``。
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> import pandas as pd
+        >>> from qteasy import HistoryPanel
+        >>> data = np.array([[[1.], [2.], [3.]], [[2.], [4.], [6.]]])
+        >>> hp = HistoryPanel(data, levels=['a', 'b'],
+        ...                   rows=pd.date_range('2020-01-01', periods=3),
+        ...                   columns=['close'])
+        >>> float(hp.corr('close').loc['a', 'b'])
+        1.0
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if method not in ('pearson', 'spearman'):
+            raise ValueError(
+                f"method must be 'pearson' or 'spearman', got {method!r}"
+            )
+        if not isinstance(min_periods, (int, np.integer)) or isinstance(min_periods, bool):
+            raise ValueError(f'min_periods must be an int >= 1, got {min_periods!r}')
+        if int(min_periods) < 1:
+            raise ValueError(f'min_periods must be >= 1, got {min_periods}')
+
+        wide = self._htype_wide_frame(htype)
+        return wide.corr(method=method, min_periods=int(min_periods))
+
+    def cov(
+            self,
+            htype: str,
+            *,
+            min_periods: int = 1,
+            ddof: int = 1,
+    ) -> pd.DataFrame:
+        """对指定 htype，在 share 维上计算时序两两协方差矩阵。
+
+        语义同 ``corr``：每个标的一条时间序列，返回 ``shares × shares`` 协方差矩阵。
+
+        Parameters
+        ----------
+        htype : str
+            参与计算的数据类型列名。
+        min_periods : int, default 1
+            计算每对协方差所需的最少有效观测数，透传给 pandas。
+        ddof : int, default 1
+            自由度修正，透传给 ``DataFrame.cov``。
+
+        Returns
+        -------
+        pandas.DataFrame
+            index/columns 均为 ``shares``；空面板返回空表。
+
+        Raises
+        ------
+        ValueError
+            未知 ``htype``、非法 ``min_periods``。
+
+        Examples
+        --------
+        >>> import numpy as np
+        >>> import pandas as pd
+        >>> from qteasy import HistoryPanel
+        >>> data = np.array([[[1.], [2.], [3.]], [[2.], [4.], [6.]]])
+        >>> hp = HistoryPanel(data, levels=['a', 'b'],
+        ...                   rows=pd.date_range('2020-01-01', periods=3),
+        ...                   columns=['close'])
+        >>> hp.cov('close').shape
+        (2, 2)
+        """
+        if self.is_empty:
+            return pd.DataFrame()
+        if not isinstance(min_periods, (int, np.integer)) or isinstance(min_periods, bool):
+            raise ValueError(f'min_periods must be an int >= 1, got {min_periods!r}')
+        if int(min_periods) < 1:
+            raise ValueError(f'min_periods must be >= 1, got {min_periods}')
+
+        wide = self._htype_wide_frame(htype)
+        return wide.cov(min_periods=int(min_periods), ddof=ddof)
+
     def describe(
             self,
             by: Optional[str] = 'share',
@@ -3125,6 +3906,208 @@ class HistoryPanel():
         if by not in ('share', 'htype'):
             raise ValueError(f'parameter \"by\" must be \"share\" or \"htype\", got {by}')
         return HistoryPanelRolling(self, window, min_periods, center, by)
+
+    @staticmethod
+    def _validate_nonzero_int_periods(periods: Any) -> int:
+        """校验 ``periods`` 为非零整数；非法时抛出英文 ``ValueError``。
+
+        Parameters
+        ----------
+        periods : Any
+            待校验的位移/差分步数。
+
+        Returns
+        -------
+        int
+            规范化后的非零整数。
+        """
+        if isinstance(periods, bool) or not isinstance(periods, (int, np.integer)):
+            raise ValueError(f'periods must be a non-zero int, got {periods!r}')
+        periods_i = int(periods)
+        if periods_i == 0:
+            raise ValueError('periods must be a non-zero int, got 0')
+        return periods_i
+
+    def _resolve_htype_column_indices(
+            self,
+            htypes: Optional[Union[str, Sequence[str]]],
+    ) -> List[int]:
+        """解析 ``htypes`` 为目标列下标；``None`` 表示全部列。
+
+        Parameters
+        ----------
+        htypes : str or sequence of str or None
+            列名（支持逗号分隔字符串）；``None`` 表示全部 ``htypes``。
+
+        Returns
+        -------
+        list of int
+            列轴下标列表。
+
+        Raises
+        ------
+        ValueError
+            列名不在面板中时抛出（英文消息）。
+        """
+        if htypes is None:
+            return list(range(self.htype_count))
+        if isinstance(htypes, str):
+            names = str_to_list(htypes)
+        else:
+            names = list(htypes)
+        indices: List[int] = []
+        for name in names:
+            if name not in self.htypes:
+                raise ValueError(f'htype {name!r} not found in panel htypes {list(self.htypes)}')
+            indices.append(self.htypes.index(name))
+        return indices
+
+    def _new_panel_from_values(self, values: np.ndarray) -> 'HistoryPanel':
+        """用同轴标签与新 ``values`` 构造新面板。
+
+        Parameters
+        ----------
+        values : np.ndarray
+            与当前面板同形的数值数组。
+
+        Returns
+        -------
+        HistoryPanel
+            新面板实例。
+        """
+        return HistoryPanel(
+            values=values,
+            levels=list(self.shares),
+            rows=list(self.hdates),
+            columns=list(self.htypes),
+        )
+
+    def shift(
+            self,
+            periods: int = 1,
+            *,
+            htypes: Optional[Union[str, Sequence[str]]] = None,
+            fill_value: float = np.nan,
+    ) -> 'HistoryPanel':
+        """沿时间轴（hdates）位移指定列；正 ``periods`` 为向后看历史（与 pandas 一致）。
+
+        返回新 ``HistoryPanel``，shape/轴标签不变，移位空位为 ``fill_value``。
+        未指定的列保持原值拷贝。
+
+        Parameters
+        ----------
+        periods : int, default 1
+            非零整数位移步数；负值表示向前看未来。
+        htypes : str or sequence of str or None, default None
+            要位移的列；``None`` 表示全部列。
+        fill_value : float, default np.nan
+            空位填充值。
+
+        Returns
+        -------
+        HistoryPanel
+            新面板；空面板返回空 ``HistoryPanel()``。
+
+        Examples
+        --------
+        >>> hp = HistoryPanel(values=np.arange(6.).reshape(1, 3, 2),
+        ...                   levels=['s1'], rows=['d1', 'd2', 'd3'],
+        ...                   columns=['a', 'b'])
+        >>> hp.shift(1).values[0, :, 0]
+        array([nan,  0.,  2.])
+        """
+        if self.is_empty:
+            return HistoryPanel()
+        periods_i = self._validate_nonzero_int_periods(periods)
+        col_idx = self._resolve_htype_column_indices(htypes)
+        values = np.asarray(self.values, dtype=float).copy()
+        sub = values[:, :, col_idx]
+        values[:, :, col_idx] = shift_ndarray(
+            sub, periods_i, axis=1, fill_value=fill_value,
+        )
+        return self._new_panel_from_values(values)
+
+    def diff(
+            self,
+            periods: int = 1,
+            *,
+            htypes: Optional[Union[str, Sequence[str]]] = None,
+    ) -> 'HistoryPanel':
+        """一阶差分：``x[t] - x[t-periods]``；``htypes=None`` 时对全部列。
+
+        前 ``periods`` 行（正位移）为 NaN；返回新面板，未选中列保持原值。
+
+        Parameters
+        ----------
+        periods : int, default 1
+            非零整数差分步数。
+        htypes : str or sequence of str or None, default None
+            要差分的列；``None`` 表示全部列。
+
+        Returns
+        -------
+        HistoryPanel
+            新面板；空面板返回空 ``HistoryPanel()``。
+
+        Examples
+        --------
+        >>> hp = HistoryPanel(values=np.array([[[1.], [3.], [6.]]]),
+        ...                   levels=['s1'], rows=['d1', 'd2', 'd3'],
+        ...                   columns=['close'])
+        >>> hp.diff().values[0, :, 0]
+        array([nan,  2.,  3.])
+        """
+        if self.is_empty:
+            return HistoryPanel()
+        periods_i = self._validate_nonzero_int_periods(periods)
+        col_idx = self._resolve_htype_column_indices(htypes)
+        values = np.asarray(self.values, dtype=float).copy()
+        sub = values[:, :, col_idx].copy()
+        shifted = shift_ndarray(sub, periods_i, axis=1, fill_value=np.nan)
+        values[:, :, col_idx] = sub - shifted
+        return self._new_panel_from_values(values)
+
+    def pct_change(
+            self,
+            periods: int = 1,
+            *,
+            htypes: Optional[Union[str, Sequence[str]]] = None,
+    ) -> 'HistoryPanel':
+        """列级百分比变化：``(x[t] / x[t-periods]) - 1``。
+
+        与 :meth:`returns` 的区别：不绑定价格语义、不调用 ``_resolve_price_htype``；
+        可对任意列做通用百分比变化。除零结果遵循 NumPy（``±inf``）。
+
+        Parameters
+        ----------
+        periods : int, default 1
+            非零整数间隔步数。
+        htypes : str or sequence of str or None, default None
+            要计算的列；``None`` 表示全部列。
+
+        Returns
+        -------
+        HistoryPanel
+            新面板；空面板返回空 ``HistoryPanel()``。
+
+        Examples
+        --------
+        >>> hp = HistoryPanel(values=np.array([[[1.], [2.], [4.]]]),
+        ...                   levels=['s1'], rows=['d1', 'd2', 'd3'],
+        ...                   columns=['close'])
+        >>> hp.pct_change().values[0, :, 0]
+        array([nan,  1.,  1.])
+        """
+        if self.is_empty:
+            return HistoryPanel()
+        periods_i = self._validate_nonzero_int_periods(periods)
+        col_idx = self._resolve_htype_column_indices(htypes)
+        values = np.asarray(self.values, dtype=float).copy()
+        sub = values[:, :, col_idx].copy()
+        shifted = shift_ndarray(sub, periods_i, axis=1, fill_value=np.nan)
+        with np.errstate(divide='ignore', invalid='ignore'):
+            values[:, :, col_idx] = sub / shifted - 1.0
+        return self._new_panel_from_values(values)
 
     def returns(
             self,
@@ -4267,12 +5250,14 @@ class HistoryPanel():
             return df_dict
 
     def unstack(self, by: str = 'share') -> dict:
-        """ 等同于方法self.to_df_dict(), 是方法self.to_df_dict()的别称
+        """将 HistoryPanel 转为 dict of DataFrame（兼容别名）。
+
+        推荐使用 ``to_df_dict``；本方法为兼容别名，行为相同。
 
         Parameters
         ----------
         by: str, {'share', 'htype'}, default 'share'
-            指定按照share或者htype来unstack, 默认为share
+            指定按照 share 或者 htype 来切分，默认为 share
 
         Returns
         -------
@@ -4990,16 +5975,20 @@ class HistoryPanel():
 
     # 以下 legacy 方法仅保留占位，统一通过 HistoryPanel.plot() 实现可视化
     def candle(self, *args, **kwargs):
-        """基于当前 ``HistoryPanel`` 数据绘制蜡烛图 （已由 ``plot()`` 统一处理）
+        """基于当前 ``HistoryPanel`` 数据绘制蜡烛图（已弃用，请用 ``plot()``）。
 
         Notes
         -----
         - 新版可视化推荐直接调用 ``HistoryPanel.plot()``，并通过 htypes / layout
           控制是否输出 K 线、成交量等图表类型。
-        - 本方法在内部会委托给可视化子模块的统一入口实现，行为与 ``plot()`` 保持
-          一致，仅作为语义化别名存在。
+        - 本方法在内部委托给 ``plot()``，行为与 ``plot()`` 保持一致，仅作为语义化别名存在。
         """
-        raise NotImplementedError
+        warnings.warn(
+            "HistoryPanel.candle is deprecated, use plot(...) instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
+        return self.plot(*args, **kwargs)
 
 
 class _HistoryPanelKlineAccessor:

@@ -1,0 +1,78 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 10:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/examples/Example_05_类网格交易.md:1
+msgid "类网格交易策略"
+msgstr "疑似グリッド取引戦略"
+
+#: ../../source/examples/Example_05_类网格交易.md:3
+msgid ""
+"参考来源：`docs/_joinquant_migration_source/Example_05_类网格交易.ipynb` 第一个 Markdown "
+"cell。"
+msgstr ""
+"参照元：`docs/_joinquant_migration_source/Example_05_Class Grid Trading.ipynb` "
+"最初のMarkdownセル。"
+
+#: ../../source/examples/Example_05_类网格交易.md:5
+msgid "本策略首先计算过去300个价格数据的均值和标准差 (天数是一个可调参数)"
+msgstr "この戦略では、最初に過去 300 の価格データ ポイントの平均と標準偏差が計算されます (日数は調整可能なパラメーターです)。"
+
+#: ../../source/examples/Example_05_类网格交易.md:6
+msgid "并根据均值加减1和2个标准差得到网格的区间分界线,（加减标准差的倍数是可调参数)"
+msgstr ""
+"グリッド間隔の境界は、平均値から 1 および 2 の標準偏差を加算または減算することによって取得されます "
+"(標準偏差の加算または減算の乗数は調整可能なパラメータです)。"
+
+#: ../../source/examples/Example_05_类网格交易.md:7
+msgid "并分别配以0.3和0.5的仓位权重 (仓位权重是可调参数）"
+msgstr "これらには、それぞれ 0.3 と 0.5 の位置の重みが割り当てられます (位置の重みは調整可能なパラメータです)。"
+
+#: ../../source/examples/Example_05_类网格交易.md:8
+msgid ""
+"然后根据价格所在的区间来配置仓位(+/-40为上下界,无实际意义): "
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40](具体价格等于均值+数字倍标准差) [-0.5, -0.3, 0.0, 0.3,"
+" 0.5] (资金比例,此处负号表示开空仓，回测时设置为允许持有空头仓位)"
+msgstr ""
+"次に、価格範囲に基づいてポジション サイズを設定します (+/-40 は上限と下限であり、実際的な意味はありません): "
+"(-40,-3],(-3,-2],(-2,2],(2,3],(3,40) (特定の価格は平均値と標準偏差の倍数に等しい) [-0.5, -0.3, "
+"0.0, 0.3, 0.5] (資本比率、ここでのマイナス記号はショート ポジションをオープンすることを示し、バックテスト中にショート "
+"ポジションを保持できるように設定されています)。"
+
+#: ../../source/examples/Example_05_类网格交易.md:12
+msgid "回测数据为:HS300指数的1min数据 回测时间为:2022-03-01 09:30:00到2022-07-31 15:00:00"
+msgstr ""
+"バックテスト データは、HS300 指数の 1 分間のデータ "
+"ポイントで構成されます。バックテスト期間は2022年3月1日9時30分00秒から2022年7月31日15時00分00秒まで。"
+
+#: ../../source/examples/Example_05_类网格交易.md:20
+msgid "定义交易策略"
+msgstr "取引戦略を定義する"
+
+#: ../../source/examples/Example_05_类网格交易.md:65
+msgid "设定交易员对象，并且设置交易配置，实施交易回测"
+msgstr "トレーダー オブジェクトを定義し、取引設定を構成し、取引バックテストを実行します。"
+
+#: ../../source/examples/Example_05_类网格交易.md:133
+msgid "![png](img/output_3_1.png)"
+msgstr "![png](img/output_3_1.png)"
+
+#: ../../source/examples/Example_05_类网格交易.md:133
+msgid "png"
+msgstr "png"

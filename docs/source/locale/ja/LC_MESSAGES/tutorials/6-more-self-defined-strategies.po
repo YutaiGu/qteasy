@@ -1,0 +1,619 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-08-21 17:32+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:2
+msgid "创建自定义因子选股交易策略"
+msgstr "別のカスタム戦略"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:4
+msgid "`qteasy`是一个完全本地化部署和运行的量化交易分析工具包，具备以下功能："
+msgstr "`qteasy` は、以下の機能を備えた定量的取引分析ツールキットの完全にローカライズされた展開と運用です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:6
+msgid "金融数据的获取、清洗、存储以及处理、可视化、使用"
+msgstr "財務データの取得、クリーニング、保管、処理、可視化、および使用"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:7
+msgid "量化交易策略的创建，并提供大量内置基本交易策略"
+msgstr "クオンツ取引戦略を作成し、多数の組み込みの基本取引戦略を提供します"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:8
+msgid "向量化的高速交易策略回测及交易结果评价"
+msgstr "ベクトル化された高速取引戦略のバックテストと取引結果の評価"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:9
+msgid "交易策略参数的优化以及评价"
+msgstr "取引戦略パラメーターの最適化と評価"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:10
+msgid "交易策略的部署、实盘运行"
+msgstr "取引戦略の展開と実際の運用"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:12
+msgid "通过本系列教程，您将会通过一系列的实际示例，充分了解`qteasy`的主要功能以及使用方法。"
+msgstr "このチュートリアルでは、一連の実践的な例を通じて、`qteasy` の主な機能と使用法を完全に理解します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:14
+msgid "开始前的准备工作"
+msgstr "始める前に"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:16
+msgid "在开始本节教程前，请先确保您已经掌握了下面的内容："
+msgstr "このチュートリアルを開始する前に、次の内容を習得していることを確認してください。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:18
+msgid "**安装、配置`qteasy`** —— [QTEASY教程1](1-get-started.md)"
+msgstr "**`qteasy`** のインストールと構成 —— [QTEASY チュートリアル 1](1-get-started.md)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:19
+msgid "**设置了一个本地数据源**，并已经将足够的历史数据下载到本地——[QTEASY教程2](2.0-get-data.md)"
+msgstr "**ローカル データ ソースをセットアップし**、十分な履歴データをローカルにダウンロードしている -"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:20
+msgid "**学会创建交易员对象，使用内置交易策略**，——[QTEASY教程3](3-start-first-strategy.md)"
+msgstr ""
+"**トレーダー オブジェクトの作成方法、組み込み取引戦略の使用方法を学びます** —— [QTEASY チュートリアル 3](3-start-"
+"first-strategy.md)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:21
+msgid "**学会使用混合器，将多个简单策略混合成较为复杂的交易策略**——[QTEASY教程4](4-build-in-strategies.md)"
+msgstr ""
+"**ミキサーを使用して、複数の単純な戦略を混合してより複雑な取引戦略を作成する方法を学びます** —— [QTEASY チュートリアル "
+"4](4-build-in-strategies.md)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:22
+msgid "**了解如何自定义交易策略**——[QTEASY教程5](5-first-self-defined-strategy.md)"
+msgstr ""
+"**取引戦略をカスタマイズする方法を学ぶ** —— [QTEASY チュートリアル 5](5-first-self-defined-"
+"strategy.md)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:24
+msgid ""
+"在[QTEASY文档](https://qteasy.readthedocs.io/zh-"
+"cn/latest/)中，还能找到更多关于使用内置交易策略、创建自定义策略等等相关内容。对`qteasy`的基本使用方法还不熟悉的同学，可以移步那里查看更多详细说明。"
+msgstr ""
+"[QTEASY ドキュメント](https://qteasy.readthedocs.io/ja/latest/) "
+"では、組み込み取引戦略の使用、カスタム戦略の作成などに関する詳細なコンテンツも見つけることができます。 `qteasy` "
+"の基本的な使用法にまだ慣れていない場合は、そこにアクセスしてさらに詳しい説明を参照してください。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:26
+msgid "本节的目标"
+msgstr "このチュートリアルのターゲット"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:28
+msgid ""
+"在本节中，我们将承接上一节开始的内容，介绍`qteasy`的交易策略基类，在介绍过一个最简单的择时交易策略类以后，我们将介绍如何使用`qteasy`提供的另外两种策略基类，创建一个多因子选股策略。"
+msgstr ""
+"このセクションでは、前のセクションの内容を継続し、`qteasy` のトレーディング戦略基本クラスを紹介します。最も単純なタイミング "
+"トレーディング戦略クラスを紹介した後、`qteasy` が提供する他の 2 つの戦略基本クラスを使用して多要素銘柄選択戦略を作成する方法を紹介します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:30
+msgid ""
+"为了提供足够的使用便利性，`qteasy`的提供的各种策略基类本质上并无区别，只是为了减少用户编码工作量而提供的预处理形式，甚至可以将不同的交易策略基类理解成，为了特定交易策略设计的“语法糖”，因此，同一交易策略往往可以用多种不同的交易策略基类实现，因此，在本节中，我们将用两种不同的策略基类来实现一个Alpha选股交易策略。"
+msgstr ""
+"十分な使いやすさを提供するために、`qteasy` "
+"によって提供されるさまざまな戦略基本クラスは本質的に同じであり、ユーザーのコーディング作業負荷を軽減するために提供される前処理形式にすぎません。また、異なる取引戦略基本クラスであっても、特定の取引戦略用に設計された「構文糖」として理解できます。したがって、多くの場合、同じ取引戦略を複数の異なる取引戦略基本クラスを使用して実装できます。したがって、このセクションでは、2"
+" つの異なる戦略基本クラスを使用して、アルファ銘柄選択トレーディング戦略を実装します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:31
+msgid "Alpha选股策略的选股思想"
+msgstr "アルファ銘柄選択戦略の仕組み"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:33
+msgid ""
+"我们在这里讨论的Alpha选股策略是一个低频运行的选股策略，这个策略可以每周或者每月运行一次，每次选股时会遍历HS300指数的全部成分股，依照一定的标准将这300支股票进行优先级排序，从中选择出排位靠前的30支股票，等权持有，也就是说，每个月进行一次调仓换股，调仓时将排名靠后的股票卖掉，买入排名靠前的股票，并确保股票的持有份额相同。"
+msgstr ""
+"ここで説明するアルファ銘柄選択戦略は、毎週または毎月実行できる低頻度の銘柄選択戦略です。銘柄が選択されるたびに、HS300 "
+"インデックスのすべての構成銘柄が対象となり、特定の基準に従ってこれら 300 "
+"銘柄に優先順位が付けられます。その中から上位30銘柄を選んで均等に保有、つまり月に1回リバランスを行い、リバランス中に順位の低い銘柄を売却し、順位の高い銘柄を購入して均等保有を確保します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:35
+msgid ""
+"Alpha选股策略的排名依据每一支股票的两个财务指标：`EV`（企业市场价值）以及`EBITDA`（息税折旧摊销前利润）来计算，对每一支股票计算EV与EBITDA的比值，当这个比值大于0的时候，说明该上市公司是盈利的（因为`EBITDA`为正）。这时，这个比值代表该公司每赚到一块钱利润，需要投入的企业总价值。自然，这个比值越低越好。例如，下面两家上市公司数据如下："
+msgstr ""
+"アルファ銘柄選択戦略のランキング基準は、各銘柄の 2 つの財務指標、`EV` (企業価値) と `EBITDA` (利息、税金、減価償却前利益) "
+"から計算されます。各銘柄について、EBITDA に対する EV の比率を計算します。この比率が 0 "
+"より大きい場合、上場企業が利益を上げていることを示します (`EBITDA` がプラスであるため)。この場合、比率は企業が 1 "
+"元の利益を得るために投資する必要がある企業価値の総額を表します。当然のことながら、この比率は低いほど良いです。例えば、以下の上場企業2社のデータは以下の通りです。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:37
+msgid ""
+"A公司的`EBITDA`为一千万，而企业市场价值为一百亿，`EV`/`EBITDA`=1000.。说明该公司每一千元的市场价值可以挣到一元钱利润"
+msgstr ""
+"会社 A の `EBITDA` は 1,000 万、企業市場価値は 100 億です。 `EV`/`EBITDA` = 1000。これは、企業の市場価値 "
+"1,000 元ごとに 1 元の利益を得ることができることを示します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:38
+msgid ""
+"B公司的`EBITDA`同样为一千万，企业市场价值为一千亿，`EV`/`EBITDA`=10000，说明该公司每一万元的市场价值可以挣到一元钱利润"
+msgstr ""
+"B 社の `EBITDA` は 1,000 万、企業市場価値は 1,000 億です。 `EV`/`EBITDA` = 10000、企業の市場価値 "
+"10,000 元ごとに 1 元の利益を得ることができることを示します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:40
+msgid "从常理分析，我们自然会觉得A公司比较好，因为靠着较少的公司市场价值，就挣到了同样的利润，这时我们认为A公司的排名比较靠前。"
+msgstr ""
+"通常、私たちは企業の市場価値が低くても同じ利益を上げている A "
+"社の方が優れていると自然に感じます。現時点ではA社のランキングは比較的高いと考えられます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:42
+msgid ""
+"按照上面的规则，我们在每个月的最后一天，将HS300成分股的所有上市公司全部进行一次从小到大排名，剔除掉EV/EBITDA小于0的公司（盈利为负的公司当然应该剔除）以后，选择排名最靠前的30个公司持有，就是Alpha选股交易策略。"
+msgstr ""
+"上記のルールに従い、毎月末にHS300構成銘柄の全上場企業を小型から大型までランク付けし、EV/EBITDAが0未満の企業を除外します（もちろん、利益がマイナスの企業は除外する必要があります）。その後、保有する上位"
+" 30 社を選択します。これがアルファ銘柄選択取引戦略です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:44
+msgid "其实，类似于这样的指标排序选股策略，`qteasy`提供了一个内置交易策略可以直接实现。"
+msgstr "実際、指標によってランク付けされるこのような銘柄選択戦略のために、`qteasy` はそれを直接実装できる組み込みの取引戦略を提供します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:46
+msgid "使用`built_in_doc`来查看这个内置交易策略的文档："
+msgstr "`built_in_doc` を使用して、この組み込み取引戦略のドキュメントを表示します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:52
+#: ../../source/tutorials/6-more-self-defined-strategies.md:102
+#: ../../source/tutorials/6-more-self-defined-strategies.md:132
+#: ../../source/tutorials/6-more-self-defined-strategies.md:147
+msgid "输出如下："
+msgstr "出力は次のとおりです。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:92
+msgid ""
+"不过这个内置交易策略仅支持以`qteasy`内置历史数据类型为选股因子，例如pe市盈率、profit利润等数据是`qteasy`的内置历史数据，可以直接引用。但如果是``qteasy``内置历史数据中找不到的选股因子，就不能直接使用内置交易策略了。`EV`/`EBITDA`这个指标是一个计算指标，因此，我们必须使用自定义交易策略。并在自定义策略中计算该指标。"
+msgstr ""
+"ただし、この組み込み取引戦略は、銘柄選択要素として `qteasy` 組み込み履歴データ "
+"タイプの使用のみをサポートします。例えば、PE（株価収益率）や利益などのデータは`qteasy`に過去のデータが組み込まれており、直接参照することができます。ただし、`qteasy`"
+" の組み込み履歴データで銘柄選択要素が見つからない場合、組み込みの取引戦略を直接使用することはできません。 `EV`/`EBITDA` "
+"インジケーターは計算されたインジケーターであるため、カスタム取引戦略を使用し、カスタム戦略内でこのインジケーターを計算する必要があります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:93
+msgid "计算选股指标"
+msgstr "銘柄選択指標の計算"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:95
+msgid "为了计算EV/EBITDA，我们必须至少先确认`qteasy`中是否已经提供了EV和EBITDA这两种历史数据："
+msgstr ""
+"EV/EBITDA を計算するには、少なくとも `qteasy` が EV と EBITDA に次の 2 "
+"種類の履歴データを提供したかどうかを確認する必要があります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:97
+msgid "我们可以使用API：`find_history_data()`来查看历史数据类型是否被`qteasy`支持，首先查找 `ebitda`"
+msgstr ""
+"API: `find_history_data()` を使用して、履歴データ型が `qteasy` "
+"でサポートされているかどうかを確認できます。まず、`ebitda` を調べます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:113
+msgid ""
+"`qteasy`中的数据类型需要通过`qteasy.DataType`来创建，`DataType`代表了一种历史数据类型，它代表了`qteasy`可以直接从历史数据中提取出的一类信息，通过数据类型对象，`qteasy`提供了统一的数据接口，使得用户可以非常容易地获取到各种历史数据信息，而不需要关心数据类型的存储方式、存储位置；同时，`qteasy`完全封装了所有数据类型的类型处理、频率转换、股票代码匹配等等非常繁杂的底层数据逻辑，使得用户可以完全不用关心每一种数据的存储方式、直接使用即可。"
+msgstr ""
+"`qteasy` のデータ型は、`qteasy.DataType` を介して作成する必要があります。 `DataType` は、一種の履歴データ "
+"タイプ、つまり、`qteasy` が履歴データから直接抽出できる情報のカテゴリを表します。データ型オブジェクトを通じて、`qteasy` "
+"は統一されたデータ "
+"インターフェイスを提供し、ユーザーはデータ型の保存方法や保存場所を気にすることなく、さまざまな種類の履歴データを簡単に取得できます。同時に、`qteasy`"
+" は、型処理、周波数変換、ティッカー マッチングなどの複雑な基盤となるデータ "
+"ロジックをすべて完全にカプセル化しているため、ユーザーは各種類のデータの保存方法を気にする必要がなく、直接使用できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:115
+#, python-format
+msgid ""
+"关于`qteasy`数据类型的更详细介绍，请参见 [DataType 概念章](../manage_data/02.%20datatypes.md) 与"
+" [内置 DataType 完整清单](../references/datatypes/index.md)。"
+msgstr ""
+"`qteasy` データ型の詳細については、[DataType 概念の章](../manage_data/02.%20datatypes.md) および"
+" [組み込み DataType 完全なリスト](../references/datatypes/index.md) を参照してください。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:117
+msgid "`qteasy`的`DataType`包含三个属性："
+msgstr "`qteasy` の `DataType` には 3 つの属性が含まれます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:119
+msgid "name: 数据类型的名称，例如上面返回值中的`ebitda`"
+msgstr "name: データ型の名前。たとえば、上記の戻り値の `ebitda`"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:120
+msgid "freq: 数据的频率，例如上面返回值中的`q`，代表季度数据"
+msgstr "freq: データの頻度。たとえば、上記の戻り値の `q` は四半期データを表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:121
+msgid "asset_type: 数据的资产类型，例如上面返回值中的`E`，代表股票数据"
+msgstr "asset_type: データの資産タイプ。たとえば、上記の戻り値の `E` は株式データを表します"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:123
+msgid ""
+"以上三个属性共同定义了一种唯一的数据类型。`qteasy`内置了大量的历史数据类型，用户可以直接使用这些数据类型来获取历史数据，而不需要自己去计算或者处理原始数据来得到这些数据类型。"
+msgstr ""
+"これら 3 つの属性を合わせて一意のデータ型を定義します。 `qteasy` には、多数の組み込み履歴データ "
+"タイプが含まれています。ユーザーは、これらのデータ型を自分で計算したり、生データを処理してこれらのデータ型を導出する必要がなく、これらのデータ型を直接使用して履歴データを取得できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:125
+msgid ""
+"从上面的返回值可以看出，在`qteasy`的内置历史数据类型中，EBITDA是一个标准的历史数据类型，这个数据来自于上市公司财务指标表 "
+"`financial`， 数据频率为 `q`（季度）："
+msgstr ""
+"上記の戻り値から、`qteasy` の組み込みの履歴データ型では、EBITDA "
+"が標準の履歴データ型であることがわかります。このデータは上場企業の財務指標テーブル `financial` から取得され、データ頻度は `q` "
+"(四半期) です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:127
+msgid "接下来查看EV："
+msgstr "次にEVを見てみましょう。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:142
+msgid "表明在 `qteasy` 的内置历史数据类型中，没有找到名字为EV的历史数据类型，此时可以使用参数`fuzzy=True`来确认。"
+msgstr ""
+"これは、`qteasy` の組み込み履歴データ型の中に EV という名前の履歴データ型が見つからなかったことを示しています。この場合、パラメーター "
+"`fuzzy=True` を使用して確認できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:165
+msgid ""
+"上面这张表格列出了`qteasy`中已经定义好且可以直接使用的数据类型，请注意 `name` / `freq` / `asset` "
+"这三列，分别代表了数据类型的名称、数据频率以及数据的资产类型，这三列共同定义了一个唯一的数据类型，用户可以通过`qteasy.DataType(name,"
+" freq, asset)`来创建一个数据类型对象来获取这种数据类型的历史数据。"
+msgstr ""
+"上の表は、`qteasy` ですでに定義されており、直接使用できるデータ型を示しています。 `name` / `freq` / `asset` "
+"列に注目してください。これらはそれぞれデータ型名、データ頻度、資産タイプを表します。これら 3 "
+"つの列を合わせて、一意のデータ型を定義します。ユーザーは、`qteasy.DataType(name, freq, asset)` "
+"を介してデータ型オブジェクトを作成し、そのデータ型の履歴データを取得できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:167
+msgid ""
+"尽管EV并不在 `qteasy` "
+"的内置历史数据类型中，但我们可以看到有一些与EV相关的历史数据类型，例如总收入、每股收入等等，这些数据类型虽然与EV相关，但并不是我们需要的EV。"
+msgstr ""
+"EV は `qteasy` の組み込みの履歴データ タイプには含まれていませんが、総収益や 1 株あたりの利益など、EV に関連する履歴データ "
+"タイプがいくつかあることがわかります。これらのデータ タイプは EV に関連していますが、必要な EV ではありません。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:170
+msgid "不过，我们知道EV可以通过下面的公式计算："
+msgstr "ただし、EV は次の式を使用して計算できることがわかっています。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:172
+msgid " EV = MV 总市值 + TL 总负债 - Cash 总现金 "
+msgstr "EV = MV 時価総額合計 + TL 負債合計 - 現金合計"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:174
+msgid "而上面几个财务指标都是`qteasy`直接支持的："
+msgstr "上記の財務指標は `qteasy` によって直接サポートされています"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:176
+msgid "总市值 - 数据类型： `total_mv`"
+msgstr "市場価値合計 - データタイプ: `total_mv`"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:177
+msgid "总负债 - 数据类型： `total_liab`"
+msgstr "負債総額 - データタイプ: `total_liab`"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:178
+msgid "总现金 - 数据类型： `c_cash_equ_end_period`"
+msgstr "合計現金 - データタイプ: `c_cash_equ_end_period`"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:180
+msgid "为此我们可以测试一下，查看这些数据类型的详细解释："
+msgstr "したがって、これをテストして、これらのデータ型の詳細な説明を確認できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:185
+msgid "得到如下输出："
+msgstr "次の出力が得られます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:200
+msgid ""
+"这里需要注意的是`total_mv`这个数据类型有两个版本，一个是以万元为单位的，一个是以亿元为单位的，我们在计算EV/EBITDA的时候，严格说来单位并不重要，但是在其他情况下需要注意，我们这里将该数据乘以10000，以统一单位。"
+msgstr ""
+"`total_mv` データ型には、1 万元単位と 1 億元単位の 2 つのバージョンがあることに注意してください。 "
+"EV/EBITDAを計算する場合、厳密には単位は重要ではありませんが、それ以外の場合には注意が必要です。ここではこのデータを10,000倍して単位を統一します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:202
+msgid "我们在这选择`DataType('total_mv', 'd', 'E')`，这个数据类型代表了上市公司每天的总市值，单位为万元。"
+msgstr ""
+"ここでは`DataType('total_mv', 'd', 'E')`を選択します。このデータ タイプは、毎日の上場企業の時価総額の合計を "
+"10,000 元単位で表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:217
+msgid ""
+"在这里我们可以选择数据类型`DataType('total_liab', 'q', 'E')`，这个数据类型代表了上市公司每个季度末的总负债，单位为元。"
+msgstr ""
+"ここではデータ型 `DataType('total_liab', 'q', 'E')` を選択できます。このデータ "
+"タイプは、各四半期末の上場企業の負債総額を元単位で表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:266
+msgid ""
+"与cash相关的数据类型有很多，但我们需要的现金及现金等价物总额是`DataType(c_cash_equ_end_period, 'q', "
+"'E')`，这个数据类型代表了上市公司每个季度末的现金及现金等价物总额。"
+msgstr ""
+"現金に関連するデータの種類は多数ありますが、必要な現金および現金同等物の合計は `DataType(c_cash_equ_end_period, "
+"'q', 'E')` です。このデータ タイプは、各四半期末における上場企業の現金および現金同等物の合計を表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:268
+msgid "根据上面的信息，我们可以选择下面四种数据类型来计算EV："
+msgstr "上記の情報に基づいて、EV を計算するために次の 4 つのデータ タイプを選択できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:269
+msgid "**`DataType('total_mv', 'd', 'E')`**，这个数据类型代表了上市公司每天的总市值，单位为万元。"
+msgstr ""
+"**`DataType('total_mv', 'd', 'E')`**、このデータ タイプは、毎日の上場企業の時価総額の合計を 10,000 "
+"元単位で表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:270
+msgid "**`DataType('total_liab', 'q', 'E')`**，这个数据类型代表了上市公司每个季度末的总负债，单位为元。"
+msgstr ""
+"**`DataType('total_liab', 'q', 'E')`**: このデータ タイプは、各四半期末の上場企業の負債総額を人民元で表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:271
+msgid ""
+"**`DataType('c_cash_equ_end_period', 'q', "
+"'E')`**，这个数据类型代表了上市公司每个季度末的现金及现金等价物总额，单位为元。"
+msgstr ""
+"**`DataType('c_cash_equ_end_period', 'q', 'E')`**: このデータ "
+"タイプは、各四半期末における上場企業の現金および現金同等物の合計を人民元で表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:273
+msgid ""
+"我们可以测试一下，`qteasy`提供了一个非常方便的API：`get_history_data()`，可以直接获取到这些数据类型的历史数据："
+msgstr ""
+"簡単なテストを実行できます。 `qteasy` は、次のデータ タイプの履歴データを直接取得できる非常に便利な API "
+"`get_history_data()` を提供します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:322
+msgid "可以看到选股因子已经计算出来了，那么我们可以开始定义交易策略了。"
+msgstr "銘柄選択要素が計算されたことがわかり、取引戦略の定義を開始できます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:324
+msgid "用`FactorSorter`定义Alpha选股策略"
+msgstr "`FactorSorter` を使用してアルファ銘柄選択戦略を定義する"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:326
+msgid ""
+"针对这种定时选股类型的交易策略，`qteasy`提供了`FactorSorter`交易策略类，顾名思义，这个交易策略基类允许用户在策略的实现方法中计算一组选股因子，这样策略就可以自动将所有的股票按照选股因子的值排序，并选出排名靠前的股票。至于排序方法、筛选规则、股票持仓权重等都可以通过策略参数设置。"
+msgstr ""
+"`qteasy` は、このタイプの時限銘柄選択取引戦略用の `FactorSorter` "
+"取引戦略クラスを提供します。名前が示すように、このトレーディング戦略基本クラスを使用すると、ユーザーは戦略の実装方法で一連の銘柄選択要素を計算できるため、戦略は銘柄選択要素の値に従ってすべての銘柄を自動的に並べ替え、上位の銘柄を選択できます。ソート方法については、スクリーニングルールや株式保有ウェイト等を戦略パラメータにより設定可能です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:328
+msgid "如果符合上面定义的交易策略，使用`FactorSorter`策略基类将会非常方便。"
+msgstr "上記の取引戦略の定義を満たしている場合、`FactorSorter` 戦略基本クラスを使用すると非常に便利です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:330
+msgid ""
+"下面我们就来一步步定义看看，首先继承`FactorSorter`并定义一个类，在上一个章节中，我们在自定义策略的`__init__()`方法中定义名称、描述以及默认参数等信息，然而我们也可以忽略`__init__()`方法，仅仅在创建策略对象时传入参数等信息，这也是可以的，我们在这里就这样做："
+msgstr ""
+"次に、段階的に定義してみましょう。まず、`FactorSorter`を継承してクラスを定義します。前のセクションでは、カスタム ストラテジーの "
+"`__init__()` メソッドで名前、説明、デフォルト パラメーター、およびその他の情報を定義しました。ただし、`__init__()` "
+"メソッドを無視して、ストラテジー オブジェクトの作成時にパラメーターのみを渡すこともできます。これも可能です。ここでそれを行います:"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:346
+msgid ""
+"与上一节相同，在`realize()`中需要做的第一步是获取历史数据。我们知道历史数据包括`total_mv, total_liab, "
+"c_cash_equ_end_period, "
+"ebitda`等四种，这四种历史数据将会被定义为四种`DataType`传入策略中。在策略中要使用这些历史数据，可以直接使用`self.get_data()`方法："
+msgstr ""
+"前のセクションと同様に、`realize()` の最初のステップは履歴データを取得することです。過去のデータには、`total_mv, "
+"total_liab, c_cash_equ_end_period, ebitda` の 4 つのタイプが含まれていることがわかっています。これら 4 "
+"つの履歴データ シリーズは 4 つの `DataType` "
+"として定義され、戦略に渡されます。これらの履歴データを戦略で使用するには、`self.get_data()` を直接呼び出すことができます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:356
+msgid ""
+"`self.get_data()`方法通过每一种数据的数据ID来获取相应的历史数据。而每一种数据的ID默认ID就是它的名称、资产类型和频率的组合，例如："
+msgstr ""
+"`self.get_data()` メソッドは、各データ項目のデータ ID を介して、対応する履歴データを取得します。デフォルトでは、各データ項目の "
+"ID は、名前、アセット タイプ、および頻度の組み合わせです。次に例を示します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:358
+msgid "**`DataType('total_mv', 'd', 'E')`**，这个数据类型的ID为 `total_mv_E_d`。"
+msgstr "**`DataType('total_mv', 'd', 'E')`**: このデータ型の ID は `total_mv_E_d` です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:359
+msgid "**`DataType('total_liab', 'q', 'E')`**，这个数据类型的ID为：`total_liab_E_d`。"
+msgstr ""
+"**`DataType('total_liab', 'q', 'E')`**: このデータ型の ID は `total_liab_E_d` です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:361
+msgid ""
+"qteasy会在交易策略开始运行之前准备好相应的交易数据，所有的交易数据都是一个numpy数组，这个数组的行数与投资池中的股票数量相同，的每一列对应着股票池中的一支股票；而行数与时间窗口的长度相同，每一行对应着时间窗口中的一个时间点，且以升序排列，最后一列代表交易当时能看到的最新的历史数据。"
+msgstr ""
+"取引戦略の実行が開始される前に、qteasy は対応する取引データを準備します。すべての取引データは numpy "
+"配列に保存されます。列の数はユニバース内の株の数に対応し、各列はユニバース内の 1 "
+"つの株に対応します。行数は時間枠の長さに対応し、各行は時間枠内の時点に対応し、昇順で並べ替えられます。最後の列は、取引時に表示される最新の履歴データを表します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:363
+msgid ""
+"按照这个规则，如果要获取第I支股票在交易日当天能看到的最近的历史数据，只要访问array(-1， "
+"i)即可，通过下面的循环即可访问同一时间内的所有股票的数据："
+msgstr ""
+"このルールに従って、i 番目の株式の取引日に確認できる最新の履歴データを取得するには、array(-1， i) "
+"にアクセスするだけです。以下のループを使用すると、すべての株式のデータに同時にアクセスできます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:372
+msgid "不过，使用for-loop来访问数据的效率比较低，您最好在策略中尽量使用向量化的操作以节省时间。"
+msgstr ""
+"ただし、for "
+"ループを使用してデータにアクセスするのは比較的非効率です。時間を節約するために、戦略では可能な限りベクトル化された操作を使用する必要があります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:374
+msgid ""
+"做好上述准备后，计算选股因子就非常方便了，而且，由于我们使用了`FactorSorter`策略基类，计算好选股因子后，直接返回选股因子就可以了，`qteasy`会处理剩下的选股操作："
+msgstr ""
+"上記の準備ができていれば、銘柄選択要素を計算するのが非常に便利です。さらに、`FactorSorter` "
+"戦略基本クラスを使用しているため、銘柄選択係数を計算した後、銘柄選択係数を直接返すことができ、`qteasy` が残りの銘柄選択操作を処理します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:383
+msgid "至此，仅仅用六行代码，一个自定义Alpha选股交易策略就定义好了。是不是非常简单？"
+msgstr "これで、わずか 6 行のコードで、カスタムの Alpha 銘柄選択取引戦略が定義されました。とても簡単なことではありませんか？"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:385
+msgid "好了，我们来看看回测的结果如何？"
+msgstr "OK、バックテストの結果を見てみましょう?"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:387
+msgid "交易策略的回测结果"
+msgstr "取引戦略のバックテストの結果"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:389
+msgid "由于我们忽略了策略类的`__init__()`方法，因此在实例化策略对象时，必须输入完整的策略参数："
+msgstr ""
+"ストラテジ クラスの `__init__()` メソッドを無視したため、ストラテジ オブジェクトをインスタンス化するときに完全なストラテジ "
+"パラメータを入力する必要があります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:409
+msgid "然后创建一个`Operator`对象，因为我们希望控制持仓比例，因此最好使用“PT”信号类型："
+msgstr "次に、`Operator` オブジェクトを作成します。位置比率を制御したいため、「PT」信号タイプを使用するのが最善です。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:420
+#: ../../source/tutorials/6-more-self-defined-strategies.md:570
+msgid "回测结果如下："
+msgstr "バックテストの結果:"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:485
+msgid "![在这里插入图片描述](../examples/img/output_5_1_2.png)"
+msgstr "![](../examples/img/output_5_1_2.png)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:485
+#: ../../source/tutorials/6-more-self-defined-strategies.md:635
+msgid "在这里插入图片描述"
+msgstr "ここに画像の説明を挿入します"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:488
+msgid "回测结果显示这个策略并不能非常有效地跑赢沪深300指数，不过总体来说回撤较小一些，风险较低，是一个不错的保底策略。"
+msgstr ""
+"バックテストの結果によると、この戦略は上海および深セン 300 "
+"指数を効果的に上回ることはできませんが、全体的にはドローダウンが比較的小さく、リスクが低いため、良好な底値戦略となっています。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:490
+msgid "但策略的表现并不是我们讨论的重点，下面我们再来看一看，如果不用`FactorSorter`基类，如何定义同样的Alpha选股策略。"
+msgstr ""
+"しかし、戦略のパフォーマンスは私たちの議論の焦点では​​ありません。次に、`FactorSorter` "
+"基本クラスを使用せずに同じアルファ銘柄選択戦略を定義する方法を見てみましょう。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:491
+msgid "用`GeneralStg`定义一个Alpha选股策略"
+msgstr "`GeneralStg` を使用してアルファ銘柄選択戦略を定義する"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:492
+msgid "前面已经提过了两种策略基类："
+msgstr "以前に 2 つの戦略基本クラスを紹介しました。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:494
+msgid ""
+"**`RuleIterator`**： "
+"用户只需要针对一支股票定义选股规则，`qteasy`便能将同样的规则应用到股票池中所有的恶股票上，而且还能针对不同股票设置不同的可调参数"
+msgstr ""
+"**`RuleIterator`**: ユーザーは銘柄の銘柄選択ルールを定義するだけでよく、`qteasy` "
+"は株式プール内のすべての銘柄に同じルールを適用し、銘柄ごとに異なる調整可能なパラメーターを設定することもできます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:495
+msgid ""
+"**`FactorSorter`**：用户只需要定义一个选股因子，`qteasy`便能根据选股因子自动排序后选择最优的股票持有，并卖掉不够格的股票。"
+msgstr ""
+"**`FactorSorter`**：ユーザーは銘柄選択要素を定義するだけで、`qteasy`がソート後の銘柄選択要素に基づいて保有するのに最適な銘柄を自動的に選択し、適格でない銘柄を売却します。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:497
+msgid ""
+"而`GeneralStg`是`qteasy`提供的一个最基本的策略基类，它没有提供任何“语法糖”功能，帮助用户降低编码工作量，但是正是因为没有语法糖，它才是一个真正的“万能”策略类，可以用来更加自由地创建交易策略。"
+msgstr ""
+"`GeneralStg` は、`qteasy` "
+"が提供する基本的な戦略ベースクラスですが、ユーザーのコーディング負荷を軽減するための「シンタックスシュガー」機能は提供しませんが、シンタックスシュガーがないからこそ、より自由に取引戦略を作成するために使用できる真の「ユニバーサル」戦略クラスです。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:499
+msgid ""
+"上面的Alpha选股交易策略可以很容易用`FactorSorter`实现，但为了了解`GeneralStg`，我们来看看如何使用它来创建相同的策略："
+msgstr ""
+"上記のアルファ銘柄選択取引戦略は、`FactorSorter` を使用して簡単に実装できますが、`GeneralStg` "
+"を理解するために、それを使用して同じ戦略を作成する方法を見てみましょう。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:501
+msgid "直接把完整的代码贴出来："
+msgstr "完全なコードは次のとおりです。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:533
+msgid "将上面的代码与`FactorSorter`的代码对比，可以发现，`GeneralStg`的代码在计算出选股因子以后，还多出了因子处理的工作："
+msgstr ""
+"上記のコードと `FactorSorter` のコードを比較すると、`GeneralStg` "
+"のコードでは銘柄選択係数を計算した後の係数処理作業がより多くなっていることがわかります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:535
+msgid "剔除小于零的因子"
+msgstr "ゼロ未満の因子を削除する"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:536
+msgid "排序并选出剩余因子中最小的30个"
+msgstr "残りの因子を並べ替えて最小の 30 個を選択します"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:537
+msgid "选出股票后将他们的持仓比例设置为3.3%"
+msgstr "選択した銘柄のポジション比率を3.3%に設定します"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:539
+msgid ""
+"事实上，上面的这些工作都是`FactorSorter`提供的“语法糖”，在这里我们必须手动实现而已。值得注意的是，我在上面例子中使用的排序等代码都是从`FactorSorter`中直接提取出来的高度优化的`numpy`代码，它们的运行速度是很快的，比一般用户能写出的代码快很多，因此，只要条件允许，用户都应该尽量利用这些语法糖，只有在不得已的情况下才自己编写排序代码。"
+msgstr ""
+"実際、上記の作業はすべて、`FactorSorter` "
+"によって提供される「構文糖」であり、ここで手動で実装する必要があります。上記の例で使用したソートおよびその他のコードは、`FactorSorter` "
+"から直接抽出された`numpy` "
+"コードを高度に最適化したものであり、その実行速度が非常に速く、一般ユーザーが作成できるコードよりもはるかに高速であることは注目に値します。したがって、条件が許す限り、ユーザーはこれらの構文シュガーを可能な限り使用するように努め、必要な場合にのみソート"
+" コードを作成する必要があります。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:541
+msgid "大家可以研究一下上面的代码，但是请注意，如果使用`GeneralStg`策略类，策略的输出应该是股票的目标仓位，而不是选股因子。"
+msgstr ""
+"上記のコードを研究することもできますが、`GeneralStg` "
+"戦略クラスを使用する場合、戦略の出力は銘柄選択要素ではなく、銘柄の目標ポジションである必要があることに注意してください。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:543
+msgid "下面看看回测结果："
+msgstr "バックテストの結果は次のとおりです。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:545
+msgid "回测结果："
+msgstr "バックテストの結果:"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:547
+msgid "使用同样的数据进行回测："
+msgstr "同じデータを使用したバックテスト:"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:635
+msgid "![在这里插入图片描述](../examples/img/output_7_1.png)"
+msgstr "![](../examples/img/output_7_1.png)"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:637
+msgid "两种交易策略的输出结果基本相同"
+msgstr "2 つの取引戦略の結果は基本的に同じです"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:638
+msgid "本节回顾"
+msgstr "要約"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:640
+msgid ""
+"通过本节的学习，我们了解了`qteasy`提供的另外两种交易策略基类`FactorSorter`和`GeneralStg`的使用方法，实际创建了两个交易策略，虽然使用不同的基类，但是创建出了基本相同的Alpha选股交易策略。"
+msgstr ""
+"このセクションでは、`qteasy` が提供する他の 2 つの取引戦略基本クラス `FactorSorter` と `GeneralStg` "
+"の使用法を学習し、実際に 2 つの取引戦略を作成しました。異なる基本クラスが使用されますが、同じアルファ銘柄選択取引戦略が作成されます。"
+
+#: ../../source/tutorials/6-more-self-defined-strategies.md:642
+msgid "在下一个章节中，我们仍然将继续介绍自定义交易策略，但是会用一个更加复杂的例子来演示自定义交易策略的使用方法。敬请期待！"
+msgstr "次のセクションでは、カスタム取引戦略の紹介を続けますが、より複雑な例を使用してカスタム取引戦略の使用法を示します。乞うご期待！"
+
+#~ msgid ""
+#~ "关于`qteasy`数据类型的更详细介绍，请参见[QTEASY文档](https://qteasy.readthedocs.io/zh-"
+#~ "cn/latest/data_types.html)。"
+#~ msgstr ""
+#~ "`qteasy` データ型の詳細については、[QTEASY "
+#~ "ドキュメント](https://qteasy.readthedocs.io/ja/latest/data_types.html) を参照してください。"

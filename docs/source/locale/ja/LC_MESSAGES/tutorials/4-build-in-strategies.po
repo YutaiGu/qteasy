@@ -1,0 +1,1239 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (pivot_translate_from_en)\n"
+"Language-Team: ja <LL@li.org>\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/tutorials/4-build-in-strategies.md:1
+msgid "拼搭出一个比较复杂的策略"
+msgstr "組み込みの戦略を使用する"
+
+#: ../../source/tutorials/4-build-in-strategies.md:3
+msgid "`qteasy`是一个完全本地化部署和运行的量化交易分析工具包，具备以下功能："
+msgstr "`qteasy` は、以下の機能を備えた定量的取引分析ツールキットの完全にローカライズされた展開と運用です。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:5
+msgid "金融数据的获取、清洗、存储以及处理、可视化、使用"
+msgstr "財務データへのアクセス、クリーニング、保存、処理、視覚化、および使用"
+
+#: ../../source/tutorials/4-build-in-strategies.md:6
+msgid "量化交易策略的创建，并提供大量内置基本交易策略"
+msgstr "クオンツ取引戦略を作成し、多数の組み込みの基本取引戦略を提供します"
+
+#: ../../source/tutorials/4-build-in-strategies.md:7
+msgid "向量化的高速交易策略回测及交易结果评价"
+msgstr "ベクトル化された高速取引戦略のバックテストと取引結果の評価"
+
+#: ../../source/tutorials/4-build-in-strategies.md:8
+msgid "交易策略参数的优化以及评价"
+msgstr "取引戦略パラメーターの最適化と評価"
+
+#: ../../source/tutorials/4-build-in-strategies.md:9
+msgid "交易策略的部署、实盘运行"
+msgstr "取引戦略の展開と実際の運用"
+
+#: ../../source/tutorials/4-build-in-strategies.md:11
+msgid "通过本系列教程，您将会通过一系列的实际示例，充分了解`qteasy`的主要功能以及使用方法。"
+msgstr "この一連のチュートリアルでは、一連の実践的な例を通じて、`qteasy` の主な機能と使用法を完全に理解できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:13
+msgid "开始前的准备工作"
+msgstr "始める前に"
+
+#: ../../source/tutorials/4-build-in-strategies.md:15
+msgid "在开始本节教程前，请先确保您已经掌握了下面的内容："
+msgstr "このチュートリアルを開始する前に、次のことを習得していることを確認してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:17
+msgid "安装、配置`qteasy` —— 详情请参阅[QTEASY教程1](1-get-started.md)"
+msgstr ""
+"`qteasy` のインストールと構成 —— 詳細は [QTEASY チュートリアル 1](1-get-started.md) を参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:18
+msgid ""
+"设置了一个本地数据源，并已经将足够的历史数据下载到本地（包括交易日历、股票/基金/指数基本信息、股票/基金/指数的价格数据以及财务指标或其他财务数据——详情请参阅[QTEASY教程2](2.0-get-"
+"data.md)"
+msgstr ""
+"ローカル データ ソースが設定されており、十分な履歴データがすでにローカルにダウンロードされています "
+"(取引カレンダー、株式/ファンド/指数の基本情報、株式/ファンド/指数の価格データ、財務指標またはその他の財務データが含まれます。詳細については、[QTEASY"
+" チュートリアル 2](2.0-get-data.md) を参照してください)。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:19
+msgid ""
+"学会创建交易员对象，使用一个内置交易策略并回测其历史表现，检查回测日志、明白如何调整策略的运行参数或可调参数，改进策略的表现——[QTEASY教程3](3-start-"
+"first-strategy.md)"
+msgstr ""
+"トレーダー オブジェクトの作成方法、組み込み取引戦略の使用方法とその履歴パフォーマンスのバックテスト方法、バックテスト "
+"ログの確認方法、戦略の実行パラメーターまたは調整可能なパラメーターの調整方法の理解方法、および戦略のパフォーマンスの向上方法を学びます — "
+"[QTEASY チュートリアル 3](3-start-first-strategy.md)"
+
+#: ../../source/tutorials/4-build-in-strategies.md:21
+msgid ""
+"在[QTEASY文档](https://qteasy.readthedocs.io/zh-"
+"cn/latest/)中，还能找到更多关于如何创建交易员对象运行策略，使用历史数据回测策略，检查回测交易记录，修改策略等等相关内容。对`qteasy`的基本使用方法还不熟悉的同学，可以移步那里查看更多详细说明。"
+msgstr ""
+"[QTEASY ドキュメント](https://qteasy.readthedocs.io/ja/latest/) "
+"では、戦略を実行するためのトレーダー "
+"オブジェクトの作成方法、履歴データを使用したバックテスト戦略、バックテスト取引記録のレビュー、戦略の変更などに関する詳細コンテンツも見つけることができます。"
+" `qteasy` の基本的な使用法にまだ慣れていない場合は、そこにアクセスして詳細な説明を参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:23
+msgid "本节的目标"
+msgstr "この章の対象"
+
+#: ../../source/tutorials/4-build-in-strategies.md:25
+msgid ""
+"在上一节教程中，我们创建了一个Operator交易员对象，并且使该交易员运行了第一个选股交易策略。不过，在qteasy中，交易员的能耐可远不止运行一个交易策略这么简单。实际上，Operator对象类似于真正的交易员，它可以同时控制并运行任意多个交易策略，这些交易策略既可以在不同的时刻以不同的频率分别运行，也可以集中大量同时运行，而且，同时运行的策略还可以以任意指定的方式“混合”成需要的样子。"
+msgstr ""
+"前のチュートリアル セクションでは、Operator トレーダー オブジェクトを作成し、最初の銘柄選択取引戦略を実行させました。ただし、qteasy "
+"では、トレーダーは単一の取引戦略を実行するだけではありません。実際、Operator "
+"オブジェクトは実際のトレーダーに似ており、任意の数の取引戦略を同時に管理および実行できます。これらの戦略は、異なる時間と頻度で個別に実行することも、多くをまとめてバッチで実行することもできます。また、同時に実行される戦略は、任意の指定された方法で目的の形式に「ブレンド」することもできます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:27
+msgid ""
+"您可以把交易员想像成一名画家，手里的调色板上有着不同颜色的颜料，他既可以使用不同颜色的颜料勾勒出颜色鲜明的线条，也可以用几种不同颜色调配处柔和的过渡色；这样，即使画家手里的颜料只有寥寥数种，但是画笔下却可以调配出大千世界的亿万种色彩。"
+msgstr ""
+"トレーダーは、さまざまな色の絵の具が入ったパレットを持っている画家と考えることができます。さまざまな色を使用して鮮やかな線を描いたり、複数の色を混ぜて柔らかいトランジショントーンを作成したりできます。このようにして、たとえ画家が絵の具をほんの一握りしか持っていなくても、その筆は広大な世界を構成する何百万もの色を混ぜ合わせることができます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:29
+msgid ""
+"这正是`qteasy`的重要设计理念之一：Operator交易员对象通过下面两种工具，可以将非常简单的交易策略组合调配成非常复杂的交易策略，从而实现复杂的功能，这两种工具包括："
+msgstr ""
+"これは、まさに `qteasy` の重要な設計コンセプトの 1 つです。次の 2 つのツールを使用すると、Operator トレーダー "
+"オブジェクトは、非常に単純な取引戦略を組み合わせて非常に複雑な取引戦略に構成することができ、それによって複雑な機能が可能になります。これら 2 "
+"つのツールには次のものが含まれます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:31
+msgid ""
+"**Strategy Group "
+"策略组**：交易员可以将多个策略分组运行，每一组交易策略共享同样的运行频率（例如每日运行，每小时运行或每分钟运行）以及运行时机（例如每日收盘时运行或每天10:30运行），这样可以灵活地控制策略的运行时间。"
+msgstr ""
+"**戦略グループ**: トレーダーはグループで複数の戦略を実行できます。取引戦略の各グループは、同じ実行頻度 (例: 毎日、毎時、または毎分) "
+"と同じ実行タイミング (例: 毎日の終値または毎日 10:30) を共有するため、戦略をいつ実行するかを柔軟に制御できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:32
+msgid ""
+"**Blender "
+"策略混合器**：在同一组内同时运行的交易策略必然是同时运行的，此时各个策略会根据各自的运行逻辑生成一组交易信号，但是这一组交易信号必须被以某种方式“合并”成一组，这种合并的方式是通过混合器`blender`执行的，混合器专门负责将多个策略生成的交易信号融合成一组，而融合的逻辑完全由用户定义的`blender"
+" string`组合字符串确定，用户有完全控制权。"
+msgstr ""
+"**Blender Strategy Mixer**: "
+"同じグループ内で同時に実行される取引戦略は、必然的に同時に実行されます。各戦略は独自のロジックに従って一連の取引シグナルを生成しますが、この一連のシグナルは何らかの方法で"
+" 1 つのセットに「マージ」する必要があります。このマージは、ミキサー `blender` "
+"によって実行されます。ミキサーは、特に複数の戦略によって生成された取引シグナルを 1 つのセットに結合する役割を果たします。マージ "
+"ロジックはユーザー定義の `blender string` 構成文字列によって完全に決定され、ユーザーが完全に制御できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:34
+msgid ""
+"在本节中，我们将了解如果使用`qteasy`中更多的内置策略，如何使交易员同时运行多个交易策略，如何使用策略混合器`blender`来使用交易策略生成不同的组合策略，"
+msgstr ""
+"この章では、`qteasy` でさらに多くの組み込み戦略を使用する方法、トレーダーに複数の取引戦略を同時に実行させる方法、および戦略ミキサー "
+"`blender` を使用して取引戦略を使用してさまざまな組み合わせ戦略を生成する方法を学びます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:36
+msgid ""
+"目前`qteasy`支持超过70种内置交易策略，全部都是开箱即用，完整的内置交易策略清单请参见[参考文档](../references/4-build-"
+"in-strategy-blender.md)："
+msgstr ""
+"現在、`qteasy` は 70 "
+"を超える組み込み取引戦略をサポートしており、そのすべてをすぐに使用できます。組み込みの取引戦略の完全なリストについては、[参考ドキュメント](../references/4-build-"
+"in-strategy-blender.md) を参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:38
+msgid "通过下面的API可以获取qteasy中提供的所有内置交易策略的清单："
+msgstr "以下の API を使用して、qteasy で提供されるすべての組み込み取引戦略のリストを取得できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:44
+msgid "上面的API将返回qteasy所有内置交易策略："
+msgstr "上記の API は、qteasy に組み込まれているすべての取引戦略を返します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:64
+msgid ""
+"下面清单罗列了部分`qteasy`内置开箱即用的交易策略，完整的清单请参见[参考文档](../references/4-build-in-"
+"strategy-blender.md)"
+msgstr ""
+"次のリストは、`qteasy` "
+"ですぐに使用できる組み込みの取引戦略の一部を示しています。完全なリストについては、[参考ドキュメント](../references/4-build-"
+"in-strategy-blender.md) を参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "ID"
+msgstr "ID"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "策略名称"
+msgstr "名前"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "说明"
+msgstr "説明"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`crossline`"
+msgstr "`crossline`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingCrossline`"
+msgstr "`TimingCrossline`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"crossline择时策略类，利用长短均线的交叉确定多空状态<br />1，当短均线位于长均线上方，且距离大于l\\*m%时，设置仓位目标为1<br "
+"/>2，当短均线位于长均线下方，且距离大于l\\*m%时，设置仓位目标为-1<br />3，当长短均线之间的距离不大于l\\*m%时，设置仓位目标为0"
+msgstr ""
+"クロスライン タイミング戦略クラス。長移動平均と短移動平均のクロスを使用してロングとショートの状態を決定します。<br "
+"/>1.短期移動平均が長期移動平均を上回り、距離が l\\*m% より大きい場合、目標位置を 1<br />2 "
+"に設定します。短期移動平均が長期移動平均を下回り、距離が l\\*m% より大きい場合、目標位置を -1 に設定します<br "
+"/>3。長移動平均と短移動平均の間の距離が l\\*m% 以下の場合、ポジションターゲットを 0 に設定します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`macd`"
+msgstr "`macd`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingMACD`"
+msgstr "`TimingMACD`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"MACD择时策略类，运用MACD均线策略，生成目标仓位百分比:<br />1，当MACD值大于0时，设置仓位目标为1<br "
+"/>2，当MACD值小于0时，设置仓位目标为0"
+msgstr ""
+"MACD タイミング戦略クラス。MACD 移動平均戦略を使用してターゲット ポジション パーセンテージを生成します。<br />1. "
+"MACD値が0より大きい場合、ポジションターゲットを1<br />2に設定します。 MACD値が0未満の場合、ポジションターゲットを0に設定します"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`dma`"
+msgstr "`dma`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingDMA`"
+msgstr "`TimingDMA`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"DMA择时策略<br />1， DMA在AMA上方时，多头区间，即DMA线自下而上穿越AMA线后，输出为1<br />2， "
+"DMA在AMA下方时，空头区间，即DMA线自上而下穿越AMA线后，输出为0"
+msgstr ""
+"DMA タイミング戦略<br />1． DMA が AMA よりも高い場合、長い間隔になります。つまり、DMA ラインが AMA "
+"ラインを下から上に横切った後、出力は 1<br />2 になります。 DMA が AMA を下回る場合、それは短い間隔です。つまり、DMA ラインが "
+"AMA ラインを上から下まで横切った後、出力は 0 になります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`trix`"
+msgstr "`trix`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingTRIX`"
+msgstr "`TimingTRIX`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"TRIX择时策略，使用股票价格的三重平滑指数移动平均价格进行多空判断:<br "
+"/>计算价格的三重平滑指数移动平均价TRIX，再计算M日TRIX的移动平均：<br />1， TRIX位于MATRIX上方时，设置仓位目标为1<br "
+"/>2， TRIX位于MATRIX下方时，设置仓位目标位-1"
+msgstr ""
+"TRIX タイミング戦略、株価の 3 倍平滑指数移動平均価格を長短の判断に使用する:<br />価格の 3 倍平滑指数移動平均価格 TRIX "
+"を計算し、M 日 TRIX の移動平均を計算します。<br />1. TRIX が MATRIX より上の場合、位置目標を 1<br />2 "
+"に設定します。 TRIX が MATRIX を下回る場合、位置ターゲットを -1 に設定します"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`cdl`"
+msgstr "`cdl`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingCDL`"
+msgstr "`TimingCDL`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"CDL择时策略，在K线图中找到符合要求的cdldoji模式<br "
+"/>搜索历史数据窗口内出现的cdldoji模式（匹配度0～100之间），加总后/100，计算 等效cdldoji匹配数量，以匹配数量为交易信号。"
+msgstr ""
+"CDL タイミング戦略、K ライン チャートの要件を満たす cdldoji パターンを見つけます<br />履歴データ ウィンドウ (0 から 100 "
+"の間) に表示される cdldoji パターンを検索し、それを合計/100 し、同等の cdldoji "
+"一致数量を計算し、一致する数量を取引シグナルとして使用します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`bband`"
+msgstr "`bband`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingBBand`"
+msgstr "`TimingBBand`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"布林带线交易策略，根据股价与布林带上轨和布林带下轨之间的关系确定多空，在价格上穿或下穿布林带线上下轨时产生交易信号。布林带线的均线类型不可选<br "
+"/>1，当价格上穿上轨时，产生全仓买入信号<br />2，当价格下穿下轨时，产生全仓卖出信号"
+msgstr ""
+"ボリンジャーバンド取引戦略では、株価とボリンジャーバンドの上下バンドの関係に基づいてロングポジションとショートポジションを決定し、価格がボリンジャーバンドラインの上または下を横切るときに取引シグナルを生成します。ボリンジャーバンドラインの移動平均線タイプは選択できません<br"
+" />１．価格がアッパーバンドを超えると、フルポジションの買いシグナルが生成されます<br "
+"/>2.価格が下限バンドを下回ると、フルポジションの売りシグナルが生成されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`s-bband`"
+msgstr "`s-bband`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`SoftBBand`"
+msgstr "`SoftBBand`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"布林带线渐进交易策略，根据股价与布林带上轨和布林带下轨之间的关系确定多空，交易信号不是一次性产生的，而是逐步渐进买入和卖出。计算BBAND，检查价格是否超过BBAND的上轨或下轨：<br"
+" />1，当价格大于上轨后，每天产生10%的比例买入交易信号<br />2，当价格低于下轨后，每天产生33%的比例卖出交易信号"
+msgstr ""
+"ボリンジャーバンドのプログレッシブ取引戦略では、株価とボリンジャーバンドの上下バンドの関係に基づいてロングポジションとショートポジションを決定し、取引シグナルは一度に生成されるのではなく、徐々に売買されます。"
+" BBAND を計算し、価格が BBAND の上限または下限バンドを超えているかどうかを確認します。<br />1.価格が上限バンドを超えた後は、毎日 "
+"10% の比例した買いシグナルが生成されます。<br />2.価格が下限バンドを下回ると、毎日 33% の比例した売りシグナルが生成されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sarext`"
+msgstr "`sarext`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`TimingSAREXT`"
+msgstr "`TimingSAREXT`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "扩展抛物线SAR策略，当指标大于0时发出买入信号，当指标小于0时发出卖出信号"
+msgstr ""
+"拡張パラボリック SAR 戦略。インデックスが 0 より大きい場合に買いシグナルが発行され、インデックスが 0 "
+"より小さい場合に売りシグナルが発行されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`ssma`"
+msgstr "`ssma`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`SCRSSMA`"
+msgstr "`SCRSSMA`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "单均线交叉策略——SMA均线(简单移动平均线)：根据股价与SMA均线的相对位置设定持仓比例"
+msgstr "単一移動平均クロス戦略 —— SMA移動平均（単純移動平均）：株価とSMA移動平均の相対位置に応じてポジション比率を設定"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sdema`"
+msgstr "`sdema`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`SCRSDEMA`"
+msgstr "`SCRSDEMA`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "单均线交叉策略——DEMA均线(双重指数平滑移动平均线)：根据股价与DEMA均线的相对位置设定持仓比例"
+msgstr "単一移動平均クロス戦略 —— DEMA移動平均（二重指数平滑移動平均）：株価とDEMA移動平均の相対位置に応じてポジション比率を設定"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sema`"
+msgstr "`sema`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`SCRSEMA`"
+msgstr "`SCRSEMA`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "单均线交叉策略——EMA均线(指数平滑移动均线)：根据股价与EMA均线的相对位置设定持仓比例"
+msgstr "単一移動平均クロス戦略 —— EMA移動平均（指数平滑移動平均）：株価とEMA移動平均の相対位置に応じてポジション比率を設定"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "..."
+msgstr "..."
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "完整的内置策略清单请见[参考文档](../references/4-build-in-strategy-blender.md)"
+msgstr ""
+"組み込みストラテジーの完全なリストは、[参考ドキュメント](../references/4-build-in-strategy-blender.md) "
+"を参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:82
+msgid ""
+"每一个内置交易策略都有自己的ID（例如上表中的`crossline`、`macd`、`dma`等等），用户可以通过这个ID来获取内置交易策略的实例，并将其加入到交易员对象中使用。例如："
+msgstr ""
+"各組み込み取引戦略には独自の ID があります (例: 上の表の `crossline`、`macd`、`dma` など)。ユーザーは、この ID "
+"を使用して組み込み取引戦略のインスタンスを取得し、それをトレーダー オブジェクトに追加して使用できます。例えば："
+
+#: ../../source/tutorials/4-build-in-strategies.md:88
+msgid "得到输出："
+msgstr "得られた出力:"
+
+#: ../../source/tutorials/4-build-in-strategies.md:99
+msgid "如果需要查看每一个内置交易策略的详细解释，例如策略参数的含义、信号生成规则，可以查看每一个交易策略的`doc-string`："
+msgstr ""
+"戦略パラメーターの意味、シグナル生成ルールなど、各組み込み取引戦略の詳細な説明を表示する必要がある場合は、各取引戦略の `doc-string` "
+"を表示できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:101
+msgid "例如："
+msgstr "例えば："
+
+#: ../../source/tutorials/4-build-in-strategies.md:106
+msgid "可以看到"
+msgstr "ご覧いただけます"
+
+#: ../../source/tutorials/4-build-in-strategies.md:135
+msgid "在`ipython`等交互式`python`环境中，也可以使用`?`来显示内置交易策略的详细信息，例如："
+msgstr ""
+"`ipython` などのインタラクティブな `python` 環境では、`?` "
+"を使用して組み込みの取引戦略に関する詳細情報を表示することもできます。次に例を示します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:141
+msgid "可以看到："
+msgstr "以下を確認できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:186
+msgid "多重策略以及策略组合"
+msgstr "複数の戦略の組み合わせ"
+
+#: ../../source/tutorials/4-build-in-strategies.md:188
+msgid ""
+"在`qteasy`中，一个`Operator`交易员对象可以同时分组运行任意多个交易策略。这些交易策略在运行的时候，都会分别提取各自所需的历史数据，独立生成不同的交易信号，这些交易信号会被组合成一组交易信号，统一执行。"
+msgstr ""
+"`qteasy` では、`Operator` トレーダー "
+"オブジェクトは、グループ内の任意の数の取引戦略を同時に実行できます。実行中、これらの各戦略は必要な履歴データを個別に取得し、異なる取引シグナルを個別に生成します。これらのシグナルは一連の取引シグナルに結合され、統一された方法で実行されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:190
+msgid ""
+"利用这种特性，用户可以在一个交易员对象中同时运行多个各有侧重的交易策略，例如，一个交易策略监控个股的股价，根据股价产生择信号，第二个交易策略专门负责监控大盘走势，通过大盘走势决定整体仓位。第三个交易策略专门负责止盈止损，在特定时刻止损。最终的交易信号以第一个交易策略为主，但受到第二个策略的节制，必要时会被第三个策略完全控制。"
+msgstr ""
+"ユーザーはこの機能を使用して、トレーダー オブジェクトで異なる焦点を当てた複数の取引戦略を同時に実行できます。たとえば、1 "
+"つの取引戦略は個々の株式の株価を監視し、株価に基づいて選択シグナルを生成します。2 "
+"番目の取引戦略は、特に広範な市場の傾向を監視する責任を負い、より広範な市場の傾向に基づいて全体的なポジションを決定します。 3 "
+"番目の取引戦略は、特にストップロスとストッププロフィット、および特定の時間でのストップロスを担当します。最終的な取引シグナルは主に最初の取引戦略に基づいていますが、2"
+" 番目の戦略によって制限され、必要に応じて 3 番目の戦略によって完全に制御されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:192
+msgid ""
+"或者，用户也可以很容易地制定出一个“委员会”策略，在一个综合性策略中由多个策略独立地做出交易决策，最终的交易信号由所有子策略组成的”委员会“投票决定，投票的方式可以是简单多数、绝对多数、加权投票结果等等。"
+msgstr ""
+"あるいは、ユーザーは、複数の戦略が包括的な戦略で独立して取引の決定を下す「委員会」戦略を簡単に策定することができ、最終的な取引シグナルはすべてのサブ戦略で構成される「委員会」の投票によって決定されます。投票方法には、単純多数決、絶対多数決、加重投票結果などがあります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:194
+msgid ""
+"上述交易策略组合中，每一个独立的交易策略都很简单，很容易定义，而将他们组合起来，又能发挥更大的作用。同时每一个子策略都是独立的，可以自由组合出复杂的综合性交易策略。这样可以避免不断地重复开发策略，只需要对子策略重新排列组合，重新定义组合方式，就可以快速地搭建一系列的复杂综合性交易策略。这样能够极大地提高交易策略的搭建效率，缩短周期。时间就是金钱。"
+msgstr ""
+"上記の組み合わせた取引戦略では、個々の取引戦略は非常にシンプルで定義が簡単ですが、それらを組み合わせることでより大きな効果を生み出すことができます。同時に、各サブ戦略は独立しており、複雑で包括的な取引戦略に自由に組み合わせることができます。これにより、ゼロから戦略を繰り返し開発する必要がなくなります。サブ戦略を再配置して再結合し、その組み合わせ方法を再定義するだけで、一連の複雑で包括的な取引戦略を迅速に構築できます。これにより、取引戦略の構築効率が大幅に向上し、サイクルが短縮されます。時は金なり。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:196
+msgid ""
+"交易信号的混合即交易信号的各种运算或函数，从简单的逻辑运算、加减运算一直到复杂的自定义函数，只要能够应用于一个`ndarray`的函数，都可以用于混合交易信号，只要最终输出的交易信号有意义即可。"
+msgstr ""
+"取引シグナルの混合とは、取引シグナルに対してさまざまな操作または機能を実行することを指します。これは、単純な論理演算や加算/減算から複雑なカスタム関数まで多岐にわたります。最終出力取引シグナルが意味のあるものである限り、`ndarray`"
+" に適用できる関数はどれも取引シグナルを混合するために使用できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:198
+msgid "定义策略组合方式`blender`"
+msgstr "戦略の組み合わせ方法を定義します `blender`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:200
+msgid ""
+"在一个`Operator`交易员对象中，所有的交易策略都必须被分配到某一个策略组中，如果策略组中的策略数量多于1个，就必须定义一个`blender`。如果没有明确定义`blender`，而策略的数量超过1个时，`qteasy`会在运行`Operator`的时候创建一个默认的`blender`，但是为了让多重策略正确运行，用户需要自行定义`blender`。"
+msgstr ""
+"`Operator` トレーダー "
+"オブジェクトでは、すべての取引戦略を戦略グループに割り当てる必要があります。グループ内に複数の戦略がある場合は、`blender` "
+"を定義する必要があります。 `blender` が明示的に定義されておらず、ストラテジーの数が 1 を超える場合、`qteasy` "
+"は、`Operator` の実行時にデフォルトの `blender` を作成します。ただし、マルチ戦略セットアップを正しく実行するには、ユーザーが自分で"
+" `blender` を定義する必要があります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:202
+msgid ""
+"`blender_str`是用户自行定义的一个组合表达式，用户使用这个表达式确定不同交易策略的组合方式。这个组合表达式使用四则运算符、逻辑运算符、函数等符号规定策略信号是如何组合的。`blender`表达式中可以包括以下元素："
+msgstr ""
+"`blender_str` "
+"はユーザー定義の組み合わせ式です。ユーザーはこの式を使用して、さまざまな取引戦略をどのように組み合わせるかを決定します。この結合式は、算術演算子、論理演算子、関数、およびその他のシンボルを使用して、ストラテジ信号の結合方法を指定します。"
+" `blender` 式には次の要素を含めることができます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:204
+msgid "`blender`表达式中支持的符号如下："
+msgstr "`blender` 式でサポートされている記号は次のとおりです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "元素"
+msgstr "要素"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "示例"
+msgstr "例"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "策略序号"
+msgstr "戦略番号"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`s0, s1...`"
+msgstr "`s0, s1...`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "以s开头，数字结尾的字符串，数字为`Group`中的策略的序号，代表这个策略生成的交易信号"
+msgstr "s で始まり数字で終わる文字列。この数字は、`Group` の戦略のインデックスであり、その戦略によって生成される取引シグナルを表します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "数字"
+msgstr "数字"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`-1.35`"
+msgstr "`-1.35`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "任何合法的数字，参与表达式运算的数字"
+msgstr "任意の有効な数値、式演算に含まれる数値"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "运算符"
+msgstr "オペレーター"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`+`"
+msgstr "`+`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "包括`+ - * / ^`等数学运算符"
+msgstr "`+ - * / ^` を含む数値演算子"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "逻辑运算符"
+msgstr "論理演算子"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`and`"
+msgstr "`and`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "支持`&`/`~`以及`and`/`or`/`not`等逻辑运算符"
+msgstr "`&`/`~` および `and`/`or`/`not` などの論理演算子がサポートされています"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "函数"
+msgstr "機能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sum()`"
+msgstr "`sum()`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "表达式支持多种函数，支持的函数参见后表"
+msgstr "サポートされている機能は次の表にあります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "括号"
+msgstr "括弧"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`()`"
+msgstr "`()`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "组合运算"
+msgstr "グループ運用"
+
+#: ../../source/tutorials/4-build-in-strategies.md:216
+msgid "`blender`示例"
+msgstr "`blender`の例"
+
+#: ../../source/tutorials/4-build-in-strategies.md:218
+msgid ""
+"当一个`Operator`对象中有三个交易策略时（其序号分别为`s0`/`s1`/`s2`），按照以下方式定义的`blender`都是合法可用的，同时使用`Operator.set_blender()`来设置`blender`："
+msgstr ""
+"`Operator` オブジェクト (シリアル番号 `s0`/`s1`/`s2`) に 3 つの取引戦略がある場合、次の方法で定義された "
+"`blender` は正当で使用可能であり、`Operator.set_blender()` を使用して `blender` を設定します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:220
+msgid "使用四则运算符定义blender表达式"
+msgstr "算術演算子を使用して定義された Blender 式"
+
+#: ../../source/tutorials/4-build-in-strategies.md:222
+msgid "`'s0 + s1 + s2'`"
+msgstr "`'s0 + s1 + s2'`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:224
+msgid ""
+"此时三个交易策略生成的交易信号会被加起来，成为最终的交易信号，如果策略0的结果为买入10%，策略1结果为买入10%，策略2结果为买入30%，则最终的结果为买入50%"
+msgstr ""
+"この場合、3 つの取引戦略によって生成された取引シグナルが合計されて、最終的な取引シグナルになります。戦略 0 の結果が 10% 購入、戦略 1 "
+"の結果が 10% 購入、戦略 2 の結果が 30% 購入の場合、最終結果は 50% 購入になります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:226
+msgid "使用逻辑运算符定义blender表达式："
+msgstr "論理演算子を使用して定義された Blender 式:"
+
+#: ../../source/tutorials/4-build-in-strategies.md:228
+msgid "`'s0 and s1 and s2'`"
+msgstr "`'s0 and s1 and s2'`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:230
+msgid ""
+"表示只有当交易策略1、2、3都出现交易信号的时候，才会最终形成交易信号。如策略1的结果为买入，策略2结果为买入，而策略3没有交易信号，则最终的结果为没有交易信号。"
+msgstr ""
+"この場合、最終的な取引シグナルは、取引戦略 1、2、および 3 がすべて取引シグナルを生成した場合にのみ形成されます。たとえば、戦略 1 "
+"の結果が買い、戦略 2 の結果が買い、戦略 3 に取引シグナルがない場合、最終結果は取引シグナルなしとなります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:232
+msgid "blender表达式中还可以包含括号和一些函数："
+msgstr "Blender 式には、括弧やいくつかの関数を含めることもできます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:234
+msgid "`'max(s0, s1) + s2'`"
+msgstr "`'max(s0, s1) + s2'`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:236
+msgid ""
+"表示策略1、2的结果中最大值与策略3的结果相加，成为最终交易信号。如果策略1的结果为买入10%，策略2结果为买入20%，策略3结果为买入30%，最终的结果为买入50%"
+msgstr ""
+"戦略 1 と 2 の結果の最大値と戦略 3 の結果の合計が最終的な取引シグナルとなることを意味します。戦略 1 の結果が 10% 購入、戦略 2 "
+"の結果が 20% 購入、戦略 3 の結果が 30% 購入の場合、最終結果は 50% 購入になります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:238
+msgid "blender 表达式中每个策略可以出现不止一次，也可以出现纯数字："
+msgstr "戦略は Blender 式内で複数回出現でき、純粋な数値もサポートされます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:240
+msgid "`'(0.5 * s0 + 1.0 * s1 + 1.5 * s2) / 3 * min(s0, s1, s2)'`"
+msgstr "`'(0.5 * s0 + 1.0 * s1 + 1.5 * s2) / 3 * min(s0, s1, s2)'`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:242
+msgid "上面的`blender`表达式表示：首先计算三个策略信号的加权平均（权重分别为0.5、1.0、1.5），然后再乘以三个信号的最小值"
+msgstr ""
+"上記の`blender` 式の意味: まず 3 つの戦略シグナルの加重平均を計算し (重みはそれぞれ 0.5、1.0、1.5)、次に 3 "
+"つのシグナルの最小値を乗算します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:244
+msgid "blender 表达式中函数的操作参数在函数名中定义："
+msgstr "Blender 式の関数パラメータは関数名で定義されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:246
+msgid "`'clip_-0.5_0.5(s0 + s1 + s2) + pos_2_0.2(s0, s1, s2)'`"
+msgstr "`'clip_-0.5_0.5(s0 + s1 + s2) + pos_2_0.2(s0, s1, s2)'`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:248
+msgid ""
+"上面的`blender`表达式定义了两种不同的函数操作，分别得到结果后相加得到最终结果。第一个函数是范围剪切，将三组策略信号相加后，剪切掉小于-0.5的信号值以及大于0.5的信号值，得到计算结果；第二个函数是仓位判断函数，统计三组信号中持仓大于0.2的时间段，将其定义为“多头”，然后再统计每一个时间段三个策略中持多头建议的数量，如果超过两个策略持多头建议，则输出满仓多头，否则输出空仓。"
+msgstr ""
+"上記の`blender` 式は 2 つの異なる関数演算を定義しており、最終結果は結果を加算することで得られます。最初の機能はレンジ クリッピングで、3 "
+"セットの戦略信号を加算した後、-0.5 未満と 0.5 より大きい信号値がクリッピングされ、計算結果が取得されます。 2 "
+"番目の機能はポジション判定機能で、ポジションが 0.2 より大きい 3 セットのシグナルの期間をカウントし、それらを「ロング "
+"ポジション」として定義し、各期間における 3 つの戦略におけるロング ポジション推奨の数をカウントします。 3 つ以上のストラテジーがロング "
+"ポジション推奨を保持している場合は、フル ポジションのロング ポジションが出力され、それ以外の場合は空のポジションが出力されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:250
+msgid "`blender`表达式中支持的函数如下："
+msgstr "`blender` 式では次の関数がサポートされています。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "表达式示例"
+msgstr "表現例"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`abs`"
+msgstr "`abs`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`abs(s0)`"
+msgstr "`abs(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "绝对值函数<br />计算所有交易信号的绝对值<br />只能输入一个交易信号"
+msgstr "絶対値機能<br />すべての売買シグナルの絶対値を計算します<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`avg`"
+msgstr "`avg`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`avg(s0, s1, ...)`"
+msgstr "`avg(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "平均值函数<br />计算所有交易信号的平均值<br />输入信号的数量不限"
+msgstr "平均値機能<br />全取引シグナルの平均値を計算<br />入力シグナル数は無制限"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`avgpos`"
+msgstr "`avgpos`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`avgpos_N_T(s0, s1, ...)`"
+msgstr "`avgpos_N_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"平均值累计函数<br "
+"/>当交易信号为持仓目标信号时，统计同一时间产生非空仓信号（输出信号绝对值>T）的个数，当空头/多头信号的数量大于N时，输出所有空头/多头信号的平均值，否则输出0.<br"
+" />输入信号的数量不限"
+msgstr ""
+"平均累積関数<br "
+"/>売買シグナルがポジション目標シグナルの場合、同時に生成される空でないポジションシグナル（出力シグナル絶対値＞T）の数をカウントします。ショート/ロング信号の数が"
+" N より大きい場合は、すべてのショート/ロング信号の平均値を出力し、それ以外の場合は 0 を出力します。<br />入力信号の数は無制限です。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`ceil`"
+msgstr "`ceil`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`ceil(s0)`"
+msgstr "`ceil(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "向上取整函数<br />交易信号向上取整<br />只能输入一个交易信号"
+msgstr "天井機能<br />売買シグナル切り上げ<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`clip`"
+msgstr "`clip`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`clip_U_L(s0)`"
+msgstr "`clip_U_L(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "范围剪切函数<br />剪切超过范围的信号值，剪切上下范围在函数名中定义<br />只能输入一个交易信号"
+msgstr "クリップ機能<br />範囲を超えたシグナル値をクリップし、関数名で上限と下限の範囲を定義<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`combo`"
+msgstr "`combo`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`combo(s0, s1, ...)`"
+msgstr "`combo(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "组合值函数<br />输出所有交易信号加总的值<br />输入信号的数量不限"
+msgstr "コンボバリュー機能<br />全取引シグナルの合計を出力<br />入力シグナル数は無制限"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`committee`"
+msgstr "`committee`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`cmt_N_T(s0, s1, ...)`"
+msgstr "`cmt_N_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"委员会函数（等同于累计持仓函数pos））<br "
+"/>当交易信号为持仓目标信号时，统计同一时间产生非空仓信号（输出信号绝对值>T）的个数数，当多头/空头信号的数量大于N时，输出-1/1，否则输出0.<br"
+" />输入信号的数量不限"
+msgstr ""
+"委員会関数（累積ポジション関数posに相当））<br "
+"/>売買シグナルが目標ポジションシグナルの場合、空でないポジションシグナル（出力シグナル絶対値＞T）が同時にいくつ発生するかをカウントします。ロング/ショート信号の数が"
+" N より大きい場合、-1/1 を出力します。それ以外の場合は 0 を出力します。<br />入力信号の数は無制限です"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`exp`"
+msgstr "`exp`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`exp(s0)`"
+msgstr "`exp(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "exp函数<br />计算e的信号次幂<br />只能输入一个交易信号"
+msgstr "exp関数<br />eのシグナルパワーを計算<br />取引シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`floor`"
+msgstr "`floor`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`floor(s0)`"
+msgstr "`floor(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "向下取整函数<br />交易信号向下取整<br />只能输入一个交易信号"
+msgstr "フロア関数<br />売買シグナル切り捨て<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`log`"
+msgstr "`log`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`log(s0)`"
+msgstr "`log(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "对数函数<br />计算以e为底的对数值<br />只能输入一个交易信号"
+msgstr "対数関数<br />eを底とした対数値を計算します<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`log10`"
+msgstr "`log10`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`log10(s0)`"
+msgstr "`log10(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "以10为底的对数函数<br />计算以10为底的对数值<br />只能输入一个交易信号"
+msgstr "10を底とする対数関数<br />10を底とした対数値を計算します<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`max`"
+msgstr "`max`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`max(s0, s1, ...)`"
+msgstr "`max(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "最大值函数<br />计算所有交易信号的最大值<br />输入信号的数量不限"
+msgstr "最大値機能<br />全取引シグナルの最大値を計算<br />入力シグナル数は無制限"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`min`"
+msgstr "`min`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`min(s0, s1, ...)`"
+msgstr "`min(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "最小值函数<br />计算所有交易信号的最小值<br />输入信号的数量不限"
+msgstr "最小値機能<br />全取引シグナルの最小値を計算<br />入力シグナル数は無制限"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`pos`"
+msgstr "`pos`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`pos_N_T(s0, s1, ...)`"
+msgstr "`pos_N_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"累计持仓函数<br "
+"/>当交易信号为持仓目标信号时，统计同一时间产生非空仓信号（输出信号绝对值>T）的个数数，当多头/空头信号的数量大于N时，输出-1/1，否则输出0.<br"
+" />输入信号的数量不限"
+msgstr ""
+"累積ポジション機能<br "
+"/>売買シグナルがポジション対象シグナルの場合、同時に生成される空でないポジションシグナル（出力信号絶対値＞T）の数をカウントします。ロング/ショート信号数がNより多い場合は-1/1を出力、そうでない場合は0を出力します。<br"
+" />入力信号数は無制限です。"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`position`"
+msgstr "`position`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`position_N_T(s0, s1, ...)`"
+msgstr "`position_N_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`pow`"
+msgstr "`pow`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`pow(s0, s1)`"
+msgstr "`pow(s0, s1)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "幂函数<br />计算第一个交易信号的第二个信号次幂即sig0^sig1<br />输入信号的数量只能为两个"
+msgstr ""
+"べき関数<br />最初の取引シグナルの 2 番目のシグナル パワー、つまり sig0^sig1 を計算します<br />入力シグナルの数は 2 "
+"つまでです"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`power`"
+msgstr "`power`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`power(s0, s1)`"
+msgstr "`power(s0, s1)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sqrt`"
+msgstr "`sqrt`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sqrt(s0)`"
+msgstr "`sqrt(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "平方根函数<br />交易信号的平方根<br />只能输入一个交易信号"
+msgstr "平方根関数<br />売買シグナル平方根<br />売買シグナルは1つだけ入力可能"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`str`"
+msgstr "`str`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`str_T(s0, s1, ...)`"
+msgstr "`str_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "强度累计函数<br />将所有交易信号加总，当信号强度超过T时，输出1，否则输出0<br />输入信号的数量不限"
+msgstr ""
+"強度累積関数<br />すべての売買シグナルを合計し、シグナル強度がTを超えた場合は1を出力、そうでない場合は0を出力<br "
+"/>入力シグナルの数は無制限"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`strength`"
+msgstr "`strength`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`strength_T(s0, s1, ...)`"
+msgstr "`strength_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sum`"
+msgstr "`sum`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`sum(s0, s1, ...)`"
+msgstr "`sum(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`unify`"
+msgstr "`unify`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`unify(s0)`"
+msgstr "`unify(s0)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "均一化函数<br />均一化交易信号，等比缩放同一行的交易信号使每一行的总和为1<br />只能输入一个交易信号"
+msgstr ""
+"均一関数<br />取引シグナルを正規化し、各行の合計が 1 になるように同じ行の取引シグナルを比例的にスケールします<br />取引シグナルは 1 "
+"つだけ入力できます"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`vote`"
+msgstr "`vote`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid "`vote_N_T(s0, s1, ...)`"
+msgstr "`vote_N_T(s0, s1, ...)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md
+msgid ""
+"委员会投票函数（等同于累计持仓函数）<br "
+"/>当交易信号为持仓目标信号时，统计同一时间产生非空仓信号（输出信号绝对值>T）的个数数，当多头/空头信号的数量大于N时，输出-1/1，否则输出0.<br"
+" />输入信号的数量不限"
+msgstr ""
+"投票機能（累積ポジション機能に相当）<br "
+"/>売買シグナルがポジション対象シグナルの場合、同時に生成される空でないポジションシグナル（出力信号絶対値＞T）の数をカウントします。ロング/ショート信号数がNより多い場合は-1/1を出力、そうでない場合は0を出力します。<br"
+" />入力信号数は無制限です。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:279
+msgid "以下方法可以被用来设置或获取策略的`blender`"
+msgstr "次のメソッドを使用して、戦略の `blender` を設定または取得できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:281
+msgid "`operator.set_blender(blender_str=None, group_id=None)`"
+msgstr "`operator.set_blender(blender_str=None, group_id=None)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:282
+msgid ""
+"设置`blender`，直接传入一个表达式`blender_str`，这个表达式会被自动解析后用于组合交易策略。 "
+"在使用`set_blender()`的时候，可以使用group_id参数来指定这个`blender`是用于哪个策略组的，如果不指定group_id，则默认这个`blender`是用于所有策略组的。"
+msgstr ""
+"`blender` を設定するには、式 `blender_str` を直接渡します。この式は自動的に解析され、取引戦略を組み合わせるために使用されます。"
+" `set_blender()` を使用する場合、`group_id` パラメーターを使用して、この `blender` "
+"がどの戦略グループに対応するかを指定できます。 `group_id` が指定されていない場合、デフォルトでこの `blender` "
+"がすべての戦略グループに使用されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:285
+msgid "`operator.view_blender()`"
+msgstr "`operator.view_blender()`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:286
+msgid ""
+"查看`blender`, 注意此时为了便于人类阅读，混合器表达式中的策略代码`s0`,`s1`,`s2`会被自动替换为具体的策略ID， 如下面例子所示："
+msgstr ""
+"`blender` を表示します。 Note that, for readability, the strategy codes `s0`, `s1`,"
+" and `s2` in the blender expression will be automatically replaced with the "
+"specific strategy IDs, as shown in the example below:"
+
+#: ../../source/tutorials/4-build-in-strategies.md:293
+msgid ""
+"`operator.view_blender()`输出一个字典，键为策略组ID，值为混合器表达式，其中混合器表达式中的`s0`,`s1`,`s2`已经被替换为具体的策略ID："
+msgstr ""
+"`operator.view_blender()` は、キーが戦略グループ ID であり、値がブレンダー式である辞書を出力します。 Blender "
+"式では、`s0`、`s1`、`s2` はすでに特定の戦略 ID に置き換えられています。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:295
+#: ../../source/tutorials/4-build-in-strategies.md:307
+#: ../../source/tutorials/4-build-in-strategies.md:319
+msgid "输出如下："
+msgstr "出力は次のとおりです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:301
+msgid "如果在调用`view_blender()`的时候指定了`group_id`参数，则只会输出这个策略组的混合器表达式："
+msgstr ""
+"`view_blender()` を呼び出すときに `group_id` パラメータを指定すると、その戦略グループのブレンダー式のみが出力されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:313
+msgid ""
+"上面例子中的`s0`,`s1`,`s2`分别被`dma`、`macd`、`trix`代替，但如果`Operator`中包含多个相同的策略，它们会被自动分配不同的策略ID，以示区别："
+msgstr ""
+"上記の例 `s0`、`s1`、`s2` は、`dma`、`macd`、`trix` に置き換えられますが、`Operator` "
+"に複数の同一の戦略が含まれている場合は、区別するために異なる戦略 ID が自動的に割り当てられます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:326
+msgid "`blender`使用示例"
+msgstr "`blender`の使用例"
+
+#: ../../source/tutorials/4-build-in-strategies.md:328
+msgid "下面使用一个例子来演示`blender`的工作方式："
+msgstr "`blender` がどのように機能するかを示すために、以下の例が使用されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:330
+msgid ""
+"我们生成一个交易员对象，同时运行五个`DMA`交易策略，但五个交易策略分别有不同的可调参数，这时，我们可以理解为这个交易员同时运行五个同样的交易逻辑，但这五个交易逻辑被配置了不同的参数，因此在同样的输入条件下，产生不同的交易信号，意味着五个交易策略各有侧重，有的擅长于抓取长期变量，有的善于追踪短期趋势。"
+msgstr ""
+"トレーダー オブジェクトを生成し、5 つの `DMA` 取引戦略を同時に実行しますが、5 "
+"つの取引戦略には異なる調整可能なパラメーターがあります。この時点で、トレーダーは 5 つの同じ取引ロジックを同時に実行していることがわかりますが、これら"
+" 5 つの取引ロジックは異なるパラメーターで構成されているため、同じ入力条件下では異なる取引シグナルが生成されます。これは、5 "
+"つの取引戦略にはそれぞれ重点があり、長期的な変数を捉えるのが得意な戦略もあれば、短期のトレンドを追跡するのが得意な戦略もあるということです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:332
+msgid ""
+"下面，同样是这五个交易策略，但我们会用三个不同的例子，来展示三种不同的混合方式，向您展示，即使完全相同的交易策略和交易参数，在同一段历史区间，不同的混合方式同样能影响最终的交易结果。"
+msgstr ""
+"さて、同じ 5 つの取引戦略ですが、3 つの異なる例を使用して 3 "
+"つの異なる混合方法を示します。これは、同じ取引戦略と取引パラメーターであっても、同じ履歴間隔で異なる混合方法も最終的な取引結果に影響を与える可能性があることを示します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:334
+msgid "第一种混合方式：加权平均混合"
+msgstr "第 1 のブレンド方法: 加重平均ブレンド"
+
+#: ../../source/tutorials/4-build-in-strategies.md:336
+msgid "第一种混合方式将五个交易策略的结果进行加权平均，每个交易策略的权重如下："
+msgstr "最初の混合方法では、5 つの取引戦略の結果の加重平均がとられます。各取引戦略の重みは次のとおりです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:338
+msgid "s0: 权重0.8"
+msgstr "s0: 重さ0.8"
+
+#: ../../source/tutorials/4-build-in-strategies.md:339
+msgid "s1: 权重1.2"
+msgstr "s1: 重量1.2"
+
+#: ../../source/tutorials/4-build-in-strategies.md:340
+msgid "s2: 权重2.0"
+msgstr "s2: 重量 2.0"
+
+#: ../../source/tutorials/4-build-in-strategies.md:341
+msgid "s3: 权重0.5"
+msgstr "s3: 重量0.5"
+
+#: ../../source/tutorials/4-build-in-strategies.md:342
+msgid "s4: 权重1.5"
+msgstr "s4: 重量1.5"
+
+#: ../../source/tutorials/4-build-in-strategies.md:344
+msgid ""
+"为了实现上面的加权平均混合，我们可以定义如下的`blender`表达式，其含义是：首先将五个交易策略的结果分别乘以他们的权重，然后再除以权重之和（即5），得到加权平均的结果："
+msgstr ""
+"上記の加重平均ブレンドを実現するには、次の `blender` 式を定義できます。これは、まず 5 "
+"つの取引戦略の結果にそれぞれの重みを乗算し、次に重みの合計 (つまり 5) で割って加重平均の結果を取得することを意味します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:346
+msgid "`(0.8*s0+1.2*s1+2*s2+0.5*s3+1.5*s4)/5`"
+msgstr "`(0.8*s0+1.2*s1+2*s2+0.5*s3+1.5*s4)/5`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:348
+msgid "接下来，我们将这个`blender`表达式设置到交易员对象中，运行策略，得到回测结果："
+msgstr "次に、この `blender` 式をトレーダー オブジェクトに設定し、戦略を実行して、バックテスト結果を取得します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:366
+msgid ""
+"得到回测结果报告如下：年化收益5.51%，夏普率0.44。关于回测结果报告的解读，请参见[教程第三节](../tutorials/3-start-"
+"first-strategy.md)的相关内容。"
+msgstr ""
+"結果のバックテスト レポートは次のとおりです: 年率リターン 5.51%、シャープ レシオ 0.44。バックテスト "
+"レポートの解釈方法については、[チュートリアル セクション 3](../tutorials/3-start-first-strategy.md) "
+"の関連コンテンツを参照してください。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:368
+msgid ""
+"我们在这里并不关注如何改进交易策略的表现，而是关注同样的交易策略在不同的混合方式下，表现出不同的回测结果，这些回测结果的差异完全来自于混合方式的不同。"
+msgstr ""
+"ここでは、トレーディング戦略のパフォーマンスを向上させる方法には焦点を当てていません。代わりに、同じ取引戦略が異なるブレンド方法でどのように異なるバックテスト結果を生成するかに焦点を当てており、バックテスト結果の違いは完全に異なるブレンド方法に起因しています。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:413
+msgid "![png](../tutorials/img/output_15_1.png)"
+msgstr "![png](../tutorials/img/output_15_1.png)"
+
+#: ../../source/tutorials/4-build-in-strategies.md:413
+#: ../../source/tutorials/4-build-in-strategies.md:490
+#: ../../source/tutorials/4-build-in-strategies.md:551
+msgid "png"
+msgstr "png"
+
+#: ../../source/tutorials/4-build-in-strategies.md:415
+msgid ""
+"如果仔细观察上面生成的收益曲线图，可以注意到图示的背景上绘制了深浅不同的绿色条纹，这些条纹代表该段时间段里的持仓比例，白色代表空仓持币，即完全不持有任何股票，而最深的绿色代表100%持股，介于中间的绿色代表0～100%之间的持股比例，持股比例越高，条纹的颜色越深。"
+msgstr ""
+"上の利益曲線チャートを注意深く調べると、チャートの背景がさまざまな色合いの緑色のストライプで描かれていることに気づくでしょう。これらの縞は、その期間におけるポジションの比率を表します。白は空のポジション、つまり株式をまったく保有していないことを表し、最も濃い緑色は株式を"
+" 100% 保有していることを表します。中央の緑色は位置比率0～100%を表し、位置比率が高くなるほどストライプの色が濃くなります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:417
+msgid ""
+"由于五个交易策略的输出结果是以加权平均的形式输出的，因此只要任意一个交易策略输出发生改变，就会导致最终的交易信号发生改变，这也导致整个交易历史区间的买卖次数非常频繁（共有370次卖出操作和354次买入操作），持仓比例也在0%～100%之间频繁波动。"
+msgstr ""
+"5 "
+"つの取引戦略の出力は加重平均として結合されるため、いずれかの戦略の出力が変化すると、最終的な取引シグナルも変化します。これにより、バックテスト期間全体の取引数も非常に頻繁になり"
+" (合計 370 回の売りオペレーションと 354 回の買いオペレーション)、ポジション比率も 0% から 100% の間で頻繁に変動します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:419
+msgid ""
+"从图中可以看到，整个交易历史区间存在着深浅不一的绿色，如果您非常仔细地检查每一个持股区间，会发现这些区间的持股比例正好对应着当时五个交易策略的混合结果：当全部交易策略都\"一致决定\"全仓买入时，它们的加权平均结果就是100%买入，但只要有一个或多个策略决定持有空仓，最终加权平均的结果就是持有一定百分比的股票，这个百分比等于五个策略信号的加权平均结果。最终的结果就是持仓比例在0%～100%之间波动，完全空仓和完全满仓的时间都不长。"
+msgstr ""
+"チャートから、取引履歴期間全体でさまざまな緑色の色合いがあることがわかります。各保有間隔を注意深く調べると、これらの間隔の保有率が、その時点での 5 "
+"つの取引戦略の混合結果に正確に対応していることがわかります。すべての取引戦略がフルポジションを購入することを「満場一致で決定」した場合、加重平均の結果は"
+" 100% 買いとなりますが、1 "
+"つ以上の戦略が空のポジションを保持することを決定している限り、最終的な加重平均の結果は株式の特定の割合を保持することになり、これは 5 "
+"つの戦略シグナルの加重平均結果と等しくなります。最終的な結果は、ポジション率は 0% から 100% "
+"の間で変動し、完全に空のポジションと完全にフルのポジションの時間は長くありません。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:421
+msgid "这也意味着我们不能通过空仓来完全避免单边下跌行情，不过，始终保持一定仓位却能更好地抓住上升通道。"
+msgstr ""
+"これは、空ポジションによって一方的な下落相場を完全に回避することはできないことを意味しますが、常に一定のポジションを維持することで上昇チャネルをよりよく把握できるようになります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:423
+msgid "同时，您也应该可以观察到，由于仓位是灵活调整的，在单边下跌行情中的仓位（绿色的深浅幅度）明显更低，上涨行情仓位更高，这正是我们所期望的。"
+msgstr ""
+"一方、ポジションが柔軟に調整されるため、一方向の下落相場ではポジション (緑色の深さ) "
+"が明らかに低くなり、上昇相場ではポジションが高くなっていることがわかります。これはまさに予想通りです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:425
+msgid "接下来，让我们来看下一种完全不同的混合方式："
+msgstr "次に、まったく異なるブレンド方法を見てみましょう。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:427
+msgid "第二种混合方式：委员会投票"
+msgstr "第二回配合方法：委員会投票"
+
+#: ../../source/tutorials/4-build-in-strategies.md:429
+msgid "这种方式让同样五个交易策略组成一个\"委员会\"，通过平等投票来决定仓位，且仓位必须是\"非黑即白\"的两种结果之一：要么满仓，要么空仓。其表达式如下："
+msgstr ""
+"このブレンダーでは、同じ 5 つの取引戦略で「委員会」を形成し、平等な投票を通じてポジションを決定します。ポジションは、「黒か白か」の 2 つの結果 "
+"(フル ポジションまたは空のポジション) のいずれかである必要があります。式は次のとおりです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:431
+msgid ""
+"这时我们需要用到blender_str支持的特殊函数“委员会函数”，`cmt_N_T(s0, s1, "
+"...)`,这个函数的含义是：当同一时间产生非空仓信号（输出信号绝对值>T）的策略数量大于N时，输出满仓多头（1）或满仓空头（-1），否则输出空仓（0）。因此当N=3，T=0时，表达式如下："
+msgstr ""
+"この時点で、blender_str でサポートされている特別な関数、「コミッティー関数」、`cmt_N_T(s0, s1, ...)` "
+"を使用する必要があります。この関数は、非フラット信号 (信号の絶対値 > T) を同時に生成するストラテジの数が N "
+"より大きい場合、完全に投資されたロング (1) または完全に投資されたショート (-1) を出力します。それ以外の場合はフラット (0) "
+"を出力します。したがって、N=3、T=0 の場合、式は次のようになります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:433
+msgid "`cmt_3_0(s0, s1, s2, s3, s4)`"
+msgstr "`cmt_3_0(s0, s1, s2, s3, s4)`"
+
+#: ../../source/tutorials/4-build-in-strategies.md:435
+msgid ""
+"这就相当于我们创建了一个由五个交易策略组成的委员会，只有当同一时间至少有三个策略输出多头满仓建议时，委员会才会输出多头满仓建议，否则输出空仓建议。"
+msgstr ""
+"これは、5 つの取引戦略で構成される委員会を作成することに相当します。少なくとも 3 "
+"つの戦略が同時に完全投資のロングポジションを推奨する場合にのみ、委員会は完全投資のロング推奨を出力します。それ以外の場合は、フラット (ポジションなし)"
+" の推奨事項が出力されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:437
+msgid ""
+"因此最终的结果就是持仓比例要么是100%（当三个或以上的策略输出满仓建议时），要么是0%（当三个或以上的策略没有输出满仓建议时）。在单边下跌行情中，持仓比例要么是100%，要么是0%，没有任何中间状态。交易员Operator相当于执行了一个由五人投资委员会的投票结果来决定持仓的交易策略。委员会的成员各有自己的想法（因为他们的参数不同），但最终的决策是由多数人决定的。"
+msgstr ""
+"したがって、最終結果は、ポジション比率が 100% (3 つ以上の戦略が完全投資の推奨を出力する場合) または 0% (3 "
+"つ未満の戦略が完全投資の推奨を出力する場合) になります。一方的な下落相場では、ポジション比率は 100% または 0% "
+"のいずれかであり、中間の状態はありません。トレーダー Operator は、基本的に、5 "
+"人のメンバーからなる投資委員会の投票に基づいてポジションを決定するトレーディング戦略を実行しています。各委員は（パラメーターが異なるため）独自の意見を持っていますが、最終的な決定は多数決によって決定されます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:445
+msgid "得到结果如下：年化收益6.43，夏普率0.487"
+msgstr "結果は、年率リターン6.43、シャープレシオ0.487となりました。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:490
+msgid "![png](../tutorials/img/output_17_1.png)"
+msgstr "![png](../tutorials/img/output_17_1.png)"
+
+#: ../../source/tutorials/4-build-in-strategies.md:492
+msgid ""
+"您一定看到了，这一次的输出结果跟前一次有了很大区别：上一次回测时持仓比例是渐变的(投资收益图背景绿色条带的颜色深浅代表持仓的比例)，而这一次是非黑即白的，要么是满仓，要么是空仓，而且交易的次数也大大减少，一共只有九次买进和十次卖出。您如果仔细分析交易日志，会发现只有当三个交易策略举手赞成满仓时，才会满仓，其余时间空仓。因此在单边下跌行情中的收益曲线是一条直线。但满仓时如果股票下跌，也没有办法通过适当减仓来降低损失。"
+msgstr ""
+"お気づきかと思いますが、今回の出力は前回とは大きく異なっています。前回のバックテストでは、ポジション比率が徐々に変化しました (リターン "
+"チャートの背景にある緑の帯の陰影がポジション比率を表します)。一方、今回は黒か白か (全額投資かフラットのいずれか) で、取引数も大幅に減り、合計 9 "
+"回の買いと 10 回の売りだけです。取引ログを注意深く分析すると、3 "
+"つの取引戦略が全額投資に賛成票を投じた場合にのみ全額投資されることがわかります。残りの時間は平らなままです。したがって、一方向の下降市場では、株価曲線は直線になります。しかし、全額投資した場合、株価が下落した場合、ポジションを適切に削減しても損失を減らす方法はありません。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:494
+msgid "接下来，我们仍然使用这个委员会，但是现在只要有两票投满仓时，最终就会满仓："
+msgstr "次に、私たちは依然としてこの委員会を使用していますが、現在、正職に 2 票が投じられている限り、最終的な職は正職となります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:496
+msgid "第三种混合方式：委员会投票"
+msgstr "第三の配合方法：委員会投票"
+
+#: ../../source/tutorials/4-build-in-strategies.md:498
+msgid "第三种组合方式：同样是委员会策略，但输出满仓多头的投票门槛变为2票，即只要有两个策略认为输出多头即可"
+msgstr ""
+"3 番目のポートフォリオ構築方法: まだ委員会戦略ですが、完全に投資されたロング ポジションを出力するための投票しきい値が 2 "
+"票に変更されます。つまり、2 つの戦略がロングを出力する必要があると判断する限り、ロングを出力します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:505
+msgid "得到结果如下：年化收益8.46%，夏普率0.612"
+msgstr "結果は以下の通りです：年率リターン8.46%、シャープレシオ0.612"
+
+#: ../../source/tutorials/4-build-in-strategies.md:551
+msgid "![png](../tutorials/img/output_19_1.png)"
+msgstr "![png](../tutorials/img/output_19_1.png)"
+
+#: ../../source/tutorials/4-build-in-strategies.md:553
+msgid ""
+"对比第二张图表和第三张图表，您可以发现，满仓的区间明显变长了，这是因为原来需要三张赞成票才能满仓的策略，现在只要两张赞成票就可以了，因此更容易出现满仓的结果"
+msgstr ""
+"2 番目のチャートと 3 番目のチャートを比較すると、フル ポジションの間隔が明らかに長くなっていることがわかります。これは、フル "
+"ポジションを獲得するために以前は 3 票が必要だった戦略が、現在は 2 票のみで済むため、フル ポジションを達成するのが容易になっているためです。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:555
+msgid "本篇回顾"
+msgstr "要約"
+
+#: ../../source/tutorials/4-build-in-strategies.md:557
+msgid ""
+"好了，相信到了这里，您应该会对交易策略的混合有了一个初步的理解了。我们的教程还会继续，`qteasy`还有更多的方式实现您希望的交易策略，实际上，尽管`qteasy`的内核被设计为一个有利于高速回测和高速执行的向量化的策略内核，但仍然考虑到了足够的灵活性，理论上您可以实现您所设想的任何类型的交易策略。"
+msgstr ""
+"さて、ここまでで、取引戦略をどのように組み合わせることができるかについて予備的な理解ができたはずです。私たちのチュートリアルは続きます: "
+"`qteasy` では、必要な取引戦略を実装するためのさらに多くの方法を提供します。実際、`qteasy` "
+"のコアは、高速バックテストと高速実行に役立つベクトル化された戦略エンジンとして設計されていますが、それでも十分な柔軟性が考慮されています。理論的には、想像できるあらゆる種類の取引戦略を実装できます。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:559
+msgid ""
+"同时，`qteasy`的回测框架也做了相当多的特殊设计，可以完全避免您无意中在交易策略中导入\"未来函数\"，确保您的交易策略在回测时完全基于过去的数据，同时也使用了很多预处理技术以及JIT技术对内核关键函数进行了编译，以实现不亚于C语言的运行速度。"
+msgstr ""
+"一方、`qteasy` のバックテスト "
+"フレームワークは、非常に多くの特別な設計も行っており、「将来の機能」を取引戦略に不用意にインポートすることを完全に回避し、バックテスト中に取引戦略が完全に過去のデータに基づいていることを保証します。同時に、多くの前処理技術と"
+" JIT 技術を使用してカーネルの主要な関数をコンパイルし、C 言語と同等の実行速度を実現します。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:561
+msgid ""
+"不过，为了实现理论上无限可能的交易策略，仅仅使用内置交易策略以及策略混合就不一定够用了，一些特定的交易策略，或者一些特别复杂的交易策略是无法通过内置策略混合而成的，这就需要我们使用`qteasy`提供的`Strategy`基类，基于一定的规则创建一个自定义交易策略了。"
+msgstr ""
+"ただし、理論的に無限の可能性のあるトレーディング戦略を実現するには、組み込みのトレーディング戦略と戦略ブレンディングだけを使用するだけでは十分ではない可能性があります。一部の特定の取引戦略、または一部の特に複雑な取引戦略は、組み込みの戦略ブレンディングでは作成できません。これには、`qteasy`"
+" が提供する`Strategy` 基本クラスを使用して、特定のルールに基づいてカスタム取引戦略を作成する必要があります。"
+
+#: ../../source/tutorials/4-build-in-strategies.md:563
+msgid ""
+"在`qteasy`教程的下一节，我们将用一个例子来介绍如何创建一个自定义交易策略，如何定义策略的基本参数，如何定义策略所需的数据类型，如何设置交易信号的生成逻辑。。。"
+msgstr ""
+"`qteasy` "
+"チュートリアルの次のセクションでは、例を使用して、カスタム取引戦略の作成方法、戦略の基本パラメーターの定義方法、戦略に必要なデータ型の定義方法、取引シグナルを生成するロジックの設定方法を紹介します。"

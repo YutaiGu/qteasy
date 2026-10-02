@@ -1,0 +1,238 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/api/Strategies.rst:2
+msgid "交易策略基类"
+msgstr "交易策略基類"
+
+#: ../../source/api/Strategies.rst:4
+msgid "本页提供 Strategy 相关核心类的 API 自动文档入口。 设计思路与使用教程请参考："
+msgstr "本頁提供 Strategy 相關核心類的 API 自動文檔入口。 設計思路與使用教程請參考："
+
+#: ../../source/api/Strategies.rst:7
+msgid "设计文档：``design/10-live-trading-s1.3-architecture.md``"
+msgstr "設計文檔：``design/10-live-trading-s1.3-architecture.md``"
+
+#: ../../source/api/Strategies.rst:8
+msgid "策略管理文档：``manage_strategies/*``"
+msgstr "策略管理文檔：``manage_strategies/*``"
+
+#: ../../source/api/Strategies.rst:9
+msgid "实操教程：``tutorials/*``"
+msgstr "實操教程：``tutorials/*``"
+
+#: ../../source/api/Strategies.rst:12
+msgid "BaseStrategy"
+msgstr "BaseStrategy"
+
+#: of qteasy.strategy.BaseStrategy:1
+msgid "基类：:py:class:`object`"
+msgstr "基类：:py:class:`object`"
+
+#: of qteasy.strategy.BaseStrategy:1
+msgid "量化投资策略的抽象基类，所有具体策略都应从本类继承并实现交易信号生成逻辑。"
+msgstr "量化投資策略的抽象基類，所有具體策略都應從本類繼承並實現交易信號生成邏輯。"
+
+#: of qteasy.strategy.BaseStrategy:3
+msgid ""
+"一个完整的策略通常由三部分组成：可调参数（pars）、所需历史数据的声明 （data_types + window_length "
+"等）以及基于这些数据生成信号的 ``realize()`` 逻辑。 在策略运行过程中，可通过 ``get_pars()`` 和 "
+"``get_data()`` 访问参数与数据，输出 的实数信号再由 Operator 按 PT/PS/VS 信号语义解析为实际交易指令。关于自定义策略 "
+"实现步骤与 PT/PS/VS 的详细说明，见文档「交易策略与 BaseStrategy」相关章节。"
+msgstr ""
+"一個完整的策略通常由三部分組成：可調參數（pars）、所需歷史數據的聲明 （data_types + window_length "
+"等）以及基於這些數據生成信號的 ``realize()`` 邏輯。 在策略運行過程中，可通過 ``get_pars()`` 和 "
+"``get_data()`` 訪問參數與數據，輸出 的實數信號再由 Operator 按 PT/PS/VS 信號語義解析爲實際交易指令。關於自定義策略 "
+"實現步驟與 PT/PS/VS 的詳細說明，見文檔「交易策略與 BaseStrategy」相關章節。"
+
+#: of qteasy.strategy.BaseStrategy:10
+msgid "示例"
+msgstr "示例"
+
+#: of qteasy.strategy.BaseStrategy:11
+msgid "BaseStrategy 为抽象基类，通常通过继承实现自定义策略。下面示例展示其类型信息（稳定输出）："
+msgstr "BaseStrategy 爲抽象基類，通常通過繼承實現自定義策略。下面示例展示其類型資訊（穩定輸出）："
+
+#: of qteasy.strategy.BaseStrategy.get_pars:1
+msgid ""
+"get the value of parameter by its name or id, alias as operator.par_name "
+"multiple parameters can be got at one time"
+msgstr ""
+"get the value of parameter by its name or id, alias as operator.par_name "
+"multiple parameters can be got at one time"
+
+#: of qteasy.strategy.BaseStrategy.info:1
+msgid "打印所有相关信息和主要属性"
+msgstr "列印所有相關資訊和主要屬性"
+
+#: ../../source/api/Strategies.rst
+msgid "参数"
+msgstr "參數"
+
+#: of qteasy.strategy.BaseStrategy.info:3
+msgid "是否打印更多的信息"
+msgstr "是否列印更多的資訊"
+
+#: of qteasy.strategy.BaseStrategy.info:5
+msgid "是否打印策略的运行状态"
+msgstr "是否列印策略的運行狀態"
+
+#: of qteasy.strategy.BaseStrategy.info:7
+msgid "策略的ID，如果为None，则打印策略的名称，否则打印策略的ID"
+msgstr "策略的ID，如果爲None，則列印策略的名稱，否則列印策略的ID"
+
+#: of qteasy.strategy.BaseStrategy.info:9
+msgid "额外的信息，可以是任何字符串，会被打印在策略主信息之后，参数和数据之前"
+msgstr "額外的資訊，可以是任何字符串，會被列印在策略主資訊之後，參數和數據之前"
+
+#: ../../source/api/Strategies.rst
+msgid "返回类型"
+msgstr "返回類型"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:1
+msgid "快速更新策略的参数值"
+msgstr "快速更新策略的參數值"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:3
+msgid "策略参数的值，元组中的每个元素是按顺序排列的所有参数值，如果 没有设置参数，则必须传入kwargs参数"
+msgstr "策略參數的值，元組中的每個元素是按順序排列的所有參數值，如果 沒有設置參數，則必須傳入kwargs參數"
+
+#: of qteasy.strategy.BaseStrategy.update_par_values:6
+msgid "以字典形式传入具体需要更新的参数值，键为参数名，值为参数值"
+msgstr "以字典形式傳入具體需要更新的參數值，鍵爲參數名，值爲參數值"
+
+#: ../../source/api/Strategies.rst:19
+msgid "GeneralStg"
+msgstr "GeneralStg"
+
+#: of qteasy.strategy.FactorSorter:1 qteasy.strategy.GeneralStg:1
+#: qteasy.strategy.RuleIterator:1
+msgid "基类：:py:class:`~qteasy.strategy.BaseStrategy`"
+msgstr "基类：:py:class:`~qteasy.strategy.BaseStrategy`"
+
+#: of qteasy.strategy.GeneralStg:1
+msgid "通用交易策略类，用户需要完整定义策略的所有交易逻辑，并在realize()方法中定义策略的信号输出。"
+msgstr "通用交易策略類，用戶需要完整定義策略的所有交易邏輯，並在realize()方法中定義策略的信號輸出。"
+
+#: of qteasy.strategy.GeneralStg:3
+msgid "关于GeneralStg类的更详细说明，请参见qteasy的文档。"
+msgstr "關於GeneralStg類的更詳細說明，請參見qteasy的文檔。"
+
+#: ../../source/api/Strategies.rst:25
+msgid "FactorSorter"
+msgstr "FactorSorter"
+
+#: of qteasy.strategy.FactorSorter:1
+msgid "因子排序选股策略，根据用户定义的选股因子筛选排序后确定每个股票的选股权重(请注意，FactorSorter策略"
+msgstr "因子排序選股策略，根據用戶定義的選股因子篩選排序後確定每個股票的選股權重(請注意，FactorSorter策略"
+
+#: of qteasy.strategy.FactorSorter:2
+msgid "生成的交易信号在0到1之间，推荐设置signal_type为\"PT\")"
+msgstr "生成的交易信號在0到1之間，推薦設置signal_type爲\"PT\")"
+
+#: of qteasy.strategy.FactorSorter:4
+msgid ""
+"这类策略要求用户从历史数据中提取一个选股因子，并根据选股因子的大小排序后确定投资组合中股票的交易信号 "
+"用户需要在realize()方法中计算选股因子，计算出选股因子后，接下来的排序和选股逻辑都不需要用户自行定义。 "
+"策略会根据预设的条件，从中筛选出符合标准的因子，并将剩下的因子排序，从中选择特定数量的股票，最后根据它 "
+"们的因子值分配权重或信号值。关于Strategy类的更详细说明，请参见qteasy的文档。"
+msgstr ""
+"這類策略要求用戶從歷史數據中提取一個選股因子，並根據選股因子的大小排序後確定投資組合中股票的交易信號 "
+"用戶需要在realize()方法中計算選股因子，計算出選股因子後，接下來的排序和選股邏輯都不需要用戶自行定義。 "
+"策略會根據預設的條件，從中篩選出符合標準的因子，並將剩下的因子排序，從中選擇特定數量的股票，最後根據它 "
+"們的因子值分配權重或信號值。關於Strategy類的更詳細說明，請參見qteasy的文檔。"
+
+#: ../../source/api/Strategies.rst:31
+msgid "RuleIterator"
+msgstr "RuleIterator"
+
+#: of qteasy.strategy.RuleIterator:1
+msgid "规则迭代策略类。这一类策略不考虑每一只股票的区别，将同一套规则同时迭代应用到所有的股票上。"
+msgstr "規則迭代策略類。這一類策略不考慮每一隻股票的區別，將同一套規則同時迭代應用到所有的股票上。"
+
+#: of qteasy.strategy.RuleIterator:3
+msgid ""
+"RuleIterator策略类的特殊功能是可以对同一套交易规则，将不同的参数应用到投资组合中的不同股票上。 "
+"例如，用户可以设计一个均线交叉策略，并将其应用到投资组合中的所有股票上，同时可以为每只股票 "
+"设定不同的均线周期参数。关于Strategy类的更详细说明，请参见qteasy的文档。"
+msgstr ""
+"RuleIterator策略類的特殊功能是可以對同一套交易規則，將不同的參數應用到投資組合中的不同股票上。 "
+"例如，用戶可以設計一個均線交叉策略，並將其應用到投資組合中的所有股票上，同時可以爲每隻股票 "
+"設定不同的均線週期參數。關於Strategy類的更詳細說明，請參見qteasy的文檔。"
+
+#: of qteasy.strategy.RuleIterator:7
+msgid ""
+"**多标的且每股参数不同**：须通过 ``update_par_values({股票代码: (p1, p2, ...), ...})`` 传入与 "
+"``share_names`` 一致的股票代码键；若仅用位置元组初始化，多标的时全体共享一套运行时参数（见 用户文档《三种策略基类》中 "
+"RuleIterator 一节）。字典中可用键名 ``default`` 为未单独列出的标的 提供同一套默认初值；不支持 ``others`` "
+"等其它保留键名。"
+msgstr ""
+"**多標的且每股參數不同**：須通過 ``update_par_values({股票代碼: (p1, p2, ...), ...})`` 傳入與 "
+"``share_names`` 一致的股票代碼鍵；若僅用位置元組初始化，多標的時全體共享一套運行時參數（見 用戶文檔《三種策略基類》中 "
+"RuleIterator 一節）。字典中可用鍵名 ``default`` 爲未單獨列出的標的 提供同一套默認初值；不支持 ``others`` "
+"等其它保留鍵名。"
+
+#: ../../source/api/Strategies.rst:37
+msgid "交易策略参数对象"
+msgstr "交易策略參數對象"
+
+#: ../../source/api/Strategies.rst:39
+msgid "Parameter 用于定义策略可调参数的类型、范围与取值方式。"
+msgstr "Parameter 用於定義策略可調參數的類型、範圍與取值方式。"
+
+#: of qteasy.parameter.Parameter:1
+msgid "可调参数对象，可以是离散型、连续型、枚举型或者数组型参数，在交易策略中对策略的运行结果产生影响。"
+msgstr "可調參數對象，可以是離散型、連續型、枚舉型或者數組型參數，在交易策略中對策略的運行結果產生影響。"
+
+#: of qteasy.parameter.Parameter.get_value:1
+msgid "获取参数的当前值"
+msgstr "獲取參數的當前值"
+
+#: of qteasy.parameter.Parameter.set_value:1
+msgid "设置参数的当前值"
+msgstr "設置參數的當前值"
+
+#: of qteasy.parameter.Parameter.set_value:3
+msgid "需要设置的参数值，若参数为枚举型，则value可以是枚举值中的一个；若参数为离散型或连续型，则value可以是一个整数或浮点数"
+msgstr "需要設置的參數值，若參數爲枚舉型，則value可以是枚舉值中的一個；若參數爲離散型或連續型，則value可以是一個整數或浮點數"
+
+#: ../../source/api/Strategies.rst
+msgid "抛出"
+msgstr "拋出"
+
+#: of qteasy.parameter.Parameter.set_value:6
+msgid "当value不在数轴的可用值中时，抛出ValueError异常"
+msgstr "當value不在數軸的可用值中時，拋出ValueError異常"
+
+#: of qteasy.parameter.Parameter.update_par_range:1
+msgid "更新参数的范围"
+msgstr "更新參數的範圍"
+
+#: of qteasy.parameter.Parameter.update_par_range:3
+msgid ""
+"数轴的上下界或枚举值，当数轴类型为conti或discr时，bounds_or_enum为一个长度为2的列表或元组，分别代表数轴的上下界； "
+"当数轴类型为enum时，bounds_or_enum为一个列表或元组，其中的元素为该数轴上所有可用的值"
+msgstr ""
+"數軸的上下界或枚舉值，當數軸類型爲conti或discr時，bounds_or_enum爲一個長度爲2的列表或元組，分別代表數軸的上下界； "
+"當數軸類型爲enum時，bounds_or_enum爲一個列表或元組，其中的元素爲該數軸上所有可用的值"
+
+#: of qteasy.parameter.Parameter.update_par_range:7
+msgid "当输入的数轴类型不在可选值中时，抛出ValueError异常"
+msgstr "當輸入的數軸類型不在可選值中時，拋出ValueError異常"

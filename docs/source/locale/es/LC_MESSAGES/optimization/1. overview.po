@@ -3,30 +3,120 @@
 # This file is distributed under the same license as the qteasy package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: qteasy 2.4\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 01:06+0800\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 14:00+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: es <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "Generated-By: Babel 2.15.0\n"
 
-#: ../../source/optimization/overview.md:1
+#: ../../source/optimization/1. overview.md:1
 msgid "交易策略优化总览"
-msgstr ""
+msgstr "Descripción general de la optimización de la estrategia comercial"
 
-#: ../../source/optimization/overview.md:3
-msgid "本文介绍如何使用`qteasy`优化交易策略。"
+#: ../../source/optimization/1. overview.md:3
+msgid "优化旨在在参数空间中寻找使目标函数更优（如夏普最大化）的参数组合；本质是多次回测加目标函数比较。"
 msgstr ""
+"La optimización busca en el espacio de parámetros combinaciones que mejoren "
+"la función objetivo (por ejemplo, maximizar la relación de Sharpe). En "
+"esencia, se trata de pruebas repetidas más una comparación de la función "
+"objetivo."
 
-#: ../../source/optimization/overview.md:5
-msgid "未完待续"
+#: ../../source/optimization/1. overview.md:5
+msgid "总体介绍"
+msgstr "Descripción general"
+
+#: ../../source/optimization/1. overview.md:7
+msgid "**目的**：在策略可调参数范围内，通过搜索或优化算法找到表现更好的参数（如均线周期、阈值等）。"
 msgstr ""
+"**Propósito**: dentro de los rangos de parámetros ajustables de la "
+"estrategia, utilice algoritmos de búsqueda u optimización para encontrar "
+"parámetros de mejor rendimiento (como períodos o umbrales de promedio "
+"móvil)."
+
+#: ../../source/optimization/1. overview.md:8
+msgid "**与回测的关系**：优化 = 多次回测（每次一组参数）+ 按目标函数（如夏普、回撤）比较并排序，选出最优或 Top-K 组。"
+msgstr ""
+"**Relación con las pruebas retrospectivas**: Optimización = muchas pruebas "
+"retrospectivas (un conjunto de parámetros cada una) + comparar y clasificar "
+"según la función objetivo (por ejemplo, relación de Sharpe o reducción), "
+"luego elegir los mejores conjuntos o los Top-K."
+
+#: ../../source/optimization/1. overview.md:10
+msgid "优化流程概览"
+msgstr "Descripción general del flujo de trabajo de optimización"
+
+#: ../../source/optimization/1. overview.md:12
+msgid "**设定参数空间与目标**：策略的 Parameter 与 par_range 定义搜索空间；目标函数由配置指定（如夏普最大化）。"
+msgstr ""
+"**Establecer espacio de parámetros y objetivo**: ``Parameter`` objects and "
+"``par_range`` de la estrategia define el espacio de búsqueda; la función "
+"objetivo se establece en la configuración (por ejemplo, maximizar la "
+"relación de Sharpe)."
+
+#: ../../source/optimization/1. overview.md:13
+msgid "**选择优化算法**：opti_method 可选 grid、montecarlo、GA、SA、PSO、bayesian 等。"
+msgstr ""
+"**Elija un algoritmo de optimización**: "
+"`⟦CÓDIGO0⟧⟦CÓDIGO1⟧⟦CÓDIGO2⟧⟦CÓDIGO3⟧⟦CÓDIGO4⟧⟦CÓDIGO5⟧⟦CÓDIGO "
+"6⟧⟦CÓDIGO7⟧⟦CÓDIGO8⟧⟦CÓDIGO9⟧⟦CÓDIGO10⟧⟦CÓDIGO11⟧⟦CÓDIGO12⟧`, y otros."
+
+#: ../../source/optimization/1. overview.md:14
+msgid "**qt.run(mode=2)**：运行策略优化。"
+msgstr "**``qt.run(mode=2)``**: Ejecutar optimización de estrategia."
+
+#: ../../source/optimization/1. overview.md:15
+msgid "**获取结果与最优参数**：从返回对象中读取最优参数组合及 Top-K 结果。"
+msgstr ""
+"**Leer resultados y mejores parámetros**: extrae la mejor combinación de "
+"parámetros y los resultados Top-K del objeto devuelto."
+
+#: ../../source/optimization/1. overview.md:17
+msgid "本目录各章导航"
+msgstr "Guía de capítulos en esta sección"
+
+#: ../../source/optimization/1. overview.md:19
+msgid "**2. 如何运行策略优化** — 入口、优化算法与运行参数列表、参数空间、最小示例。"
+msgstr ""
+"**2. Cómo ejecutar la optimización de estrategias**: punto de entrada, "
+"algoritmos de optimización y listas de parámetros de ejecución, espacio de "
+"parámetros y un ejemplo mínimo."
+
+#: ../../source/optimization/1. overview.md:20
+msgid "**3. 优化算法的区别与使用情境** — 各算法对比与选择建议。"
+msgstr ""
+"**3. Algoritmos de optimización: diferencias y casos de uso** — Comparación "
+"de algoritmos y consejos para la selección."
+
+#: ../../source/optimization/1. overview.md:21
+msgid "**4. 优化结果的结构与读取** — 返回值、结果字段、读取最优与 Top-K。"
+msgstr ""
+"**4. Estructura y acceso a los resultados de optimización**: valores de "
+"retorno, campos de resultados y resultados de lectura óptimos y Top-K."
+
+#: ../../source/optimization/1. overview.md:22
+msgid "**5. 优化结果的分析与使用** — 结果分析、目标函数与约束、将最优参数写回策略、注意事项。"
+msgstr ""
+"**5. Análisis y uso de resultados de optimización**: análisis de resultados,"
+" objetivos y restricciones, aplicación de los mejores parámetros a la "
+"estrategia y advertencias."
+
+#: ../../source/optimization/1. overview.md:24
+msgid "更多算法细节见《优化交易策略》references（如 references/5-optimize-strategy.md）。"
+msgstr ""
+"Para obtener más detalles sobre el algoritmo, consulte las referencias de "
+"optimización (por ejemplo, ``references/5-optimize-strategy.md``)."
+
+#~ msgid "本文介绍如何使用`qteasy`优化交易策略。"
+#~ msgstr ""
+
+#~ msgid "未完待续"
+#~ msgstr ""

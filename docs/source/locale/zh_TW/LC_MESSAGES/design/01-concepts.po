@@ -1,0 +1,499 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/01-concepts.md:1
+msgid "核心概念速览"
+msgstr "核心概念速覽"
+
+#: ../../source/design/01-concepts.md:3
+msgid ""
+"本章用表格和简短说明梳理 qteasy 中的核心概念，便于在阅读后续章节或使用 API 时快速查阅。更完整的结构与关系见 "
+"[总体架构与设计思路](00-overview.md)。"
+msgstr ""
+"本章用表格和簡短說明梳理 qteasy 中的核心概念，便於在閱讀後續章節或使用 API 時快速查閱。更完整的結構與關係見 "
+"[總體架構與設計思路](00-overview.md)。"
+
+#: ../../source/design/01-concepts.md:5
+msgid "1. 概念表（名称 / 含义 / 在文档中的位置）"
+msgstr "1. 概念表（名稱 / 含義 / 在文檔中的位置）"
+
+#: ../../source/design/01-concepts.md
+msgid "概念"
+msgstr "概念"
+
+#: ../../source/design/01-concepts.md
+msgid "含义"
+msgstr "含義"
+
+#: ../../source/design/01-concepts.md
+msgid "本系列中的位置"
+msgstr "本系列中的位置"
+
+#: ../../source/design/01-concepts.md
+msgid "**DataSource**"
+msgstr "**DataSource**"
+
+#: ../../source/design/01-concepts.md
+msgid "本地数据存储的抽象，管理文件或数据库中的历史数据表，不主动拉取数据"
+msgstr "本地數據存儲的抽象，管理文件或數據庫中的歷史數據表，不主動拉取數據"
+
+#: ../../source/design/01-concepts.md
+msgid "[数据获取、存储与数据类型](02-data-layer.md)"
+msgstr "[數據獲取、存儲與數據類型](02-data-layer.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**数据表**"
+msgstr "**數據表**"
+
+#: ../../source/design/01-concepts.md
+msgid "DataSource 中的表，按统一结构存储行情、财务、宏观等数据"
+msgstr "DataSource 中的表，按統一結構存儲行情、財務、宏觀等數據"
+
+#: ../../source/design/01-concepts.md
+msgid "**DataType**"
+msgstr "**DataType**"
+
+#: ../../source/design/01-concepts.md
+msgid "“策略可引用的信息”的类型描述，由 name、freq、asset_type 等确定"
+msgstr "“策略可引用的資訊”的類型描述，由 name、freq、asset_type 等確定"
+
+#: ../../source/design/01-concepts.md
+msgid ""
+"[数据获取、存储与数据类型](02-data-layer.md)、[策略如何声明与使用数据](03-data-in-strategies.md)"
+msgstr ""
+"[數據獲取、存儲與數據類型](02-data-layer.md)、[策略如何聲明與使用數據](03-data-in-strategies.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**htype**"
+msgstr "**htype**"
+
+#: ../../source/design/01-concepts.md
+msgid "历史数据类型名称（如 close、open），常与 freq、asset_type 一起用来标识一种数据"
+msgstr "歷史數據類型名稱（如 close、open），常與 freq、asset_type 一起用來標識一種數據"
+
+#: ../../source/design/01-concepts.md
+msgid "**dtype_id**"
+msgstr "**dtype_id**"
+
+#: ../../source/design/01-concepts.md
+msgid "DataType 的唯一标识，形如 `name_assettype_freq`（如 `close_E_d`）"
+msgstr "DataType 的唯一標識，形如 `name_assettype_freq`（如 `close_E_d`）"
+
+#: ../../source/design/01-concepts.md
+msgid "下文“dtype_id 的构成与示例”"
+msgstr "下文“dtype_id 的構成與示例”"
+
+#: ../../source/design/01-concepts.md
+msgid "**Operator**"
+msgstr "**Operator**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略容器与运行入口，持有 Group 列表与 group_timing_table，提供 run(config)"
+msgstr "策略容器與運行入口，持有 Group 列表與 group_timing_table，提供 run(config)"
+
+#: ../../source/design/01-concepts.md
+msgid "[Operator 与 Group](04-operator-and-groups.md)"
+msgstr "[Operator 與 Group](04-operator-and-groups.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**Group**"
+msgstr "**Group**"
+
+#: ../../source/design/01-concepts.md
+msgid "具有相同 run_freq、run_timing 的策略集合，拥有 signal_type 与 blender"
+msgstr "具有相同 run_freq、run_timing 的策略集合，擁有 signal_type 與 blender"
+
+#: ../../source/design/01-concepts.md
+msgid "**Strategy**"
+msgstr "**Strategy**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略基类及其子类，声明 data_types/window_length、Parameter，实现 realize()"
+msgstr "策略基類及其子類，聲明 data_types/window_length、Parameter，實現 realize()"
+
+#: ../../source/design/01-concepts.md
+msgid "[Strategy 如何运行](05-strategy-lifecycle.md)"
+msgstr "[Strategy 如何運行](05-strategy-lifecycle.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**run_freq**"
+msgstr "**run_freq**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略（组）的运行频率，如 `'d'` 日、`'m'` 月"
+msgstr "策略（組）的運行頻率，如 `'d'` 日、`'m'` 月"
+
+#: ../../source/design/01-concepts.md
+msgid "**run_timing**"
+msgstr "**run_timing**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略（组）在周期内的运行时机，如 `'close'` 收盘、`'open'` 开盘"
+msgstr "策略（組）在週期內的運行時機，如 `'close'` 收盤、`'open'` 開盤"
+
+#: ../../source/design/01-concepts.md
+msgid "**group_timing_table**"
+msgstr "**group_timing_table**"
+
+#: ../../source/design/01-concepts.md
+msgid "时间步 × Group 的表，标记每个时间步哪些 Group 运行"
+msgstr "時間步 × Group 的表，標記每個時間步哪些 Group 運行"
+
+#: ../../source/design/01-concepts.md
+msgid "**blender**"
+msgstr "**blender**"
+
+#: ../../source/design/01-concepts.md
+msgid "同 Group 内多策略信号的混合方式（表达式或默认规则）"
+msgstr "同 Group 內多策略信號的混合方式（表達式或默認規則）"
+
+#: ../../source/design/01-concepts.md
+msgid "**signal_type**"
+msgstr "**signal_type**"
+
+#: ../../source/design/01-concepts.md
+msgid "信号类型：PT（目标仓位）、PS（比例买卖）、VS（数量买卖）"
+msgstr "信號類型：PT（目標倉位）、PS（比例買賣）、VS（數量買賣）"
+
+#: ../../source/design/01-concepts.md
+msgid "下文“三种信号类型 PT/PS/VS”"
+msgstr "下文“三種信號類型 PT/PS/VS”"
+
+#: ../../source/design/01-concepts.md
+msgid "**Parameter**"
+msgstr "**Parameter**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略可调参数的定义（名称、类型、取值范围等）"
+msgstr "策略可調參數的定義（名稱、類型、取值範圍等）"
+
+#: ../../source/design/01-concepts.md
+msgid "**data_types**"
+msgstr "**data_types**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略声明的所需数据类型（DataType 或列表）"
+msgstr "策略聲明的所需數據類型（DataType 或列表）"
+
+#: ../../source/design/01-concepts.md
+msgid "[策略如何声明与使用数据](03-data-in-strategies.md)"
+msgstr "[策略如何聲明與使用數據](03-data-in-strategies.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**window_length**"
+msgstr "**window_length**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略所需历史数据的窗口长度（如 20 天）"
+msgstr "策略所需歷史數據的窗口長度（如 20 天）"
+
+#: ../../source/design/01-concepts.md
+msgid "**realize()**"
+msgstr "**realize()**"
+
+#: ../../source/design/01-concepts.md
+msgid "策略逻辑入口，无参数，通过 get_pars/get_data 取数并返回信号"
+msgstr "策略邏輯入口，無參數，通過 get_pars/get_data 取數並返回信號"
+
+#: ../../source/design/01-concepts.md
+msgid "**get_data / get_pars**"
+msgstr "**get_data / get_pars**"
+
+#: ../../source/design/01-concepts.md
+msgid "在 realize() 内按 dtype_id 取数据、按参数名取可调参数"
+msgstr "在 realize() 內按 dtype_id 取數據、按參數名取可調參數"
+
+#: ../../source/design/01-concepts.md
+msgid "**Backtester**"
+msgstr "**Backtester**"
+
+#: ../../source/design/01-concepts.md
+msgid "回测执行器，按 group_timing_table 驱动 Operator 并模拟成交"
+msgstr "回測執行器，按 group_timing_table 驅動 Operator 並模擬成交"
+
+#: ../../source/design/01-concepts.md
+msgid "[回测、实盘与优化](06-backtest-live-optimization.md)"
+msgstr "[回測、實盤與優化](06-backtest-live-optimization.md)"
+
+#: ../../source/design/01-concepts.md
+msgid "**Optimizer**"
+msgstr "**Optimizer**"
+
+#: ../../source/design/01-concepts.md
+msgid "优化器，在参数空间搜索并多次回测，汇总目标函数"
+msgstr "優化器，在參數空間搜索並多次回測，彙總目標函數"
+
+#: ../../source/design/01-concepts.md
+msgid "**Trader**"
+msgstr "**Trader**"
+
+#: ../../source/design/01-concepts.md
+msgid "实盘交易管理，按 schedule 触发 Operator 并协调 Broker"
+msgstr "實盤交易管理，按 schedule 觸發 Operator 並協調 Broker"
+
+#: ../../source/design/01-concepts.md
+msgid "**Broker**"
+msgstr "**Broker**"
+
+#: ../../source/design/01-concepts.md
+msgid "订单执行与成交回报的接口抽象"
+msgstr "訂單執行與成交回報的接口抽象"
+
+#: ../../source/design/01-concepts.md
+msgid "**config**"
+msgstr "**config**"
+
+#: ../../source/design/01-concepts.md
+msgid "运行配置（资产池、区间、成本、资金计划等），回测/实盘/优化共用"
+msgstr "運行配置（資產池、區間、成本、資金計劃等），回測/實盤/優化共用"
+
+#: ../../source/design/01-concepts.md
+msgid "**qt.run**"
+msgstr "**qt.run**"
+
+#: ../../source/design/01-concepts.md
+msgid ""
+"统一入口：qt.run(op, mode=..., **kwargs) → op.run(config, datasource, logger)"
+msgstr ""
+"統一入口：qt.run(op, mode=..., **kwargs) → op.run(config, datasource, logger)"
+
+#: ../../source/design/01-concepts.md:34
+msgid "2. dtype_id 的构成与示例"
+msgstr "2. dtype_id 的構成與示例"
+
+#: ../../source/design/01-concepts.md:36
+msgid "dtype_id 由三部分拼接而成：**name_assettype_freq**。"
+msgstr "dtype_id 由三部分拼接而成：**name_assettype_freq**。"
+
+#: ../../source/design/01-concepts.md:38
+msgid "**name**：数据类型名称（如 close、open、total_mv、pe）。"
+msgstr "**name**：數據類型名稱（如 close、open、total_mv、pe）。"
+
+#: ../../source/design/01-concepts.md:39
+msgid "**assettype**：资产类型，如 `E`（股票）、`IDX`（指数）、`ANY`（任意）。"
+msgstr "**assettype**：資產類型，如 `E`（股票）、`IDX`（指數）、`ANY`（任意）。"
+
+#: ../../source/design/01-concepts.md:40
+msgid "**freq**：数据频率，如 `d`（日）、`w`（周）、`m`（月）、`q`（季）。"
+msgstr "**freq**：數據頻率，如 `d`（日）、`w`（周）、`m`（月）、`q`（季）。"
+
+#: ../../source/design/01-concepts.md:42
+msgid "示例："
+msgstr "示例："
+
+#: ../../source/design/01-concepts.md
+msgid "dtype_id"
+msgstr "dtype_id"
+
+#: ../../source/design/01-concepts.md
+msgid "`close_E_d`"
+msgstr "`close_E_d`"
+
+#: ../../source/design/01-concepts.md
+msgid "股票日频收盘价"
+msgstr "股票日頻收盤價"
+
+#: ../../source/design/01-concepts.md
+msgid "`close_IDX_d`"
+msgstr "`close_IDX_d`"
+
+#: ../../source/design/01-concepts.md
+msgid "指数日频收盘价"
+msgstr "指數日頻收盤價"
+
+#: ../../source/design/01-concepts.md
+msgid "`close_ANY_d`"
+msgstr "`close_ANY_d`"
+
+#: ../../source/design/01-concepts.md
+msgid "任意资产日频收盘价"
+msgstr "任意資產日頻收盤價"
+
+#: ../../source/design/01-concepts.md
+msgid "`total_mv_E_q`"
+msgstr "`total_mv_E_q`"
+
+#: ../../source/design/01-concepts.md
+msgid "股票季频总市值"
+msgstr "股票季頻總市值"
+
+#: ../../source/design/01-concepts.md
+msgid "`pe_E_d`"
+msgstr "`pe_E_d`"
+
+#: ../../source/design/01-concepts.md
+msgid "股票日频市盈率（若存在）"
+msgstr "股票日頻市盈率（若存在）"
+
+#: ../../source/design/01-concepts.md:52
+msgid ""
+"策略在 `get_data(dtype_id)` 时使用的 id 需与策略声明的 DataType 所生成的 dtype_id 一致（通常可通过策略的 "
+"`data_type_ids` 属性查看）。"
+msgstr ""
+"策略在 `get_data(dtype_id)` 時使用的 id 需與策略聲明的 DataType 所生成的 dtype_id 一致（通常可通過策略的 "
+"`data_type_ids` 屬性查看）。"
+
+#: ../../source/design/01-concepts.md:54
+msgid "3. 三种信号类型 PT/PS/VS 的语义对比表"
+msgstr "3. 三種信號類型 PT/PS/VS 的語義對比表"
+
+#: ../../source/design/01-concepts.md
+msgid "类型"
+msgstr "類型"
+
+#: ../../source/design/01-concepts.md
+msgid "全称"
+msgstr "全稱"
+
+#: ../../source/design/01-concepts.md
+msgid "含义（一句话）"
+msgstr "含義（一句話）"
+
+#: ../../source/design/01-concepts.md
+msgid "示例"
+msgstr "示例"
+
+#: ../../source/design/01-concepts.md
+msgid "**PT**"
+msgstr "**PT**"
+
+#: ../../source/design/01-concepts.md
+msgid "Position Target"
+msgstr "Position Target"
+
+#: ../../source/design/01-concepts.md
+msgid "目标持仓比例，信号表示希望达到的多空仓位比例"
+msgstr "目標持倉比例，信號表示希望達到的多空倉位比例"
+
+#: ../../source/design/01-concepts.md
+msgid "0.5 表示目标 50% 多头仓位"
+msgstr "0.5 表示目標 50% 多頭倉位"
+
+#: ../../source/design/01-concepts.md
+msgid "**PS**"
+msgstr "**PS**"
+
+#: ../../source/design/01-concepts.md
+msgid "Proportion Signal"
+msgstr "Proportion Signal"
+
+#: ../../source/design/01-concepts.md
+msgid "比例买卖，信号表示用资金或持仓的多少比例买入/卖出"
+msgstr "比例買賣，信號表示用資金或持倉的多少比例買入/賣出"
+
+#: ../../source/design/01-concepts.md
+msgid "0.5 表示用 50% 资金买入或卖出 50% 持仓"
+msgstr "0.5 表示用 50% 資金買入或賣出 50% 持倉"
+
+#: ../../source/design/01-concepts.md
+msgid "**VS**"
+msgstr "**VS**"
+
+#: ../../source/design/01-concepts.md
+msgid "Volume Signal"
+msgstr "Volume Signal"
+
+#: ../../source/design/01-concepts.md
+msgid "数量买卖，信号表示买入/卖出的数量（股或份）"
+msgstr "數量買賣，信號表示買入/賣出的數量（股或份）"
+
+#: ../../source/design/01-concepts.md
+msgid "100 表示买入 100 股，-50 表示卖出 50 股"
+msgstr "100 表示買入 100 股，-50 表示賣出 50 股"
+
+#: ../../source/design/01-concepts.md:62
+msgid ""
+"同一数值在不同 signal_type 下会被解析为不同的委托意图；Group 的 signal_type "
+"在添加策略时确定，同组内策略输出同一类型信号再由 blender 混合。"
+msgstr ""
+"同一數值在不同 signal_type 下會被解析爲不同的委託意圖；Group 的 signal_type "
+"在添加策略時確定，同組內策略輸出同一類型信號再由 blender 混合。"
+
+#: ../../source/design/01-concepts.md:64
+msgid "4. 三种策略基类的输入/输出对比表"
+msgstr "4. 三種策略基類的輸入/輸出對比表"
+
+#: ../../source/design/01-concepts.md
+msgid "基类"
+msgstr "基類"
+
+#: ../../source/design/01-concepts.md
+msgid "典型用途"
+msgstr "典型用途"
+
+#: ../../source/design/01-concepts.md
+msgid "输入（get_data 等）"
+msgstr "輸入（get_data 等）"
+
+#: ../../source/design/01-concepts.md
+msgid "输出（realize 返回值）"
+msgstr "輸出（realize 返回值）"
+
+#: ../../source/design/01-concepts.md
+msgid "**RuleIterator**"
+msgstr "**RuleIterator**"
+
+#: ../../source/design/01-concepts.md
+msgid "择时、单规则迭代"
+msgstr "擇時、單規則迭代"
+
+#: ../../source/design/01-concepts.md
+msgid "单资产或多资产的数据窗口（按 dtype_id）"
+msgstr "單資產或多資產的數據窗口（按 dtype_id）"
+
+#: ../../source/design/01-concepts.md
+msgid "标量信号（如 1 / -1 / 0），同一规则作用于所有资产"
+msgstr "標量信號（如 1 / -1 / 0），同一規則作用於所有資產"
+
+#: ../../source/design/01-concepts.md
+msgid "**FactorSorter**"
+msgstr "**FactorSorter**"
+
+#: ../../source/design/01-concepts.md
+msgid "因子选股"
+msgstr "因子選股"
+
+#: ../../source/design/01-concepts.md
+msgid "多资产截面数据（如多只股票的因子值）"
+msgstr "多資產截面數據（如多隻股票的因子值）"
+
+#: ../../source/design/01-concepts.md
+msgid "一维因子数组（每资产一个值），引擎按因子排序与筛选规则选股"
+msgstr "一維因子數組（每資產一個值），引擎按因子排序與篩選規則選股"
+
+#: ../../source/design/01-concepts.md
+msgid "**GeneralStg**"
+msgstr "**GeneralStg**"
+
+#: ../../source/design/01-concepts.md
+msgid "通用多资产策略"
+msgstr "通用多資產策略"
+
+#: ../../source/design/01-concepts.md
+msgid "多资产、多数据类型的数据窗口"
+msgstr "多資產、多數據類型的數據窗口"
+
+#: ../../source/design/01-concepts.md
+msgid "一维信号数组（每资产一个目标仓位或买卖比例）"
+msgstr "一維信號數組（每資產一個目標倉位或買賣比例）"
+
+#: ../../source/design/01-concepts.md:72
+msgid "更多细节见 [Strategy 如何运行：时机、数据与参数](05-strategy-lifecycle.md)。"
+msgstr "更多細節見 [Strategy 如何運行：時機、數據與參數](05-strategy-lifecycle.md)。"

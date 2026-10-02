@@ -1,0 +1,135 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:1
+msgid "回测结果评价与分析"
+msgstr "回測結果評價與分析"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:3
+msgid "绩效指标完整列表（罗列并简短解释）"
+msgstr "績效指標完整列表（羅列並簡短解釋）"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:5
+msgid "以下为回测结果中常用或 **evaluate** 可用的指标，与 qteasy 2.0 一致为准。"
+msgstr "以下爲回測結果中常用或 **evaluate** 可用的指標，與 qteasy 2.0 一致爲準。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "指标"
+msgstr "指標"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "含义"
+msgstr "含義"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "总收益 / total_return"
+msgstr "總收益 / total_return"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "区间累计收益率。"
+msgstr "區間累計收益率。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "年化收益 / annual_return"
+msgstr "年化收益 / annual_return"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "年化后的收益率。"
+msgstr "年化後的收益率。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "夏普比率 / sharpe_ratio"
+msgstr "夏普比率 / sharpe_ratio"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "风险调整后收益。"
+msgstr "風險調整後收益。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "最大回撤 / max_drawdown"
+msgstr "最大回撤 / max_drawdown"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "区间内最大净值回撤。"
+msgstr "區間內最大淨值回撤。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "胜率 / win_rate"
+msgstr "勝率 / win_rate"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "盈利次数占交易次数比例。"
+msgstr "盈利次數佔交易次數比例。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "盈亏比"
+msgstr "盈虧比"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "平均盈利/平均亏损（若有）。"
+msgstr "平均盈利/平均虧損（若有）。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "其他"
+msgstr "其他"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md
+msgid "如 Calmar、波动率等，以 evaluate 输出为准。"
+msgstr "如 Calmar、波動率等，以 evaluate 輸出爲準。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:17
+msgid "可视化"
+msgstr "可視化"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:19
+msgid "**visual=True**：在 **qt.run(..., visual=True)** 时，会生成并展示资金曲线、回撤等图。"
+msgstr "**visual=True**：在 **qt.run(..., visual=True)** 時，會生成並展示資金曲線、回撤等圖。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:20
+msgid "也可单独调用绘图接口（若有），传入结果对象得到相同或更多图表。"
+msgstr "也可單獨調用繪圖接口（若有），傳入結果對象得到相同或更多圖表。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:22
+msgid "结果导出"
+msgstr "結果導出"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:24
+msgid ""
+"将**资金曲线**、**交易列表**导出为 DataFrame 或 CSV：从结果对象中取出对应属性后使用 **to_csv()** 或 "
+"**to_excel()** 等。"
+msgstr ""
+"將**資金曲線**、**交易列表**導出爲 DataFrame 或 CSV：從結果對象中取出對應屬性後使用 **to_csv()** 或 "
+"**to_excel()** 等。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:25
+msgid "便于在外部进行进一步分析或报告。"
+msgstr "便於在外部進行進一步分析或報告。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:27
+msgid "简要分析思路"
+msgstr "簡要分析思路"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:29
+msgid "结合 **trade_log** 与**绩效指标**：检查高回撤时段对应的交易、胜率与盈亏比的匹配度。"
+msgstr "結合 **trade_log** 與**績效指標**：檢查高回撤時段對應的交易、勝率與盈虧比的匹配度。"
+
+#: ../../source/back_testing/5. evaluate_and_analyze.md:30
+msgid "可对策略参数、标的池或区间做敏感性分析，或使用《优化交易策略》中的参数优化（mode=2）寻找更优参数。"
+msgstr "可對策略參數、標的池或區間做敏感性分析，或使用《優化交易策略》中的參數優化（mode=2）尋找更優參數。"

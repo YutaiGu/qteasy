@@ -1,0 +1,243 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:1
+msgid "模拟实盘中的风控与 Broker 适配（双路径）"
+msgstr "模擬實盤中的風控與 Broker 適配（雙路徑）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:3
+msgid "本教程通过两条完整路径，带你在模拟实盘中验证 S1.3 的关键行为："
+msgstr "本教程通過兩條完整路徑，帶你在模擬實盤中驗證 S1.3 的關鍵行爲："
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:5
+msgid "路径 A：`asset_type='E' + simulator`"
+msgstr "路径 A：`asset_type='E' + simulator`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:6
+msgid "路径 B：`asset_type='FD' + simulator`"
+msgstr "路径 B：`asset_type='FD' + simulator`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:8
+msgid "目标是“跑通 + 观测 + 验证”，而不是只看概念。"
+msgstr "目標是“跑通 + 觀測 + 驗證”，而不是隻看概念。"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:10
+msgid "0. 教程目标"
+msgstr "0. 教程目標"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:12
+msgid "跑通两条路径（E 与 FD）"
+msgstr "跑通兩條路徑（E 與 FD）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:13
+msgid "人工触发一次拒单并定位原因"
+msgstr "人工觸發一次拒單並定位原因"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:14
+msgid "观察分批成交状态从 `partial-filled` 到 `filled` 的可见行为"
+msgstr "觀察分批成交狀態從 `partial-filled` 到 `filled` 的可見行爲"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:16
+msgid "1. 前置准备"
+msgstr "1. 前置準備"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:18
+msgid "已有可运行的 `Operator`"
+msgstr "已有可運行的 `Operator`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:19
+msgid "本地数据可支持运行频率"
+msgstr "本地數據可支持運行頻率"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:20
+msgid "已配置 live 账户参数"
+msgstr "已配置 live 賬戶參數"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:22
+msgid "建议先准备一个“可稳定触发拒单”的规则配置（例如较小的单笔数量上限），便于复现实验。"
+msgstr "建議先準備一個“可穩定觸發拒單”的規則配置（例如較小的單筆數量上限），便於復現實驗。"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:24
+msgid "2. 路径 A：E + simulator"
+msgstr "2. 路徑 A：E + simulator"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:26
+msgid "步骤 1：设置配置"
+msgstr "步驟 1：設置配置"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:40
+msgid "步骤 2：启动运行"
+msgstr "步驟 2：啓動運行"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:46
+msgid "步骤 3：提交一笔测试订单并观察反馈"
+msgstr "步驟 3：提交一筆測試訂單並觀察反饋"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:48
+msgid "关注是否出现提交成功提示"
+msgstr "關注是否出現提交成功提示"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:49
+msgid "关注是否出现风控拒单提示（英文）"
+msgstr "關注是否出現風控拒單提示（英文）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:50
+msgid "记录一次订单 ID（后续对照日志）"
+msgstr "記錄一次訂單 ID（後續對照日誌）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:52
+msgid "3. 路径 B：FD + simulator"
+msgstr "3. 路徑 B：FD + simulator"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:54
+msgid "步骤 1：切换资产类型配置"
+msgstr "步驟 1：切換資產類型配置"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:68
+msgid "步骤 2：重复启动与下单"
+msgstr "步驟 2：重複啓動與下單"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:74
+msgid "步骤 3：验证行为一致性"
+msgstr "步驟 3：驗證行爲一致性"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:76
+msgid "FD 路径应可进入 live 运行链路"
+msgstr "FD 路徑應可進入 live 運行鏈路"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:77
+msgid "拒单/提交/日志的观察方式与 E 路径一致"
+msgstr "拒單/提交/日誌的觀察方式與 E 路徑一致"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:78
+msgid "同一类订单在两条路径下应有一致的反馈语义"
+msgstr "同一類訂單在兩條路徑下應有一致的反饋語義"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:80
+msgid "4. 人工触发一次风控拒单"
+msgstr "4. 人工觸發一次風控拒單"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:82
+msgid "建议临时设置严格规则（如单笔数量上限），提交超限订单。   你应看到类似英文提示："
+msgstr "建議臨時設置嚴格規則（如單筆數量上限），提交超限訂單。   你應看到類似英文提示："
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:89
+msgid "并可在 `risk_log` 中检索到对应记录。"
+msgstr "並可在 `risk_log` 中檢索到對應記錄。"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:91
+msgid "建议至少验证两次："
+msgstr "建議至少驗證兩次："
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:93
+msgid "一次被拒（确认拒因可见）"
+msgstr "一次被拒（確認拒因可見）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:94
+msgid "一次放行（确认策略可继续运行）"
+msgstr "一次放行（確認策略可繼續運行）"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:96
+msgid "5. 观察订单状态变化"
+msgstr "5. 觀察訂單狀態變化"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:98
+msgid "重点观察是否出现："
+msgstr "重點觀察是否出現："
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:100
+msgid "`submitted -> partial-filled -> filled`"
+msgstr "`submitted -> partial-filled -> filled`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:102
+msgid "在分批成交场景中，最终状态应与累计成交量一致。"
+msgstr "在分批成交場景中，最終狀態應與累計成交量一致。"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:104
+msgid "如果你看到了 `partial-filled` 长时间不变，请回到排错页按“状态理解偏差”剧本核对日志。"
+msgstr "如果你看到了 `partial-filled` 長時間不變，請回到排錯頁按“狀態理解偏差”劇本覈對日誌。"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:106
+msgid "6. 教程验收清单"
+msgstr "6. 教程驗收清單"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:108
+msgid "E 路径可运行"
+msgstr "E 路徑可運行"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:109
+msgid "FD 路径可运行"
+msgstr "FD 路徑可運行"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:110
+msgid "可触发并识别风控拒单"
+msgstr "可觸發並識別風控拒單"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:111
+msgid "可在日志中定位拒单原因"
+msgstr "可在日誌中定位拒單原因"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:112
+msgid "可观察并理解分批成交状态变化"
+msgstr "可觀察並理解分批成交狀態變化"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:113
+msgid "至少完成一次“拒单 -> 调整参数 -> 放行”闭环验证"
+msgstr "至少完成一次“拒單 -> 調整參數 -> 放行”閉環驗證"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:115
+msgid "7. 下一步"
+msgstr "7. 下一步"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:117
+msgid "深入机制：`live_trading/3-risk-and-order-lifecycle`"
+msgstr "深入機制：`live_trading/3-risk-and-order-lifecycle`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:118
+msgid "扩展 Broker：`live_trading/4-broker-adapter-and-integration`"
+msgstr "扩展 Broker：`live_trading/4-broker-adapter-and-integration`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:119
+msgid "排错手册：`live_trading/5-artifacts-and-troubleshooting`"
+msgstr "排錯手冊：`live_trading/5-artifacts-and-troubleshooting`"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:121
+msgid "8. 结果判定标准"
+msgstr "8. 結果判定標準"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:123
+msgid "当你完成本教程后，应能独立回答以下问题："
+msgstr "當你完成本教程後，應能獨立回答以下問題："
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:125
+msgid "当前订单是被风控拒绝，还是已提交但未成交？"
+msgstr "當前訂單是被風控拒絕，還是已提交但未成交？"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:126
+msgid "为什么某笔订单会停留在 `partial-filled`？"
+msgstr "爲什麼某筆訂單會停留在 `partial-filled`？"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:127
+msgid "需要去哪个日志文件先看、再看什么字段？"
+msgstr "需要去哪個日誌文件先看、再看什麼字段？"
+
+#: ../../source/tutorials/8-live-trade-risk-and-broker-walkthrough.md:129
+msgid "若以上三题都能独立回答，说明你已经具备 live 场景下的基本排错能力。"
+msgstr "若以上三題都能獨立回答，說明你已經具備 live 場景下的基本排錯能力。"

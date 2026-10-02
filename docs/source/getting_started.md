@@ -17,14 +17,14 @@ pip install qteasy
 输出如下：
 
 ```
-2.5.1
+2.6.4
 ```
 
 - [qteasy发布历史](RELEASE_HISTORY.md) — 各版本变更说明，升级前可查阅
 
 ---
 
-## 一分钟跑通
+## 一分钟跑通 `qteasy`
 
 本节将带您完成：配置 `tushare Token` → 下载沪深 300 十年指数数据 → 查看数据与 K 线 → 使用内置 DMA 策略对 000300.SH 做择时回测，并得到一份可用的回测结果。
 
@@ -82,13 +82,13 @@ tushare_token = 你的tushare_API_Token  # 直接打开文件并在其中新增�
 ```
 Filling data source file://csv@qt_root/data/ ...
 into 1 table(s) (parallely): {'trade_calendar'}
-<trade_calendar> 35000 wrn: 100%|████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:05<00:00,  1.58task/s]
+<trade_calendar> 35000 wrn: 100%|█████████████████████████████████████████████████████| 8/8 [00:05<00:00,  1.58task/s]
 Data refill completed! 35000 rows written into 1/1 table(s)!
 
 Filling data source file://csv@qt_root/data/ ...
 into 2 table(s) (parallely): {'index_daily', 'index_basic'}
-<index_daily> 152760 wrn: 100%|██████████████████████████████████████████████████████████████████████████████████████| 2/2 [00:05<00:00,  2.51s/task]
-<index_basic> 1327 wrn: 100%|████████████████████████████████████████████████████████████████████████████████████████| 8/8 [00:05<00:00,  1.58task/s]
+<index_daily> 152760 wrn: 100%|███████████████████████████████████████████████████████| 2/2 [00:05<00:00,  2.51s/task]
+<index_basic> 1327 wrn: 100%|█████████████████████████████████████████████████████████| 8/8 [00:05<00:00,  1.58task/s]
 Data refill completed! 154087 rows written into 2/2 table(s)!
 ```
 
@@ -316,6 +316,7 @@ Max drawdown:                    36.85%
 
 1. **配置数据源与 Token** → [教程：入门](tutorials/1-get-started.md)、[教程：获取数据](tutorials/2.0-get-data.md)
 2. **下载数据** → [教程：获取数据](tutorials/2.0-get-data.md)、[下载并管理金融历史数据](manage_data/1.%20overview.md)
+2b. **玩数据与简单因子（可选，建议策略回测前完成）** → [获取数据 / 最小数据集](tutorials/2.0-get-data.md) → [HistoryPanel 基础操作](tutorials/2.4-historypanel-basics.md) → [玩数据与因子分析](tutorials/2.5-historypanel-data-analysis.md) →（进阶）[纵向择时](tutorials/2.6-historypanel-advanced-vertical-timeaxis.md) / [横截面选股](tutorials/2.7-historypanel-advanced-horizontal-multifactor.md) / [事件型因子](tutorials/2.8-historypanel-advanced-event-kline-pattern.md)；可运行 `examples/data_playground_e2e.py`
 3. **定义策略并回测** → [教程：第一个策略](tutorials/3-start-first-strategy.md)、[教程：内置策略](tutorials/4-build-in-strategies.md)、[教程：自定义策略](tutorials/5-first-self-defined-strategy.md)、[如何运行回测](back_testing/2.%20run_backtest.md)
 4. **参数优化** → [教程：交易策略的优化](tutorials/Tutorial%2006%20-%20交易策略的优化.md)、[优化交易策略](optimization/1.%20overview.md)
 5. **模拟/实盘运行** → [教程：交易策略的部署及运行](tutorials/Tutorial%2007%20-%20交易策略的部署及运行.md)、[模拟实盘运行概览](references/1-simulation-overview.md)
@@ -327,6 +328,8 @@ Max drawdown:                    36.85%
 ## 接下来
 
 - [教程：获取数据](tutorials/2.0-get-data.md) — 配置数据源与下载更多数据
+- [教程：HistoryPanel 基础操作](tutorials/2.4-historypanel-basics.md) — 结构、切片、扩列与对齐
+- [教程：HistoryPanel 玩数据](tutorials/2.5-historypanel-data-analysis.md) — 因子研究最小闭环
 - [教程：第一个策略](tutorials/3-start-first-strategy.md) — 使用内置策略与回测
 - [回测与评价](references/3-back-test-strategy.md) — 回测参数与结果解读
 - [API 参考](api/use_qteasy.rst) — 完整接口说明

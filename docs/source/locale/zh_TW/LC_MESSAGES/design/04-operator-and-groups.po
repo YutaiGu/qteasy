@@ -1,0 +1,189 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, Jackie PENG
+# This file is distributed under the same license as the qteasy package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2026.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: qteasy 2.5\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-05-23 14:20+0800\n"
+"PO-Revision-Date: 2026-05-24 16:00+0800\n"
+"Last-Translator: Jackie PENG (zh_tw_fill_opencc)\n"
+"Language-Team: zh_TW <LL@li.org>\n"
+"Language: zh_TW\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"Generated-By: Babel 2.15.0\n"
+
+#: ../../source/design/04-operator-and-groups.md:1
+msgid "Operator 与 Group：谁在何时运行"
+msgstr "Operator 與 Group：誰在何時運行"
+
+#: ../../source/design/04-operator-and-groups.md:3
+msgid "1. 运行层在整体中的位置"
+msgstr "1. 運行層在整體中的位置"
+
+#: ../../source/design/04-operator-and-groups.md:5
+msgid ""
+"运行层负责**按时间驱动**策略执行、汇总各策略信号，并将结果交给回测/实盘/优化使用。核心是 "
+"**Operator**：它既是策略的容器，也是统一的运行入口（`op.run(config, datasource, "
+"logger)`）。Operator 通过 **Group** 与 **group_timing_table** "
+"决定“每个时间步由哪些策略运行、信号如何混合”，从而实现与回测区间和运行频率一致的可重复执行。"
+msgstr ""
+"運行層負責**按時間驅動**策略執行、彙總各策略信號，並將結果交給回測/實盤/優化使用。核心是 "
+"**Operator**：它既是策略的容器，也是統一的運行入口（`op.run(config, datasource, "
+"logger)`）。Operator 通過 **Group** 與 **group_timing_table** "
+"決定“每個時間步由哪些策略運行、信號如何混合”，從而實現與回測區間和運行頻率一致的可重複執行。"
+
+#: ../../source/design/04-operator-and-groups.md:7
+msgid "2. Operator 的角色"
+msgstr "2. Operator 的角色"
+
+#: ../../source/design/04-operator-and-groups.md:9
+msgid ""
+"**策略容器**：持有多个 **Group**，每个 Group 内包含若干策略（Strategy）。用户通过 `add_strategy` / "
+"`Operator([...])` 添加策略时，根据 **run_freq**、**run_timing** 将策略归入已有 Group 或新建 "
+"Group。"
+msgstr ""
+"**策略容器**：持有多個 **Group**，每個 Group 內包含若干策略（Strategy）。用戶通過 `add_strategy` / "
+"`Operator([...])` 添加策略時，根據 **run_freq**、**run_timing** 將策略歸入已有 Group 或新建 "
+"Group。"
+
+#: ../../source/design/04-operator-and-groups.md:10
+msgid ""
+"**运行入口**：对外提供 **run(config, datasource, logger)**。config "
+"中包含资产池、回测区间、成本、资金计划等；datasource 提供历史或实时数据；运行逻辑按 **group_timing_table** "
+"逐步执行各组策略并汇总信号。"
+msgstr ""
+"**運行入口**：對外提供 **run(config, datasource, logger)**。config "
+"中包含資產池、回測區間、成本、資金計劃等；datasource 提供歷史或實時數據；運行邏輯按 **group_timing_table** "
+"逐步執行各組策略並彙總信號。"
+
+#: ../../source/design/04-operator-and-groups.md:11
+msgid ""
+"**持有 group_timing_table**：该表在运行前根据回测区间（或实盘 schedule）与各 Group 的 "
+"run_freq、run_timing 生成，每一行对应一个时间步，每一列对应一个 Group，取值为 1 表示该步该组运行、0 表示不运行。"
+msgstr ""
+"**持有 group_timing_table**：該表在運行前根據回測區間（或實盤 schedule）與各 Group 的 "
+"run_freq、run_timing 生成，每一行對應一個時間步，每一列對應一個 Group，取值爲 1 表示該步該組運行、0 表示不運行。"
+
+#: ../../source/design/04-operator-and-groups.md:13
+msgid "3. Group 的概念"
+msgstr "3. Group 的概念"
+
+#: ../../source/design/04-operator-and-groups.md:15
+msgid ""
+"**定义**：一个 Group 是一组具有相同 **run_freq**、**run_timing** 的策略集合，并拥有统一的 "
+"**signal_type**（PT/PS/VS）和 **blender**（混合规则）。"
+msgstr ""
+"**定義**：一個 Group 是一組具有相同 **run_freq**、**run_timing** 的策略集合，並擁有統一的 "
+"**signal_type**（PT/PS/VS）和 **blender**（混合規則）。"
+
+#: ../../source/design/04-operator-and-groups.md:16
+msgid ""
+"**为何按“运行时机”分组**：同一时刻运行的策略共享同一套“当前时间步”的数据与调度；混合时也按“同组信号”用 blender 合并，再按 "
+"group_merge_type 处理多组并存的情况，便于理解和配置。"
+msgstr ""
+"**爲何按“運行時機”分組**：同一時刻運行的策略共享同一套“當前時間步”的數據與調度；混合時也按“同組信號”用 blender 合併，再按 "
+"group_merge_type 處理多組並存的情況，便於理解和配置。"
+
+#: ../../source/design/04-operator-and-groups.md:18
+msgid "4. Operator 与 Group 的关系"
+msgstr "4. Operator 與 Group 的關係"
+
+#: ../../source/design/04-operator-and-groups.md:20
+msgid "Operator 包含多个 Group；每个 Group 包含多个 Strategy。"
+msgstr "Operator 包含多個 Group；每個 Group 包含多個 Strategy。"
+
+#: ../../source/design/04-operator-and-groups.md:21
+msgid ""
+"添加策略时，若已存在相同 run_freq、run_timing 的 Group，则策略加入该 Group；否则新建 Group。因此 Group "
+"的划分完全由“运行时机”决定，策略类自身不保存 run_freq/run_timing，由所属 Group 管理。"
+msgstr ""
+"添加策略時，若已存在相同 run_freq、run_timing 的 Group，則策略加入該 Group；否則新建 Group。因此 Group "
+"的劃分完全由“運行時機”決定，策略類自身不保存 run_freq/run_timing，由所屬 Group 管理。"
+
+#: ../../source/design/04-operator-and-groups.md:23
+msgid "5. group_timing_table"
+msgstr "5. group_timing_table"
+
+#: ../../source/design/04-operator-and-groups.md:25
+msgid ""
+"**含义**：二维表，行 = 时间步（与回测区间或实盘 schedule 对齐），列 = Group；单元格为 1 表示该步运行该 Group，0 "
+"表示不运行。"
+msgstr ""
+"**含義**：二維表，行 = 時間步（與回測區間或實盤 schedule 對齊），列 = Group；單元格爲 1 表示該步運行該 Group，0 "
+"表示不運行。"
+
+#: ../../source/design/04-operator-and-groups.md:26
+msgid ""
+"**与回测区间、run_freq 的关系**：回测时，根据 invest_start、invest_end 与交易日历生成时间轴，再根据各 Group "
+"的 run_freq、run_timing 在该时间轴上标记“哪些步运行哪些 Group”，得到 "
+"group_timing_table。实盘时同理，按实际运行日与 run_freq/run_timing 决定何时触发哪些 Group。"
+msgstr ""
+"**與回測區間、run_freq 的關係**：回測時，根據 invest_start、invest_end 與交易日曆生成時間軸，再根據各 Group "
+"的 run_freq、run_timing 在該時間軸上標記“哪些步運行哪些 Group”，得到 "
+"group_timing_table。實盤時同理，按實際運行日與 run_freq/run_timing 決定何時觸發哪些 Group。"
+
+#: ../../source/design/04-operator-and-groups.md:28
+msgid "6. blender"
+msgstr "6. blender"
+
+#: ../../source/design/04-operator-and-groups.md:30
+msgid ""
+"**作用**：同一 Group 内可能有多个策略，每步各策略输出一个信号（标量或数组）。**blender** 将这些信号按一定规则混合成该 Group"
+" 的**一个**合并信号（如加权平均、求和等）。"
+msgstr ""
+"**作用**：同一 Group 內可能有多個策略，每步各策略輸出一個信號（標量或數組）。**blender** 將這些信號按一定規則混合成該 Group"
+" 的**一個**合併信號（如加權平均、求和等）。"
+
+#: ../../source/design/04-operator-and-groups.md:31
+msgid ""
+"**配置方式**：可为表达式（如 `0.5*s0+0.5*s1`），或使用默认规则：PT 下常用各策略目标仓位的平均，PS/VS "
+"下常用求和等，具体以文档与 API 为准。"
+msgstr ""
+"**配置方式**：可爲表達式（如 `0.5*s0+0.5*s1`），或使用默認規則：PT 下常用各策略目標倉位的平均，PS/VS "
+"下常用求和等，具體以文檔與 API 爲準。"
+
+#: ../../source/design/04-operator-and-groups.md:32
+msgid "**结果**：混合后的信号作为该步、该组的输出，再根据 group_merge_type 与其它组的输出合并（若有多组同时运行）。"
+msgstr "**結果**：混合後的信號作爲該步、該組的輸出，再根據 group_merge_type 與其它組的輸出合併（若有多組同時運行）。"
+
+#: ../../source/design/04-operator-and-groups.md:34
+msgid "7. group_merge_type"
+msgstr "7. group_merge_type"
+
+#: ../../source/design/04-operator-and-groups.md:36
+msgid "当同一时间步有多个 Group 运行时，**group_merge_type** 决定各组信号如何合并："
+msgstr "當同一時間步有多個 Group 運行時，**group_merge_type** 決定各組信號如何合併："
+
+#: ../../source/design/04-operator-and-groups.md:38
+msgid "**None**：各 Group 独立输出，不合并（多组时可能产生多条执行路径，取决于上层如何使用）。"
+msgstr "**None**：各 Group 獨立輸出，不合並（多組時可能產生多條執行路徑，取決於上層如何使用）。"
+
+#: ../../source/design/04-operator-and-groups.md:39
+msgid "**And**：各组信号相乘等逻辑与合并。"
+msgstr "**And**：各組信號相乘等邏輯與合併。"
+
+#: ../../source/design/04-operator-and-groups.md:40
+msgid "**Or**：各组信号相加等逻辑或合并。"
+msgstr "**Or**：各組信號相加等邏輯或合併。"
+
+#: ../../source/design/04-operator-and-groups.md:42
+msgid "具体语义以当前版本文档为准；通常单组使用时无需关心。"
+msgstr "具體語義以當前版本文檔爲準；通常單組使用時無需關心。"
+
+#: ../../source/design/04-operator-and-groups.md:44
+msgid "8. 小结"
+msgstr "8. 小結"
+
+#: ../../source/design/04-operator-and-groups.md:46
+msgid ""
+"Operator 通过 Group 与 group_timing_table 实现“按时间步、按组”的统一调度：每一步只运行该步标记为 1 的 "
+"Group，组内策略共享数据注入与 blender，输出合并信号供回测/实盘/优化使用。更多用法见《使用教程》与 API 文档。"
+msgstr ""
+"Operator 通過 Group 與 group_timing_table 實現“按時間步、按組”的統一調度：每一步只運行該步標記爲 1 的 "
+"Group，組內策略共享數據注入與 blender，輸出合併信號供回測/實盤/優化使用。更多用法見《使用教程》與 API 文檔。"
