@@ -637,7 +637,7 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
                        symbols=None, start_date=None, end_date=None, list_arg_filter=None, reversed_par_seq=False,
                        parallel=True, process_count=None, chunk_size=100, download_batch_size=0,
                        download_batch_interval=0, merge_type='update', log=False,
-                       raise_on_error=False) -> None:
+                       raise_on_error=True) -> None:
     """ 从网络数据提供商的API通道批量下载数据，清洗后填充数据到本地数据源中
 
     Parameters
@@ -708,8 +708,8 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
         - 'ignore'  : 忽略数据，如果数据已存在，则丢弃下载的数据
     log: Bool, Default False
         是否记录数据下载日志
-    raise_on_error: Bool, Default False
-        下载失败时是否向调用方重新抛出异常。默认False以保持原有行为；自动日更应设为True。
+    raise_on_error: Bool, Default True
+        下载失败时是否向调用方重新抛出异常。设为False时失败的表只在进度条显示failed，调用方无法察觉。
 
     Returns
     -------
