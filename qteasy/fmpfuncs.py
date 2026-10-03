@@ -22,12 +22,8 @@ from qteasy.utilfuncs import regulate_date_format
 
 _FMP_BASE = 'https://financialmodelingprep.com/stable'
 
-# 全局请求限流（token bucket，跨线程）：平均速率 = _FMP_BATCH_SIZE / _FMP_BATCH_INTERVAL 次/秒
-# None = 不限速；下载前在 notebook 里按需设置（与 refill 的 download_batch_size/interval 同义）。
-_FMP_BATCH_SIZE = None
-_FMP_BATCH_INTERVAL = None
-_fmp_lock = threading.Lock()
-_fmp_last_call = [0.0]
+# 撞限(HTTP 429)后依次等待这些秒数再重试同一请求，等完仍撞限则报错
+_RATE_LIMIT_WAITS = (60, 120, 240)
 
 # endpoint -> page_limit: 每页最大条数，None 表示该端点无需分页
 _FMP_API_LIMITS = {
@@ -53,43 +49,35 @@ def _get_proxy():
 def _fmp_get(endpoint: str, **params) -> list:
     """向 FMP stable API 发起单次 GET 请求，返回 JSON list。
 
-    全局限流：_FMP_BATCH_SIZE/_FMP_BATCH_INTERVAL 均非 None 时，跨线程把平均请求速率
-    压在 _FMP_BATCH_SIZE/_FMP_BATCH_INTERVAL 次/秒以内；为 None 则不限速。
+    限流识别：HTTP 429 依次等待 _RATE_LIMIT_WAITS 后重试同一请求，等完仍撞限则报错；
+    主动节流由 refill 的 download_batch_size/interval 统一负责。
     报错不带 url（含 apikey），避免泄露密钥。
     """
     params['apikey'] = _get_api_key()
-    if _FMP_BATCH_SIZE and _FMP_BATCH_INTERVAL:
-        interval = _FMP_BATCH_INTERVAL / _FMP_BATCH_SIZE
-        with _fmp_lock:
-            wait = _fmp_last_call[0] + interval - time.time()
-            if wait > 0:
-                time.sleep(wait)
-            _fmp_last_call[0] = time.time()
     retry_delays = (1, 5, 30, 60)
-    retry_statuses = {429, 500, 502, 503, 504}
-    for attempt in range(len(retry_delays) + 1):
+    retry_statuses = {500, 502, 503, 504}
+    attempt = 0
+    limit_hits = 0
+    while True:
         try:
             with requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
                               proxies=_get_proxy()) as resp:
-                if not resp.ok:
-                    error = RuntimeError(
-                        f'FMP {endpoint} request failed: HTTP {resp.status_code}'
-                    )
-                    if resp.status_code not in retry_statuses or attempt == len(retry_delays):
-                        raise error
-                else:
+                if resp.ok:
                     return resp.json()
+                error = RuntimeError(f'FMP {endpoint} request failed: HTTP {resp.status_code}')
+                if resp.status_code == 429:  # 每分钟超限：等待后重试同一请求，不计入普通重试次数
+                    if limit_hits == len(_RATE_LIMIT_WAITS):
+                        raise RuntimeError(f'FMP {endpoint} rate limited after waiting {_RATE_LIMIT_WAITS}s')
+                    time.sleep(_RATE_LIMIT_WAITS[limit_hits])
+                    limit_hits += 1
+                    continue
+                if resp.status_code not in retry_statuses or attempt == len(retry_delays):
+                    raise error
         except requests.exceptions.RequestException:
             if attempt == len(retry_delays):
                 raise RuntimeError(f'FMP {endpoint} request failed after 4 retries')
         time.sleep(retry_delays[attempt])
-
-
-def set_rate_limit(batch_size, interval):
-    """设置 _fmp_get 全局请求限流：平均速率 = batch_size/interval 次/秒；任一为 None 则不限速。"""
-    global _FMP_BATCH_SIZE, _FMP_BATCH_INTERVAL
-    _FMP_BATCH_SIZE = batch_size
-    _FMP_BATCH_INTERVAL = interval
+        attempt += 1
 
 
 def _fmp_request(endpoint: str, **params) -> list:

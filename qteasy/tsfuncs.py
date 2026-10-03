@@ -8,6 +8,8 @@
 #   Interfaces to tushare data api.
 # ======================================
 
+import time
+
 import pandas as pd
 import tushare as ts
 
@@ -20,6 +22,11 @@ from qteasy.utilfuncs import (
 )
 
 ERRORS_TO_CHECK_ON_RETRY = Exception
+
+# 撞到每分钟限额（报错含此文本）后依次等待这些秒数再重试同一区间，等完仍撞限则报错。
+# 每天/每小时额度、无权限等其他"最多访问该接口"类报错不等待，直接抛出
+_MINUTE_LIMIT_MARKER = '每分钟最多访问该接口'
+_RATE_LIMIT_WAITS = (60, 120, 240)
 
 EXTRA_RETRY_API = [
     'name_change',
@@ -87,8 +94,14 @@ def acquire_data(api_name, **kwargs):
     except KeyError:
         raise KeyError(f'undefined API {api_name} for tushare')
     decorated_func = retry_decorator(func)
-    res = decorated_func(**kwargs)
-    return res
+    for wait in (*_RATE_LIMIT_WAITS, None):
+        try:
+            return decorated_func(**kwargs)
+        except Exception as e:
+            if _MINUTE_LIMIT_MARKER not in str(e) or wait is None:
+                raise
+            logger_core.warning(f'{api_name} {kwargs}: minute rate limit hit, retry in {wait}s')
+            time.sleep(wait)
 
 
 def stock_basic(exchange: str = None):
