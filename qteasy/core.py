@@ -794,7 +794,7 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
     dependent_tables = set()
     if refill_dependent_tables:
         for table in table_list:
-            dependent_table = get_dependent_table(table, channel=channel)
+            dependent_table = get_dependent_table(table, channel=channel, symbols=symbols)
             if dependent_table is None:
                 continue
             dependent_tables.add(dependent_table)
@@ -826,83 +826,100 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
         print(f'into {len(table_list)} table(s) (sequentially): {table_list}')
 
     # 2, 循环下载数据表
-    from .data_channels import parse_data_fetch_args, fetch_batched_table_data
+    from .data_channels import parse_data_fetch_args, fetch_batched_table_data, route_table_specs, \
+        channel_supports_table
 
     table_filled = 0
     total_rows_written = 0
 
     for table in download_table_list:
-        # 2.1, 解析下载数据的参数
-        arg_list = list(parse_data_fetch_args(
-                table=table,
-                channel=channel,
-                symbols=symbols,
-                start_date=start_date,
-                end_date=end_date,
-                list_arg_filter=list_arg_filter,
-                reversed_par_seq=reversed_par_seq,
-        ))
-
-        if not arg_list:  # 意味着该数据表无法从该渠道下载
-            print(f'<{table}> can\'t be fetched from channel:{channel}!')
+        # 依赖表和交易日历是基础数据，总是全量更新，不受symbols限制
+        table_symbols = None if (table in dependent_tables or table == 'trade_calendar') else symbols
+        # 2.1, 路由：按请求类型选出适用的行，顺序即优先级；同类的行失败则换下一行
+        if not channel_supports_table(channel, table):
+            print(f'<{table}> can\'t be fetched from channel: {channel}!')
             continue
+        specs = route_table_specs(channel, table, table_symbols)
 
-        # 2.2, 批量下载数据
-        completed = 0
-        total = len(arg_list)
-        total_written = 0
-        df_concat_list = []
-        interruption_error_string = ''
+        for spec_idx, spec in enumerate(specs):
+            is_last_spec = spec_idx == len(specs) - 1
+            arg_list = list(parse_data_fetch_args(
+                    table=table,
+                    channel=channel,
+                    symbols=table_symbols,
+                    start_date=start_date,
+                    end_date=end_date,
+                    list_arg_filter=list_arg_filter,
+                    reversed_par_seq=reversed_par_seq,
+                    fetch_spec=spec,
+            ))
 
-        with tqdm(total=total + 1, unit='task') as pbar:
-            try:
-                for res in fetch_batched_table_data(
-                        table=table,
-                        channel=channel,
-                        arg_list=arg_list,
-                        parallel=parallel,
-                        process_count=process_count,
-                        download_batch_size=download_batch_size,
-                        download_batch_interval=download_batch_interval,
-                ):
-                    completed += 1
-                    kwargs = tuple(res['kwargs'].values())
-                    data = res['data'].dropna(axis=1, how='all')  # 删除全为空的列以便满足未来concat函数的要求，避免FutureWarning
-                    if not data.empty:
-                        df_concat_list.append(data)
-                    if (completed % chunk_size == 0) and (len(df_concat_list) > 0):
+            if not arg_list:  # 意味着该数据表无法从该渠道下载
+                print(f'<{table}> can\'t be fetched from channel:{channel}!')
+                break
+
+            # 2.2, 批量下载数据
+            completed = 0
+            total = len(arg_list)
+            total_written = 0
+            df_concat_list = []
+            interruption_error_string = ''
+
+            with tqdm(total=total + 1, unit='task') as pbar:
+                try:
+                    for res in fetch_batched_table_data(
+                            table=table,
+                            channel=channel,
+                            arg_list=arg_list,
+                            parallel=parallel,
+                            process_count=process_count,
+                            download_batch_size=download_batch_size,
+                            download_batch_interval=download_batch_interval,
+                            fetch_spec=spec,
+                    ):
+                        completed += 1
+                        kwargs = tuple(res['kwargs'].values())
+                        data = res['data'].dropna(axis=1, how='all')  # 删除全为空的列以便满足未来concat函数的要求，避免FutureWarning
+                        if not data.empty:
+                            df_concat_list.append(data)
+                        if (completed % chunk_size == 0) and (len(df_concat_list) > 0):
+                            # 将下载的数据写入数据源
+                            rows_affected = data_source.update_table_data(
+                                    table=table,
+                                    df=pd.concat(df_concat_list, copy=False, ignore_index=True),
+                                    merge_type=merge_type,
+                            )
+                            df_concat_list = []
+                            total_written += rows_affected
+                        pbar.set_description(f'<{table}>{kwargs} {total_written} wrn')
+                        pbar.update()
+
+                except Exception as e:
+                    # 如果下载过程中出现错误，则跳过并不打断pbar的显示，并将已下载的数据写入数据源
+                    interruption_error_string = f' failed: {e}'
+                    if not is_last_spec:
+                        interruption_error_string += f', retry with next api'
+                        continue  # 整张清单换同类的下一行重新生成
+                    if raise_on_error:
+                        raise
+                    break
+
+                finally:
+                    if df_concat_list:
                         # 将下载的数据写入数据源
                         rows_affected = data_source.update_table_data(
                                 table=table,
                                 df=pd.concat(df_concat_list, copy=False, ignore_index=True),
                                 merge_type=merge_type,
                         )
-                        df_concat_list = []
                         total_written += rows_affected
-                    pbar.set_description(f'<{table}>{kwargs} {total_written} wrn')
+
+                    pbar.set_description(f'<{table}> {total_written} wrn{interruption_error_string}')
                     pbar.update()
+                    total_rows_written += total_written
+            break  # 这一行下载成功
 
-            except Exception as e:
-                # 如果下载过程中出现错误，则跳过并不打断pbar的显示，并将已下载的数据写入数据源
-                interruption_error_string = f' failed: {e}'
-                if raise_on_error:
-                    raise
-                continue
-
-            finally:
-                if df_concat_list:
-                    # 将下载的数据写入数据源
-                    rows_affected = data_source.update_table_data(
-                            table=table,
-                            df=pd.concat(df_concat_list, copy=False, ignore_index=True),
-                            merge_type=merge_type,
-                    )
-                    total_written += rows_affected
-
-                pbar.set_description(f'<{table}> {total_written} wrn{interruption_error_string}')
-                pbar.update()
-                table_filled += 1
-                total_rows_written += total_written
+        table_filled += 1
 
     print(f'\nData refill completed! {total_rows_written} rows written into {table_filled}/{len(table_list)} table(s)!')
 

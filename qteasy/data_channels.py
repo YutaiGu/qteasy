@@ -64,7 +64,7 @@ data_channels.download_data(
 
 """
 
-BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina')
+BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina', 'fmp')
 DATA_CHANNEL_ALIASES = {
     'emoney': 'eastmoney',
 }
@@ -184,6 +184,14 @@ def _build_channel_registry() -> dict[str, DataChannel]:
             supports_realtime_klines=True,
             supports_realtime_quotes=False,
         ),
+        'fmp': DataChannel(
+            name='fmp',
+            api_map_getter=lambda: FMP_API_MAP,
+            fetch_table_func=_fetch_table_data_from_fmp,
+            fetch_realtime_kline_func=None,
+            supports_realtime_klines=False,
+            supports_realtime_quotes=False,
+        ),
     }
 
 
@@ -208,11 +216,12 @@ def list_builtin_channels() -> list[str]:
     return list(BUILTIN_DATA_CHANNELS)
 
 
-def _get_channel_specs(channel: str) -> dict[str, TableFetchSpec]:
-    """获取指定通道的表抓取规范。"""
+def _get_channel_specs(channel: str) -> dict[str, list[TableFetchSpec]]:
+    """获取指定通道的表抓取规范。每张表为按优先级排列的多行，单行表为长度 1 的列表。"""
     channel_obj = get_channel(channel)
     raw_map = channel_obj.api_map_getter()
-    return {table: TableFetchSpec.from_raw(spec) for table, spec in raw_map.items()}
+    return {table: [TableFetchSpec.from_raw(row) for row in (rows if isinstance(rows[0], list) else [rows])]
+            for table, rows in raw_map.items()}
 
 
 def list_channel_tables(channel: str) -> list[str]:
@@ -225,8 +234,8 @@ def channel_supports_table(channel: str, table: str) -> bool:
     return table in _get_channel_specs(channel)
 
 
-def get_table_fetch_spec(channel: str, table: str) -> TableFetchSpec:
-    """获取指定通道/数据表的抓取规范。"""
+def get_table_fetch_spec(channel: str, table: str) -> list[TableFetchSpec]:
+    """获取指定通道/数据表的抓取规范（按优先级排列的多行）。"""
     specs = _get_channel_specs(channel)
     if table not in specs:
         normalized_channel = validate_channel(channel)
@@ -236,16 +245,35 @@ def get_table_fetch_spec(channel: str, table: str) -> TableFetchSpec:
     return specs[table]
 
 
+def route_table_specs(channel: str, table: str, symbols=None) -> list[TableFetchSpec]:
+    """路由：按请求类型选出适用的行，顺序即优先级。
+
+    传了 symbols 一律逐股，只走 table_index 行；未传走非 table_index 行，表只有 table_index 行时用它。
+    没有适用的行是 map 设计错误，直接报错。
+    """
+    specs = get_table_fetch_spec(channel, table)
+    if symbols:
+        routed = [s for s in specs if s.fill_arg_type == 'table_index']
+    else:
+        routed = [s for s in specs if s.fill_arg_type != 'table_index'] or specs
+    if not routed:
+        raise ValueError(f'table "{table}" has no table_index row in channel "{channel}", '
+                         f'symbols can not be used')
+    return routed
+
+
 # =====================
 # data_channel模块主要API的解析函数，根据channel解析正确的API以执行
 # =====================
-def _fetch_table_data_from_tushare(table, **kwargs):
+def _fetch_table_data_from_tushare(table, api, **kwargs):
     """使用kwargs参数，从tushare获取一次金融数据
 
     Parameters
     ----------
     table: str,
         数据表名，必须是API_MAP中定义的数据表
+    api: str,
+        路由选中那一行的api
     **kwargs:
         用于下载金融数据的函数参数
 
@@ -256,35 +284,20 @@ def _fetch_table_data_from_tushare(table, **kwargs):
     """
 
     from .tsfuncs import acquire_data
-    dnld_data = acquire_data(_api_map_row(TUSHARE_API_MAP, table)[API_MAP_COLUMNS.index('api')], **kwargs)
+    dnld_data = acquire_data(api, **kwargs)
 
     return dnld_data
 
 
-def _api_map_row(api_map, table, provided=()):
-    """解析 API_MAP 配置行。唯一规则：取行必经此遍历
-    多模式表时，某行的迭代参数名(r[1])出现在调用方实际提供的参数名集合
-    provided 中就选该行；无匹配则落到 'none' 行(无迭代参数)
-    普通表原样返回，零影响。"""
-    rows = api_map[table]
-    if not (rows and isinstance(rows[0], list)):
-        return rows                                   # 普通表
-    for r in rows:
-        if r[1] in provided:                          # 该行需要的参数, 调用方真的给了
-            return r
-    for r in rows:
-        if r[1] == 'none':                            # 兜底: 无迭代参数的行
-            return r
-    return rows[0]
-
-
-def _fetch_table_data_from_akshare(table, **kwargs):
+def _fetch_table_data_from_akshare(table, api, **kwargs):
     """ 使用kwargs参数，从akshare获取一次金融数据
 
     Parameters
     ----------
     table: str,
         数据表名，必须是API_MAP中定义的数据表
+    api: str,
+        路由选中那一行的api
     **kwargs:
         用于下载金融数据的函数参数
 
@@ -294,18 +307,20 @@ def _fetch_table_data_from_akshare(table, **kwargs):
         下载后的数据
     """
     from .akfuncs import acquire_data
-    dnld_data = acquire_data(AKSHARE_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+    dnld_data = acquire_data(api, **kwargs)
 
     return dnld_data
 
 
-def _fetch_table_data_from_eastmoney(table, **kwargs):
+def _fetch_table_data_from_eastmoney(table, api, **kwargs):
     """ 使用kwargs参数，从东方财富网获取一次金融数据
 
     Parameters
     ----------
     table: str,
         数据表名，必须是API_MAP中定义的数据表
+    api: str,
+        路由选中那一行的api
     **kwargs:
         用于下载金融数据的函数参数
 
@@ -315,18 +330,20 @@ def _fetch_table_data_from_eastmoney(table, **kwargs):
         下载后的数据
     """
     from .emfuncs import acquire_data
-    dnld_data = acquire_data(EASTMONEY_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+    dnld_data = acquire_data(api, **kwargs)
 
     return dnld_data
 
 
-def _fetch_table_data_from_sina(table, **kwargs):
+def _fetch_table_data_from_sina(table, api, **kwargs):
     """ 使用kwargs参数，从新浪财经获取一次金融数据
 
     Parameters
     ----------
     table: str,
         数据表名，必须是API_MAP中定义的数据表
+    api: str,
+        路由选中那一行的api
     **kwargs:
         用于下载金融数据的函数参数
 
@@ -336,15 +353,15 @@ def _fetch_table_data_from_sina(table, **kwargs):
         下载后的数据
     """
     from .sinafuncs import acquire_data
-    dnld_data = acquire_data(SINA_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+    dnld_data = acquire_data(api, **kwargs)
 
     return dnld_data
 
 
-def _fetch_table_data_from_fmp(table, **kwargs):
-    """ 使用kwargs参数，从FMP、获取一次金融数据"""
+def _fetch_table_data_from_fmp(table, api, **kwargs):
+    """ 使用kwargs参数，从FMP获取一次金融数据；api 为路由选中那一行的api"""
     from .fmpfuncs import acquire_data
-    return acquire_data(FMP_API_MAP[table][API_MAP_COLUMNS.index('api')], **kwargs)
+    return acquire_data(api, **kwargs)
 
 
 def _fetch_realtime_kline_from_tushare(qt_code, date, freq):
@@ -410,7 +427,8 @@ def _get_realtime_kline_func(channel: str):
 # =====================
 # data_channel模块的主要API，分别用于从不同的渠道获取数据表数据以及实时价格数据（实时数据仅包含实时价格数据，且格式统一）
 # =====================
-def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_arg_filter, reversed_par_seq) -> dict:
+def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_arg_filter, reversed_par_seq,
+                          fetch_spec) -> dict:
     """ 解析数据获取API的参数，生成下载数据的参数序列
 
     本函数为data_channel的主API进行参数解析，用户在获取数据时，一般仅会指定需要获取的数据
@@ -445,6 +463,8 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
         票代码的数据会被下载
     reversed_par_seq: bool, default False
         是否将参数序列反转，如果为True，则会将参数序列反转，用于下载数据时的优化
+    fetch_spec: TableFetchSpec,
+        用哪一行生成清单，由路由(route_table_specs)给出
 
     Returns
     -------
@@ -456,7 +476,6 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
     if not channel_supports_table(channel, table):
         return {}
 
-    fetch_spec = get_table_fetch_spec(channel, table)
     arg_name = fetch_spec.fill_arg_name
     arg_type = fetch_spec.fill_arg_type
     arg_range = fetch_spec.arg_rng
@@ -500,13 +519,6 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
         raise ValueError('unexpected arg type:', arg_type)
 
     # build the args dict
-    # 指定 symbols 且 arg_type 为日期类型时，改为按 symbol × 日期区间迭代，适用所有渠道
-    if symbols and arg_type in ('datetime', 'trade_date', 'us_trade_date'):
-        symbol_list = str_to_list(symbols)
-        additional_args = _parse_additional_time_args(start_end_chunk_size, start_date, end_date)
-        import itertools
-        return ({'ts_code': sym, **add_arg} for sym, add_arg in itertools.product(symbol_list, additional_args))
-
     if (arg_name is None) and (additional_start_end.lower() != 'y'):
         kwargs = {}
     elif (arg_name is None) and (additional_start_end.lower() == 'y'):
@@ -550,10 +562,10 @@ def iter_table_fetch_plan(
     return (item for item in kwargs_seq)
 
 
-def fetch_table_once(*, channel: str, table: str, **kwargs) -> pd.DataFrame:
-    """从指定通道拉取单次数据表数据。"""
+def fetch_table_once(*, channel: str, table: str, fetch_spec: TableFetchSpec, **kwargs) -> pd.DataFrame:
+    """从指定通道拉取单次数据表数据。fetch_spec 为路由选中的行。"""
     fetch_func = _get_fetch_table_func(channel)
-    return fetch_func(table, **kwargs)
+    return fetch_func(table, fetch_spec.api, **kwargs)
 
 
 def fetch_basics(
@@ -641,6 +653,7 @@ def fetch_batched_table_data(
         *,
         table: str,
         channel: str,
+        fetch_spec: TableFetchSpec,
         arg_list: Any,
         parallel: bool = True,
         process_count: int = None,
@@ -659,6 +672,8 @@ def fetch_batched_table_data(
         - 'tushare'     : 从Tushare API获取金融数据，请自行申请相应权限和积分
         - 'akshare'     : 从AKshare API获取金融数据
         - 'eastmoney'   : 从东方财富网获取金融数据
+    fetch_spec: TableFetchSpec,
+        路由选中的那一行，用它的api下载
     arg_list: iterable
         用于下载数据的函数参数
     parallel: bool, default True
@@ -699,7 +714,7 @@ def fetch_batched_table_data(
     if not parallel:
         for kwargs in arg_list:
             completed += 1
-            df = fetch_table_data(table, **kwargs)
+            df = fetch_table_data(table, fetch_spec.api, **kwargs)
             if (download_batch_interval != 0) and (completed % download_batch_size == 0):
                 time.sleep(download_batch_interval)
             if logger is not None:
@@ -723,7 +738,7 @@ def fetch_batched_table_data(
             for arg_sub_list in arg_list_chunks:
                 futures = {}
                 for kw in arg_sub_list:
-                    futures.update({worker.submit(fetch_table_data, table, **kw): kw})
+                    futures.update({worker.submit(fetch_table_data, table, fetch_spec.api, **kw): kw})
                     submitted += 1
                 for f in as_completed(futures):
                     kwargs = futures[f]
@@ -1459,7 +1474,7 @@ def _ensure_date_sequence(
     return _bound_date_sequence(first_ts, start_date, end_date)
 
 
-def get_dependent_table(table: str, channel: str) -> str or None:
+def get_dependent_table(table: str, channel: str, symbols=None) -> str or None:
     """ 获取数据表的依赖表. 依赖表是指在获取某个数据表之前，需要先获取的数据表
 
     依赖表主要包括在api_map中定义的fill_arg_type为'table_index'的数据表，如stock_basic表
@@ -1473,6 +1488,8 @@ def get_dependent_table(table: str, channel: str) -> str or None:
         - 'tushare'     : 从Tushare API获取金融数据，请自行申请相应权限和积分
         - 'akshare'     : 从AKshare API获取金融数据
         - 'eastmoney'   : 从东方财富网获取金融数据
+    symbols: str or list of str, optional
+        与下载时相同的symbols，依赖表按路由选中的行确定（如传了symbols的stock_daily逐股，依赖stock_basic）
 
     Returns
     -------
@@ -1484,17 +1501,15 @@ def get_dependent_table(table: str, channel: str) -> str or None:
     如果数据表不存在或者无法找到依赖表，则返回None
     """
 
-    api_map = get_api_map(channel=channel)
-
-    if table not in api_map.index:
+    if not channel_supports_table(channel, table):
         return None
 
-    cur_table = api_map.loc[table]
-    fill_type = cur_table.fill_arg_type
+    spec = route_table_specs(channel, table, symbols)[0]
+    fill_type = spec.fill_arg_type
     if fill_type in ('trade_date', 'us_trade_date'):
         return 'trade_calendar'
     elif fill_type == 'table_index':
-        return cur_table.arg_rng
+        return spec.arg_rng
 
 
 @lru_cache(maxsize=4)
@@ -1517,7 +1532,7 @@ def get_api_map(channel: str) -> pd.DataFrame:
 
     channel = validate_channel(channel)
     specs = _get_channel_specs(channel)
-    api_map = pd.DataFrame({name: spec.as_tuple() for name, spec in specs.items()}).T
+    api_map = pd.DataFrame({name: rows[0].as_tuple() for name, rows in specs.items()}).T  # 多行表取第一行
     api_map.columns = API_MAP_COLUMNS
     return api_map
 
