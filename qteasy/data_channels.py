@@ -15,6 +15,7 @@ import numpy as np
 import pandas as pd
 import time
 import logging
+import threading
 
 from dataclasses import dataclass
 from typing import Generator, Union, Any, Optional, Callable
@@ -29,7 +30,6 @@ from ._arg_validators import QT_CONFIG
 
 from .utilfuncs import (
     str_to_list,
-    list_truncate,
     list_to_str_format,
     get_current_timezone_datetime,
     regulate_date_format,
@@ -649,6 +649,79 @@ def _hist_dnld_thread_pool_max_workers(process_count: Optional[int] = None) -> i
     return max(1, n)
 
 
+# 任何接口的单次 limit 都不低于这么多行：返回行数小于它一定没被截断
+_MIN_API_LIMIT = 100
+
+
+class _TruncationGuard:
+    """防静默截断下载器(二叉树验证)，见 docs/DOWNLOAD_DESIGN.md #2。
+
+    一次 fetch_batched_table_data 调用(一张表的一行 spec，即一个 api)一份，各线程共用：
+    M 为该 api 见过的最大行数(M ≤ limit)，M_is_limit 为 limit 已被证明等于 M。
+    """
+
+    def __init__(self, fetch, fetch_spec: TableFetchSpec):
+        self.fetch = fetch                                         # fetch(区间) -> DataFrame
+        self.is_paged = fetch_spec.allow_start_end.upper() == 'C'  # 翻页接口：函数内已取全，跳过验证
+        self.M = 0
+        self.M_is_limit = False
+        self.lock = threading.Lock()
+
+    def download(self, interval: dict) -> pd.DataFrame:
+        """下载一个区间，只返回确认完整的数据；最小单元超出已证明的 limit 时报错"""
+        parts = self._verify(interval, self.fetch(interval))
+        if not parts:
+            return pd.DataFrame()
+        return parts[0] if len(parts) == 1 else pd.concat(parts, ignore_index=True)
+
+    def _verify(self, interval: dict, rows) -> list:
+        n = 0 if rows is None else len(rows)
+        if n == 0:
+            return []
+        if self.is_paged:
+            return [rows]
+        with self.lock:
+            m, m_is_limit = self.M, self.M_is_limit
+        if n < m or n < _MIN_API_LIMIT:  # 小于已知下界，一定没截断
+            return [rows]
+        left, right = self._bisect(interval)
+
+        if m_is_limit:  # n == limit，一定截断：这次返回丢弃，两半重新拉
+            if left is None:
+                raise RuntimeError(f'{interval} returned {n} rows = api limit, but can not be split further: '
+                                   f'the map must keep the minimal unit under the limit')
+            return self._verify(left, self.fetch(left)) + self._verify(right, self.fetch(right))
+
+        with self.lock:
+            self.M = max(self.M, n)
+        if left is None:  # 最小单元：由路由保证不超限
+            return [rows]
+        l_rows, r_rows = self.fetch(left), self.fetch(right)
+        l_n = 0 if l_rows is None else len(l_rows)
+        r_n = 0 if r_rows is None else len(r_rows)
+        if l_n == 0 or r_n == 0 or l_n + r_n > n:
+            if l_n + r_n > n:  # 两半之和 > 整段：整段被截断，n 就是 limit
+                with self.lock:
+                    self.M, self.M_is_limit = n, True
+            return self._verify(left, l_rows) + self._verify(right, r_rows)
+        return [rows]  # 两半非空且之和 == n：完整
+
+    @staticmethod
+    def _bisect(interval: dict) -> tuple:
+        """按自然日对半切日期；单时点(最小单元)返回 (None, None)。
+
+        不切股票：单时点全市场超限的，接口能翻页就标 C，否则 map 写逐股的行。
+        """
+        if 'start' in interval and 'end' in interval:
+            start, end = pd.Timestamp(interval['start']), pd.Timestamp(interval['end'])
+            if start < end:
+                mid = start + pd.Timedelta(days=(end - start).days // 2)
+                return ({**interval, 'start': start.strftime('%Y%m%d'), 'end': mid.strftime('%Y%m%d')},
+                        {**interval, 'start': (mid + pd.Timedelta(days=1)).strftime('%Y%m%d'),
+                         'end': end.strftime('%Y%m%d')})
+        return None, None
+
+
 def fetch_batched_table_data(
         *,
         table: str,
@@ -697,51 +770,39 @@ def fetch_batched_table_data(
 
     fetch_table_data = _get_fetch_table_func(channel)
 
-    # 如果当总下载量小于batch_size时，就不用暂停了(为了实现truncate，必须把arg_list转化为list)
-    if not isinstance(arg_list, list):
-        arg_list = list(arg_list)
-    if len(arg_list) < download_batch_size:
-        download_batch_interval = 0
+    # 主动节流按调用下载函数的次数计(含二分多发的调用)：每 download_batch_size 次后暂停 download_batch_interval 秒，
+    # 暂停时持锁，所有线程一起等
+    throttle_lock = threading.Lock()
+    fetch_count = [0]
 
-    completed = 0
+    def fetch(kw):
+        if download_batch_size and download_batch_interval:
+            with throttle_lock:
+                fetch_count[0] += 1
+                if fetch_count[0] > download_batch_size and fetch_count[0] % download_batch_size == 1:
+                    time.sleep(download_batch_interval)
+        return fetch_table_data(table, fetch_spec.api, **kw)
+
+    # 防静默截断：每个区间经二叉树验证后只返回确认完整的数据
+    guard = _TruncationGuard(fetch, fetch_spec)
+
     if not parallel:
         for kwargs in arg_list:
-            completed += 1
-            df = fetch_table_data(table, fetch_spec.api, **kwargs)
-            if (download_batch_interval != 0) and (completed % download_batch_size == 0):
-                time.sleep(download_batch_interval)
+            df = guard.download(kwargs)
             if logger is not None:
                 logger.info(f'[{table}:{kwargs}] {len(df)} rows downloaded')
             yield {'kwargs': kwargs, 'data': df}
 
     else:  # parallel
-        # 使用ThreadPoolExecutor循环下载数据
+        # 使用ThreadPoolExecutor循环下载数据，节奏由 fetch 里的计数控制
         max_workers = _hist_dnld_thread_pool_max_workers(process_count)
         with ThreadPoolExecutor(max_workers=max_workers) as worker:
-            # 在parallel模式下，下载线程的提交和返回是分开进行的，为了实现分批下载，必须分批提交，提交一批
-            # 数据后，等待结果返回，再提交下一批，因此，需要将arg_list分段，提交完一个batch之后，返回结果，
-            # 再暂停，暂停后再继续提交
-            submitted = 0
-            # 将arg_list分段，每次下载batch_size个数据
-            if download_batch_size == 0:
-                arg_list_chunks = [arg_list]
-            else:
-                arg_list_chunks = list_truncate(arg_list, download_batch_size, as_list=False)
-
-            for arg_sub_list in arg_list_chunks:
-                futures = {}
-                for kw in arg_sub_list:
-                    futures.update({worker.submit(fetch_table_data, table, fetch_spec.api, **kw): kw})
-                    submitted += 1
-                for f in as_completed(futures):
-                    kwargs = futures[f]
-                    completed += 1
-                    if logger is not None:
-                        logger.info(f'[{table}:{kwargs}] {len(f.result())} rows downloaded')
-                    yield {'kwargs': kwargs, 'data': f.result()}
-
-                if download_batch_interval != 0:
-                    time.sleep(download_batch_interval)
+            futures = {worker.submit(guard.download, kw): kw for kw in arg_list}
+            for f in as_completed(futures):
+                kwargs = futures[f]
+                if logger is not None:
+                    logger.info(f'[{table}:{kwargs}] {len(f.result())} rows downloaded')
+                yield {'kwargs': kwargs, 'data': f.result()}
 
 
 def fetch_real_time_klines(
