@@ -103,6 +103,7 @@ def _patch_merge_basics_dataframes(
     parts = []
     if len(only_local) > 0:
         parts.append(ldf.loc[only_local])
+    merged_rows = []
     for idx in overlap:
         local_row = ldf.loc[idx]
         dnld_row = ddf.loc[idx]
@@ -116,7 +117,9 @@ def _patch_merge_basics_dataframes(
             new_val = dnld_row[col]
             if not _download_value_is_empty(new_val, dtype):
                 merged[col] = new_val
-        parts.append(pd.DataFrame([merged], columns=columns))
+        merged_rows.append(merged)
+    if merged_rows:  # 主键在索引里(set_primary_key_index 已把主键列移入索引)，逐行合并的结果也以主键为索引
+        parts.append(pd.DataFrame(merged_rows, index=overlap))
     if len(only_dnld) > 0:
         parts.append(ddf.loc[only_dnld])
     if not parts:
@@ -1825,8 +1828,13 @@ class DataSource:
                 dnld_data = dnld_data[~dnld_data.index.isin(local_data.index)]
             elif merge_type == 'update':
                 if table_is_basics(table):
+                    # 本地数据的主键只在索引里，下载数据的主键既是列也是索引：统一成主键为列再合并
+                    pk_as_columns = [
+                        df.reset_index(drop=all(pk in df.columns for pk in primary_keys))
+                        for df in (local_data, dnld_data)
+                    ]
                     dnld_data = _patch_merge_basics_dataframes(
-                        local_data, dnld_data, table_columns, dtypes, primary_keys,
+                        *pk_as_columns, table_columns, dtypes, primary_keys,
                     )
                     rows_affected = self.write_table_data(dnld_data, table=table)
                 else:
