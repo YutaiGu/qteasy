@@ -2212,6 +2212,9 @@ FMP_API_MAP = {
     'us_stock_basic':
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', '', ''],
 
+    'us_stock_daily':
+        ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+
     'us_stock_daily_adj':
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 

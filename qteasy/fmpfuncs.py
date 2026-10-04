@@ -204,72 +204,105 @@ def acquire_data(api_name, **kwargs):
 def us_trade_calendar(start: str = None,
                       end: str = None,
                       is_open: int = None):
-    """以 SPY 历史行情的交易日期作为 NYSE/NASDAQ 交易日历。"""
-    params = {'symbol': 'SPY'}
+    """NYSE 交易日历：工作日减去交易所公布的全天休市日(FMP holidays-by-exchange)，提前收盘日算交易日。
+
+    [start, end] 左右闭。休市数据一次取全(FMP 覆盖 1970 至今后数年)，区间超出覆盖范围时报错，不推断；
+    全量算好再截取，区间第一天的 pretrade_date 也正确。
+    """
+    data = _fmp_get('holidays-by-exchange', exchange='NYSE', **{'from': '1900-01-01', 'to': '2100-12-31'})
+    if not data:
+        raise ValueError('holidays-by-exchange(NYSE) returned no data')
+    holidays = pd.DataFrame(data)
+    closed = set(pd.to_datetime(holidays.loc[holidays['isClosed'] == True, 'date']))  # noqa: E712，None 为提前收盘
+    cover_start = pd.Timestamp(f'{holidays["date"].min()[:4]}-01-01')
+    cover_end = pd.Timestamp(f'{holidays["date"].max()[:4]}-12-31')
+
+    range_start = pd.to_datetime(start) if start else cover_start
+    range_end = pd.to_datetime(end) if end else cover_end
+    if range_start < cover_start or range_end > cover_end:
+        raise ValueError(f'NYSE calendar requested {range_start.date()}~{range_end.date()}, '
+                         f'FMP holidays only cover {cover_start.date()}~{cover_end.date()}')
+
+    days = pd.date_range(cover_start, cover_end, freq='D')
+    cal = pd.DataFrame({'exchange': 'NYSE', 'cal_date': days.strftime('%Y%m%d'),
+                        'is_open': [int(d.weekday() < 5 and d not in closed) for d in days]})
+    cal['pretrade_date'] = cal['cal_date'].where(cal['is_open'] == 1).ffill().shift(1)
+    cal = cal[(days >= range_start) & (days <= range_end)]
+
+    if is_open is None:
+        return cal.reset_index(drop=True)  # 交易日历无金额列，不折算
+    return list(pd.to_datetime(cal.loc[cal['is_open'] == 1, 'cal_date'])[::-1])
+
+
+def us_stock_basic(exchange: str = 'ALL') -> pd.DataFrame:
+    """美股股票池基本信息：(VTI 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $5B 的外国公司(含 ADR)。
+
+    VTI 跟踪 CRSP US Total Market(美国公司)；持仓与 screener(三大交易所、在交易、非 ETF/基金、含全部股份类别)
+    交叉认证，去掉现金、CVR、托管、OTC 等非交易所股票。已知残留少量两边都有的权证/配股权，接受。
+    名称、交易所、行业、国家取自 screener；ISIN、CUSIP 取自 VTI 持仓(外国公司部分为空)，同一代码有多行时
+    (正股与附带的 CVR/权证共用代码)取权重最大的一行，即正股本身。
+    exchange 为 ALL / 空时不过滤，否则只返回该交易所的股票。
+    """
+    columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
+    foreign_min_cap = 5_000_000_000
+
+    holdings = pd.DataFrame(_fmp_get('etf/holdings', symbol='VTI'))
+    screener = pd.DataFrame(_fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false',
+                                     isFund='false', isActivelyTrading='true', includeAllShareClasses='true',
+                                     limit=20000))
+    if holdings.empty or screener.empty:
+        raise ValueError('etf/holdings(VTI) or company-screener returned no data')
+
+    screener = screener.drop_duplicates('symbol').set_index('symbol')
+    vti = screener.index.intersection(holdings['asset'].dropna().unique())
+    foreign = screener.index[(screener['country'].fillna('US') != 'US') & (screener['marketCap'] >= foreign_min_cap)]
+    info = screener.loc[vti.union(foreign)]
+    ids = (holdings.sort_values('weightPercentage', ascending=False)
+           .drop_duplicates('asset').set_index('asset').reindex(info.index))
+
+    res = pd.DataFrame({
+        'ts_code':  info.index,
+        'name':     info['companyName'].values,
+        'exchange': info['exchangeShortName'].values,
+        'sector':   info['sector'].values,
+        'industry': info['industry'].values,
+        'country':  info['country'].values,
+        'isin':     ids['isin'].replace('', None).values,
+        'cusip':    ids['securityCusip'].replace('', None).values,
+    }, columns=columns)
+    if exchange and str(exchange).upper() not in ('ALL', 'NONE', ''):
+        res = res[res['exchange'] == str(exchange).upper()]
+    return res
+
+
+def us_stock_daily(ts_code: str = None,
+                   start: str = None,
+                   end: str = None) -> pd.DataFrame:
+    """美股日线行情(不复权，交易所原始价格)，FMP Unadjusted Stock Price API。
+
+    [start, end] 左右闭。接口单次有行数上限，截断由下载器的二叉树验证处理。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    params = {'symbol': ts_code}
     if start:
         params['from'] = regulate_date_format(start, force_format='date')
     if end:
         params['to'] = regulate_date_format(end, force_format='date')
 
-    data = _fmp_request('historical-price-eod/dividend-adjusted', **params)
+    data = _fmp_get('historical-price-eod/non-split-adjusted', **params)
     if not data:
-        if is_open is None:
-            return pd.DataFrame(columns=['cal_date', 'is_open', 'pretrade_date'])
-        return []
-
-    trading_dates = pd.to_datetime(
-        pd.DataFrame(data).sort_values('date')['date']
-    ).dt.normalize()
-
-    trading_set = set(trading_dates)
-    range_start = pd.to_datetime(start) if start else trading_dates.iloc[0]
-    range_end = pd.to_datetime(end) if end else trading_dates.iloc[-1]
-    all_dates = pd.date_range(start=range_start, end=range_end, freq='D')
-
-    if is_open is None:
-        prev_trade = None
-        rows = []
-        for d in all_dates:
-            open_flag = 1 if d in trading_set else 0
-            rows.append({
-                'exchange': 'NYSE',
-                'cal_date': d.strftime('%Y%m%d'),
-                'is_open': open_flag,
-                'pretrade_date': prev_trade,
-            })
-            if open_flag:
-                prev_trade = d.strftime('%Y%m%d')
-        return pd.DataFrame(rows)  # 交易日历无金额列，不折算
-    else:
-        return list(trading_dates[::-1])
-
-
-def us_stock_basic(exchange: str = None) -> pd.DataFrame:  # noqa: ARG001
-    """从 FMP company-screener 下载美国主板(NASDAQ/NYSE/AMEX)、市值>$10B 的普通股基本信息。"""
-    columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country']
-    field_map = {
-        'symbol':            'ts_code',
-        'companyName':       'name',
-        'exchangeShortName': 'exchange',
-        'sector':            'sector',
-        'industry':          'industry',
-        'country':           'country',
-    }
-    data = _fmp_request('company-screener',
-                        exchange='NASDAQ,NYSE,AMEX',
-                        isEtf='false', isFund='false', isActivelyTrading='true',
-                        marketCapMoreThan=10000000000, limit=20000)
-    if not data:
-        raise ValueError('company-screener returned no data')
-    rows = []
-    for item in data:
-        row = {}
-        for src, col in field_map.items():
-            if src not in item:
-                raise KeyError(f'company-screener missing field {src!r}: {item}')
-            row[col] = item[src]
-        rows.append(row)
-    return pd.DataFrame(rows, columns=columns)
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    return pd.DataFrame({  # 接口字段名带 adj，但值是未复权的原始价格
+        'ts_code':    ts_code,
+        'trade_date': pd.to_datetime(raw['date']),
+        'open':       raw['adjOpen'],
+        'high':       raw['adjHigh'],
+        'low':        raw['adjLow'],
+        'close':      raw['adjClose'],
+        'vol':        raw['volume'],
+    })
 
 
 def us_stock_daily_adj(ts_code: str = None,

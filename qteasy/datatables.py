@@ -245,7 +245,7 @@ TABLE_MASTERS = {
         ['hk_daily', '港股日线行情', 'not_implemented', 'HK', 'd', '', '', ''],
 
     'us_stock_daily':
-        ['us_daily', '美股日线行情', 'not_implemented', 'US', 'd', '', '', ''],
+        ['us_daily', '美股日线行情(不复权)', 'data', 'US', 'd', '', '', ''],
 
     'us_stock_daily_adj':
         ['us_daily_adj', '美股日线行情(前复权)', 'data', 'US', 'd', '', '', ''],
@@ -571,11 +571,11 @@ TABLE_SCHEMA = {
          },
 
     'us_stock_basic':  # 美股基本信息表
-        {'columns':    ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country'],
+        {'columns':    ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip'],
          'dtypes':     ['varchar(20)', 'varchar(255)', 'varchar(10)',
-                        'varchar(40)', 'varchar(80)', 'varchar(4)'],
+                        'varchar(40)', 'varchar(80)', 'varchar(4)', 'varchar(12)', 'varchar(9)'],
          'remarks':    ['股票代码', '公司名称', '交易所(NASDAQ/NYSE/AMEX)',
-                        '板块', '行业', '国家'],
+                        '板块', '行业', '国家', 'ISIN(仅 VTI 部分)', 'CUSIP(仅 VTI 部分)'],
          'prime_keys': [0]
         },
 
@@ -797,13 +797,10 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1]
          },
 
-    'us_daily': # 美股日线行情表
-        {'columns':    ['ts_code', 'trade_date', 'close', 'open', 'high', 'low', 'pre_close', 'change',
-                        'pct_change', 'vol', 'amount', 'vwap', 'turnover_ratio', 'total_mv', 'pe', 'pb'],
-         'dtypes':     ['varchar(20)', 'datetime', 'float', 'float', 'float', 'float', 'float', 'float',
-                        'float', 'float', 'float', 'float', 'float', 'float', 'float', 'float'],
-         'remarks':    ['股票代码', '交易日期', '收盘价', '开盘价', '最高价', '最低价', '昨收价', '涨跌额',
-                        '涨跌幅', '成交量', '成交额', '平均价', '换手率', '总市值', 'PE-市盈率', 'PB-市净率'],
+    'us_daily': # 美股日线行情表(不复权，交易所原始价格)
+        {'columns':    ['ts_code', 'trade_date', 'open', 'high', 'low', 'close', 'vol'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'double'],
+         'remarks':    ['股票代码', '交易日期', '开盘价', '最高价', '最低价', '收盘价', '成交量(股)'],
          'prime_keys': [0, 1]
          },
 

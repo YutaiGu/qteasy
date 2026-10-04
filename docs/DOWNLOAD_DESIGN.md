@@ -8,6 +8,20 @@
 
 决定调哪个接口、按什么迭代（逐日 / 逐股 / 按日期范围），产出参数清单交给下载器。
 
+map 每行 7 列：
+
+| 列 | 名称 | 含义 | 取值 |
+|---|---|---|---|
+| 1 | `api` | 下载函数名（数据源模块里的同名函数） | 如 `daily`、`us_income` |
+| 2 | `arg_name` | 迭代参数传给下载函数时的参数名 | 如 `ts_code`、`trade_date`、`exchange`、`ann_date`；不迭代填 `none` |
+| 3 | `arg_type` | 按什么生成清单 | `table_index` 逐只代码；`trade_date` / `us_trade_date` 逐交易日（A 股 / 美股日历）；`datetime` 逐自然日；`month` / `quarter` 逐月 / 逐季；`list` 逐个列表值；`none` 不迭代 |
+| 4 | `arg_rng` | 取值范围，随第 3 列 | `table_index`：基础表名（即依赖表）；日期类：最早日期；`list`：逗号分隔的值；`none`：不用 |
+| 5 | `allowed_code_suffix` | `table_index` 时只保留这些后缀的代码 | 如 `SH,SZ`；空 = 不限 |
+| 6 | `allow_start_end` | 区间是否附加日期范围 | `Y` 附加 start / end；`C` 翻页接口，函数内取全，下载器不验证；空 = 不附加 |
+| 7 | `start_end_chunk_size` | 第 6 列为 `Y` 时按多少天分段 | 只用于接口有时间窗口限制的情况；空 = 整段一个区间 |
+
+依赖表：交易日类的行依赖 `trade_calendar`，`table_index` 行依赖第 4 列的基础表，下载前先更新。
+
 map 是路由器，负责准确、高效。一张表可写多行，每行是为一种请求设计的最高效下载方式，由第 3 列 `arg_type` 区分：
 
 - 未传 symbols（全市场）→ 非 `table_index` 行，如 stock_daily 按交易日一次拉全市场
