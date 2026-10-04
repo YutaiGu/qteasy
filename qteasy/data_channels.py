@@ -519,15 +519,17 @@ def parse_data_fetch_args(table, channel, symbols, start_date, end_date, list_ar
         raise ValueError('unexpected arg type:', arg_type)
 
     # build the args dict
-    if (arg_name is None) and (additional_start_end.lower() != 'y'):
+    # 第 6 列 Y 或 C 都附加 start/end：C 只表示翻页接口跳过截断验证，日期照带，下载函数用不上可以忽略
+    with_dates = additional_start_end.lower() in ('y', 'c')
+    if (arg_name is None) and not with_dates:
         kwargs = {}
-    elif (arg_name is None) and (additional_start_end.lower() == 'y'):
+    elif (arg_name is None) and with_dates:
         additional_args = _parse_additional_time_args(start_end_chunk_size, start_date, end_date)
         kwargs = ({**add_arg} for add_arg in additional_args)
-    elif additional_start_end.lower() != 'y':
+    elif not with_dates:
         # only standard args
         kwargs = ({arg_name: val} for val in arg_values)
-    elif additional_start_end.lower() == 'y':
+    elif with_dates:
         # build additional start/end args
         additional_args = _parse_additional_time_args(start_end_chunk_size, start_date, end_date)
         import itertools
@@ -2221,12 +2223,12 @@ FMP_API_MAP = {
     'us_estimates':
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
-    'us_income':
-        ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+    'us_income':  # C：函数内翻页取全全部历史，再按发布日筛选 start/end，跳过截断验证
+        ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
 
     'us_balance':
-        ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+        ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
 
     'us_cashflow':
-        ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+        ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
 }

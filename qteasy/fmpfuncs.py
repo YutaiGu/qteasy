@@ -235,28 +235,28 @@ def us_trade_calendar(start: str = None,
 
 
 def us_stock_basic(exchange: str = 'ALL') -> pd.DataFrame:
-    """美股股票池基本信息：(VTI 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $5B 的外国公司(含 ADR)。
+    """美股股票池基本信息：(VONE 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $5B 的外国公司(含 ADR)。
 
-    VTI 跟踪 CRSP US Total Market(美国公司)；持仓与 screener(三大交易所、在交易、非 ETF/基金、含全部股份类别)
-    交叉认证，去掉现金、CVR、托管、OTC 等非交易所股票。已知残留少量两边都有的权证/配股权，接受。
-    名称、交易所、行业、国家取自 screener；ISIN、CUSIP 取自 VTI 持仓(外国公司部分为空)，同一代码有多行时
+    VONE(Vanguard Russell 1000 ETF)跟踪 Russell 1000(美国公司，按市值取前约 1000 只，无盈利等偏好)；持仓与
+    screener(三大交易所、在交易、非 ETF/基金、含全部股份类别)交叉认证，去掉现金、CVR、托管、OTC 等非交易所股票。
+    名称、交易所、行业、国家取自 screener；ISIN、CUSIP 取自 VONE 持仓(外国公司部分为空)，同一代码有多行时
     (正股与附带的 CVR/权证共用代码)取权重最大的一行，即正股本身。
     exchange 为 ALL / 空时不过滤，否则只返回该交易所的股票。
     """
     columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
     foreign_min_cap = 5_000_000_000
 
-    holdings = pd.DataFrame(_fmp_get('etf/holdings', symbol='VTI'))
+    holdings = pd.DataFrame(_fmp_get('etf/holdings', symbol='VONE'))
     screener = pd.DataFrame(_fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false',
                                      isFund='false', isActivelyTrading='true', includeAllShareClasses='true',
                                      limit=20000))
     if holdings.empty or screener.empty:
-        raise ValueError('etf/holdings(VTI) or company-screener returned no data')
+        raise ValueError('etf/holdings(VONE) or company-screener returned no data')
 
     screener = screener.drop_duplicates('symbol').set_index('symbol')
-    vti = screener.index.intersection(holdings['asset'].dropna().unique())
+    index_codes = screener.index.intersection(holdings['asset'].dropna().unique())
     foreign = screener.index[(screener['country'].fillna('US') != 'US') & (screener['marketCap'] >= foreign_min_cap)]
-    info = screener.loc[vti.union(foreign)]
+    info = screener.loc[index_codes.union(foreign)]
     ids = (holdings.sort_values('weightPercentage', ascending=False)
            .drop_duplicates('asset').set_index('asset').reindex(info.index))
 
@@ -427,7 +427,11 @@ def _us_financials_common(endpoint: str,
                           ts_code: str,
                           start: str,
                           end: str) -> list:
-    """拉取 income/balance/cashflow 原始数据并做日期过滤，返回 item 列表。"""
+    """拉取 income/balance/cashflow 全部年报、季报，返回发布日(filingDate)落在 [start, end] 内的 item 列表。
+
+    FMP 财报接口不支持日期参数，只能逐股取全部历史再筛选；按发布日筛选，与 A 股按公告日的口径一致。
+    缺发布日的记录无法判断归属，报错。
+    """
     start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
     end_ts   = pd.Timestamp(regulate_date_format(end,   force_format='date')) if end   else None
 
@@ -437,12 +441,17 @@ def _us_financials_common(endpoint: str,
             date_str = item.get('date', '')
             if len(date_str) < 10:
                 continue
-            dt = pd.Timestamp(date_str[:10])
-            if start_ts and dt < start_ts:
+            filing = item.get('filingDate') or ''
+            if len(filing) < 10:
+                raise ValueError(f'{endpoint} {ts_code} {date_str} has no filingDate')
+            filed = pd.Timestamp(filing[:10])
+            if start_ts and filed < start_ts:
                 continue
-            if end_ts and dt > end_ts:
+            if end_ts and filed > end_ts:
                 continue
-            item['_trade_date'] = dt
+            if not item.get('reportedCurrency'):
+                raise ValueError(f'{endpoint} {ts_code} {date_str} has no reportedCurrency')
+            item['_trade_date'] = pd.Timestamp(date_str[:10])
             item['_period'] = 'Y' if period == 'annual' else 'Q'
             items.append(item)
     return items
@@ -465,6 +474,7 @@ def us_income(ts_code: str = None,
         'period':          i['_period'],
         'filing_date':     pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':     i.get('fiscalYear', ''),
+        'currency':        i['reportedCurrency'],
         'revenue':                  i.get('revenue'),
         'cost_of_revenue':          i.get('costOfRevenue'),
         'gross_profit':             i.get('grossProfit'),
@@ -488,14 +498,7 @@ def us_income(ts_code: str = None,
         'shares_out':               i.get('weightedAverageShsOut'),
         'shares_out_dil':           i.get('weightedAverageShsOutDil'),
     } for i in items]
-    df = pd.DataFrame(rows)
-    currency = items[0].get('reportedCurrency') or 'USD'
-    if currency != 'USD':  # 外币财报按各期 trade_date 折算为 USD
-        skip = {'ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year',
-                'shares_out', 'shares_out_dil'}  # 主键/元信息/股数不折算
-        for col in [c for c in df.columns if c not in skip]:
-            df[col] = _fx_to_usd(df[col], currency, df['trade_date'])
-    return df
+    return pd.DataFrame(rows)  # 金额为报告原币，见 currency 列
 
 
 def us_balance(ts_code: str = None,
@@ -515,6 +518,7 @@ def us_balance(ts_code: str = None,
         'period':                   i['_period'],
         'filing_date':              pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':              i.get('fiscalYear', ''),
+        'currency':                 i['reportedCurrency'],
         'cash':                     i.get('cashAndCashEquivalents'),
         'st_investments':           i.get('shortTermInvestments'),
         'cash_and_st_inv':          i.get('cashAndShortTermInvestments'),
@@ -548,13 +552,7 @@ def us_balance(ts_code: str = None,
         'total_debt':               i.get('totalDebt'),
         'net_debt':                 i.get('netDebt'),
     } for i in items]
-    df = pd.DataFrame(rows)
-    currency = items[0].get('reportedCurrency') or 'USD'
-    if currency != 'USD':  # 外币财报按各期 trade_date 折算为 USD
-        skip = {'ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year'}
-        for col in [c for c in df.columns if c not in skip]:
-            df[col] = _fx_to_usd(df[col], currency, df['trade_date'])
-    return df
+    return pd.DataFrame(rows)  # 金额为报告原币，见 currency 列
 
 
 def us_cashflow(ts_code: str = None,
@@ -574,6 +572,7 @@ def us_cashflow(ts_code: str = None,
         'period':               i['_period'],
         'filing_date':          pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':          i.get('fiscalYear', ''),
+        'currency':             i['reportedCurrency'],
         'net_income':           i.get('netIncome'),
         'da':                   i.get('depreciationAndAmortization'),
         'deferred_tax':         i.get('deferredIncomeTax'),
@@ -600,10 +599,4 @@ def us_cashflow(ts_code: str = None,
         'income_tax_paid':      i.get('incomeTaxesPaid'),
         'interest_paid':        i.get('interestPaid'),
     } for i in items]
-    df = pd.DataFrame(rows)
-    currency = items[0].get('reportedCurrency') or 'USD'
-    if currency != 'USD':  # 外币财报按各期 trade_date 折算为 USD
-        skip = {'ts_code', 'trade_date', 'period', 'filing_date', 'fiscal_year'}
-        for col in [c for c in df.columns if c not in skip]:
-            df[col] = _fx_to_usd(df[col], currency, df['trade_date'])
-    return df
+    return pd.DataFrame(rows)  # 金额为报告原币，见 currency 列
