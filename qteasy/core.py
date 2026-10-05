@@ -801,7 +801,7 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
             dependent_table = get_dependent_table(table, channel=channel, symbols=symbols)
             if dependent_table is None:
                 continue
-            dependent_tables.add(dependent_table)
+            dependent_tables.update(dependent_table)
         table_list.update(dependent_tables)
 
     # 如果trade_calendar数据不足时，需要强制添加该表

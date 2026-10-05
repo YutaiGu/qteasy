@@ -410,6 +410,8 @@ def _us_financials_common(endpoint: str,
     for period in ('annual', 'quarter'):
         data = guard(endpoint, dict(ts_code=ts_code), lambda ts_code:
                      _fmp_get(endpoint, symbol=ts_code, period=period, limit=1000))
+        if len(data) >= 1000:  # 单次最多 1000 条，不能翻页：返回满 1000 条说明可能没取全
+            raise RuntimeError(f'{endpoint} {ts_code} {period} returned {len(data)} rows = api max, may be incomplete')
         for item in data:
             date_str = item.get('date', '')
             if len(date_str) < 10:
@@ -428,6 +430,72 @@ def _us_financials_common(endpoint: str,
             item['_period'] = 'Y' if period == 'annual' else 'Q'
             items.append(item)
     return items
+
+
+def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
+    """把 FMP 分红记录(dividends / dividends-calendar 字段相同)整理成 us_dividend 表，只留除息日在 [start, end] 内的。
+
+    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告时的原始每股金额(税前)，未按之后的拆股调整。除息日或金额缺失的记录无法入库，报错。
+    """
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    if raw['date'].eq('').any() or raw['dividend'].isna().any():
+        raise ValueError(f'FMP dividends has rows without ex-date or amount: {sorted(set(raw["symbol"]))[:5]}')
+    res = pd.DataFrame({
+        'ts_code':     raw['symbol'],
+        'ex_date':     pd.to_datetime(raw['date']),
+        'cash_div_tax': raw['dividend'].astype('float64'),
+        'ann_date':    pd.to_datetime(raw['declarationDate'].replace('', None)),
+        'record_date': pd.to_datetime(raw['recordDate'].replace('', None)),
+        'pay_date':    pd.to_datetime(raw['paymentDate'].replace('', None)),
+    })
+    if start:
+        res = res[res['ex_date'] >= pd.Timestamp(regulate_date_format(start, force_format='date'))]
+    if end:
+        res = res[res['ex_date'] <= pd.Timestamp(regulate_date_format(end, force_format='date'))]
+    return res.reset_index(drop=True)
+
+
+def us_dividend(ts_code: str = None,
+                start: str = None,
+                end: str = None) -> pd.DataFrame:
+    """单只美股的现金分红(FMP dividends)，返回除息日落在 [start, end] 内的记录。
+
+    该接口只有 symbol、limit 两个参数(不认日期、不能翻页)，单次最多 1000 条：按最大值取该股全部历史，取回后再筛选；
+    返回满 1000 条说明可能没取全，报错。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    data = guard('dividends', dict(ts_code=ts_code), lambda ts_code:
+                 _fmp_get('dividends', symbol=ts_code, limit=1000))
+    if len(data) >= 1000:
+        raise RuntimeError(f'dividends {ts_code} returned {len(data)} rows = api max, may be incomplete')
+    return _us_dividend_frame(data, start, end)
+
+
+def us_dividend_calendar(start: str = None,
+                         end: str = None) -> pd.DataFrame:
+    """全球股票的现金分红(FMP dividends-calendar)，返回除息日落在 [start, end] 内的记录，[start, end] 左右闭。
+
+    接口返回全球所有交易所的股票，这里读本地的依赖表 us_stock_basic(map 第 8 列声明，下载前已更新)，只留股票表里的
+    代码；股票表为空时报错。接口单次最多 4000 条、日期范围最多 90 天
+    (map 第 7 列分段)；截断时会混入区间外的记录，取全后在这里筛掉。
+    """
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('dividends-calendar', dict(start=start, end=end),
+                 lambda start, end:
+                 _fmp_get('dividends-calendar', **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    res = _us_dividend_frame(data, start, end)
+    from qteasy import QT_DATA_SOURCE
+    stock_codes = QT_DATA_SOURCE.read_table_data('us_stock_basic').index
+    if stock_codes.empty:
+        raise RuntimeError('us_dividend_calendar is filtered by us_stock_basic, which is empty')
+    if res.empty:
+        return res
+    return res[res['ts_code'].isin(stock_codes)].reset_index(drop=True)
 
 
 def us_income(ts_code: str = None,

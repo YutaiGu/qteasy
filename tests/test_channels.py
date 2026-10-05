@@ -300,11 +300,12 @@ class TestChannels(unittest.TestCase):
 
     def test_get_dependent_table(self):
         """ test function get_dependent_table"""
-        self.assertEqual(get_dependent_table('stock_daily', 'tushare'), 'trade_calendar')
-        self.assertEqual(get_dependent_table('index_daily', 'tushare'), 'index_basic')
+        self.assertEqual(get_dependent_table('stock_daily', 'tushare'), ['trade_calendar'])
+        self.assertEqual(get_dependent_table('index_daily', 'tushare'), ['index_basic'])
         self.assertEqual(get_dependent_table('cn_cpi', 'tushare'), None)
-        self.assertEqual(get_dependent_table('ths_index_daily', 'tushare'), 'trade_calendar')
+        self.assertEqual(get_dependent_table('ths_index_daily', 'tushare'), ['trade_calendar'])
         self.assertEqual(get_dependent_table('trade_calendar', 'tushare'), None)
+        self.assertEqual(get_dependent_table('us_dividend', 'fmp'), ['us_stock_basic'])
 
     def test_arg_parsing(self):
         """testing parsing of filling args"""

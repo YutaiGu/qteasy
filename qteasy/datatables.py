@@ -93,7 +93,7 @@ table_name(key):            数据表的名称（主键）自定义表名称不�
                             -  mins: 分钟数据表，包含分钟线数据
                             -  reference: 参考数据表，包含各种与任何特定资产都无关的参考数据，如宏观经济数据等
 
-4, asset_type:              表内数据对应的资产类型，none表示不对应任何特定资产类型
+4, asset_type:              表内数据对应的资产类型，none表示不对应任何特定资产类型；E / E-US / E-HK 为 A 股 / 美股 / 港股股票
 
 5, freq:                    表内数据的频率，如分钟、日、周等
                             设置为'D'、'W'等，用于筛选不同的数据表
@@ -161,13 +161,13 @@ TABLE_MASTERS = {
         ['stock_basic', '股票基本信息', 'basics', 'E', 'none', '', '', ''],
 
     'hk_stock_basic':
-        ['hk_stock_basic', '港股基本信息', 'not_implemented', 'HK', 'none', '', '', ''],
+        ['hk_stock_basic', '港股基本信息', 'not_implemented', 'E-HK', 'none', '', '', ''],
 
     'us_stock_basic':
-        ['us_stock_basic', '美股基本信息', 'basics', 'US', 'none', '', '', ''],
+        ['us_stock_basic', '美股基本信息', 'basics', 'E-US', 'none', '', '', ''],
 
     'us_stock_currency':
-        ['us_stock_currency', '美股币种映射', 'basics', 'US', 'none', '', '', ''],
+        ['us_stock_currency', '美股币种映射', 'basics', 'E-US', 'none', '', '', ''],
 
     'stock_names':  # Complete, 股票名称变更
         ['name_changes', '股票名称变更', 'events', 'E', 'none', '', '', ''],
@@ -242,25 +242,28 @@ TABLE_MASTERS = {
         ['bars', '股票月线行情', 'data', 'E', 'm', '', '', ''],
 
     'hk_stock_daily':
-        ['hk_daily', '港股日线行情', 'not_implemented', 'HK', 'd', '', '', ''],
+        ['hk_daily', '港股日线行情', 'not_implemented', 'E-HK', 'd', '', '', ''],
 
     'us_stock_daily':
-        ['us_daily', '美股日线行情(不复权)', 'data', 'US', 'd', '', '', ''],
+        ['us_daily', '美股日线行情(不复权)', 'data', 'E-US', 'd', '', '', ''],
 
     'us_stock_daily_adj':
-        ['us_daily_adj', '美股日线行情(前复权)', 'data', 'US', 'd', '', '', ''],
+        ['us_daily_adj', '美股日线行情(前复权)', 'data', 'E-US', 'd', '', '', ''],
 
     'us_estimates':
-        ['us_estimates', '美股盈利预测快照', 'report', 'US', 'q', '', '', ''],
+        ['us_estimates', '美股盈利预测快照', 'report', 'E-US', 'q', '', '', ''],
 
     'us_income':
-        ['us_income', '美股利润表', 'report', 'US', 'q', '', '', ''],
+        ['us_income', '美股利润表', 'report', 'E-US', 'q', '', '', ''],
 
     'us_balance':
-        ['us_balance', '美股资产负债表', 'report', 'US', 'q', '', '', ''],
+        ['us_balance', '美股资产负债表', 'report', 'E-US', 'q', '', '', ''],
 
     'us_cashflow':
-        ['us_cashflow', '美股现金流量表', 'report', 'US', 'q', '', '', ''],
+        ['us_cashflow', '美股现金流量表', 'report', 'E-US', 'q', '', '', ''],
+
+    'us_dividend':
+        ['us_dividend', '美股现金分红', 'events', 'E-US', 'd', '', '', ''],
 
     'index_1min':
         ['min_bars', '指数分钟K线行情', 'mins', 'IDX', '1min', '', 'ts_code', '30'],  # 30
@@ -395,10 +398,10 @@ TABLE_MASTERS = {
         ['stock_indicator2', '股票技术指标备用表', 'data', 'E', 'd', '', '', ''],
 
     'hk_stock_indicator':
-        ['hk_us_indicators', '港股技术指标', 'not_implemented', 'HK', 'd', '', '', ''],
+        ['hk_us_indicators', '港股技术指标', 'not_implemented', 'E-HK', 'd', '', '', ''],
 
     'us_stock_indicator':
-        ['hk_us_indicators', '美股技术指标', 'not_implemented', 'US', 'd', '', '', ''],
+        ['hk_us_indicators', '美股技术指标', 'not_implemented', 'E-US', 'd', '', '', ''],
 
     'index_indicator':
         ['index_indicator', '指数关键指标', 'data', 'IDX', 'd', '', '', ''],
@@ -864,6 +867,12 @@ TABLE_SCHEMA = {
                         '营业利润', '其他非营业净收益', '税前利润', '所得税',
                         '持续经营净利润', '净利润',
                         'EPS', '稀释EPS', '加权股数', '稀释加权股数'],
+         'prime_keys': [0, 1, 2]},
+
+    'us_dividend':
+        {'columns':    ['ts_code', 'ex_date', 'cash_div_tax', 'ann_date', 'record_date', 'pay_date'],
+         'dtypes':     ['varchar(20)', 'date', 'double', 'date', 'date', 'date'],
+         'remarks':    ['股票代码', '除权除息日', '每股分红（原始值）', '公告日', '股权登记日', '派息日'],
          'prime_keys': [0, 1, 2]},
 
     'us_balance':

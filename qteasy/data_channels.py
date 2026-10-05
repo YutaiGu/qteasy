@@ -89,16 +89,17 @@ class TableFetchSpec:
     allowed_code_suffix: str
     allow_start_end: str
     start_end_chunk_size: str
+    dependent_tables: str = ''  # 第 8 列(可省略)：额外的依赖表，逗号分隔
 
     @classmethod
     def from_raw(cls, raw_spec: Any) -> 'TableFetchSpec':
-        """从旧版 7 元组规范构建规范对象。"""
+        """从 API_MAP 的一行构建规范对象：7 列，或加上第 8 列(额外的依赖表)。"""
         if isinstance(raw_spec, cls):
             return raw_spec
         if not isinstance(raw_spec, (list, tuple)):
             raise TypeError(f'raw_spec should be a list or tuple, got {type(raw_spec)} instead.')
-        if len(raw_spec) != 7:
-            raise ValueError(f'raw_spec should contain 7 items, got {len(raw_spec)} instead.')
+        if len(raw_spec) not in (7, 8):
+            raise ValueError(f'raw_spec should contain 7 or 8 items, got {len(raw_spec)} instead.')
         return cls(
             api=raw_spec[0],
             fill_arg_name=raw_spec[1],
@@ -107,6 +108,7 @@ class TableFetchSpec:
             allowed_code_suffix=raw_spec[4],
             allow_start_end=raw_spec[5],
             start_end_chunk_size=raw_spec[6],
+            dependent_tables=raw_spec[7] if len(raw_spec) == 8 else '',
         )
 
     def as_tuple(self) -> tuple[str, str, str, str, str, str, str]:
@@ -1451,7 +1453,7 @@ def _ensure_date_sequence(
     return _bound_date_sequence(first_ts, start_date, end_date)
 
 
-def get_dependent_table(table: str, channel: str, symbols=None) -> str or None:
+def get_dependent_table(table: str, channel: str, symbols=None) -> list or None:
     """ 获取数据表的依赖表. 依赖表是指在获取某个数据表之前，需要先获取的数据表
 
     依赖表主要包括在api_map中定义的fill_arg_type为'table_index'的数据表，如stock_basic表
@@ -1470,8 +1472,8 @@ def get_dependent_table(table: str, channel: str, symbols=None) -> str or None:
 
     Returns
     -------
-    str:
-        数据表的依赖表名称
+    list:
+        数据表的依赖表名称，另含该行在api_map第8列声明的额外依赖表
 
     Notes
     -----
@@ -1483,10 +1485,12 @@ def get_dependent_table(table: str, channel: str, symbols=None) -> str or None:
 
     spec = route_table_specs(channel, table, symbols)[0]
     fill_type = spec.fill_arg_type
+    dependent_tables = str_to_list(spec.dependent_tables) if spec.dependent_tables else []
     if fill_type in ('trade_date', 'us_trade_date'):
-        return 'trade_calendar'
+        dependent_tables.append('trade_calendar')
     elif fill_type == 'table_index':
-        return spec.arg_rng
+        dependent_tables.append(spec.arg_rng)
+    return dependent_tables or None
 
 
 @lru_cache(maxsize=4)
@@ -2149,6 +2153,12 @@ FMP_API_MAP = {
 
     'us_balance':
         ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
+
+    'us_dividend':  # [已审 20261005]
+         # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行；返回全球股票
+        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '90', 'us_stock_basic'],
+         # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
+         ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
     'us_cashflow':
         ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
