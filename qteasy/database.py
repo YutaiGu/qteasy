@@ -1822,6 +1822,8 @@ class DataSource:
             # 因此本地文件系统承载的数据量非常有限
             local_data = self.read_table_data(table)
             set_primary_key_index(dnld_data, primary_key=primary_keys, pk_dtypes=pk_dtypes)
+            # 主键唯一：同一批下载数据内主键重复的行只留一行，与数据库一致(ignore 留第一行，update 留最后一行)
+            dnld_data = dnld_data[~dnld_data.index.duplicated(keep='first' if merge_type == 'ignore' else 'last')]
             # 根据merge_type处理重叠部分：
             if merge_type == 'ignore':
                 # 丢弃下载数据中的重叠部分
