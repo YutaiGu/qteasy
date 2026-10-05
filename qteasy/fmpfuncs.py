@@ -19,22 +19,12 @@ import pandas as pd
 
 from qteasy._arg_validators import QT_CONFIG
 from qteasy.utilfuncs import regulate_date_format
+from qteasy.api_guard import guard
 
 _FMP_BASE = 'https://financialmodelingprep.com/stable'
 
 # 撞限(HTTP 429)后依次等待这些秒数再重试同一请求，等完仍撞限则报错
 _RATE_LIMIT_WAITS = (60, 120, 240)
-
-# endpoint -> page_limit: 每页最大条数，None 表示该端点无需分页
-_FMP_API_LIMITS = {
-    'historical-price-eod/dividend-adjusted': None,  # 用 from/to 过滤，不需分页
-    'stock-list':                             None,
-    'analyst-estimates':                      10,    # small 10, medium 1000
-    'income-statement':                       1000,
-    'balance-sheet-statement':                1000,
-    'cash-flow-statement':                    1000,
-}
-
 
 def _get_api_key() -> str:
     return QT_CONFIG.get('fmp_api_key', '')
@@ -47,7 +37,7 @@ def _get_proxy():
 
 
 def _fmp_get(endpoint: str, **params) -> list:
-    """向 FMP stable API 发起单次 GET 请求，返回 JSON list。
+    """向 FMP stable API 发起单次 GET 请求，返回 JSON list。调用方一律经 guard 调用。
 
     限流识别：HTTP 429 依次等待 _RATE_LIMIT_WAITS 后重试同一请求，等完仍撞限则报错；
     主动节流由 refill 的 download_batch_size/interval 统一负责。
@@ -80,28 +70,6 @@ def _fmp_get(endpoint: str, **params) -> list:
         attempt += 1
 
 
-def _fmp_request(endpoint: str, **params) -> list:
-    """自动翻页，返回该端点完整数据。限速由 _fmp_get 全局处理。
-
-    分页：按 _FMP_API_LIMITS[endpoint] 决定每页条数，None 则单次返回。
-    """
-    page_limit = _FMP_API_LIMITS.get(endpoint)
-
-    if page_limit is None:
-        return _fmp_get(endpoint, **params)
-
-    results, page = [], 0
-    while True:
-        data = _fmp_get(endpoint, page=page, limit=page_limit, **params)
-        if not data:
-            break
-        results.extend(data)
-        if len(data) < page_limit:
-            break
-        page += 1
-    return results
-
-
 def us_reported_currency(ts_code: str) -> str:
     """该股最新申报币种 (reportedCurrency)。"""
     data = _fmp_get('income-statement', symbol=ts_code, limit=1)
@@ -123,15 +91,10 @@ def us_enterprise_value(ts_code: str):
 _fx_history_cache = {}
 _fx_history_lock = threading.Lock()
 
-# Historical Forex Full Chart API 单次最多 5000 条；按 10 年/页(≈2600 条)分页，稳在上限内。
-_FX_PAGE_YEARS = 10
-
-
 def _fx_history(currency: str, start, end) -> pd.Series:
     """拉取并缓存 {currency}USD 在 [start-15d, end] 的收盘价(date->close 升序)。
 
-    前推 15 天保证 start 当日休市时 asof 仍能回退到更早的交易日；分页(≤10 年/页)绕过单次
-    5000 条上限；coverage-aware：缓存已覆盖请求区间则复用，否则扩展并集区间重拉。线程安全。
+    前推 15 天保证 start 当日休市时 asof 仍能回退到更早的交易日；coverage-aware：缓存已覆盖请求区间则复用，否则扩展并集区间重拉。线程安全。
     """
     start = pd.Timestamp(start).normalize() - pd.Timedelta(days=15)
     end = pd.Timestamp(end).normalize()
@@ -142,15 +105,13 @@ def _fx_history(currency: str, start, end) -> pd.Series:
             if start >= cov_start and end <= cov_end:
                 return series
             start, end = min(start, cov_start), max(end, cov_end)
-        quotes = {}
-        seg_start = start
-        while seg_start <= end:
-            seg_end = min(seg_start + pd.DateOffset(years=_FX_PAGE_YEARS) - pd.Timedelta(days=1), end)
-            for r in _fmp_request('historical-price-eod/full', symbol=f'{currency}USD',
-                                  **{'from': seg_start.strftime('%Y-%m-%d'),
-                                     'to':   seg_end.strftime('%Y-%m-%d')}):
-                quotes[pd.Timestamp(r['date'][:10])] = float(r['close'])
-            seg_start = seg_end + pd.Timedelta(days=1)
+        symbol = f'{currency}USD'
+        data = guard('historical-price-eod/full',
+                     dict(ts_code=symbol, start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d')),
+                     lambda ts_code, start, end:
+                     _fmp_get('historical-price-eod/full', symbol=ts_code, **{'from': start, 'to': end}),
+                     fmt='%Y-%m-%d')
+        quotes = {pd.Timestamp(r['date'][:10]): float(r['close']) for r in data}
         if not quotes:
             raise ValueError(f'no historical FX for {currency}USD in [{start.date()}, {end.date()}]')
         series = pd.Series(quotes).sort_index()
@@ -209,7 +170,11 @@ def us_trade_calendar(start: str = None,
     [start, end] 左右闭。休市数据一次取全(FMP 覆盖 1970 至今后数年)，区间超出覆盖范围时报错，不推断；
     全量算好再截取，区间第一天的 pretrade_date 也正确。
     """
-    data = _fmp_get('holidays-by-exchange', exchange='NYSE', **{'from': '1900-01-01', 'to': '2100-12-31'})
+    data = guard('holidays-by-exchange', dict(start='1900-01-01', end='2100-12-31'),
+                 lambda start, end:  # 该接口 from 不含当日，前推一天
+                 _fmp_get('holidays-by-exchange', exchange='NYSE',
+                          **{'from': (pd.Timestamp(start) - pd.Timedelta(days=1)).strftime('%Y-%m-%d'), 'to': end}),
+                 fmt='%Y-%m-%d')
     if not data:
         raise ValueError('holidays-by-exchange(NYSE) returned no data')
     holidays = pd.DataFrame(data)
@@ -234,7 +199,7 @@ def us_trade_calendar(start: str = None,
     return list(pd.to_datetime(cal.loc[cal['is_open'] == 1, 'cal_date'])[::-1])
 
 
-def us_stock_basic(exchange: str = 'ALL') -> pd.DataFrame:
+def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     """美股股票池基本信息：(VONE 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $5B 的外国公司(含 ADR)。
 
     VONE(Vanguard Russell 1000 ETF)跟踪 Russell 1000(美国公司，按市值取前约 1000 只，无盈利等偏好)；持仓与
@@ -246,10 +211,12 @@ def us_stock_basic(exchange: str = 'ALL') -> pd.DataFrame:
     columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
     foreign_min_cap = 5_000_000_000
 
-    holdings = pd.DataFrame(_fmp_get('etf/holdings', symbol='VONE'))
-    screener = pd.DataFrame(_fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false',
-                                     isFund='false', isActivelyTrading='true', includeAllShareClasses='true',
-                                     limit=20000))
+    holdings = pd.DataFrame(guard('etf/holdings', dict(), lambda:
+                                  _fmp_get('etf/holdings', symbol='VONE')))
+    screener = pd.DataFrame(guard('company-screener', dict(), lambda:
+                                  _fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false',
+                                           isFund='false', isActivelyTrading='true',
+                                           includeAllShareClasses='true', limit=20000)))
     if holdings.empty or screener.empty:
         raise ValueError('etf/holdings(VONE) or company-screener returned no data')
 
@@ -284,13 +251,12 @@ def us_stock_daily(ts_code: str = None,
     """
     if ts_code is None:
         return pd.DataFrame()
-    params = {'symbol': ts_code}
-    if start:
-        params['from'] = regulate_date_format(start, force_format='date')
-    if end:
-        params['to'] = regulate_date_format(end, force_format='date')
-
-    data = _fmp_get('historical-price-eod/non-split-adjusted', **params)
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-price-eod/non-split-adjusted', dict(ts_code=ts_code, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-price-eod/non-split-adjusted', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
     if not data:
         return pd.DataFrame()
     raw = pd.DataFrame(data)
@@ -324,18 +290,15 @@ def us_stock_daily_adj(ts_code: str = None,
     if ts_code is None:
         return pd.DataFrame()
 
-    params = {'symbol': ts_code}
-    if trade_date:
-        td = regulate_date_format(trade_date, force_format='date')
-        params['from'] = td
-        params['to'] = td
-    else:
-        if start:
-            params['from'] = regulate_date_format(start, force_format='date')
-        if end:
-            params['to'] = regulate_date_format(end, force_format='date')
-
-    data = _fmp_request('historical-price-eod/dividend-adjusted', **params)
+    trade_date = regulate_date_format(trade_date, force_format='date') if trade_date else None
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-price-eod/dividend-adjusted',
+                 dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                 lambda ts_code, trade_date, start, end:  # 该接口没有单日参数，单日用 from = to 传
+                 _fmp_get('historical-price-eod/dividend-adjusted', symbol=ts_code,
+                          **{'from': start or trade_date, 'to': end or trade_date}),
+                 fmt='%Y-%m-%d')
     if not data:
         return pd.DataFrame()
 
@@ -383,7 +346,15 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     rows = []
     # for period in ('annual', 'quarter'):
     for period in ('annual',):
-        for item in _fmp_request('analyst-estimates', symbol=ts_code, period=period):
+        items, page = [], 0
+        while True:  # 该接口按 page 翻页(每页 10 条)，翻到空页为止
+            data = guard('analyst-estimates', dict(ts_code=ts_code), lambda ts_code:
+                         _fmp_get('analyst-estimates', symbol=ts_code, period=period, page=page, limit=10))
+            if not data:
+                break
+            items.extend(data)
+            page += 1
+        for item in items:
             d = item.get('date')
             if not d or len(d) < 10:
                 raise ValueError(f'{ts_code} {period}: missing or invalid date field: {item}')
@@ -429,7 +400,7 @@ def _us_financials_common(endpoint: str,
                           end: str) -> list:
     """拉取 income/balance/cashflow 全部年报、季报，返回发布日(filingDate)落在 [start, end] 内的 item 列表。
 
-    FMP 财报接口不支持日期参数，只能逐股取全部历史再筛选；按发布日筛选，与 A 股按公告日的口径一致。
+    FMP 财报接口不支持日期参数、不认 page，一次返回该股全部历史(limit 取接口允许的最大值 1000)，取回后再筛选；按发布日筛选，与 A 股按公告日的口径一致。
     缺发布日的记录无法判断归属，报错。
     """
     start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
@@ -437,7 +408,9 @@ def _us_financials_common(endpoint: str,
 
     items = []
     for period in ('annual', 'quarter'):
-        for item in _fmp_request(endpoint, symbol=ts_code, period=period):
+        data = guard(endpoint, dict(ts_code=ts_code), lambda ts_code:
+                     _fmp_get(endpoint, symbol=ts_code, period=period, limit=1000))
+        for item in data:
             date_str = item.get('date', '')
             if len(date_str) < 10:
                 continue

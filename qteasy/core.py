@@ -732,6 +732,10 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
 
     """
 
+    # 每次下载任务开始时重置各 API 的截断验证状态(M、M_is_limit)：limit 可能变小，旧值不能沿用
+    from qteasy import api_guard
+    api_guard.reset()
+
     # 0, 输入数据检查
 
     if data_source is None:

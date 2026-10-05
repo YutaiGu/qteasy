@@ -14,6 +14,7 @@ import pandas as pd
 import tushare as ts
 
 from qteasy.__init__ import logger_core, QT_CONFIG
+from qteasy.api_guard import guard
 
 from qteasy.utilfuncs import (
     regulate_date_format,
@@ -137,10 +138,9 @@ def stock_basic(exchange: str = None):
     fields = 'ts_code,symbol,name,area,industry,fullname, enname, cnspell, market, exchange, curr_type, list_status, ' \
              'list_date, delist_date, is_hs'
     pro = ts.pro_api()
-    res = pro.stock_basic(exchange=exchange,
-                          list_status=list_status,
-                          is_hs=is_hs,
-                          fields=fields)
+    res = guard('stock_basic', dict(exchange=exchange),
+                lambda exchange:
+                pro.stock_basic(exchange=exchange, list_status=list_status, is_hs=is_hs, fields=fields))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_basic with exchange={exchange}, list_status={list_status}'
                      f'is_hs={is_hs}, fields={fields}')
@@ -161,7 +161,9 @@ def hk_stock_basic(ts_code: str = None,
     """
 
     pro = ts.pro_api()
-    res = pro.hk_basic(ts_code=ts_code, list_status=list_status)
+    res = guard('hk_basic', dict(ts_code=ts_code),
+                lambda ts_code:
+                pro.hk_basic(ts_code=ts_code, list_status=list_status))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_basic with ts_code={ts_code}, list_status={list_status}')
     return res
@@ -181,10 +183,9 @@ def us_stock_basic(ts_code: str = None,
     """
 
     pro = ts.pro_api()
-    res = pro.us_basic(ts_code=ts_code,
-                       classify=classify,
-                       offset=offset,
-                       limit=limit, )
+    res = guard('us_basic', dict(ts_code=ts_code),
+                lambda ts_code:
+                pro.us_basic(ts_code=ts_code, classify=classify, offset=offset, limit=limit))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_basic with ts_code={ts_code}, classify={classify}, '
                      f'offset={offset}, limit={limit}')
@@ -230,10 +231,9 @@ def trade_cal(exchange: str = 'SSE',
     ...
     """
     pro = ts.pro_api()
-    res = pro.trade_cal(exchange=exchange,
-                        start_date=start,
-                        end_date=end,
-                        is_open=is_open)
+    res = guard('trade_cal', dict(start=start, end=end),
+                lambda start, end:
+                pro.trade_cal(exchange=exchange, start_date=start, end_date=end, is_open=is_open))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table trade_calendar with exchange={exchange}, start_date={start}'
                      f'end_date={end}, is_open={is_open}')
@@ -248,9 +248,9 @@ def hk_trade_cal(start: str = None,
                  is_open: int = None):
     """"""
     pro = ts.pro_api()
-    res = pro.hk_tradecal(start_date=start,
-                          end_date=end,
-                          is_open=is_open)
+    res = guard('hk_tradecal', dict(start=start, end=end),
+                lambda start, end:
+                pro.hk_tradecal(start_date=start, end_date=end, is_open=is_open))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table hk_trade_calendar with start_date={start}'
                      f'end_date={end}, is_open={is_open}')
@@ -265,9 +265,9 @@ def us_trade_cal(start: str = None,
                  is_open: int = None):
     """"""
     pro = ts.pro_api()
-    res = pro.us_tradecal(start_date=start,
-                          end_date=end,
-                          is_open=is_open)
+    res = guard('us_tradecal', dict(start=start, end=end),
+                lambda start, end:
+                pro.us_tradecal(start_date=start, end_date=end, is_open=is_open))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table us_trade_calendar with start_date={start}'
                      f'end_date={end}, is_open={is_open}')
@@ -318,10 +318,9 @@ def namechange(ts_code: str = None,
     """
     fields = 'ts_code,start_date,name,end_date,ann_date,change_reason'
     pro = ts.pro_api()
-    res = pro.namechange(ts_code=ts_code,
-                         start_date=start,
-                         end_date=end,
-                         fields=fields)
+    res = guard('namechange', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.namechange(ts_code=ts_code, start_date=start, end_date=end, fields=fields))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table name_change with ts_code={ts_code}, start_date={start}'
                      f'end_date={end}, fields={fields}')
@@ -390,7 +389,9 @@ def new_share(start: str = None,
         12  16.07  22.99          6.90  37.145    0.12
     """
     pro = ts.pro_api()
-    res = pro.new_share(start_date=start, end_date=end)
+    res = guard('new_share', dict(start=start, end=end),
+                lambda start, end:
+                pro.new_share(start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table new_share with start_date={start}'
                      f'end_date={end}')
@@ -437,7 +438,9 @@ def moneyflow(ts_code: str = None,
         net_mf_amount	float	Y	        净流入额（万元）
     """
     pro = ts.pro_api()
-    res = pro.moneyflow(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('moneyflow', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.moneyflow(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table money_flow with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -453,7 +456,9 @@ def stk_limit(ts_code: str = None,
     """
     fields = "ts_code, trade_date, pre_close, up_limit, down_limit"
     pro = ts.pro_api()
-    res = pro.stk_limit(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end, fields=fields)
+    res = guard('stk_limit', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.stk_limit(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end, fields=fields))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_limit with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -469,8 +474,10 @@ def suspend_d(ts_code: str = None,
     """ 获取个股停复牌信息
     """
     pro = ts.pro_api()
-    res = pro.suspend_d(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
-                        suspend_type=suspend_type)
+    res = guard('suspend_d', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.suspend_d(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
+                              suspend_type=suspend_type))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_suspend with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}, suspend_type={suspend_type}')
@@ -484,7 +491,9 @@ def moneyflow_hsgt(trade_date: str = None,
     """ 获取沪深股通资金流向数据
     """
     pro = ts.pro_api()
-    res = pro.moneyflow_hsgt(trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('moneyflow_hsgt', dict(trade_date=trade_date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.moneyflow_hsgt(trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table moneyflow_hsgt with trade_date={trade_date}, start_date={start}'
                      f'end_date={end}')
@@ -500,8 +509,10 @@ def hsgt_top10(ts_code: str = None,
     """ 获取沪深股通十大成交股
     """
     pro = ts.pro_api()
-    res = pro.hsgt_top10(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
-                         market_type=market_type)
+    res = guard('hsgt_top10', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.hsgt_top10(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
+                               market_type=market_type))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table hsgt_top10 with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}, market_type={market_type}')
@@ -517,7 +528,10 @@ def ggt_top10(ts_code: str = None,
     """ 获取港股通十大成交股
     """
     pro = ts.pro_api()
-    res = pro.ggt_top10(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end, market_type=market_type)
+    res = guard('ggt_top10', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.ggt_top10(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
+                              market_type=market_type))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table ggt_top10 with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}, market_type={market_type}')
@@ -577,7 +591,9 @@ def stock_company(ts_code: str = None,
         fields = 'ts_code,exchange,chairman,manager,secretary,reg_capital,setup_date,province,city,introduction,' \
                  'website,email,office,employees,main_business,business_scope'
     pro = ts.pro_api()
-    res = pro.stock_company(ts_code=ts_code, exchange=exchange, fields=fields)
+    res = guard('stock_company', dict(ts_code=ts_code, exchange=exchange),
+                lambda ts_code, exchange:
+                pro.stock_company(ts_code=ts_code, exchange=exchange, fields=fields))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_company with ts_code={ts_code}, exchange={exchange}'
                      f'fields={fields}')
@@ -632,7 +648,9 @@ def stk_managers(ts_code: str = None,
     """
     fields = 'ts_code, ann_date, name, gender, lev, title, edu, national, birthday, begin_date, end_date, resume'
     pro = ts.pro_api()
-    res = pro.stk_managers(ts_code=ts_code, ann_date=ann_date, start=start, end=end, fields=fields)
+    res = guard('stk_managers', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end),
+                lambda ts_code, ann_date, start, end:
+                pro.stk_managers(ts_code=ts_code, ann_date=ann_date, start=start, end=end, fields=fields))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_managers with ts_code={ts_code}, ann_date={ann_date}'
                      f' start={start}, end={end}')
@@ -695,10 +713,9 @@ def daily_basic(ts_code: object = None,
     9    000001.SZ    20180702  11.01         0.0000  ...     165.000  1845.000  1845.000000
     """
     pro = ts.pro_api()
-    res = pro.daily_basic(ts_code=ts_code,
-                          trade_date=trade_date,
-                          start_date=start,
-                          end_date=end)
+    res = guard('daily_basic', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.daily_basic(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table daily_basic with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -761,10 +778,9 @@ def bak_daily(ts_code: object = None,
 
     """
     pro = ts.pro_api()
-    res = pro.bak_daily(ts_code=ts_code,
-                        trade_date=trade_date,
-                        start_date=start,
-                        end_date=end)
+    res = guard('bak_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.bak_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table back_basic with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -776,10 +792,9 @@ def hk_stock_daily(ts_code: object = None,
                    start: object = None,
                    end: object = None):
     pro = ts.pro_api()
-    res = pro.hk_daily(ts_code=ts_code,
-                       trade_date=trade_date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('hk_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.hk_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table hk_stock_daily with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -791,10 +806,9 @@ def us_stock_daily(ts_code: object = None,
                    start: object = None,
                    end: object = None):
     pro = ts.pro_api()
-    res = pro.us_daily(ts_code=ts_code,
-                       trade_date=trade_date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('us_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.us_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table us_stock_daily with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -806,10 +820,9 @@ def hk_indicators(ts_code: object = None,
                   start: object = None,
                   end: object = None):
     pro = ts.pro_api()
-    res = pro.hk_daily_adj(ts_code=ts_code,
-                           trade_date=trade_date,
-                           start_date=start,
-                           end_date=end)
+    res = guard('hk_daily_adj', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.hk_daily_adj(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table hk_indicators with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -821,10 +834,9 @@ def us_indicators(ts_code: object = None,
                   start: object = None,
                   end: object = None):
     pro = ts.pro_api()
-    res = pro.us_daily_adj(ts_code=ts_code,
-                           trade_date=trade_date,
-                           start_date=start,
-                           end_date=end)
+    res = guard('us_daily_adj', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.us_daily_adj(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table us_indicators with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -862,10 +874,9 @@ def index_dailybasic(ts_code: object = None,
         pb	            float	Y	        市净率
     """
     pro = ts.pro_api()
-    res = pro.index_dailybasic(ts_code=ts_code,
-                               trade_date=trade_date,
-                               start_date=start,
-                               end_date=end)
+    res = guard('index_dailybasic', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_dailybasic(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table index_dailybasic with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')
@@ -915,7 +926,9 @@ def mins1(ts_code,
           end=None):
     # 注意，分钟接口minsxx包含股票、基金、指数、期权的分钟数据，全部都在一张表中，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='1min')
+    res = guard('stk_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='1min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_mins with ts_code={ts_code}, freq="1min"'
                      f'start_date={start}, end_date={end}')
@@ -927,7 +940,9 @@ def mins5(ts_code,
           end=None):
     # 注意，分钟接口minsxx包含股票、基金、指数、期权的分钟数据，全部都在一张表中，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='5min')
+    res = guard('stk_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='5min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_mins with ts_code={ts_code}, freq="5min"'
                      f'start_date={start}, end_date={end}')
@@ -939,7 +954,9 @@ def mins15(ts_code,
            end=None):
     # 注意，分钟接口minsxx包含股票、基金、指数、期权的分钟数据，全部都在一张表中，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='15min')
+    res = guard('stk_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='15min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_mins with ts_code={ts_code}, freq="15min"'
                      f'start_date={start}, end_date={end}')
@@ -952,7 +969,9 @@ def mins30(ts_code,
     # 注意，分钟接口minsxx包含股票、基金、指数、期权的分钟数据，全部都在一张表中，必须先获取权限后下载
     pro = ts.pro_api()
     ts.pro_bar()
-    res = pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='30min')
+    res = guard('stk_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='30min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_mins with ts_code={ts_code}, freq="30min"'
                      f'start_date={start}, end_date={end}')
@@ -964,7 +983,9 @@ def mins60(ts_code,
            end=None):
     # 注意，分钟接口minsxx包含股票、基金、指数、期权的分钟数据，全部都在一张表中，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='60min')
+    res = guard('stk_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.stk_mins(ts_code=ts_code, start_date=start, end_date=end, freq='60min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stk_mins with ts_code={ts_code}, freq="60min"'
                      f'start_date={start}, end_date={end}')
@@ -976,7 +997,9 @@ def ft_mins1(ts_code,
              end=None):
     # 注意，分钟接口ft_minsxx包含期货的分钟数据，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='1min')
+    res = guard('ft_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='1min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table future_mins with ts_code={ts_code}, freq="1min"'
                      f'start_date={start}, end_date={end}')
@@ -988,7 +1011,9 @@ def ft_mins5(ts_code,
              end=None):
     # 注意，分钟接口ft_minsxx包含期货的分钟数据，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='5min')
+    res = guard('ft_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='5min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table future_mins with ts_code={ts_code}, freq="5min"'
                      f'start_date={start}, end_date={end}')
@@ -1000,7 +1025,9 @@ def ft_mins15(ts_code,
               end=None):
     # 注意，分钟接口ft_minsxx包含期货的分钟数据，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='15min')
+    res = guard('ft_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='15min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table future_mins with ts_code={ts_code}, freq="15min"'
                      f'start_date={start}, end_date={end}')
@@ -1012,7 +1039,9 @@ def ft_mins30(ts_code,
               end=None):
     # 注意，分钟接口ft_minsxx包含期货的分钟数据，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='30min')
+    res = guard('ft_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='30min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table future_mins with ts_code={ts_code}, freq="30min"'
                      f'start_date={start}, end_date={end}')
@@ -1024,7 +1053,9 @@ def ft_mins60(ts_code,
               end=None):
     # 注意，分钟接口ft_minsxx包含期货的分钟数据，必须先获取权限后下载
     pro = ts.pro_api()
-    res = pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='60min')
+    res = guard('ft_mins', dict(ts_code=ts_code, start=start, end=end),
+                lambda ts_code, start, end:
+                pro.ft_mins(ts_code=ts_code, start_date=start, end_date=end, freq='60min'))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table future_mins with ts_code={ts_code}, freq="60min"'
                      f'start_date={start}, end_date={end}')
@@ -1046,7 +1077,9 @@ def daily(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1067,7 +1100,9 @@ def weekly(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.weekly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('weekly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.weekly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: weekly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1088,7 +1123,9 @@ def monthly(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('monthly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: monthly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1109,7 +1146,9 @@ def index_daily(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.index_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('index_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1130,7 +1169,9 @@ def index_weekly(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.index_weekly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('index_weekly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_weekly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_weekly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1151,7 +1192,9 @@ def index_monthly(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.index_monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('index_monthly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_monthly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1172,7 +1215,9 @@ def fund_daily(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.fund_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('fund_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fund_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1193,7 +1238,9 @@ def adj_factors(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.adj_factor(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('adj_factor', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.adj_factor(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: adj_factors with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1214,7 +1261,9 @@ def fund_adj(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.fund_adj(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('fund_adj', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fund_adj(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_adj with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1235,7 +1284,9 @@ def fund_share(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.fund_share(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end)
+    res = guard('fund_share', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fund_share(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_share with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1254,7 +1305,9 @@ def fund_manager(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = pro.fund_manager(ts_code=ts_code, ann_date=ann_date, offset=offset)
+    res = guard('fund_manager', dict(ts_code=ts_code, ann_date=ann_date),
+                lambda ts_code, ann_date:
+                pro.fund_manager(ts_code=ts_code, ann_date=ann_date, offset=offset))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_manager with ts_code={ts_code}, '
                      f'ann_date={ann_date}, offset={offset}')
     return res
@@ -1280,13 +1333,10 @@ def fund_portfolio(ts_code=None,
     pages = []
     offset = 0
     while True:
-        page = pro.fund_portfolio(
-            ts_code=ts_code,
-            ann_date=ann_date,
-            period=period,
-            limit=_FUND_PORTFOLIO_PAGE_SIZE,
-            offset=offset,
-        )
+        page = guard('fund_portfolio', dict(ts_code=ts_code, ann_date=ann_date, period=period),
+                     lambda ts_code, ann_date, period:
+                     pro.fund_portfolio(ts_code=ts_code, ann_date=ann_date, period=period,
+                                        limit=_FUND_PORTFOLIO_PAGE_SIZE, offset=offset))
         if page.empty:
             if not pages:
                 pages.append(page)
@@ -1507,25 +1557,17 @@ def income(ts_code: str = None,
                          f'start_date={start}, end_date={end}')
         return res
     try:
-        res = pro.income_vip(ts_code=ts_code,
-                             ann_date=rpt_date,
-                             start_date=start,
-                             end_date=end,
-                             period=period,
-                             report_type=report_type,
-                             comp_type=comp_type,
-                             fields=fields)
+        res = guard('income_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.income_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                                   report_type=report_type, comp_type=comp_type, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API (pro.invome_vip) denied, will fall back to normal API'
                          f'(pro.income)')
-        res = pro.income(ts_code=ts_code,
-                         ann_date=rpt_date,
-                         start_date=start,
-                         end_date=end,
-                         period=period,
-                         report_type=report_type,
-                         comp_type=comp_type,
-                         fields=fields)
+        res = guard('income', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.income(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                               report_type=report_type, comp_type=comp_type, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: income with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
@@ -1762,25 +1804,17 @@ def balance(ts_code: str = None,
                          f'start_date={start}, end_date={end}')
         return res
     try:
-        res = pro.balancesheet_vip(ts_code=ts_code,
-                                   ann_date=rpt_date,
-                                   start_date=start,
-                                   end_date=end,
-                                   period=period,
-                                   report_type=report_type,
-                                   comp_type=comp_type,
-                                   fields=fields)
+        res = guard('balancesheet_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.balancesheet_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                         period=period, report_type=report_type, comp_type=comp_type, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API (pro.balancesheet_vip) denied, will fall back to normal API'
                          f'(pro.balancesheet)')
-        res = pro.balancesheet(ts_code=ts_code,
-                               ann_date=rpt_date,
-                               start_date=start,
-                               end_date=end,
-                               period=period,
-                               report_type=report_type,
-                               comp_type=comp_type,
-                               fields=fields)
+        res = guard('balancesheet', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.balancesheet(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                     period=period, report_type=report_type, comp_type=comp_type, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: balance with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
@@ -1963,25 +1997,17 @@ def cashflow(ts_code: str = None,
                          f'start_date={start}, end_date={end}')
         return res
     try:
-        res = pro.cashflow_vip(ts_code=ts_code,
-                               ann_date=rpt_date,
-                               start_date=start,
-                               end_date=end,
-                               period=period,
-                               report_type=report_type,
-                               comp_type=comp_type,
-                               fields=fields)
+        res = guard('cashflow_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.cashflow_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                     period=period, report_type=report_type, comp_type=comp_type, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API (pro.cashflow_vip) denied, will fall back to normal API'
                          f'(pro.cashflow)')
-        res = pro.cashflow(ts_code=ts_code,
-                           ann_date=rpt_date,
-                           start_date=start,
-                           end_date=end,
-                           period=period,
-                           report_type=report_type,
-                           comp_type=comp_type,
-                           fields=fields)
+        res = guard('cashflow', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.cashflow(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                                 report_type=report_type, comp_type=comp_type, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
@@ -2225,21 +2251,17 @@ def indicators(ts_code: str,
         end = regulate_date_format(end)
     pro = ts.pro_api()
     try:
-        res = pro.fina_indicator_vip(ts_code=ts_code,
-                                     ann_date=rpt_date,
-                                     start_date=start,
-                                     end_date=end,
-                                     period=period,
-                                     fields=fields)
+        res = guard('fina_indicator_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.fina_indicator_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                           period=period, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API(pro.fina_indicator_vip) denied, will fall back to '
                          f'normal API(pro.fina_indicator)')
-        res = pro.fina_indicator(ts_code=ts_code,
-                                 ann_date=rpt_date,
-                                 start_date=start,
-                                 end_date=end,
-                                 period=period,
-                                 fields=fields)
+        res = guard('fina_indicator', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.fina_indicator(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                       period=period, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: indicators with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}')
     return res
@@ -2294,23 +2316,17 @@ def forecast(ts_code: str = None,
                          f'start_date={start}, end_date={end}')
         return res
     try:
-        res = pro.forecast_vip(ts_code=ts_code,
-                               ann_date=ann_date,
-                               start_date=start,
-                               end_date=end,
-                               period=period,
-                               type=type,
-                               fields=fields)
+        res = guard('forecast_vip', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.forecast_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                     period=period, type=type, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API (pro.forecast_vip) not available, will fall back to normal '
                          f'API (pro.forecast)')
-        res = pro.forecast(ts_code=ts_code,
-                           ann_date=ann_date,
-                           start_date=start,
-                           end_date=end,
-                           period=period,
-                           type=type,
-                           fields=fields)
+        res = guard('forecast', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.forecast(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                                 type=type, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: forecast with ts_code={ts_code}, '
                      f'ann_date={ann_date}, start_date={start}, end_date={end}, period={period}, '
                      f'type={type}')
@@ -2387,21 +2403,17 @@ def express(ts_code: str = None,
                          f'start_date={start}, end_date={end}')
         return res
     try:
-        res = pro.express_vip(ts_code=ts_code,
-                              ann_date=ann_date,
-                              start_date=start,
-                              end_date=end,
-                              period=period,
-                              fields=fields)
+        res = guard('express_vip', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.express_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                    period=period, fields=fields))
     except Exception as e:
         logger_core.info(f'{e}, Access to tushare vip API (pro.express_vip) denied, will fall back to normal API'
                          f'(pro.express)')
-        res = pro.express(ts_code=ts_code,
-                          ann_date=ann_date,
-                          start_date=start,
-                          end_date=end,
-                          period=period,
-                          fields=fields)
+        res = guard('express', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                    lambda ts_code, ann_date, start, end, period:
+                    pro.express(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                                fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: express with ts_code={ts_code}, '
                      f'ann_date={ann_date}, start_date={start}, end_date={end}, period={period}')
     return res
@@ -2452,11 +2464,10 @@ def dividend(ts_code: str = None,
     fields = 'ts_code, ann_date, end_date, div_proc, stk_div, stk_bo_rate, stk_co_rate, cash_div, cash_div_tax,' \
              ' record_date, ex_date, pay_date, div_listdate, imp_ann_date, base_date, base_share'
     pro = ts.pro_api()
-    res = pro.dividend(ts_code=ts_code,
-                       ann_date=ann_date,
-                       record_date=record_date,
-                       ex_date=ex_date,
-                       imp_ann_date=imp_ann_date)
+    res = guard('dividend', dict(ts_code=ts_code, ann_date=ann_date),
+                lambda ts_code, ann_date:
+                pro.dividend(ts_code=ts_code, ann_date=ann_date, record_date=record_date, ex_date=ex_date,
+                             imp_ann_date=imp_ann_date))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: dividend with ts_code={ts_code}, '
                      f'ann_date={ann_date}, record_date={record_date}, ex_date={ex_date}, imp_ann_date={imp_ann_date}')
     return res
@@ -2490,8 +2501,9 @@ def top_inst(trade_date: str = None,
         reason	        str	    Y	    上榜理由
     """
     pro = ts.pro_api()
-    res = pro.top_inst(trade_date=trade_date,
-                       ts_code=ts_code)
+    res = guard('top_inst', dict(trade_date=trade_date, ts_code=ts_code),
+                lambda trade_date, ts_code:
+                pro.top_inst(trade_date=trade_date, ts_code=ts_code))
     logger_core.info(
         f'Downloaded {len(res)} rows from tushare: top_inst with ts_code={ts_code}, trade_date={trade_date}')
     return res
@@ -2532,10 +2544,9 @@ def index_member_all(l1_code: str = None,
         is_new	        str	    Y	是否最新Y是N否
     """
     pro = ts.pro_api()
-    res = pro.index_member_all(l1_code=l1_code,
-                               l2_code=l2_code,
-                               l3_code=l3_code,
-                               ts_code=ts_code)
+    res = guard('index_member_all', dict(ts_code=ts_code),
+                lambda ts_code:
+                pro.index_member_all(l1_code=l1_code, l2_code=l2_code, l3_code=l3_code, ts_code=ts_code))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: sw_industry_detail with l1_code={l1_code}, '
                      f'l2_code={l2_code}, l3_code={l3_code}, ts_code={ts_code}')
     return res
@@ -2572,10 +2583,9 @@ def block_trade(ts_code: str = None,
         seller	        str	    Y	    卖方营业部
     """
     pro = ts.pro_api()
-    res = pro.block_trade(ts_code=ts_code,
-                          trade_date=trade_date,
-                          start_date=start,
-                          end_date=end)
+    res = guard('block_trade', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.block_trade(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: block_trade with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -2625,12 +2635,10 @@ def stk_holdertrade(ts_code: str = None,
 
     """
     pro = ts.pro_api()
-    res = pro.stk_holdertrade(ts_code=ts_code,
-                              ann_date=ann_date,
-                              start_date=start,
-                              end_date=end,
-                              trade_type=trade_type,
-                              holder_type=holder_type)
+    res = guard('stk_holdertrade', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end),
+                lambda ts_code, ann_date, start, end:
+                pro.stk_holdertrade(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
+                                    trade_type=trade_type, holder_type=holder_type))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: stk_holdertrade with ts_code={ts_code}, '
                      f'ann_date={ann_date}, start_date={start}, end_date={end}, trade_type={trade_type}, '
                      f'holder_type={holder_type}')
@@ -2670,10 +2678,9 @@ def margin(trade_date: str = None,
         rqyl	        float	融券余量(股,份,手)
     """
     pro = ts.pro_api()
-    res = pro.margin(trade_date=trade_date,
-                     exchange_id=exchange_id,
-                     start_date=start,
-                     end_date=end)
+    res = guard('margin', dict(trade_date=trade_date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.margin(exchange_id=exchange_id, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: margin with trade_date={trade_date}, '
                      f'exchange_id={exchange_id}, start_date={start}, end_date={end}')
     return res
@@ -2714,10 +2721,9 @@ def margin_detail(trade_date: str = None,
         rzrqye	        float	融资融券余额(元)
     """
     pro = ts.pro_api()
-    res = pro.margin_detail(trade_date=trade_date,
-                            ts_code=ts_code,
-                            start_date=start,
-                            end_date=end)
+    res = guard('margin_detail', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.margin_detail(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: margin_detail with trade_date={trade_date}, '
                      f'ts_code={ts_code}, start_date={start}, end_date={end}')
     return res
@@ -2773,9 +2779,9 @@ def top_list(trade_date: str = None,
         fields = 'trade_date,ts_code,name,close,pct_change,turnover_rate,amount,' \
                  'l_sell,l_buy,l_amount,net_amount,net_rate,amount_rate,float_values,reason'
     pro = ts.pro_api()
-    res = pro.top_list(trade_date=trade_date,
-                       ts_code=shares,
-                       fields=fields)
+    res = guard('top_list', dict(trade_date=trade_date, ts_code=shares),
+                lambda trade_date, ts_code:
+                pro.top_list(trade_date=trade_date, ts_code=ts_code, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: top_list with ts_code={shares}, '
                      f'trade_date={trade_date}, fields={fields}')
     return res
@@ -2851,12 +2857,10 @@ def index_basic(ts_code: str = None,
     fields = 'ts_code, name, fullname, market, publisher, index_type, category, ' \
              'base_date, base_point, list_date, weight_rule, desc, exp_date'
     pro = ts.pro_api()
-    res = pro.index_basic(ts_code=ts_code,
-                          name=name,
-                          market=market,
-                          publisher=publisher,
-                          category=category,
-                          fields=fields)
+    res = guard('index_basic', dict(ts_code=ts_code, market=market),
+                lambda ts_code, market:
+                pro.index_basic(ts_code=ts_code, name=name, market=market, publisher=publisher, category=category,
+                                fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_basic with ts_code={ts_code}, '
                      f'name={name}, market={market}, publisher={publisher}, category={category}, fields={fields}')
     return res
@@ -2868,9 +2872,9 @@ def ths_index(ts_code: str = None,
               idx_type: str = None) -> pd.DataFrame:
     """ 获取同花顺概念和指数基本信息"""
     pro = ts.pro_api()
-    res = pro.ths_index(ts_code=ts_code,
-                        exchange=exchange,
-                        type=idx_type)
+    res = guard('ths_index', dict(ts_code=ts_code, exchange=exchange),
+                lambda ts_code, exchange:
+                pro.ths_index(ts_code=ts_code, exchange=exchange, type=idx_type))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: ths_index with ts_code={ts_code}, '
                      f'exchange={exchange}, type={type}')
     return res
@@ -2883,10 +2887,9 @@ def index_classify(index_code: str = None,
                    src: str = None) -> pd.DataFrame:
     """ 获取申万行业分类"""
     pro = ts.pro_api()
-    res = pro.index_classify(index_code=index_code,
-                             level=level,
-                             parent_code=parent_code,
-                             src=src)
+    res = guard('index_classify', dict(ts_code=index_code),
+                lambda ts_code:
+                pro.index_classify(index_code=ts_code, level=level, parent_code=parent_code, src=src))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: sw_industry with index_code={index_code}, '
                      f'level={level}, parent_code={parent_code}, src={src}')
     return res
@@ -2944,11 +2947,10 @@ def index_indicators(trade_date: str = None,
     if fields is None:
         fields = 'ts_code,trade_date,turnover_rate,pe,pe_ttm,pb'
     pro = ts.pro_api()
-    res = pro.index_dailybasic(trade_date=trade_date,
-                               ts_code=ts_code,
-                               start_date=start,
-                               end_date=end,
-                               fields=fields)
+    res = guard('index_dailybasic', dict(trade_date=trade_date, ts_code=ts_code, start=start, end=end),
+                lambda trade_date, ts_code, start, end:
+                pro.index_dailybasic(trade_date=trade_date, ts_code=ts_code, start_date=start, end_date=end,
+                                     fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_indicators with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}, fields={fields}')
     return res
@@ -2988,10 +2990,9 @@ def ths_daily(ts_code: str = None,
         float_mv	    float	N	    流通市值
     """
     pro = ts.pro_api()
-    res = pro.ths_daily(ts_code=ts_code,
-                        trade_date=trade_date,
-                        start_date=start,
-                        end_date=end)
+    res = guard('ths_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.ths_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: ths_daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3020,8 +3021,9 @@ def ths_member(ts_code: str = None,
         is_new	        str	    N	    是否最新Y是N否
     """
     pro = ts.pro_api()
-    res = pro.ths_member(ts_code=ts_code,
-                         con_code=code)
+    res = guard('ths_member', dict(ts_code=ts_code),
+                lambda ts_code:
+                pro.ths_member(ts_code=ts_code, con_code=code))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: ths_member with ts_code={ts_code}, code={code}')
     return res
 
@@ -3057,10 +3059,9 @@ def ci_daily(ts_code: str = None,
         amount	        float	Y	    成交额（万元）
     """
     pro = ts.pro_api()
-    res = pro.ci_daily(ts_code=ts_code,
-                       trade_date=trade_date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('ci_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.ci_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: ci_daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3101,10 +3102,9 @@ def sw_daily(ts_code: str = None,
         total_mv	    float	Y	    总市值（万元）
     """
     pro = ts.pro_api()
-    res = pro.sw_daily(ts_code=ts_code,
-                       trade_date=trade_date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('sw_daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.sw_daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: sw_daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3142,10 +3142,9 @@ def index_global(ts_code: str = None,
         amount	        float	N	    成交额 （大部分无此项数据）
     """
     pro = ts.pro_api()
-    res = pro.index_global(ts_code=ts_code,
-                           trade_date=trade_date,
-                           start_date=start,
-                           end_date=end)
+    res = guard('index_global', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_global(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_global with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3187,10 +3186,9 @@ def composite(index: str = None,
         6    399300.SZ  000402.SZ   20180903  0.0816
     """
     pro = ts.pro_api()
-    res = pro.index_weight(index_code=index,
-                           trade_date=trade_date,
-                           start_date=start,
-                           end_date=end)
+    res = guard('index_weight', dict(ts_code=index, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.index_weight(index_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: composite with index_code={index}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3265,12 +3263,9 @@ def fund_basic(market: str = None,
     pages = []
     offset = 0
     while True:
-        page = pro.fund_basic(
-            market=market,
-            status=status,
-            limit=_FUND_BASIC_PAGE_SIZE,
-            offset=offset,
-        )
+        page = guard('fund_basic', dict(market=market),
+                     lambda market:
+                     pro.fund_basic(market=market, status=status, limit=_FUND_BASIC_PAGE_SIZE, offset=offset))
         pages.append(page)
         row_count = len(page)
         if row_count < _FUND_BASIC_PAGE_SIZE:
@@ -3328,9 +3323,9 @@ def fund_net_value(ts_code: str = None,
         ...         ...       ...
     """
     pro = ts.pro_api()
-    res = pro.fund_nav(ts_code=ts_code,
-                       nav_date=nav_date,
-                       market=market)
+    res = guard('fund_nav', dict(ts_code=ts_code, trade_date=nav_date, market=market),
+                lambda ts_code, trade_date, market:
+                pro.fund_nav(ts_code=ts_code, nav_date=trade_date, market=market))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fund_net_value with ts_code={ts_code}, '
                      f'nav_date={nav_date}, market={market}')
     return res
@@ -3388,9 +3383,9 @@ def future_basic(exchange: str = None,
     fields = 'ts_code,symbol,name,fut_code,multiplier,trade_unit,per_unit,quote_unit,quote_unit_desc,d_mode_desc,' \
              'list_date,delist_date,d_month,last_ddate,trade_time_desc'
     pro = ts.pro_api()
-    res = pro.fut_basic(exchange=exchange,
-                        fut_type=future_type,
-                        fields=fields)
+    res = guard('fut_basic', dict(exchange=exchange),
+                lambda exchange:
+                pro.fut_basic(exchange=exchange, fut_type=future_type, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: future_basic with exchange={exchange}, '
                      f'fut_type={future_type}, fields={fields}')
     return res
@@ -3419,10 +3414,9 @@ def fut_mapping(ts_code: str = None,
         mapping_ts_code	str	    Y	    期货合约代码
     """
     pro = ts.pro_api()
-    res = pro.fut_mapping(ts_code=ts_code,
-                          trade_date=trade_date,
-                          start_date=start,
-                          end_date=end)
+    res = guard('fut_mapping', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fut_mapping(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fut_mapping with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -3475,9 +3469,9 @@ def options_basic(exchange: str = None,
     fields = 'ts_code,exchange,name,per_unit,opt_code,opt_type,call_put,exercise_type,exercise_price,s_month,' \
              'maturity_date,list_price,list_date,delist_date,last_edate,last_ddate,quote_unit,min_price_chg'
     pro = ts.pro_api()
-    res = pro.opt_basic(exchange=exchange,
-                        call_put=call_put,
-                        fields=fields)
+    res = guard('opt_basic', dict(exchange=exchange),
+                lambda exchange:
+                pro.opt_basic(exchange=exchange, call_put=call_put, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: options_basic with exchange={exchange}, '
                      f'call_put={call_put}, fields={fields}')
     return res
@@ -3534,12 +3528,10 @@ def future_daily(trade_date: str = None,
     fields = 'ts_code,trade_date,pre_close,pre_settle,open,high,low,close,' \
              'settle,change1,change2,vol,amount,oi,oi_chg,delv_settle'
     pro = ts.pro_api()
-    res = pro.fut_daily(trade_date=trade_date,
-                        ts_code=future,
-                        exchange=exchange,
-                        start_date=start,
-                        end_date=end,
-                        fields=fields)
+    res = guard('fut_daily', dict(ts_code=future, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fut_daily(ts_code=ts_code, exchange=exchange, trade_date=trade_date, start_date=start,
+                              end_date=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: future_daily with trade_date={trade_date}, '
                      f'ts_code={future}, exchange={exchange}, start_date={start}, end_date={end}, fields={fields}')
     return res
@@ -3584,12 +3576,10 @@ def fut_weekly(ts_code: str = None,
         change2	    float	Y	    (周/月)涨跌2 结算价-昨结算价
     """
     pro = ts.pro_api()
-    res = pro.fut_weekly_monthly(ts_code=ts_code,
-                                 trade_date=trade_date,
-                                 start_date=start,
-                                 end_date=end,
-                                 freq='week',
-                                 exchange=exchange)
+    res = guard('fut_weekly_monthly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fut_weekly_monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
+                                       freq='week', exchange=exchange))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fut_weekly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}, exchange={exchange}')
     return res
@@ -3634,12 +3624,10 @@ def fut_monthly(ts_code: str = None,
         change2	    float	Y	    (周/月)涨跌2 结算价-昨结算价
     """
     pro = ts.pro_api()
-    res = pro.fut_weekly_monthly(ts_code=ts_code,
-                                 trade_date=trade_date,
-                                 start_date=start,
-                                 end_date=end,
-                                 freq='month',
-                                 exchange=exchange)
+    res = guard('fut_weekly_monthly', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.fut_weekly_monthly(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end,
+                                       freq='month', exchange=exchange))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: fut_monthly with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}, exchange={exchange}')
     return res
@@ -3701,12 +3689,10 @@ def options_daily(trade_date: str = None,
         raise ValueError(f'one of future and trade_date should be given!')
     fields = 'ts_code,trade_date,pre_close,pre_settle,open,high,low,close,settle,vol,amount,oi'
     pro = ts.pro_api()
-    res = pro.opt_daily(trade_date=trade_date,
-                        ts_code=option,
-                        exchange=exchange,
-                        start_date=start,
-                        end_date=end,
-                        fields=fields)
+    res = guard('opt_daily', dict(ts_code=option, trade_date=trade_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.opt_daily(ts_code=ts_code, exchange=exchange, trade_date=trade_date, start_date=start,
+                              end_date=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: options_daily with '
                      f'trade_date={trade_date}, ts_code={option}, exchange={exchange}, start_date={start}, '
                      f'end_date={end}, fields={fields}')
@@ -3763,9 +3749,9 @@ def shibor(date=None, start=None, end=None):
         20   20180929  2.0730  2.7830  3.3100  2.8020  2.8460  3.2850  3.4890  3.5210
     """
     pro = ts.pro_api()
-    res = pro.shibor(date=date,
-                     start_date=start,
-                     end_date=end)
+    res = guard('shibor', dict(trade_date=date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.shibor(date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: shibor with date={date}, '
                      f'start_date={start}, end_date={end}')
     return res
@@ -3821,9 +3807,9 @@ def hibor(date=None, start=None, end=None):
     20   20181102  0.45571  0.73542  0.87679  1.10536  1.73732  2.10018  2.33276  2.65857
     """
     pro = ts.pro_api()
-    res = pro.hibor(date=date,
-                    start_date=start,
-                    end_date=end)
+    res = guard('hibor', dict(trade_date=date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.hibor(date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: hibor with date={date}, '
                      f'start_date={start}, end_date={end}')
     return res
@@ -3881,10 +3867,9 @@ def libor(date=None, start=None, end=None, currency=None):
 
     """
     pro = ts.pro_api()
-    res = pro.libor(date=date,
-                    start_date=start,
-                    end_date=end,
-                    currency=currency)
+    res = guard('libor', dict(trade_date=date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.libor(date=trade_date, start_date=start, end_date=end, currency=currency))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: libor with date={date}, '
                      f'start_date={start}, end_date={end}, currency={currency}')
     return res
@@ -3893,9 +3878,9 @@ def libor(date=None, start=None, end=None, currency=None):
 def wz_index(date=None, start=None, end=None):
     """ 获取温州民间借贷利率指数"""
     pro = ts.pro_api()
-    res = pro.wz_index(date=date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('wz_index', dict(trade_date=date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.wz_index(date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: wz_index with date={date}, '
                      f'start_date={start}, end_date={end}')
     return res
@@ -3904,9 +3889,9 @@ def wz_index(date=None, start=None, end=None):
 def gz_index(date=None, start=None, end=None):
     """ 获取广州民间借贷利率指数"""
     pro = ts.pro_api()
-    res = pro.gz_index(date=date,
-                       start_date=start,
-                       end_date=end)
+    res = guard('gz_index', dict(trade_date=date, start=start, end=end),
+                lambda trade_date, start, end:
+                pro.gz_index(date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: gz_index with date={date}, '
                      f'start_date={start}, end_date={end}')
     return res
@@ -3916,7 +3901,9 @@ def cn_gdp(quarter=None, start=None, end=None):
     """ 获取中国国内生产总值"""
     fields = 'quarter,gdp,gdp_yoy,pi,pi_yoy,si,si_yoy,ti,ti_yoy'
     pro = ts.pro_api()
-    res = pro.cn_gdp(q=quarter, start_q=start, end_q=end, fields=fields)
+    res = guard('cn_gdp', dict(quarter=quarter, start=start, end=end),
+                lambda quarter, start, end:
+                pro.cn_gdp(q=quarter, start_q=start, end_q=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_gdp with quarter={quarter}')
     return res
 
@@ -3926,7 +3913,9 @@ def cn_cpi(month=None, start=None, end=None):
     fields = "month, nt_val, nt_yoy, nt_mom, nt_accu, town_val, town_yoy, " \
              "town_mom, town_accu, cnt_val, cnt_yoy, cnt_mom, cnt_accu"
     pro = ts.pro_api()
-    res = pro.cn_cpi(m=month, start_m=start, end_m=end, fields=fields)
+    res = guard('cn_cpi', dict(month=month, start=start, end=end),
+                lambda month, start, end:
+                pro.cn_cpi(m=month, start_m=start, end_m=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_cpi with start_m={start}, end_m={end}')
     return res
 
@@ -3939,7 +3928,9 @@ def cn_ppi(month=None, start=None, end=None):
              "ppi_mp_accu, ppi_mp_qm_accu, ppi_mp_rm_accu, ppi_mp_p_accu, ppi_cg_accu, ppi_cg_f_accu, ppi_cg_c_accu, " \
              "ppi_cg_adu_accu, ppi_cg_dcg_accu"
     pro = ts.pro_api()
-    res = pro.cn_ppi(m=month, start_m=start, end_m=end, fields=fields)
+    res = guard('cn_ppi', dict(month=month, start=start, end=end),
+                lambda month, start, end:
+                pro.cn_ppi(m=month, start_m=start, end_m=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_ppi with start_m={start}, end_m={end}')
     return res
 
@@ -3948,7 +3939,9 @@ def cn_money(month=None, start=None, end=None):
     """ 获取中国货币供应量"""
     fields = "month, m0, m0_yoy, m0_mom, m1, m1_yoy, m1_mom, m2, m2_yoy, m2_mom"
     pro = ts.pro_api()
-    res = pro.cn_m(m=month, start_m=start, end_m=end, fields=fields)
+    res = guard('cn_m', dict(month=month, start=start, end=end),
+                lambda month, start, end:
+                pro.cn_m(m=month, start_m=start, end_m=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_money_supply with start_m={start}, end_m={end}')
     return res
 
@@ -3957,7 +3950,9 @@ def cn_sf(month=None, start=None, end=None):
     """ 获取中国社会融资规模"""
     fields = "month, inc_month, inc_cumval, stk_endval"
     pro = ts.pro_api()
-    res = pro.sf_month(m=month, start_m=start, end_m=end, fields=fields)
+    res = guard('sf_month', dict(month=month, start=start, end=end),
+                lambda month, start, end:
+                pro.sf_month(m=month, start_m=start, end_m=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_social_fin with start_m={start}, end_m={end}')
     return res
 
@@ -3972,7 +3967,9 @@ def cn_pmi(month=None, start=None, end=None):
              "pmi020302, pmi020400, pmi020401, pmi020402, pmi020500, pmi020501, pmi020502, pmi020600, pmi020601, " \
              "pmi020602, pmi020700, pmi020800, pmi020900, pmi021000, pmi030000"
     pro = ts.pro_api()
-    res = pro.cn_pmi(m=month, start_m=start, end_m=end, fields=fields)
+    res = guard('cn_pmi', dict(month=month, start=start, end=end),
+                lambda month, start, end:
+                pro.cn_pmi(m=month, start_m=start, end_m=end, fields=fields))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: cn_pmi with start_m={start}, end_m={end}')
     return res
 
@@ -4002,8 +3999,9 @@ def report_rc(ts_code: str = None,
         end = regulate_date_format(end, force_format='%Y%m%d')
         pages, offset = [], 0
         while True:
-            page = pro.report_rc(start_date=start, end_date=end,
-                                 fields=fields, limit=3000, offset=offset)
+            page = guard('report_rc', dict(),  # 翻页请求(C)：日期随每页原样传，不交给 guard 切
+                         lambda:
+                         pro.report_rc(start_date=start, end_date=end, fields=fields, limit=3000, offset=offset))
             pages.append(page)
             if len(page) < 3000:
                 break
@@ -4017,8 +4015,10 @@ def report_rc(ts_code: str = None,
                 warnings.simplefilter('ignore', FutureWarning)
                 res = pd.concat(non_empty, ignore_index=True)
     else:
-        res = pro.report_rc(ts_code=ts_code, report_date=report_date,
-                            start_date=start, end_date=end, fields=fields)
+        res = guard('report_rc', dict(ts_code=ts_code, start=start, end=end),
+                    lambda ts_code, start, end:
+                    pro.report_rc(ts_code=ts_code, report_date=report_date, start_date=start, end_date=end,
+                                  fields=fields))
     # 主键 (ts_code, report_date, org_name, quarter) 任一为空则无法入库(MySQL 主键非空);
     # 这类行多为未标预测报告期的研报，对一致预期无用，直接丢弃
     res = res.dropna(subset=['ts_code', 'report_date', 'org_name', 'quarter'])

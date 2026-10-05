@@ -69,9 +69,17 @@ map 是路由器，负责准确、高效。一张表可写多行，每行是为�
 
 没有可切维度、只能翻页的接口（如 `fund_basic`、FMP 报表类）：第 6 列填 `C`，翻页由下载函数自己维护（含该接口越界时是否返回空页）；`C` 行同样附加日期范围，下载函数用不上可以忽略。翻页的完整性依赖接口本身，是已知的例外，接口须实测翻页稳定后才能标 `C`。
 
-## 2. 防静默截断下载器（二叉树验证）
+## 2. 防静默截断（guard，二叉树验证）
 
-对清单的每个区间，保证写入的都是完整数据。
+guard 是区间维护器，保护的是**每一次 API 请求**，不是下载函数：下载函数内部可能调用多个 API、再过滤组合。下载函数里的每个 API 请求都经 guard，把区间交给它，它把区间传给接口、验证返回的数据；lambda 只负责把区间的字段对应到接口自己的参数名：
+
+```
+res = guard('daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+            lambda ts_code, trade_date, start, end:
+            pro.daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
+```
+
+没有时间字段、所在行又不是 `C` 的请求，没有任何东西保证取全，guard 报错。
 
 ```
 K = 100            # 默认任何 api 的单次 limit 都不低于 100 行
@@ -83,36 +91,36 @@ M_is_limit = False # M、M_is_limit 每次下载任务开始时重置
         return 日期前半, 日期后半             # 首尾相接，不漏非交易日（周末公告等）
     return None, None                       # 单时点：最小单元
 
-下载函数(区间, rows):                        # rows = 这个区间拉到的数据
+guard(区间, rows):                           # rows = 这个区间请求到的数据；"交回"指交回给下载函数
     n = len(rows)
     if n == 0: return
-    if 区间的接口是 C: 写入(rows); return    # 翻页接口：函数内已取全，跳过验证
-    if n < M or n < K: 写入(rows); return    # 小于已知下界，一定没截断
+    if 区间没有日期范围: 交回(rows); return   # 单时点：最小单元；C 行无时间字段：函数内自己取全
+    if n < M or n < K: 交回(rows); return    # 小于已知下界，一定没截断
     左, 右 = 二分(区间)
 
     if M_is_limit:                          # n == limit，一定截断
         if 左 == None: 报错; return          # 最小单元超限：路由保证被打破
-        下载函数(左, 拉取(左))
-        下载函数(右, 拉取(右))
+        guard(左, 请求(左))
+        guard(右, 请求(右))
         return
 
     M = n
-    if 左 == None: 写入(rows); return        # 最小单元：由路由保证不超限
-    l, r = 拉取(左), 拉取(右)
+    if 左 == None: 交回(rows); return        # 最小单元：由路由保证不超限
+    l, r = 请求(左), 请求(右)
     if len(l) == 0 or len(r) == 0 or len(l) + len(r) > n:
         if len(l) + len(r) > n:             # 两半之和 > 整段：整段被截断，n 就是 limit
             M_is_limit = True
-        下载函数(左, l)
-        下载函数(右, r)
+        guard(左, l)
+        guard(右, r)
     else:
-        写入(rows)                          # 两半非空且之和 == n：完整
+        交回(rows)                          # 两半非空且之和 == n：完整
 ```
 
-- 每一段一确认完整就写入，不等整个区间拉完；被截断的那次返回不写，由它拆出的两半重新拉。
+- 被截断的那次返回丢弃，由它拆出的两半重新请求；各段确认完整后合并交回下载函数。
 
 ## 3. 限流
 
-**计数**：按调用下载函数的次数计（含二分多发的调用），所有渠道通用、各线程共用。调用时传 `download_batch_size` / `download_batch_interval`，每调用这么多次暂停这么多秒。按限额主动节流只为少撞限，**正确性靠撞限后等待重试**。
+**计数**：在 guard 里按真实请求次数计（含二分多发的请求、翻页的每一页），各线程共用。调用时传 `download_batch_size` / `download_batch_interval`，每调用这么多次暂停这么多秒。按限额主动节流只为少撞限，**正确性靠撞限后等待重试**。
 
 **限流识别**由每个数据源自己维护：tushare 认报错文本"每分钟最多访问该接口"，FMP 认 HTTP 429。
 
@@ -131,7 +139,6 @@ M_is_limit = False # M、M_is_limit 每次下载任务开始时重置
 ```
 
 - 撞限只重试同一个区间，不跳过：识别错了只会变慢或报错，不会丢数据。
-- 翻页接口（`C`）调用一次可能发多次请求，计数会少算，靠撞限后等待重试保证正确。
 
 ## 附录：待落实
 
