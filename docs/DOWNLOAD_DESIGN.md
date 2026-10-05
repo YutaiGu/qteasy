@@ -146,9 +146,16 @@ map 每行可加第 8 列 `dependent_tables`（可省略）：额外的依赖表
 
 第 3、4 列写的是迭代逻辑，由它衍生的依赖表不用另写（交易日类的行依赖 `trade_calendar`，`table_index` 行依赖第 4 列的基础表）。其他依赖写第 8 列，如 FMP 分红日历返回全球股票，下载函数读 `us_stock_basic` 自己过滤。
 
+## 5. 全市场行失败退到逐股行
+
+未传 symbols 时，全市场行都失败后换逐股行，下载依赖表的全部代码，数据范围相同。
+
+## 6. 数据源自己的脏数据
+
+主键等关键字段缺失的记录是数据源的问题，不是没取全：丢弃后打警告，不报错。
+
 ## 附录：待落实
 
-- **美股财报按发布日筛选**：财报在报告期结束几周后才发布，按报告期筛选的每日增量会漏掉当天发布的财报（A 股已改为按 `f_ann_date`）。美股三大报表（FMP，标 `C`）在下载函数内翻页取全后，按发布日筛选（`filingDate`，缺失用 `acceptedDate`）；两者都缺的记录报错，不跳过。
 - **tushare 财报函数内部的 vip 兜底**（逐表审计时改）：income / balancesheet / cashflow / fina_indicator / forecast / express 在函数内 `except Exception` 后改调普通接口，会吞掉撞限等报错，绕过限流识别和路由。应拆成 map 的两行（vip 在前），函数内不再兜底。
 - **非主键文本超长被静默截断**：上游 `write_table_data` 的 `_clip_df_to_column_dtypes` 把超过 varchar 定义的字段直接截断写入，不报错不警告。主键不受影响（`_drop_oversized_primary_keys` 先整行丢弃并警告）。至少应改为截断时警告。
 

@@ -250,14 +250,15 @@ def get_table_fetch_spec(channel: str, table: str) -> list[TableFetchSpec]:
 def route_table_specs(channel: str, table: str, symbols=None) -> list[TableFetchSpec]:
     """路由：按请求类型选出适用的行，顺序即优先级。
 
-    传了 symbols 一律逐股，只走 table_index 行；未传走非 table_index 行，表只有 table_index 行时用它。
+    传了 symbols 一律逐股，只走 table_index 行；未传先走非 table_index 行，它们都失败时退到 table_index 行
+    (逐股下载全部代码，数据范围相同)，表只有 table_index 行时直接用它。
     没有适用的行是 map 设计错误，直接报错。
     """
     specs = get_table_fetch_spec(channel, table)
     if symbols:
         routed = [s for s in specs if s.fill_arg_type == 'table_index']
     else:
-        routed = [s for s in specs if s.fill_arg_type != 'table_index'] or specs
+        routed = sorted(specs, key=lambda s: s.fill_arg_type == 'table_index')  # 稳定排序：全市场行在前
     if not routed:
         raise ValueError(f'table "{table}" has no table_index row in channel "{channel}", '
                          f'symbols can not be used')
@@ -2148,11 +2149,17 @@ FMP_API_MAP = {
     'us_estimates':
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
 
-    'us_income':  # C：接口一次返回该股全部历史，函数内再按发布日筛选 start/end
-        ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
+    'us_income':  # [已审 20261005]
+        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+        [['us_income_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
+         # income-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
+         ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
-    'us_balance':
-        ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
+    'us_balance':  # [已审 20261005]
+        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+        [['us_balance_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
+         # balance-sheet-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
+         ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
     'us_dividend':  # [已审 20261005]
          # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行；返回全球股票
@@ -2160,6 +2167,9 @@ FMP_API_MAP = {
          # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
          ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
-    'us_cashflow':
-        ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
+    'us_cashflow':  # [已审 20261005]
+        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+        [['us_cashflow_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
+         # cash-flow-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
+         ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 }

@@ -14,6 +14,7 @@
 
 import time
 import threading
+import warnings
 import requests
 import pandas as pd
 
@@ -394,54 +395,111 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     return db.changelog(df)
 
 
-def _us_financials_common(endpoint: str,
-                          ts_code: str,
-                          start: str,
-                          end: str) -> list:
-    """拉取 income/balance/cashflow 全部年报、季报，返回发布日(filingDate)落在 [start, end] 内的 item 列表。
+def _us_financials_common(endpoint: str, ts_code: str) -> list:
+    """拉取 income/balance/cashflow 全部年报、季报，返回该股全部历史的 item 列表。
 
-    FMP 财报接口不支持日期参数、不认 page，一次返回该股全部历史(limit 取接口允许的最大值 1000)，取回后再筛选；按发布日筛选，与 A 股按公告日的口径一致。
-    缺发布日的记录无法判断归属，报错。
+    FMP 财报接口只认 symbol/limit/period，不认日期、不翻页，单次最多 1000 条：按最大值取该股全部历史，返回满 1000 条
+    说明可能没取全，报错。不按日期筛选：接口的发布日(filingDate)不可靠(有的等于报告期末)，按它筛选会漏掉晚收录的
+    财报；拉到一只股票就写入全部，由主键去重。缺截止日(主键)或币种(金额无法解释)的记录是数据源自己的脏数据，
+    丢弃并警告。
     """
-    start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) if start else None
-    end_ts   = pd.Timestamp(regulate_date_format(end,   force_format='date')) if end   else None
-
     items = []
     for period in ('annual', 'quarter'):
         data = guard(endpoint, dict(ts_code=ts_code), lambda ts_code:
                      _fmp_get(endpoint, symbol=ts_code, period=period, limit=1000))
-        if len(data) >= 1000:  # 单次最多 1000 条，不能翻页：返回满 1000 条说明可能没取全
+        if len(data) >= 1000:
             raise RuntimeError(f'{endpoint} {ts_code} {period} returned {len(data)} rows = api max, may be incomplete')
         for item in data:
-            date_str = item.get('date', '')
-            if len(date_str) < 10:
+            if len(item.get('date') or '') < 10 or not item.get('reportedCurrency'):
+                warnings.warn(f'FMP {endpoint} {ts_code} {period}: dropped a record without date or reportedCurrency '
+                              f'(date={item.get("date")!r}, fiscalYear={item.get("fiscalYear")!r})')
                 continue
-            filing = item.get('filingDate') or ''
-            if len(filing) < 10:
-                raise ValueError(f'{endpoint} {ts_code} {date_str} has no filingDate')
-            filed = pd.Timestamp(filing[:10])
-            if start_ts and filed < start_ts:
-                continue
-            if end_ts and filed > end_ts:
-                continue
-            if not item.get('reportedCurrency'):
-                raise ValueError(f'{endpoint} {ts_code} {date_str} has no reportedCurrency')
-            item['_trade_date'] = pd.Timestamp(date_str[:10])
+            item['_trade_date'] = pd.Timestamp(item['date'][:10])
             item['_period'] = 'Y' if period == 'annual' else 'Q'
             items.append(item)
     return items
 
 
+def _us_latest_statement_codes(start: str, end: str) -> list:
+    """最近有新财报的股票(FMP latest-financial-statements)：收录日(dateAdded)在 [start, end] 内、且在股票表里的代码。
+
+    该接口只认 page/limit，不认日期，返回全球公司：从最新一页往回翻，翻到收录日早于 start 为止；读本地的依赖表
+    us_stock_basic(map 第 8 列声明，下载前已更新)只留股票表里的代码。两端各放宽 1 天(收录时间的时区未知)，多拉的
+    股票只是多写已有的行。只能回看最近一段时间：start 太早或翻到最后一页仍未到 start 时报错，路由退到逐股行。
+    """
+    page_size, max_page = 250, 100  # 每页 250 条、最多 101 页(page 0~100)，实测约覆盖最近 52 天
+    max_days = 45  # start 早于这么多天前就不必尝试，直接报错
+    if not start:
+        raise ValueError('latest-financial-statements needs a start date')
+    start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) - pd.Timedelta(days=1)
+    end_ts = (pd.Timestamp(regulate_date_format(end, force_format='date')) if end
+              else pd.Timestamp.now().normalize()) + pd.Timedelta(days=1)
+    if start_ts < pd.Timestamp.now().normalize() - pd.Timedelta(days=max_days):
+        raise RuntimeError(f'latest-financial-statements only covers the last {max_days} days, '
+                           f'start={start} is too early')
+    from qteasy import QT_DATA_SOURCE
+    stock_codes = set(QT_DATA_SOURCE.read_table_data('us_stock_basic').index)
+    if not stock_codes:
+        raise RuntimeError('latest-financial-statements is filtered by us_stock_basic, which is empty')
+
+    codes = set()
+    for page in range(max_page + 1):
+        data = guard('latest-financial-statements', dict(), lambda:
+                     _fmp_get('latest-financial-statements', page=page, limit=page_size))
+        if not data:
+            raise RuntimeError(f'latest-financial-statements page {page} is empty before reaching start={start}')
+        added = pd.to_datetime([r['dateAdded'][:10] for r in data])
+        codes.update(r['symbol'] for r, d in zip(data, added)
+                     if start_ts <= d <= end_ts and r['symbol'] in stock_codes)
+        if added.min() < start_ts:
+            return sorted(codes)
+    raise RuntimeError(f'latest-financial-statements reached the last page before start={start}')
+
+
+def _us_latest_statements(table: str, start: str, end: str) -> pd.DataFrame:
+    """对最近有新财报的每只股票，用 table 的逐股行下载并合并返回；复用下载器的并行下载"""
+    from qteasy import api_guard
+    from qteasy.data_channels import fetch_batched_table_data, route_table_specs
+    codes = _us_latest_statement_codes(start, end)
+    if not codes:
+        return pd.DataFrame()
+    frames = [res['data'] for res in fetch_batched_table_data(
+            table=table, channel='fmp', fetch_spec=route_table_specs('fmp', table, codes)[0],
+            arg_list=[{'ts_code': ts_code} for ts_code in codes],
+            download_batch_size=api_guard._throttle['size'],  # 沿用本次下载任务的节流设置
+            download_batch_interval=api_guard._throttle['interval'],
+    ) if not res['data'].empty]
+    return pd.concat(frames, ignore_index=True) if frames else pd.DataFrame()
+
+
+def us_income_latest(start: str = None, end: str = None) -> pd.DataFrame:
+    """最近有新财报的美股的利润表，见 _us_latest_statement_codes"""
+    return _us_latest_statements('us_income', start, end)
+
+
+def us_balance_latest(start: str = None, end: str = None) -> pd.DataFrame:
+    """最近有新财报的美股的资产负债表，见 _us_latest_statement_codes"""
+    return _us_latest_statements('us_balance', start, end)
+
+
+def us_cashflow_latest(start: str = None, end: str = None) -> pd.DataFrame:
+    """最近有新财报的美股的现金流量表，见 _us_latest_statement_codes"""
+    return _us_latest_statements('us_cashflow', start, end)
+
+
 def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
     """把 FMP 分红记录(dividends / dividends-calendar 字段相同)整理成 us_dividend 表，只留除息日在 [start, end] 内的。
 
-    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告时的原始每股金额(税前)，未按之后的拆股调整。除息日或金额缺失的记录无法入库，报错。
+    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告时的原始每股金额(税前)，未按之后的拆股调整。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
     """
     if not data:
         return pd.DataFrame()
     raw = pd.DataFrame(data)
-    if raw['date'].eq('').any() or raw['dividend'].isna().any():
-        raise ValueError(f'FMP dividends has rows without ex-date or amount: {sorted(set(raw["symbol"]))[:5]}')
+    dirty = raw['date'].fillna('').eq('') | raw['dividend'].isna()
+    if dirty.any():
+        warnings.warn(f'FMP dividends: dropped {dirty.sum()} records without ex-date or amount: '
+                      f'{sorted(set(raw.loc[dirty, "symbol"]))[:5]}')
+        raw = raw[~dirty]
     res = pd.DataFrame({
         'ts_code':     raw['symbol'],
         'ex_date':     pd.to_datetime(raw['date']),
@@ -505,7 +563,7 @@ def us_income(ts_code: str = None,
     if ts_code is None:
         return pd.DataFrame()
 
-    items = _us_financials_common('income-statement', ts_code, start, end)
+    items = _us_financials_common('income-statement', ts_code)
     if not items:
         return pd.DataFrame()
 
@@ -549,7 +607,7 @@ def us_balance(ts_code: str = None,
     if ts_code is None:
         return pd.DataFrame()
 
-    items = _us_financials_common('balance-sheet-statement', ts_code, start, end)
+    items = _us_financials_common('balance-sheet-statement', ts_code)
     if not items:
         return pd.DataFrame()
 
@@ -603,7 +661,7 @@ def us_cashflow(ts_code: str = None,
     if ts_code is None:
         return pd.DataFrame()
 
-    items = _us_financials_common('cash-flow-statement', ts_code, start, end)
+    items = _us_financials_common('cash-flow-statement', ts_code)
     if not items:
         return pd.DataFrame()
 
