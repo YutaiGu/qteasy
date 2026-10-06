@@ -1199,7 +1199,7 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
         all_args = df_ths.index.to_list()
     elif table_name == 'us_stock_basic':
         all_args = df_us.index.to_list()
-    elif table_name in ('us_fund_basic', 'fx_basic'):
+    elif table_name in ('us_fund_basic', 'fx_basic', 'hk_stock_basic'):
         all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
     else:
         raise ValueError(f'unknown table name {table_name}')
@@ -2141,6 +2141,9 @@ FMP_API_MAP = {
 
     'us_stock_basic':  # [已审 20261006] etf/holdings：只认 symbol，单页；company-screener：1000条/页
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', 'C', ''],
+
+    'hk_stock_basic':  # [已审 20261006] company-screener 1000条/页；analyst-estimates、profile 只认 symbol；一次刷新约 3600 次调用
+        ['hk_stock_basic', 'none', 'none', '', '', 'C', ''],
 
     'us_stock_daily':  # [已审 20261006] non-split-adjusted：from/to 两端包含；≤5000条；AAPL 1980年起
         ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],

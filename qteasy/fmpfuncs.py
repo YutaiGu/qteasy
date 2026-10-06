@@ -18,6 +18,7 @@ import requests
 import pandas as pd
 
 from qteasy._arg_validators import QT_CONFIG
+from qteasy.__init__ import logger_core
 from qteasy.utilfuncs import regulate_date_format
 from qteasy.api_guard import guard
 
@@ -224,6 +225,69 @@ def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 s
     if exchange and str(exchange).upper() not in ('ALL', 'NONE', ''):
         res = res[res['exchange'] == str(exchange).upper()]
     return res
+
+
+def hk_stock_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
+    """港股股票池基本信息：HKSE 在交易、非 ETF/基金的股票中，有分析师预期(未来目标期)的那些。
+
+    池子跟着预期走：这套表是为 estimates 建的，只收有人覆盖的股票：任一未来目标期 EPS 预测人数 > 1(只有 1 人的
+    不是共识，约占一半)。候选来自 screener(约 2600 只)，每只查一次 analyst-estimates；通过的再查 profile 取
+    ISIN、CUSIP 和交易币种：双柜台(如 89988.HK 人民币柜台)与港币柜台
+    ISIN 相同，同一 ISIN 优先留 currency 为 HKD 的那个。缺 ISIN 的丢弃并警告。列与 us_stock_basic 相同。
+    一次刷新约 3600 次调用：本地表非空时不调接口、不写入，返回空；要重建先清表。
+    """
+    from qteasy import QT_DATA_SOURCE
+    if not QT_DATA_SOURCE.read_table_data('hk_stock_basic').empty:
+        logger_core.info('hk_stock_basic is not empty, skipped; clear the table to rebuild')
+        return pd.DataFrame()
+    columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
+    today = pd.Timestamp.now(tz='Asia/Hong_Kong').strftime('%Y-%m-%d')
+    trading_currency = 'HKD'
+    min_analysts = 2
+
+    rows, page = [], 0
+    while True:
+        data = guard('company-screener', dict(), lambda:
+                     _fmp_get('company-screener', exchange='HKSE', isEtf='false', isFund='false',
+                              isActivelyTrading='true', page=page, limit=1000))
+        if not data:
+            break
+        rows.extend(data)
+        page += 1
+    screener = pd.DataFrame(rows)
+    if screener.empty:
+        raise ValueError('company-screener(HKSE) returned no data')
+    screener = screener.drop_duplicates('symbol').set_index('symbol')
+
+    covered = []
+    for symbol in screener.index:
+        data = guard('analyst-estimates', dict(ts_code=symbol), lambda ts_code:
+                     _fmp_get('analyst-estimates', symbol=ts_code, period='annual', page=0, limit=1000))
+        if any((item.get('date') or '') >= today and (item.get('numAnalystsEps') or 0) >= min_analysts
+               for item in data):
+            covered.append(symbol)
+    profiles = pd.DataFrame([item for symbol in covered for item in
+                             guard('profile', dict(ts_code=symbol), lambda ts_code: _fmp_get('profile', symbol=ts_code))])
+    profiles = profiles.drop_duplicates('symbol').set_index('symbol').reindex(covered)
+    dirty = profiles['isin'].fillna('').eq('')
+    if dirty.any():
+        warnings.warn(f'FMP profile(HKSE): dropped {dirty.sum()} stocks without isin: {list(profiles.index[dirty])[:5]}')
+    kept = profiles[~dirty]
+    prefer = (kept.assign(_hkd=kept['currency'] == trading_currency)
+              .sort_values('_hkd', ascending=False, kind='stable').drop_duplicates('isin'))
+    kept = kept[kept.index.isin(prefer.index)]
+    info = screener.loc[kept.index]
+
+    return pd.DataFrame({
+        'ts_code':  info.index,
+        'name':     info['companyName'].values,
+        'exchange': info['exchangeShortName'].values,
+        'sector':   info['sector'].values,
+        'industry': info['industry'].values,
+        'country':  info['country'].values,
+        'isin':     kept['isin'].values,
+        'cusip':    kept['cusip'].replace('', None).values,
+    }, columns=columns)
 
 
 def us_stock_daily(ts_code: str = None,

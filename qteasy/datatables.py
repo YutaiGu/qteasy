@@ -161,7 +161,7 @@ TABLE_MASTERS = {
         ['stock_basic', '股票基本信息', 'basics', 'E', 'none', '', '', ''],
 
     'hk_stock_basic':
-        ['hk_stock_basic', '港股基本信息', 'not_implemented', 'E-HK', 'none', '', '', ''],
+        ['us_stock_basic', '港股基本信息', 'basics', 'E-HK', 'none', '', '', ''],
 
     'us_stock_basic':
         ['us_stock_basic', '美股基本信息', 'basics', 'E-US', 'none', '', '', ''],
