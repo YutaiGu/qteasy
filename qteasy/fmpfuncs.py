@@ -214,10 +214,16 @@ def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 s
 
     holdings = pd.DataFrame(guard('etf/holdings', dict(), lambda:
                                   _fmp_get('etf/holdings', symbol='VONE')))
-    screener = pd.DataFrame(guard('company-screener', dict(), lambda:
-                                  _fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false',
-                                           isFund='false', isActivelyTrading='true',
-                                           includeAllShareClasses='true', limit=20000)))
+    rows, page = [], 0
+    while True:  # company-screener 按 page 翻页，每页 1000 条
+        data = guard('company-screener', dict(), lambda:
+                     _fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false', isFund='false',
+                              isActivelyTrading='true', includeAllShareClasses='true', page=page, limit=1000))
+        if not data:
+            break
+        rows.extend(data)
+        page += 1
+    screener = pd.DataFrame(rows)
     if holdings.empty or screener.empty:
         raise ValueError('etf/holdings(VONE) or company-screener returned no data')
 
@@ -276,7 +282,7 @@ def us_stock_daily_adj(ts_code: str = None,
                    trade_date: str = None,
                    start: str = None,
                    end: str = None) -> pd.DataFrame:
-    """从 FMP Dividend-Adjusted Price Chart API 下载美股日线行情。
+    """从 FMP Dividend-Adjusted Price Chart API 下载美股股票或 ETF 的日线行情(按拆股、分红复权)。
 
     Parameters
     ----------
@@ -324,6 +330,58 @@ def us_stock_daily_adj(ts_code: str = None,
     })
 
 
+def us_fund_basic(ts_code: str = None, **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
+    """美股 ETF 基本信息(FMP etf/info)，一次一只。只存不随时间变的字段：规模、成交量、净值、持仓数等快照
+    不存；行业分布(sectorsList)是一对多的数据，也不在这张表里。"""
+    if ts_code is None:
+        return pd.DataFrame()
+    data = guard('etf/info', dict(ts_code=ts_code), lambda ts_code:
+                 _fmp_get('etf/info', symbol=ts_code))
+    if not data:
+        return pd.DataFrame()
+    i = data[0]
+    return pd.DataFrame([{
+        'ts_code':        i['symbol'],
+        'name':           i.get('name'),
+        'fund_type':      i.get('assetClass'),
+        'management':     i.get('etfCompany'),
+        'found_date':     pd.to_datetime(i.get('inceptionDate') or None),
+        'expense_ratio':  i.get('expenseRatio'),
+        'nav_currency':   i.get('navCurrency'),
+        'domicile':       i.get('domicile'),
+        'isin':           i.get('isin') or None,
+        'cusip':          i.get('securityCusip') or None,
+        'website':        i.get('website'),
+        'description':    i.get('description'),
+    }])
+
+
+def us_treasury(start: str = None, end: str = None) -> pd.DataFrame:
+    """美国国债收益率(%，FMP treasury-rates)，[start, end] 左右闭。
+
+    接口按自然日截断：区间超过 90 天时不报错，静默只返回最后 90 天(行数远小于 100，guard 看不出来)，所以函数自己按
+    90 个自然日分段请求；早年部分期限没有数据，为空。
+    """
+    if not (start and end):
+        raise ValueError('us_treasury needs start and end')
+    start, end = pd.Timestamp(start), pd.Timestamp(end)
+    data, seg_start = [], start
+    while seg_start <= end:
+        seg_end = min(seg_start + pd.Timedelta(days=89), end)
+        data.extend(guard('treasury-rates', dict(), lambda:
+                          _fmp_get('treasury-rates', **{'from': seg_start.strftime('%Y-%m-%d'),
+                                                        'to': seg_end.strftime('%Y-%m-%d')})))
+        seg_start = seg_end + pd.Timedelta(days=1)
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    tenors = {'month1': '1m', 'month2': '2m', 'month3': '3m', 'month6': '6m', 'year1': '1y', 'year2': '2y',
+              'year3': '3y', 'year5': '5y', 'year7': '7y', 'year10': '10y', 'year20': '20y', 'year30': '30y'}
+    res = raw.rename(columns=tenors)[['date', *tenors.values()]]
+    res['date'] = pd.to_datetime(res['date'])
+    return res
+
+
 def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     """美股分析师一致预期下载(FMP 源)：拉取 analyst-estimates → 映射建表 → 按申报币种折算 USD →
     交给 UsEstimateDatabase(继承通用 EstimateDatabase) 做 change-log 过滤。fmp 专属流程都在本函数。
@@ -348,7 +406,7 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     # for period in ('annual', 'quarter'):
     for period in ('annual',):
         items, page = [], 0
-        while True:  # 该接口按 page 翻页(每页 10 条)，翻到空页为止
+        while True:  # 该接口按 page 翻页，每页 10 条
             data = guard('analyst-estimates', dict(ts_code=ts_code), lambda ts_code:
                          _fmp_get('analyst-estimates', symbol=ts_code, period=period, page=page, limit=10))
             if not data:

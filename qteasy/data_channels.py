@@ -1199,6 +1199,8 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
         all_args = df_ths.index.to_list()
     elif table_name == 'us_stock_basic':
         all_args = df_us.index.to_list()
+    elif table_name == 'us_fund_basic':
+        all_args = QT_DATA_SOURCE.read_table_data('us_fund_basic').index.to_list()
     else:
         raise ValueError(f'unknown table name {table_name}')
 
@@ -2137,14 +2139,23 @@ FMP_API_MAP = {
     'trade_calendar':
         ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
 
-    'us_stock_basic':
+    'us_stock_basic':  # [已审 20261006] etf/holdings：只认 symbol，单页；company-screener：1000条/页
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', 'C', ''],
 
     'us_stock_daily':
         ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
-    'us_stock_daily_adj':
+    'us_stock_daily_adj':  # [已审 20261006] dividend-adjusted：from/to 两端包含；≤5000条
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
+
+    'us_fund_basic':  # [已审 20261006] etf/info：只认 symbol，一次返回一只
+        ['us_fund_basic', 'ts_code', 'list', 'SPY,DIA,QQQ,IWM,VTI,VONE,GLD', '', 'C', ''],
+
+    'us_fund_daily_adj':  # [已审 20261006] 与 us_stock_daily_adj 同一个接口
+        ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', ''],
+
+    'us_treasury':  # [已审 20261006] treasury-rates：from/to 两端包含；按自然日截断，>90天静默只返回最后90天，函数内分段；1990年起
+        ['us_treasury', 'none', 'none', '', '', 'C', ''],
 
     'us_estimates':
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],

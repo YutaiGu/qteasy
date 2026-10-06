@@ -250,6 +250,15 @@ TABLE_MASTERS = {
     'us_stock_daily_adj':
         ['us_daily_adj', '美股日线行情(前复权)', 'data', 'E-US', 'd', '', '', ''],
 
+    'us_fund_basic':
+        ['us_fund_basic', '美股ETF基本信息', 'basics', 'FD-US', 'none', '', '', ''],
+
+    'us_fund_daily_adj':
+        ['us_daily_adj', '美股ETF日线行情(前复权)', 'data', 'FD-US', 'd', '', '', ''],
+
+    'us_treasury':
+        ['us_treasury', '美国国债收益率', 'reference', 'none', 'd', '', '', ''],
+
     'us_estimates':
         ['us_estimates', '美股盈利预测快照', 'report', 'E-US', 'q', '', '', ''],
 
@@ -572,6 +581,22 @@ TABLE_SCHEMA = {
                         '上市状态', '上市日期', '退市日期', '交易单位', 'ISIN代码', '货币代码'],
          'prime_keys': [0]
          },
+
+    'us_fund_basic':  # 美股ETF基本信息表(FMP etf/info)，只存不随时间变的字段
+        {'columns':    ['ts_code', 'name', 'fund_type', 'management', 'found_date', 'expense_ratio',
+                        'nav_currency', 'domicile', 'isin', 'cusip', 'website', 'description'],
+         'dtypes':     ['varchar(20)', 'varchar(255)', 'varchar(40)', 'varchar(100)', 'date', 'double',
+                        'varchar(4)', 'varchar(10)', 'varchar(12)', 'varchar(9)', 'varchar(255)', 'text'],
+         'remarks':    ['基金代码', '名称', '资产类别', '管理人', '成立日期', '费率(%)',
+                        '净值币种', '注册地', 'ISIN', 'CUSIP', '官网', '简介'],
+         'prime_keys': [0]},
+
+    'us_treasury':  # 美国国债收益率(FMP treasury-rates)，期限列名同 shibor
+        {'columns':    ['date', '1m', '2m', '3m', '6m', '1y', '2y', '3y', '5y', '7y', '10y', '20y', '30y'],
+         'dtypes':     ['date'] + ['float'] * 12,
+         'remarks':    ['日期', '1个月', '2个月', '3个月', '6个月', '1年', '2年', '3年', '5年', '7年', '10年', '20年',
+                        '30年'],
+         'prime_keys': [0]},
 
     'us_stock_basic':  # 美股基本信息表
         {'columns':    ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip'],
