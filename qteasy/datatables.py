@@ -166,8 +166,6 @@ TABLE_MASTERS = {
     'us_stock_basic':
         ['us_stock_basic', '美股基本信息', 'basics', 'E-US', 'none', '', '', ''],
 
-    'us_stock_currency':
-        ['us_stock_currency', '美股币种映射', 'basics', 'E-US', 'none', '', '', ''],
 
     'stock_names':  # Complete, 股票名称变更
         ['name_changes', '股票名称变更', 'events', 'E', 'none', '', '', ''],
@@ -252,6 +250,12 @@ TABLE_MASTERS = {
 
     'us_fund_basic':
         ['us_fund_basic', '美股ETF基本信息', 'basics', 'FD-US', 'none', '', '', ''],
+
+    'fx_basic':
+        ['fx_basic', '外汇货币对基本信息', 'basics', 'FX', 'none', '', '', ''],
+
+    'fx_daily':
+        ['fx_daily', '外汇日线行情', 'data', 'FX', 'd', '', '', ''],
 
     'us_fund_daily_adj':
         ['us_daily_adj', '美股ETF日线行情(前复权)', 'data', 'FD-US', 'd', '', '', ''],
@@ -591,6 +595,18 @@ TABLE_SCHEMA = {
                         '净值币种', '注册地', 'ISIN', 'CUSIP', '官网', '简介'],
          'prime_keys': [0]},
 
+    'fx_basic':  # 外汇货币对基本信息(FMP forex-list)，只留对 USD 报价的货币对
+        {'columns':    ['ts_code', 'from_currency', 'to_currency', 'from_name', 'to_name'],
+         'dtypes':     ['varchar(10)', 'varchar(3)', 'varchar(3)', 'varchar(60)', 'varchar(60)'],
+         'remarks':    ['货币对代码(如 EURUSD)', '基础货币', '报价货币', '基础货币名称', '报价货币名称'],
+         'prime_keys': [0]},
+
+    'fx_daily':  # 外汇日线行情(FMP historical-price-eod/full)，列名同 us_daily
+        {'columns':    ['ts_code', 'trade_date', 'open', 'high', 'low', 'close', 'vol'],
+         'dtypes':     ['varchar(10)', 'date', 'double', 'double', 'double', 'double', 'double'],
+         'remarks':    ['货币对代码', '交易日期', '开盘价', '最高价', '最低价', '收盘价', '成交量'],
+         'prime_keys': [0, 1]},
+
     'us_treasury':  # 美国国债收益率(FMP treasury-rates)，期限列名同 shibor
         {'columns':    ['date', '1m', '2m', '3m', '6m', '1y', '2y', '3y', '5y', '7y', '10y', '20y', '30y'],
          'dtypes':     ['date'] + ['float'] * 12,
@@ -605,13 +621,6 @@ TABLE_SCHEMA = {
          'remarks':    ['股票代码', '公司名称', '交易所(NASDAQ/NYSE/AMEX)',
                         '板块', '行业', '国家', 'ISIN(仅指数成分部分)', 'CUSIP(仅指数成分部分)'],
          'prime_keys': [0]
-        },
-
-    'us_stock_currency':  # 美股币种映射表（source 解析出的 reportedCurrency 缓存）
-        {'columns':    ['ts_code', 'source', 'currency'],
-         'dtypes':     ['varchar(20)', 'varchar(10)', 'varchar(4)'],
-         'remarks':    ['股票代码', '数据源', 'reportedCurrency(USD/TWD/...)'],
-         'prime_keys': [0, 1]
         },
 
     'name_changes':  # 股票名称变更表
@@ -842,31 +851,34 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1]
          },
 
-    'us_estimates':  # 美股盈利预测快照
-        {'columns':    ['ts_code', 'trade_date', 'target_date', 'target_period',
+    'us_estimates':  # 美股盈利预测快照(稀疏时点 change-log，列与 estimates 完全一致)
+        {'columns':    ['ts_code', 'trade_date', 'target_date', 'target_period', 'currency',
                         'eps', 'eps_high', 'eps_low',
                         'revenue', 'revenue_high', 'revenue_low',
                         'net_profit', 'net_profit_high', 'net_profit_low',
                         'ebitda', 'ebitda_high', 'ebitda_low',
                         'ebit', 'ebit_high', 'ebit_low',
                         'sga_expense', 'sga_expense_high', 'sga_expense_low',
-                        'target_price', 'num_analysts_eps', 'num_analysts_revenue'],
-         'dtypes':     ['varchar(20)', 'date', 'date', 'varchar(2)',
+                        'target_price', 'dividend',
+                        'num_analysts_eps', 'num_analysts_revenue'],
+         'dtypes':     ['varchar(20)', 'date', 'date', 'varchar(2)', 'varchar(3)',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
-                        'double', 'int', 'int'],
-         'remarks':    ['股票代码', '快照日期(NYSE时区)', '预测目标期截止日', '类型(Q/Y)',
+                        'double', 'double',
+                        'int', 'int'],
+         'remarks':    ['股票代码', '快照日期(NYSE时区)', '预测目标期截止日', '类型(Q/Y)', '币种(同财报申报币种)',
                         'EPS均值', 'EPS高', 'EPS低',
                         '营业收入均值', '营业收入高', '营业收入低',
                         '净利润均值', '净利润高', '净利润低',
                         'EBITDA均值', 'EBITDA高', 'EBITDA低',
                         'EBIT均值', 'EBIT高', 'EBIT低',
                         'SG&A均值', 'SG&A高', 'SG&A低',
-                        '目标价', 'EPS预测师数', '营收预测师数'],
+                        '目标价', '股息率(%)',
+                        'EPS预测师数', '营收预测师数'],
          'prime_keys': [0, 1, 2, 3]
          },
 
@@ -1550,7 +1562,7 @@ TABLE_SCHEMA = {
          },
 
     'estimates':  # 券商一致预期(稀疏时点 change-log，结构对齐 us_estimates + dividend)
-        {'columns':    ['ts_code', 'trade_date', 'target_date', 'target_period',
+        {'columns':    ['ts_code', 'trade_date', 'target_date', 'target_period', 'currency',
                         'eps', 'eps_high', 'eps_low',
                         'revenue', 'revenue_high', 'revenue_low',
                         'net_profit', 'net_profit_high', 'net_profit_low',
@@ -1559,7 +1571,7 @@ TABLE_SCHEMA = {
                         'sga_expense', 'sga_expense_high', 'sga_expense_low',
                         'target_price', 'dividend',
                         'num_analysts_eps', 'num_analysts_revenue'],
-         'dtypes':     ['varchar(9)', 'date', 'date', 'varchar(4)',
+         'dtypes':     ['varchar(9)', 'date', 'date', 'varchar(4)', 'varchar(3)',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
                         'double', 'double', 'double',
@@ -1568,7 +1580,7 @@ TABLE_SCHEMA = {
                         'double', 'double', 'double',
                         'double', 'double',
                         'int', 'int'],
-         'remarks':    ['证券代码', '观测日(研报日)', '预测目标期截止日', '期型(Y/Q1/H1/Q3)',
+         'remarks':    ['证券代码', '观测日(研报日)', '预测目标期截止日', '期型(Y/Q)', '币种(CNY)',
                         'EPS均值', 'EPS高', 'EPS低',
                         '营业收入均值(元)', '营业收入高', '营业收入低',
                         '净利润均值(元)', '净利润高', '净利润低',

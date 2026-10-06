@@ -13,7 +13,6 @@
 # ======================================
 
 import time
-import threading
 import warnings
 import requests
 import pandas as pd
@@ -37,6 +36,28 @@ def _get_proxy():
     return {'http': proxy, 'https': proxy} if proxy else None
 
 
+class APIError(RuntimeError):
+    """FMP 请求失败。按 HTTP 状态码和返回内容归类到 kind(FMP 出错时有时仍返回 200，错误信息在 body 里)：
+    rate_limit 撞限 / auth 密钥无效 / plan 套餐不含该接口或参数 / not_found 无此接口或代码 /
+    server 服务端或网络故障(status 为 None) / bad_body 返回了非数据的内容
+    """
+    def __init__(self, endpoint: str, status: int = None, text: str = ''):
+        if status is None or status >= 500:
+            kind = 'server'
+        elif status == 429 or 'Limit Reach' in text:
+            kind = 'rate_limit'
+        elif status == 401 or 'Invalid API KEY' in text:
+            kind = 'auth'
+        elif status in (402, 403) or any(k in text for k in ('Premium', 'subscription', 'Restricted', 'Upgrade')):
+            kind = 'plan'
+        elif status == 404:
+            kind = 'not_found'
+        else:
+            kind = 'bad_body'
+        super().__init__(f'[{kind}] FMP {endpoint} HTTP {status}: {text}')
+        self.kind, self.status = kind, status
+
+
 def _fmp_get(endpoint: str, **params) -> list:
     """向 FMP stable API 发起单次 GET 请求，返回 JSON list。调用方一律经 guard 调用。
 
@@ -53,12 +74,13 @@ def _fmp_get(endpoint: str, **params) -> list:
         try:
             with requests.get(f'{_FMP_BASE}/{endpoint}', params=params, timeout=10,
                               proxies=_get_proxy()) as resp:
-                if resp.ok:
-                    return resp.json()
-                error = RuntimeError(f'FMP {endpoint} request failed: HTTP {resp.status_code}')
-                if resp.status_code == 429:  # 每分钟超限：等待后重试同一请求，不计入普通重试次数
+                body = resp.json() if resp.ok else None
+                if isinstance(body, list):  # 正常数据一律是 list
+                    return body
+                error = APIError(endpoint, resp.status_code, str(body) if body is not None else resp.text[:300])
+                if error.kind == 'rate_limit':  # 每分钟超限：等待后重试同一请求，不计入普通重试次数
                     if limit_hits == len(_RATE_LIMIT_WAITS):
-                        raise RuntimeError(f'FMP {endpoint} rate limited after waiting {_RATE_LIMIT_WAITS}s')
+                        raise error
                     time.sleep(_RATE_LIMIT_WAITS[limit_hits])
                     limit_hits += 1
                     continue
@@ -66,95 +88,50 @@ def _fmp_get(endpoint: str, **params) -> list:
                     raise error
         except requests.exceptions.RequestException:
             if attempt == len(retry_delays):
-                raise RuntimeError(f'FMP {endpoint} request failed after 4 retries')
+                raise APIError(endpoint, None, 'request failed after 4 retries')
         time.sleep(retry_delays[attempt])
         attempt += 1
 
 
-def us_reported_currency(ts_code: str) -> str:
-    """该股最新申报币种 (reportedCurrency)。"""
-    data = _fmp_get('income-statement', symbol=ts_code, limit=1)
-    return (data[0].get('reportedCurrency') or 'USD') if data else 'USD'
+def fx_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
+    """外汇货币对基本信息(FMP forex-list)，只留对 USD 报价的货币对：库里的外币金额都是折成 USD 用的。"""
+    raw = pd.DataFrame(guard('forex-list', dict(), lambda: _fmp_get('forex-list')))
+    if raw.empty:
+        raise ValueError('forex-list returned no data')
+    raw = raw[raw['toCurrency'] == 'USD']
+    return pd.DataFrame({
+        'ts_code':       raw['symbol'].values,
+        'from_currency': raw['fromCurrency'].values,
+        'to_currency':   raw['toCurrency'].values,
+        'from_name':     raw['fromName'].values,
+        'to_name':       raw['toName'].values,
+    })
 
 
-def us_enterprise_value(ts_code: str):
-    """从 FMP enterprise-values 取企业价值(EV)并折算为 USD；该接口返回原币种。无数据返回 None。"""
-    data = _fmp_get('enterprise-values', symbol=ts_code, limit=1)
-    ev = data[0].get('enterpriseValue') if data else None
-    if ev is None:
-        return None
-    return float(ev) * us_fx_rate(us_reported_currency(ts_code))
-
-
-# 历史汇率曲线缓存(线程安全，每个币种存一次、跨标的/跨财季复用)。结构：
-#   { currency: (covered_start: Timestamp, covered_end: Timestamp, Series{date -> close}(升序)) }
-#   例: {'CAD': (Timestamp('2014-12-17'), Timestamp('2026-06-21'), Series[~2900 行])}
-_fx_history_cache = {}
-_fx_history_lock = threading.Lock()
-
-def _fx_history(currency: str, start, end) -> pd.Series:
-    """拉取并缓存 {currency}USD 在 [start-15d, end] 的收盘价(date->close 升序)。
-
-    前推 15 天保证 start 当日休市时 asof 仍能回退到更早的交易日；coverage-aware：缓存已覆盖请求区间则复用，否则扩展并集区间重拉。线程安全。
-    """
-    start = pd.Timestamp(start).normalize() - pd.Timedelta(days=15)
-    end = pd.Timestamp(end).normalize()
-    with _fx_history_lock:
-        cached = _fx_history_cache.get(currency)
-        if cached is not None:
-            cov_start, cov_end, series = cached
-            if start >= cov_start and end <= cov_end:
-                return series
-            start, end = min(start, cov_start), max(end, cov_end)
-        symbol = f'{currency}USD'
-        data = guard('historical-price-eod/full',
-                     dict(ts_code=symbol, start=start.strftime('%Y-%m-%d'), end=end.strftime('%Y-%m-%d')),
-                     lambda ts_code, start, end:
-                     _fmp_get('historical-price-eod/full', symbol=ts_code, **{'from': start, 'to': end}),
-                     fmt='%Y-%m-%d')
-        quotes = {pd.Timestamp(r['date'][:10]): float(r['close']) for r in data}
-        if not quotes:
-            raise ValueError(f'no historical FX for {currency}USD in [{start.date()}, {end.date()}]')
-        series = pd.Series(quotes).sort_index()
-        _fx_history_cache[currency] = (start, end, series)
-        return series
-
-
-def us_fx_rate(currency: str, date=None) -> float:
-    """currency -> USD 汇率。供 estimates 取实时汇率，以及单点历史查询。
-
-    date=None：取实时报价(quote)；给定 date：在该币种历史曲线上 asof(<= date 的最近交易日)。
-    """
-    if currency == 'USD':
-        return 1.0
-    if date is None:
-        data = _fmp_get('quote', symbol=f'{currency}USD')
-        if not data:
-            raise ValueError(f'no FX rate for {currency}USD')
-        return float(data[0]['price'])
-    d = pd.Timestamp(date).normalize()
-    curve = _fx_history(currency, d - pd.DateOffset(years=1), d)
-    pos = curve.index.searchsorted(d, side='right') - 1
-    if pos < 0:
-        raise ValueError(f'no historical FX for {currency}USD on or before {d.date()}')
-    return float(curve.iloc[pos])
-
-
-def _fx_to_usd(values: pd.Series, currency: str, dates) -> pd.Series:
-    """把一列以 currency 计价的金额，按各行 dates 的历史汇率折算成 USD 并返回。
-
-    只读缓存；未命中由 _fx_history 下载该币种曲线后再读。各表的下载函数自行对其金额列调用。
-    """
-    if currency == 'USD':
-        return values
-    values = values.astype('float64')
-    dates = pd.to_datetime(pd.Index(dates)).normalize()
-    curve = _fx_history(currency, dates.min(), dates.max())  # 命中即复用，未命中下载
-    pos = curve.index.searchsorted(dates, side='right') - 1  # 各行 <= 其 date 的最近交易日
-    if (pos < 0).any():
-        bad = dates[pos < 0].min()
-        raise ValueError(f'no historical FX for {currency}USD on or before {bad.date()}')
-    return values * curve.to_numpy()[pos]
+def fx_daily(ts_code: str = None,
+             start: str = None,
+             end: str = None) -> pd.DataFrame:
+    """外汇日线行情(FMP historical-price-eod/full)，[start, end] 左右闭。"""
+    if ts_code is None:
+        return pd.DataFrame()
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-price-eod/full', dict(ts_code=ts_code, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-price-eod/full', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    return pd.DataFrame({
+        'ts_code':    ts_code,
+        'trade_date': pd.to_datetime(raw['date']),
+        'open':       raw['open'],
+        'high':       raw['high'],
+        'low':        raw['low'],
+        'close':      raw['close'],
+        'vol':        raw['volume'],
+    })
 
 
 def acquire_data(api_name, **kwargs):
@@ -383,15 +360,25 @@ def us_treasury(start: str = None, end: str = None) -> pd.DataFrame:
 
 
 def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
-    """美股分析师一致预期下载(FMP 源)：拉取 analyst-estimates → 映射建表 → 按申报币种折算 USD →
-    交给 UsEstimateDatabase(继承通用 EstimateDatabase) 做 change-log 过滤。fmp 专属流程都在本函数。
+    """单只美股的分析师一致预期快照(FMP analyst-estimates)，金额为财报申报币种，经 UsEstimateDatabase.changelog
+    只留相对库内上一版有实质变化的行。
+
+    只留期末日晚于最新已披露财报的期：财年结束到财报发布之间共识仍有效，不能按今天切。最新财报及其币种读本地依赖表
+    us_income(map 第 8 列声明，下载前已更新)；表里没有这只股(FMP 没有它的财报)则没有币种，跳过并警告。接口按 page
+    翻到空页，limit 最大 1000；quarter 不在套餐内时跳过并警告，annual 照常。缺 date(主键)的记录是数据源自己的脏数据，
+    丢弃并警告。数值列不信任接口回传的类型，按 SCHEMA 转换后再交 changelog 比较。
     """
     if ts_code is None:
         return pd.DataFrame()
     from .us_estimates_db import UsEstimateDatabase
+    from qteasy import QT_DATA_SOURCE
     db = UsEstimateDatabase()
-
-    # FMP analyst-estimates 字段 -> us_estimates 表列
+    income = QT_DATA_SOURCE.read_table_data('us_income', shares=ts_code, primary_key_in_index=False)
+    if income.empty:
+        warnings.warn(f'FMP analyst-estimates {ts_code}: not in us_income, currency unknown, skipped')
+        return pd.DataFrame(columns=db.COLUMNS)
+    latest = income.sort_values('end_date').iloc[-1]
+    reported, currency = pd.Timestamp(latest['end_date']), latest['currency']
     fmp_map = {
         'epsAvg': 'eps', 'epsHigh': 'eps_high', 'epsLow': 'eps_low',
         'revenueAvg': 'revenue', 'revenueHigh': 'revenue_high', 'revenueLow': 'revenue_low',
@@ -401,56 +388,51 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
         'sgaExpenseAvg': 'sga_expense', 'sgaExpenseHigh': 'sga_expense_high', 'sgaExpenseLow': 'sga_expense_low',
         'numAnalystsEps': 'num_analysts_eps', 'numAnalystsRevenue': 'num_analysts_revenue',
     }
-    trade_date = pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None)  # 快照日(美东)
-    rows = []
-    # for period in ('annual', 'quarter'):
-    for period in ('annual',):
+
+    frames = []
+    for period in ('annual', 'quarter'):
         items, page = [], 0
-        while True:  # 该接口按 page 翻页，每页 10 条
-            data = guard('analyst-estimates', dict(ts_code=ts_code), lambda ts_code:
-                         _fmp_get('analyst-estimates', symbol=ts_code, period=period, page=page, limit=10))
+        while True:
+            try:
+                data = guard('analyst-estimates', dict(ts_code=ts_code), lambda ts_code:
+                             _fmp_get('analyst-estimates', symbol=ts_code, period=period, page=page, limit=1000))
+            except APIError as e:
+                if period == 'quarter' and e.kind == 'plan':
+                    warnings.warn(f'FMP analyst-estimates {ts_code}: quarter not in plan, skipped ({e})')
+                    items = []
+                    break
+                raise
             if not data:
                 break
             items.extend(data)
             page += 1
-        for item in items:
-            d = item.get('date')
-            if not d or len(d) < 10:
-                raise ValueError(f'{ts_code} {period}: missing or invalid date field: {item}')
-            td = pd.Timestamp(d[:10])
-            if td < trade_date:  # 只保留未来目标期的预期
-                continue
-            row = dict.fromkeys(db.COLUMNS)
-            row['ts_code'] = ts_code
-            row['trade_date'] = trade_date
-            row['target_date'] = td
-            row['target_period'] = 'Y' if period == 'annual' else 'Q'
-            for src, col in fmp_map.items():
-                if src not in item:
-                    raise KeyError(f'{ts_code} {period}: FMP missing field {src!r}: {item}')
-                row[col] = item[src]
-            rows.append(row)
-    if not rows:
+        if items:
+            frames.append(pd.DataFrame(items).assign(target_period='Y' if period == 'annual' else 'Q'))
+    if not frames:
         return pd.DataFrame(columns=db.COLUMNS)
+    raw = pd.concat(frames, ignore_index=True)
+    dirty = raw['date'].fillna('').str.len() < 10
+    if dirty.any():
+        warnings.warn(f'FMP analyst-estimates {ts_code}: dropped {dirty.sum()} records without date')
+        raw = raw[~dirty]
 
-    df = pd.DataFrame(rows, columns=db.COLUMNS)
+    res = raw.rename(columns=fmp_map).assign(
+        ts_code=ts_code,
+        trade_date=pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None),
+        target_date=pd.to_datetime(raw['date'].str[:10]),
+        currency=currency,
+    )
+    res = res[res['target_date'] > reported].reindex(columns=db.COLUMNS)
     for col, dt in db.SCHEMA.items():
         if dt == 'date':
-            df[col] = pd.to_datetime(df[col], errors='raise')
+            res[col] = pd.to_datetime(res[col], errors='raise')
         elif dt == 'double':
-            df[col] = pd.to_numeric(df[col], errors='raise')
+            res[col] = pd.to_numeric(res[col], errors='raise')
         elif dt == 'int':
-            s = pd.to_numeric(df[col], errors='raise')
-            if (s.dropna() % 1 != 0).any():
-                raise ValueError(f'{col}: non-integer value in int column')
-            df[col] = s
-
-    currency = db._currency_of('fmp', ts_code)
-    if currency != 'USD':  # 预期为外币时按快照日 trade_date 折算为 USD(与财报表共用 _fx_to_usd 缓存)
-        for col, dt in db.SCHEMA.items():
-            if dt == 'double':
-                df[col] = _fx_to_usd(df[col], currency, df['trade_date'])
-    return db.changelog(df)
+            res[col] = pd.to_numeric(res[col], errors='raise')
+            if (res[col].dropna() % 1 != 0).any():
+                raise ValueError(f'FMP analyst-estimates {ts_code}: non-integer value in {col}')
+    return db.changelog(res)
 
 
 def _us_financials_common(endpoint: str, ts_code: str) -> list:

@@ -144,67 +144,39 @@ class EstimateDatabase:
 class UsEstimateDatabase(EstimateDatabase):
     """美股一致预期(FMP 源)：写入 us_estimates；build 在 fmpfuncs.us_estimates。"""
     TABLE = 'us_estimates'
-    # 金额单位: USD
+    # 金额单位: 财报申报币种(currency 列)，与财报三表同口径，估值时再折算
     # 精度: 无代码层截断, 精度由各数据源保证
     SCHEMA = {
         'ts_code':              'varchar',  # 美股代码, 无后缀, 例: 'AAPL'
         'trade_date':           'date',     # 快照日(美东时区), 例: '2025-07-25'
         'target_date':          'date',     # 预测目标期末日(财报截止日), 例: '2025-12-31'
         'target_period':        'varchar',  # 期型: 'Y'年报 / 'Q'季报
-        'eps':                  'double',   # USD/股, 均值, 例: 7.25
-        'eps_high':             'double',   # USD/股, 最高预测
-        'eps_low':              'double',   # USD/股, 最低预测
-        'revenue':              'double',   # USD 总额, 营业收入均值, 例: 3.95e11
-        'revenue_high':         'double',   # USD 总额, 最高预测
-        'revenue_low':          'double',   # USD 总额, 最低预测
-        'net_profit':           'double',   # USD 总额, 净利润均值, 例: 9.7e10
-        'net_profit_high':      'double',   # USD 总额, 最高预测
-        'net_profit_low':       'double',   # USD 总额, 最低预测
-        'ebitda':               'double',   # USD 总额, EBITDA均值
-        'ebitda_high':          'double',   # USD 总额, 最高预测
-        'ebitda_low':           'double',   # USD 总额, 最低预测
-        'ebit':                 'double',   # USD 总额, EBIT均值
-        'ebit_high':            'double',   # USD 总额, 最高预测
-        'ebit_low':             'double',   # USD 总额, 最低预测
-        'sga_expense':          'double',   # USD 总额, 销售管理费用均值
-        'sga_expense_high':     'double',   # USD 总额, 最高预测
-        'sga_expense_low':      'double',   # USD 总额, 最低预测
-        'target_price':         'double',   # USD/股, 目标价均值, 预留, 当前无数据
+        'currency':             'varchar',  # 币种, 同财报申报币种, 例: 'USD' / 'TWD'
+        'eps':                  'double',   # 每股, 均值, 例: 7.25
+        'eps_high':             'double',   # 每股, 最高预测
+        'eps_low':              'double',   # 每股, 最低预测
+        'revenue':              'double',   # 总额, 营业收入均值, 例: 3.95e11
+        'revenue_high':         'double',   # 总额, 最高预测
+        'revenue_low':          'double',   # 总额, 最低预测
+        'net_profit':           'double',   # 总额, 净利润均值, 例: 9.7e10
+        'net_profit_high':      'double',   # 总额, 最高预测
+        'net_profit_low':       'double',   # 总额, 最低预测
+        'ebitda':               'double',   # 总额, EBITDA均值
+        'ebitda_high':          'double',   # 总额, 最高预测
+        'ebitda_low':           'double',   # 总额, 最低预测
+        'ebit':                 'double',   # 总额, EBIT均值
+        'ebit_high':            'double',   # 总额, 最高预测
+        'ebit_low':             'double',   # 总额, 最低预测
+        'sga_expense':          'double',   # 总额, 销售管理费用均值
+        'sga_expense_high':     'double',   # 总额, 最高预测
+        'sga_expense_low':      'double',   # 总额, 最低预测
+        'target_price':         'double',   # 每股, 目标价均值, FMP 不提供, 永远 NULL(结构对齐)
+        'dividend':             'double',   # %, 股息率均值, FMP 不提供, 永远 NULL(结构对齐)
         'num_analysts_eps':     'int',      # EPS 预测分析师数, 例: 15
         'num_analysts_revenue': 'int',      # 营收预测分析师数, 例: 12
     }
     COLUMNS = list(SCHEMA)
     PRIMARY_KEYS = ['ts_code', 'trade_date', 'target_date', 'target_period']
-
-    # 币种缓存(美股折算用)：按 source 区分（持久化到 us_stock_currency）
-    _CURRENCY_CACHE = {}     # {(source, ts_code): currency}
-    _CURRENCY_LOADED = False
-
-    def _currency_of(self, source: str, ts_code: str) -> str:
-        """该股申报币种(给金额折算用)，缓存并持久化到 us_stock_currency；按 source 调本源查询。"""
-        cls = UsEstimateDatabase
-        if not cls._CURRENCY_LOADED:
-            from qteasy import QT_DATA_SOURCE
-            tbl = QT_DATA_SOURCE.read_table_data('us_stock_currency', primary_key_in_index=False)
-            if not tbl.empty:
-                cls._CURRENCY_CACHE = {(r['source'], r['ts_code']): r['currency']
-                                       for _, r in tbl.iterrows()}
-            cls._CURRENCY_LOADED = True
-        key = (source, ts_code)
-        if key in cls._CURRENCY_CACHE:
-            return cls._CURRENCY_CACHE[key]
-        if source == 'fmp':
-            from .fmpfuncs import us_reported_currency
-            cur = us_reported_currency(ts_code)
-        else:
-            raise NotImplementedError(f'currency source: {source}')
-        cls._CURRENCY_CACHE[key] = cur
-        from qteasy import QT_DATA_SOURCE
-        QT_DATA_SOURCE.update_table_data(
-            'us_stock_currency',
-            pd.DataFrame([{'ts_code': ts_code, 'source': source, 'currency': cur}]),
-            merge_type='update')
-        return cur
 
 
 class AEstimateDatabase(EstimateDatabase):
@@ -220,6 +192,7 @@ class AEstimateDatabase(EstimateDatabase):
         'trade_date':           'date',     # 观测日(研报日), 例: '2025-07-25'
         'target_date':          'date',     # 预测目标期末日(财报截止日), 例: '2025-12-31'
         'target_period':        'varchar',  # 期型: 'Y'年报 / 'Q'季报(与 us_estimates 统一)
+        'currency':             'varchar',  # 币种, 恒为 'CNY'(结构对齐)
         'eps':                  'double',   # 元/股, 均值, round(4), 例: 1.2345
         'eps_high':             'double',   # 元/股, 最高预测, round(4)
         'eps_low':              'double',   # 元/股, 最低预测, round(4)
@@ -650,7 +623,7 @@ class AEstimateDatabase(EstimateDatabase):
             dv_v, _, _ = self.consensus(pd.to_numeric(g['_dividend'], errors='coerce'), np_w)
             rows.append({
                 'ts_code': ts_code, 'trade_date': obs_date.normalize(),
-                'target_date': tdate, 'target_period': tp,
+                'target_date': tdate, 'target_period': tp, 'currency': 'CNY',
                 'eps': eps_m, 'eps_high': eps_h, 'eps_low': eps_l,
                 'revenue': rev_m, 'revenue_high': rev_h, 'revenue_low': rev_l,
                 'net_profit': np_m, 'net_profit_high': np_h, 'net_profit_low': np_l,

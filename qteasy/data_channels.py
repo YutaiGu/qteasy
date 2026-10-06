@@ -1199,8 +1199,8 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
         all_args = df_ths.index.to_list()
     elif table_name == 'us_stock_basic':
         all_args = df_us.index.to_list()
-    elif table_name == 'us_fund_basic':
-        all_args = QT_DATA_SOURCE.read_table_data('us_fund_basic').index.to_list()
+    elif table_name in ('us_fund_basic', 'fx_basic'):
+        all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
     else:
         raise ValueError(f'unknown table name {table_name}')
 
@@ -2142,7 +2142,7 @@ FMP_API_MAP = {
     'us_stock_basic':  # [已审 20261006] etf/holdings：只认 symbol，单页；company-screener：1000条/页
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', 'C', ''],
 
-    'us_stock_daily':
+    'us_stock_daily':  # [已审 20261006] non-split-adjusted：from/to 两端包含；≤5000条；AAPL 1980年起
         ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
     'us_stock_daily_adj':  # [已审 20261006] dividend-adjusted：from/to 两端包含；≤5000条
@@ -2154,11 +2154,17 @@ FMP_API_MAP = {
     'us_fund_daily_adj':  # [已审 20261006] 与 us_stock_daily_adj 同一个接口
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', ''],
 
+    'fx_basic':  # [已审 20261006] forex-list：无参数，一次返回全部 1551 对
+        ['fx_basic', 'none', 'none', '', '', 'C', ''],
+
+    'fx_daily':  # [已审 20261006] historical-price-eod/full：股票/外汇同一接口，from/to 两端包含；≤5000条
+        ['fx_daily', 'ts_code', 'table_index', 'fx_basic', '', 'Y', ''],
+
     'us_treasury':  # [已审 20261006] treasury-rates：from/to 两端包含；按自然日截断，>90天静默只返回最后90天，函数内分段；1990年起
         ['us_treasury', 'none', 'none', '', '', 'C', ''],
 
-    'us_estimates':
-        ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', ''],
+    'us_estimates':  # [已审 20261006] analyst-estimates：symbol+period(annual/quarter)，page/limit 翻页，limit 最大 1000；按 date 降序；币种同财报申报币种；低档套餐无 quarter 时跳过
+        ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_income'],
 
     'us_income':  # [已审 20261005]
         # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司

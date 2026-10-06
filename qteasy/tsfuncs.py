@@ -29,6 +29,24 @@ ERRORS_TO_CHECK_ON_RETRY = Exception
 _MINUTE_LIMIT_MARKER = '每分钟最多访问该接口'
 _RATE_LIMIT_WAITS = (60, 120, 240)
 
+class APIError(RuntimeError):
+    """tushare 请求失败。tushare 只抛带中文说明的 Exception、没有错误码，按报错文本归类到 kind：
+    rate_limit 每分钟撞限 / quota 每天或每小时额度用完 / plan 无权限或积分不足 / unknown 其他
+    """
+    def __init__(self, api_name: str, error: Exception):
+        text = str(error)
+        if _MINUTE_LIMIT_MARKER in text:
+            kind = 'rate_limit'
+        elif '最多访问该接口' in text:
+            kind = 'quota'
+        elif '权限' in text or '积分' in text:
+            kind = 'plan'
+        else:
+            kind = 'unknown'
+        super().__init__(f'[{kind}] tushare {api_name}: {text}')
+        self.kind = kind
+
+
 EXTRA_RETRY_API = [
     'name_change',
     'stk_managers',
@@ -99,8 +117,10 @@ def acquire_data(api_name, **kwargs):
         try:
             return decorated_func(**kwargs)
         except Exception as e:
-            if _MINUTE_LIMIT_MARKER not in str(e) or wait is None:
-                raise
+            if not isinstance(e, APIError):
+                e = APIError(api_name, e)
+            if e.kind != 'rate_limit' or wait is None:
+                raise e
             logger_core.warning(f'{api_name} {kwargs}: minute rate limit hit, retry in {wait}s')
             time.sleep(wait)
 
