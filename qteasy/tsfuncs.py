@@ -733,9 +733,20 @@ def daily_basic(ts_code: object = None,
     9    000001.SZ    20180702  11.01         0.0000  ...     165.000  1845.000  1845.000000
     """
     pro = ts.pro_api()
-    res = guard('daily_basic', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
-                lambda ts_code, trade_date, start, end:
-                pro.daily_basic(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
+    if trade_date and not ts_code:  # 全市场单日：股票数已接近单次上限 6000，按 limit/offset 翻到空页(C 行)
+        page_size, pages, offset = 6000, [], 0
+        while True:
+            page = guard('daily_basic', dict(trade_date=trade_date), lambda trade_date:
+                         pro.daily_basic(trade_date=trade_date, limit=page_size, offset=offset))
+            if page.empty:
+                break
+            pages.append(page)
+            offset += page_size
+        res = pd.concat(pages, ignore_index=True) if pages else pd.DataFrame()
+    else:
+        res = guard('daily_basic', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                    lambda ts_code, trade_date, start, end:
+                    pro.daily_basic(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table daily_basic with ts_code={ts_code}, trade_date={trade_date}'
                      f'start_date={start}, end_date={end}')

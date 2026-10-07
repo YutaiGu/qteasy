@@ -1815,8 +1815,8 @@ TUSHARE_API_MAP = {
     'fund_adj_factor':
         ['fund_adj', 'trade_date', 'trade_date', '19980407', '', '', ''],
 
-    'stock_indicator':  # daily_basic：按交易日拉全市场约 5000 行/天；有 symbols 逐股
-        [['daily_basic', 'trade_date', 'trade_date', '19990101', '', '', ''],
+    'stock_indicator':  # [已审 20261007] daily_basic：单次 6000 行(文档)；全市场按交易日翻页(实测翻页稳定)；有 symbols 逐股区间请求
+        [['daily_basic', 'trade_date', 'trade_date', '19990101', '', 'C', ''],
          ['daily_basic', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'stock_indicator2':
