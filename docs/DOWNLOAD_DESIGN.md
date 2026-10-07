@@ -156,6 +156,6 @@ map 每行可加第 8 列 `dependent_tables`（可省略）：额外的依赖表
 
 ## 附录：待落实
 
-- **tushare 财报函数内部的 vip 兜底**（逐表审计时改）：income / balancesheet / cashflow / fina_indicator / forecast / express 在函数内 `except Exception` 后改调普通接口，会吞掉撞限等报错，绕过限流识别和路由。应拆成 map 的两行（vip 在前），函数内不再兜底。
+- **依赖表不能跨通道**：一次 refill 只有一个 channel，依赖表也用它下载；依赖表不在该通道时 core 只打印一句"can't be fetched"就跳过，主表照常下载，依赖表没更新也不报错。现在 `estimates_fmp`（fmp 通道）依赖 tushare 的 `income`，只能不写第 8 列、靠日更顺序保证。要改：第 8 列支持写 `tushare:income`，下载器按指定通道拉；依赖表拉不到应报错而不是跳过。
 - **非主键文本超长被静默截断**：上游 `write_table_data` 的 `_clip_df_to_column_dtypes` 把超过 varchar 定义的字段直接截断写入，不报错不警告。主键不受影响（`_drop_oversized_primary_keys` 先整行丢弃并警告）。至少应改为截断时警告。
 

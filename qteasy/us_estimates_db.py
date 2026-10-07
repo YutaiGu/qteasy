@@ -189,6 +189,11 @@ class HkEstimateDatabase(UsEstimateDatabase):
     TABLE = 'hk_estimates'
 
 
+class AFmpEstimateDatabase(UsEstimateDatabase):
+    """A 股的 FMP 季度预期：与 us_estimates 同结构，写入 estimates_fmp；年度在 estimates(tushare 源)。"""
+    TABLE = 'estimates_fmp'
+
+
 class AEstimateDatabase(EstimateDatabase):
     """A股券商一致预期(来源 tushare 的 report_rc)：结构 = us_estimates + dividend，写入表 estimates。
 

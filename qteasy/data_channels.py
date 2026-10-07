@@ -2190,6 +2190,9 @@ FMP_API_MAP = {
     'hk_estimates':  # [已审 20261007] 与 us_estimates 同一个接口
         ['hk_estimates', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '', 'hk_income'],
 
+    'estimates_fmp':  # [已审 20261007] 与 us_estimates 同一个接口，只取 quarter；依赖 tushare 的 income 表
+        ['estimates_fmp', 'ts_code', 'table_index', 'stock_basic', '', 'C', ''],
+
     'us_income':  # [已审 20261005]
         # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
         [['us_income_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],

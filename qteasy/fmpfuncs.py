@@ -554,6 +554,71 @@ def hk_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     return _fmp_estimates(ts_code, 'hk_income', HkEstimateDatabase())
 
 
+def estimates_fmp(ts_code: str = None, **_) -> pd.DataFrame:
+    """A 股的 FMP 季度预期快照，只取 quarter：年度共识用 tushare report_rc 加权算的 estimates，FMP 人数少得多；
+    季度 tushare 几乎没有，FMP 的作补充。写入 estimates_fmp，经 changelog 只留有实质变化的行。
+
+    FMP 代码：.SH → .SS，.SZ 不变；入库仍用 tushare 代码。币种恒为 CNY。只留期末日晚于最新已披露财报的期，
+    最新财报读本地 income(tushare 的表，先更新好)，没有这只股则跳过并警告。接口按 page 翻到空页，limit 最大 1000。
+    date 取月末；没人预测的指标 FMP 填 0：按人数为 0、或 eps 与 net_profit 同时为 0 置空，两个人数都为 0 整条丢弃；
+    缺 date 的记录丢弃并警告；数值列按 SCHEMA 转换后再比较。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    from .us_estimates_db import AFmpEstimateDatabase
+    from qteasy import QT_DATA_SOURCE
+    db = AFmpEstimateDatabase()
+    symbol = ts_code[:-3] + '.SS' if ts_code.endswith('.SH') else ts_code
+    fmp_map = {
+        'epsAvg': 'eps', 'epsHigh': 'eps_high', 'epsLow': 'eps_low',
+        'revenueAvg': 'revenue', 'revenueHigh': 'revenue_high', 'revenueLow': 'revenue_low',
+        'netIncomeAvg': 'net_profit', 'netIncomeHigh': 'net_profit_high', 'netIncomeLow': 'net_profit_low',
+        'ebitdaAvg': 'ebitda', 'ebitdaHigh': 'ebitda_high', 'ebitdaLow': 'ebitda_low',
+        'ebitAvg': 'ebit', 'ebitHigh': 'ebit_high', 'ebitLow': 'ebit_low',
+        'sgaExpenseAvg': 'sga_expense', 'sgaExpenseHigh': 'sga_expense_high', 'sgaExpenseLow': 'sga_expense_low',
+        'numAnalystsEps': 'num_analysts_eps', 'numAnalystsRevenue': 'num_analysts_revenue',
+    }
+    income = QT_DATA_SOURCE.read_table_data('income', shares=ts_code, primary_key_in_index=False)
+    if income.empty:
+        warnings.warn(f'FMP analyst-estimates {ts_code}: not in income, latest reported period unknown, skipped')
+        return pd.DataFrame(columns=db.COLUMNS)
+    reported = pd.to_datetime(income['end_date']).max() + pd.offsets.MonthEnd(0)
+
+    items, page = [], 0
+    while True:
+        data = guard('analyst-estimates', dict(ts_code=symbol), lambda ts_code:
+                     _fmp_get('analyst-estimates', symbol=ts_code, period='quarter', page=page, limit=1000))
+        if not data:
+            break
+        items.extend(data)
+        page += 1
+    if not items:
+        return pd.DataFrame(columns=db.COLUMNS)
+    raw = pd.DataFrame(items)
+    dirty = raw['date'].fillna('').str.len() < 10
+    if dirty.any():
+        warnings.warn(f'FMP analyst-estimates {ts_code}: dropped {dirty.sum()} records without date')
+        raw = raw[~dirty]
+    res = raw.rename(columns=fmp_map).assign(
+        ts_code=ts_code,
+        trade_date=pd.Timestamp.now(tz='Asia/Shanghai').normalize().tz_localize(None),
+        target_date=pd.to_datetime(raw['date'].str[:10]) + pd.offsets.MonthEnd(0),
+        target_period='Q',
+        currency='CNY',
+    )
+    res = res[res['target_date'] > reported].reindex(columns=db.COLUMNS)
+    for col, dt in db.SCHEMA.items():
+        if dt == 'date':
+            res[col] = pd.to_datetime(res[col], errors='raise')
+        elif dt in ('double', 'int'):
+            res[col] = pd.to_numeric(res[col], errors='raise')
+    no_eps = (res['num_analysts_eps'].fillna(0) == 0) | ((res['eps'] == 0) & (res['net_profit'] == 0))
+    no_rev = res['num_analysts_revenue'].fillna(0) == 0
+    res.loc[no_eps, ['eps', 'eps_high', 'eps_low', 'net_profit', 'net_profit_high', 'net_profit_low']] = None
+    res.loc[no_rev, ['revenue', 'revenue_high', 'revenue_low']] = None
+    return db.changelog(res[~(no_eps & no_rev)])
+
+
 def _us_financials_common(endpoint: str, ts_code: str) -> list:
     """拉取 income/balance/cashflow 全部年报、季报，返回该股全部历史的 item 列表。
 
