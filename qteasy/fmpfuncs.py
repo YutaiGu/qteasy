@@ -319,6 +319,42 @@ def us_stock_daily(ts_code: str = None,
     })
 
 
+def _fmp_indicator(ts_code: str, start: str, end: str, daily_table: str) -> pd.DataFrame:
+    """每日市值(FMP historical-market-capitalization，交易币种)，[start, end] 左右闭；总股本 = 市值 / 本地日线表的
+    当日收盘价(不复权)。FMP 的市值是股价 × 最近一期财报股本，拆股日调整、财报发布日切换，期中增发反映不出来。
+    其他列(复权因子、流通股本、换手率)FMP 没有，留空。
+    """
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-market-capitalization', dict(ts_code=ts_code, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-market-capitalization', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    if not data:
+        return pd.DataFrame()
+    from qteasy import QT_DATA_SOURCE
+    res = pd.DataFrame({'ts_code': ts_code, 'trade_date': pd.to_datetime(pd.DataFrame(data)['date']),
+                        'total_mv': pd.DataFrame(data)['marketCap'].astype('float64')})
+    daily = QT_DATA_SOURCE.read_table_data(daily_table, shares=ts_code, start=start, end=end,
+                                           primary_key_in_index=False)
+    if not daily.empty:
+        close = daily.assign(trade_date=pd.to_datetime(daily['trade_date'])).set_index('trade_date')['close']
+        res['total_share'] = res['total_mv'] / res['trade_date'].map(close).astype('float64')
+    return res
+
+
+def us_stock_indicator(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    return _fmp_indicator(ts_code, start, end, 'us_stock_daily')
+
+
+def hk_stock_indicator(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    return _fmp_indicator(ts_code, start, end, 'hk_stock_daily')
+
+
 def us_stock_daily_adj(ts_code: str = None,
                    trade_date: str = None,
                    start: str = None,

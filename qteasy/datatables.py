@@ -240,7 +240,7 @@ TABLE_MASTERS = {
         ['bars', '股票月线行情', 'data', 'E', 'm', '', '', ''],
 
     'hk_stock_daily':
-        ['hk_daily', '港股日线行情', 'not_implemented', 'E-HK', 'd', '', '', ''],
+        ['us_daily', '港股日线行情(不复权)', 'data', 'E-HK', 'd', '', '', ''],
 
     'us_stock_daily':
         ['us_daily', '美股日线行情(不复权)', 'data', 'E-US', 'd', '', '', ''],
@@ -420,10 +420,10 @@ TABLE_MASTERS = {
         ['stock_indicator2', '股票技术指标备用表', 'data', 'E', 'd', '', '', ''],
 
     'hk_stock_indicator':
-        ['hk_us_indicators', '港股技术指标', 'not_implemented', 'E-HK', 'd', '', '', ''],
+        ['hk_us_indicators', '港股技术指标', 'data', 'E-HK', 'd', '', '', ''],
 
     'us_stock_indicator':
-        ['hk_us_indicators', '美股技术指标', 'not_implemented', 'E-US', 'd', '', '', ''],
+        ['hk_us_indicators', '美股技术指标', 'data', 'E-US', 'd', '', '', ''],
 
     'index_indicator':
         ['index_indicator', '指数关键指标', 'data', 'IDX', 'd', '', '', ''],
@@ -993,9 +993,9 @@ TABLE_SCHEMA = {
                         '经营现金流', '自由现金流', '已付所得税', '已付利息'],
          'prime_keys': [0, 1, 2]},
 
-    'hk_us_indicators':
+    'hk_us_indicators':  # FMP 源只填 total_mv(historical-market-capitalization，交易币种)和 total_share(= total_mv / 本地日线收盘价)
         {'columns':    ['ts_code', 'trade_date', 'close', 'open', 'high', 'low', 'pre_close', 'change', 'pct_change', 'vol', 'amount', 'vwap', 'adj_factor', 'turnover_ratio', 'free_share', 'total_share', 'free_mv', 'total_mv', 'exchange'],
-         'dtypes':     ['str', 'str', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'None', 'float', 'float', 'float', 'float', 'None', 'None', 'float', 'float', 'str'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'double', 'double', 'float', 'float', 'float', 'double', 'double', 'double', 'double', 'varchar(10)'],
          'remarks':    ['股票代码', '交易日期', '收盘价', '开盘价', '最高价', '最低价', '昨收价', '涨跌额', '涨跌幅', '成交量', '成交额', '平均价', '复权因子', '换手率', '流通股本', '总股本', '流通市值', '总市值', '交易所代码'],
          'prime_keys': [0, 1]},
 

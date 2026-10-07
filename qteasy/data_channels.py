@@ -2148,6 +2148,15 @@ FMP_API_MAP = {
     'us_stock_daily':  # [已审 20261006] non-split-adjusted：from/to 两端包含；≤5000条；AAPL 1980年起
         ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
+    'hk_stock_daily':  # [已审 20261006] 与 us_stock_daily 同一个接口
+        ['us_stock_daily', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', ''],
+
+    'us_stock_indicator':  # [已审 20261006] historical-market-capitalization：from/to 两端包含；≤5000条
+        ['us_stock_indicator', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', '', 'us_stock_daily'],
+
+    'hk_stock_indicator':  # [已审 20261006] 与 us_stock_indicator 同一个接口
+        ['hk_stock_indicator', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '', 'hk_stock_daily'],
+
     'us_stock_daily_adj':  # [已审 20261006] dividend-adjusted：from/to 两端包含；≤5000条
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
