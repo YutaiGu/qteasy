@@ -999,10 +999,10 @@ TABLE_SCHEMA = {
                         '经营现金流', '自由现金流', '已付所得税', '已付利息'],
          'prime_keys': [0, 1, 2]},
 
-    'hk_us_indicators':  # FMP 源只填 total_mv(historical-market-capitalization，交易币种)和 total_share(= total_mv / 本地日线收盘价)
-        {'columns':    ['ts_code', 'trade_date', 'close', 'open', 'high', 'low', 'pre_close', 'change', 'pct_change', 'vol', 'amount', 'vwap', 'adj_factor', 'turnover_ratio', 'free_share', 'total_share', 'free_mv', 'total_mv', 'exchange'],
-         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'float', 'float', 'float', 'double', 'double', 'float', 'float', 'float', 'double', 'double', 'double', 'double', 'varchar(10)'],
-         'remarks':    ['股票代码', '交易日期', '收盘价', '开盘价', '最高价', '最低价', '昨收价', '涨跌额', '涨跌幅', '成交量', '成交额', '平均价', '复权因子', '换手率', '流通股本', '总股本', '流通市值', '总市值', '交易所代码'],
+    'hk_us_indicators':  # 行情列在日线表里，不重复存；FMP 源只填 total_mv(historical-market-capitalization，交易币种)和 total_share(= total_mv / 本地日线收盘价)，其余等 tushare
+        {'columns':    ['ts_code', 'trade_date', 'adj_factor', 'turnover_ratio', 'free_share', 'total_share', 'free_mv', 'total_mv'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'double', 'double', 'double', 'double'],
+         'remarks':    ['股票代码', '交易日期', '复权因子', '换手率', '流通股本', '总股本', '流通市值', '总市值'],
          'prime_keys': [0, 1]},
 
     'adj_factors':  # 复权因子表
