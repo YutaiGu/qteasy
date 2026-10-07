@@ -2192,4 +2192,13 @@ FMP_API_MAP = {
         [['us_cashflow_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
          # cash-flow-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
+
+    'hk_income':  # [已审 20261006] 与 us_income 逐股行同一个接口
+        ['us_income', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
+
+    'hk_balance':  # [已审 20261006] 与 us_balance 逐股行同一个接口
+        ['us_balance', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
+
+    'hk_cashflow':  # [已审 20261006] 与 us_cashflow 逐股行同一个接口
+        ['us_cashflow', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
 }

@@ -275,6 +275,15 @@ TABLE_MASTERS = {
     'us_cashflow':
         ['us_cashflow', '美股现金流量表', 'report', 'E-US', 'q', '', '', ''],
 
+    'hk_income':
+        ['us_income', '港股利润表', 'report', 'E-HK', 'q', '', '', ''],
+
+    'hk_balance':
+        ['us_balance', '港股资产负债表', 'report', 'E-HK', 'q', '', '', ''],
+
+    'hk_cashflow':
+        ['us_cashflow', '港股现金流量表', 'report', 'E-HK', 'q', '', '', ''],
+
     'us_dividend':
         ['us_dividend', '美股现金分红', 'events', 'E-US', 'd', '', '', ''],
 
