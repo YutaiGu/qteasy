@@ -1182,28 +1182,29 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
 
     from qteasy import QT_DATA_SOURCE
 
-    df_s, df_i, df_f, df_ft, df_o, df_ths, df_us = QT_DATA_SOURCE.get_all_basic_table_data()
-
     table_name = arg_range
 
-    if table_name == 'stock_basic':
-        all_args = df_s.index.to_list()
-    elif table_name == 'index_basic':
-        all_args = df_i.index.to_list()
-    elif table_name == 'fund_basic':
-        all_args = df_f.index.to_list()
-    elif table_name == 'future_basic':
-        all_args = df_ft.index.to_list()
-    elif table_name == 'opt_basic':
-        all_args = df_o.index.to_list()
-    elif table_name == 'ths_index_basic':
-        all_args = df_ths.index.to_list()
-    elif table_name == 'us_stock_basic':
-        all_args = df_us.index.to_list()
-    elif table_name in ('us_fund_basic', 'fx_basic', 'hk_stock_basic'):
+    if table_name in ('us_stock_basic', 'us_fund_basic', 'fx_basic', 'hk_stock_basic'):
+        # 只读需要的这一张：get_all_basic_table_data 要求 A 股等全部基础表非空，美港单独部署时没有它们
         all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
+        if not all_args:
+            raise ValueError(f'{table_name} table is empty, please refill it first')
     else:
-        raise ValueError(f'unknown table name {table_name}')
+        df_s, df_i, df_f, df_ft, df_o, df_ths, df_us = QT_DATA_SOURCE.get_all_basic_table_data()
+        if table_name == 'stock_basic':
+            all_args = df_s.index.to_list()
+        elif table_name == 'index_basic':
+            all_args = df_i.index.to_list()
+        elif table_name == 'fund_basic':
+            all_args = df_f.index.to_list()
+        elif table_name == 'future_basic':
+            all_args = df_ft.index.to_list()
+        elif table_name == 'opt_basic':
+            all_args = df_o.index.to_list()
+        elif table_name == 'ths_index_basic':
+            all_args = df_ths.index.to_list()
+        else:
+            raise ValueError(f'unknown table name {table_name}')
 
     if symbols is not None:  # assert symbols is a str, 进行第一次筛选
         # 冒号分隔的字符串，表示股票代码的上下限

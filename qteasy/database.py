@@ -1083,7 +1083,7 @@ class DataSource:
         #  应该将这一大坨代码抽象出来，作为一个单独的函数，统一调用
         if (len(df.columns) != len(tbl_columns)) or (any(i_d != i_t for i_d, i_t in zip(df.columns, tbl_columns))):
             raise KeyError(f'df columns {df.columns.to_list()} does not fit table schema {list(tbl_columns)}')
-        df = df.where(pd.notna(df), None)  # where-fill None in dataframe result in filling np.nan since pandas v2.0
+        df = df.astype(object).where(pd.notna(df), None)  # 先转 object：日期列的 NaT 否则留在原位、写成字符串 NaT。where-fill None in dataframe result in filling np.nan since pandas v2.0
         pd_version = pd.__version__
         if pd_version >= '2.0':
             df.replace(np.nan, None, inplace=True)
@@ -1125,7 +1125,7 @@ class DataSource:
         # 确保df的列与数据库表的列相同
         if (len(df.columns) != len(tbl_columns)) or (any(i_d != i_t for i_d, i_t in zip(df.columns, tbl_columns))):
             raise KeyError(f'df columns {df.columns.to_list()} does not fit table schema {list(tbl_columns)}')
-        df = df.where(pd.notna(df), None)  # fill None in Dataframe will result in filling Nan since pandas v2.0
+        df = df.astype(object).where(pd.notna(df), None)  # 先转 object：日期列的 NaT 否则留在原位、写成字符串 NaT。fill None in Dataframe will result in filling Nan since pandas v2.0
         pd_version = pd.__version__
         if pd_version >= '2.0':
             df.replace(np.nan, None, inplace=True)
