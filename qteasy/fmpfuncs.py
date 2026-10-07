@@ -510,7 +510,7 @@ def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
             frames.append(pd.DataFrame(items).assign(target_period='Y' if period == 'annual' else 'Q'))
     if not frames:
         return pd.DataFrame(columns=db.COLUMNS)
-    raw = pd.concat(frames, ignore_index=True)
+    raw = pd.concat([f.dropna(axis=1, how='all') for f in frames], ignore_index=True)  # 全空列不参与类型推断，后面 reindex 补回
     dirty = raw['date'].fillna('').str.len() < 10
     if dirty.any():
         warnings.warn(f'FMP analyst-estimates {ts_code}: dropped {dirty.sum()} records without date')
@@ -715,6 +715,7 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
     """把 FMP 分红记录(dividends / dividends-calendar 字段相同)整理成 us_dividend 表，只留除息日在 [start, end] 内的。
 
     列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告时的原始每股金额(税前)，未按之后的拆股调整。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
+    宣告日、登记日、派息日可以没有：FMP 用空字符串或 0001-01-01(日期类型的最小值)表示，都按空值。
     """
     if not data:
         return pd.DataFrame()
@@ -724,13 +725,14 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
         warnings.warn(f'FMP dividends: dropped {dirty.sum()} records without ex-date or amount: '
                       f'{sorted(set(raw.loc[dirty, "symbol"]))[:5]}')
         raw = raw[~dirty]
+    no_date = ('', '0001-01-01')
     res = pd.DataFrame({
         'ts_code':     raw['symbol'],
         'ex_date':     pd.to_datetime(raw['date']),
         'cash_div_tax': raw['dividend'].astype('float64'),
-        'ann_date':    pd.to_datetime(raw['declarationDate'].replace('', None)),
-        'record_date': pd.to_datetime(raw['recordDate'].replace('', None)),
-        'pay_date':    pd.to_datetime(raw['paymentDate'].replace('', None)),
+        'ann_date':    pd.to_datetime(raw['declarationDate'].replace(no_date, None)),
+        'record_date': pd.to_datetime(raw['recordDate'].replace(no_date, None)),
+        'pay_date':    pd.to_datetime(raw['paymentDate'].replace(no_date, None)),
     })
     if start:
         res = res[res['ex_date'] >= pd.Timestamp(regulate_date_format(start, force_format='date'))]
@@ -770,14 +772,11 @@ def us_dividend_calendar(start: str = None,
                  lambda start, end:
                  _fmp_get('dividends-calendar', **{'from': start, 'to': end}),
                  fmt='%Y-%m-%d')
-    res = _us_dividend_frame(data, start, end)
     from qteasy import QT_DATA_SOURCE
-    stock_codes = QT_DATA_SOURCE.read_table_data('us_stock_basic').index
-    if stock_codes.empty:
+    stock_codes = set(QT_DATA_SOURCE.read_table_data('us_stock_basic').index)
+    if not stock_codes:
         raise RuntimeError('us_dividend_calendar is filtered by us_stock_basic, which is empty')
-    if res.empty:
-        return res
-    return res[res['ts_code'].isin(stock_codes)].reset_index(drop=True)
+    return _us_dividend_frame([r for r in data if r.get('symbol') in stock_codes], start, end)  # 先过滤再解析
 
 
 def us_income(ts_code: str = None,

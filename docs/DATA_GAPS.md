@@ -26,7 +26,7 @@
 
 ## company-screener / etf-holdings（股票池）
 
-- 列表类接口都没有证券类型字段，screener 的 `isAdr` 参数无效。美股池用 VONE 持仓 ∩ screener 近似 Russell 1000，混有十几只优先股、权证。tushare `us_basic` 有 `classify`。
+- 列表类接口都没有证券类型字段，screener 的 `isAdr` 参数无效。美股池用 VONE 持仓 ∩ screener 近似 Russell 1000，混有十几只优先股、权证、交易所挂牌票据（如 BNH，Brookfield 的次级票据，screener 给它母公司的市值，走"外国公司 ≥ $5B"进了池子）。tushare `us_basic` 有 `classify`。
 - 没有恒生综合指数成分（能拿到持仓的只有盈富 2800 约 85 只、国企 2828、恒生科技 3033/3067）。港股池按"有 ≥2 人分析师预期"筛，约 500 只，一次刷新约 3600 次调用，表非空时不刷新。
 
 ## dividends（分红）
