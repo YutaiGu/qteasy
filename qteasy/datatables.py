@@ -266,6 +266,9 @@ TABLE_MASTERS = {
     'us_estimates':
         ['us_estimates', '美股盈利预测快照', 'report', 'E-US', 'q', '', '', ''],
 
+    'hk_estimates':
+        ['us_estimates', '港股盈利预测快照', 'report', 'E-HK', 'q', '', '', ''],
+
     'us_income':
         ['us_income', '美股利润表', 'report', 'E-US', 'q', '', '', ''],
 

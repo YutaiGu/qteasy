@@ -13,8 +13,13 @@ class EstimateDatabase:
 
     各市场做子类，声明自己的 TABLE / SCHEMA / PRIMARY_KEYS 及源专属逻辑：
       UsEstimateDatabase   美股(FMP 源)    -> us_estimates
+      HkEstimateDatabase   港股(FMP 源)    -> hk_estimates
       AEstimateDatabase    A股(tushare 源)  -> estimates
     去重/写库逻辑只写一遍，靠 self.TABLE / self.COMPARE_KEYS 多态适配各自的表。
+
+    各市场共同的口径：列完全一致；target_period 只有 Y(年度) / Q(单期，按源给的期存，半年报公司的半年期也存为 Q，
+    使用方按财报表的披露节奏决定用不用)；target_date 为目标期所在月的月末；金额为申报币种(currency 列)；
+    只存尚未披露的期；相对上一版变动 >1% 才写一条。
 
     另附一组共识加权的纯计算方法(score/skill/herding/weights/consensus)：按分析师历史准确度
     定权重，代替简单平均。只有拿得到单个分析师预测的市场用得上(A股 report_rc)；FMP 只给共识，
@@ -177,6 +182,11 @@ class UsEstimateDatabase(EstimateDatabase):
     }
     COLUMNS = list(SCHEMA)
     PRIMARY_KEYS = ['ts_code', 'trade_date', 'target_date', 'target_period']
+
+
+class HkEstimateDatabase(UsEstimateDatabase):
+    """港股一致预期(FMP 源)：与 us_estimates 同结构，写入 hk_estimates。"""
+    TABLE = 'hk_estimates'
 
 
 class AEstimateDatabase(EstimateDatabase):

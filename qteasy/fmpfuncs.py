@@ -459,26 +459,26 @@ def us_treasury(start: str = None, end: str = None) -> pd.DataFrame:
     return res
 
 
-def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
-    """单只美股的分析师一致预期快照(FMP analyst-estimates)，金额为财报申报币种，经 UsEstimateDatabase.changelog
-    只留相对库内上一版有实质变化的行。
+def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
+    """单只股票的分析师一致预期快照(FMP analyst-estimates)，金额为财报申报币种，经 db.changelog 只留相对库内上一版
+    有实质变化的行。美股、港股共用，income_table / db 决定市场。
 
     只留期末日晚于最新已披露财报的期：财年结束到财报发布之间共识仍有效，不能按今天切。最新财报及其币种读本地依赖表
-    us_income(map 第 8 列声明，下载前已更新)；表里没有这只股(FMP 没有它的财报)则没有币种，跳过并警告。接口按 page
-    翻到空页，limit 最大 1000；quarter 不在套餐内时跳过并警告，annual 照常。缺 date(主键)的记录是数据源自己的脏数据，
-    丢弃并警告。数值列不信任接口回传的类型，按 SCHEMA 转换后再交 changelog 比较。
+    income_table(map 第 8 列声明，下载前已更新)；表里没有这只股(FMP 没有它的财报)则没有币种，跳过并警告。接口按 page
+    翻到空页，limit 最大 1000；quarter 不在套餐内时跳过并警告，annual 照常。
+    FMP 的 date 在未披露时是 12-30 / 03-30 这类近似日，披露后改为真实期末，target_date 按规定取月末。
+    FMP 对没人预测的指标填 0 而不是空：numAnalystsEps 为 0 时 eps/net_profit 置空，numAnalystsRevenue 为 0 时
+    revenue 置空，两者都为 0 的整条丢弃。另有人数不为 0 但 eps 和 net_profit 同时为 0 的(如腾讯 2030 年度，25 人)，
+    也是没有预测，同样置空。缺 date(主键)的记录是数据源自己的脏数据，丢弃并警告。
+    数值列不信任接口回传的类型，按 SCHEMA 转换后再交 changelog 比较。
     """
-    if ts_code is None:
-        return pd.DataFrame()
-    from .us_estimates_db import UsEstimateDatabase
     from qteasy import QT_DATA_SOURCE
-    db = UsEstimateDatabase()
-    income = QT_DATA_SOURCE.read_table_data('us_income', shares=ts_code, primary_key_in_index=False)
+    income = QT_DATA_SOURCE.read_table_data(income_table, shares=ts_code, primary_key_in_index=False)
     if income.empty:
-        warnings.warn(f'FMP analyst-estimates {ts_code}: not in us_income, currency unknown, skipped')
+        warnings.warn(f'FMP analyst-estimates {ts_code}: not in {income_table}, currency unknown, skipped')
         return pd.DataFrame(columns=db.COLUMNS)
     latest = income.sort_values('end_date').iloc[-1]
-    reported, currency = pd.Timestamp(latest['end_date']), latest['currency']
+    reported, currency = pd.Timestamp(latest['end_date']) + pd.offsets.MonthEnd(0), latest['currency']
     fmp_map = {
         'epsAvg': 'eps', 'epsHigh': 'eps_high', 'epsLow': 'eps_low',
         'revenueAvg': 'revenue', 'revenueHigh': 'revenue_high', 'revenueLow': 'revenue_low',
@@ -519,7 +519,7 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
     res = raw.rename(columns=fmp_map).assign(
         ts_code=ts_code,
         trade_date=pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None),
-        target_date=pd.to_datetime(raw['date'].str[:10]),
+        target_date=pd.to_datetime(raw['date'].str[:10]) + pd.offsets.MonthEnd(0),
         currency=currency,
     )
     res = res[res['target_date'] > reported].reindex(columns=db.COLUMNS)
@@ -532,7 +532,26 @@ def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
             res[col] = pd.to_numeric(res[col], errors='raise')
             if (res[col].dropna() % 1 != 0).any():
                 raise ValueError(f'FMP analyst-estimates {ts_code}: non-integer value in {col}')
+    no_eps = (res['num_analysts_eps'].fillna(0) == 0) | ((res['eps'] == 0) & (res['net_profit'] == 0))
+    no_rev = res['num_analysts_revenue'].fillna(0) == 0
+    res.loc[no_eps, ['eps', 'eps_high', 'eps_low', 'net_profit', 'net_profit_high', 'net_profit_low']] = None
+    res.loc[no_rev, ['revenue', 'revenue_high', 'revenue_low']] = None
+    res = res[~(no_eps & no_rev)]
     return db.changelog(res)
+
+
+def us_estimates(ts_code: str = None, **_) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    from .us_estimates_db import UsEstimateDatabase
+    return _fmp_estimates(ts_code, 'us_income', UsEstimateDatabase())
+
+
+def hk_estimates(ts_code: str = None, **_) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    from .us_estimates_db import HkEstimateDatabase
+    return _fmp_estimates(ts_code, 'hk_income', HkEstimateDatabase())
 
 
 def _us_financials_common(endpoint: str, ts_code: str) -> list:

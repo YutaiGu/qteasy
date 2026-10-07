@@ -2178,6 +2178,9 @@ FMP_API_MAP = {
     'us_estimates':  # [已审 20261006] analyst-estimates：symbol+period(annual/quarter)，page/limit 翻页，limit 最大 1000；按 date 降序；币种同财报申报币种；低档套餐无 quarter 时跳过
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_income'],
 
+    'hk_estimates':  # [已审 20261007] 与 us_estimates 同一个接口
+        ['hk_estimates', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '', 'hk_income'],
+
     'us_income':  # [已审 20261005]
         # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
         [['us_income_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
