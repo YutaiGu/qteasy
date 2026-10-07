@@ -81,9 +81,9 @@ class TestDataChannelRegistry(unittest.TestCase):
 
     def test_get_table_fetch_spec_raises(self):
         print('\n[TestDataChannelRegistry] check unsupported table error')
-        spec = get_table_fetch_spec('akshare', 'stock_daily')
-        print(' akshare stock_daily spec:', spec)
-        self.assertEqual(spec.api, 'stock_daily')
+        specs = get_table_fetch_spec('akshare', 'stock_daily')
+        print(' akshare stock_daily specs:', specs)
+        self.assertEqual(specs[0].api, 'stock_daily')
         with self.assertRaises(TableNotSupportedInChannelError):
             get_table_fetch_spec('akshare', 'future_daily')
 
@@ -92,7 +92,7 @@ class TestDataChannelRegistry(unittest.TestCase):
         plan = list(iter_table_fetch_plan(
             table='stock_basic',
             channel='tushare',
-            symbols='000651.SZ:000660.SZ',
+            symbols=None,
             start_date='20210101',
             end_date='20210321',
             list_arg_filter=None,
@@ -133,9 +133,10 @@ class TestDataChannelRegistry(unittest.TestCase):
     def test_fetch_table_once_delegates_to_channel_fetcher(self):
         print('\n[TestDataChannelRegistry] check fetch_table_once delegation')
         expected = pd.DataFrame({'a': [1]})
+        spec = get_table_fetch_spec('tushare', 'stock_basic')[0]
         with patch('qteasy.data_channels._get_fetch_table_func') as mocked:
-            mocked.return_value = lambda table, **kwargs: expected
-            out = fetch_table_once(channel='tushare', table='stock_basic', exchange='SSE')
+            mocked.return_value = lambda table, api, **kwargs: expected
+            out = fetch_table_once(channel='tushare', table='stock_basic', fetch_spec=spec, exchange='SSE')
         print(' output shape:', out.shape)
         self.assertTrue(out.equals(expected))
 

@@ -554,7 +554,7 @@ def iter_table_fetch_plan(
         list_arg_filter: str = None,
         reversed_par_seq: bool = False,
 ) -> Generator[dict[str, Any], Any, None]:
-    """按数据表生成下载参数序列（parse_data_fetch_args 的语义化别名）。"""
+    """按数据表生成下载参数序列（parse_data_fetch_args 的语义化别名），用路由选出的第一行。"""
     kwargs_seq = parse_data_fetch_args(
         table=table,
         channel=channel,
@@ -563,6 +563,7 @@ def iter_table_fetch_plan(
         end_date=end_date,
         list_arg_filter=list_arg_filter,
         reversed_par_seq=reversed_par_seq,
+        fetch_spec=route_table_specs(channel, table, symbols)[0],
     )
     return (item for item in kwargs_seq)
 
@@ -1814,8 +1815,9 @@ TUSHARE_API_MAP = {
     'fund_adj_factor':
         ['fund_adj', 'trade_date', 'trade_date', '19980407', '', '', ''],
 
-    'stock_indicator':
-        ['daily_basic', 'trade_date', 'trade_date', '19990101', '', '', ''],
+    'stock_indicator':  # daily_basic：按交易日拉全市场约 5000 行/天；有 symbols 逐股
+        [['daily_basic', 'trade_date', 'trade_date', '19990101', '', '', ''],
+         ['daily_basic', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'stock_indicator2':
         ['bak_daily', 'trade_date', 'trade_date', '19990101', '', '', ''],
@@ -1832,37 +1834,44 @@ TUSHARE_API_MAP = {
     'index_weight':
         ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', '7'],
 
-    'income':  # 无symbols 分500天一段，段内逐天按实际发布日(f_ann_date)拉全市场; 有symbols 逐股回补
-        [['income', 'none', 'none', 'none', '', 'Y', '500'],
+    'income':  # [已审 20261007] income_vip(5000 积分)：无 symbols 逐天按 f_ann_date 拉全市场，单天实测上限 9000 行、最重发布日约 2900 行；
+        # 有 symbols 逐股。income(2000 积分)只能逐股，vip 无权限时退到它
+        [['income_vip', 'none', 'none', 'none', '', 'Y', '500'],
+         ['income_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['income', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'balance':  # 无symbols 分500天一段，段内逐天按实际发布日(f_ann_date)拉全市场; 有symbols 逐股回补
-        [['balance', 'none', 'none', 'none', '', 'Y', '500'],
+    'balance':  # [已审 20261007] balancesheet_vip：同 income，单天实测上限 7000 行、最重发布日约 3100 行
+        [['balance_vip', 'none', 'none', 'none', '', 'Y', '500'],
+         ['balance_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['balance', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'cashflow':  # 无symbols 分500天一段，段内逐天按实际发布日(f_ann_date)拉全市场; 有symbols 逐股回补
-        [['cashflow', 'none', 'none', 'none', '', 'Y', '500'],
+    'cashflow':  # [已审 20261007] cashflow_vip：同 income，单天实测上限 6400 行、最重发布日约 4100 行
+        [['cashflow_vip', 'none', 'none', 'none', '', 'Y', '500'],
+         ['cashflow_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['cashflow', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'financial':
         ['indicators', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'forecast':  # 无symbols 按公告日区间拉全市场(首行=默认); 有symbols 逐股回补
-        [['forecast', 'none', 'none', 'none', '', 'Y', ''],
+    'forecast':  # [已审 20261007] forecast_vip：无 symbols 按公告日区间拉全市场，实测单次上限 6500 行；有 symbols 逐股。forecast 只能逐股，单次 3500 行(文档)
+        [['forecast_vip', 'none', 'none', 'none', '', 'Y', ''],
+         ['forecast_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'report_rc':  # 无symbols 按1天一段拉全市场,超3000行分页; 有symbols 逐股366天分段
-        [['report_rc', 'none', 'none', 'none', '', 'Y', '1'],
-         ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '366']],
+    'report_rc':  # [已审 20261007] 单次最大 3000 条(文档)，区间请求交 guard 切，不翻页；无 symbols 按 report_date 区间拉全市场；有 symbols 逐股
+        [['report_rc', 'none', 'none', 'none', '', 'Y', ''],
+         ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'estimates':  # 派生表: report_rc → 一致预期(稀疏时点 change-log)，逐股 refill
+    'estimates':  # 派生表，不调接口：从本地 report_rc/forecast/express/income/stock_indicator 全部历史算一致预期(稀疏时点 change-log)。
+        # 这几张表要先单独更新好，不写第 8 列：依赖表机制按本次 refill 的区间拉，派生需要的是全部历史
         ['estimates', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'express':  # 无symbols 按公告日区间拉全市场(首行=默认); 有symbols 逐股回补
-        [['express', 'none', 'none', 'none', '', 'Y', ''],
+    'express':  # [已审 20261007] express_vip：无 symbols 按公告日区间拉全市场，实测单次上限 5000 行；有 symbols 逐股。express 只能逐股
+        [['express_vip', 'none', 'none', 'none', '', 'Y', ''],
+         ['express_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'dividend':

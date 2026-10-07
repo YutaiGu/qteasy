@@ -1394,47 +1394,26 @@ def fund_portfolio(ts_code=None,
 # Finance Data
 # ================
 
-def _vip_bisect(api, start, end, cap, **kwargs):
-    """vip 财务接口全市场按公告日区间拉取。tushare vip 单次上限【静默截断】(实测)：
-    返回行数达到 cap 即截断，将日期区间对半二分递归，直到每段完整。
-    不用 offset 翻页——服务端排序不稳定，翻页会重叠/漏行。
+def _statement(api, name, ts_code, rpt_date, start, end, period, max_rows=None, **kwargs) -> pd.DataFrame:
+    """三大财报 / 业绩预告 / 快报的请求。
 
-    各接口上限不同(实测，官方未公布)：income 9000、balancesheet 7000、cashflow 6400、
-    forecast 6500、express 5000。cap 设为必填：漏传就报错，好过沿用错的默认值静默丢数据。"""
-    # vip 接口 YYYYMMDD
-    start = regulate_date_format(start, force_format='%Y%m%d')
-    end = regulate_date_format(end, force_format='%Y%m%d')
-    res = api(start_date=start, end_date=end, **kwargs)
-    if len(res) < cap or start >= end:
-        if len(res) >= cap:
-            logger_core.warning(f'{start}: {len(res)} rows in one single day, might still be truncated!')
-        return res
-    mid = (pd.to_datetime(start) + (pd.to_datetime(end) - pd.to_datetime(start)) / 2).strftime('%Y%m%d')
-    nxt = (pd.to_datetime(mid) + pd.Timedelta(days=1)).strftime('%Y%m%d')
-    logger_core.info(f'range {start}-{end} returned {len(res)} rows (>=cap {cap}), bisecting')
-    return pd.concat([_vip_bisect(api, start, mid, cap, **kwargs),
-                      _vip_bisect(api, nxt, end, cap, **kwargs)], ignore_index=True)
-
-
-# 三大财报 vip 接口单次返回上限(留余量，实测截断值见 _vip_bisect)，日更与全量回补共用
-STATEMENT_CAPS = {'income': 8500, 'balance': 6500, 'cashflow': 6000}
-
-
-def _by_publish_day(api, start, end, cap, **kwargs):
-    """三大财报日更：区间内逐天按 f_ann_date(实际发布日) 拉全市场。
-
-    首次发布和公司日后的修订都记在实际发布那天，逐天拉就不重不漏；按公告日(start_date/end_date)
-    拉不到修订——修订沿用原始公告日。f_ann_date 只能查单天，达到 cap 也无法再切分，只能警告。"""
-    pages = []
-    for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d'):
-        page = api(f_ann_date=day, **kwargs)
-        if len(page) >= cap:
-            logger_core.warning(f'f_ann_date={day}: {len(page)} rows reached cap {cap}, might be truncated!')
-        pages.append(page)
-    non_empty = [page for page in pages if not page.empty]
-    if non_empty:
-        return pd.concat(non_empty, ignore_index=True)
-    return pages[-1] if pages else pd.DataFrame()
+    不传 ts_code、传 start/end 是全市场模式：逐天按 f_ann_date(实际发布日)请求。公司修订财报时公告日(ann_date)
+    不变、只有实际发布日是新的，按公告日区间拉会漏掉修订。f_ann_date 只能查单天(时点请求，guard 不切)，
+    单天返回行数达到 max_rows(该接口实测的静默截断上限)即报错，不能用 offset 翻页：实测服务端排序不稳定，翻页重叠漏行。
+    其他情况是一次区间请求，交给 guard 切。
+    """
+    if not ts_code and rpt_date is None and period is None and start and end:
+        pages = []
+        for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d'):
+            page = guard(name, dict(ann_date=day), lambda ann_date: api(f_ann_date=ann_date, **kwargs))
+            if max_rows and len(page) >= max_rows:
+                raise RuntimeError(f'{name} f_ann_date={day} returned {len(page)} rows = api max, truncated')
+            pages.append(page)
+        non_empty = [page for page in pages if not page.empty]
+        return pd.concat(non_empty, ignore_index=True) if non_empty else pages[-1]
+    return guard(name, dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
+                 lambda ts_code, ann_date, start, end, period:
+                 api(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period, **kwargs))
 
 
 def income(ts_code: str = None,
@@ -1444,8 +1423,9 @@ def income(ts_code: str = None,
            period: str = None,
            report_type: str = None,
            comp_type: str = None,
-           fields: [str, list] = None) -> pd.DataFrame:
-    """ 获取上市公司财务利润表数据
+           fields: [str, list] = None,
+           _vip: bool = False) -> pd.DataFrame:
+    """ 获取上市公司财务利润表数据(普通接口，2000 积分，只能按单只股票取)
 
     :rtype: pd.DataFrame
     ts_code: 股票代码，注意一次只能读取一只股票的数据
@@ -1565,33 +1545,22 @@ def income(ts_code: str = None,
     if isinstance(fields, list):
         fields = list_to_str_format(fields)
     if start is not None:
-        start = regulate_date_format(start)
+        start = regulate_date_format(start, force_format="%Y%m%d")
     if end is not None:
-        end = regulate_date_format(end)
+        end = regulate_date_format(end, force_format="%Y%m%d")
     pro = ts.pro_api()
-    if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
-        res = _by_publish_day(pro.income_vip, start, end, cap=STATEMENT_CAPS['income'],
-                              report_type=report_type, comp_type=comp_type, fields=fields)
-        logger_core.info(f'Downloaded {len(res)} rows from tushare: income (range mode) '
-                         f'start_date={start}, end_date={end}')
-        return res
-    try:
-        res = guard('income_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.income_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
-                                   report_type=report_type, comp_type=comp_type, fields=fields))
-    except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.invome_vip) denied, will fall back to normal API'
-                         f'(pro.income)')
-        res = guard('income', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.income(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
-                               report_type=report_type, comp_type=comp_type, fields=fields))
-    logger_core.info(f'Downloaded {len(res)} rows from tushare: income with ts_code={ts_code}, '
+    api, name, max_rows = (pro.income_vip, 'income_vip', 9000) if _vip else (pro.income, 'income', None)
+    res = _statement(api, name, ts_code, rpt_date, start, end, period, max_rows,
+                     report_type=report_type, comp_type=comp_type, fields=fields)
+    logger_core.info(f'Downloaded {len(res)} rows from tushare: {name} with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
     return res
+
+
+def income_vip(**kwargs) -> pd.DataFrame:
+    """income 的 vip 接口(5000 积分)，参数一致，可不传 ts_code 拉全市场。单天实测上限 9000 行(最重的发布日约 2900 行)。"""
+    return income(_vip=True, **kwargs)
 
 
 def balance(ts_code: str = None,
@@ -1601,8 +1570,9 @@ def balance(ts_code: str = None,
             period: str = None,
             report_type: str = None,
             comp_type: str = None,
-            fields: [str, list] = None) -> pd.DataFrame:
-    """ 获取上市公司财务数据资产负债表
+            fields: [str, list] = None,
+            _vip: bool = False) -> pd.DataFrame:
+    """ 获取上市公司财务数据资产负债表(普通接口 balancesheet，2000 积分，只能按单只股票取)
 
     Parameters
     ----------
@@ -1812,33 +1782,23 @@ def balance(ts_code: str = None,
     if isinstance(fields, list):
         fields = list_to_str_format(fields)
     if start is not None:
-        start = regulate_date_format(start)
+        start = regulate_date_format(start, force_format="%Y%m%d")
     if end is not None:
-        end = regulate_date_format(end)
+        end = regulate_date_format(end, force_format="%Y%m%d")
     pro = ts.pro_api()
-    if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
-        res = _by_publish_day(pro.balancesheet_vip, start, end, cap=STATEMENT_CAPS['balance'],
-                              report_type=report_type, comp_type=comp_type, fields=fields)
-        logger_core.info(f'Downloaded {len(res)} rows from tushare: balance (range mode) '
-                         f'start_date={start}, end_date={end}')
-        return res
-    try:
-        res = guard('balancesheet_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.balancesheet_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
-                                         period=period, report_type=report_type, comp_type=comp_type, fields=fields))
-    except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.balancesheet_vip) denied, will fall back to normal API'
-                         f'(pro.balancesheet)')
-        res = guard('balancesheet', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.balancesheet(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
-                                     period=period, report_type=report_type, comp_type=comp_type, fields=fields))
-    logger_core.info(f'Downloaded {len(res)} rows from tushare: balance with ts_code={ts_code}, '
+    api, name, max_rows = ((pro.balancesheet_vip, 'balancesheet_vip', 7000) if _vip
+                           else (pro.balancesheet, 'balancesheet', None))
+    res = _statement(api, name, ts_code, rpt_date, start, end, period, max_rows,
+                     report_type=report_type, comp_type=comp_type, fields=fields)
+    logger_core.info(f'Downloaded {len(res)} rows from tushare: {name} with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
     return res
+
+
+def balance_vip(**kwargs) -> pd.DataFrame:
+    """balance 的 vip 接口(balancesheet_vip，5000 积分)，参数一致，可不传 ts_code 拉全市场。单天实测上限 7000 行(最重的发布日约 3100 行)。"""
+    return balance(_vip=True, **kwargs)
 
 
 def cashflow(ts_code: str = None,
@@ -1848,8 +1808,9 @@ def cashflow(ts_code: str = None,
              period: str = None,
              report_type: str = None,
              comp_type: str = None,
-             fields: [str, list] = None) -> pd.DataFrame:
-    """ 获取上市公司财务数据现金流量表
+             fields: [str, list] = None,
+             _vip: bool = False) -> pd.DataFrame:
+    """ 获取上市公司财务数据现金流量表(普通接口，2000 积分，只能按单只股票取)
 
     Parameters
     ----------
@@ -2005,33 +1966,22 @@ def cashflow(ts_code: str = None,
     if isinstance(fields, list):
         fields = list_to_str_format(fields)
     if start is not None:
-        start = regulate_date_format(start)
+        start = regulate_date_format(start, force_format="%Y%m%d")
     if end is not None:
-        end = regulate_date_format(end)
+        end = regulate_date_format(end, force_format="%Y%m%d")
     pro = ts.pro_api()
-    if not ts_code and period is None and rpt_date is None and start and end:
-        # 区间模式(日更)：不指定个股，逐天按实际发布日拉全市场；全量回补见 statements_backfill.py
-        res = _by_publish_day(pro.cashflow_vip, start, end, cap=STATEMENT_CAPS['cashflow'],
-                              report_type=report_type, comp_type=comp_type, fields=fields)
-        logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow (range mode) '
-                         f'start_date={start}, end_date={end}')
-        return res
-    try:
-        res = guard('cashflow_vip', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.cashflow_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
-                                     period=period, report_type=report_type, comp_type=comp_type, fields=fields))
-    except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.cashflow_vip) denied, will fall back to normal API'
-                         f'(pro.cashflow)')
-        res = guard('cashflow', dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.cashflow(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
-                                 report_type=report_type, comp_type=comp_type, fields=fields))
-    logger_core.info(f'Downloaded {len(res)} rows from tushare: cashflow with ts_code={ts_code}, '
+    api, name, max_rows = (pro.cashflow_vip, 'cashflow_vip', 6400) if _vip else (pro.cashflow, 'cashflow', None)
+    res = _statement(api, name, ts_code, rpt_date, start, end, period, max_rows,
+                     report_type=report_type, comp_type=comp_type, fields=fields)
+    logger_core.info(f'Downloaded {len(res)} rows from tushare: {name} with ts_code={ts_code}, '
                      f'ann_date={rpt_date}, start_date={start}, end_date={end}, period={period}, '
                      f'report_type={report_type}, comp_type={comp_type}')
     return res
+
+
+def cashflow_vip(**kwargs) -> pd.DataFrame:
+    """cashflow 的 vip 接口(5000 积分)，参数一致，可不传 ts_code 拉全市场。单天实测上限 6400 行(最重的发布日约 4100 行)。"""
+    return cashflow(_vip=True, **kwargs)
 
 
 def indicators(ts_code: str,
@@ -2292,8 +2242,9 @@ def forecast(ts_code: str = None,
              start: str = None,
              end: str = None,
              period: str = None,
-             type: str = None):
-    """ 获取上市公司的业绩预报
+             type: str = None,
+             _vip: bool = False):
+    """ 获取上市公司的业绩预报(普通接口)
 
     Parameters
     ----------
@@ -2325,40 +2276,33 @@ def forecast(ts_code: str = None,
     fields = 'ts_code, ann_date, end_date, type, p_change_min, p_change_max, net_profit_min, net_profit_max,' \
              ' last_parent_net, first_ann_date, summary, change_reason'
     if start is not None:
-        start = regulate_date_format(start)
+        start = regulate_date_format(start, force_format="%Y%m%d")
     if end is not None:
-        end = regulate_date_format(end)
+        end = regulate_date_format(end, force_format="%Y%m%d")
     pro = ts.pro_api()
-    if not ts_code and ann_date is None and period is None and start and end:
-        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.forecast_vip, start, end, cap=6500, type=type, fields=fields)
-        logger_core.info(f'Downloaded {len(res)} rows from tushare: forecast (range mode) '
-                         f'start_date={start}, end_date={end}')
-        return res
-    try:
-        res = guard('forecast_vip', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.forecast_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
-                                     period=period, type=type, fields=fields))
-    except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.forecast_vip) not available, will fall back to normal '
-                         f'API (pro.forecast)')
-        res = guard('forecast', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.forecast(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
-                                 type=type, fields=fields))
-    logger_core.info(f'Downloaded {len(res)} rows from tushare: forecast with ts_code={ts_code}, '
+    api, name = (pro.forecast_vip, 'forecast_vip') if _vip else (pro.forecast, 'forecast')
+    res = guard(name, dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                lambda ts_code, ann_date, start, end, period:
+                api(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
+                    type=type, fields=fields))
+    logger_core.info(f'Downloaded {len(res)} rows from tushare: {name} with ts_code={ts_code}, '
                      f'ann_date={ann_date}, start_date={start}, end_date={end}, period={period}, '
                      f'type={type}')
     return res
+
+
+def forecast_vip(**kwargs) -> pd.DataFrame:
+    """forecast 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场(区间请求，guard 切)。实测单次上限 6500 行。"""
+    return forecast(_vip=True, **kwargs)
 
 
 def express(ts_code: str = None,
             ann_date: str = None,
             start: str = None,
             end: str = None,
-            period: str = None):
-    """ 获取上市公司的业绩快报
+            period: str = None,
+            _vip: bool = False):
+    """ 获取上市公司的业绩快报(普通接口)
 
     Parameters
     ----------
@@ -2412,31 +2356,22 @@ def express(ts_code: str = None,
              ' op_last_year, tp_last_year, np_last_year, eps_last_year, open_net_assets, open_bps, perf_summary,' \
              ' is_audit, remark'
     if start is not None:
-        start = regulate_date_format(start)
+        start = regulate_date_format(start, force_format="%Y%m%d")
     if end is not None:
-        end = regulate_date_format(end)
+        end = regulate_date_format(end, force_format="%Y%m%d")
     pro = ts.pro_api()
-    if not ts_code and ann_date is None and period is None and start and end:
-        # 区间模式(日更)：不指定个股，按公告日区间拉全市场；二分防 vip 静默截断
-        res = _vip_bisect(pro.express_vip, start, end, cap=5000, fields=fields)
-        logger_core.info(f'Downloaded {len(res)} rows from tushare: express (range mode) '
-                         f'start_date={start}, end_date={end}')
-        return res
-    try:
-        res = guard('express_vip', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.express_vip(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end,
-                                    period=period, fields=fields))
-    except Exception as e:
-        logger_core.info(f'{e}, Access to tushare vip API (pro.express_vip) denied, will fall back to normal API'
-                         f'(pro.express)')
-        res = guard('express', dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
-                    lambda ts_code, ann_date, start, end, period:
-                    pro.express(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period,
-                                fields=fields))
-    logger_core.info(f'Downloaded {len(res)} rows from tushare: express with ts_code={ts_code}, '
+    api, name = (pro.express_vip, 'express_vip') if _vip else (pro.express, 'express')
+    res = guard(name, dict(ts_code=ts_code, ann_date=ann_date, start=start, end=end, period=period),
+                lambda ts_code, ann_date, start, end, period:
+                api(ts_code=ts_code, ann_date=ann_date, start_date=start, end_date=end, period=period, fields=fields))
+    logger_core.info(f'Downloaded {len(res)} rows from tushare: {name} with ts_code={ts_code}, '
                      f'ann_date={ann_date}, start_date={start}, end_date={end}, period={period}')
     return res
+
+
+def express_vip(**kwargs) -> pd.DataFrame:
+    """express 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场(区间请求，guard 切)。实测单次上限 5000 行。"""
+    return express(_vip=True, **kwargs)
 
 
 # 'dividend':  # New, 分红送股!
@@ -4001,44 +3936,20 @@ def report_rc(ts_code: str = None,
               fields: [str, list] = None) -> pd.DataFrame:
     """ 获取券商(卖方)每日研报盈利预测数据(report_rc)，数据从2010年开始。
 
-    ts_code: 股票代码，一次只读一只；不传则走区间模式(按 report_date 区间拉全市场)
+    ts_code: 股票代码，一次只读一只；不传则按 report_date 区间拉全市场
     report_date: optional 研报发布日 YYYYMMDD
     start: optional 研报发布开始日期 YYYYMMDD(按 report_date 过滤)
     end: optional 研报发布结束日期 YYYYMMDD
-    文档口径单次最大 3000 条；区间模式按官方分页(limit/offset)循环取完。
-    (翻页稳定性已实测：单天 3 页拼合与一次拿全逐键一致，零漏零重)
+    文档口径单次最大 3000 条，区间请求交给 guard 切。
     """
     if fields is None:
         fields = ('ts_code,report_date,org_name,quarter,name,report_title,report_type,'
                   'classify,author_name,op_rt,op_pr,tp,np,eps,pe,rd,roe,ev_ebitda,'
                   'rating,max_price,min_price')
     pro = ts.pro_api()
-    if not ts_code and report_date is None and start and end:
-        # 区间模式(日更)：不指定个股，按研报日区间拉全市场；单次上限3000，offset 分页循环取完
-        start = regulate_date_format(start, force_format='%Y%m%d')
-        end = regulate_date_format(end, force_format='%Y%m%d')
-        pages, offset = [], 0
-        while True:
-            page = guard('report_rc', dict(),  # 翻页请求(C)：日期随每页原样传，不交给 guard 切
-                         lambda:
-                         pro.report_rc(start_date=start, end_date=end, fields=fields, limit=3000, offset=offset))
-            pages.append(page)
-            if len(page) < 3000:
-                break
-            offset += 3000
-        non_empty = [p for p in pages if len(p)]
-        if len(non_empty) <= 1:
-            res = non_empty[0] if non_empty else pages[0]
-        else:
-            import warnings
-            with warnings.catch_warnings():
-                warnings.simplefilter('ignore', FutureWarning)
-                res = pd.concat(non_empty, ignore_index=True)
-    else:
-        res = guard('report_rc', dict(ts_code=ts_code, start=start, end=end),
-                    lambda ts_code, start, end:
-                    pro.report_rc(ts_code=ts_code, report_date=report_date, start_date=start, end_date=end,
-                                  fields=fields))
+    res = guard('report_rc', dict(ts_code=ts_code, trade_date=report_date, start=start, end=end),
+                lambda ts_code, trade_date, start, end:
+                pro.report_rc(ts_code=ts_code, report_date=trade_date, start_date=start, end_date=end, fields=fields))
     # 主键 (ts_code, report_date, org_name, quarter) 任一为空则无法入库(MySQL 主键非空);
     # 这类行多为未标预测报告期的研报，对一致预期无用，直接丢弃
     res = res.dropna(subset=['ts_code', 'report_date', 'org_name', 'quarter'])
