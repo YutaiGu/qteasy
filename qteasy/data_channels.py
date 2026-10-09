@@ -1597,8 +1597,8 @@ API_MAP_COLUMNS = [
 ]
 
 TUSHARE_API_MAP = {
-    'trade_calendar':
-        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', '', ''],
+    'trade_calendar':  # [已审 20261010] 每个交易所一次返回成立至明年底全部日历(实测 SSE 13527 行、无截断)
+        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', 'C', ''],
 
     # 'hk_trade_calendar':  # tsfuncs
     #     ['hk_tradecal', 'none', 'none', 'none', '', 'C', '2000'],
