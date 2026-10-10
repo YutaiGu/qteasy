@@ -1846,6 +1846,11 @@ TUSHARE_API_MAP = {
          ['forecast_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
+    'disclosure_date':  # [已审 20261010] 单次上限 6000(文档)；无 symbols 按 ann_date(计划公告日)逐天拉全市场，单天实测最多 2780，
+        # 撞 6000 报错，按 30 天切任务；有 symbols 逐股，一只全部历史 ≤ 70 行，一次完整
+        [['disclosure_date', 'none', 'none', 'none', '', 'Y', '30'],
+         ['disclosure_date', 'ts_code', 'table_index', 'stock_basic', '', 'C', '']],
+
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 

@@ -2248,6 +2248,30 @@ def indicators(ts_code: str,
     return res
 
 
+def disclosure_date(ts_code: str = None, start: str = None, end: str = None, **_) -> pd.DataFrame:
+    """财报披露计划(disclosure_date)：每个报告期的预计披露日、实际披露日，改期时 ann_date 更新、modify_date 记录。
+
+    不传 ts_code、传 start/end 是全市场模式：按 ann_date(计划公告日)逐天请求，ann_date 是时点字段 guard 切不了，
+    单天返回达到 6000(文档上限)即报错。传 ts_code 是逐股：一只全部历史(≤70 行)一次完整，C 行不验证。
+    """
+    fields = 'ts_code,ann_date,end_date,pre_date,actual_date,modify_date'
+    max_rows = 6000
+    pro = ts.pro_api()
+    if not ts_code and start and end:
+        start, end = (regulate_date_format(d, force_format='%Y%m%d') for d in (start, end))
+        pages = []
+        for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d'):
+            page = guard('disclosure_date', dict(ann_date=day),
+                         lambda ann_date: pro.disclosure_date(ann_date=ann_date, fields=fields))
+            if len(page) >= max_rows:
+                raise RuntimeError(f'disclosure_date ann_date={day} returned {len(page)} rows = api max, truncated')
+            pages.append(page)
+        non_empty = [page.dropna(axis=1, how='all') for page in pages if not page.empty]
+        return pd.concat(non_empty, ignore_index=True) if non_empty else pages[-1]
+    return guard('disclosure_date', dict(ts_code=ts_code),
+                 lambda ts_code: pro.disclosure_date(ts_code=ts_code, fields=fields))
+
+
 def forecast(ts_code: str = None,
              ann_date: str = None,
              start: str = None,

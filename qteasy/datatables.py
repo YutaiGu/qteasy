@@ -464,6 +464,9 @@ TABLE_MASTERS = {
     'express':
         ['express', '上市公司财报快报', 'report', 'E', 'q', '', '', ''],
 
+    'disclosure_date':
+        ['disclosure_date', '上市公司财报披露计划', 'report', 'E', 'q', '', '', ''],
+
     'dividend':  # New, 分红送股!
         ['dividend', '分红送股', 'events', 'E', 'd', '', '', ''],
 
@@ -1605,6 +1608,13 @@ TABLE_SCHEMA = {
                         '目标价(元)', '股息率(%)',
                         'EPS预测机构数', '营收预测机构数'],
          'prime_keys': [0, 1, 2, 3]
+         },
+
+    'disclosure_date':  # 财报披露计划：每期一行，改期时 ann_date/pre_date 更新、modify_date 记录；主键只到报告期，写库覆盖成最新一版
+        {'columns':    ['ts_code', 'end_date', 'ann_date', 'pre_date', 'actual_date', 'modify_date'],
+         'dtypes':     ['varchar(9)', 'date', 'date', 'date', 'date', 'varchar(255)'],
+         'remarks':    ['证券代码', '报告期', '最新披露公告日', '预计披露日期', '实际披露日期', '披露日期修正记录'],
+         'prime_keys': [0, 1]
          },
 
     'express':  # 业绩快报
