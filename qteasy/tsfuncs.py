@@ -1420,7 +1420,7 @@ def _statement(api, name, ts_code, rpt_date, start, end, period, max_rows=None, 
             if max_rows and len(page) >= max_rows:
                 raise RuntimeError(f'{name} f_ann_date={day} returned {len(page)} rows = api max, truncated')
             pages.append(page)
-        non_empty = [page for page in pages if not page.empty]
+        non_empty = [page.dropna(axis=1, how='all') for page in pages if not page.empty]   # 全空列不参与 concat
         return pd.concat(non_empty, ignore_index=True) if non_empty else pages[-1]
     return guard(name, dict(ts_code=ts_code, ann_date=rpt_date, start=start, end=end, period=period),
                  lambda ts_code, ann_date, start, end, period:

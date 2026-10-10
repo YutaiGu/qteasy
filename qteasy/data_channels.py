@@ -1863,7 +1863,8 @@ TUSHARE_API_MAP = {
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
     'report_rc':  # [已审 20261007] 单次最大 3000 条(文档)，区间请求交 guard 切，不翻页；无 symbols 按 report_date 区间拉全市场；有 symbols 逐股
-        [['report_rc', 'none', 'none', 'none', '', 'Y', ''],
+        # 全市场行按 90 天切任务：调用次数不变(guard 照切)，只为全量时进度可见、分批写库
+        [['report_rc', 'none', 'none', 'none', '', 'Y', '90'],
          ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'estimates':  # 派生表，不调接口：从本地 report_rc/forecast/express/income/stock_indicator 全部历史算一致预期(稀疏时点 change-log)。
