@@ -320,7 +320,7 @@ class AEstimateDatabase(EstimateDatabase):
         return pd.DataFrame(kept).reindex(columns=self.COLUMNS) if kept else pd.DataFrame(columns=self.COLUMNS)
 
     def refill(self, ts_code, data_source=None, start_date=None, end_date=None, stale_days=365) -> int:
-        """直接建表用:build 出去重 df 后写库(merge=update),返回写入行数。channel 路径不走这里(走 build)。"""
+        """一只股票:build 出去重 df 后写库(merge=update),返回写入行数。"""
         if data_source is None:
             from qteasy import QT_DATA_SOURCE
             data_source = QT_DATA_SOURCE
@@ -328,6 +328,31 @@ class AEstimateDatabase(EstimateDatabase):
         if df.empty:
             return 0
         return data_source.update_table_data(self.TABLE, df, merge_type='update')
+
+    def refill_many(self, symbols, start_date=None, end_date=None, step='refill', workers=None) -> int:
+        """按股票清单多进程跑 refill 或 rescore，返回总行数。
+
+        权重计算是 pandas 纯计算，线程受 GIL 只用一核，所以用进程池；子进程各自 import qteasy、各自建库连接。
+        任一只失败不中断其余，跑完一起抛，不静默丢。清单为空直接返回。
+        """
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        import os
+        from tqdm import tqdm
+        symbols = list(symbols)
+        if not symbols:
+            return 0
+        total, failed = 0, {}
+        with ProcessPoolExecutor(max_workers=workers or max(1, (os.cpu_count() or 2) - 1)) as pool:
+            jobs = {pool.submit(_estimates_in_process, type(self), step, code, start_date, end_date): code
+                    for code in symbols}
+            for job in tqdm(as_completed(jobs), total=len(jobs), desc=f'<{self.TABLE} {step}>', unit='stock'):
+                try:
+                    total += job.result() or 0
+                except Exception as e:  # noqa: BLE001  记下继续
+                    failed[jobs[job]] = repr(e)
+        if failed:
+            raise RuntimeError(f'{self.TABLE} {step} failed for {len(failed)} stocks: {failed}')
+        return total
 
     @classmethod
     def _target(cls, quarter):
@@ -648,3 +673,12 @@ class AEstimateDatabase(EstimateDatabase):
                 'num_analysts_revenue': int(pd.to_numeric(g['_revenue'], errors='coerce').notna().sum()),
             })
         return pd.DataFrame(rows).reindex(columns=self.COLUMNS)
+
+
+def _estimates_in_process(cls, step, ts_code, start_date, end_date):
+    """子进程入口(模块级才能被 spawn 调用)：用子进程自己的 QT_DATA_SOURCE 算一只股票并写库。"""
+    from qteasy import QT_DATA_SOURCE
+    db = cls()
+    if step == 'rescore':
+        return db.rescore(ts_code, QT_DATA_SOURCE, start_date=start_date, end_date=end_date)
+    return db.refill(ts_code, QT_DATA_SOURCE, start_date=start_date, end_date=end_date)
