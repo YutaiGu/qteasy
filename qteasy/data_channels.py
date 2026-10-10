@@ -1184,27 +1184,14 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
 
     table_name = arg_range
 
-    if table_name in ('us_stock_basic', 'us_fund_basic', 'fx_basic', 'hk_stock_basic'):
-        # 只读需要的这一张：get_all_basic_table_data 要求 A 股等全部基础表非空，美港单独部署时没有它们
-        all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
-        if not all_args:
-            raise ValueError(f'{table_name} table is empty, please refill it first')
-    else:
-        df_s, df_i, df_f, df_ft, df_o, df_ths, df_us = QT_DATA_SOURCE.get_all_basic_table_data()
-        if table_name == 'stock_basic':
-            all_args = df_s.index.to_list()
-        elif table_name == 'index_basic':
-            all_args = df_i.index.to_list()
-        elif table_name == 'fund_basic':
-            all_args = df_f.index.to_list()
-        elif table_name == 'future_basic':
-            all_args = df_ft.index.to_list()
-        elif table_name == 'opt_basic':
-            all_args = df_o.index.to_list()
-        elif table_name == 'ths_index_basic':
-            all_args = df_ths.index.to_list()
-        else:
-            raise ValueError(f'unknown table name {table_name}')
+    basics = ('stock_basic', 'index_basic', 'fund_basic', 'future_basic', 'opt_basic', 'ths_index_basic',
+              'us_stock_basic', 'us_fund_basic', 'fx_basic', 'hk_stock_basic')
+    if table_name not in basics:
+        raise ValueError(f'unknown table name {table_name}')
+    # 只读需要的这一张(不走 get_all_basic_table_data：它要求全部基础表非空，分市场部署时没有)
+    all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
+    if not all_args:
+        raise ValueError(f'{table_name} table is empty, please refill it first')
 
     if symbols is not None:  # assert symbols is a str, 进行第一次筛选
         # 冒号分隔的字符串，表示股票代码的上下限
@@ -1606,8 +1593,8 @@ TUSHARE_API_MAP = {
     # 'us_trade_calendar':  # tsfuncs
     #     ['us_tradecal', 'none', 'none', 'none', '', 'C', '6000'],
 
-    'stock_basic':
-        ['stock_basic', 'exchange', 'list', 'SSE,SZSE,BSE', '', '', '', ],
+    'stock_basic':  # [已审 20261010] 按交易所一次返回全部(实测 SSE 2320/SZSE 2904/BSE 349，无上限)
+        ['stock_basic', 'exchange', 'list', 'SSE,SZSE,BSE', '', 'C', '', ],
 
     # 'hk_stock_basic':  # tsfuncs
     #     ['hk_stock_basic', 'none', 'none', 'none', '', '', ''],
@@ -1645,8 +1632,8 @@ TUSHARE_API_MAP = {
     'hk_top10_stock':
         ['ggt_top10', 'trade_date', 'trade_date', '20100101', '', '', ''],
 
-    'index_basic':
-        ['index_basic', 'market', 'list', 'SSE,MSCI,CSI,SZSE,CICC,SW,OTH', '', '', ''],
+    'index_basic':  # [已审 20261010] 单次上限 8000；CSI 超限，函数内按 category 分次，撞线报错；MSCI/CICC/OTH 实测 0 行
+        ['index_basic', 'market', 'list', 'SSE,MSCI,CSI,SZSE,CICC,SW,OTH', '', 'C', ''],
 
     'fund_basic':
         ['fund_basic', 'market', 'list', 'E,O', '', '', ''],
@@ -1862,9 +1849,10 @@ TUSHARE_API_MAP = {
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'report_rc':  # [已审 20261007] 单次最大 3000 条(文档)，区间请求交 guard 切，不翻页；无 symbols 按 report_date 区间拉全市场；有 symbols 逐股
-        # 全市场行按 90 天切任务：调用次数不变(guard 照切)，只为全量时进度可见、分批写库
-        [['report_rc', 'none', 'none', 'none', '', 'Y', '90'],
+    'report_rc':  # [已审 20261010] 单次上限实测 5000 条(文档写 3000)，区间请求交 guard 切，不翻页；无 symbols 按 report_date 区间拉全市场；有 symbols 逐股
+        # 全市场行按 30 天切任务：淡季一次就装下，不用 guard 从整段对半切(每切一层都废掉一次 5000 行的调用)；
+        # 年报季单日可超 5000 条，切不动时回退逐股行
+        [['report_rc', 'none', 'none', 'none', '', 'Y', '30'],
          ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'estimates':  # 派生表，不调接口：从本地 report_rc/forecast/express/income/stock_indicator 全部历史算一致预期(稀疏时点 change-log)。

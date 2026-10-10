@@ -125,7 +125,7 @@ def acquire_data(api_name, **kwargs):
             time.sleep(wait)
 
 
-def stock_basic(exchange: str = None):
+def stock_basic(exchange: str = None, **_):  # C 行附带 start/end，用不上
     """ 获取基础信息数据，包括股票代码、名称、上市日期、退市日期等
 
     Parameters
@@ -2760,8 +2760,12 @@ def index_basic(ts_code: str = None,
                 name: str = None,
                 market: str = None,
                 publisher: str = None,
-                category: str = None) -> pd.DataFrame:
+                category: str = None,
+                **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     """ 获取大盘指数的基本信息如名称代码等
+
+    单次上限 8000 行(文档)。CSI 一个市场就超过 8000，按 category 分次拉(实测各类最多 3478)；
+    任一次返回达到 8000 即报错，不静默截断。其他市场一次装下(SSE 208 / SZSE 485 / SW 950)。
 
     Parameters
     ----------
@@ -2822,11 +2826,27 @@ def index_basic(ts_code: str = None,
     """
     fields = 'ts_code, name, fullname, market, publisher, index_type, category, ' \
              'base_date, base_point, list_date, weight_rule, desc, exp_date'
+    max_rows = 8000
+    csi_categories = ['规模指数', '行业指数', '主题指数', '风格指数', '策略指数', '综合指数', '债券指数',
+                      '基金指数', '期货指数', '多资产指数', '其他指数']   # 实测 20261010 的全部类别
     pro = ts.pro_api()
-    res = guard('index_basic', dict(ts_code=ts_code, market=market),
-                lambda ts_code, market:
-                pro.index_basic(ts_code=ts_code, name=name, market=market, publisher=publisher, category=category,
-                                fields=fields))
+
+    def fetch(ts_code, market, category):
+        page = pro.index_basic(ts_code=ts_code, name=name, market=market, publisher=publisher, category=category,
+                               fields=fields)
+        if len(page) >= max_rows:
+            raise RuntimeError(f'index_basic market={market} category={category} returned {len(page)} rows'
+                               f' = api max, truncated')
+        return page
+
+    if market == 'CSI' and ts_code is None and category is None:
+        pages = [guard('index_basic', dict(ts_code=None, market=market), lambda ts_code, market, c=c:
+                       fetch(ts_code, market, c)) for c in csi_categories]
+        res = pd.concat([x for x in pages if not x.empty], ignore_index=True) if any(not x.empty for x in pages) \
+            else pages[0]
+    else:
+        res = guard('index_basic', dict(ts_code=ts_code, market=market),
+                    lambda ts_code, market: fetch(ts_code, market, category))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_basic with ts_code={ts_code}, '
                      f'name={name}, market={market}, publisher={publisher}, category={category}, fields={fields}')
     return res
@@ -3951,7 +3971,7 @@ def report_rc(ts_code: str = None,
     report_date: optional 研报发布日 YYYYMMDD
     start: optional 研报发布开始日期 YYYYMMDD(按 report_date 过滤)
     end: optional 研报发布结束日期 YYYYMMDD
-    文档口径单次最大 3000 条，区间请求交给 guard 切。
+    单次上限实测 5000 条(文档写 3000)，区间请求交给 guard 切。
     """
     if fields is None:
         fields = ('ts_code,report_date,org_name,quarter,name,report_title,report_type,'

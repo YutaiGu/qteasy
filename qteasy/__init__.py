@@ -389,6 +389,17 @@ _refresh_log_paths()
 # 设置loggings，创建logger
 debug_handler = logging.handlers.TimedRotatingFileHandler(filename=os.path.join(QT_SYS_LOG_PATH, 'qteasy.log'),
                                                           backupCount=3, when='midnight')
+
+
+def _rotate_if_free(source, dest):
+    # Windows 上别的 qteasy 进程(API 服务、listener)开着同一个日志，改名会被拒；跳过这次轮转，继续写原文件
+    try:
+        os.rename(source, dest)
+    except PermissionError:
+        pass
+
+
+debug_handler.rotator = _rotate_if_free
 error_handler = logging.StreamHandler()
 debug_handler.setLevel(logging.DEBUG)
 error_handler.setLevel(logging.ERROR)

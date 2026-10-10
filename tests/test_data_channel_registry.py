@@ -99,7 +99,8 @@ class TestDataChannelRegistry(unittest.TestCase):
             reversed_par_seq=False,
         ))
         print(' plan:', plan)
-        self.assertEqual(plan, [{'exchange': 'SSE'}, {'exchange': 'SZSE'}, {'exchange': 'BSE'}])
+        span = {'start': '20210101', 'end': '20210321'}   # C 行附带区间
+        self.assertEqual(plan, [{'exchange': ex, **span} for ex in ('SSE', 'SZSE', 'BSE')])
 
     def test_normalize_table_frame_stock_basic(self):
         print('\n[TestDataChannelRegistry] check normalize_table_frame for stock_basic')
