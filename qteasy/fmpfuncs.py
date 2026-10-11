@@ -179,7 +179,7 @@ def us_trade_calendar(start: str = None,
 
 
 def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
-    """美股股票池基本信息：(VONE 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $5B 的外国公司(含 ADR)。
+    """美股股票池基本信息：(VONE 持仓 ∩ screener) ∪ 在美国上市、市值 ≥ $2B 的外国公司(含 ADR)。
 
     VONE(Vanguard Russell 1000 ETF)跟踪 Russell 1000(美国公司，按市值取前约 1000 只，无盈利等偏好)；持仓与
     screener(三大交易所、在交易、非 ETF/基金、含全部股份类别)交叉认证，去掉现金、CVR、托管、OTC 等非交易所股票。
@@ -188,7 +188,7 @@ def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 s
     exchange 为 ALL / 空时不过滤，否则只返回该交易所的股票。
     """
     columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
-    foreign_min_cap = 5_000_000_000
+    foreign_min_cap = 2_000_000_000   # 约 140 亿人民币；20261011 由 $5B 下调，外国公司 330 → 466 只
 
     holdings = pd.DataFrame(guard('etf/holdings', dict(), lambda:
                                   _fmp_get('etf/holdings', symbol='VONE')))
@@ -739,6 +739,56 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
     if end:
         res = res[res['ex_date'] <= pd.Timestamp(regulate_date_format(end, force_format='date'))]
     return res.reset_index(drop=True)
+
+
+def _earnings_calendar(basic_table: str) -> pd.DataFrame:
+    """即将发布的财报(FMP earnings-calendar)：发布日在未来 250 天内的，按本地股票表过滤，每个报告期一行。
+
+    表只存未来，区间固定为 [今天, 今天+250](港股中报到年报约 240 天)，不用 refill 的区间；接口 ≤90 天，分段请求。
+    confirmed=0 表示发布日是 FMP 预估。
+    """
+    today = pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None)   # 美东的今天
+    data, seg_start, last = [], today, today + pd.Timedelta(days=250)
+    while seg_start <= last:
+        seg_end = min(seg_start + pd.Timedelta(days=89), last)
+        data.extend(guard('earnings-calendar', dict(start=seg_start.strftime('%Y-%m-%d'), end=seg_end.strftime('%Y-%m-%d')),
+                          lambda start, end:
+                          _fmp_get('earnings-calendar', **{'from': start, 'to': end, 'includeReportTimes': 'true'}),
+                          fmt='%Y-%m-%d'))
+        seg_start = seg_end + pd.Timedelta(days=1)
+    from qteasy import QT_DATA_SOURCE
+    stock_codes = set(QT_DATA_SOURCE.read_table_data(basic_table).index)
+    if not stock_codes:
+        raise RuntimeError(f'earnings calendar is filtered by {basic_table}, which is empty')
+    rows = [r for r in data if r.get('symbol') in stock_codes]
+    if not rows:
+        return pd.DataFrame()
+    raw = pd.DataFrame(rows)
+    dirty = raw['periodEnding'].fillna('').eq('') | raw['date'].fillna('').eq('')
+    if dirty.any():
+        warnings.warn(f'FMP earnings-calendar: dropped {dirty.sum()} records without period end or report date: '
+                      f'{sorted(set(raw.loc[dirty, "symbol"]))[:5]}')
+        raw = raw[~dirty]
+    return pd.DataFrame({
+        'ts_code':          raw['symbol'],
+        'end_date':         pd.to_datetime(raw['periodEnding']),
+        'report_date':      pd.to_datetime(raw['date']),
+        'report_time':      raw['time'],
+        'fiscal_period':    raw['fiscalPeriod'],
+        'fiscal_year':      raw['fiscalYear'],
+        'confirmed':        raw['confirmed'].astype('Int64'),
+        'eps_estimate':     raw['epsEstimated'],
+        'revenue_estimate': raw['revenueEstimated'],
+        'updated':          pd.to_datetime(raw['lastUpdated']),
+    }).sort_values('report_date').drop_duplicates(['ts_code', 'end_date'], keep='last')
+
+
+def us_earnings(**_) -> pd.DataFrame:
+    return _earnings_calendar('us_stock_basic')
+
+
+def hk_earnings(**_) -> pd.DataFrame:
+    return _earnings_calendar('hk_stock_basic')
 
 
 def us_dividend(ts_code: str = None,

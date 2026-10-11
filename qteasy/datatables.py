@@ -293,6 +293,12 @@ TABLE_MASTERS = {
     'us_dividend':
         ['us_dividend', '美股现金分红', 'events', 'E-US', 'd', '', '', ''],
 
+    'us_earnings':
+        ['us_earnings', '美股财报日历', 'events', 'E-US', 'd', '', '', ''],
+
+    'hk_earnings':
+        ['us_earnings', '港股财报日历', 'events', 'E-HK', 'd', '', '', ''],
+
     'index_1min':
         ['min_bars', '指数分钟K线行情', 'mins', 'IDX', '1min', '', 'ts_code', '30'],  # 30
 
@@ -929,6 +935,15 @@ TABLE_SCHEMA = {
          'dtypes':     ['varchar(20)', 'date', 'double', 'date', 'date', 'date'],
          'remarks':    ['股票代码', '除权除息日', '每股分红（原始值）', '公告日', '股权登记日', '派息日'],
          'prime_keys': [0, 1, 2]},
+
+    'us_earnings':  # 即将发布的财报(FMP earnings-calendar)：每个报告期一行，只存未来；report_date 可能是预估(confirmed=0)，改期后覆盖
+        {'columns':    ['ts_code', 'end_date', 'report_date', 'report_time', 'fiscal_period', 'fiscal_year', 'confirmed',
+                        'eps_estimate', 'revenue_estimate', 'updated'],
+         'dtypes':     ['varchar(20)', 'date', 'date', 'varchar(3)', 'varchar(2)', 'int', 'tinyint',
+                        'double', 'double', 'date'],
+         'remarks':    ['股票代码', '报告期', '财报发布日', 'bmo 盘前 / amc 盘后', 'FMP 财季标签 Q1–Q4', 'FMP 财年',
+                        '发布日是否已确认(0 为 FMP 预估)', '预期 EPS', '预期营收', 'FMP 更新日'],
+         'prime_keys': [0, 1]},
 
     'us_balance':
         {'columns':    ['ts_code', 'end_date', 'period', 'filing_date', 'fiscal_year', 'currency',

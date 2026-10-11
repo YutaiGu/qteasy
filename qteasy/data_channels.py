@@ -2194,6 +2194,12 @@ FMP_API_MAP = {
          # income-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
+    'us_earnings':  # [已审 20261010] earnings-calendar：≤4000条、≤90天(文档)；区间固定为未来 250 天，函数内分段；返回全球股票
+        ['us_earnings', 'none', 'none', '', '', 'Y', '', 'us_stock_basic'],
+
+    'hk_earnings':  # [已审 20261010] 同 us_earnings
+        ['hk_earnings', 'none', 'none', '', '', 'Y', '', 'hk_stock_basic'],
+
     'us_balance':  # [已审 20261005]
         # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
         [['us_balance_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
