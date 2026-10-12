@@ -158,9 +158,16 @@ def stock_basic(exchange: str = None, **_):  # C 行附带 start/end，用不上
     fields = 'ts_code,symbol,name,area,industry,fullname, enname, cnspell, market, exchange, curr_type, list_status, ' \
              'list_date, delist_date, is_hs'
     pro = ts.pro_api()
-    res = guard('stock_basic', dict(exchange=exchange),
-                lambda exchange:
-                pro.stock_basic(exchange=exchange, list_status=list_status, is_hs=is_hs, fields=fields))
+    pages, offset = [], 0   # offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认，偏移按实际返回行数推进
+    while True:
+        page = guard('stock_basic', dict(exchange=exchange), lambda exchange:
+                     pro.stock_basic(exchange=exchange, list_status=list_status, is_hs=is_hs, fields=fields,
+                                     offset=offset))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    res = pd.concat(pages, ignore_index=True) if pages else page
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table stock_basic with exchange={exchange}, list_status={list_status}'
                      f'is_hs={is_hs}, fields={fields}')
@@ -2252,11 +2259,10 @@ def disclosure_date(ts_code: str = None, start: str = None, end: str = None, **_
     """财报披露计划(disclosure_date)：每个报告期的预计披露日、实际披露日，改期时 ann_date 更新、modify_date 记录。
 
     接口的 start_date/end_date 不是区间(end_date 按报告期精确匹配，start_date 无效)，guard 没有可切的时间维度，
-    两种模式都按 offset 翻到空页取全(翻页实测稳定，越界返回空页)，偏移按实际返回行数推进，页大小只影响请求次数。
+    两种模式都按 offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认，偏移按实际返回行数推进。
     不传 ts_code、传 start/end 是全市场模式：按 ann_date(计划公告日)逐天请求；传 ts_code 是逐股：一只全部历史。
     """
     fields = 'ts_code,ann_date,end_date,pre_date,actual_date,modify_date'
-    page_size = 6000
     pro = ts.pro_api()
     if not ts_code and start and end:
         start, end = (regulate_date_format(d, force_format='%Y%m%d') for d in (start, end))
@@ -2265,7 +2271,7 @@ def disclosure_date(ts_code: str = None, start: str = None, end: str = None, **_
             offset = 0
             while True:
                 page = guard('disclosure_date', dict(ann_date=day), lambda ann_date:
-                             pro.disclosure_date(ann_date=ann_date, limit=page_size, offset=offset, fields=fields))
+                             pro.disclosure_date(ann_date=ann_date, offset=offset, fields=fields))
                 if page.empty:
                     break
                 pages.append(page)
@@ -2275,7 +2281,7 @@ def disclosure_date(ts_code: str = None, start: str = None, end: str = None, **_
     pages, offset = [], 0
     while True:
         page = guard('disclosure_date', dict(ts_code=ts_code), lambda ts_code:
-                     pro.disclosure_date(ts_code=ts_code, limit=page_size, offset=offset, fields=fields))
+                     pro.disclosure_date(ts_code=ts_code, offset=offset, fields=fields))
         if page.empty:
             break
         pages.append(page)

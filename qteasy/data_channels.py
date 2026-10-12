@@ -1584,8 +1584,8 @@ API_MAP_COLUMNS = [
 ]
 
 TUSHARE_API_MAP = {
-    'trade_calendar':  # [已审 20261010] 每个交易所一次返回成立至明年底全部日历(实测 SSE 13527 行、无截断)
-        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', 'C', ''],
+    'trade_calendar':  # [已审 20261012] 按交易所，start/end 是区间参数
+        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', 'Y', ''],
 
     # 'hk_trade_calendar':  # tsfuncs
     #     ['hk_tradecal', 'none', 'none', 'none', '', 'C', '2000'],
@@ -1593,7 +1593,7 @@ TUSHARE_API_MAP = {
     # 'us_trade_calendar':  # tsfuncs
     #     ['us_tradecal', 'none', 'none', 'none', '', 'C', '6000'],
 
-    'stock_basic':  # [已审 20261010] 按交易所一次返回全部(实测 SSE 2320/SZSE 2904/BSE 349，无上限)
+    'stock_basic':  # [已审 20261012] 按交易所，无日期参数，offset 翻页取全(稳定，越界返回空页)
         ['stock_basic', 'exchange', 'list', 'SSE,SZSE,BSE', '', 'C', '', ],
 
     # 'hk_stock_basic':  # tsfuncs
@@ -1846,7 +1846,7 @@ TUSHARE_API_MAP = {
          ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'disclosure_date':  # [已审 20261012] start/end 不是区间参数；全市场逐天按 ann_date(计划公告日)时点请求，逐股一次全部历史，
-        # 都按 offset 翻页取全(稳定，一页 6000，越界返回空页)
+        # 都按 offset 翻页取全(稳定，越界返回空页)
         [['disclosure_date', 'none', 'none', 'none', '', 'C', '30'],
          ['disclosure_date', 'ts_code', 'table_index', 'stock_basic', '', 'C', '']],
 
