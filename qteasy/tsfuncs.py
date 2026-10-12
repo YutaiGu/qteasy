@@ -1409,9 +1409,9 @@ def _statement(api, name, ts_code, rpt_date, start, end, period, max_rows=None, 
     """三大财报 / 业绩预告 / 快报的请求。
 
     不传 ts_code、传 start/end 是全市场模式：逐天按 f_ann_date(实际发布日)请求。公司修订财报时公告日(ann_date)
-    不变、只有实际发布日是新的，按公告日区间拉会漏掉修订。f_ann_date 只能查单天(时点请求，guard 不切)，
-    单天返回行数达到 max_rows(该接口实测的静默截断上限)即报错，不能用 offset 翻页：实测服务端排序不稳定，翻页重叠漏行。
-    其他情况是一次区间请求，交给 guard 切。
+    不变、只有实际发布日是新的，按公告日区间拉会漏掉修订。f_ann_date 只能查单天(时点请求，guard 不切)，C 行：
+    offset 翻页实测不稳定(排序变动、翻页重叠漏行)，文档无限额，只能依实测的静默截断上限 max_rows，单天达到即报错。
+    其他情况是一次区间请求，交给 guard 切(Y 行)。
     """
     if not ts_code and rpt_date is None and period is None and start and end:
         pages = []
@@ -2251,25 +2251,36 @@ def indicators(ts_code: str,
 def disclosure_date(ts_code: str = None, start: str = None, end: str = None, **_) -> pd.DataFrame:
     """财报披露计划(disclosure_date)：每个报告期的预计披露日、实际披露日，改期时 ann_date 更新、modify_date 记录。
 
-    不传 ts_code、传 start/end 是全市场模式：按 ann_date(计划公告日)逐天请求，ann_date 是时点字段 guard 切不了，
-    单天返回达到 6000(文档上限)即报错。传 ts_code 是逐股：一只全部历史(≤70 行)一次完整，C 行不验证。
+    接口的 start_date/end_date 不是区间(end_date 按报告期精确匹配，start_date 无效)，guard 没有可切的时间维度，
+    两种模式都按 offset 翻到空页取全(翻页实测稳定，越界返回空页)，偏移按实际返回行数推进，页大小只影响请求次数。
+    不传 ts_code、传 start/end 是全市场模式：按 ann_date(计划公告日)逐天请求；传 ts_code 是逐股：一只全部历史。
     """
     fields = 'ts_code,ann_date,end_date,pre_date,actual_date,modify_date'
-    max_rows = 6000
+    page_size = 6000
     pro = ts.pro_api()
     if not ts_code and start and end:
         start, end = (regulate_date_format(d, force_format='%Y%m%d') for d in (start, end))
         pages = []
         for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d'):
-            page = guard('disclosure_date', dict(ann_date=day),
-                         lambda ann_date: pro.disclosure_date(ann_date=ann_date, fields=fields))
-            if len(page) >= max_rows:
-                raise RuntimeError(f'disclosure_date ann_date={day} returned {len(page)} rows = api max, truncated')
-            pages.append(page)
+            offset = 0
+            while True:
+                page = guard('disclosure_date', dict(ann_date=day), lambda ann_date:
+                             pro.disclosure_date(ann_date=ann_date, limit=page_size, offset=offset, fields=fields))
+                if page.empty:
+                    break
+                pages.append(page)
+                offset += len(page)
         non_empty = [page.dropna(axis=1, how='all') for page in pages if not page.empty]
         return pd.concat(non_empty, ignore_index=True) if non_empty else pages[-1]
-    return guard('disclosure_date', dict(ts_code=ts_code),
-                 lambda ts_code: pro.disclosure_date(ts_code=ts_code, fields=fields))
+    pages, offset = [], 0
+    while True:
+        page = guard('disclosure_date', dict(ts_code=ts_code), lambda ts_code:
+                     pro.disclosure_date(ts_code=ts_code, limit=page_size, offset=offset, fields=fields))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    return pd.concat(pages, ignore_index=True) if pages else page
 
 
 def forecast(ts_code: str = None,

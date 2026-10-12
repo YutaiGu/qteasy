@@ -1822,19 +1822,18 @@ TUSHARE_API_MAP = {
     'index_weight':
         ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', '7'],
 
-    'income':  # [已审 20261007] income_vip(5000 积分)：无 symbols 逐天按 f_ann_date 拉全市场，单天实测上限 9000 行、最重发布日约 2900 行；
-        # 有 symbols 逐股。income(2000 积分)只能逐股，vip 无权限时退到它
-        [['income_vip', 'none', 'none', 'none', '', 'Y', '500'],
+    'income':  # [已审 20261012] income_vip(5000 积分)全市场：逐天按 f_ann_date(实际发布日)时点请求，翻页不稳定、无文档，实测上限 9000 行
+        [['income_vip', 'none', 'none', 'none', '', 'C', '366'],
          ['income_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['income', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'balance':  # [已审 20261007] balancesheet_vip：同 income，单天实测上限 7000 行、最重发布日约 3100 行
-        [['balance_vip', 'none', 'none', 'none', '', 'Y', '500'],
+    'balance':  # [已审 20261012] balancesheet_vip：同 income，实测上限 7000 行
+        [['balance_vip', 'none', 'none', 'none', '', 'C', '366'],
          ['balance_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['balance', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'cashflow':  # [已审 20261007] cashflow_vip：同 income，单天实测上限 6400 行、最重发布日约 4100 行
-        [['cashflow_vip', 'none', 'none', 'none', '', 'Y', '500'],
+    'cashflow':  # [已审 20261012] cashflow_vip：同 income，实测上限 6400 行
+        [['cashflow_vip', 'none', 'none', 'none', '', 'C', '366'],
          ['cashflow_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['cashflow', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
@@ -1846,9 +1845,9 @@ TUSHARE_API_MAP = {
          ['forecast_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'disclosure_date':  # [已审 20261010] 单次上限 6000(文档)；无 symbols 按 ann_date(计划公告日)逐天拉全市场，单天实测最多 2780，
-        # 撞 6000 报错，按 30 天切任务；有 symbols 逐股，一只全部历史 ≤ 70 行，一次完整
-        [['disclosure_date', 'none', 'none', 'none', '', 'Y', '30'],
+    'disclosure_date':  # [已审 20261012] start/end 不是区间参数；全市场逐天按 ann_date(计划公告日)时点请求，逐股一次全部历史，
+        # 都按 offset 翻页取全(稳定，一页 6000，越界返回空页)
+        [['disclosure_date', 'none', 'none', 'none', '', 'C', '30'],
          ['disclosure_date', 'ts_code', 'table_index', 'stock_basic', '', 'C', '']],
 
     'fina_mainbz':
