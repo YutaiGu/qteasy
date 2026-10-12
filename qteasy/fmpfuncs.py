@@ -241,7 +241,7 @@ def hk_stock_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
         logger_core.info('hk_stock_basic is not empty, skipped; clear the table to rebuild')
         return pd.DataFrame()
     columns = ['ts_code', 'name', 'exchange', 'sector', 'industry', 'country', 'isin', 'cusip']
-    today = pd.Timestamp.now(tz='Asia/Hong_Kong').strftime('%Y-%m-%d')
+    today = pd.Timestamp.now(tz='America/New_York').strftime('%Y-%m-%d')
     trading_currency = 'HKD'
     min_analysts = 2
 
@@ -594,7 +594,7 @@ def estimates_fmp(ts_code: str = None, **_) -> pd.DataFrame:
         raw = raw[~dirty]
     res = raw.rename(columns=fmp_map).assign(
         ts_code=ts_code,
-        trade_date=pd.Timestamp.now(tz='Asia/Shanghai').normalize().tz_localize(None),
+        trade_date=pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None),
         target_date=pd.to_datetime(raw['date'].str[:10]) + pd.offsets.MonthEnd(0),
         target_period='Q',
         currency='CNY',

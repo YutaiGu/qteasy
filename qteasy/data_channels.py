@@ -1853,9 +1853,7 @@ TUSHARE_API_MAP = {
     'fina_mainbz':
         ['fina_mainbz', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'report_rc':  # [已审 20261010] 单次上限实测 5000 条(文档写 3000)，区间请求交 guard 切，不翻页；无 symbols 按 report_date 区间拉全市场；有 symbols 逐股
-        # 全市场行按 30 天切任务：淡季一次就装下，不用 guard 从整段对半切(每切一层都废掉一次 5000 行的调用)；
-        # 年报季单日可超 5000 条，切不动时回退逐股行
+    'report_rc':  # [已审 20261012] start/end 按 report_date 过滤
         [['report_rc', 'none', 'none', 'none', '', 'Y', '30'],
          ['report_rc', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
@@ -2207,7 +2205,7 @@ FMP_API_MAP = {
 
     'us_dividend':  # [已审 20261005]
          # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行；返回全球股票
-        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '90', 'us_stock_basic'],
+        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '89', 'us_stock_basic'],
          # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
          ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 

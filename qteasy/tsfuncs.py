@@ -4002,7 +4002,6 @@ def report_rc(ts_code: str = None,
     report_date: optional 研报发布日 YYYYMMDD
     start: optional 研报发布开始日期 YYYYMMDD(按 report_date 过滤)
     end: optional 研报发布结束日期 YYYYMMDD
-    单次上限实测 5000 条(文档写 3000)，区间请求交给 guard 切。
     """
     if fields is None:
         fields = ('ts_code,report_date,org_name,quarter,name,report_title,report_type,'
