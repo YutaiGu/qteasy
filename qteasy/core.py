@@ -844,6 +844,10 @@ def refill_data_source(tables, *, channel=None, data_source=None, dtypes=None, f
             print(f'<{table}> can\'t be fetched from channel: {channel}!')
             continue
         specs = route_table_specs(channel, table, table_symbols)
+        # 依赖表(交易日行的日历 / 第 4 列基础表 / 第 8 列)必须在本地非空，否则报错；本次清单里的依赖表已排在前面下过
+        for dependent in get_dependent_table(table, channel=channel, symbols=table_symbols) or []:
+            if data_source.get_table_info(dependent, print_info=False)['pk_max1'] in (None, 'N/A'):   # 不存在或空表
+                raise RuntimeError(f'<{table}> depends on <{dependent}>, which is empty, please refill it first')
 
         for spec_idx, spec in enumerate(specs):
             is_last_spec = spec_idx == len(specs) - 1

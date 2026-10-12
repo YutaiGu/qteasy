@@ -1182,16 +1182,7 @@ def _parse_table_index_args(arg_range: str, symbols: str, allowed_code_suffix: s
 
     from qteasy import QT_DATA_SOURCE
 
-    table_name = arg_range
-
-    basics = ('stock_basic', 'index_basic', 'fund_basic', 'future_basic', 'opt_basic', 'ths_index_basic',
-              'us_stock_basic', 'us_fund_basic', 'fx_basic', 'hk_stock_basic')
-    if table_name not in basics:
-        raise ValueError(f'unknown table name {table_name}')
-    # 只读需要的这一张(不走 get_all_basic_table_data：它要求全部基础表非空，分市场部署时没有)
-    all_args = QT_DATA_SOURCE.read_table_data(table_name).index.to_list()
-    if not all_args:
-        raise ValueError(f'{table_name} table is empty, please refill it first')
+    all_args = QT_DATA_SOURCE.read_table_data(arg_range).index.to_list()   # 第 4 列的基础表，非空由 refill 的依赖检查保证
 
     if symbols is not None:  # assert symbols is a str, 进行第一次筛选
         # 冒号分隔的字符串，表示股票代码的上下限
