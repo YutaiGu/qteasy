@@ -2140,7 +2140,7 @@ FMP_API_MAP = {
     'trade_calendar':
         ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
 
-    'us_stock_basic':  # [已审 20261012] etf/holdings：只认 symbol，单页；company-screener 按 page 翻到空页
+    'us_stock_basic':  # [已审 20261012] etf/holdings：api 只认 symbol，自保；company-screener 按 page 翻到空页
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', 'C', ''],
 
     'hk_stock_basic':  # [已审 20261012] company-screener 按 page 翻到空页；analyst-estimates、profile 只认 symbol
@@ -2167,7 +2167,7 @@ FMP_API_MAP = {
     'us_fund_daily_adj':  # [已审 20261006] 与 us_stock_daily_adj 同一个接口
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', ''],
 
-    'fx_basic':  # [已审 20261006] forex-list：无参数，一次返回全部 1551 对
+    'fx_basic':  # [已审 20261012] forex-list：api 无任何参数，自保
         ['fx_basic', 'none', 'none', '', '', 'C', ''],
 
     'fx_daily':  # [已审 20261006] historical-price-eod/full：股票/外汇同一接口，from/to 两端包含
