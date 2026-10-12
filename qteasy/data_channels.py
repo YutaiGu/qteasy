@@ -1687,8 +1687,11 @@ TUSHARE_API_MAP = {
     'index_hourly':
         ['mins60', 'ts_code', 'table_index', 'index_basic', 'SH,SZ', 'y', '360'],
 
-    'index_daily':  # [已审 20261012] start/end 区间两端包含；不含申万行业指数
-        ['index_daily', 'ts_code', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', ''],
+    'index_daily':  # [已审 20261012] 只拉清单里的基准指数；start/end 区间两端包含；不含申万行业指数
+        ['index_daily', 'ts_code', 'list',
+         '000300.SH, 000905.SH, 000852.SH, 932000.CSI, 000016.SH, 000906.SH, 000985.CSI, '   # 沪深300、中证500、中证1000、中证2000、上证50、中证800、中证全指
+         '000001.SH, 399001.SZ, 399006.SZ, 000688.SH, 000922.CSI',                           # 上证指数、深证成指、创业板指、科创50、中证红利
+         '', 'Y', ''],
 
     'index_weekly':
         ['index_weekly', 'trade_date', 'trade_date', '19910705', '', '', ''],
@@ -1810,8 +1813,11 @@ TUSHARE_API_MAP = {
     'index_indicator':
         ['index_dailybasic', 'trade_date', 'trade_date', '20040102', '', '', ''],
 
-    'index_weight':  # [已审 20261012] 月度数据，每月最后一个交易日一批；start/end 区间两端包含
-        ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', ''],
+    'index_weight':  # [已审 20261012] 只拉清单里的基准指数(同 index_daily)；月度数据，每月最后一个交易日一批；start/end 区间两端包含
+        ['composite', 'index', 'list',
+         '000300.SH, 000905.SH, 000852.SH, 932000.CSI, 000016.SH, 000906.SH, 000985.CSI, '
+         '000001.SH, 399001.SZ, 399006.SZ, 000688.SH, 000922.CSI',
+         '', 'Y', ''],
 
     'income':  # [已审 20261012] income_vip(5000 积分)全市场：逐天按 f_ann_date(实际发布日)时点请求，翻页不稳定、无文档，实测上限 9000 行
         [['income_vip', 'none', 'none', 'none', '', 'C', '366'],
