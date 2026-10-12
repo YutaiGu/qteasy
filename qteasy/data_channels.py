@@ -1665,9 +1665,9 @@ TUSHARE_API_MAP = {
     'stock_hourly':
         ['mins60', 'ts_code', 'table_index', 'stock_basic', '', 'y', '360'],
 
-    'stock_daily':  # 双模式(按传参路由): 无symbols→按交易日全市场(首行=默认); 有symbols→逐股6000天分段(单次上限6000行)
-        [['daily', 'trade_date', 'trade_date', '19901211', '', '', ''],
-         ['daily', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '6000']],
+    'stock_daily':  # [已审 20261012] 全市场按交易日 offset 翻页取全(稳定，越界返回空页)
+        [['daily', 'trade_date', 'trade_date', '19901211', '', 'C', ''],
+         ['daily', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'stock_weekly':
         ['weekly', 'trade_date', 'trade_date', '19901221', '', '', ''],
@@ -1796,9 +1796,9 @@ TUSHARE_API_MAP = {
     'options_daily':
         ['options_daily', 'trade_date', 'trade_date', '20150209', '', '', ''],
 
-    'stock_adj_factor':  # 双模式: 同 stock_daily (adj_factor 单次上限同为6000行, 实测)
-        [['adj_factors', 'trade_date', 'trade_date', '19901219', '', '', ''],
-         ['adj_factors', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '6000']],
+    'stock_adj_factor':  # [已审 20261012] 全市场按交易日 offset 翻页取全(稳定，越界返回空页)
+        [['adj_factors', 'trade_date', 'trade_date', '19901219', '', 'C', ''],
+         ['adj_factors', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
     'fund_adj_factor':
         ['fund_adj', 'trade_date', 'trade_date', '19980407', '', '', ''],
@@ -2137,7 +2137,7 @@ SINA_REALTIME_API_MAP = {
 }
 
 FMP_API_MAP = {
-    'trade_calendar':
+    'trade_calendar':  # [已审 20261012] holidays-by-exchange(NYSE)：from 不含当日，函数前推一天；函数忽略 refill 区间，固定拉全段休市日再算日历
         ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
 
     'us_stock_basic':  # [已审 20261012] etf/holdings：api 只认 symbol，自保；company-screener 按 page 翻到空页

@@ -1115,9 +1115,20 @@ def daily(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = guard('daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
-                lambda ts_code, trade_date, start, end:
-                pro.daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
+    if trade_date and not ts_code:  # 全市场单日：offset 翻到空页取全(C 行)，页大小由接口默认，偏移按实际返回行数推进
+        pages, offset = [], 0
+        while True:
+            page = guard('daily', dict(trade_date=trade_date), lambda trade_date:
+                         pro.daily(trade_date=trade_date, offset=offset))
+            if page.empty:
+                break
+            pages.append(page)
+            offset += len(page)
+        res = pd.concat(pages, ignore_index=True) if pages else page
+    else:
+        res = guard('daily', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                    lambda ts_code, trade_date, start, end:
+                    pro.daily(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: daily with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
@@ -1276,9 +1287,20 @@ def adj_factors(ts_code=None,
     -------
     """
     pro = ts.pro_api()
-    res = guard('adj_factor', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
-                lambda ts_code, trade_date, start, end:
-                pro.adj_factor(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
+    if trade_date and not ts_code:  # 全市场单日：offset 翻到空页取全(C 行)，页大小由接口默认，偏移按实际返回行数推进
+        pages, offset = [], 0
+        while True:
+            page = guard('adj_factor', dict(trade_date=trade_date), lambda trade_date:
+                         pro.adj_factor(trade_date=trade_date, offset=offset))
+            if page.empty:
+                break
+            pages.append(page)
+            offset += len(page)
+        res = pd.concat(pages, ignore_index=True) if pages else page
+    else:
+        res = guard('adj_factor', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
+                    lambda ts_code, trade_date, start, end:
+                    pro.adj_factor(ts_code=ts_code, trade_date=trade_date, start_date=start, end_date=end))
     logger_core.info(f'Downloaded {len(res)} rows from tushare: adj_factors with ts_code={ts_code}, '
                      f'trade_date={trade_date}, start_date={start}, end_date={end}')
     return res
