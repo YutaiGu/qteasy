@@ -1584,8 +1584,8 @@ API_MAP_COLUMNS = [
 ]
 
 TUSHARE_API_MAP = {
-    'trade_calendar':  # [已审 20261012] 按交易所，start/end 是区间参数
-        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', 'Y', ''],
+    'trade_calendar':  # [已审 20261012] 按交易所，不传区间，一次取成立至明年底全部日历(日历须超前于今天)，offset 翻页取全(稳定，越界返回空页)
+        ['trade_cal', 'exchange', 'list', 'SSE, SZSE, CFFEX, SHFE, CZCE, DCE, INE', '', 'C', ''],
 
     # 'hk_trade_calendar':  # tsfuncs
     #     ['hk_tradecal', 'none', 'none', 'none', '', 'C', '2000'],
@@ -1647,8 +1647,8 @@ TUSHARE_API_MAP = {
     'ths_index_basic':
         ['ths_index', 'exchange', 'list', 'A, HK, US', '', '', ''],
 
-    'sw_industry_basic':
-        ['index_classify', 'src', 'list', 'sw2014, sw2021', '', '', ''],
+    'sw_industry_basic':  # [已审 20261012] 按 src(2014/2021 版)，无日期参数，offset 翻页取全(稳定，越界返回空页)
+        ['index_classify', 'src', 'list', 'sw2014, sw2021', '', 'C', ''],
 
     'stock_1min':
         ['mins1', 'ts_code', 'table_index', 'stock_basic', '', 'y', '30'],
@@ -1696,8 +1696,8 @@ TUSHARE_API_MAP = {
     'index_hourly':
         ['mins60', 'ts_code', 'table_index', 'index_basic', 'SH,SZ', 'y', '360'],
 
-    'index_daily':
-        ['index_daily', 'ts_code', 'table_index', 'index_basic', 'SH,CSI,SZ', 'y', ''],
+    'index_daily':  # [已审 20261012] start/end 区间两端包含；不含申万行业指数
+        ['index_daily', 'ts_code', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', ''],
 
     'index_weekly':
         ['index_weekly', 'trade_date', 'trade_date', '19910705', '', '', ''],
@@ -1819,8 +1819,8 @@ TUSHARE_API_MAP = {
     'index_indicator':
         ['index_dailybasic', 'trade_date', 'trade_date', '20040102', '', '', ''],
 
-    'index_weight':
-        ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', '7'],
+    'index_weight':  # [已审 20261012] 月度数据，每月最后一个交易日一批；start/end 区间两端包含
+        ['composite', 'index', 'table_index', 'index_basic', 'SH,CSI,SZ', 'Y', ''],
 
     'income':  # [已审 20261012] income_vip(5000 积分)全市场：逐天按 f_ann_date(实际发布日)时点请求，翻页不稳定、无文档，实测上限 9000 行
         [['income_vip', 'none', 'none', 'none', '', 'C', '366'],
@@ -1866,8 +1866,10 @@ TUSHARE_API_MAP = {
          ['express_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
-    'dividend':
-        ['dividend', 'ts_code', 'table_index', 'stock_basic', '', '', ''],
+    'dividend':  # [已审 20261012] 日期参数都是单日时点、无发布日；全市场逐天各查 ann_date 和 imp_ann_date，逐股全部历史，
+        # 都 offset 翻页取全(稳定，越界返回空页)。"股东大会通过"行沿用预案 ann_date 且无 imp_ann_date，按日增量拿不到(无金额无日期)
+        [['dividend', 'none', 'none', 'none', '', 'C', '30'],
+         ['dividend', 'ts_code', 'table_index', 'stock_basic', '', 'C', '']],
 
     'top_list':
         ['top_list', 'trade_date', 'trade_date', '20050101', '', '', ''],
@@ -1875,15 +1877,8 @@ TUSHARE_API_MAP = {
     'top_inst':
         ['top_inst', 'trade_date', 'trade_date', '19901211', '', '', ''],
 
-    'sw_industry_detail':
-        ['index_member_all', 'l1_code', 'list',
-         '801010.SI, 801020.SI, 801030.SI, 801040.SI, 801050.SI, 801080.SI, '
-         '801110.SI, 801120.SI, 801130.SI, 801140.SI, 801150.SI, 801160.SI, '
-         '801170.SI, 801180.SI, 801200.SI, 801210.SI, 801230.SI, 801710.SI, '
-         '801720.SI, 801730.SI, 801740.SI, 801750.SI, 801760.SI, 801770.SI, '
-         '801780.SI, 801790.SI, 801880.SI, 801890.SI, 801950.SI, 801960.SI, '
-         '801970.SI, 801980.SI',
-         '', '', ''],
+    'sw_industry_detail':  # [已审 20261012] 不传行业码一次返回全部成分(含历史剔除)，无日期参数，offset 翻页取全(稳定，越界返回空页)
+        ['index_member_all', 'none', 'none', 'none', '', 'C', ''],
 
     'block_trade':
         ['block_trade', 'trade_date', 'trade_date', '20100101', '', '', ''],

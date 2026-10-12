@@ -258,9 +258,15 @@ def trade_cal(exchange: str = 'SSE',
     ...
     """
     pro = ts.pro_api()
-    res = guard('trade_cal', dict(start=start, end=end),
-                lambda start, end:
-                pro.trade_cal(exchange=exchange, start_date=start, end_date=end, is_open=is_open))
+    pages, offset = [], 0   # C 行：忽略 refill 的 start/end，一次取交易所成立至明年底的全部日历(日历必须超前于今天)；
+    while True:             # offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认，偏移按实际返回行数推进
+        page = guard('trade_cal', dict(exchange=exchange), lambda exchange:
+                     pro.trade_cal(exchange=exchange, is_open=is_open, offset=offset))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    res = pd.concat(pages, ignore_index=True) if pages else page
     logger_core.info(f'downloaded {len(res)} rows of data from tushare'
                      f' table trade_calendar with exchange={exchange}, start_date={start}'
                      f'end_date={end}, is_open={is_open}')
@@ -2453,8 +2459,14 @@ def dividend(ts_code: str = None,
              ann_date: str = None,
              record_date: str = None,
              ex_date: str = None,
-             imp_ann_date: str = None):
+             imp_ann_date: str = None,
+             start: str = None,
+             end: str = None):
     """ 获取分红送股数据
+
+    接口的日期参数都是单日时点，没有区间、没有发布日。不传 ts_code、传 start/end 是全市场模式：逐天各查一次
+    ann_date(预案等公告日)和 imp_ann_date(实施公告日)，两者都 offset 翻到空页。"股东大会通过"行沿用预案的 ann_date
+    且无 imp_ann_date，按日增量拿不到，该行无金额无日期。传 ts_code 是逐股：全部历史翻页取全。
 
     Parameters
     ----------
@@ -2493,10 +2505,26 @@ def dividend(ts_code: str = None,
     fields = 'ts_code, ann_date, end_date, div_proc, stk_div, stk_bo_rate, stk_co_rate, cash_div, cash_div_tax,' \
              ' record_date, ex_date, pay_date, div_listdate, imp_ann_date, base_date, base_share'
     pro = ts.pro_api()
-    res = guard('dividend', dict(ts_code=ts_code, ann_date=ann_date),
-                lambda ts_code, ann_date:
-                pro.dividend(ts_code=ts_code, ann_date=ann_date, record_date=record_date, ex_date=ex_date,
-                             imp_ann_date=imp_ann_date))
+
+    def pages_of(**kw):   # offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认，偏移按实际返回行数推进
+        pages, offset = [], 0
+        while True:
+            page = guard('dividend', dict(ts_code=kw.get('ts_code'), ann_date=kw.get('ann_date')),
+                         lambda ts_code, ann_date: pro.dividend(**kw, offset=offset))
+            if page.empty:
+                return pages
+            pages.append(page)
+            offset += len(page)
+
+    if not ts_code and ann_date is None and start and end:
+        start, end = (regulate_date_format(d, force_format='%Y%m%d') for d in (start, end))
+        pages = [p for day in pd.date_range(pd.to_datetime(start), pd.to_datetime(end)).strftime('%Y%m%d')
+                 for p in pages_of(ann_date=day) + pages_of(imp_ann_date=day)]
+    else:
+        pages = pages_of(ts_code=ts_code, ann_date=ann_date, record_date=record_date, ex_date=ex_date,
+                         imp_ann_date=imp_ann_date)
+    res = pd.concat(pages, ignore_index=True).drop_duplicates(['ts_code', 'end_date', 'div_proc']) if pages \
+        else pd.DataFrame()
     logger_core.info(f'Downloaded {len(res)} rows from tushare: dividend with ts_code={ts_code}, '
                      f'ann_date={ann_date}, record_date={record_date}, ex_date={ex_date}, imp_ann_date={imp_ann_date}')
     return res
@@ -2542,7 +2570,7 @@ def top_inst(trade_date: str = None,
 def index_member_all(l1_code: str = None,
                      l2_code: str = None,
                      l3_code: str = None,
-                     ts_code: str = None, ):
+                     ts_code: str = None, **_):   # C 行附带 start/end，用不上
     """ 获取申万行业分类明细(成分股)
 
     Parameters
@@ -2573,9 +2601,16 @@ def index_member_all(l1_code: str = None,
         is_new	        str	    Y	是否最新Y是N否
     """
     pro = ts.pro_api()
-    res = guard('index_member_all', dict(ts_code=ts_code),
-                lambda ts_code:
-                pro.index_member_all(l1_code=l1_code, l2_code=l2_code, l3_code=l3_code, ts_code=ts_code))
+    pages, offset = [], 0   # 不传任何码一次返回全部分类明细；offset 翻到空页取全(翻页实测稳定，越界返回空页)
+    while True:
+        page = guard('index_member_all', dict(ts_code=ts_code), lambda ts_code:
+                     pro.index_member_all(l1_code=l1_code, l2_code=l2_code, l3_code=l3_code, ts_code=ts_code,
+                                          offset=offset))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    res = pd.concat(pages, ignore_index=True) if pages else page
     logger_core.info(f'Downloaded {len(res)} rows from tushare: sw_industry_detail with l1_code={l1_code}, '
                      f'l2_code={l2_code}, l3_code={l3_code}, ts_code={ts_code}')
     return res
@@ -2923,12 +2958,19 @@ def ths_index(ts_code: str = None,
 def index_classify(index_code: str = None,
                    level: str = None,
                    parent_code: str = None,
-                   src: str = None) -> pd.DataFrame:
+                   src: str = None, **_) -> pd.DataFrame:   # C 行附带 start/end，用不上
     """ 获取申万行业分类"""
     pro = ts.pro_api()
-    res = guard('index_classify', dict(ts_code=index_code),
-                lambda ts_code:
-                pro.index_classify(index_code=ts_code, level=level, parent_code=parent_code, src=src))
+    pages, offset = [], 0   # offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认
+    while True:
+        page = guard('index_classify', dict(ts_code=index_code), lambda ts_code:
+                     pro.index_classify(index_code=ts_code, level=level, parent_code=parent_code, src=src,
+                                        offset=offset))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    res = pd.concat(pages, ignore_index=True) if pages else page
     logger_core.info(f'Downloaded {len(res)} rows from tushare: sw_industry with index_code={index_code}, '
                      f'level={level}, parent_code={parent_code}, src={src}')
     return res
