@@ -1632,7 +1632,7 @@ TUSHARE_API_MAP = {
     'hk_top10_stock':
         ['ggt_top10', 'trade_date', 'trade_date', '20100101', '', '', ''],
 
-    'index_basic':  # [已审 20261010] 单次上限 8000；CSI 超限，函数内按 category 分次，撞线报错；MSCI/CICC/OTH 实测 0 行
+    'index_basic':  # [已审 20261012] 按 market，无日期参数，offset 翻页取全(稳定，越界返回空页)；MSCI/CICC/OTH 实测 0 行
         ['index_basic', 'market', 'list', 'SSE,MSCI,CSI,SZSE,CICC,SW,OTH', '', 'C', ''],
 
     'fund_basic':

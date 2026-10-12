@@ -2867,27 +2867,17 @@ def index_basic(ts_code: str = None,
     """
     fields = 'ts_code, name, fullname, market, publisher, index_type, category, ' \
              'base_date, base_point, list_date, weight_rule, desc, exp_date'
-    max_rows = 8000
-    csi_categories = ['规模指数', '行业指数', '主题指数', '风格指数', '策略指数', '综合指数', '债券指数',
-                      '基金指数', '期货指数', '多资产指数', '其他指数']   # 实测 20261010 的全部类别
     pro = ts.pro_api()
-
-    def fetch(ts_code, market, category):
-        page = pro.index_basic(ts_code=ts_code, name=name, market=market, publisher=publisher, category=category,
-                               fields=fields)
-        if len(page) >= max_rows:
-            raise RuntimeError(f'index_basic market={market} category={category} returned {len(page)} rows'
-                               f' = api max, truncated')
-        return page
-
-    if market == 'CSI' and ts_code is None and category is None:
-        pages = [guard('index_basic', dict(ts_code=None, market=market), lambda ts_code, market, c=c:
-                       fetch(ts_code, market, c)) for c in csi_categories]
-        res = pd.concat([x for x in pages if not x.empty], ignore_index=True) if any(not x.empty for x in pages) \
-            else pages[0]
-    else:
-        res = guard('index_basic', dict(ts_code=ts_code, market=market),
-                    lambda ts_code, market: fetch(ts_code, market, category))
+    pages, offset = [], 0   # offset 翻到空页取全(翻页实测稳定，越界返回空页)，页大小由接口默认，偏移按实际返回行数推进
+    while True:
+        page = guard('index_basic', dict(ts_code=ts_code, market=market), lambda ts_code, market:
+                     pro.index_basic(ts_code=ts_code, name=name, market=market, publisher=publisher,
+                                     category=category, fields=fields, offset=offset))
+        if page.empty:
+            break
+        pages.append(page)
+        offset += len(page)
+    res = pd.concat(pages, ignore_index=True) if pages else page
     logger_core.info(f'Downloaded {len(res)} rows from tushare: index_basic with ts_code={ts_code}, '
                      f'name={name}, market={market}, publisher={publisher}, category={category}, fields={fields}')
     return res
