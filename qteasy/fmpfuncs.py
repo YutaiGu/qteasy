@@ -434,21 +434,14 @@ def us_fund_basic(ts_code: str = None, **_) -> pd.DataFrame:  # C 行附带 star
 
 
 def us_treasury(start: str = None, end: str = None) -> pd.DataFrame:
-    """美国国债收益率(%，FMP treasury-rates)，[start, end] 左右闭。
-
-    接口按自然日截断：区间超过 90 天时不报错，静默只返回最后 90 天(行数远小于 100，guard 看不出来)，所以函数自己按
-    90 个自然日分段请求；早年部分期限没有数据，为空。
+    """美国国债收益率(%，FMP treasury-rates)，[start, end] 左右闭，区间最多 90 天(文档，map 第 7 列分段)。
+    早年部分期限没有数据，为空。
     """
     if not (start and end):
         raise ValueError('us_treasury needs start and end')
-    start, end = pd.Timestamp(start), pd.Timestamp(end)
-    data, seg_start = [], start
-    while seg_start <= end:
-        seg_end = min(seg_start + pd.Timedelta(days=89), end)
-        data.extend(guard('treasury-rates', dict(), lambda:
-                          _fmp_get('treasury-rates', **{'from': seg_start.strftime('%Y-%m-%d'),
-                                                        'to': seg_end.strftime('%Y-%m-%d')})))
-        seg_start = seg_end + pd.Timedelta(days=1)
+    start, end = pd.Timestamp(start).strftime('%Y-%m-%d'), pd.Timestamp(end).strftime('%Y-%m-%d')
+    data = guard('treasury-rates', dict(start=start, end=end), lambda start, end:
+                 _fmp_get('treasury-rates', **{'from': start, 'to': end}), fmt='%Y-%m-%d')
     if not data:
         return pd.DataFrame()
     raw = pd.DataFrame(data)
@@ -649,18 +642,14 @@ def _us_latest_statement_codes(start: str, end: str) -> list:
 
     该接口只认 page/limit，不认日期，返回全球公司：从最新一页往回翻，翻到收录日早于 start 为止；读本地的依赖表
     us_stock_basic(map 第 8 列声明，下载前已更新)只留股票表里的代码。两端各放宽 1 天(收录时间的时区未知)，多拉的
-    股票只是多写已有的行。只能回看最近一段时间：start 太早或翻到最后一页仍未到 start 时报错，路由退到逐股行。
+    股票只是多写已有的行。只能回看最近一段时间：翻到最后一页仍未到 start 时报错。
     """
-    page_size, max_page = 250, 100  # 每页 250 条、最多 101 页(page 0~100)，实测约覆盖最近 52 天
-    max_days = 45  # start 早于这么多天前就不必尝试，直接报错
+    max_page = 100   # 文档：page 最大 100；页大小由接口默认(250，也是文档上限)
     if not start:
         raise ValueError('latest-financial-statements needs a start date')
     start_ts = pd.Timestamp(regulate_date_format(start, force_format='date')) - pd.Timedelta(days=1)
     end_ts = (pd.Timestamp(regulate_date_format(end, force_format='date')) if end
-              else pd.Timestamp.now().normalize()) + pd.Timedelta(days=1)
-    if start_ts < pd.Timestamp.now().normalize() - pd.Timedelta(days=max_days):
-        raise RuntimeError(f'latest-financial-statements only covers the last {max_days} days, '
-                           f'start={start} is too early')
+              else pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None)) + pd.Timedelta(days=1)
     from qteasy import QT_DATA_SOURCE
     stock_codes = set(QT_DATA_SOURCE.read_table_data('us_stock_basic').index)
     if not stock_codes:
@@ -669,7 +658,7 @@ def _us_latest_statement_codes(start: str, end: str) -> list:
     codes = set()
     for page in range(max_page + 1):
         data = guard('latest-financial-statements', dict(), lambda:
-                     _fmp_get('latest-financial-statements', page=page, limit=page_size))
+                     _fmp_get('latest-financial-statements', page=page))
         if not data:
             raise RuntimeError(f'latest-financial-statements page {page} is empty before reaching start={start}')
         added = pd.to_datetime([r['dateAdded'][:10] for r in data])

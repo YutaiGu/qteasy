@@ -2175,8 +2175,8 @@ FMP_API_MAP = {
     'fx_daily':  # [已审 20261006] historical-price-eod/full：股票/外汇同一接口，from/to 两端包含；≤5000条
         ['fx_daily', 'ts_code', 'table_index', 'fx_basic', '', 'Y', ''],
 
-    'us_treasury':  # [已审 20261006] treasury-rates：from/to 两端包含；按自然日截断，>90天静默只返回最后90天，函数内分段；1990年起
-        ['us_treasury', 'none', 'none', '', '', 'C', ''],
+    'us_treasury':  # [已审 20261012] treasury-rates：from/to 两端包含，区间最多 90 天(文档)；1990年起
+        ['us_treasury', 'none', 'none', '', '', 'Y', '89'],
 
     'us_estimates':  # [已审 20261006] analyst-estimates：symbol+period(annual/quarter)，page/limit 翻页，limit 最大 1000；按 date 降序；币种同财报申报币种；低档套餐无 quarter 时跳过
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_income'],
@@ -2187,8 +2187,8 @@ FMP_API_MAP = {
     'estimates_fmp':  # [已审 20261007] 与 us_estimates 同一个接口，只取 quarter；依赖 tushare 的 income 表
         ['estimates_fmp', 'ts_code', 'table_index', 'stock_basic', '', 'C', ''],
 
-    'us_income':  # [已审 20261005]
-        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+    'us_income':  # [已审 20261012]
+        # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司
         [['us_income_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
          # income-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_income', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
@@ -2199,8 +2199,8 @@ FMP_API_MAP = {
     'hk_earnings':  # [已审 20261010] 同 us_earnings
         ['hk_earnings', 'none', 'none', '', '', 'Y', '', 'hk_stock_basic'],
 
-    'us_balance':  # [已审 20261005]
-        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+    'us_balance':  # [已审 20261012]
+        # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司
         [['us_balance_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
          # balance-sheet-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
@@ -2211,8 +2211,8 @@ FMP_API_MAP = {
          # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
          ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
-    'us_cashflow':  # [已审 20261005]
-        # latest-financial-statements：只认 page/limit；按收录日从新到旧，250条/页，≤101页(约52天)；返回全球公司
+    'us_cashflow':  # [已审 20261012]
+        # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司
         [['us_cashflow_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
          # cash-flow-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
