@@ -193,10 +193,10 @@ def us_stock_basic(exchange: str = 'ALL', **_) -> pd.DataFrame:  # C 行附带 s
     holdings = pd.DataFrame(guard('etf/holdings', dict(), lambda:
                                   _fmp_get('etf/holdings', symbol='VONE')))
     rows, page = [], 0
-    while True:  # company-screener 按 page 翻页，每页 1000 条
+    while True:  # company-screener 按 page 翻到空页，页大小由接口默认
         data = guard('company-screener', dict(), lambda:
                      _fmp_get('company-screener', exchange='NASDAQ,NYSE,AMEX', isEtf='false', isFund='false',
-                              isActivelyTrading='true', includeAllShareClasses='true', page=page, limit=1000))
+                              isActivelyTrading='true', includeAllShareClasses='true', page=page))
         if not data:
             break
         rows.extend(data)
@@ -249,7 +249,7 @@ def hk_stock_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     while True:
         data = guard('company-screener', dict(), lambda:
                      _fmp_get('company-screener', exchange='HKSE', isEtf='false', isFund='false',
-                              isActivelyTrading='true', page=page, limit=1000))
+                              isActivelyTrading='true', page=page))
         if not data:
             break
         rows.extend(data)

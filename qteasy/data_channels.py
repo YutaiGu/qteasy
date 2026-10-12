@@ -1803,7 +1803,7 @@ TUSHARE_API_MAP = {
     'fund_adj_factor':
         ['fund_adj', 'trade_date', 'trade_date', '19980407', '', '', ''],
 
-    'stock_indicator':  # [已审 20261007] daily_basic：单次 6000 行(文档)；全市场按交易日翻页(实测翻页稳定)；有 symbols 逐股区间请求
+    'stock_indicator':  # [已审 20261012] daily_basic 全市场按交易日 offset 翻页取全(稳定，越界返回空页)
         [['daily_basic', 'trade_date', 'trade_date', '19990101', '', 'C', ''],
          ['daily_basic', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
 
@@ -1840,7 +1840,7 @@ TUSHARE_API_MAP = {
     'financial':
         ['indicators', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'forecast':  # [已审 20261007] forecast_vip：无 symbols 按公告日区间拉全市场，实测单次上限 6500 行；有 symbols 逐股。forecast 只能逐股，单次 3500 行(文档)
+    'forecast':  # [已审 20261012] forecast_vip 可按公告日区间拉全市场；forecast(普通)只认 ts_code
         [['forecast_vip', 'none', 'none', 'none', '', 'Y', ''],
          ['forecast_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['forecast', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
@@ -1861,7 +1861,7 @@ TUSHARE_API_MAP = {
         # 这几张表要先单独更新好，不写第 8 列：依赖表机制按本次 refill 的区间拉，派生需要的是全部历史
         ['estimates', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
 
-    'express':  # [已审 20261007] express_vip：无 symbols 按公告日区间拉全市场，实测单次上限 5000 行；有 symbols 逐股。express 只能逐股
+    'express':  # [已审 20261012] express_vip 可按公告日区间拉全市场；express(普通)只认 ts_code
         [['express_vip', 'none', 'none', 'none', '', 'Y', ''],
          ['express_vip', 'ts_code', 'table_index', 'stock_basic', '', 'Y', ''],
          ['express', 'ts_code', 'table_index', 'stock_basic', '', 'Y', '']],
@@ -2140,25 +2140,25 @@ FMP_API_MAP = {
     'trade_calendar':
         ['us_trade_calendar', 'none', 'none', '', '', 'Y', ''],
 
-    'us_stock_basic':  # [已审 20261006] etf/holdings：只认 symbol，单页；company-screener：1000条/页
+    'us_stock_basic':  # [已审 20261012] etf/holdings：只认 symbol，单页；company-screener 按 page 翻到空页
         ['us_stock_basic', 'exchange', 'list', 'ALL', '', 'C', ''],
 
-    'hk_stock_basic':  # [已审 20261006] company-screener 1000条/页；analyst-estimates、profile 只认 symbol；一次刷新约 3600 次调用
+    'hk_stock_basic':  # [已审 20261012] company-screener 按 page 翻到空页；analyst-estimates、profile 只认 symbol
         ['hk_stock_basic', 'none', 'none', '', '', 'C', ''],
 
-    'us_stock_daily':  # [已审 20261006] non-split-adjusted：from/to 两端包含；≤5000条；AAPL 1980年起
+    'us_stock_daily':  # [已审 20261006] non-split-adjusted：from/to 两端包含；AAPL 1980年起
         ['us_stock_daily', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
     'hk_stock_daily':  # [已审 20261006] 与 us_stock_daily 同一个接口
         ['us_stock_daily', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', ''],
 
-    'us_stock_indicator':  # [已审 20261006] historical-market-capitalization：from/to 两端包含；≤5000条
+    'us_stock_indicator':  # [已审 20261006] historical-market-capitalization：from/to 两端包含
         ['us_stock_indicator', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', '', 'us_stock_daily'],
 
     'hk_stock_indicator':  # [已审 20261006] 与 us_stock_indicator 同一个接口
         ['hk_stock_indicator', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '', 'hk_stock_daily'],
 
-    'us_stock_daily_adj':  # [已审 20261006] dividend-adjusted：from/to 两端包含；≤5000条
+    'us_stock_daily_adj':  # [已审 20261006] dividend-adjusted：from/to 两端包含
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', ''],
 
     'us_fund_basic':  # [已审 20261006] etf/info：只认 symbol，一次返回一只
@@ -2170,13 +2170,13 @@ FMP_API_MAP = {
     'fx_basic':  # [已审 20261006] forex-list：无参数，一次返回全部 1551 对
         ['fx_basic', 'none', 'none', '', '', 'C', ''],
 
-    'fx_daily':  # [已审 20261006] historical-price-eod/full：股票/外汇同一接口，from/to 两端包含；≤5000条
+    'fx_daily':  # [已审 20261006] historical-price-eod/full：股票/外汇同一接口，from/to 两端包含
         ['fx_daily', 'ts_code', 'table_index', 'fx_basic', '', 'Y', ''],
 
     'us_treasury':  # [已审 20261012] treasury-rates：from/to 两端包含，区间最多 90 天(文档)；1990年起
         ['us_treasury', 'none', 'none', '', '', 'Y', '89'],
 
-    'us_estimates':  # [已审 20261006] analyst-estimates：symbol+period(annual/quarter)，page/limit 翻页，limit 最大 1000；按 date 降序；币种同财报申报币种；低档套餐无 quarter 时跳过
+    'us_estimates':  # [已审 20261012] analyst-estimates：symbol+period(annual/quarter)，按 page 翻到空页，默认页 10 条、传文档最大 limit 1000；币种同财报申报币种；低档套餐无 quarter 时跳过
         ['us_estimates', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_income'],
 
     'hk_estimates':  # [已审 20261007] 与 us_estimates 同一个接口

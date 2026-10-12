@@ -740,15 +740,15 @@ def daily_basic(ts_code: object = None,
     9    000001.SZ    20180702  11.01         0.0000  ...     165.000  1845.000  1845.000000
     """
     pro = ts.pro_api()
-    if trade_date and not ts_code:  # 全市场单日：股票数已接近单次上限 6000，按 limit/offset 翻到空页(C 行)
-        page_size, pages, offset = 6000, [], 0
+    if trade_date and not ts_code:  # 全市场单日：offset 翻到空页取全(C 行)，页大小由接口默认，偏移按实际返回行数推进
+        pages, offset = [], 0
         while True:
             page = guard('daily_basic', dict(trade_date=trade_date), lambda trade_date:
-                         pro.daily_basic(trade_date=trade_date, limit=page_size, offset=offset))
+                         pro.daily_basic(trade_date=trade_date, offset=offset))
             if page.empty:
                 break
             pages.append(page)
-            offset += page_size
+            offset += len(page)
         res = pd.concat(pages, ignore_index=True) if pages else pd.DataFrame()
     else:
         res = guard('daily_basic', dict(ts_code=ts_code, trade_date=trade_date, start=start, end=end),
@@ -2344,7 +2344,7 @@ def forecast(ts_code: str = None,
 
 
 def forecast_vip(**kwargs) -> pd.DataFrame:
-    """forecast 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场(区间请求，guard 切)。实测单次上限 6500 行。"""
+    """forecast 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场。"""
     return forecast(_vip=True, **kwargs)
 
 
@@ -2422,7 +2422,7 @@ def express(ts_code: str = None,
 
 
 def express_vip(**kwargs) -> pd.DataFrame:
-    """express 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场(区间请求，guard 切)。实测单次上限 5000 行。"""
+    """express 的 vip 接口，参数一致，可不传 ts_code 按公告日区间拉全市场。"""
     return express(_vip=True, **kwargs)
 
 
