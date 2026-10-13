@@ -25,7 +25,7 @@ class EstimateDatabase:
     定权重，代替简单平均。只有拿得到单个分析师预测的市场用得上(A股 report_rc)；FMP 只给共识，
     美股用不到这组方法。所有取值都由数据算出，没有可调参数。
     """
-    COMPARE_KEYS = ['eps', 'revenue', 'net_profit', 'ebitda', 'ebit']
+    COMPARE_KEYS = ['eps', 'revenue', 'net_profit', 'ebitda', 'ebit', 'dividend']
     COMPARE_TOL = 0.01  # 共识相对变化 >1% 才记一条；吸收汇率抖动与单分析师噪声
 
     # ── 共识加权：打分 → 能力 → 权重 ──
@@ -95,9 +95,18 @@ class EstimateDatabase:
 
     @staticmethod
     def consensus(forecast: pd.Series, weight: pd.Series) -> tuple:
-        """加权共识 (均值, 最高, 最低)。高低值只在有权重的人里取，与均值同口径。"""
+        """加权共识 (均值, 最高, 最低)。高低值只在有权重的人里取，与均值同口径。
+
+        离群值不参与：MAD 修正 z 分数 |0.6745·(x − 中位数) / MAD| > 3.5(Iglewicz & Hoaglin)，
+        小样本、非正态也适用；MAD 为 0(多数人给同一个数)时按同一文献改用平均绝对偏差 × 1.2533。
+        """
         forecast = pd.to_numeric(forecast, errors='coerce')
         valid = forecast.notna() & (weight.reindex(forecast.index).fillna(0) > 0)
+        if valid.sum() >= 3:
+            deviation = (forecast[valid] - forecast[valid].median()).abs()
+            scale = deviation.median() / 0.6745 if deviation.median() > 0 else deviation.mean() * 1.2533
+            if scale > 0:
+                valid &= (forecast - forecast[valid].median()).abs() / scale <= 3.5
         if not valid.any():
             return None, None, None
         value, share = forecast[valid], weight.reindex(forecast.index)[valid]
@@ -109,8 +118,10 @@ class EstimateDatabase:
         if base is None:
             return True
         for c in self.COMPARE_KEYS:
-            if pd.isna(row[c]) or pd.isna(base[c]):   # 任一侧缺值 → 当作相同，跳过该列
+            if pd.isna(row[c]) and pd.isna(base[c]):   # 两侧都缺 → 相同
                 continue
+            if pd.isna(row[c]) or pd.isna(base[c]):    # 缺值与有值之间 → 变化(如股息率首次出现)
+                return True
             a, b = float(row[c]), float(base[c])
             if abs(a - b) > abs(b) * self.COMPARE_TOL:
                 return True  # 相对变化超阈值 → 实质变化
@@ -379,11 +390,12 @@ class AEstimateDatabase(EstimateDatabase):
         except Exception:
             ind = pd.DataFrame()
         if ind.empty or 'total_share' not in ind.columns:
-            history = pd.DataFrame(columns=['trade_date', 'total_share'])
+            history = pd.DataFrame(columns=['trade_date', 'total_share', 'close'])
         else:
-            history = ind[['trade_date', 'total_share']].copy()
+            history = ind[['trade_date', 'total_share', 'close']].copy()   # close：股息率与每股分红互换用
             history['trade_date'] = pd.to_datetime(history['trade_date'], errors='coerce')
             history['total_share'] = pd.to_numeric(history['total_share'], errors='coerce')
+            history['close'] = pd.to_numeric(history['close'], errors='coerce')
             history = history.dropna().drop_duplicates('trade_date', keep='last').sort_values('trade_date')
         cls._share_cache[ts_code] = history
         return history
@@ -407,22 +419,26 @@ class AEstimateDatabase(EstimateDatabase):
         rc['_revenue']    = pd.to_numeric(rc['op_rt'], errors='coerce') * 1e4
         rc['_net_profit'] = pd.to_numeric(rc['np'],    errors='coerce') * 1e4
         rc = self._to_single_quarter(rc)
-        rc['_dividend']   = pd.to_numeric(rc['rd'], errors='coerce')
+        rc['_yield']      = pd.to_numeric(rc['rd'], errors='coerce').where(lambda s: s > 0)   # 预测股息率(%)，0 即未给
         rc['_tp']         = rc[['max_price', 'min_price']].apply(
                                 lambda c: pd.to_numeric(c, errors='coerce')).mean(axis=1)
 
         shares = self._share_history(ts_code, data_source) if data_source is not None else None
         if shares is None or shares.empty:
             rc['_shares'] = None
+            rc['_dividend'] = None
             return rc
         merged = pd.merge_asof(rc.sort_values('report_date_dt'), shares,
                                left_on='report_date_dt', right_on='trade_date', direction='backward')
         merged['_shares'] = merged['total_share'] * 1e4              # 研报当日总股本(股)
+        # 研报给的是股息率，各自按研报日股价算，不可直接平均：按研报【当日】收盘价折成每股分红(元)，
+        # 共识后再按快照日股价换回股息率，价格口径统一到快照日
+        merged['_dividend'] = merged['_yield'] / 100 * merged['close']
         # 少数研报只给每股收益不给金额：用研报【当日】股本折成金额，口径与其他条一致
         only_eps = merged['_net_profit'].isna() & merged['_shares'].notna()
         merged.loc[only_eps, '_net_profit'] = (
             pd.to_numeric(merged.loc[only_eps, 'eps'], errors='coerce') * merged.loc[only_eps, '_shares'])
-        return merged.drop(columns=['trade_date', 'total_share'])
+        return merged.drop(columns=['trade_date', 'total_share', 'close'])
 
     @staticmethod
     def _to_single_quarter(rc):
@@ -623,18 +639,29 @@ class AEstimateDatabase(EstimateDatabase):
             return None
         return float(shares['total_share'].iloc[position]) * 1e4
 
+    @staticmethod
+    def _close_at(shares, day):
+        """快照当日(或之前最近交易日)的收盘价；查不到返回 None。"""
+        if shares is None or shares.empty:
+            return None
+        position = shares['trade_date'].searchsorted(day, side='right') - 1
+        return float(shares['close'].iloc[position]) if position >= 0 else None
+
     def _snapshot(self, rc, obs_date, ts_code, stale_days, disc=None, skill_of=None, herd=None,
                   shares=None):
         """obs_date 这天的共识快照(每机构取≤该日最新预测) → df(列对齐 self.COLUMNS)。
 
-        只保留 obs_date < 该期披露日(预告/快报/财报最早者,缺则法定截止)的期:已披露=实际,不再算预期。
+        窗口左端 = 该股最近一次披露日(任一期的预告/快报/财报最早者)：披露后信息更新，之前的研报不再参与，
+        与打分窗口同一口径；没有披露记录时退到 stale_days。
+        只保留 obs_date < 该期披露日(缺则法定截止)的期:已披露=实际,不再算预期。
         共识按分析师历史准确度加权；skill_of/herd 由 build 按"当日已揭晓"的分数算好传入，
         不传则退化为等权(即简单平均)。
         """
         skill_of, herd = skill_of or {}, herd or {}
         disc = disc or {}
-        win = rc[(rc['report_date_dt'] <= obs_date) &
-                 (rc['report_date_dt'] >= obs_date - pd.Timedelta(days=stale_days))]
+        since = [d for d in disc.values() if d <= obs_date]
+        left = max(since) if since else obs_date - pd.Timedelta(days=stale_days)
+        win = rc[(rc['report_date_dt'] <= obs_date) & (rc['report_date_dt'] >= left)]
         if win.empty:
             return pd.DataFrame(columns=self.COLUMNS)
         latest = (win.sort_values('report_date_dt')
@@ -644,10 +671,16 @@ class AEstimateDatabase(EstimateDatabase):
             expiry = disc.get(tdate) or self._legal_deadline(tdate, tp)
             if obs_date >= expiry:        # 该期实际已披露 → 共识失效,右开不含
                 continue
-            np_w = self._metric_weights(g, 'score_np', skill_of, herd)
-            rev_w = self._metric_weights(g, 'score_op_rt', skill_of, herd)
-            np_m,  np_h,  np_l  = self.consensus(g['_net_profit'], np_w)
-            rev_m, rev_h, rev_l = self.consensus(g['_revenue'], rev_w)
+            # 每个指标只在给了该值的机构里算权重再加权：抱团扣减在子集内做，不会被不给该值的机构挤成 0
+            def agg(values, score_column):
+                values = pd.to_numeric(values, errors='coerce')
+                given = g[values.notna()]
+                if given.empty:
+                    return None, None, None
+                return self.consensus(values[given.index], self._metric_weights(given, score_column, skill_of, herd))
+
+            np_m,  np_h,  np_l  = agg(g['_net_profit'], 'score_np')
+            rev_m, rev_h, rev_l = agg(g['_revenue'], 'score_op_rt')
             if np_m is None and rev_m is None:                        # 该期无可用预测(如单季缺相邻期)
                 continue
             # eps 由共识净利润除以【快照当日】股本派生：送转前后各研报的股本口径不同，
@@ -655,12 +688,16 @@ class AEstimateDatabase(EstimateDatabase):
             base = self._shares_at(shares, obs_date)
             eps_m, eps_h, eps_l = ((round(v / base, 4) if v is not None else None)
                                    for v in (np_m, np_h, np_l)) if base else (None, None, None)
-            # 目标价是每股价格，送转后旧研报的口径会失真，按股本比例折到当日再加权
+            # 目标价、每股分红都是每股值，送转后旧研报的口径会失真，按股本比例折到当日再加权
             target = pd.to_numeric(g['_tp'], errors='coerce')
+            dps = pd.to_numeric(g['_dividend'], errors='coerce')
             if base and '_shares' in g:
-                target = target * pd.to_numeric(g['_shares'], errors='coerce') / base
-            tp_v, _, _ = self.consensus(target, np_w)
-            dv_v, _, _ = self.consensus(pd.to_numeric(g['_dividend'], errors='coerce'), np_w)
+                ratio = pd.to_numeric(g['_shares'], errors='coerce') / base
+                target, dps = target * ratio, dps * ratio
+            tp_v, _, _ = agg(target, 'score_np')
+            dps_v, _, _ = agg(dps, 'score_np')   # 每股分红(元)
+            close = self._close_at(shares, obs_date)
+            dv_v = dps_v / close * 100 if dps_v is not None and close else None            # 按快照日股价换回股息率(%)
             rows.append({
                 'ts_code': ts_code, 'trade_date': obs_date.normalize(),
                 'target_date': tdate, 'target_period': tp, 'currency': 'CNY',
