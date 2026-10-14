@@ -276,6 +276,9 @@ class AEstimateDatabase(EstimateDatabase):
             part = df[['end_date', 'ann_date']].dropna()
             part['end_date'] = pd.to_datetime(part['end_date'])
             part['ann_date'] = pd.to_datetime(part['ann_date'])
+            # Qt 的预告/快报只会在 Qt-1 结束之后出；更早的(如年报里附带的下年预计)不是披露
+            if table != 'income':
+                part = part[part['ann_date'] > part['end_date'] - pd.DateOffset(months=3)]
             dates.append(part)
         if not dates:
             return {}
