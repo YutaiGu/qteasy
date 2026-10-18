@@ -251,6 +251,15 @@ TABLE_MASTERS = {
     'us_fund_basic':
         ['us_fund_basic', '美股ETF基本信息', 'basics', 'FD-US', 'none', '', '', ''],
 
+    'us_fund_5min':
+        ['min_bars', '美股ETF5分钟K线行情', 'mins', 'FD-US', '5min', '', 'ts_code', '10'],
+
+    'us_index_basic':
+        ['us_index_basic', '美股指数基本信息', 'basics', 'IDX-US', 'none', '', '', ''],
+
+    'us_index_5min':
+        ['min_bars', '美股指数5分钟K线行情', 'mins', 'IDX-US', '5min', '', 'ts_code', '10'],
+
     'fx_basic':
         ['fx_basic', '外汇货币对基本信息', 'basics', 'FX', 'none', '', '', ''],
 
@@ -617,6 +626,12 @@ TABLE_SCHEMA = {
                         'varchar(4)', 'varchar(10)', 'varchar(12)', 'varchar(9)', 'varchar(255)', 'text'],
          'remarks':    ['基金代码', '名称', '资产类别', '管理人', '成立日期', '费率(%)',
                         '净值币种', '注册地', 'ISIN', 'CUSIP', '官网', '简介'],
+         'prime_keys': [0]},
+
+    'us_index_basic':  # 美股指数基本信息(FMP index-list)，只留 USD 计价的指数
+        {'columns':    ['ts_code', 'name', 'exchange', 'currency'],
+         'dtypes':     ['varchar(20)', 'varchar(120)', 'varchar(10)', 'varchar(3)'],
+         'remarks':    ['指数代码(如 ^NDX)', '指数名称', '交易所', '币种'],
          'prime_keys': [0]},
 
     'fx_basic':  # 外汇货币对基本信息(FMP forex-list)，只留对 USD 报价的货币对

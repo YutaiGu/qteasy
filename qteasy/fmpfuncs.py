@@ -94,6 +94,20 @@ def _fmp_get(endpoint: str, **params) -> list:
         attempt += 1
 
 
+def us_index_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
+    """美股指数基本信息(FMP index-list)，只留 USD 计价的指数。"""
+    raw = pd.DataFrame(guard('index-list', dict(), lambda: _fmp_get('index-list')))
+    if raw.empty:
+        raise ValueError('index-list returned no data')
+    raw = raw[raw['currency'] == 'USD']
+    return pd.DataFrame({
+        'ts_code':  raw['symbol'].values,
+        'name':     raw['name'].values,
+        'exchange': raw['exchange'].values,
+        'currency': raw['currency'].values,
+    })
+
+
 def fx_basic(**_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     """外汇货币对基本信息(FMP forex-list)，只留对 USD 报价的货币对：库里的外币金额都是折成 USD 用的。"""
     raw = pd.DataFrame(guard('forex-list', dict(), lambda: _fmp_get('forex-list')))
@@ -315,6 +329,37 @@ def us_stock_daily(ts_code: str = None,
         'high':       raw['adjHigh'],
         'low':        raw['adjLow'],
         'close':      raw['adjClose'],
+        'vol':        raw['volume'],
+    })
+
+
+def index_5min(ts_code: str = None,
+               start: str = None,
+               end: str = None) -> pd.DataFrame:
+    """指数 5 分钟 K 线(FMP historical-chart/5min)，[start, end] 左右闭。
+
+    FMP 代码：.SH → .SS，.SZ 不变；入库仍用 tushare 代码。接口只返回 to 往前 10 个自然日，更早的静默丢弃，
+    由 map 第 7 列按 9 天分段保证取全。时间为交易所当地时间，原样入库；成交额接口没有，留空。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    symbol = ts_code[:-3] + '.SS' if ts_code.endswith('.SH') else ts_code
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-chart/5min', dict(ts_code=symbol, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-chart/5min', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    return pd.DataFrame({
+        'ts_code':    ts_code,
+        'trade_time': pd.to_datetime(raw['date']),
+        'open':       raw['open'],
+        'high':       raw['high'],
+        'low':        raw['low'],
+        'close':      raw['close'],
         'vol':        raw['volume'],
     })
 

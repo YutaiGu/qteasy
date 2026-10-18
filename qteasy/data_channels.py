@@ -2159,6 +2159,18 @@ FMP_API_MAP = {
     'us_fund_daily_adj':  # [已审 20261006] 与 us_stock_daily_adj 同一个接口
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', ''],
 
+    'index_5min':  # [已审 20261015] historical-chart/5min：from/to 两端包含；只返回 to 往前 10 个自然日(实测，文档未写)，更早的静默丢弃，按 9 天分段；A 股指数只有 000001.SS，2023 年起，成交量不可靠
+        ['index_5min', 'ts_code', 'table_index', 'index_basic', 'SH,SZ', 'Y', '9'],
+
+    'us_fund_5min':  # [已审 20261017] 与 index_5min 同一个接口；QQQ 2011-04 起
+        ['index_5min', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', '9'],
+
+    'us_index_basic':  # [已审 20261016] index-list：api 无任何参数，自保；只留 USD 计价
+        ['us_index_basic', 'none', 'none', '', '', 'C', ''],
+
+    'us_index_5min':  # [已审 20261016] 与 index_5min 同一个接口；美东时间，bar 为开始时刻；^NDX 2020-11 起、^IXIC 2024 年起
+        ['index_5min', 'ts_code', 'table_index', 'us_index_basic', '', 'Y', '9'],
+
     'fx_basic':  # [已审 20261012] forex-list：api 无任何参数，自保
         ['fx_basic', 'none', 'none', '', '', 'C', ''],
 
