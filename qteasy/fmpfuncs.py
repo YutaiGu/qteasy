@@ -452,6 +452,66 @@ def us_stock_daily_adj(ts_code: str = None,
     })
 
 
+def _fmp_adj_factor(ts_code: str, start: str, end: str, daily_table: str, div_table: str, split_table: str,
+                    adj_table: str) -> pd.DataFrame:
+    """复权因子(与 tushare adj_factor 同义)：本地日线第一天 = 1，只在事件日跳变，其余日严格不变；写入后不改。
+
+    只按本地事件表算：拆股 × 拆后/拆前(分拆上市同)，分红 × 前收/(前收 − 股息)。分红表的金额已是交易币种、
+    同日多条已挑过，这里同日直接相加。不用 FMP 前复权价核对、不兜底：它自己的错(金额、漏事件、抖动)比事件表多。
+    每次从本地已存的最后一天接着算到 end。
+    """
+    from qteasy import QT_DATA_SOURCE as ds
+    end = regulate_date_format(end, force_format='date') if end else None
+    raw = ds.read_table_data(daily_table, shares=ts_code, start='2010-01-01', end=end, primary_key_in_index=False)
+    if raw.empty:
+        return pd.DataFrame()
+    raw = raw.assign(trade_date=pd.to_datetime(raw['trade_date'])).set_index('trade_date')['close'].sort_index()
+    pc = raw.shift(1)
+    stored = ds.read_table_data(adj_table, shares=ts_code, primary_key_in_index=False)
+    if stored.empty:
+        prev, todo = 1.0, raw.index[1:]
+        out = [(raw.index[0], 1.0)]
+    else:
+        last = stored.assign(trade_date=pd.to_datetime(stored['trade_date'])).sort_values('trade_date').iloc[-1]
+        prev, todo = float(last['adj_factor']), raw.index[raw.index > pd.Timestamp(last['trade_date'])]
+        out = []
+    if len(todo) == 0:
+        return pd.DataFrame()
+
+    def on_day(dates):  # 非交易日的事件归到下一个交易日
+        pos = raw.index.searchsorted(pd.to_datetime(dates))
+        return raw.index[pos.clip(max=len(raw) - 1)]
+    spl = ds.read_table_data(split_table, shares=ts_code, primary_key_in_index=False)
+    split = (spl['numerator'] / spl['denominator']).groupby(on_day(spl['ex_date'])).prod() if not spl.empty \
+        else pd.Series(dtype='float64', index=pd.DatetimeIndex([]))
+    div = ds.read_table_data(div_table, shares=ts_code, primary_key_in_index=False)
+    cash = div.groupby(on_day(div['ex_date']))['cash_div_tax'].sum() if not div.empty \
+        else pd.Series(dtype='float64', index=pd.DatetimeIndex([]))
+
+    for t in todo:
+        ratio = split.get(t, 1.0)
+        d = cash.get(t, 0.0)
+        if pd.notna(pc[t]) and pc[t] > d > 0:
+            ratio *= pc[t] / (pc[t] - d)
+        prev *= ratio
+        out.append((t, prev))
+    res = pd.DataFrame(out, columns=['trade_date', 'adj_factor'])
+    res.insert(0, 'ts_code', ts_code)
+    return res
+
+
+def us_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    return _fmp_adj_factor(ts_code, start, end, 'us_stock_daily', 'us_dividend', 'us_split', 'us_stock_adj_factor')
+
+
+def hk_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    if ts_code is None:
+        return pd.DataFrame()
+    return _fmp_adj_factor(ts_code, start, end, 'hk_stock_daily', 'hk_dividend', 'hk_split', 'hk_stock_adj_factor')
+
+
 def us_fund_basic(ts_code: str = None, **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     """美股 ETF 基本信息(FMP etf/info)，一次一只。只存不随时间变的字段：规模、成交量、净值、持仓数等快照
     不存；行业分布(sectorsList)是一对多的数据，也不在这张表里。"""
@@ -745,12 +805,15 @@ def us_cashflow_latest(start: str = None, end: str = None) -> pd.DataFrame:
     return _us_latest_statements('us_cashflow', start, end)
 
 
-def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
+def _us_dividend_frame(data: list, start: str, end: str, daily_table: str = 'us_stock_daily') -> pd.DataFrame:
     """把 FMP 分红记录(dividends / dividends-calendar 字段相同)整理成 us_dividend 表，只留除息日在 [start, end] 内的。
 
-    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告币种的原始每股金额(ADR 是本币)；cash_div_adj 为交易币种、
-    按之后拆股折算到今天的每股金额(FMP adjDividend)，算复权因子用它。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
+    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为每股税前金额、交易币种(美股美元、港股港币)，不按之后的拆股调整：
+    FMP 的 dividend 对美股外国公司是本币且无币种字段，写入时按前复权价反推成美元(见 _pick_same_day)。
+    adjDividend 不存：它按下载当天为止的拆股折算，会随时间变。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
     宣告日、登记日、派息日可以没有：FMP 用空字符串或 0001-01-01(日期类型的最小值)表示，都按空值。
+    同一(代码, 除息日)多条(多数是同一笔分红按不同汇率/修正前后记了两遍，偶有真的两笔)：用 FMP 前复权价在除息日
+    前后的变化反推实际金额，在"单独某条 / 全部相加"里取最接近的，只存选中的；前收从本地 daily_table 读，没有就全存。
     """
     if not data:
         return pd.DataFrame()
@@ -765,7 +828,6 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
         'ts_code':     raw['symbol'],
         'ex_date':     pd.to_datetime(raw['date']),
         'cash_div_tax': raw['dividend'].astype('float64'),
-        'cash_div_adj': raw['adjDividend'].astype('float64'),
         'ann_date':    pd.to_datetime(raw['declarationDate'].replace(no_date, None)),
         'record_date': pd.to_datetime(raw['recordDate'].replace(no_date, None)),
         'pay_date':    pd.to_datetime(raw['paymentDate'].replace(no_date, None)),
@@ -774,7 +836,74 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
         res = res[res['ex_date'] >= pd.Timestamp(regulate_date_format(start, force_format='date'))]
     if end:
         res = res[res['ex_date'] <= pd.Timestamp(regulate_date_format(end, force_format='date'))]
-    return res.reset_index(drop=True)
+    return _pick_same_day(res.reset_index(drop=True), daily_table)
+
+
+def _implied_dividend(tk, t, raw, k):
+    """用 FMP 前复权价 / 原始价的比值 k 在除息日 t 前后的变化反推股息(交易币种)。
+    窗口 t-2 → t：前两天防 FMP 早一天调；只到当天，当天就要出因子。全量时 t+1 已有的话查一下 FMP 是否晚一天才调，是就 warning。"""
+    i = raw.index.get_loc(t)
+    if i < 2 or raw.index[i - 2] not in k.index or t not in k.index:
+        return None
+    implied = raw.iloc[i - 1] * (1 - k[raw.index[i - 2]] / k[t])
+    if i + 1 < len(raw) and raw.index[i + 1] in k.index:
+        n = raw.index[i + 1]
+        late = k[n] / k[t] - 1
+        if abs(late) > 0.01 / (k[t] * raw[t]) + 0.01 / (k[n] * raw[n]):  # 两天 adj 价各 ±0.01(FMP 两次舍入，实测到 0.0087)
+            warnings.warn(f'{tk} {t.date()}: FMP 前复权价在除息日后一天又变了 {late:.4%}，可能晚一天才调')
+    return implied
+
+
+def _pick_same_day(res: pd.DataFrame, daily_table: str) -> pd.DataFrame:
+    """分红表写入前的两件事，都靠 FMP 前复权价 / 本地原始价在除息日前后的变化反推 FMP 实际用的金额：
+    1. 美股的外国公司(basic 表 country ≠ US)：FMP 给的是本币且无币种字段，金额改成反推出的美元；反推不了的不写，下次再来。
+    2. 同一(代码, 除息日)多条：在"单独某条 / 全部相加"里取最接近反推值的，只存选中的；反推不了的全存。
+    港股 FMP 已折成港币，只做第 2 件。"""
+    if res.empty:
+        return res
+    from qteasy import QT_DATA_SOURCE as ds
+    foreign = set()
+    if daily_table == 'us_stock_daily':
+        basic = ds.read_table_data('us_stock_basic', shares=','.join(sorted(set(res['ts_code']))), primary_key_in_index=False)
+        if not basic.empty:
+            foreign = set(basic.loc[basic['country'] != 'US', 'ts_code'])
+    dup = res.duplicated(['ts_code', 'ex_date'], keep=False)
+    todo = res[dup | res['ts_code'].isin(foreign)]
+    if todo.empty:
+        return res
+    res = res.copy()
+    keep = pd.Series(True, index=res.index)
+    for tk, g_all in todo.groupby('ts_code'):
+        lo = (g_all['ex_date'].min() - pd.Timedelta(days=10)).strftime('%Y-%m-%d')
+        hi = (g_all['ex_date'].max() + pd.Timedelta(days=10)).strftime('%Y-%m-%d')
+        raw = ds.read_table_data(daily_table, shares=tk, start=lo, end=hi, primary_key_in_index=False)
+        data = [] if raw.empty else guard('historical-price-eod/dividend-adjusted', dict(ts_code=tk, start=lo, end=hi),
+                                          lambda ts_code, start, end:
+                                          _fmp_get('historical-price-eod/dividend-adjusted', symbol=ts_code, **{'from': start, 'to': end}),
+                                          fmt='%Y-%m-%d')
+        if not data:
+            if tk in foreign:
+                keep[g_all.index] = False
+            continue
+        raw = raw.assign(trade_date=pd.to_datetime(raw['trade_date'])).set_index('trade_date')['close'].sort_index()
+        adj = pd.DataFrame(data).assign(date=lambda d: pd.to_datetime(d['date'])).set_index('date')['adjClose']
+        k = (adj.astype('float64') / raw).dropna()
+        for t, g in g_all.groupby('ex_date'):
+            implied = _implied_dividend(tk, t, raw, k) if t in raw.index else None
+            if tk in foreign:
+                if implied is None or implied <= 0:
+                    keep[g.index] = False
+                else:
+                    keep[g.index] = False
+                    keep[g.index[0]] = True
+                    res.loc[g.index[0], 'cash_div_tax'] = round(float(implied), 6)
+            elif len(g) > 1 and implied is not None:
+                amounts = g['cash_div_tax'].tolist()
+                best = min(amounts + [sum(amounts)], key=lambda x: abs(x - implied))
+                if best in amounts:  # 只留最接近的那一条；最接近"全部相加"则都留
+                    keep[g.index] = False
+                    keep[g['cash_div_tax'].sub(best).abs().idxmin()] = True
+    return res[keep].reset_index(drop=True)
 
 
 def _earnings_calendar(basic_table: str) -> pd.DataFrame:
@@ -880,11 +1009,17 @@ def _fmp_calendar(endpoint: str, basic_table: str, frame, start: str, end: str) 
 
 
 def hk_dividend(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
-    return us_dividend(ts_code, start, end)
+    if ts_code is None:
+        return pd.DataFrame()
+    data = guard('dividends', dict(ts_code=ts_code), lambda ts_code:
+                 _fmp_get('dividends', symbol=ts_code, limit=1000))
+    if len(data) >= 1000:
+        raise RuntimeError(f'dividends {ts_code} returned {len(data)} rows = api max, may be incomplete')
+    return _us_dividend_frame(data, start, end, 'hk_stock_daily')
 
 
 def hk_dividend_calendar(start: str = None, end: str = None) -> pd.DataFrame:
-    return _fmp_calendar('dividends-calendar', 'hk_stock_basic', _us_dividend_frame, start, end)
+    return _fmp_calendar('dividends-calendar', 'hk_stock_basic', lambda d, a, b: _us_dividend_frame(d, a, b, 'hk_stock_daily'), start, end)
 
 
 def _us_split_frame(data: list, start: str, end: str) -> pd.DataFrame:

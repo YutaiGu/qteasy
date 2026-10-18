@@ -2209,13 +2209,13 @@ FMP_API_MAP = {
 
     'us_dividend':  # [已审 20261005]
          # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行，全球一周约 1800 条(2026 实测)，按 6 天分段免切；返回全球股票
-        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'us_stock_basic'],
-         # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
-         ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
+        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'us_stock_basic,us_stock_daily'],
+         # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行；写入时现拉 dividend-adjusted 前复权价 ÷ 本地 us_stock_daily 原始价反推 FMP 实际用的美元金额：外国公司的本币金额换成它，同日多条按它挑选
+         ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_stock_daily']],
 
     'hk_dividend':  # [已审 20261018] 与 us_dividend 同一个接口；金额已折成港币
-        [['hk_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'hk_stock_basic'],
-         ['hk_dividend', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
+        [['hk_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'hk_stock_basic,hk_stock_daily'],
+         ['hk_dividend', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '', 'hk_stock_daily']],
 
     'us_split':  # [已审 20261018]
          # splits-calendar：from/to 两端包含，≤90天(文档)；≤4000条(文档)；返回全球股票
@@ -2226,6 +2226,12 @@ FMP_API_MAP = {
     'hk_split':  # [已审 20261018] 与 us_split 同一个接口
         [['hk_split_calendar', 'none', 'none', '', '', 'Y', '89', 'hk_stock_basic'],
          ['hk_split', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
+
+    'us_stock_adj_factor':  # 自算：只按本地事件表，不调 FMP；函数从本地最后一天算到 end
+        ['us_stock_adj_factor', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_stock_daily,us_dividend,us_split'],
+
+    'hk_stock_adj_factor':  # 与 us_stock_adj_factor 同一个接口
+        ['hk_stock_adj_factor', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '', 'hk_stock_daily,hk_dividend,hk_split'],
 
     'us_cashflow':  # [已审 20261012]
         # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司

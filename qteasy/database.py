@@ -1856,6 +1856,56 @@ class DataSource:
 
         return rows_affected
 
+    def backup(self, folder, tables=None):
+        """ 用 mysqldump 导出为 .sql.gz，放到 folder 下。只支持 db 数据源。返回生成的文件路径列表。
+
+        tables 为空：整库一个文件 <库名>_full_<日期>.sql.gz，含建表语句。
+        给了表名：每张表一个文件 <表名>_<日期>.sql.gz，只导数据、用 REPLACE，导入时覆盖同主键的行、不动表结构。
+        密码通过环境变量 MYSQL_PWD 传给 mysqldump，不出现在命令行。
+        """
+        import gzip
+        import os
+        import shutil
+        import subprocess
+        from datetime import date
+        if self.source_type != 'db':
+            raise RuntimeError('backup only works for db data source')
+        base = ['mysqldump', '-h', str(self.host), '-P', str(self.port), '-u', str(self.__user__),
+                '--single-transaction', '--quick', '--no-tablespaces', self.db_name]
+        env = dict(os.environ, MYSQL_PWD=str(self.__password__))
+        os.makedirs(folder, exist_ok=True)
+        jobs = [(f'{t}_{date.today():%Y%m%d}.sql.gz', base + ['--no-create-info', '--replace', t]) for t in tables] \
+            if tables else [(f'{self.db_name}_full_{date.today():%Y%m%d}.sql.gz', base)]
+        paths = []
+        for name, cmd in jobs:
+            path = os.path.join(folder, name)
+            with gzip.open(path, 'wb') as f:
+                p = subprocess.Popen(cmd, stdout=subprocess.PIPE, env=env)
+                shutil.copyfileobj(p.stdout, f)
+            if p.wait() != 0:
+                os.remove(path)
+                raise RuntimeError(f'mysqldump failed with code {p.returncode}')
+            paths.append(path)
+        return paths
+
+    def restore(self, path):
+        """ 把 backup() 导出的 .sql.gz 导入当前数据库。只支持 db 数据源。"""
+        import gzip
+        import os
+        import shutil
+        import subprocess
+        if self.source_type != 'db':
+            raise RuntimeError('restore only works for db data source')
+        cmd = ['mysql', '-h', str(self.host), '-P', str(self.port), '-u', str(self.__user__), self.db_name]
+        env = dict(os.environ, MYSQL_PWD=str(self.__password__))
+        with gzip.open(path, 'rb') as f:
+            p = subprocess.Popen(cmd, stdin=subprocess.PIPE, env=env)
+            shutil.copyfileobj(f, p.stdin)
+            p.stdin.close()
+        if p.wait() != 0:
+            raise RuntimeError(f'mysql restore failed with code {p.returncode}')
+        return path
+
     def drop_table_data(self, table):
         """ 删除本地存储的数据表(操作不可撤销，谨慎使用)
         如果数据源设置了allow_drop_table为False，则无法删除数据表并报错
