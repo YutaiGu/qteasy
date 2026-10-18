@@ -302,6 +302,15 @@ TABLE_MASTERS = {
     'us_dividend':
         ['us_dividend', '美股现金分红', 'events', 'E-US', 'd', '', '', ''],
 
+    'hk_dividend':
+        ['us_dividend', '港股现金分红', 'events', 'E-HK', 'd', '', '', ''],
+
+    'us_split':
+        ['us_split', '美股拆股合股', 'events', 'E-US', 'd', '', '', ''],
+
+    'hk_split':
+        ['us_split', '港股拆股合股', 'events', 'E-HK', 'd', '', '', ''],
+
     'us_earnings':
         ['us_earnings', '美股财报日历', 'events', 'E-US', 'd', '', '', ''],
 
@@ -958,6 +967,12 @@ TABLE_SCHEMA = {
          'dtypes':     ['varchar(20)', 'date', 'double', 'date', 'date', 'date'],
          'remarks':    ['股票代码', '除权除息日', '每股分红（原始值）', '公告日', '股权登记日', '派息日'],
          'prime_keys': [0, 1, 2]},
+
+    'us_split':  # 拆股/合股：numerator:denominator = 拆后:拆前股数，合股时分子小于分母
+        {'columns':    ['ts_code', 'ex_date', 'numerator', 'denominator', 'split_type'],
+         'dtypes':     ['varchar(20)', 'date', 'double', 'double', 'varchar(20)'],
+         'remarks':    ['股票代码', '除权日', '拆后股数', '拆前股数', 'FMP 类型：stock-split / stock-dividend'],
+         'prime_keys': [0, 1]},
 
     'us_earnings':  # 即将发布的财报(FMP earnings-calendar)：每个报告期一行，只存未来；report_date 可能是预估(confirmed=0)，改期后覆盖
         {'columns':    ['ts_code', 'end_date', 'report_date', 'report_time', 'fiscal_period', 'fiscal_year', 'confirmed',

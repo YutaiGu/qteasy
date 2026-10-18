@@ -863,6 +863,75 @@ def us_dividend_calendar(start: str = None,
     return _us_dividend_frame([r for r in data if r.get('symbol') in stock_codes], start, end)  # 先过滤再解析
 
 
+def _fmp_calendar(endpoint: str, basic_table: str, frame, start: str, end: str) -> pd.DataFrame:
+    """拉全球日历接口，只留本地 basic_table 里的代码，再交给 frame 解析。"""
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard(endpoint, dict(start=start, end=end),
+                 lambda start, end: _fmp_get(endpoint, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    from qteasy import QT_DATA_SOURCE
+    stock_codes = set(QT_DATA_SOURCE.read_table_data(basic_table).index)
+    if not stock_codes:
+        raise RuntimeError(f'{endpoint} is filtered by {basic_table}, which is empty')
+    return frame([r for r in data if r.get('symbol') in stock_codes], start, end)  # 先过滤再解析
+
+
+def hk_dividend(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    return us_dividend(ts_code, start, end)
+
+
+def hk_dividend_calendar(start: str = None, end: str = None) -> pd.DataFrame:
+    return _fmp_calendar('dividends-calendar', 'hk_stock_basic', _us_dividend_frame, start, end)
+
+
+def _us_split_frame(data: list, start: str, end: str) -> pd.DataFrame:
+    """把 FMP 拆股记录(splits / splits-calendar 字段相同)整理成 us_split 表，只留除权日在 [start, end] 内的。"""
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    res = pd.DataFrame({
+        'ts_code':     raw['symbol'],
+        'ex_date':     pd.to_datetime(raw['date']),
+        'numerator':   raw['numerator'].astype('float64'),
+        'denominator': raw['denominator'].astype('float64'),
+        'split_type':  raw['splitType'],
+    })
+    if start:
+        res = res[res['ex_date'] >= pd.Timestamp(regulate_date_format(start, force_format='date'))]
+    if end:
+        res = res[res['ex_date'] <= pd.Timestamp(regulate_date_format(end, force_format='date'))]
+    return res.reset_index(drop=True)
+
+
+def us_split(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    """单只股票的拆股/合股(FMP splits)，返回除权日落在 [start, end] 内的记录。
+
+    该接口只有 symbol、limit 两个参数(不认日期、不能翻页)，单次最多 1000 条：按最大值取该股全部历史，取回后再筛选；
+    返回满 1000 条说明可能没取全，报错。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    data = guard('splits', dict(ts_code=ts_code), lambda ts_code:
+                 _fmp_get('splits', symbol=ts_code, limit=1000))
+    if len(data) >= 1000:
+        raise RuntimeError(f'splits {ts_code} returned {len(data)} rows = api max, may be incomplete')
+    return _us_split_frame(data, start, end)
+
+
+def us_split_calendar(start: str = None, end: str = None) -> pd.DataFrame:
+    """全球股票的拆股(FMP splits-calendar)，[start, end] 左右闭，只留 us_stock_basic 里的代码。"""
+    return _fmp_calendar('splits-calendar', 'us_stock_basic', _us_split_frame, start, end)
+
+
+def hk_split(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    return us_split(ts_code, start, end)
+
+
+def hk_split_calendar(start: str = None, end: str = None) -> pd.DataFrame:
+    return _fmp_calendar('splits-calendar', 'hk_stock_basic', _us_split_frame, start, end)
+
+
 def us_income(ts_code: str = None,
               start: str = None,
               end: str = None) -> pd.DataFrame:

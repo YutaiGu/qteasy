@@ -2159,14 +2159,14 @@ FMP_API_MAP = {
     'us_fund_daily_adj':  # [已审 20261006] 与 us_stock_daily_adj 同一个接口
         ['us_stock_daily_adj', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', ''],
 
+    'us_index_basic':  # [已审 20261016] index-list：api 无任何参数，自保；只留 USD 计价
+        ['us_index_basic', 'none', 'none', '', '', 'C', ''],
+    
     'index_5min':  # [已审 20261015] historical-chart/5min：from/to 两端包含；只返回 to 往前 10 个自然日(实测，文档未写)，更早的静默丢弃，按 9 天分段；A 股指数只有 000001.SS，2023 年起，成交量不可靠
         ['index_5min', 'ts_code', 'table_index', 'index_basic', 'SH,SZ', 'Y', '9'],
 
     'us_fund_5min':  # [已审 20261017] 与 index_5min 同一个接口；QQQ 2011-04 起
         ['index_5min', 'ts_code', 'table_index', 'us_fund_basic', '', 'Y', '9'],
-
-    'us_index_basic':  # [已审 20261016] index-list：api 无任何参数，自保；只留 USD 计价
-        ['us_index_basic', 'none', 'none', '', '', 'C', ''],
 
     'us_index_5min':  # [已审 20261016] 与 index_5min 同一个接口；美东时间，bar 为开始时刻；^NDX 2020-11 起、^IXIC 2024 年起
         ['index_5min', 'ts_code', 'table_index', 'us_index_basic', '', 'Y', '9'],
@@ -2212,6 +2212,20 @@ FMP_API_MAP = {
         [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '89', 'us_stock_basic'],
          # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
          ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
+
+    'hk_dividend':  # [已审 20261018] 与 us_dividend 同一个接口；金额已折成港币
+        [['hk_dividend_calendar', 'none', 'none', '', '', 'Y', '89', 'hk_stock_basic'],
+         ['hk_dividend', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
+
+    'us_split':  # [已审 20261018]
+         # splits-calendar：from/to 两端包含，≤90天(文档)；≤4000条(文档)；返回全球股票
+        [['us_split_calendar', 'none', 'none', '', '', 'Y', '89', 'us_stock_basic'],
+         # splits：只认 symbol/limit，不翻页；≤1000条(文档)
+         ['us_split', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
+
+    'hk_split':  # [已审 20261018] 与 us_split 同一个接口
+        [['hk_split_calendar', 'none', 'none', '', '', 'Y', '89', 'hk_stock_basic'],
+         ['hk_split', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
 
     'us_cashflow':  # [已审 20261012]
         # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司
