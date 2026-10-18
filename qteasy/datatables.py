@@ -963,9 +963,9 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1, 2]},
 
     'us_dividend':
-        {'columns':    ['ts_code', 'ex_date', 'cash_div_tax', 'ann_date', 'record_date', 'pay_date'],
-         'dtypes':     ['varchar(20)', 'date', 'double', 'date', 'date', 'date'],
-         'remarks':    ['股票代码', '除权除息日', '每股分红（原始值）', '公告日', '股权登记日', '派息日'],
+        {'columns':    ['ts_code', 'ex_date', 'cash_div_tax', 'cash_div_adj', 'ann_date', 'record_date', 'pay_date'],
+         'dtypes':     ['varchar(20)', 'date', 'double', 'double', 'date', 'date', 'date'],
+         'remarks':    ['股票代码', '除权除息日', '每股分红（宣告币种原始值）', '每股分红（交易币种，按今日拆股折算）', '公告日', '股权登记日', '派息日'],
          'prime_keys': [0, 1, 2]},
 
     'us_split':  # 拆股/合股：numerator:denominator = 拆后:拆前股数，合股时分子小于分母

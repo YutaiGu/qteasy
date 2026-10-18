@@ -2208,13 +2208,13 @@ FMP_API_MAP = {
          ['us_balance', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
     'us_dividend':  # [已审 20261005]
-         # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行；返回全球股票
-        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '89', 'us_stock_basic'],
+         # dividends-calendar：from/to 两端包含，≤90天；≤4000条，截断时混入区间外的行，全球一周约 1800 条(2026 实测)，按 6 天分段免切；返回全球股票
+        [['us_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'us_stock_basic'],
          # dividends：只认 symbol/limit，不翻页；≤1000条；同一笔分红偶有重复行
          ['us_dividend', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
     'hk_dividend':  # [已审 20261018] 与 us_dividend 同一个接口；金额已折成港币
-        [['hk_dividend_calendar', 'none', 'none', '', '', 'Y', '89', 'hk_stock_basic'],
+        [['hk_dividend_calendar', 'none', 'none', '', '', 'Y', '6', 'hk_stock_basic'],
          ['hk_dividend', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
 
     'us_split':  # [已审 20261018]

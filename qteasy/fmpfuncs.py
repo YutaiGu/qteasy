@@ -748,7 +748,8 @@ def us_cashflow_latest(start: str = None, end: str = None) -> pd.DataFrame:
 def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
     """把 FMP 分红记录(dividends / dividends-calendar 字段相同)整理成 us_dividend 表，只留除息日在 [start, end] 内的。
 
-    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告时的原始每股金额(税前)，未按之后的拆股调整。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
+    列名与 A 股 dividend 表相同含义的保持一致；cash_div_tax 为宣告币种的原始每股金额(ADR 是本币)；cash_div_adj 为交易币种、
+    按之后拆股折算到今天的每股金额(FMP adjDividend)，算复权因子用它。除息日或金额(均为主键)缺失的记录是数据源自己的脏数据，丢弃并警告。
     宣告日、登记日、派息日可以没有：FMP 用空字符串或 0001-01-01(日期类型的最小值)表示，都按空值。
     """
     if not data:
@@ -764,6 +765,7 @@ def _us_dividend_frame(data: list, start: str, end: str) -> pd.DataFrame:
         'ts_code':     raw['symbol'],
         'ex_date':     pd.to_datetime(raw['date']),
         'cash_div_tax': raw['dividend'].astype('float64'),
+        'cash_div_adj': raw['adjDividend'].astype('float64'),
         'ann_date':    pd.to_datetime(raw['declarationDate'].replace(no_date, None)),
         'record_date': pd.to_datetime(raw['recordDate'].replace(no_date, None)),
         'pay_date':    pd.to_datetime(raw['paymentDate'].replace(no_date, None)),
