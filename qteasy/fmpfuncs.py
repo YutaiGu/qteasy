@@ -557,6 +557,22 @@ def us_treasury(start: str = None, end: str = None) -> pd.DataFrame:
     return res
 
 
+def period_label(dates, annual_date) -> pd.Series:
+    """预测期的名字(与财报 end_date 同义)：年报那一期是四季报记 FY-12-31，往前依次 09-30 / 06-30 / 03-31。
+
+    dates 是各期的结账日，annual_date 是这只股票任一年度预测的结账日；只看结账日之间相差几个月，不查公司几月结年：
+    距年报 0 个月(或 12 的倍数)是 Q4，差 3 个月是 Q3，6 是 Q2，9 是 Q1；财年 = 该期所属年报结账日所在年。
+    结账日落在月初 7 天内的(52/53 周财年跨月)按上月算。
+    """
+    d = pd.to_datetime(pd.Series(dates)) - pd.Timedelta(days=7)
+    a = pd.Timestamp(annual_date) - pd.Timedelta(days=7)
+    m = d.dt.year * 12 + d.dt.month
+    n = ((a.year * 12 + a.month - m) % 12 / 3).round().astype(int) % 4   # 距年报几个季：0 = Q4
+    fy_end = m + n * 3                                                   # 该期所属年报的结账月
+    fy, q = (fy_end - 1) // 12, 4 - n
+    return pd.to_datetime(fy.astype(str) + '-' + (q * 3).astype(str).str.zfill(2) + '-01') + pd.offsets.MonthEnd(0)
+
+
 def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
     """单只股票的分析师一致预期快照(FMP analyst-estimates)，金额为财报申报币种，经 db.changelog 只留相对库内上一版
     有实质变化的行。美股、港股共用，income_table / db 决定市场。
@@ -564,7 +580,8 @@ def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
     只留期末日晚于最新已披露财报的期：财年结束到财报发布之间共识仍有效，不能按今天切。最新财报及其币种读本地依赖表
     income_table(map 第 8 列声明，下载前已更新)；表里没有这只股(FMP 没有它的财报)则没有币种，跳过并警告。接口按 page
     翻到空页，limit 最大 1000；quarter 不在套餐内时跳过并警告，annual 照常。
-    FMP 的 date 在未披露时是 12-30 / 03-30 这类近似日，披露后改为真实期末，target_date 按规定取月末。
+    FMP 的 date 是各期结账日(未披露时是 12-30 / 03-30 这类近似日)，target_date 存报告期的名字(period_label，按它自己的年度预测定
+    第几季)，与财报 end_date 同义；没有年度预测就没法定名字，整只跳过并警告。
     FMP 对没人预测的指标填 0 而不是空：numAnalystsEps 为 0 时 eps/net_profit 置空，numAnalystsRevenue 为 0 时
     revenue 置空，两者都为 0 的整条丢弃。另有人数不为 0 但 eps 和 net_profit 同时为 0 的(如腾讯 2030 年度，25 人)，
     也是没有预测，同样置空。缺 date(主键)的记录是数据源自己的脏数据，丢弃并警告。
@@ -576,7 +593,7 @@ def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
         warnings.warn(f'FMP analyst-estimates {ts_code}: not in {income_table}, currency unknown, skipped')
         return pd.DataFrame(columns=db.COLUMNS)
     latest = income.sort_values('end_date').iloc[-1]
-    reported, currency = pd.Timestamp(latest['end_date']) + pd.offsets.MonthEnd(0), latest['currency']
+    reported, currency = pd.Timestamp(latest['end_date']), latest['currency']   # end_date 是报告期的名字
     fmp_map = {
         'epsAvg': 'eps', 'epsHigh': 'eps_high', 'epsLow': 'eps_low',
         'revenueAvg': 'revenue', 'revenueHigh': 'revenue_high', 'revenueLow': 'revenue_low',
@@ -609,6 +626,9 @@ def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
     if not frames:
         return pd.DataFrame(columns=db.COLUMNS)
     raw = pd.concat([f.dropna(axis=1, how='all') for f in frames], ignore_index=True)  # 全空列不参与类型推断，后面 reindex 补回
+    if (raw['target_period'] == 'Y').sum() == 0:
+        warnings.warn(f'FMP analyst-estimates {ts_code}: no annual estimate, periods can not be named, skipped')
+        return pd.DataFrame(columns=db.COLUMNS)
     dirty = raw['date'].fillna('').str.len() < 10
     if dirty.any():
         warnings.warn(f'FMP analyst-estimates {ts_code}: dropped {dirty.sum()} records without date')
@@ -617,7 +637,7 @@ def _fmp_estimates(ts_code: str, income_table: str, db) -> pd.DataFrame:
     res = raw.rename(columns=fmp_map).assign(
         ts_code=ts_code,
         trade_date=pd.Timestamp.now(tz='America/New_York').normalize().tz_localize(None),
-        target_date=pd.to_datetime(raw['date'].str[:10]) + pd.offsets.MonthEnd(0),
+        target_date=period_label(raw['date'].str[:10], raw.loc[raw['target_period'] == 'Y', 'date'].str[:10].max()).values,
         currency=currency,
     )
     res = res[res['target_date'] > reported].reindex(columns=db.COLUMNS)
@@ -720,6 +740,8 @@ def estimates_fmp(ts_code: str = None, **_) -> pd.DataFrame:
 def _us_financials_common(endpoint: str, ts_code: str) -> list:
     """拉取 income/balance/cashflow 全部年报、季报，返回该股全部历史的 item 列表。
 
+    end_date 是报告期标识，与 A 股同义：财年第 N 季记为 fiscalYear 年的 N 季末(Q1 03-31 … Q4/FY 12-31)，不是实际截止日；
+    实际截止日(FMP 的 date，如 AAPL 06-27)另存 period_end。缺 fiscalYear/period 的记录无法定期，丢弃并警告。
     FMP 财报接口只认 symbol/limit/period，不认日期、不翻页，单次最多 1000 条：按最大值取该股全部历史，返回满 1000 条
     说明可能没取全，报错。不按日期筛选：接口的发布日(filingDate)不可靠(有的等于报告期末)，按它筛选会漏掉晚收录的
     财报；拉到一只股票就写入全部，由主键去重。缺截止日(主键)或币种(金额无法解释)的记录是数据源自己的脏数据，
@@ -736,10 +758,19 @@ def _us_financials_common(endpoint: str, ts_code: str) -> list:
                 warnings.warn(f'FMP {endpoint} {ts_code} {period}: dropped a record without date or reportedCurrency '
                               f'(date={item.get("date")!r}, fiscalYear={item.get("fiscalYear")!r})')
                 continue
-            item['_trade_date'] = pd.Timestamp(item['date'][:10])
+            q = _QUARTER_END.get(item.get('period'))
+            if q is None or not str(item.get('fiscalYear', '')).isdigit():
+                warnings.warn(f'FMP {endpoint} {ts_code} {period}: dropped a record without fiscalYear/period '
+                              f'(date={item.get("date")!r}, fiscalYear={item.get("fiscalYear")!r}, period={item.get("period")!r})')
+                continue
+            item['_end_date'] = pd.Timestamp(f'{int(item["fiscalYear"])}-{q}')   # 报告期标识，与 A 股同义：财年第 N 季 → N 季末
+            item['_period_end'] = pd.Timestamp(item['date'][:10])              # 实际截止日
             item['_period'] = 'Y' if period == 'annual' else 'Q'
             items.append(item)
     return items
+
+
+_QUARTER_END = {'Q1': '03-31', 'Q2': '06-30', 'Q3': '09-30', 'Q4': '12-31', 'FY': '12-31'}
 
 
 def _us_latest_statement_codes(start: str, end: str) -> list:
@@ -1082,8 +1113,9 @@ def us_income(ts_code: str = None,
 
     rows = [{
         'ts_code':              ts_code,
-        'end_date':             i['_trade_date'],
+        'end_date':             i['_end_date'],
         'period':               i['_period'],
+        'period_end':           i['_period_end'],
         'filing_date':          pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':          i.get('fiscalYear', ''),
         'currency':             i['reportedCurrency'],
@@ -1135,8 +1167,9 @@ def us_balance(ts_code: str = None,
 
     rows = [{
         'ts_code':                    ts_code,
-        'end_date':                   i['_trade_date'],
+        'end_date':                   i['_end_date'],
         'period':                     i['_period'],
+        'period_end':                 i['_period_end'],
         'filing_date':                pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':                i.get('fiscalYear', ''),
         'currency':                   i['reportedCurrency'],
@@ -1210,8 +1243,9 @@ def us_cashflow(ts_code: str = None,
 
     rows = [{
         'ts_code':                ts_code,
-        'end_date':               i['_trade_date'],
+        'end_date':               i['_end_date'],
         'period':                 i['_period'],
+        'period_end':             i['_period_end'],
         'filing_date':            pd.Timestamp(i['filingDate'][:10]) if i.get('filingDate') else None,
         'fiscal_year':            i.get('fiscalYear', ''),
         'currency':               i['reportedCurrency'],

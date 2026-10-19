@@ -1896,6 +1896,17 @@ class DataSource:
         import subprocess
         if self.source_type != 'db':
             raise RuntimeError('restore only works for db data source')
+        if shutil.which('mysql') is None:
+            raise RuntimeError('mysql not found in PATH; add the MySQL bin directory to PATH')
+        # 按表导出的 dump 只有数据，表不在就先按内置定义建空表
+        import re
+        from .datatables import get_built_in_table_schema, TABLE_MASTERS
+        with gzip.open(path, 'rt', encoding='utf-8', errors='ignore') as f:
+            tables = {m for line in f for m in re.findall(r'^(?:REPLACE|INSERT) INTO `([A-Za-z0-9_]+)`', line)}
+        for table in tables:
+            if table in TABLE_MASTERS and not self._db_table_exists(db_table=table):
+                columns, dtypes, primary_key, _ = get_built_in_table_schema(table)
+                self._new_db_table(db_table=table, columns=columns, dtypes=dtypes, primary_key=primary_key)
         cmd = ['mysql', '-h', str(self.host), '-P', str(self.port), '-u', str(self.__user__), self.db_name]
         env = dict(os.environ, MYSQL_PWD=str(self.__password__))
         with gzip.open(path, 'rb') as f:
