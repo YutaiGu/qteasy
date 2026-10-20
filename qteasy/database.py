@@ -1100,7 +1100,7 @@ class DataSource:
         rows_affected = self._db_execute_many(sql, df_tuple)
         return rows_affected
 
-    def _update_database(self, df, db_table, primary_key):
+    def _update_database(self, df, db_table, primary_key, patch_empty=None):
         """ 用DataFrame中的数据更新数据表中的数据记录
 
         假定df的列与db_table的列相同且顺序也相同
@@ -1115,6 +1115,8 @@ class DataSource:
             需要更新的数据表
         primary_key: tuple
             数据表的primary_key，必须定义在数据表中，如果数据库表没有primary_key，将append所有数据
+        patch_empty: bool, optional
+            True 时空下载值不覆盖本地(on_duplicate='patch')；None 时按表决定：basics 表为 True
 
         Returns
         -------
@@ -1144,9 +1146,10 @@ class DataSource:
             sql += "%s, "
         sql += "%s)\n" \
                "ON DUPLICATE KEY UPDATE\n"
-        # basics 表：空下载值不覆盖本地；dtype 取自内置 schema。
-        # 非 basics / 用户自定义临时表：简单 VALUES 赋值，勿强制查内置表名。
-        patch_empty = table_is_basics(db_table)
+        # basics 表、或 patch 模式：空下载值不覆盖本地；dtype 取自内置 schema。
+        # 其他内置表 / 用户自定义临时表：简单 VALUES 赋值，勿强制查内置表名。
+        if patch_empty is None:
+            patch_empty = table_is_basics(db_table)
         col_dtype_map = {}
         if patch_empty:
             built_cols, built_dtypes = get_built_in_table_schema(
@@ -1682,6 +1685,7 @@ class DataSource:
             重复数据处理方式(仅当mode==db的时候有效)
             -ignore: 默认方式，将全部数据写入数据库表的末尾
             -update: 将数据写入数据库表中，如果遇到重复的pk则修改表中的内容
+            -patch: 同 update，但下载数据里为空的值不覆盖本地(同一张表由多个通道各写一部分列时用)
 
         Returns
         -------
@@ -1713,6 +1717,8 @@ class DataSource:
                 rows_affected = self._write_database(df, db_table=table, primary_key=primary_key)
             elif on_duplicate == 'update':
                 rows_affected = self._update_database(df, db_table=table, primary_key=primary_key)
+            elif on_duplicate == 'patch':
+                rows_affected = self._update_database(df, db_table=table, primary_key=primary_key, patch_empty=True)
             else:  # for unexpected cases
                 err = KeyError(f'Invalid process mode on duplication: {on_duplicate}')
                 raise err
@@ -1770,6 +1776,8 @@ class DataSource:
             - 'update': 默认值，如果下载数据与本地数据重复，用下载数据替代本地数据；
               对 ``table_usage=='basics'`` 的表在重复主键上仅当下载字段非空时才覆盖该列（patch），
               避免稀疏通道（如 AKShare）用空行业/日期等冲掉既有 Tushare 元数据
+            - 'patch': 任何表都按上面的 patch 方式合并：下载字段为空不覆盖本地；
+              同一张表由多个通道各写一部分列时（如 hk_balance：FMP 写 total_debt，理杏仁写其余），后写的通道用它
             - 'ignore' : 如果下载数据与本地数据重复，忽略重复部分
         df: pd.DataFrame
             通过传递一个DataFrame获取数据
@@ -1785,8 +1793,8 @@ class DataSource:
         if not isinstance(merge_type, str):
             err = TypeError(f'merge type should be a string, got {type(merge_type)} instead.')
             raise err
-        if merge_type not in ['ignore', 'update']:
-            raise KeyError(f'Invalid merge type, should be either "ignore" or "update"')
+        if merge_type not in ['ignore', 'update', 'patch']:
+            raise KeyError(f'Invalid merge type, should be "ignore", "update" or "patch"')
 
         dnld_data = df
         if dnld_data.empty:
@@ -1798,7 +1806,7 @@ class DataSource:
         # 如果table中的相当部分(25%)不能从df中找到，判断df与table完全不匹配，报错
         # 否则判断df基本与table匹配，根据Constraints，添加缺少的列(通常为NULL列)
         missing_columns = [col for col in table_columns if col not in dnld_columns]
-        if len(missing_columns) >= (len(table_columns) * 0.75):
+        if merge_type != 'patch' and len(missing_columns) >= (len(table_columns) * 0.75):   # patch 本来就只写一部分列
             err = ValueError(f'there are too many missing columns in downloaded df, can not merge to local table:'
                              f'table_columns:\n{[table_columns]}\n'
                              f'downloaded:\n{[dnld_columns]}')
@@ -1828,8 +1836,8 @@ class DataSource:
             if merge_type == 'ignore':
                 # 丢弃下载数据中的重叠部分
                 dnld_data = dnld_data[~dnld_data.index.isin(local_data.index)]
-            elif merge_type == 'update':
-                if table_is_basics(table):
+            elif merge_type in ('update', 'patch'):
+                if merge_type == 'patch' or table_is_basics(table):   # 空下载值不覆盖本地
                     # 本地数据的主键只在索引里，下载数据的主键既是列也是索引：统一成主键为列再合并
                     pk_as_columns = [
                         df.reset_index(drop=all(pk in df.columns for pk in primary_keys))
