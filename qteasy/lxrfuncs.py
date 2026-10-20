@@ -206,12 +206,12 @@ def hk_stock_daily(ts_code: str = None, start: str = None, end: str = None) -> p
     return pd.DataFrame({
         'ts_code':    ts_code,
         'trade_date': pd.to_datetime(raw['date'].str[:10]),
-        'open':       raw['open'],
-        'high':       raw['high'],
-        'low':        raw['low'],
-        'close':      raw['close'],
-        'vol':        raw['volume'],
-        'amount':     raw['amount'],
+        'open':       raw.get('open'),      # 理杏仁对没有值的字段不给键：主键之外的列有就取，没有留空
+        'high':       raw.get('high'),
+        'low':        raw.get('low'),
+        'close':      raw.get('close'),
+        'vol':        raw.get('volume'),
+        'amount':     raw.get('amount'),
     })
 
 
@@ -242,9 +242,9 @@ def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) ->
     return pd.DataFrame({
         'ts_code':       ts_code,
         'change_date':   pd.to_datetime(raw['date'].str[:10]),
-        'ann_date':      pd.to_datetime(raw['declarationDate'].str[:10]),
-        'change_reason': raw['changeReason'],
-        'total_share':   raw['capitalization'],
+        'ann_date':      pd.to_datetime(raw['declarationDate'].str[:10]),   # 主键，必须有
+        'change_reason': raw.get('changeReason'),                              # 主键之外的列有就取，没有留空
+        'total_share':   raw.get('capitalization'),
         'h_share':       raw.get('capitalizationH'),
     })
 
