@@ -10,6 +10,7 @@
 # ======================================
 
 import os
+import warnings
 
 import requests
 import pandas as pd
@@ -239,6 +240,13 @@ def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) ->
     raw = _lxr_dated('hk/company/equity-change', ts_code, start, end, back=30)
     if raw.empty:
         return pd.DataFrame()
+    dirty = raw['declarationDate'].isna() if 'declarationDate' in raw else pd.Series(True, index=raw.index)
+    if dirty.any():   # 公告日是主键，缺了是数据源的脏记录：丢弃并警告
+        warnings.warn(f'lixingren equity-change {ts_code}: dropped {int(dirty.sum())} records without declarationDate '
+                      f'(dates {sorted(raw.loc[dirty, "date"].str[:10])[:5]})')
+        raw = raw[~dirty]
+        if raw.empty:
+            return pd.DataFrame()
     return pd.DataFrame({
         'ts_code':       ts_code,
         'change_date':   pd.to_datetime(raw['date'].str[:10]),
