@@ -59,6 +59,10 @@ def _get_token() -> str:
     return token
 
 
+class LxrServerError(RuntimeError):
+    """理杏仁服务器自己出错(HTTP 5xx，如营收构成接口对个别股票报 TypeError)：是数据源对这只股票的问题，不是请求错误。"""
+
+
 def _lxr_post(path: str, **body) -> list:
     """向理杏仁 API 发起单次 POST 请求，返回 data list。调用方一律经 guard 调用。
     理杏仁按请求次数计额度，一次请求可带多个代码。报错不带 token。
@@ -66,8 +70,9 @@ def _lxr_post(path: str, **body) -> list:
     with requests.post(f'{_LXR_BASE}/{path}', json={'token': _get_token(), **body}, timeout=60) as resp:
         payload = resp.json() if resp.ok else None
     if payload is None or payload.get('code') != 1:
-        raise RuntimeError(f'lixingren {path} failed: HTTP {resp.status_code}, '
-                           f'{payload.get("message") if payload else resp.text[:300]}')
+        error = LxrServerError if resp.status_code >= 500 else RuntimeError
+        raise error(f'lixingren {path} failed: HTTP {resp.status_code}, '
+                    f'{payload.get("message") if payload else resp.text[:300]}')
     return payload.get('data') or []
 
 
@@ -75,14 +80,15 @@ def _frame(data: list, fields: dict) -> pd.DataFrame:
     """理杏仁返回值的共性，统一在这里处理，各下载函数之后按列名直接取：
     1. 没有值的字段整个键不给，不是给 null —— 按 fields 补成空列；
     2. 数值、文本字段偶有 '' 空串(如快手的 capitalizationH) —— 当空值；
-    3. 日期是 'YYYY-MM-DDT00:00:00+08:00' —— 取前 10 位转日期。
+    3. 日期有两种格式：多数接口 'YYYY-MM-DDT00:00:00+08:00'，营收构成是 UTC 'YYYY-MM-DDT16:00:00.000Z'(即香港次日零点)
+       —— 一律按时区转成香港时间再取日期，不能直接截前 10 位。
     fields: 接口字段 → 'date' / 'num' / 'str' / 'obj'(嵌套结构原样保留)。
     """
     raw = pd.DataFrame(data).reindex(columns=list(fields))
     for col, kind in fields.items():
         s = raw[col].astype(object).where(raw[col].notna() & (raw[col].astype(object) != ''), None)
         if kind == 'date':
-            raw[col] = pd.to_datetime(s.str[:10])
+            raw[col] = pd.to_datetime(s, utc=True).dt.tz_convert('Asia/Hong_Kong').dt.tz_localize(None).dt.normalize()
         elif kind == 'num':
             raw[col] = pd.to_numeric(s, errors='coerce')
         else:
@@ -311,16 +317,21 @@ def hk_repurchase(ts_code: str = None, start: str = None, end: str = None) -> pd
 
 def hk_mainbz(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
     """港股营收构成(理杏仁 operation-revenue-constitution)：每期按业务、按地区两棵树，子项带父项名；合計行没有父项，父项记它自己；
-    只作标题的行(没有数值)不存。接口的 date 是 12-30 这类近似日，存入 period_end；end_date 是报告期的名字(period_label，
+    只作标题的行(没有数值)不存。接口的 date 是期末(UTC 格式，转成香港日期)，存入 period_end；end_date 是报告期的名字(period_label，
     与财报 end_date 同义)，第几季按本地依赖表 hk_income 这只股年报的结账日定；hk_income 里没有年报的股票定不了名字，返回空。
     接口区间按期末过滤，公告晚 1~4 个月：start 倒 366 天。
+    个别股票接口服务器报 500(它自己的 TypeError)：是数据源对这只股票的问题，跳过这只并警告。
     """
     if ts_code is None:
         return pd.DataFrame()
     from qteasy import QT_DATA_SOURCE
     from qteasy.fmpfuncs import period_label
-    raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366,
-                     fields={'date': 'date', 'declarationDate': 'date', 'currency': 'str', 'dataList': 'obj'})
+    try:
+        raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366,
+                         fields={'date': 'date', 'declarationDate': 'date', 'currency': 'str', 'dataList': 'obj'})
+    except LxrServerError as e:
+        warnings.warn(f'lixingren operation-revenue-constitution {ts_code} [{start}, {end}]: server error, skipped ({e})')
+        return pd.DataFrame()
     if raw.empty:
         return pd.DataFrame()
     income = QT_DATA_SOURCE.read_table_data('hk_income', shares=ts_code, primary_key_in_index=False)
