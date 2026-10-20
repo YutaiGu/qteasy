@@ -1227,19 +1227,27 @@ def us_balance(ts_code: str = None,
 def hk_balance_debt(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
     """港股 hk_balance 里 FMP 负责的两列：total_debt、net_debt(理杏仁没有总债务：腾讯的长期票据不在它任何字段里)。
     其余列由理杏仁通道写；这里只返回主键 + 这两列，写入用 merge_type='patch'，两边互不覆盖。"""
-    res = us_balance(ts_code, start, end)
-    if res.empty:
-        return res
-    return res[['ts_code', 'end_date', 'period', 'total_debt', 'net_debt']]
+    return _hk_fill_rows(us_balance(ts_code, start, end), 'hk_balance', ['total_debt', 'net_debt'])
 
 
 def hk_income_da(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
     """港股 hk_income 里 FMP 负责的三列：da、ebitda、ebit(理杏仁利润表没有折旧摊销)。
     其余列由理杏仁通道写；这里只返回主键 + 这三列，写入用 merge_type='patch'，两边互不覆盖。"""
-    res = us_income(ts_code, start, end)
+    return _hk_fill_rows(us_income(ts_code, start, end), 'hk_income', ['da', 'ebitda', 'ebit'])
+
+
+def _hk_fill_rows(res: pd.DataFrame, table: str, columns: list) -> pd.DataFrame:
+    """FMP 给港股财报表补列：只填本地表里理杏仁已经写了的行(按主键过滤)，不自己造行——FMP 的期比理杏仁多(1987 年起、
+    半年报公司的季度行)，造出来的行只有这几列、其余全空，估值读到会炸。所以理杏仁那一行要先跑。"""
     if res.empty:
         return res
-    return res[['ts_code', 'end_date', 'period', 'da', 'ebitda', 'ebit']]
+    from qteasy import QT_DATA_SOURCE
+    local = QT_DATA_SOURCE.read_table_data(table, shares=res['ts_code'].iloc[0], primary_key_in_index=False)
+    if local.empty:
+        return pd.DataFrame()
+    keys = local[['ts_code', 'end_date', 'period']].assign(end_date=lambda d: pd.to_datetime(d['end_date']))
+    res = res.assign(end_date=pd.to_datetime(res['end_date'])).merge(keys, on=['ts_code', 'end_date', 'period'])
+    return res[['ts_code', 'end_date', 'period'] + columns]
 
 
 def us_cashflow(ts_code: str = None,
