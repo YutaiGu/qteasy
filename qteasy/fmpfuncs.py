@@ -506,12 +506,6 @@ def us_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None)
     return _fmp_adj_factor(ts_code, start, end, 'us_stock_daily', 'us_dividend', 'us_split', 'us_stock_adj_factor')
 
 
-def hk_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
-    if ts_code is None:
-        return pd.DataFrame()
-    return _fmp_adj_factor(ts_code, start, end, 'hk_stock_daily', 'hk_dividend', 'hk_split', 'hk_stock_adj_factor')
-
-
 def us_fund_basic(ts_code: str = None, **_) -> pd.DataFrame:  # C 行附带 start/end，用不上
     """美股 ETF 基本信息(FMP etf/info)，一次一只。只存不随时间变的字段：规模、成交量、净值、持仓数等快照
     不存；行业分布(sectorsList)是一对多的数据，也不在这张表里。"""

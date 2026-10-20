@@ -161,7 +161,7 @@ TABLE_MASTERS = {
         ['stock_basic', '股票基本信息', 'basics', 'E', 'none', '', '', ''],
 
     'hk_stock_basic':
-        ['us_stock_basic', '港股基本信息', 'basics', 'E-HK', 'none', '', '', ''],
+        ['hk_stock_basic', '港股基本信息', 'basics', 'E-HK', 'none', '', '', ''],
 
     'us_stock_basic':
         ['us_stock_basic', '美股基本信息', 'basics', 'E-US', 'none', '', '', ''],
@@ -240,7 +240,7 @@ TABLE_MASTERS = {
         ['bars', '股票月线行情', 'data', 'E', 'm', '', '', ''],
 
     'hk_stock_daily':
-        ['us_daily', '港股日线行情(不复权)', 'data', 'E-HK', 'd', '', '', ''],
+        ['hk_daily', '港股日线行情(不复权)', 'data', 'E-HK', 'd', '', '', ''],
 
     'us_stock_daily':
         ['us_daily', '美股日线行情(不复权)', 'data', 'E-US', 'd', '', '', ''],
@@ -291,10 +291,10 @@ TABLE_MASTERS = {
         ['us_cashflow', '美股现金流量表', 'report', 'E-US', 'q', '', '', ''],
 
     'hk_income':
-        ['us_income', '港股利润表', 'report', 'E-HK', 'q', '', '', ''],
+        ['hk_income', '港股利润表', 'report', 'E-HK', 'q', '', '', ''],
 
     'hk_balance':
-        ['us_balance', '港股资产负债表', 'report', 'E-HK', 'q', '', '', ''],
+        ['hk_balance', '港股资产负债表', 'report', 'E-HK', 'q', '', '', ''],
 
     'hk_cashflow':
         ['us_cashflow', '港股现金流量表', 'report', 'E-HK', 'q', '', '', ''],
@@ -303,7 +303,7 @@ TABLE_MASTERS = {
         ['us_dividend', '美股现金分红', 'events', 'E-US', 'd', '', '', ''],
 
     'hk_dividend':
-        ['us_dividend', '港股现金分红', 'events', 'E-HK', 'd', '', '', ''],
+        ['hk_dividend', '港股现金分红', 'events', 'E-HK', 'd', '', '', ''],
 
     'us_split':
         ['us_split', '美股拆股合股', 'events', 'E-US', 'd', '', '', ''],
@@ -311,11 +311,20 @@ TABLE_MASTERS = {
     'hk_split':
         ['us_split', '港股拆股合股', 'events', 'E-HK', 'd', '', '', ''],
 
+    'hk_equity_change':
+        ['hk_equity_change', '港股股本变动', 'events', 'E-HK', 'd', '', '', ''],
+
+    'hk_repurchase':
+        ['hk_repurchase', '港股回购', 'events', 'E-HK', 'd', '', '', ''],
+
+    'hk_mainbz':
+        ['hk_mainbz', '港股营收构成', 'report', 'E-HK', 'q', '', '', ''],
+
     'us_stock_adj_factor':
         ['adj_factors', '美股价格复权系数', 'adj', 'E-US', 'd', '', '', ''],
 
     'hk_stock_adj_factor':
-        ['adj_factors', '港股价格复权系数', 'adj', 'E-HK', 'd', '', '', ''],
+        ['adj_ratios', '港股除权比率', 'adj', 'E-HK', 'd', '', '', ''],
 
     'us_earnings':
         ['us_earnings', '美股财报日历', 'events', 'E-US', 'd', '', '', ''],
@@ -456,7 +465,7 @@ TABLE_MASTERS = {
         ['stock_indicator2', '股票技术指标备用表', 'data', 'E', 'd', '', '', ''],
 
     'hk_stock_indicator':
-        ['hk_us_indicators', '港股技术指标', 'data', 'E-HK', 'd', '', '', ''],
+        ['hk_indicators', '港股技术指标', 'data', 'E-HK', 'd', '', '', ''],
 
     'us_stock_indicator':
         ['hk_us_indicators', '美股技术指标', 'data', 'E-US', 'd', '', '', ''],
@@ -624,13 +633,16 @@ TABLE_SCHEMA = {
          'prime_keys': [0]
          },
 
-    'hk_stock_basic':  # 港股基本信息表
-        {'columns':    ['ts_code', 'name', 'fullname', 'enname', 'cn_spell', 'market',
-                        'list_status', 'list_date', 'delist_date', 'trade_unit', 'isin', 'curr_type'],
-         'dtypes':     ['varchar(20)', 'varchar(40)', 'text', 'text', 'varchar(20)', 'varchar(6)',
-                        'varchar(6)', 'datetime', 'datetime', 'float', 'varchar(16)', 'varchar(6)'],
-         'remarks':    ['股票代码', '股票简称', '公司全称', '英文名称', '拼音', '市场类别',
-                        '上市状态', '上市日期', '退市日期', '交易单位', 'ISIN代码', '货币代码'],
+    'hk_stock_basic':  # 港股基本信息表：us_stock_basic 的列 + cnname + 理杏仁 hk/company 的字段
+        {'columns':    ['ts_code', 'name', 'cnname', 'exchange', 'sector', 'industry', 'sub_industry', 'industry_code', 'country', 'isin', 'cusip',
+                        'list_date', 'shares_per_lot', 'fs_type', 'mutual_markets', 'a_code'],
+         'dtypes':     ['varchar(20)', 'varchar(255)', 'varchar(80)', 'varchar(10)',
+                        'varchar(40)', 'varchar(80)', 'varchar(80)', 'varchar(12)', 'varchar(4)', 'varchar(12)', 'varchar(9)',
+                        'date', 'int', 'varchar(20)', 'varchar(20)', 'varchar(20)'],
+         'remarks':    ['股票代码', '公司名称(英文)', '公司名称(简体中文)', '交易所',
+                        '恒生行业分类一级', '恒生行业分类二级', '恒生行业分类三级', '三级行业代码(如 H702015，前缀即一二级)', '国家', 'ISIN', 'CUSIP',
+                        '上市日期', '每手股数', '财报类型(non_financial/bank/security/insurance/reit/other_financial)',
+                        '互联互通(ah 等，逗号分隔)', 'A+H 对应的 A 股代码'],
          'prime_keys': [0]
          },
 
@@ -895,6 +907,13 @@ TABLE_SCHEMA = {
          'prime_keys': [0, 1]
          },
 
+    'hk_daily': # 港股日线行情表(不复权)：us_daily 的列 + 成交额
+        {'columns':    ['ts_code', 'trade_date', 'open', 'high', 'low', 'close', 'vol', 'amount'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'double', 'double'],
+         'remarks':    ['股票代码', '交易日期', '开盘价', '最高价', '最低价', '收盘价', '成交量(股)', '成交额(港元)'],
+         'prime_keys': [0, 1]
+         },
+
     'us_daily_adj': # 美股日线行情表（前复权）
         {'columns':    ['ts_code', 'trade_date', 'open', 'high', 'low', 'close', 'pre_close', 'change',
                         'pct_chg', 'vol', 'amount'],
@@ -979,6 +998,55 @@ TABLE_SCHEMA = {
          'dtypes':     ['varchar(20)', 'date', 'double', 'double', 'varchar(20)'],
          'remarks':    ['股票代码', '除权日', '拆后股数', '拆前股数', 'FMP 类型：stock-split / stock-dividend'],
          'prime_keys': [0, 1]},
+
+    'hk_dividend':  # 港股分红(理杏仁 hk/company/dividend)：每条公告一行(含"无股息"的公告)，列名对齐 A 股 dividend
+        {'columns':    ['ts_code', 'ann_date', 'content', 'fs_end_date', 'div_proc', 'cash_div', 'currency', 'div_amount', 'h_div_amount',
+                        'annual_np', 'payout_ratio', 'bonus_shares_profit', 'bonus_shares_reserve', 'record_date', 'ex_date', 'pay_date'],
+         'dtypes':     ['varchar(20)', 'date', 'varchar(255)', 'date', 'varchar(30)', 'double', 'varchar(6)', 'double', 'double',
+                        'double', 'float', 'double', 'double', 'date', 'date', 'date'],
+         'remarks':    ['股票代码', '公告日期', '内容(接口原文)', '对应财报期末(接口 fsEndDate)', '状态(implemented 等)', '每股分红(currency 币种)', '币种',
+                        '总分红金额(港币)', 'H 股股东分红金额', '年度净利润(港币)', '年度净利润分红比例', '送股(股)', '转增(股)',
+                        '股权登记日', '除权除息日', '分红到账日'],
+         'prime_keys': [0, 1, 2]},
+
+    'hk_equity_change':  # 港股股本变动(理杏仁 hk/company/equity-change)：翌日披露报表 + 月报表，每次变动一行；每日股本 = 公告日不晚于当天的最新一行
+        {'columns':    ['ts_code', 'change_date', 'ann_date', 'change_reason', 'total_share', 'h_share'],
+         'dtypes':     ['varchar(20)', 'date', 'date', 'varchar(255)', 'double', 'double'],
+         'remarks':    ['股票代码', '变动日期', '公告日期', '变动原因(繁体，接口原文)', '总股本', 'H 股股本'],
+         'prime_keys': [0, 1, 2]},
+
+    'hk_repurchase':  # 港股回购(理杏仁 hk/company/repurchase)：每笔回购一行，股本口径为总 H 股
+        {'columns':    ['ts_code', 'trade_date', 'security_type', 'method', 'vol', 'high', 'low', 'avg_price', 'amount',
+                        'currency', 'vol_ytd', 'ratio_ytd', 'form_date', 'board_type'],
+         'dtypes':     ['varchar(20)', 'date', 'varchar(10)', 'varchar(20)', 'double', 'float', 'float', 'float', 'double',
+                        'varchar(6)', 'double', 'float', 'date', 'varchar(10)'],
+         'remarks':    ['股票代码', '回购日期', '证券类型(ORD 等)', '回购方式(exchange 等)', '回购股数', '最高价', '最低价', '成交均价',
+                        '总金额', '币种', '本年内自决议通过以来回购股数', '自决议通过以来回购股数占当时股本比例', '申报表日期', '板块(main 等)'],
+         'prime_keys': [0, 1, 2]},
+
+    'hk_income':  # 港股：us_income 的列(理杏仁能对上的科目填进去) + 理杏仁 ps.* 其余科目(列名 ps_代码)
+        {'columns':    ["ts_code", "end_date", "period", "period_end", "filing_date", "fiscal_year", "currency", "revenue", "oper_cost", "gross_profit", "rd_exp", "sga_expense", "operating_expense", "cost_and_expense", "interest_income", "interest_expense", "da", "ebitda", "ebit", "operating_income", "other_income", "total_profit", "income_tax", "continued_net_profit", "n_income_attr_p", "basic_eps", "diluted_eps", "shares_out", "shares_out_dil", "admin_exp", "sell_exp", "other_expenses", "net_interest_income", "non_oper_income_ex_int", "discontinued_net_profit", "other_adj_net_income", "net_income_deductions", "bottom_line_net_income", "ps_oi", "ps_ii", "ps_faci", "ps_or", "ps_ie", "ps_face", "ps_fe", "ps_nfceg", "ps_sbcc", "ps_iifaajv", "ps_iifa", "ps_iifjv", "ps_ivi", "ps_ciofv", "ps_fvcoip", "ps_ailor", "ps_cilor", "ps_ooi", "ps_ooe", "ps_npatshaoehopc", "ps_npatmsh", "ps_adddicwrornci", "ps_nonifrs_op", "ps_nonifrs_opatoehopc", "ps_tci", "ps_tciatshaoehopc", "ps_tciatoshopc", "ps_tciatmsh", "ps_tciatrnci", "ps_natooci", "ps_da", "ps_da_om", "ps_ra", "ps_nfaci", "ps_ep", "ps_tas", "ps_oail", "ps_nfifb", "ps_nfifib", "ps_nfifam", "ps_oic", "ps_ei", "ps_adi", "ps_ir", "ps_iifb", "ps_nbii", "ps_nifaci", "ps_s", "ps_ce", "ps_crcfri", "ps_iiicr", "ps_irrcfri", "ps_phdrfpip", "ps_rie", "ps_faceoio", "ps_ise", "ps_aoripp", "ps_arfri", "ps_iifefici", "ps_nrifefrich", "ps_iefb", "ps_nbie", "ps_niface", "ps_ercfri", "ps_poe", "ps_mpf", "ps_npi", "ps_twuh", "ps_tda", "ps_dtuh", "audit_opinion"],
+         'dtypes':     ["varchar(20)", "date", "varchar(2)", "date", "date", "varchar(4)", "varchar(4)", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "varchar(60)"],
+         'remarks':    ["varchar(20)", "date", "varchar(2)", "理杏仁 ps.oi：营业收入", "理杏仁 ps.ii：利息收入", "理杏仁 ps.faci：手续费及佣金收入", "理杏仁 ps.or：其他收入", "理杏仁 ps.ie：利息支出", "理杏仁 ps.face：手续费及佣金支出", "理杏仁 ps.fe：财务费用", "理杏仁 ps.nfceg：外币兑换净收益", "理杏仁 ps.sbcc：股份酬金成本", "理杏仁 ps.iifaajv：对联营企业及合营企业的投资收益", "理杏仁 ps.iifa：对联营公司的投资收益", "理杏仁 ps.iifjv：对合营企业的投资收益", "理杏仁 ps.ivi：投资收益", "理杏仁 ps.ciofv：公允价值变动收益", "理杏仁 ps.fvcoip：投资物业公允值变动", "理杏仁 ps.ailor：资产减值损失", "理杏仁 ps.cilor：信用减值损失", "理杏仁 ps.ooi：其他业务收入", "理杏仁 ps.ooe：其他业务成本", "理杏仁 ps.npatshaoehopc：归属于母公司股东及其他权益持有者的净利润", "理杏仁 ps.npatmsh：少数股东损益", "理杏仁 ps.adddicwrornci：可赎回少数股东权益利息及回购视同股利分配", "理杏仁 ps.nonifrs_op：非国际公认会计准则净利润", "理杏仁 ps.nonifrs_opatoehopc：非国际公认会计准则归属于母公司股东净利润", "理杏仁 ps.tci：综合收益总额", "理杏仁 ps.tciatshaoehopc：归属于母公司股东及其他权益持有者的综合收益总额", "理杏仁 ps.tciatoshopc：归属于母公司普通股股东的综合收益总额", "理杏仁 ps.tciatmsh：归属于少数股东的综合收益总额", "理杏仁 ps.tciatrnci：可赎回少数股东权益的综合收益", "理杏仁 ps.natooci：其他综合收益的税后净额", "理杏仁 ps.da：分红金额", "理杏仁 ps.da_om：H股分红金额", "理杏仁 ps.ra：回购金额", "理杏仁 ps.nfaci：手续费及佣金净收入", "理杏仁 ps.ep：已赚保费", "理杏仁 ps.tas：税金及附加", "理杏仁 ps.oail：其他资产减值损失", "理杏仁 ps.nfifb：经纪业务净收入", "理杏仁 ps.nfifib：投资银行业务净收入", "理杏仁 ps.nfifam：资产管理业务净收入", "理杏仁 ps.oic：其他收益", "理杏仁 ps.ei：汇兑收益", "理杏仁 ps.adi：资产处置收益", "理杏仁 ps.ir：保险服务收入", "理杏仁 ps.iifb：银行业务利息收入", "理杏仁 ps.nbii：非银行业务利息收入", "理杏仁 ps.nifaci：非保险业务手续费及佣金收入", "理杏仁 ps.s：退保金", "理杏仁 ps.ce：保险合同赔付支出", "理杏仁 ps.crcfri：摊回保险合同赔付支出", "理杏仁 ps.iiicr：提取保险责任准备金净额", "理杏仁 ps.irrcfri：摊回保险责任准备金", "理杏仁 ps.phdrfpip：保单红利支出", "理杏仁 ps.rie：分保费用", "理杏仁 ps.faceoio：保险业务手续费及佣金支出", "理杏仁 ps.ise：保险服务费用", "理杏仁 ps.aoripp：分出保费的分摊", "理杏仁 ps.arfri：摊回保险服务费用", "理杏仁 ps.iifefici：承保财务损益", "理杏仁 ps.nrifefrich：分出再保险财务损益", "理杏仁 ps.iefb：银行业务利息支出", "理杏仁 ps.nbie：非银行业务利息支出", "理杏仁 ps.niface：非保险业务手续费及佣金支出", "理杏仁 ps.ercfri：摊回分保费用", "理杏仁 ps.poe：物业经营开支", "理杏仁 ps.mpf：管理人费用", "理杏仁 ps.npi：物业收入净额", "理杏仁 ps.twuh：与基金单位持有人交易", "理杏仁 ps.tda：可供分派总金额(调整后)", "理杏仁 ps.dtuh：分配给基金持有人", "审计意见(理杏仁 auditOpinionType)"],
+         'prime_keys': [0, 1, 2]
+         },
+
+    'hk_balance':  # 港股：us_balance 的列(理杏仁能对上的科目填进去) + 理杏仁 bs.* 其余科目(列名 bs_代码)
+        {'columns':    ["ts_code", "end_date", "period", "period_end", "filing_date", "fiscal_year", "currency", "cash", "st_investments", "cash_and_st_inv", "net_receivables", "inventories", "oth_cur_assets", "total_cur_assets", "ppe_net", "goodwill", "intan_assets", "lt_investments", "defer_tax_assets", "oth_nca", "total_nca", "total_assets", "acct_payable", "st_debt", "deferred_revenue", "oth_cur_liab", "total_cur_liab", "lt_debt", "oth_ncl", "total_ncl", "total_liab", "common_stock", "retained_earnings", "oth_comp_income", "total_hldr_eqy_exc_min_int", "minority_int", "total_liab_hldr_eqy", "total_debt", "net_debt", "accounts_receiv", "oth_receiv", "prepayment", "goodwill_intang", "total_invest", "oth_assets", "accrued_exp", "oth_payable", "total_payable", "taxes_payable", "lease_liab_cur", "lease_liab_ncur", "lease_liab", "defer_rev_ncur", "defer_tax_liab_ncur", "oth_liab", "preferred_stock", "cap_rese", "treasury_stock", "oth_eqt_tools", "total_equity", "bs_claatc", "bs_lcabbapbd", "bs_lcabb", "bs_cpbd", "bs_nr", "bs_rf", "bs_tr", "bs_cca", "bs_clr", "bs_cahfs", "bs_cdfa", "bs_std", "bs_osti", "bs_cfiaac", "bs_cfiafvtpol", "bs_cfiafvtoci", "bs_cpdoraoa", "bs_ltd", "bs_nclaatc", "bs_ncpbd", "bs_lur", "bs_roua", "bs_ba", "bs_oaga", "bs_cip", "bs_pi", "bs_iiaajv", "bs_iia", "bs_iijv", "bs_ncca", "bs_nclr", "bs_ncahfs", "bs_ncdfa", "bs_ncfiaac", "bs_ncfiafvtpol", "bs_ncfiafvtoci", "bs_ltar", "bs_ncpdoraoa", "bs_stpl", "bs_stbp", "bs_otp", "bs_np", "bs_didwioy", "bs_stlcofcb", "bs_stdfl", "bs_stsn", "bs_stflafvtpol", "bs_stafcrdaoraol", "bs_ltpl", "bs_ltdi", "bs_sn", "bs_bp", "bs_lcorcps", "bs_ltlcofcb", "bs_ltdfl", "bs_ltflafvtpol", "bs_ltafcrdaoraol", "bs_spa", "bs_pcsioei", "bs_r", "bs_rr", "bs_ors", "bs_surr", "bs_shfsas", "bs_ecocb", "bs_tetoshopc", "bs_rnci", "bs_ep_stn", "bs_tsc", "bs_bwbaofi", "bs_pm", "bs_pwbaofi", "bs_fahursa", "bs_laatc", "bs_hkgcoi", "bs_dfa", "bs_dfiafvtpol", "bs_fiafvtpol", "bs_fiaac", "bs_diafvtoci", "bs_deiafvtoci", "bs_oa", "bs_bfcb", "bs_dfbaofi", "bs_pfbaofi", "bs_cd", "bs_hkcnic", "bs_fasurpa", "bs_dfl", "bs_flafvtpol", "bs_dflafvtpol", "bs_dsi", "bs_ol", "bs_choboc", "bs_sr", "bs_dhoboc", "bs_ma", "bs_rfd", "bs_ltei", "bs_rei", "bs_ahfs", "bs_stfip", "bs_tfl", "bs_stoa", "bs_ssoa", "bs_sawp", "bs_intp", "bs_al", "bs_pr", "bs_ir", "bs_rir", "bs_uprrfri", "bs_crrfri", "bs_lirrfri", "bs_lthirrfri", "bs_niipl", "bs_crorir", "bs_phpl", "bs_td", "bs_htmi", "bs_sd", "bs_saa", "bs_afc", "bs_pria", "bs_facp", "bs_rip", "bs_cp", "bs_phdp", "bs_phd", "bs_icr", "bs_uepr", "bs_cr", "bs_lir", "bs_lthir", "bs_sal", "bs_ncal", "bs_ev", "bs_evolahib", "bs_evolib", "bs_evohib", "bs_uii", "bs_fiafvtoci"],
+         'dtypes':     ["varchar(20)", "date", "varchar(2)", "date", "date", "varchar(4)", "varchar(4)", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double", "double"],
+         'remarks':    ["varchar(20)", "date", "varchar(2)", "理杏仁 bs.claatc：发放贷款及垫款(流动)", "理杏仁 bs.lcabbapbd：受限制现金及已抵押存款", "理杏仁 bs.lcabb：受限制货币资金", "理杏仁 bs.cpbd：已抵押银行存款(流动)", "理杏仁 bs.nr：应收票据", "理杏仁 bs.rf：应收款项融资", "理杏仁 bs.tr：可收回之税项", "理杏仁 bs.cca：合同资产(流动)", "理杏仁 bs.clr：租赁应收款项(流动)", "理杏仁 bs.cahfs：持有待售资产(流动)", "理杏仁 bs.cdfa：衍生金融资产(流动)", "理杏仁 bs.std：结构性银行存款", "理杏仁 bs.osti：其他短期投资", "理杏仁 bs.cfiaac：以摊销成本计量的金融投资(流动)", "理杏仁 bs.cfiafvtpol：以公允价值计量且其变动计入损益的金融投资(流动)", "理杏仁 bs.cfiafvtoci：以公允价值计量且其变动计入其他综合收益的金融投资(流动)", "理杏仁 bs.cpdoraoa：预付款项、按金、其他应收款及其他资产(流动)", "理杏仁 bs.ltd：定期存款", "理杏仁 bs.nclaatc：发放贷款及垫款(非流动)", "理杏仁 bs.ncpbd：已抵押银行存款(非流动)", "理杏仁 bs.lur：土地使用权", "理杏仁 bs.roua：使用权资产", "理杏仁 bs.ba：生物资产", "理杏仁 bs.oaga：油气资产", "理杏仁 bs.cip：在建工程", "理杏仁 bs.pi：投资物业", "理杏仁 bs.iiaajv：于联营及合资公司之权益", "理杏仁 bs.iia：联营公司投资", "理杏仁 bs.iijv：合营公司投资", "理杏仁 bs.ncca：合同资产(非流动)", "理杏仁 bs.nclr：租赁应收款项(非流动)", "理杏仁 bs.ncahfs：持有待售资产(非流动)", "理杏仁 bs.ncdfa：衍生金融资产(非流动)", "理杏仁 bs.ncfiaac：以摊销成本计量的金融投资(非流动)", "理杏仁 bs.ncfiafvtpol：以公允价值计量且其变动计入损益的金融投资(非流动)", "理杏仁 bs.ncfiafvtoci：以公允价值计量且其变动计入其他综合收益的金融投资(非流动)", "理杏仁 bs.ltar：长期应收款", "理杏仁 bs.ncpdoraoa：预付款项、按金、其他应收款及其他资产(非流动)", "理杏仁 bs.stpl：有抵押银行借款(短期)", "理杏仁 bs.stbp：短期应付债券", "理杏仁 bs.otp：其他税项负债", "理杏仁 bs.np：应付票据", "理杏仁 bs.didwioy：一年内到期的递延收益", "理杏仁 bs.stlcofcb：可转换债券(短期)", "理杏仁 bs.stdfl：衍生金融负债(短期)", "理杏仁 bs.stsn：优先票据(短期)", "理杏仁 bs.stflafvtpol：以公允价值计量且其变动计入损益的金融负债(短期)", "理杏仁 bs.stafcrdaoraol：预收款项、已收按金、应计费用、其他应付款及其他负债(短期)", "理杏仁 bs.ltpl：有抵押银行借款(长期)", "理杏仁 bs.ltdi：长期递延收益", "理杏仁 bs.sn：优先票据", "理杏仁 bs.bp：应付债券", "理杏仁 bs.lcorcps：可赎回可换股优先股负债部分", "理杏仁 bs.ltlcofcb：可转换债券(长期)", "理杏仁 bs.ltdfl：衍生金融负债(长期)", "理杏仁 bs.ltflafvtpol：以公允价值计量且其变动计入损益的金融负债(长期)", "理杏仁 bs.ltafcrdaoraol：预收款项、已收按金、应计费用、其他应付款及其他负债(长期)", "理杏仁 bs.spa：股本溢价", "理杏仁 bs.pcsioei：永续债", "理杏仁 bs.r：储备", "理杏仁 bs.rr：专项储备", "理杏仁 bs.ors：其他储备", "理杏仁 bs.surr：盈余公积", "理杏仁 bs.shfsas：股份奖励计划所持股份", "理杏仁 bs.ecocb：可换股债券权益部分", "理杏仁 bs.tetoshopc：归属于母公司普通股股东权益合计", "理杏仁 bs.rnci：可赎回少数股东权益", "理杏仁 bs.ep_stn：员工人数", "理杏仁 bs.tsc：总股数", "理杏仁 bs.bwbaofi：存放同业及其他金融机构款项", "理杏仁 bs.pm：贵金属", "理杏仁 bs.pwbaofi：拆出资金", "理杏仁 bs.fahursa：买入返售金融资产", "理杏仁 bs.laatc：发放贷款及垫款", "理杏仁 bs.hkgcoi：香港政府负债证明书", "理杏仁 bs.dfa：衍生金融资产", "理杏仁 bs.dfiafvtpol：指定以公允价值计量且其变动计入损益的金融投资(HK)", "理杏仁 bs.fiafvtpol：以公允价值计量且其变动计入当期损益的金融投资", "理杏仁 bs.fiaac：以摊余成本计量的金融投资", "理杏仁 bs.diafvtoci：以公允价值计量且其变动计入其他综合收益的债务工具投资", "理杏仁 bs.deiafvtoci：指定为以公允价值计量且其变动计入其他综合收益的权益工具投资", "理杏仁 bs.oa：其他资产", "理杏仁 bs.bfcb：向中央银行借款", "理杏仁 bs.dfbaofi：同业及其他金融机构存放款项", "理杏仁 bs.pfbaofi：拆入资金", "理杏仁 bs.cd：客户存款", "理杏仁 bs.hkcnic：香港纸币流通额", "理杏仁 bs.fasurpa：卖出回购金融资产", "理杏仁 bs.dfl：衍生金融负债", "理杏仁 bs.flafvtpol：以公允价值计量且其变动计入当期损益的金融负债", "理杏仁 bs.dflafvtpol：指定以公允价值计量且其变动计入损益的金融负债(HK)", "理杏仁 bs.dsi：已发行债务证券", "理杏仁 bs.ol：其他负债", "理杏仁 bs.choboc：客户存款(货币资金中)", "理杏仁 bs.sr：结算备付金", "理杏仁 bs.dhoboc：客户备付金", "理杏仁 bs.ma：融出资金", "理杏仁 bs.rfd：存出保证金", "理杏仁 bs.ltei：长期股权投资", "理杏仁 bs.rei：投资性房地产", "理杏仁 bs.ahfs：持有待售资产", "理杏仁 bs.stfip：应付短期融资款", "理杏仁 bs.tfl：交易性金融负债", "理杏仁 bs.stoa：代理买卖证券款", "理杏仁 bs.ssoa：代理承销证券款", "理杏仁 bs.sawp：应付职工薪酬", "理杏仁 bs.intp：应付利息", "理杏仁 bs.al：预计负债", "理杏仁 bs.pr：应收保费", "理杏仁 bs.ir：应收利息", "理杏仁 bs.rir：应收分保账款", "理杏仁 bs.uprrfri：应收分保未到期责任准备金", "理杏仁 bs.crrfri：应收分保未决赔款准备金", "理杏仁 bs.lirrfri：应收分保寿险责任准备金", "理杏仁 bs.lthirrfri：应收分保长期健康险责任准备金", "理杏仁 bs.niipl：质押贷款净增加额", "理杏仁 bs.crorir：应收分保合同准备金", "理杏仁 bs.phpl：保户质押贷款", "理杏仁 bs.td：定期存款", "理杏仁 bs.htmi：持有至到期投资", "理杏仁 bs.sd：存出资本保证金", "理杏仁 bs.saa：独立账户资产", "理杏仁 bs.afc：预收账款", "理杏仁 bs.pria：预收保费", "理杏仁 bs.facp：应付手续费及佣金", "理杏仁 bs.rip：应付分保账款", "理杏仁 bs.cp：应付赔付款", "理杏仁 bs.phdp：应付保单红利", "理杏仁 bs.phd：保户储金及投资款", "理杏仁 bs.icr：保险合同准备金", "理杏仁 bs.uepr：未到期责任准备金", "理杏仁 bs.cr：未决赔款准备金", "理杏仁 bs.lir：寿险责任准备金", "理杏仁 bs.lthir：长期健康险责任准备金", "理杏仁 bs.sal：独立账户负债", "理杏仁 bs.ncal：预计负债(非流动)", "理杏仁 bs.ev：内含价值", "理杏仁 bs.evolahib：寿险及健康险业务内含价值", "理杏仁 bs.evolib：寿险业务内含价值", "理杏仁 bs.evohib：健康险业务内含价值", "理杏仁 bs.uii：已发行基金单位", "理杏仁 bs.fiafvtoci：以公允价值计量且其变动计入其他综合收益的金融投资"],
+         'prime_keys': [0, 1, 2]
+         },
+
+    'hk_mainbz':  # 港股营收构成(理杏仁 operation-revenue-constitution)：按业务 / 按地区两棵树，列名对齐 A 股 fina_mainbz
+        {'columns':    ['ts_code', 'end_date', 'bz_parent', 'bz_item', 'period_end', 'ann_date',
+                        'bz_sales', 'bz_cost', 'gross_margin', 'curr_type'],
+         'dtypes':     ['varchar(20)', 'date', 'varchar(100)', 'varchar(100)', 'date', 'date',
+                        'double', 'double', 'float', 'varchar(6)'],
+         'remarks':    ['股票代码', '报告期(与 A 股同义：财年第 N 季记为 N 季末，Q4 为 12-31)', '父项(按業務類型分 / 按地區分；合計行记它自己)',
+                        '项目名称(繁体，接口原文)', '实际截止日(接口的 date，12-30 这类近似日)', '公告日期',
+                        '收入', '成本', '毛利率', '货币'],
+         'prime_keys': [0, 1, 2, 3]},
 
     'us_earnings':  # 即将发布的财报(FMP earnings-calendar)：每个报告期一行，只存未来；report_date 可能是预估(confirmed=0)，改期后覆盖
         {'columns':    ['ts_code', 'end_date', 'report_date', 'report_time', 'fiscal_period', 'fiscal_year', 'confirmed',
@@ -1091,10 +1159,27 @@ TABLE_SCHEMA = {
          'remarks':    ['股票代码', '交易日期', '复权因子', '换手率', '流通股本', '总股本', '流通市值', '总市值'],
          'prime_keys': [0, 1]},
 
+    'hk_indicators':  # 港股每日估值指标(理杏仁 fundamental/<fs_type>)：行情列在日线表里，不重复存；列名对齐 A 股 stock_indicator
+        {'columns':    ['ts_code', 'trade_date', 'turnover_rate', 'pe_ttm', 'pb', 'ps_ttm', 'pcf_ttm', 'dv_ratio',
+                        'total_mv', 'h_mv', 'sc_hold', 'sc_hold_mv', 'sc_net_buy'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'float', 'float', 'float', 'float',
+                        'double', 'double', 'double', 'double', 'double'],
+         'remarks':    ['股票代码', '交易日期', '换手率(小数)', 'PE-TTM', 'PB', 'PS-TTM', 'PCF-TTM', '股息率(小数)',
+                        '总市值(港元)', 'H 股市值', '港股通持仓股数', '港股通持仓金额', '港股通净买入金额'],
+         'prime_keys': [0, 1]
+         },
+
     'adj_factors':  # 复权因子表
         {'columns':    ['ts_code', 'trade_date', 'adj_factor'],
          'dtypes':     ['varchar(24)', 'date', 'double'],
          'remarks':    ['证券代码', '交易日期', '复权因子'],
+         'prime_keys': [0, 1]
+         },
+
+    'adj_ratios':  # 除权比率表：只有除权日有行，复权因子 = 比率从起点往后累乘(起点处为 1)，不需要规定基准日
+        {'columns':    ['ts_code', 'trade_date', 'adj_ratio'],
+         'dtypes':     ['varchar(24)', 'date', 'double'],
+         'remarks':    ['证券代码', '除权日', '当日除权比率(后复权价 = 前一日价 × 比率；拆股 1 拆 5 为 5，分红为 1/(1-分红/前收))'],
          'prime_keys': [0, 1]
          },
 

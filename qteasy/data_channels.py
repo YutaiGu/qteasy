@@ -64,7 +64,7 @@ data_channels.download_data(
 
 """
 
-BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina', 'fmp')
+BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina', 'fmp', 'lixingren')
 DATA_CHANNEL_ALIASES = {
     'emoney': 'eastmoney',
 }
@@ -190,6 +190,14 @@ def _build_channel_registry() -> dict[str, DataChannel]:
             name='fmp',
             api_map_getter=lambda: FMP_API_MAP,
             fetch_table_func=_fetch_table_data_from_fmp,
+            fetch_realtime_kline_func=None,
+            supports_realtime_klines=False,
+            supports_realtime_quotes=False,
+        ),
+        'lixingren': DataChannel(
+            name='lixingren',
+            api_map_getter=lambda: LIXINGREN_API_MAP,
+            fetch_table_func=_fetch_table_data_from_lixingren,
             fetch_realtime_kline_func=None,
             supports_realtime_klines=False,
             supports_realtime_quotes=False,
@@ -364,6 +372,12 @@ def _fetch_table_data_from_sina(table, api, **kwargs):
 def _fetch_table_data_from_fmp(table, api, **kwargs):
     """ 使用kwargs参数，从FMP获取一次金融数据；api 为路由选中那一行的api"""
     from .fmpfuncs import acquire_data
+    return acquire_data(api, **kwargs)
+
+
+def _fetch_table_data_from_lixingren(table, api, **kwargs):
+    """ 使用kwargs参数，从理杏仁获取一次金融数据；api 为路由选中那一行的api"""
+    from .lxrfuncs import acquire_data
     return acquire_data(api, **kwargs)
 
 
@@ -2230,9 +2244,6 @@ FMP_API_MAP = {
     'us_stock_adj_factor':  # 自算：只按本地事件表，不调 FMP；函数从本地最后一天算到 end
         ['us_stock_adj_factor', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_stock_daily,us_dividend,us_split'],
 
-    'hk_stock_adj_factor':  # 与 us_stock_adj_factor 同一个接口
-        ['hk_stock_adj_factor', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '', 'hk_stock_daily,hk_dividend,hk_split'],
-
     'us_cashflow':  # [已审 20261012]
         # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司
         [['us_cashflow_latest', 'none', 'none', '', '', 'C', '', 'us_stock_basic'],
@@ -2247,4 +2258,40 @@ FMP_API_MAP = {
 
     'hk_cashflow':  # [已审 20261006] 与 us_cashflow 逐股行同一个接口
         ['us_cashflow', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
+}
+
+
+LIXINGREN_API_MAP = {
+    'hk_stock_basic':  # [已审 20261020] 函数内串三个接口，等价于三行，都在"每月 1/7/13/19/25 取一次"的锁里：
+        # hk/index/constituents  ['index', 'list', 'HSLI,HSMI,HSSI', '', 'C', '']：stockCodes ≤100(文档)，三个一次请求；不能翻页、文档无成分数上限(实测 232)，自保；缺任一指数或空成分即 raise
+        # hk/company             ['ts_code', 'list', '', '', 'C', '100']：stockCodes ≤100(文档)一批，每批按 pageIndex 翻到空页(越界返回空 data)
+        # hk/company/industries  ['ts_code', 'table_index', '', '', 'C', '']：逐只；不能翻页、无限额，一次返回该股全部层级(实测 ≤3 行)，自保
+        ['hk_stock_basic', 'none', 'none', '', '', 'C', ''],
+
+    'hk_stock_daily':  # [已审 20261020] hk/company/candlestick：startDate/endDate 两端包含，跨度 ≤10 年(文档)
+        ['hk_stock_daily', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_stock_adj_factor':  # [已审 20261020] 与 hk_stock_daily 同一个接口；只取有 backwardComplexFactor 的行
+        ['hk_stock_adj_factor', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_equity_change':  # [已审 20261020] hk/company/equity-change：startDate/endDate 按变动日期(不是公告日)，两端包含，跨度 ≤10 年(文档)；公告晚变动日 0~7 天，函数把 start 倒 30 天
+        ['hk_equity_change', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_repurchase':  # [已审 20261020] hk/company/repurchase：startDate/endDate 按回购日期(不是申报日)，两端包含，跨度 ≤10 年(文档)；申报晚 1~3 个交易日，函数把 start 倒 30 天
+        ['hk_repurchase', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_income':  # [已审 20261020] hk/company/fs：读本地 hk_stock_basic 路由，startDate/endDate 按财报日(不是公告日)，两端包含，跨度 ≤10 年(文档)；公告晚财报日 1~4 个月，函数把 start 倒 366 天；metricsList 单只 ≤128 个(文档)，超过时同一区间分批请求再按财报日合并；原始值
+        ['hk_income', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_balance':  # [已审 20261020] 与 hk_income 同一个接口
+        ['hk_balance', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_stock_indicator':  # [已审 20261020] hk/company/fundamental：读本地 hk_stock_basic 路由，startDate/endDate 两端包含，跨度 ≤10 年(文档)；metricsList 单只 ≤36 个(文档)，只取 11 个
+        ['hk_stock_indicator', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_dividend':  # [已审 20261020] hk/company/dividend：startDate/endDate 按公告日期，两端包含，跨度 ≤10 年(文档)；录入晚于公告 8 天以上(实测中电 10-12 公告、10-20 未录，上限未知)，函数把 start 倒 366 天
+        ['hk_dividend', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600'],
+
+    'hk_mainbz':  # [已审 20261020] hk/company/operation-revenue-constitution：startDate/endDate 按真实期末过滤、两端包含(实测 start=09-30 含 Q3、end=12-31 含 Q4)，但返回的 date 是期末减一天的近似日(12-30)，切段按真实期末归属、不丢不重；跨度 ≤10 年(文档)；公告晚期末 1~4 个月，函数把 start 倒 366 天；报告期名字按本地 hk_income 的年报结账月定
+        ['hk_mainbz', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600', 'hk_income'],
 }
