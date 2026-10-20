@@ -1159,10 +1159,13 @@ TABLE_SCHEMA = {
                         '期初现金'],
          'prime_keys': [0, 1, 2]},
 
-    'hk_us_indicators':  # 行情列在日线表里，不重复存；FMP 源只填 total_mv(historical-market-capitalization，交易币种)和 total_share(= total_mv / 本地日线收盘价)，其余等 tushare
-        {'columns':    ['ts_code', 'trade_date', 'adj_factor', 'turnover_ratio', 'free_share', 'total_share', 'free_mv', 'total_mv'],
-         'dtypes':     ['varchar(20)', 'date', 'float', 'float', 'double', 'double', 'double', 'double'],
-         'remarks':    ['股票代码', '交易日期', '复权因子', '换手率', '流通股本', '总股本', '流通市值', '总市值'],
+    'hk_us_indicators':  # 行情列在日线表里、复权因子在 us_stock_adj_factor，不重复存；total_share = total_mv / 本地日线收盘价。Sharadar(daily)填 total_mv 及之后的估值列，FMP 只填 total_mv；流通、换手等 tushare
+        {'columns':    ['ts_code', 'trade_date', 'turnover_ratio', 'free_share', 'total_share', 'free_mv', 'total_mv',
+                        'ev', 'pe_ttm', 'pb', 'ps_ttm', 'ev_ebit', 'ev_ebitda'],
+         'dtypes':     ['varchar(20)', 'date', 'float', 'double', 'double', 'double', 'double',
+                        'double', 'float', 'float', 'float', 'float', 'float'],
+         'remarks':    ['股票代码', '交易日期', '换手率', '流通股本', '总股本', '流通市值', '总市值',
+                        '企业价值(总市值 + 债务 − 现金)', '市盈率(TTM)', '市净率', '市销率(TTM)', 'EV/EBIT', 'EV/EBITDA'],
          'prime_keys': [0, 1]},
 
     'hk_indicators':  # 港股每日估值指标(理杏仁 fundamental/<fs_type>)：行情列在日线表里，不重复存；列名对齐 A 股 stock_indicator

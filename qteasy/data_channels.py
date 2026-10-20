@@ -64,7 +64,7 @@ data_channels.download_data(
 
 """
 
-BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina', 'fmp', 'lixingren')
+BUILTIN_DATA_CHANNELS = ('tushare', 'akshare', 'eastmoney', 'sina', 'fmp', 'lixingren', 'sharadar')
 DATA_CHANNEL_ALIASES = {
     'emoney': 'eastmoney',
 }
@@ -198,6 +198,14 @@ def _build_channel_registry() -> dict[str, DataChannel]:
             name='lixingren',
             api_map_getter=lambda: LIXINGREN_API_MAP,
             fetch_table_func=_fetch_table_data_from_lixingren,
+            fetch_realtime_kline_func=None,
+            supports_realtime_klines=False,
+            supports_realtime_quotes=False,
+        ),
+        'sharadar': DataChannel(
+            name='sharadar',
+            api_map_getter=lambda: SHARADAR_API_MAP,
+            fetch_table_func=_fetch_table_data_from_sharadar,
             fetch_realtime_kline_func=None,
             supports_realtime_klines=False,
             supports_realtime_quotes=False,
@@ -378,6 +386,12 @@ def _fetch_table_data_from_fmp(table, api, **kwargs):
 def _fetch_table_data_from_lixingren(table, api, **kwargs):
     """ 使用kwargs参数，从理杏仁获取一次金融数据；api 为路由选中那一行的api"""
     from .lxrfuncs import acquire_data
+    return acquire_data(api, **kwargs)
+
+
+def _fetch_table_data_from_sharadar(table, api, **kwargs):
+    """ 使用kwargs参数，从 Sharadar 获取一次金融数据；api 为路由选中那一行的api"""
+    from .sharadarfuncs import acquire_data
     return acquire_data(api, **kwargs)
 
 
@@ -2303,4 +2317,9 @@ LIXINGREN_API_MAP = {
 
     'hk_mainbz':  # [已审 20261020] hk/company/operation-revenue-constitution：startDate/endDate 按真实期末过滤、两端包含(实测 start=09-30 含 Q3、end=12-31 含 Q4)，但返回的 date 是期末减一天的近似日(12-30)，切段按真实期末归属、不丢不重；跨度 ≤10 年(文档)；公告晚期末 1~4 个月，函数把 start 倒 366 天；报告期名字按本地 hk_income 的年报结账月定
         ['hk_mainbz', 'ts_code', 'table_index', 'hk_stock_basic', '', 'Y', '3600', 'hk_income'],
+}
+
+SHARADAR_API_MAP = {
+    'us_stock_indicator':  # [已审 20261020] daily：from/to 两端包含(实测)；单次上限 10000 行(文档)，逐股 5 年约 1255 行
+        ['us_stock_indicator', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', '', 'us_stock_daily'],
 }
