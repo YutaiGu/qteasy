@@ -71,6 +71,25 @@ def _lxr_post(path: str, **body) -> list:
     return payload.get('data') or []
 
 
+def _frame(data: list, fields: dict) -> pd.DataFrame:
+    """理杏仁返回值的共性，统一在这里处理，各下载函数之后按列名直接取：
+    1. 没有值的字段整个键不给，不是给 null —— 按 fields 补成空列；
+    2. 数值、文本字段偶有 '' 空串(如快手的 capitalizationH) —— 当空值；
+    3. 日期是 'YYYY-MM-DDT00:00:00+08:00' —— 取前 10 位转日期。
+    fields: 接口字段 → 'date' / 'num' / 'str' / 'obj'(嵌套结构原样保留)。
+    """
+    raw = pd.DataFrame(data).reindex(columns=list(fields))
+    for col, kind in fields.items():
+        s = raw[col].astype(object).where(raw[col].notna() & (raw[col].astype(object) != ''), None)
+        if kind == 'date':
+            raw[col] = pd.to_datetime(s.str[:10])
+        elif kind == 'num':
+            raw[col] = pd.to_numeric(s, errors='coerce')
+        else:
+            raw[col] = s
+    return raw
+
+
 def _to_ts_code(code: str, area: str, market: str) -> str:
     """理杏仁 stockCode + areaCode/market → qteasy 代码。A 股 6 位按前缀定交易所(同 akfuncs)；港股 4 位 + .HK；美股原样。"""
     code = str(code).strip()
@@ -177,14 +196,14 @@ def hk_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None)
                  _lxr_post('hk/company/candlestick', stockCode=_to_lxr_code(ts_code), type='bc_rights',
                            startDate=start, endDate=end, adjustBackwardDate=start),
                  fmt='%Y-%m-%d')
-    raw = pd.DataFrame(data)
-    if raw.empty or 'backwardComplexFactor' not in raw:
-        return pd.DataFrame()
+    raw = _frame(data, {'date': 'date', 'backwardComplexFactor': 'num'})
     raw = raw[raw['backwardComplexFactor'].notna()]
+    if raw.empty:
+        return pd.DataFrame()
     return pd.DataFrame({
         'ts_code':    ts_code,
-        'trade_date': pd.to_datetime(raw['date'].str[:10]),
-        'adj_ratio':  raw['backwardComplexFactor'].astype('float64'),
+        'trade_date': raw['date'],
+        'adj_ratio':  raw['backwardComplexFactor'],
     })
 
 
@@ -201,18 +220,19 @@ def hk_stock_daily(ts_code: str = None, start: str = None, end: str = None) -> p
                  _lxr_post('hk/company/candlestick', stockCode=_to_lxr_code(ts_code), type='ex_rights',
                            startDate=start, endDate=end),
                  fmt='%Y-%m-%d')
-    raw = pd.DataFrame(data)
+    raw = _frame(data, {'date': 'date', 'open': 'num', 'high': 'num', 'low': 'num', 'close': 'num',
+                        'volume': 'num', 'amount': 'num'})
     if raw.empty:
         return pd.DataFrame()
     return pd.DataFrame({
         'ts_code':    ts_code,
-        'trade_date': pd.to_datetime(raw['date'].str[:10]),
-        'open':       raw.get('open'),      # 理杏仁对没有值的字段不给键：主键之外的列有就取，没有留空
-        'high':       raw.get('high'),
-        'low':        raw.get('low'),
-        'close':      raw.get('close'),
-        'vol':        raw.get('volume'),
-        'amount':     raw.get('amount'),
+        'trade_date': raw['date'],
+        'open':       raw['open'],
+        'high':       raw['high'],
+        'low':        raw['low'],
+        'close':      raw['close'],
+        'vol':        raw['volume'],
+        'amount':     raw['amount'],
     })
 
 
@@ -221,15 +241,15 @@ def _back(start: str, days: int) -> str:
     return (pd.Timestamp(start) - pd.Timedelta(days=days)).strftime('%Y-%m-%d') if start else None
 
 
-def _lxr_dated(path: str, ts_code: str, start: str, end: str, back: int = 0) -> pd.DataFrame:
-    """按股票 + [start, end](两端包含，跨度 ≤10 年)取理杏仁的逐条事件表，返回原始 DataFrame；back 见 _back。"""
+def _lxr_dated(path: str, ts_code: str, start: str, end: str, fields: dict, back: int = 0) -> pd.DataFrame:
+    """按股票 + [start, end](两端包含，跨度 ≤10 年)取理杏仁的逐条事件表，经 _frame(fields) 规整；back 见 _back。"""
     start = _back(regulate_date_format(start, force_format='date'), back) if start else None
     end = regulate_date_format(end, force_format='date') if end else None
     data = guard(f'lixingren-{path}', dict(ts_code=ts_code, start=start, end=end),
                  lambda ts_code, start, end:
                  _lxr_post(path, stockCode=_to_lxr_code(ts_code), startDate=start, endDate=end),
                  fmt='%Y-%m-%d')
-    return pd.DataFrame(data)
+    return _frame(data, fields)
 
 
 def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
@@ -237,23 +257,25 @@ def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) ->
     接口区间按变动日(date)过滤，记录公告后才出现，公告比变动日晚 0~7 天(实测)，录入再晚几天：start 倒 30 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/equity-change', ts_code, start, end, back=30)
+    raw = _lxr_dated('hk/company/equity-change', ts_code, start, end, back=30,
+                     fields={'date': 'date', 'declarationDate': 'date', 'changeReason': 'str',
+                             'capitalization': 'num', 'capitalizationH': 'num'})
     if raw.empty:
         return pd.DataFrame()
-    dirty = raw['declarationDate'].isna() if 'declarationDate' in raw else pd.Series(True, index=raw.index)
-    if dirty.any():   # 公告日是主键，缺了是数据源的脏记录：丢弃并警告
+    dirty = raw['declarationDate'].isna()
+    if dirty.any():   # 公告日是主键，缺了是数据源的脏记录(实测只有 REIT)：丢弃并警告
         warnings.warn(f'lixingren equity-change {ts_code}: dropped {int(dirty.sum())} records without declarationDate '
-                      f'(dates {sorted(raw.loc[dirty, "date"].str[:10])[:5]})')
+                      f'(dates {sorted(raw.loc[dirty, "date"].dt.strftime("%Y-%m-%d"))[:5]})')
         raw = raw[~dirty]
         if raw.empty:
             return pd.DataFrame()
     return pd.DataFrame({
         'ts_code':       ts_code,
-        'change_date':   pd.to_datetime(raw['date'].str[:10]),
-        'ann_date':      pd.to_datetime(raw['declarationDate'].str[:10]),   # 主键，必须有
-        'change_reason': raw.get('changeReason'),                              # 主键之外的列有就取，没有留空
-        'total_share':   raw.get('capitalization'),
-        'h_share':       raw.get('capitalizationH'),
+        'change_date':   raw['date'],
+        'ann_date':      raw['declarationDate'],
+        'change_reason': raw['changeReason'],
+        'total_share':   raw['capitalization'],
+        'h_share':       raw['capitalizationH'],
     })
 
 
@@ -262,24 +284,28 @@ def hk_repurchase(ts_code: str = None, start: str = None, end: str = None) -> pd
     接口区间按回购日(date)过滤，申报(formDate)晚 1~3 个交易日，录入再晚几天：start 倒 30 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/repurchase', ts_code, start, end, back=30)
+    raw = _lxr_dated('hk/company/repurchase', ts_code, start, end, back=30,
+                     fields={'date': 'date', 'securityType': 'str', 'methodOfPurchase': 'str', 'num': 'num',
+                             'highestPrice': 'num', 'lowestPrice': 'num', 'avgPrice': 'num', 'totalPaid': 'num',
+                             'currency': 'str', 'numPurchasedInYearSinceResolution': 'num',
+                             'ratioPurchasedSinceResolution': 'num', 'formDate': 'date', 'boardType': 'str'})
     if raw.empty:
         return pd.DataFrame()
     return pd.DataFrame({
         'ts_code':       ts_code,
-        'trade_date':    pd.to_datetime(raw['date'].str[:10]),
-        'security_type': raw.get('securityType'),
-        'method':        raw.get('methodOfPurchase'),
-        'vol':           raw.get('num'),
-        'high':          raw.get('highestPrice'),
-        'low':           raw.get('lowestPrice'),
-        'avg_price':     raw.get('avgPrice'),
-        'amount':        raw.get('totalPaid'),
-        'currency':      raw.get('currency'),
-        'vol_ytd':       raw.get('numPurchasedInYearSinceResolution'),
-        'ratio_ytd':     raw.get('ratioPurchasedSinceResolution'),
-        'form_date':     pd.to_datetime(raw['formDate'].str[:10]) if 'formDate' in raw else None,
-        'board_type':    raw.get('boardType'),
+        'trade_date':    raw['date'],
+        'security_type': raw['securityType'],
+        'method':        raw['methodOfPurchase'],
+        'vol':           raw['num'],
+        'high':          raw['highestPrice'],
+        'low':           raw['lowestPrice'],
+        'avg_price':     raw['avgPrice'],
+        'amount':        raw['totalPaid'],
+        'currency':      raw['currency'],
+        'vol_ytd':       raw['numPurchasedInYearSinceResolution'],
+        'ratio_ytd':     raw['ratioPurchasedSinceResolution'],
+        'form_date':     raw['formDate'],
+        'board_type':    raw['boardType'],
     })
 
 
@@ -293,7 +319,8 @@ def hk_mainbz(ts_code: str = None, start: str = None, end: str = None) -> pd.Dat
         return pd.DataFrame()
     from qteasy import QT_DATA_SOURCE
     from qteasy.fmpfuncs import period_label
-    raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366)
+    raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366,
+                     fields={'date': 'date', 'declarationDate': 'date', 'currency': 'str', 'dataList': 'obj'})
     if raw.empty:
         return pd.DataFrame()
     income = QT_DATA_SOURCE.read_table_data('hk_income', shares=ts_code, primary_key_in_index=False)
@@ -303,10 +330,10 @@ def hk_mainbz(ts_code: str = None, start: str = None, end: str = None) -> pd.Dat
         return pd.DataFrame()
     rows = []
     for _, r in raw.iterrows():
-        for item in r.get('dataList') or []:
+        for item in r['dataList'] or []:
             if item.get('revenue') is None and item.get('costs') is None:
                 continue
-            rows.append((r['date'][:10], (r.get('declarationDate') or '')[:10] or None, r.get('currency'),
+            rows.append((r['date'], r['declarationDate'], r['currency'],
                          item.get('parentItemName') or item['itemName'], item['itemName'],
                          item.get('revenue'), item.get('costs'), item.get('grossProfitMargin')))
     res = pd.DataFrame(rows, columns=['period_end', 'ann_date', 'curr_type', 'bz_parent', 'bz_item',
@@ -495,12 +522,12 @@ def hk_stock_indicator(ts_code: str = None, start: str = None, end: str = None) 
                  _lxr_post(path, stockCodes=[_to_lxr_code(ts_code)], startDate=start, endDate=end,
                            metricsList=list(_INDICATOR.values())),
                  fmt='%Y-%m-%d')
-    raw = pd.DataFrame(data)
+    raw = _frame(data, {'date': 'date', **{m: 'num' for m in _INDICATOR.values()}})
     if raw.empty:
         return pd.DataFrame()
-    res = pd.DataFrame({'ts_code': ts_code, 'trade_date': pd.to_datetime(raw['date'].str[:10])})
+    res = pd.DataFrame({'ts_code': ts_code, 'trade_date': raw['date']})
     for col, m in _INDICATOR.items():
-        res[col] = raw[m] if m in raw else None
+        res[col] = raw[m]
     return res
 
 
@@ -509,25 +536,29 @@ def hk_dividend(ts_code: str = None, start: str = None, end: str = None) -> pd.D
     接口区间按公告日过滤，理杏仁录入晚于公告 8 天以上(实测中电 10-12 公告、10-20 未录)：start 倒 366 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/dividend', ts_code, start, end, back=366)
+    raw = _lxr_dated('hk/company/dividend', ts_code, start, end, back=366,
+                     fields={'date': 'date', 'content': 'str', 'fsEndDate': 'date', 'status': 'str', 'dividend': 'num',
+                             'currency': 'str', 'dividendAmount': 'num', 'marketDividendAmount': 'num',
+                             'annualNetProfit': 'num', 'annualNetProfitDividendRatio': 'num',
+                             'bonusSharesFromProfit': 'num', 'bonusSharesFromCapitalReserve': 'num',
+                             'registerDate': 'date', 'exDate': 'date', 'paymentDate': 'date'})
     if raw.empty:
         return pd.DataFrame()
-    date = lambda col: pd.to_datetime(raw[col].str[:10]) if col in raw else None
     return pd.DataFrame({
         'ts_code':              ts_code,
-        'ann_date':             date('date'),
-        'content':              raw.get('content'),
-        'fs_end_date':          date('fsEndDate'),
-        'div_proc':             raw.get('status'),
-        'cash_div':             raw.get('dividend'),
-        'currency':             raw.get('currency'),
-        'div_amount':           raw.get('dividendAmount'),
-        'h_div_amount':         raw.get('marketDividendAmount'),
-        'annual_np':            raw.get('annualNetProfit'),
-        'payout_ratio':         raw.get('annualNetProfitDividendRatio'),
-        'bonus_shares_profit':  raw.get('bonusSharesFromProfit'),
-        'bonus_shares_reserve': raw.get('bonusSharesFromCapitalReserve'),
-        'record_date':          date('registerDate'),
-        'ex_date':              date('exDate'),
-        'pay_date':             date('paymentDate'),
+        'ann_date':             raw['date'],
+        'content':              raw['content'],
+        'fs_end_date':          raw['fsEndDate'],
+        'div_proc':             raw['status'],
+        'cash_div':             raw['dividend'],
+        'currency':             raw['currency'],
+        'div_amount':           raw['dividendAmount'],
+        'h_div_amount':         raw['marketDividendAmount'],
+        'annual_np':            raw['annualNetProfit'],
+        'payout_ratio':         raw['annualNetProfitDividendRatio'],
+        'bonus_shares_profit':  raw['bonusSharesFromProfit'],
+        'bonus_shares_reserve': raw['bonusSharesFromCapitalReserve'],
+        'record_date':          raw['registerDate'],
+        'ex_date':              raw['exDate'],
+        'pay_date':             raw['paymentDate'],
     })
