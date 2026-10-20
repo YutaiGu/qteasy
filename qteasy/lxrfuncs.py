@@ -16,7 +16,7 @@ import requests
 import pandas as pd
 
 from qteasy.__init__ import logger_core, QT_CONFIG
-from qteasy.utilfuncs import retry, regulate_date_format
+from qteasy.utilfuncs import retry, regulate_date_format, to_timezone_datetime
 from qteasy.api_guard import guard
 
 ERRORS_TO_CHECK_ON_RETRY = Exception
@@ -26,6 +26,7 @@ EXTRA_RETRY_API = [
 ]
 
 _LXR_BASE = 'https://open.lixinger.com/api'
+_HK_TZ = 'Asia/Hong_Kong'   # 港股表的时区：时间按表所属市场换算，不按数据源
 
 
 # lxrfuncs interface function, call this function to extract data
@@ -76,19 +77,19 @@ def _lxr_post(path: str, **body) -> list:
     return payload.get('data') or []
 
 
-def _frame(data: list, fields: dict) -> pd.DataFrame:
+def _frame(data: list, time_zone: str, fields: dict) -> pd.DataFrame:
     """理杏仁返回值的共性，统一在这里处理，各下载函数之后按列名直接取：
     1. 没有值的字段整个键不给，不是给 null —— 按 fields 补成空列；
     2. 数值、文本字段偶有 '' 空串(如快手的 capitalizationH) —— 当空值；
-    3. 日期有两种格式：多数接口 'YYYY-MM-DDT00:00:00+08:00'，营收构成是 UTC 'YYYY-MM-DDT16:00:00.000Z'(即香港次日零点)
-       —— 一律按时区转成香港时间再取日期，不能直接截前 10 位。
+    3. 时间戳写法不一(多数接口 '+08:00'，营收构成是 UTC 'Z') —— 按表所属市场的时区换算后取日期(to_timezone_datetime)，不截字符串。
+    time_zone: 表所属市场的时区(港股表 _HK_TZ)，同一张表不管哪个源写都是这个时区。
     fields: 接口字段 → 'date' / 'num' / 'str' / 'obj'(嵌套结构原样保留)。
     """
     raw = pd.DataFrame(data).reindex(columns=list(fields))
     for col, kind in fields.items():
         s = raw[col].astype(object).where(raw[col].notna() & (raw[col].astype(object) != ''), None)
         if kind == 'date':
-            raw[col] = pd.to_datetime(s, utc=True).dt.tz_convert('Asia/Hong_Kong').dt.tz_localize(None).dt.normalize()
+            raw[col] = to_timezone_datetime(s, time_zone).dt.normalize()
         elif kind == 'num':
             raw[col] = pd.to_numeric(s, errors='coerce')
         else:
@@ -202,7 +203,7 @@ def hk_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None)
                  _lxr_post('hk/company/candlestick', stockCode=_to_lxr_code(ts_code), type='bc_rights',
                            startDate=start, endDate=end, adjustBackwardDate=start),
                  fmt='%Y-%m-%d')
-    raw = _frame(data, {'date': 'date', 'backwardComplexFactor': 'num'})
+    raw = _frame(data, _HK_TZ, {'date': 'date', 'backwardComplexFactor': 'num'})
     raw = raw[raw['backwardComplexFactor'].notna()]
     if raw.empty:
         return pd.DataFrame()
@@ -226,7 +227,7 @@ def hk_stock_daily(ts_code: str = None, start: str = None, end: str = None) -> p
                  _lxr_post('hk/company/candlestick', stockCode=_to_lxr_code(ts_code), type='ex_rights',
                            startDate=start, endDate=end),
                  fmt='%Y-%m-%d')
-    raw = _frame(data, {'date': 'date', 'open': 'num', 'high': 'num', 'low': 'num', 'close': 'num',
+    raw = _frame(data, _HK_TZ, {'date': 'date', 'open': 'num', 'high': 'num', 'low': 'num', 'close': 'num',
                         'volume': 'num', 'amount': 'num'})
     if raw.empty:
         return pd.DataFrame()
@@ -247,15 +248,15 @@ def _back(start: str, days: int) -> str:
     return (pd.Timestamp(start) - pd.Timedelta(days=days)).strftime('%Y-%m-%d') if start else None
 
 
-def _lxr_dated(path: str, ts_code: str, start: str, end: str, fields: dict, back: int = 0) -> pd.DataFrame:
-    """按股票 + [start, end](两端包含，跨度 ≤10 年)取理杏仁的逐条事件表，经 _frame(fields) 规整；back 见 _back。"""
+def _lxr_dated(path: str, ts_code: str, start: str, end: str, time_zone: str, fields: dict, back: int = 0) -> pd.DataFrame:
+    """按股票 + [start, end](两端包含，跨度 ≤10 年)取理杏仁的逐条事件表，经 _frame(time_zone, fields) 规整；back 见 _back。"""
     start = _back(regulate_date_format(start, force_format='date'), back) if start else None
     end = regulate_date_format(end, force_format='date') if end else None
     data = guard(f'lixingren-{path}', dict(ts_code=ts_code, start=start, end=end),
                  lambda ts_code, start, end:
                  _lxr_post(path, stockCode=_to_lxr_code(ts_code), startDate=start, endDate=end),
                  fmt='%Y-%m-%d')
-    return _frame(data, fields)
+    return _frame(data, time_zone, fields)
 
 
 def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
@@ -263,7 +264,7 @@ def hk_equity_change(ts_code: str = None, start: str = None, end: str = None) ->
     接口区间按变动日(date)过滤，记录公告后才出现，公告比变动日晚 0~7 天(实测)，录入再晚几天：start 倒 30 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/equity-change', ts_code, start, end, back=30,
+    raw = _lxr_dated('hk/company/equity-change', ts_code, start, end, back=30, time_zone=_HK_TZ,
                      fields={'date': 'date', 'declarationDate': 'date', 'changeReason': 'str',
                              'capitalization': 'num', 'capitalizationH': 'num'})
     if raw.empty:
@@ -290,7 +291,7 @@ def hk_repurchase(ts_code: str = None, start: str = None, end: str = None) -> pd
     接口区间按回购日(date)过滤，申报(formDate)晚 1~3 个交易日，录入再晚几天：start 倒 30 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/repurchase', ts_code, start, end, back=30,
+    raw = _lxr_dated('hk/company/repurchase', ts_code, start, end, back=30, time_zone=_HK_TZ,
                      fields={'date': 'date', 'securityType': 'str', 'methodOfPurchase': 'str', 'num': 'num',
                              'highestPrice': 'num', 'lowestPrice': 'num', 'avgPrice': 'num', 'totalPaid': 'num',
                              'currency': 'str', 'numPurchasedInYearSinceResolution': 'num',
@@ -327,7 +328,7 @@ def hk_mainbz(ts_code: str = None, start: str = None, end: str = None) -> pd.Dat
     from qteasy import QT_DATA_SOURCE
     from qteasy.fmpfuncs import period_label
     try:
-        raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366,
+        raw = _lxr_dated('hk/company/operation-revenue-constitution', ts_code, start, end, back=366, time_zone=_HK_TZ,
                          fields={'date': 'date', 'declarationDate': 'date', 'currency': 'str', 'dataList': 'obj'})
     except LxrServerError as e:
         warnings.warn(f'lixingren operation-revenue-constitution {ts_code} [{start}, {end}]: server error, skipped ({e})')
@@ -533,7 +534,7 @@ def hk_stock_indicator(ts_code: str = None, start: str = None, end: str = None) 
                  _lxr_post(path, stockCodes=[_to_lxr_code(ts_code)], startDate=start, endDate=end,
                            metricsList=list(_INDICATOR.values())),
                  fmt='%Y-%m-%d')
-    raw = _frame(data, {'date': 'date', **{m: 'num' for m in _INDICATOR.values()}})
+    raw = _frame(data, _HK_TZ, {'date': 'date', **{m: 'num' for m in _INDICATOR.values()}})
     if raw.empty:
         return pd.DataFrame()
     res = pd.DataFrame({'ts_code': ts_code, 'trade_date': raw['date']})
@@ -547,7 +548,7 @@ def hk_dividend(ts_code: str = None, start: str = None, end: str = None) -> pd.D
     接口区间按公告日过滤，理杏仁录入晚于公告 8 天以上(实测中电 10-12 公告、10-20 未录)：start 倒 366 天。"""
     if ts_code is None:
         return pd.DataFrame()
-    raw = _lxr_dated('hk/company/dividend', ts_code, start, end, back=366,
+    raw = _lxr_dated('hk/company/dividend', ts_code, start, end, back=366, time_zone=_HK_TZ,
                      fields={'date': 'date', 'content': 'str', 'fsEndDate': 'date', 'status': 'str', 'dividend': 'num',
                              'currency': 'str', 'dividendAmount': 'num', 'marketDividendAmount': 'num',
                              'annualNetProfit': 'num', 'annualNetProfitDividendRatio': 'num',

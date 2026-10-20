@@ -886,6 +886,45 @@ def get_current_timezone_datetime(time_zone: str = 'local') -> pd.Timestamp:
         return pd.to_datetime(dt.tz_localize(None))
 
 
+def to_timezone_datetime(values, time_zone: str, naive_time_zone: str = None):
+    """ 把任何写法的时间戳换算成指定时区的当地时间，返回去掉时区信息的时间；写库前的时间都经这里换算到市场时区。
+
+    数据接口给的时间戳写法不一，同一列里也可能混用：'2024-09-30T00:00:00+08:00'、UTC 的 '2024-09-29T16:00:00.000Z'
+    (同一时刻)、'2024-09-30'、'20240930'、datetime / Timestamp 对象。不能截字符串取日期，要逐个解析后按时区换算：
+    带时区的换算到 time_zone；不带时区的视为 naive_time_zone 的当地时间(默认与 time_zone 相同，即已是当地时间，原样返回)。
+    空值、空串保留为 NaT。
+
+    Parameters
+    ----------
+    values: str, datetime-like, Series, Index or list
+        时间戳，单个或一列
+    time_zone: str
+        目标时区，符合标准的时区字符串，如 'Asia/Hong_Kong'、'America/New_York'
+    naive_time_zone: str, optional
+        不带时区信息的输入按哪个时区解释；None 表示按 time_zone
+
+    Returns
+    -------
+    pd.Timestamp，或与输入同长的 pd.Series，tz-naive，表示目标时区的当地时间
+    """
+    naive_time_zone = naive_time_zone or time_zone
+
+    def convert(value):
+        if value is None or (isinstance(value, str) and not value.strip()) or (isinstance(value, float) and np.isnan(value)):
+            return pd.NaT
+        ts = pd.Timestamp(value)
+        if ts is pd.NaT:
+            return pd.NaT
+        if ts.tzinfo is None:
+            ts = ts.tz_localize(naive_time_zone)
+        return ts.tz_convert(time_zone).tz_localize(None)
+
+    if isinstance(values, (pd.Series, pd.Index, list, tuple, np.ndarray)):
+        return pd.Series([convert(v) for v in values], index=values.index if isinstance(values, pd.Series) else None,
+                         dtype='datetime64[ns]')
+    return convert(values)
+
+
 @lru_cache(maxsize=16)
 def maybe_trade_day(date):
     """ 判断一个日期是否交易日（或然判断，只剔除明显不是交易日的日期）准确率有限但是效率高
