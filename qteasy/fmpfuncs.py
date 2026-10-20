@@ -1233,6 +1233,15 @@ def hk_balance_debt(ts_code: str = None, start: str = None, end: str = None) -> 
     return res[['ts_code', 'end_date', 'period', 'total_debt', 'net_debt']]
 
 
+def hk_income_da(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    """港股 hk_income 里 FMP 负责的三列：da、ebitda、ebit(理杏仁利润表没有折旧摊销)。
+    其余列由理杏仁通道写；这里只返回主键 + 这三列，写入用 merge_type='patch'，两边互不覆盖。"""
+    res = us_income(ts_code, start, end)
+    if res.empty:
+        return res
+    return res[['ts_code', 'end_date', 'period', 'da', 'ebitda', 'ebit']]
+
+
 def us_cashflow(ts_code: str = None,
                 start: str = None,
                 end: str = None) -> pd.DataFrame:

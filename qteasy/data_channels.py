@@ -2250,8 +2250,8 @@ FMP_API_MAP = {
          # cash-flow-statement：只认 symbol/limit/period，不翻页；≤1000条；filingDate 不可靠
          ['us_cashflow', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '']],
 
-    'hk_income':  # [已审 20261006] 与 us_income 逐股行同一个接口
-        ['us_income', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
+    'hk_income':  # [已审 20261006] 与 us_income 逐股行同一个接口；只放行 da/ebitda/ebit(理杏仁没有折旧摊销)，其余列由理杏仁通道写，两边都用 merge_type='patch'
+        ['hk_income_da', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
 
     'hk_balance':  # [已审 20261006] 与 us_balance 逐股行同一个接口；只放行 total_debt/net_debt(理杏仁没有)，其余列由理杏仁通道写，两边都用 merge_type='patch'
         ['hk_balance_debt', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', ''],
