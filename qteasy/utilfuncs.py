@@ -886,7 +886,7 @@ def get_current_timezone_datetime(time_zone: str = 'local') -> pd.Timestamp:
         return pd.to_datetime(dt.tz_localize(None))
 
 
-def to_timezone_datetime(values, time_zone: str, naive_time_zone: str = None):
+def to_timezone_datetime(values, time_zone: str, naive_time_zone: str = None, ambiguous='raise'):
     """ 把任何写法的时间戳换算成指定时区的当地时间，返回去掉时区信息的时间；写库前的时间都经这里换算到市场时区。
 
     数据接口给的时间戳写法不一，同一列里也可能混用：'2024-09-30T00:00:00+08:00'、UTC 的 '2024-09-29T16:00:00.000Z'
@@ -902,6 +902,9 @@ def to_timezone_datetime(values, time_zone: str, naive_time_zone: str = None):
         目标时区，符合标准的时区字符串，如 'Asia/Hong_Kong'、'America/New_York'
     naive_time_zone: str, optional
         不带时区信息的输入按哪个时区解释；None 表示按 time_zone
+    ambiguous: 'raise' or bool, default 'raise'
+        不带时区的输入落在夏令时回拨的重复小时里时怎么解释：True 取夏令时(第一次出现)，False 取标准时间，
+        'raise' 报错。由数据源实测定，不能猜
 
     Returns
     -------
@@ -916,7 +919,7 @@ def to_timezone_datetime(values, time_zone: str, naive_time_zone: str = None):
         if ts is pd.NaT:
             return pd.NaT
         if ts.tzinfo is None:
-            ts = ts.tz_localize(naive_time_zone)
+            ts = ts.tz_localize(naive_time_zone, ambiguous=ambiguous)
         return ts.tz_convert(time_zone).tz_localize(None)
 
     if isinstance(values, (pd.Series, pd.Index, list, tuple, np.ndarray)):

@@ -254,6 +254,9 @@ TABLE_MASTERS = {
     'us_fund_5min':
         ['min_bars', '美股ETF5分钟K线行情', 'mins', 'FD-US', '5min', '', 'ts_code', '10'],
 
+    'us_fund_1min':
+        ['min_bars', '美股ETF分钟K线行情', 'mins', 'FD-US', '1min', '', 'ts_code', '30'],
+
     'us_index_basic':
         ['us_index_basic', '美股指数基本信息', 'basics', 'IDX-US', 'none', '', '', ''],
 
@@ -265,6 +268,9 @@ TABLE_MASTERS = {
 
     'fx_daily':
         ['fx_daily', '外汇日线行情', 'data', 'FX', 'd', '', '', ''],
+
+    'crypto_1min':
+        ['min_bars', '加密货币分钟K线行情', 'mins', 'CRYPTO', '1min', '', 'ts_code', '30'],
 
     'us_fund_daily_adj':
         ['us_daily_adj', '美股ETF日线行情(前复权)', 'data', 'FD-US', 'd', '', '', ''],

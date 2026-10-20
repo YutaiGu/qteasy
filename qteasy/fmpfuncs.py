@@ -19,7 +19,7 @@ import pandas as pd
 
 from qteasy._arg_validators import QT_CONFIG
 from qteasy.__init__ import logger_core
-from qteasy.utilfuncs import regulate_date_format
+from qteasy.utilfuncs import regulate_date_format, to_timezone_datetime
 from qteasy.api_guard import guard
 
 _FMP_BASE = 'https://financialmodelingprep.com/stable'
@@ -356,6 +356,81 @@ def index_5min(ts_code: str = None,
     return pd.DataFrame({
         'ts_code':    ts_code,
         'trade_time': pd.to_datetime(raw['date']),
+        'open':       raw['open'],
+        'high':       raw['high'],
+        'low':        raw['low'],
+        'close':      raw['close'],
+        'vol':        raw['volume'],
+    })
+
+
+def index_1min(ts_code: str = None,
+               start: str = None,
+               end: str = None) -> pd.DataFrame:
+    """1 分钟 K 线(FMP historical-chart/1min)，[start, end] 左右闭；指数、ETF 同一个接口，加密货币见 crypto_1min。
+
+    FMP 代码：.SH → .SS，.SZ 不变；入库仍用 tushare 代码。接口只返回 to 当天和之前 2 个自然日，更早的静默丢弃，
+    由 map 第 7 列按 2 天分段保证取全。时间为交易所当地时间；成交额接口没有，留空。
+    bar 时刻：美股按开始时刻原样入库(09:30–15:59)。A 股按国内惯例(通达信、tushare)标结束时刻：接口标开始时刻，每天 242 根，
+    09:30 那根含开盘集合竞价，另有 11:30(上午收盘那几秒的成交)、15:00(收盘集合竞价)两根；每根 +1 分钟，11:31、15:01
+    并回 11:30、15:00，得 09:31–11:30、13:01–15:00 共 240 根。tushare 单列的 09:30 竞价拆不出，在 09:31 那根里。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    symbol = ts_code[:-3] + '.SS' if ts_code.endswith('.SH') else ts_code
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-chart/1min', dict(ts_code=symbol, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-chart/1min', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    res = pd.DataFrame({
+        'ts_code':    ts_code,
+        'trade_time': pd.to_datetime(raw['date']),
+        'open':       raw['open'],
+        'high':       raw['high'],
+        'low':        raw['low'],
+        'close':      raw['close'],
+        'vol':        raw['volume'],
+    })
+    if not ts_code.endswith(('.SH', '.SZ')):
+        return res
+    res = res.sort_values('trade_time')   # 合并的两根按原始先后取 open / close
+    t = res['trade_time'] + pd.Timedelta(minutes=1)
+    hm = t.dt.strftime('%H:%M')
+    t = t.mask(hm.isin(['11:31', '15:01']), t - pd.Timedelta(minutes=1))
+    return (res.assign(trade_time=t)
+            .groupby(['ts_code', 'trade_time'], as_index=False)
+            .agg(open=('open', 'first'), high=('high', 'max'), low=('low', 'min'), close=('close', 'last'),
+                 vol=('vol', 'sum')))
+
+
+def crypto_1min(ts_code: str = None,
+                start: str = None,
+                end: str = None) -> pd.DataFrame:
+    """加密货币 1 分钟 K 线(FMP historical-chart/1min)，[start, end] 左右闭，按 UTC 入库(加密货币行业惯例，全天交易无收盘)。
+
+    接口给美东当地时间(不带时区)，换算到 UTC。夏令时回拨那天美东 01:xx 出现两次，接口只给第一次(夏令时，实测 00:59→01:00
+    价格连续、01:59→02:00 跳空)，第二次的 60 根源头就没有；前拨那天 02:xx 不存在，接口也不给。
+    start/end 按美东日期传给接口，换算后两端各差 4~5 小时，下一段会补上。
+    """
+    if ts_code is None:
+        return pd.DataFrame()
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    data = guard('historical-chart/1min', dict(ts_code=ts_code, start=start, end=end),
+                 lambda ts_code, start, end:
+                 _fmp_get('historical-chart/1min', symbol=ts_code, **{'from': start, 'to': end}),
+                 fmt='%Y-%m-%d')
+    if not data:
+        return pd.DataFrame()
+    raw = pd.DataFrame(data)
+    return pd.DataFrame({
+        'ts_code':    ts_code,
+        'trade_time': to_timezone_datetime(raw['date'], 'UTC', naive_time_zone='America/New_York', ambiguous=True),
         'open':       raw['open'],
         'high':       raw['high'],
         'low':        raw['low'],

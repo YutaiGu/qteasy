@@ -2185,6 +2185,15 @@ FMP_API_MAP = {
     'us_index_5min':  # [已审 20261016] 与 index_5min 同一个接口；美东时间，bar 为开始时刻；^NDX 2020-11 起、^IXIC 2024 年起
         ['index_5min', 'ts_code', 'table_index', 'us_index_basic', '', 'Y', '9'],
 
+    'index_1min':  # [已审 20261020] historical-chart/1min：from/to 两端包含；只返回 to 当天和之前 2 个自然日(实测，文档未写)，更早的静默丢弃，按 2 天分段；A 股指数只有 000001.SS，2024 年起
+        ['index_1min', 'ts_code', 'list', '000001.SH', '', 'Y', '2'],
+
+    'us_fund_1min':  # [已审 20261020] 与 index_1min 同一个接口；美东时间，bar 为开始时刻；QQQ 2011 起、GLD 2005 起
+        ['index_1min', 'ts_code', 'list', 'QQQ,GLD', '', 'Y', '2'],
+
+    'crypto_1min':  # [已审 20261020] 与 index_1min 同一个接口；接口给美东时间，函数换成 UTC；BTCUSD 2014 起(2016 前有缺日)
+        ['crypto_1min', 'ts_code', 'list', 'BTCUSD', '', 'Y', '2'],
+
     'fx_basic':  # [已审 20261012] forex-list：api 无任何参数，自保
         ['fx_basic', 'none', 'none', '', '', 'C', ''],
 
