@@ -1010,10 +1010,10 @@ TABLE_SCHEMA = {
 
     'us_corporate_action':  # 美股公司行为(Sharadar actions)：分拆、改名、退市、并购对价、ADR 比例等 75 种，每种一行；value 的单位随 action 不同
         # (分拆 spinoff = 每股母公司获得的子公司股数、spinoffdividend = 其美元价值、split = 拆后/拆前、dividend = 美元/股、listed/delisted = 市值百万美元)
-        {'columns':    ['ts_code', 'action_date', 'action', 'value', 'contra_code', 'contra_name'],
-         'dtypes':     ['varchar(20)', 'date', 'varchar(40)', 'double', 'varchar(20)', 'varchar(255)'],
-         'remarks':    ['股票代码', '生效日(分红为除权日)', '行为代码(Sharadar ACTIONTYPES)', '数值(单位随行为)', '对方代码(分拆的子公司、并购的对手方、改名前代码)', '对方名称'],
-         'prime_keys': [0, 1, 2, 4, 5]},
+        {'columns':    ['ts_code', 'action_date', 'action', 'contra_code', 'contra_name', 'value'],
+         'dtypes':     ['varchar(20)', 'date', 'varchar(40)', 'varchar(20)', 'varchar(255)', 'double'],
+         'remarks':    ['股票代码', '生效日(分红为除权日)', '行为代码(Sharadar ACTIONTYPES)', '对方代码(分拆的子公司、并购的对手方、改名前代码)', '对方名称', '数值(单位随行为)'],
+         'prime_keys': [0, 1, 2, 3, 4]},
 
     'hk_dividend':  # 港股分红(理杏仁 hk/company/dividend)：每条公告一行(含"无股息"的公告)，列名对齐 A 股 dividend
         {'columns':    ['ts_code', 'ann_date', 'content', 'fs_end_date', 'div_proc', 'cash_div', 'currency', 'div_amount', 'h_div_amount',

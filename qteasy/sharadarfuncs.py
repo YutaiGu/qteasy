@@ -211,7 +211,7 @@ def us_corporate_action(ts_code: str = None, start: str = None, end: str = None)
         'ts_code':     raw['ticker'].str.replace('.', '-', regex=False).values,   # Sharadar BRK.B → 本地 BRK-B
         'action_date': raw['date'].values,
         'action':      raw['action'].values,
-        'value':       raw['value'].values,
         'contra_code': raw['contraticker'].fillna('').str.replace('.', '-', regex=False).values,
         'contra_name': raw['contraname'].fillna('').values,
+        'value':       raw['value'].values,
     })
