@@ -83,10 +83,13 @@ class SharadarError(RuntimeError):
 
 
 def _check(table: str, resp: requests.Response) -> pd.DataFrame:
-    """所有请求的状态判定：200 → 表；没有数据(周末、无此代码、次要类别)时 200 只给表头，是空表不是错误；其余抛 SharadarError。"""
+    """所有请求的状态判定：200 → 表；没有数据(周末、无此代码、次要类别)时 200 只给表头，是空表不是错误；其余抛 SharadarError。
+    Sharadar 用字面 "N/A" 表示没有值(actions 的 contraticker 等)；只把它和空字段当缺失，pandas 默认的 NA、NULL、nan 等
+    不当缺失，否则代码叫 NA 的公司会被读丢。"""
     if resp.status_code != 200:
         raise SharadarError(table, resp.status_code, resp.text)
-    return pd.read_csv(io.StringIO(resp.text)) if resp.text.strip() else pd.DataFrame()
+    return (pd.read_csv(io.StringIO(resp.text), keep_default_na=False, na_values=['', 'N/A'])
+            if resp.text.strip() else pd.DataFrame())
 
 
 def _shr_get(table: str, **params) -> pd.DataFrame:
@@ -185,6 +188,8 @@ def us_corporate_action(ts_code: str = None, start: str = None, end: str = None)
     字段全存：ticker、date、action、value、contraticker、contraname；只丢 name(母公司名在 us_stock_basic)。value 原样存，
     单位随 action(见表结构注释)。不带 ticker 的请求按日期倒序、默认 10000 行，截断由 guard 二分处理。
     套餐只给滚动 5 年，更早的不返回。contraticker 为空的行(分红等)对方代码存空串，因为它是主键的一部分。
+    收购方没有上市时(私募收购等)，收购方那一行 acquisitionof 的 ticker 是 N/A：跳过，被收购方的 acquisitionby 行
+    已记下这笔交易，收购方名称在 contraname。
     """
     fields = {'date': 'date', 'action': 'str', 'ticker': 'str', 'value': 'num', 'contraticker': 'str', 'contraname': 'str'}
     start = regulate_date_format(start, force_format='date') if start else None
@@ -195,6 +200,7 @@ def us_corporate_action(ts_code: str = None, start: str = None, end: str = None)
                 _shr_get('actions', **({'ticker': ts_code} if ts_code else {}), **{'from': start, 'to': end}),
                 fmt='%Y-%m-%d')
     raw = _frame(raw, fields)
+    raw = raw[~(raw['ticker'].isna() & (raw['action'] == 'acquisitionof'))]
     bad = raw['date'].isna() | raw['action'].isna() | raw['ticker'].isna()
     if bad.any():
         warnings.warn(f'sharadar actions {ts_code or "all"}: {bad.sum()} rows without date/action/ticker dropped')
