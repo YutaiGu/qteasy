@@ -181,37 +181,3 @@ def us_stock_indicator(ts_code: str = None, start: str = None, end: str = None) 
         res['total_share'] = res['total_mv'] / res['trade_date'].map(close).astype('float64')
     return res
 
-
-def us_corporate_action(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
-    """美股公司行为(Sharadar actions)，生效日落在 [start, end] 内的全部行为；不传 ts_code 取全市场。
-
-    字段全存：ticker、date、action、value、contraticker、contraname；只丢 name(母公司名在 us_stock_basic)。value 原样存，
-    单位随 action(见表结构注释)。不带 ticker 的请求按日期倒序、默认 10000 行，截断由 guard 二分处理。
-    套餐只给滚动 5 年，更早的不返回。contraticker 为空的行(分红等)对方代码存空串，因为它是主键的一部分。
-    收购方没有上市时(私募收购等)，收购方那一行 acquisitionof 的 ticker 是 N/A：跳过，被收购方的 acquisitionby 行
-    已记下这笔交易，收购方名称在 contraname。
-    """
-    fields = {'date': 'date', 'action': 'str', 'ticker': 'str', 'value': 'num', 'contraticker': 'str', 'contraname': 'str'}
-    start = regulate_date_format(start, force_format='date') if start else None
-    end = regulate_date_format(end, force_format='date') if end else None
-    ticker = _to_shr_ticker(ts_code) if ts_code else None
-    raw = guard('actions', dict(ts_code=ticker, start=start, end=end),
-                lambda ts_code, start, end:
-                _shr_get('actions', **({'ticker': ts_code} if ts_code else {}), **{'from': start, 'to': end}),
-                fmt='%Y-%m-%d')
-    raw = _frame(raw, fields)
-    raw = raw[~(raw['ticker'].isna() & (raw['action'] == 'acquisitionof'))]
-    bad = raw['date'].isna() | raw['action'].isna() | raw['ticker'].isna()
-    if bad.any():
-        warnings.warn(f'sharadar actions {ts_code or "all"}: {bad.sum()} rows without date/action/ticker dropped')
-        raw = raw[~bad]
-    if raw.empty:
-        return pd.DataFrame()
-    return pd.DataFrame({
-        'ts_code':     raw['ticker'].str.replace('.', '-', regex=False).values,   # Sharadar BRK.B → 本地 BRK-B
-        'action_date': raw['date'].values,
-        'action':      raw['action'].values,
-        'contra_code': raw['contraticker'].fillna('').str.replace('.', '-', regex=False).values,
-        'contra_name': raw['contraname'].fillna('').values,
-        'value':       raw['value'].values,
-    })

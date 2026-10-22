@@ -2320,9 +2320,6 @@ LIXINGREN_API_MAP = {
 }
 
 SHARADAR_API_MAP = {
-    'us_corporate_action':  # [已审 20261022] actions：from/to 两端包含(实测)；不带 ticker 单次 10000 行(文档)，2022 实测 3 个月约 10000 行、单日最多 634 行，按 30 天分段免切
-        [['us_corporate_action', 'none', 'none', '20000101', '', 'Y', '30'],
-         ['us_corporate_action', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', '']],
     'us_stock_indicator':  # [已审 20261020] daily：from/to 两端包含(实测)；单次上限 10000 行(文档)，逐股 5 年约 1255 行
         ['us_stock_indicator', 'ts_code', 'table_index', 'us_stock_basic', '', 'Y', '', 'us_stock_daily'],
 }
