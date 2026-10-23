@@ -550,7 +550,8 @@ def us_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None)
     close = raw.assign(trade_date=pd.to_datetime(raw['trade_date'])).set_index('trade_date')['close'].sort_index()
     shares = ds.read_table_data('us_stock_indicator', shares=ts_code, primary_key_in_index=False)
     shares = (shares.assign(trade_date=pd.to_datetime(shares['trade_date'])).set_index('trade_date')['total_share']
-              .pipe(pd.to_numeric, errors='coerce').dropna().sort_index()) if not shares.empty else pd.Series(dtype='float64')
+              .pipe(pd.to_numeric, errors='coerce').dropna().sort_index()) if not shares.empty \
+              else pd.Series(dtype='float64', index=pd.DatetimeIndex([]))
 
     def on_day(dates):  # 非交易日的事件归到下一个交易日
         pos = close.index.searchsorted(pd.to_datetime(dates))
