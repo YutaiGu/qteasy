@@ -2264,8 +2264,8 @@ FMP_API_MAP = {
         [['hk_split_calendar', 'none', 'none', '', '', 'Y', '89', 'hk_stock_basic'],
          ['hk_split', 'ts_code', 'table_index', 'hk_stock_basic', '', 'C', '']],
 
-    'us_stock_adj_factor':  # 自算：只按本地事件表，不调 FMP；函数从本地最后一天算到 end
-        ['us_stock_adj_factor', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_stock_daily,us_dividend,us_split'],
+    'us_stock_adj_factor':  # 自算：只按本地表，不调 FMP；[start, end] 内的事件日各一行，用 indicator 的股数分辨分拆是否已被 FMP 调过
+        ['us_stock_adj_factor', 'ts_code', 'table_index', 'us_stock_basic', '', 'C', '', 'us_stock_daily,us_dividend,us_split,us_stock_indicator'],
 
     'us_cashflow':  # [已审 20261012]
         # latest-financial-statements：无日期参数，按收录日从新到旧翻页，page 最大 100(文档)，越界报 400；返回全球公司

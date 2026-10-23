@@ -527,58 +527,52 @@ def us_stock_daily_adj(ts_code: str = None,
     })
 
 
-def _fmp_adj_factor(ts_code: str, start: str, end: str, daily_table: str, div_table: str, split_table: str,
-                    adj_table: str) -> pd.DataFrame:
-    """复权因子(与 tushare adj_factor 同义)：本地日线第一天 = 1，只在事件日跳变，其余日严格不变；写入后不改。
-
-    只按本地事件表算：拆股 × 拆后/拆前(分拆上市同)，分红 × 前收/(前收 − 股息)。分红表的金额已是交易币种、
-    同日多条已挑过，这里同日直接相加。不用 FMP 前复权价核对、不兜底：它自己的错(金额、漏事件、抖动)比事件表多。
-    每次从本地已存的最后一天接着算到 end。
-    """
-    from qteasy import QT_DATA_SOURCE as ds
-    end = regulate_date_format(end, force_format='date') if end else None
-    raw = ds.read_table_data(daily_table, shares=ts_code, start='2010-01-01', end=end, primary_key_in_index=False)
-    if raw.empty:
-        return pd.DataFrame()
-    raw = raw.assign(trade_date=pd.to_datetime(raw['trade_date'])).set_index('trade_date')['close'].sort_index()
-    pc = raw.shift(1)
-    stored = ds.read_table_data(adj_table, shares=ts_code, primary_key_in_index=False)
-    if stored.empty:
-        prev, todo = 1.0, raw.index[1:]
-        out = [(raw.index[0], 1.0)]
-    else:
-        last = stored.assign(trade_date=pd.to_datetime(stored['trade_date'])).sort_values('trade_date').iloc[-1]
-        prev, todo = float(last['adj_factor']), raw.index[raw.index > pd.Timestamp(last['trade_date'])]
-        out = []
-    if len(todo) == 0:
-        return pd.DataFrame()
-
-    def on_day(dates):  # 非交易日的事件归到下一个交易日
-        pos = raw.index.searchsorted(pd.to_datetime(dates))
-        return raw.index[pos.clip(max=len(raw) - 1)]
-    spl = ds.read_table_data(split_table, shares=ts_code, primary_key_in_index=False)
-    split = (spl['numerator'] / spl['denominator']).groupby(on_day(spl['ex_date'])).prod() if not spl.empty \
-        else pd.Series(dtype='float64', index=pd.DatetimeIndex([]))
-    div = ds.read_table_data(div_table, shares=ts_code, primary_key_in_index=False)
-    cash = div.groupby(on_day(div['ex_date']))['cash_div_tax'].sum() if not div.empty \
-        else pd.Series(dtype='float64', index=pd.DatetimeIndex([]))
-
-    for t in todo:
-        ratio = split.get(t, 1.0)
-        d = cash.get(t, 0.0)
-        if pd.notna(pc[t]) and pc[t] > d > 0:
-            ratio *= pc[t] / (pc[t] - d)
-        prev *= ratio
-        out.append((t, prev))
-    res = pd.DataFrame(out, columns=['trade_date', 'adj_factor'])
-    res.insert(0, 'ts_code', ts_code)
-    return res
-
-
 def us_stock_adj_factor(ts_code: str = None, start: str = None, end: str = None) -> pd.DataFrame:
+    """美股除权比率(与 hk_stock_adj_factor 同一张表的形式)：只有事件日有行，adj_ratio = 当天 ÷ 前一天的复权倍数，
+    复权因子 = 比率从任一起点往后累乘。没有基准日，所以不必从上市第一天算起，更早的事件以后补上也不改已有的行。
+
+    只按本地表算，不调 FMP：拆股表 us_split 的比例 r = 拆后 ÷ 拆前，分红表 us_dividend 按 前收 ÷ (前收 − 股息)，
+    同一天两者相乘。FMP 把分拆也记进拆股表，且有的分拆它把"不复权"价往回除过了(没有标记、前后不一致)，这种再乘 r
+    就重复调整；用 us_stock_indicator.total_share(Sharadar 真实市值 ÷ 本地 FMP 价)在事件日前后的变化分辨：
+        股数 × r   → 真拆股，乘 r
+        股数不变   → 分拆、价格没被调，乘 r
+        股数 × 1/r → 分拆、价格已被 FMP 往回除，不乘(不写行)
+    没有股数可比的(2021-10 以前、次要类别)一律乘 r。非交易日的事件归到下一个交易日；前收取不到的分红不写，下次再来。
+    """
     if ts_code is None:
         return pd.DataFrame()
-    return _fmp_adj_factor(ts_code, start, end, 'us_stock_daily', 'us_dividend', 'us_split', 'us_stock_adj_factor')
+    from qteasy import QT_DATA_SOURCE as ds
+    start = regulate_date_format(start, force_format='date') if start else None
+    end = regulate_date_format(end, force_format='date') if end else None
+    raw = ds.read_table_data('us_stock_daily', shares=ts_code, primary_key_in_index=False)
+    if raw.empty:
+        return pd.DataFrame()
+    close = raw.assign(trade_date=pd.to_datetime(raw['trade_date'])).set_index('trade_date')['close'].sort_index()
+    shares = ds.read_table_data('us_stock_indicator', shares=ts_code, primary_key_in_index=False)
+    shares = (shares.assign(trade_date=pd.to_datetime(shares['trade_date'])).set_index('trade_date')['total_share']
+              .pipe(pd.to_numeric, errors='coerce').dropna().sort_index()) if not shares.empty else pd.Series(dtype='float64')
+
+    def on_day(dates):  # 非交易日的事件归到下一个交易日
+        pos = close.index.searchsorted(pd.to_datetime(dates))
+        return close.index[pos.clip(max=len(close) - 1)]
+    ratio = {}
+    spl = ds.read_table_data('us_split', shares=ts_code, start=start, end=end, primary_key_in_index=False)
+    for t, r in zip(on_day(spl['ex_date']), spl['numerator'] / spl['denominator']) if not spl.empty else []:
+        before, after = shares[shares.index < t], shares[shares.index >= t]
+        if len(before) and len(after) and abs(after.iloc[0] / before.iloc[-1] * r - 1) < 0.02:
+            continue  # 分拆且价格已被往回除
+        ratio[t] = ratio.get(t, 1.0) * r
+    div = ds.read_table_data('us_dividend', shares=ts_code, start=start, end=end, primary_key_in_index=False)
+    for t, d in (div.groupby(on_day(div['ex_date']))['cash_div_tax'].sum().items() if not div.empty else []):
+        i = close.index.get_loc(t)
+        if i == 0 or not close.iloc[i - 1] > d > 0:
+            continue
+        ratio[t] = ratio.get(t, 1.0) * close.iloc[i - 1] / (close.iloc[i - 1] - d)
+    if not ratio:
+        return pd.DataFrame()
+    res = pd.DataFrame(sorted(ratio.items()), columns=['trade_date', 'adj_ratio'])
+    res.insert(0, 'ts_code', ts_code)
+    return res
 
 
 def us_fund_basic(ts_code: str = None, **_) -> pd.DataFrame:  # C 行附带 start/end，用不上

@@ -327,7 +327,7 @@ TABLE_MASTERS = {
         ['hk_mainbz', '港股营收构成', 'report', 'E-HK', 'q', '', '', ''],
 
     'us_stock_adj_factor':
-        ['adj_factors', '美股价格复权系数', 'adj', 'E-US', 'd', '', '', ''],
+        ['adj_ratios', '美股除权比率', 'adj', 'E-US', 'd', '', '', ''],
 
     'hk_stock_adj_factor':
         ['adj_ratios', '港股除权比率', 'adj', 'E-HK', 'd', '', '', ''],
